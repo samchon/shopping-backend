@@ -1,18 +1,12 @@
 import { Prisma } from "@prisma/client";
+import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
+import { IBbsArticleComment } from "samchon/shopping-api/lib/structures/common/IBbsArticleComment";
 import { v4 } from "uuid";
-
-import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
-import { IBbsArticleComment } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticleComment";
 
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";
 
 export namespace BbsArticleCommentProvider {
     export namespace json {
-        export const select = () => ({
-            include: {
-                snapshots: BbsArticleCommentSnapshotProvider.json.select(),
-            } as const,
-        });
         export const transform = (
             input: Prisma.bbs_article_commentsGetPayload<
                 ReturnType<typeof select>
@@ -25,6 +19,12 @@ export namespace BbsArticleCommentProvider {
                 .map(BbsArticleCommentSnapshotProvider.json.transform),
             created_at: input.created_at.toISOString(),
         });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_article_commentsFindManyArgs>()({
+                include: {
+                    snapshots: BbsArticleCommentSnapshotProvider.json.select(),
+                } as const,
+            });
     }
 
     export const orderBy = (

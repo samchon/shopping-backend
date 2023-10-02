@@ -1,23 +1,13 @@
 import { Prisma } from "@prisma/client";
+import { IBbsArticleComment } from "samchon/shopping-api/lib/structures/common/IBbsArticleComment";
+import { IEntity } from "samchon/shopping-api/lib/structures/common/IEntity";
 import { v4 } from "uuid";
-
-import { IBbsArticleComment } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticleComment";
-import { IEntity } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IEntity";
 
 import { SGlobal } from "../../SGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleCommentSnapshotProvider {
     export namespace json {
-        export const select = () => ({
-            include: {
-                files: {
-                    include: {
-                        file: AttachmentFileProvider.json.select(),
-                    },
-                },
-            } as const,
-        });
         export const transform = (
             input: Prisma.bbs_article_comment_snapshotsGetPayload<
                 ReturnType<typeof select>
@@ -31,6 +21,18 @@ export namespace BbsArticleCommentSnapshotProvider {
                 .map((p) => AttachmentFileProvider.json.transform(p.file)),
             created_at: input.created_at.toISOString(),
         });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_article_comment_snapshotsFindManyArgs>()(
+                {
+                    include: {
+                        files: {
+                            include: {
+                                file: AttachmentFileProvider.json.select(),
+                            },
+                        },
+                    } as const,
+                },
+            );
     }
 
     export const store =

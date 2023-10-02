@@ -54,6 +54,11 @@ model attachment_files {
     /// @format url
     url String @db.VarChar
 
+    /// Creation time of file.
+    ///
+    /// @format date-time
+    created_at DateTime @db.Timestamptz
+
     //----
     // RELATIONS
     //----
@@ -113,6 +118,7 @@ model bbs_articles {
     comments                               bbs_article_comments[]
     shopping_sale_snapshot_inquiries       shopping_sale_snapshot_inquiries[]
     shopping_sale_snapshot_inquiry_answers shopping_sale_snapshot_inquiry_answers[]
+    mv_last                                mv_bbs_article_last_snapshots?
 
     @@index([created_at])
 }
@@ -164,6 +170,7 @@ model bbs_article_snapshots {
     /// List of wrappers of attachment files.
     to_files                                bbs_article_snapshot_files[]
     shopping_sale_snapshot_review_snapshots shopping_sale_snapshot_review_snapshots[]
+    mv_last                                 mv_bbs_article_last_snapshots?
 
     @@index([bbs_article_id, created_at])
 }
@@ -3493,4 +3500,18 @@ model shopping_sale_snapshot_inquiry_comments {
     base     bbs_article_comments @relation(fields: [id], references: [id], onDelete: Cascade)
     seller   shopping_sellers?    @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
     customer shopping_customers?  @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
+}
+
+//-----------------------------------------------------------
+// (FAKE )MATERIALIZED VIEWS
+//-----------------------------------------------------------
+/// @hidden
+model mv_bbs_article_last_snapshots {
+    bbs_article_id          String @id @db.Uuid
+    bbs_article_snapshot_id String @db.Uuid
+
+    article  bbs_articles          @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
+    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
+
+    @@unique([bbs_article_snapshot_id])
 }

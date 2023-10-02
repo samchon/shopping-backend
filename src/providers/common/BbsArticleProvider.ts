@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
-import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
+import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
 
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
@@ -18,11 +18,12 @@ export namespace BbsArticleProvider {
             created_at: input.created_at.toISOString(),
         });
 
-        export const select = () => ({
-            include: {
-                snapshots: BbsArticleSnapshotProvider.json.select(),
-            } as const,
-        });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+                include: {
+                    snapshots: BbsArticleSnapshotProvider.json.select(),
+                } as const,
+            });
     }
 
     export namespace abridge {
@@ -35,7 +36,7 @@ export namespace BbsArticleProvider {
             format: input.mv_last!.snapshot.format as IBbsArticle.Format,
             created_at: input.created_at.toISOString(),
             updated_at: input.mv_last!.snapshot.created_at.toISOString(),
-            files: input.mv_last!.snapshot.files.map((p) =>
+            files: input.mv_last!.snapshot.to_files.map((p) =>
                 AttachmentFileProvider.json.transform(p.file),
             ),
         });
@@ -45,7 +46,7 @@ export namespace BbsArticleProvider {
                     include: {
                         snapshot: {
                             include: {
-                                files: {
+                                to_files: {
                                     include: {
                                         file: AttachmentFileProvider.json.select(),
                                     },

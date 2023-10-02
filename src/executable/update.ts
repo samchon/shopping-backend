@@ -1,9 +1,8 @@
 import { MutexConnector, RemoteMutex } from "mutex-server";
+import api from "samchon/shopping-api";
+import { ISystem } from "samchon/shopping-api/lib/structures/monitors/ISystem";
 import { Promisive } from "tgrid/typings/Promisive";
 import { UniqueLock } from "tstl/thread/UniqueLock";
-
-import api from "@ORGANIZATION/PROJECT-api";
-import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
