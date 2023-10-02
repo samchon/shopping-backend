@@ -1,7 +1,6 @@
 import nest from "@modules/nestjs";
 import { Prisma } from "@prisma/client";
-
-import { IRecordMerge } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IRecordMerge";
+import { IRecordMerge } from "samchon/shopping-api/lib/structures/common/IRecordMerge";
 
 import { SGlobal } from "../../SGlobal";
 import { EntityUtil } from "../../utils/EntityUtil";

@@ -1,7 +1,6 @@
 import nest from "@modules/nestjs";
 import core from "@nestia/core";
-
-import { IPerformance } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/IPerformance";
+import { IPerformance } from "samchon/shopping-api/lib/structures/monitors/IPerformance";
 
 @nest.Controller("monitors/performance")
 export class PerformanceController {

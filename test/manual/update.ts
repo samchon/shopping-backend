@@ -1,7 +1,6 @@
 import { ArrayUtil } from "@nestia/e2e";
+import api from "samchon/shopping-api";
 import { sleep_for } from "tstl/thread/global";
-
-import api from "@ORGANIZATION/PROJECT-api";
 
 import { Configuration } from "../../src/Configuration";
 import { Terminal } from "../../src/utils/Terminal";

@@ -1,23 +1,14 @@
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
-import { IBbsArticle } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IBbsArticle";
-import { IEntity } from "@ORGANIZATION/PROJECT-api/lib/structures/common/IEntity";
+import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
+import { IEntity } from "samchon/shopping-api/lib/structures/common/IEntity";
 
 import { SGlobal } from "../../SGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleSnapshotProvider {
     export namespace json {
-        export const select = () => ({
-            include: {
-                files: {
-                    include: {
-                        file: AttachmentFileProvider.json.select(),
-                    },
-                },
-            } as const,
-        });
         export const transform = (
             input: Prisma.bbs_article_snapshotsGetPayload<
                 ReturnType<typeof select>
@@ -27,11 +18,21 @@ export namespace BbsArticleSnapshotProvider {
             title: input.title,
             format: input.format as any,
             body: input.body,
-            files: input.files
+            files: input.to_files
                 .sort((a, b) => a.sequence - b.sequence)
                 .map((p) => AttachmentFileProvider.json.transform(p.file)),
             created_at: input.created_at.toISOString(),
         });
+        export const select = () =>
+            Prisma.validator<Prisma.bbs_article_snapshotsFindManyArgs>()({
+                include: {
+                    to_files: {
+                        include: {
+                            file: AttachmentFileProvider.json.select(),
+                        },
+                    },
+                } as const,
+            });
     }
 
     export const store =
@@ -63,7 +64,7 @@ export namespace BbsArticleSnapshotProvider {
         format: input.format,
         body: input.body,
         created_at: new Date(),
-        files: {
+        to_files: {
             create: input.files.map((file, i) => ({
                 id: v4(),
                 file: {

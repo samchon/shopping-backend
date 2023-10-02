@@ -1,9 +1,8 @@
 import fs from "fs";
 import git from "git-last-commit";
+import { ISystem } from "samchon/shopping-api/lib/structures/monitors/ISystem";
 import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
-
-import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
 
 import { Configuration } from "../../Configuration";
 import { DateUtil } from "../../utils/DateUtil";

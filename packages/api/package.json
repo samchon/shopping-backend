@@ -1,7 +1,7 @@
 {
-  "name": "@ORGANIZATION/PROJECT-api",
+  "name": "samchon/shopping-api",
   "version": "0.0.0",
-  "description": "API for PROJECT",
+  "description": "API for shopping",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "repository": {

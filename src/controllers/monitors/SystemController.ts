@@ -1,7 +1,6 @@
 import nest from "@modules/nestjs";
 import core from "@nestia/core";
-
-import { ISystem } from "@ORGANIZATION/PROJECT-api/lib/structures/monitors/ISystem";
+import { ISystem } from "samchon/shopping-api/lib/structures/monitors/ISystem";
 
 import { SystemProvider } from "../../providers/monitors/SystemProvider";
 

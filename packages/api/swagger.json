@@ -8,8 +8,8 @@
   ],
   "info": {
     "version": "0.0.0",
-    "title": "@ORGANIZATION/PROJECT-backend",
-    "description": "Backend for PROJECT",
+    "title": "@samchon/shopping-backend",
+    "description": "Backend for shopping",
     "license": {
       "name": "MIT"
     }
