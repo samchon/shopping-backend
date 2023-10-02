@@ -1,5 +1,5 @@
 {
-  "name": "samchon/shopping-backend",
+  "name": "@samchon/shopping-backend",
   "version": "0.0.0",
   "description": "Backend for shopping",
   "scripts": {

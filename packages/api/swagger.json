@@ -8,7 +8,7 @@
   ],
   "info": {
     "version": "0.0.0",
-    "title": "samchon/shopping-backend",
+    "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
       "name": "MIT"
