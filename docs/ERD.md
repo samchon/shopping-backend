@@ -1361,7 +1361,7 @@ shopping_delivery_pieces {
 shopping_delivery_journeys {
     String id PK
     String shopping_delivery_id FK
-    String type
+    String state
     String title "nullable"
     String description "nullable"
     DateTime created_at
@@ -1566,12 +1566,13 @@ Journey of delivery.
 **Properties**
   - `id`: 
   - `shopping_delivery_id`: 
-  - `type`
-    > Type of journey.
+  - `state`
+    > State of journey.
     > 
     > - preparing
     > - shipping
     > - delivering
+    > - arrived
   - `title`: Title of journey.
   - `description`: Description of journey.
   - `created_at`: Creation time of record.

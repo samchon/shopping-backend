@@ -2267,12 +2267,13 @@ model shopping_delivery_journeys {
     /// @format uuid
     shopping_delivery_id String @db.Uuid
 
-    /// Type of journey.
+    /// State of journey.
     ///
     /// - preparing
     /// - shipping
     /// - delivering
-    type String @db.VarChar
+    /// - arrived
+    state String @db.VarChar
 
     /// Title of journey.
     title String? @db.VarChar

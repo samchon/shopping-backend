@@ -10,6 +10,7 @@ export interface IShoppingCartCommodity {
     sale: IShoppingSaleSnapshot.IInvert;
     orderable: boolean;
     fake: boolean;
+    volume: number & tags.Type<"uint32">;
     created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingCartCommodity {

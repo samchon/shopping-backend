@@ -10,3 +10,9 @@ export interface IShoppingOrderGood {
     price: IShoppingOrderPrice.ISummary;
     confirmed_at: null | (string & tags.Format<"date-time">);
 }
+export namespace IShoppingOrderGood {
+    export interface IStore {
+        commodity_id: string & tags.Format<"uuid">;
+        volume: number & tags.Type<"uint32">;
+    }
+}
