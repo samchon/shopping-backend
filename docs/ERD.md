@@ -5,6 +5,7 @@
 - [Systematic](#Systematic)
 - [Actors](#Actors)
 - [Sales](#Sales)
+- [default](#default)
 - [Carts](#Carts)
 - [Orders](#Orders)
 - [Coupons](#Coupons)
@@ -14,19 +15,18 @@
 ## Articles
 ```mermaid
 erDiagram
-attachment_files {
+"attachment_files" {
     String id PK
     String name "nullable"
     String extension "nullable"
     String url
-    DateTime created_at
 }
-bbs_articles {
+"bbs_articles" {
     String id PK
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-bbs_article_snapshots {
+"bbs_article_snapshots" {
     String id PK
     String bbs_article_id FK
     String format
@@ -34,40 +34,40 @@ bbs_article_snapshots {
     String body
     DateTime created_at
 }
-bbs_article_snapshot_files {
+"bbs_article_snapshot_files" {
     String id PK
     String bbs_article_snapshot_id FK
     String attachment_file_id FK
     Int sequence
 }
-bbs_article_comments {
+"bbs_article_comments" {
     String id PK
     String bbs_article_id FK
     String parent_id FK "nullable"
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-bbs_article_comment_snapshots {
+"bbs_article_comment_snapshots" {
     String id PK
     String bbs_article_comment_id FK
     String format
     String body
     DateTime created_at
 }
-bbs_article_comment_snapshot_files {
+"bbs_article_comment_snapshot_files" {
     String id PK
     String bbs_article_comment_snapshot_id FK
     String attachment_file_id FK
     Int sequence
 }
-bbs_article_snapshots }|--|| bbs_articles : article
-bbs_article_snapshot_files }|--|| bbs_article_snapshots : snapshot
-bbs_article_snapshot_files }|--|| attachment_files : file
-bbs_article_comments }|--|| bbs_articles : article
-bbs_article_comments }o--o| bbs_article_comments : parent
-bbs_article_comment_snapshots }|--|| bbs_article_comments : comment
-bbs_article_comment_snapshot_files }|--|| bbs_article_comment_snapshots : snapshot
-bbs_article_comment_snapshot_files }|--|| attachment_files : file
+"bbs_article_snapshots" }|--|| "bbs_articles" : article
+"bbs_article_snapshot_files" }|--|| "bbs_article_snapshots" : snapshot
+"bbs_article_snapshot_files" }|--|| "attachment_files" : file
+"bbs_article_comments" }|--|| "bbs_articles" : article
+"bbs_article_comments" }o--o| "bbs_article_comments" : parent
+"bbs_article_comment_snapshots" }|--|| "bbs_article_comments" : comment
+"bbs_article_comment_snapshot_files" }|--|| "bbs_article_comment_snapshots" : snapshot
+"bbs_article_comment_snapshot_files" }|--|| "attachment_files" : file
 ```
 
 ### `attachment_files`
@@ -79,7 +79,7 @@ For reference, it is possible to omit one of file name or extension like
 `.gitignore` or `README` case, but not possible to omit both of them,
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `name`
     > File name, except extension.
     > 
@@ -89,7 +89,6 @@ For reference, it is possible to omit one of file name or extension like
     > 
     > Possible to omit like `README` case.
   - `url`: URL path of the real file.
-  - `created_at`: Creation time of file.
 
 ### `bbs_articles`
 Article entity.
@@ -114,7 +113,7 @@ the article is designed in this structure.
 In other words, to keep evidence, and prevent fraud.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `created_at`: Creation time of article.
   - `deleted_at`
     > Deletion time of article.
@@ -131,7 +130,7 @@ article are separated from the article record to keep evidence and prevent
 fraud.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `bbs_article_id`: Belong article's [bbs_articles.id](#bbs_articles)
   - `format`
     > Format of body.
@@ -157,7 +156,7 @@ files, it has an additional `sequence` attribute, which we will continue to
 see in this documents.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `bbs_article_snapshot_id`: Belonged snapshot's [bbs_article_snapshots.id](#bbs_article_snapshots)
   - `attachment_file_id`: Belonged file's [attachment_files.id](#attachment_files)
   - `sequence`: Sequence of attachment file in the snapshot.
@@ -178,7 +177,7 @@ Also, `bbs_article_comments} is expressing the relationship of the
 hierarchical reply structure through the `parent_id` attribute.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `bbs_article_id`: Belonged article's [bbs_articles.id](#bbs_articles)
   - `parent_id`
     > Parent comment's [bbs_article_comments.id](#bbs_article_comments)
@@ -201,7 +200,7 @@ As mentioned in [bbs_article_comments](#bbs_article_comments), designed to keep 
 and prevent fraud.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `bbs_article_comment_id`: Belonged article's [bbs_article_comments.id](#bbs_article_comments)
   - `format`
     > Format of content body.
@@ -221,7 +220,7 @@ relationship between [bbs_article_comment_snapshots](#bbs_article_comment_snapsh
 [attachment_files](#attachment_files) tables.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `bbs_article_comment_snapshot_id`: Belonged snapshot's [bbs_article_comment_snapshots.id](#bbs_article_comment_snapshots)
   - `attachment_file_id`: Belonged file's [attachment_files.id](#attachment_files)
   - `sequence`
@@ -233,7 +232,7 @@ relationship between [bbs_article_comment_snapshots](#bbs_article_comment_snapsh
 ## Systematic
 ```mermaid
 erDiagram
-shopping_channels {
+"shopping_channels" {
     String id PK
     String code UK
     String name UK
@@ -242,7 +241,7 @@ shopping_channels {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_channel_categories {
+"shopping_channel_categories" {
     String id PK
     String shopping_channel_id FK
     String parent_id FK "nullable"
@@ -251,7 +250,7 @@ shopping_channel_categories {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_sections {
+"shopping_sections" {
     String id PK
     String code UK
     String name UK
@@ -259,39 +258,39 @@ shopping_sections {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_sales {
+"shopping_sales" {
     String id PK
     String shopping_section_id FK
-    String shopping_seller_id FK
+    String shopping_seller_customer_id FK
     DateTime created_at
     DateTime opened_at "nullable"
     DateTime closed_at "nullable"
     DateTime paused_at "nullable"
     DateTime suspended_at "nullable"
 }
-shopping_sale_snapshots {
+"shopping_sale_snapshots" {
     String id PK
     String shopping_sale_id FK
     DateTime created_at
 }
-shopping_sale_snapshot_channels {
+"shopping_sale_snapshot_channels" {
     String id PK
     String shopping_sale_snapshot_id FK
     String shopping_channel_id FK
 }
-shopping_sale_snapshot_channel_categories {
+"shopping_sale_snapshot_channel_categories" {
     String id PK
     String shopping_sale_snapshot_channel_id FK
     String shopping_channel_category_id FK
 }
-shopping_channel_categories }|--|| shopping_channels : channel
-shopping_channel_categories }o--o| shopping_channel_categories : parent
-shopping_sales }|--|| shopping_sections : section
-shopping_sale_snapshots }|--|| shopping_sales : sale
-shopping_sale_snapshot_channels }|--|| shopping_sale_snapshots : snapshot
-shopping_sale_snapshot_channels }|--|| shopping_channels : channel
-shopping_sale_snapshot_channel_categories }|--|| shopping_sale_snapshot_channels : to_channel
-shopping_sale_snapshot_channel_categories }|--|| shopping_channel_categories : category
+"shopping_channel_categories" }|--|| "shopping_channels" : channel
+"shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
+"shopping_sales" }|--|| "shopping_sections" : section
+"shopping_sale_snapshots" }|--|| "shopping_sales" : sale
+"shopping_sale_snapshot_channels" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_channels" }|--|| "shopping_channels" : channel
+"shopping_sale_snapshot_channel_categories" }|--|| "shopping_sale_snapshot_channels" : to_channel
+"shopping_sale_snapshot_channel_categories" }|--|| "shopping_channel_categories" : category
 ```
 
 ### `shopping_channels`
@@ -305,7 +304,7 @@ By the way, if your shopping mall system requires only one channel, then
 just use only one. This concept is designed to be expandable in the future.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `code`: Identifier code.
   - `name`: Name of channel.
   - `exclusive`
@@ -320,9 +319,9 @@ just use only one. This concept is designed to be expandable in the future.
 ### `shopping_channel_categories`
 Category of channel.
 
-` is a concept that refers to classification categories within a specific 
-channel, and is exactly the same as the concept commonly referred to as 
-"category" in shopping malls.
+`shopping_channel_categories` is a concept that refers to classification 
+categories within a specific channel, and is exactly the same as the concept 
+commonly referred to as "category" in shopping malls.
 
 And `shopping_channel_categories` is different with 
 [shopping_sections](#shopping_sections). [shopping_sections](#shopping_sections) refers to a "corner" 
@@ -348,7 +347,7 @@ Furthermore, `shopping_channel_categories` is designed to merge between
 themselves, so there is no burden to edit the category at any time.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels).
   - `parent_id`
     > Parent category's [shopping_channel_categories.id](#shopping_channel_categories).
@@ -375,7 +374,7 @@ By the way, if your shopping mall system requires only one section, then
 just use only one. This concept is designed to be expandable in the future.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `code`: Identifier code.
   - `name`: Name of section.
   - `created_at`: Creation time of record.
@@ -386,7 +385,7 @@ just use only one. This concept is designed to be expandable in the future.
 ## Actors
 ```mermaid
 erDiagram
-shopping_customers {
+"shopping_customers" {
     String id PK
     String shopping_channel_id FK
     String shopping_member_id FK "nullable"
@@ -397,7 +396,7 @@ shopping_customers {
     String ip
     DateTime created_at
 }
-shopping_external_users {
+"shopping_external_users" {
     String id PK
     String application
     String uid
@@ -406,7 +405,7 @@ shopping_external_users {
     String password
     DateTime created_at
 }
-shopping_citizens {
+"shopping_citizens" {
     String id PK
     String shopping_channel_id FK "nullable"
     String mobile
@@ -414,7 +413,7 @@ shopping_citizens {
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_members {
+"shopping_members" {
     String id PK
     String shopping_channel_id FK
     String shopping_citizen_id FK "nullable"
@@ -424,24 +423,26 @@ shopping_members {
     DateTime updated_at
     DateTime withdrawn_at "nullable"
 }
-shopping_member_emails {
+"shopping_member_emails" {
     String id PK
     String shopping_channel_id FK
     String shopping_member_id FK
     String value
     DateTime created_at
 }
-shopping_sellers {
+"shopping_sellers" {
     String id PK
+    String shopping_member_id FK
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_administrators {
+"shopping_administrators" {
     String id PK
+    String shopping_member_id UK
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_addresses {
+"shopping_addresses" {
     String id PK
     String mobile
     String name
@@ -454,36 +455,36 @@ shopping_addresses {
     String special_note "nullable"
     DateTime created_at
 }
-shopping_customers }o--|| shopping_members : member
-shopping_customers }o--|| shopping_external_users : external_user
-shopping_customers }o--|| shopping_citizens : citizen
-shopping_members }o--|| shopping_citizens : citizen
-shopping_member_emails }|--|| shopping_members : member
-shopping_sellers |o--|| shopping_members : base
-shopping_administrators |o--|| shopping_members : base
+"shopping_customers" }o--|| "shopping_members" : member
+"shopping_customers" }o--|| "shopping_external_users" : external_user
+"shopping_customers" }o--|| "shopping_citizens" : citizen
+"shopping_members" }o--|| "shopping_citizens" : citizen
+"shopping_member_emails" }|--|| "shopping_members" : member
+"shopping_sellers" |o--|| "shopping_members" : member
+"shopping_administrators" |o--|| "shopping_members" : member
 ```
 
 ### `shopping_customers`
 Customer information, but not a person but a **connection** basis.
 
 `shopping_customers` is an entity that literally embodies the information 
-of those who participated in the market as customers. However, 
-`shopping_customers` is different from [shopping_sellers](#shopping_sellers) or 
-[shopping_administrators](#shopping_administrators), where each person has one record based on 
-membership registration. `shopping_customers` issues a new record every 
-time it **connects**, even if it is the same person.
+of those who participated in the market as customers. By the way, the
+`shopping_Customers` does not mean a person, but a **connection** basis.
+Therefore, even if the same person connects to the shopping mall multiple,
+multiple records are created in `shopping_customers`.
 
-The first purpose of this is to track the customer's inflow path in detail, and it is 
-for cases where the same person enters as a non-member, puts items in the 
+The first purpose of this is to track the customer's inflow path in detail, and 
+it is for cases where the same person enters as a non-member, puts items in the 
 [shopping cart](#shopping_cart_commodities) in advance, and only authenticates 
 their real name or registers/logs in at the moment of 
 [payment](#shopping_order_publishes). It is the second. Lastly, it is 
 to accurately track the activities that a person performs at the 
-shopping mall in various ways, such as the same person accessing an 
-[external service](#shopping_external_users) to make a purchase, 
-creating multiple [accounts](#shopping_members) to make a purchase, 
-and making a purchase as a non-member with only 
-[real name authentication](#shopping_citizens).
+shopping mall in various ways like below.
+
+- Same person comes from an [external service](#shopping_external_users)
+- Same person creates multiple [accounts](#shopping_members)
+- Same person makes a purchase as a non-member with only [real name authentication](#shopping_citizens)
+- Same person acts both [seller](#shopping_sellers) and [admin](#shopping_administrators) at the same time
 
 Therefore, `shopping_customers` can have multiple records with the same 
 [shopping_citizens](#shopping_citizens), [shopping_members](#shopping_members), and 
@@ -494,7 +495,7 @@ at once. Therefore, identification and tracking of customers can be done
 very systematically.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels)
   - `shopping_member_id`: Belonged member's [shopping_members.id](#shopping_members)
   - `shopping_external_user_id`: Belonged external service user's [shopping_external_users.id](#shopping_external_users)
@@ -540,11 +541,11 @@ In addition, additional information received from external services can
 be recorded in the `data` field in JSON format.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `application`
     > Identifier code of the external service.
     > 
-    > It can be same with [shopping_channels_code](#shopping_channels_code) in common.
+    > It can be same with [shopping_channels.code](#shopping_channels) in common.
   - `uid`: Identifier key of external user from the external system.
   - `nickname`: Nickname of external user in the external system.
   - `data`: Additional information about external user from the external system.
@@ -577,7 +578,7 @@ Of course, real name and mobile phone authentication information are
 encrypted and stored.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_channel_id`
     > Belonged channel's [shopping_channels.id](#shopping_channels)
     > 
@@ -614,7 +615,7 @@ Of course, this is according to system theory, and it is unclear what
 the planning will be like.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels)
   - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
   - `nickname`: Nickname.
@@ -647,12 +648,18 @@ email addresses, just use only one.
 ### `shopping_sellers`
 Seller information.
 
-`shopping_sellers` is a subtype entity of [shopping_members](#shopping_members), and
-it means a person who registers [sales](#shopping_sales) to operate
-selling activities.
+`shopping_sellers` is an entity that embodies a person who registers
+[sales](#shoppingsales) to operate selling activities, with 
+[membership](#shoppingmembers) joining.
+
+For reference, unlike [customers](#shopping_customers) which can 
+participate even without [membership](#shopping_members) joining, 
+seller must join membership to operate sales. Also, seller must
+do the [real-name authentication](#shopping_citizens), too. 
 
 **Properties**
-  - `id`: PK + FK.
+  - `id`: Primary Key.
+  - `shopping_member_id`: Belonged member's [shopping_members.id](#shopping_members).
   - `created_at`
     > Creation time of record.
     > 
@@ -666,8 +673,17 @@ selling activities.
 ### `shopping_administrators`
 Administrator account.
 
+`shopping_administrators` is an entity that embodies a person who manages
+the shopping mall system, with [membership](#shopping_members) joining.
+
+For reference, unlike [customers](#shopping_customers) which can 
+participate even without [membership](#shopping_members) joining, 
+administrator must join membership to operate sales. Also, administrator must
+do the [real-name authentication](#shopping_citizens), too. 
+
 **Properties**
-  - `id`: PK + FK.
+  - `id`: Primary Key.
+  - `shopping_member_id`: Belonged member's [shopping_members.id](#shopping_members).
   - `created_at`
     > Creation time of record.
     > 
@@ -683,7 +699,7 @@ Administrator account.
 The address information.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `mobile`: Mobile number.
   - `name`
     > Representative name of the address.
@@ -702,40 +718,32 @@ The address information.
 ## Sales
 ```mermaid
 erDiagram
-shopping_sales {
+"shopping_sales" {
     String id PK
     String shopping_section_id FK
-    String shopping_seller_id FK
+    String shopping_seller_customer_id FK
     DateTime created_at
     DateTime opened_at "nullable"
     DateTime closed_at "nullable"
     DateTime paused_at "nullable"
     DateTime suspended_at "nullable"
 }
-shopping_sale_snapshots {
+"shopping_sale_snapshots" {
     String id PK
     String shopping_sale_id FK
     DateTime created_at
 }
-shopping_sale_snapshot_contents {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String title
-    String format
-    String body
-    String revert_policy "nullable"
-}
-shopping_sale_snapshot_channels {
+"shopping_sale_snapshot_channels" {
     String id PK
     String shopping_sale_snapshot_id FK
     String shopping_channel_id FK
 }
-shopping_sale_snapshot_channel_categories {
+"shopping_sale_snapshot_channel_categories" {
     String id PK
     String shopping_sale_snapshot_channel_id FK
     String shopping_channel_category_id FK
 }
-shopping_sale_snapshot_units {
+"shopping_sale_snapshot_units" {
     String id PK
     String shopping_sale_snapshot_id FK
     String name
@@ -743,7 +751,7 @@ shopping_sale_snapshot_units {
     Boolean required
     Int sequence
 }
-shopping_sale_snapshot_unit_options {
+"shopping_sale_snapshot_unit_options" {
     String id PK
     String shopping_sale_snapshot_unit_id FK
     String name
@@ -751,28 +759,28 @@ shopping_sale_snapshot_unit_options {
     Boolean variable
     Int sequence
 }
-shopping_sale_snapshot_unit_option_candidates {
+"shopping_sale_snapshot_unit_option_candidates" {
     String id PK
     String shopping_sale_snapshot_unit_option_id FK
     String name
     Int sequence
 }
-shopping_sale_snapshot_unit_stocks {
+"shopping_sale_snapshot_unit_stocks" {
     String id PK
     String shopping_sale_snapshot_unit_id FK
     String name
     Float nominal_price
     Float real_price
-    Float tax
+    Int quantity
     Int sequence
 }
-shopping_sale_snapshot_unit_stock_choices {
+"shopping_sale_snapshot_unit_stock_choices" {
     String id PK
     String shopping_sale_snapshot_unit_stock_id FK
     String shopping_sale_snapshot_unit_option_candidate_id FK
     Int sequence
 }
-shopping_channels {
+"shopping_channels" {
     String id PK
     String code UK
     String name UK
@@ -781,7 +789,7 @@ shopping_channels {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_channel_categories {
+"shopping_channel_categories" {
     String id PK
     String shopping_channel_id FK
     String parent_id FK "nullable"
@@ -790,7 +798,7 @@ shopping_channel_categories {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_sections {
+"shopping_sections" {
     String id PK
     String code UK
     String name UK
@@ -798,27 +806,20 @@ shopping_sections {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_sellers {
-    String id PK
-    DateTime created_at
-    DateTime deleted_at "nullable"
-}
-shopping_sales }|--|| shopping_sections : section
-shopping_sales }|--|| shopping_sellers : seller
-shopping_sale_snapshots }|--|| shopping_sales : sale
-shopping_sale_snapshot_contents |o--|| shopping_sale_snapshots : snapshot
-shopping_sale_snapshot_channels }|--|| shopping_sale_snapshots : snapshot
-shopping_sale_snapshot_channels }|--|| shopping_channels : channel
-shopping_sale_snapshot_channel_categories }|--|| shopping_sale_snapshot_channels : to_channel
-shopping_sale_snapshot_channel_categories }|--|| shopping_channel_categories : category
-shopping_sale_snapshot_units }|--|| shopping_sale_snapshots : snapshot
-shopping_sale_snapshot_unit_options }|--|| shopping_sale_snapshot_units : unit
-shopping_sale_snapshot_unit_option_candidates }|--|| shopping_sale_snapshot_unit_options : option
-shopping_sale_snapshot_unit_stocks }|--|| shopping_sale_snapshot_units : unit
-shopping_sale_snapshot_unit_stock_choices }|--|| shopping_sale_snapshot_unit_stocks : stock
-shopping_sale_snapshot_unit_stock_choices }|--|| shopping_sale_snapshot_unit_option_candidates : candidate
-shopping_channel_categories }|--|| shopping_channels : channel
-shopping_channel_categories }o--o| shopping_channel_categories : parent
+"shopping_sales" }|--|| "shopping_sections" : section
+"shopping_sale_snapshots" }|--|| "shopping_sales" : sale
+"shopping_sale_snapshot_channels" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_channels" }|--|| "shopping_channels" : channel
+"shopping_sale_snapshot_channel_categories" }|--|| "shopping_sale_snapshot_channels" : to_channel
+"shopping_sale_snapshot_channel_categories" }|--|| "shopping_channel_categories" : category
+"shopping_sale_snapshot_units" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_unit_options" }|--|| "shopping_sale_snapshot_units" : unit
+"shopping_sale_snapshot_unit_option_candidates" }|--|| "shopping_sale_snapshot_unit_options" : option
+"shopping_sale_snapshot_unit_stocks" }|--|| "shopping_sale_snapshot_units" : unit
+"shopping_sale_snapshot_unit_stock_choices" }|--|| "shopping_sale_snapshot_unit_stocks" : stock
+"shopping_sale_snapshot_unit_stock_choices" }|--|| "shopping_sale_snapshot_unit_option_candidates" : candidate
+"shopping_channel_categories" }|--|| "shopping_channels" : channel
+"shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
 ```
 
 ### `shopping_sales`
@@ -840,10 +841,14 @@ A/B testing, which involves changing components or prices and measuring
 the performance in each case.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_section_id`: Belonged section's [shopping_sections.id](#shopping_sections)
-  - `shopping_seller_id`: Belonged seller's [shopping_sellers.id](#shopping_sellers)
-  - `created_at`: Creation time of record.
+  - `shopping_seller_customer_id`: Belonged seller's [shopping_customers.id](#shopping_customers)
+  - `created_at`
+    > Creation time of record.
+    > 
+    > Note that, this property is different with `opened_at`, which means
+    > the opening time of sale.
   - `opened_at`
     > Opening time of sale.
     > 
@@ -887,35 +892,12 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
 [shopping_sale_snapshot_unit_stocks](#shopping_sale_snapshot_unit_stocks) | [shopping_cart_commodity_stocks](#shopping_cart_commodity_stocks) | x
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_id`: Belonged sale's [shopping_sales.id](#shopping_sales)
   - `created_at`
     > Creation time of record.
     > 
     > It means the time when the seller created or updated the sale.
-
-### `shopping_sale_snapshot_contents`
-Content information of sale snapshot.
-
-`shopping_sale_snapshot_contents` is an entity embodies the body contents 
-of [sale snapshot](#shopping_sale_snapshots). Also, it contains
-revert policy of the sale.
-
-**Properties**
-  - `id`: 
-  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
-  - `title`: Title of the content.
-  - `format`
-    > Format of the body content.
-    > 
-    > Same meaning with extension like `html`, `md`, `txt`.
-  - `body`: The main body content.
-  - `revert_policy`
-    > Revert policy.
-    > 
-    > This is essential in South Korea, but I don't know well in overseas.
-    > 
-    > Just use when you need.
 
 ### `shopping_sale_snapshot_channels`
 Target channel of sale snapshot to sell.
@@ -926,7 +908,7 @@ which [channel](#shopping_channels) a listing
 resolve the M:N relationship between two tables.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots).
   - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels).
 
@@ -944,7 +926,7 @@ respectively. Of course, if the target category being referred to is a
 major category, all minor categories belonging to it can also be used.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_channel_id`: Belonged assigned channel of sale snapshot's [shopping_sale_snapshot_channels.id](#shopping_sale_snapshot_channels)
   - `shopping_channel_category_id`: Belonged channel category's [shopping_channel_categories.id](#shopping_channel_categories)
 
@@ -957,10 +939,10 @@ Product composition information handled in the sale snapshot.
 
 For reference, the reason why `shopping_sale_snapshot_units` is separated 
 from [shopping_sale_snapshots](#shopping_sale_snapshots) by an algebraic relationship of 
-1: N is because there are often cases where multiple products are sold 
+1: N is because there are some cases where multiple products are sold 
 in one listing. This is the case with so-called "bundled products".
 
-- Bundle from regular product (laptop set)
+- Bundle from regular product (Macbook Set)
 - main body
 - keyboard
 - mouse
@@ -974,13 +956,13 @@ found only after selecting all given
 [options](#shopping_sale_snapshot_unit_options) and their 
 [candidate](#shopping_sale_snapshot_unit_option_candidates) values.
 
-For example, even if you buy a laptop, the 
+For example, even if you buy a Macbook, the 
 [final stocks](#shopping_sale_snapshot_unit_stocks) are determined 
 only after selecting all the 
 [options](#shopping_sale_snapshot_unit_options) (CPU / RAM / SSD), etc.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
   - `name`: Representative name of the unit.
   - `primary`
@@ -992,6 +974,10 @@ only after selecting all the
     > 
     > When the unit is required, the customer must select the unit. If do
     > not select, customer can't buy it.
+    > 
+    > For example, if there's a sale "Macbook Set" and one of the unit is 
+    > the "Main Body", is it possible to buy the "Macbook Set" without the 
+    > "Main Body" unit? This property is for that case.
   - `sequence`: Sequence order in belonged snapshot.
 
 ### `shopping_sale_snapshot_unit_options`
@@ -1023,7 +1009,7 @@ this case does not affect the
 [final stock](#shopping_sale_snapshot_unit_stocks).
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_unit_id`: Belonged unit's [shopping_sale_snapshot_units.id](#shopping_sale_snapshot_units)
   - `name`: Name of the option.
   - `type`
@@ -1062,7 +1048,7 @@ By the way, if belonged [option](#shopping_sale_snapshot_unit_options)
 is not "select" type, this entity never being used.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_unit_option_id`: Belonged option's [shopping_sale_snapshot_unit_options.id](#shopping_sale_snapshot_unit_options)
   - `name`: Representative name of candidate value.
   - `sequence`: Sequence order in option.
@@ -1096,7 +1082,7 @@ Of course, without a single variable "select" type option, the final
 stocks count in the unit is only 1.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_unit_id`: Belonged unit's [shopping_sale_snapshot_units.id](#shopping_sale_snapshot_units)
   - `name`: Name of the final stock.
   - `nominal_price`
@@ -1106,30 +1092,207 @@ stocks count in the unit is only 1.
     > If this value is greater than the `real_price`, it would be shown
     > like seller is giving a discount.
   - `real_price`: Real price to pay.
-  - `tax`: Tax to pay.
+  - `quantity`
+    > Initial inventory quantity.
+    > 
+    > If this stock has been sold over this quantity count, the stock can't
+    > be sold anymore, because of out of stock. In that case, the seller can
+    > supplement the inventory quantity by registering some 
+    > [shopping_sale_snapshot_unit_stock_supplements](#shopping_sale_snapshot_unit_stock_supplements) records.
   - `sequence`: Sequence order in belonged unit.
 
 ### `shopping_sale_snapshot_unit_stock_choices`
+Selection information of final stock.
+
+`shopping_sale_snapshot_unit_stock_choices` is an entity that represents 
+which [option](#shopping_sale_snapshot_unit_options) of each `variable` 
+"select" `type` was selected for each stock and which 
+[candidate value](#shopping_sale_snapshot_unit_option_candidates) was 
+selected within it.
+
 Of course, if the bound [unit](#shopping_sale_snapshot_units) does not 
 have any [options](#shopping_sale_snapshot_unit_options), this entity 
 can also be ignored.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_sale_snapshot_unit_stock_id`: Belonged stock's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
   - `shopping_sale_snapshot_unit_option_candidate_id`: Belonged candidate's [shopping_sale_snapshot_unit_option_candidates.id](#shopping_sale_snapshot_unit_option_candidates)
   - `sequence`: Sequence order in belonged stock.
+
+### `shopping_sale_snapshot_contents`
+Content information of sale snapshot.
+
+`shopping_sale_snapshot_contents` is an entity embodies the body contents 
+of [sale snapshot](#shopping_sale_snapshots). Also, it contains
+revert policy of the sale.
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
+  - `title`: Title of the content.
+  - `format`
+    > Format of the body content.
+    > 
+    > Same meaning with extension like `html`, `md`, `txt`.
+  - `body`: The main body content.
+  - `revert_policy`
+    > Revert policy.
+    > 
+    > This is essential in South Korea, but I don't know well in overseas.
+    > 
+    > Just use when you need.
+
+### `shopping_sale_snapshot_content_files`
+Attachment file of sale snapshot content.
+
+**Properties**
+  - `id`: 
+  - `shopping_sale_snapshot_content_id`: 
+  - `attachment_file_id`: 
+  - `sequence`: 
+
+### `shopping_sale_snapshot_tags`
+Search tag of sale snapshot.
+
+**Properties**
+  - `id`: 
+  - `shopping_sale_snapshot_id`: 
+  - `value`: 
+  - `sequence`: 
+
+### `shopping_sale_snapshot_unit_stock_supplements`
+Supplementation of inventory quantity of stock.
+
+You know what? If a stock has been sold over its 
+[initial inventory quantity](#shopping_sale_snapshot_unit_stocks),
+the stock can't be sold anymore, because of out of stock. In that case, how the
+[shopping_sellers](#shopping_sellers) should do?
+
+When the sotck is sold out, seller can supplement the inventory record by
+registering this `shopping_sale_snapshot_unit_stock_supplements` record. Right,
+this `shopping_sale_snapshot_unit_stock_supplements` is an entity that embodies
+the supplementation of the inventory quantity of the belonged 
+[stock](#shopping_sale_snapshot_unit_stocks).
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_sale_snapshot_unit_stock_id`: Belonged stock's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
+  - `quantity`: Supplemented inventory quantity.
+  - `created_at`
+    > Creation time of record.
+    > 
+    > When the inventory be supplemented.
+
+
+## default
+```mermaid
+erDiagram
+"shopping_sale_snapshot_contents" {
+    String id PK
+    String shopping_sale_snapshot_id FK
+    String title
+    String format
+    String body
+    String revert_policy "nullable"
+}
+"shopping_sale_snapshot_content_files" {
+    String id PK
+    String shopping_sale_snapshot_content_id FK
+    String attachment_file_id FK
+    Int sequence
+}
+"shopping_sale_snapshot_tags" {
+    String id PK
+    String shopping_sale_snapshot_id FK
+    String value
+    Int sequence
+}
+"shopping_sale_snapshot_unit_stock_supplements" {
+    String id PK
+    String shopping_sale_snapshot_unit_stock_id FK
+    Int quantity
+    DateTime created_at
+}
+"shopping_sale_snapshot_content_files" }|--|| "shopping_sale_snapshot_contents" : content
+```
+
+### `shopping_sale_snapshot_contents`
+Content information of sale snapshot.
+
+`shopping_sale_snapshot_contents` is an entity embodies the body contents 
+of [sale snapshot](#shopping_sale_snapshots). Also, it contains
+revert policy of the sale.
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
+  - `title`: Title of the content.
+  - `format`
+    > Format of the body content.
+    > 
+    > Same meaning with extension like `html`, `md`, `txt`.
+  - `body`: The main body content.
+  - `revert_policy`
+    > Revert policy.
+    > 
+    > This is essential in South Korea, but I don't know well in overseas.
+    > 
+    > Just use when you need.
+
+### `shopping_sale_snapshot_content_files`
+Attachment file of sale snapshot content.
+
+**Properties**
+  - `id`: 
+  - `shopping_sale_snapshot_content_id`: 
+  - `attachment_file_id`: 
+  - `sequence`: 
+
+### `shopping_sale_snapshot_tags`
+Search tag of sale snapshot.
+
+**Properties**
+  - `id`: 
+  - `shopping_sale_snapshot_id`: 
+  - `value`: 
+  - `sequence`: 
+
+### `shopping_sale_snapshot_unit_stock_supplements`
+Supplementation of inventory quantity of stock.
+
+You know what? If a stock has been sold over its 
+[initial inventory quantity](#shopping_sale_snapshot_unit_stocks),
+the stock can't be sold anymore, because of out of stock. In that case, how the
+[shopping_sellers](#shopping_sellers) should do?
+
+When the sotck is sold out, seller can supplement the inventory record by
+registering this `shopping_sale_snapshot_unit_stock_supplements` record. Right,
+this `shopping_sale_snapshot_unit_stock_supplements` is an entity that embodies
+the supplementation of the inventory quantity of the belonged 
+[stock](#shopping_sale_snapshot_unit_stocks).
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_sale_snapshot_unit_stock_id`: Belonged stock's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
+  - `quantity`: Supplemented inventory quantity.
+  - `created_at`
+    > Creation time of record.
+    > 
+    > When the inventory be supplemented.
 
 
 ## Carts
 ```mermaid
 erDiagram
-shopping_carts {
+"shopping_carts" {
     String id PK
     String shopping_customer_id FK
+    String actor_type
     DateTime created_at
+    DateTime deleted_at "nullable"
 }
-shopping_cart_commodities {
+"shopping_cart_commodities" {
     String id PK
     String shopping_cart_id FK
     String shopping_sale_snapshot_id FK
@@ -1137,7 +1300,7 @@ shopping_cart_commodities {
     DateTime created_at
     Boolean published
 }
-shopping_cart_commodity_stocks {
+"shopping_cart_commodity_stocks" {
     String id PK
     String shopping_cart_commodity_id FK
     String shopping_sale_snapshot_unit_id FK
@@ -1145,7 +1308,7 @@ shopping_cart_commodity_stocks {
     Int quantity
     Int sequence
 }
-shopping_cart_commodity_stock_choices {
+"shopping_cart_commodity_stock_choices" {
     String id PK
     String shopping_cart_commodity_stock_id FK
     String shopping_sale_snapshot_unit_option_id FK
@@ -1153,12 +1316,12 @@ shopping_cart_commodity_stock_choices {
     String value "nullable"
     Int sequence
 }
-shopping_sale_snapshots {
+"shopping_sale_snapshots" {
     String id PK
     String shopping_sale_id FK
     DateTime created_at
 }
-shopping_sale_snapshot_units {
+"shopping_sale_snapshot_units" {
     String id PK
     String shopping_sale_snapshot_id FK
     String name
@@ -1166,7 +1329,7 @@ shopping_sale_snapshot_units {
     Boolean required
     Int sequence
 }
-shopping_sale_snapshot_unit_options {
+"shopping_sale_snapshot_unit_options" {
     String id PK
     String shopping_sale_snapshot_unit_id FK
     String name
@@ -1174,33 +1337,33 @@ shopping_sale_snapshot_unit_options {
     Boolean variable
     Int sequence
 }
-shopping_sale_snapshot_unit_option_candidates {
+"shopping_sale_snapshot_unit_option_candidates" {
     String id PK
     String shopping_sale_snapshot_unit_option_id FK
     String name
     Int sequence
 }
-shopping_sale_snapshot_unit_stocks {
+"shopping_sale_snapshot_unit_stocks" {
     String id PK
     String shopping_sale_snapshot_unit_id FK
     String name
     Float nominal_price
     Float real_price
-    Float tax
+    Int quantity
     Int sequence
 }
-shopping_cart_commodities }|--|| shopping_carts : cart
-shopping_cart_commodities }|--|| shopping_sale_snapshots : snapshot
-shopping_cart_commodity_stocks }|--|| shopping_cart_commodities : commodity
-shopping_cart_commodity_stocks }|--|| shopping_sale_snapshot_units : unit
-shopping_cart_commodity_stocks }|--|| shopping_sale_snapshot_unit_stocks : stock
-shopping_cart_commodity_stock_choices }|--|| shopping_cart_commodity_stocks : stock
-shopping_cart_commodity_stock_choices }|--|| shopping_sale_snapshot_unit_options : option
-shopping_cart_commodity_stock_choices }o--|| shopping_sale_snapshot_unit_option_candidates : candidate
-shopping_sale_snapshot_units }|--|| shopping_sale_snapshots : snapshot
-shopping_sale_snapshot_unit_options }|--|| shopping_sale_snapshot_units : unit
-shopping_sale_snapshot_unit_option_candidates }|--|| shopping_sale_snapshot_unit_options : option
-shopping_sale_snapshot_unit_stocks }|--|| shopping_sale_snapshot_units : unit
+"shopping_cart_commodities" }|--|| "shopping_carts" : cart
+"shopping_cart_commodities" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_cart_commodity_stocks" }|--|| "shopping_cart_commodities" : commodity
+"shopping_cart_commodity_stocks" }|--|| "shopping_sale_snapshot_units" : unit
+"shopping_cart_commodity_stocks" }|--|| "shopping_sale_snapshot_unit_stocks" : stock
+"shopping_cart_commodity_stock_choices" }|--|| "shopping_cart_commodity_stocks" : stock
+"shopping_cart_commodity_stock_choices" }|--|| "shopping_sale_snapshot_unit_options" : option
+"shopping_cart_commodity_stock_choices" }o--|| "shopping_sale_snapshot_unit_option_candidates" : candidate
+"shopping_sale_snapshot_units" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_unit_options" }|--|| "shopping_sale_snapshot_units" : unit
+"shopping_sale_snapshot_unit_option_candidates" }|--|| "shopping_sale_snapshot_unit_options" : option
+"shopping_sale_snapshot_unit_stocks" }|--|| "shopping_sale_snapshot_units" : unit
 ```
 
 ### `shopping_carts`
@@ -1210,6 +1373,12 @@ Shopping Cart.
 [customer](#shopping_customers) temporarily stores products before
 [purchase](#shopping_orders).
 
+By the way, it is possible for [sellers](#shopping_sellers) or 
+[administrators](#shopping_administrators) to compose a shopping cart.
+Of course, the reason why they can compose a shopping cart is not for
+[purchasing](#shopping_orders), but for providing a shopping cart template
+to [customers](#shopping_customers).
+
 Sale | Cart | Order
 -----|------|------
 x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
@@ -1217,9 +1386,16 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
 [shopping_sale_snapshot_unit_stocks](#shopping_sale_snapshot_unit_stocks) | [shopping_cart_commodity_stocks](#shopping_cart_commodity_stocks) | x
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
+  - `actor_type`
+    > Type of the cart creator.
+    > 
+    > - customer
+    > - seller
+    > - administrator
   - `created_at`: Creation time of record.
+  - `deleted_at`: Deletion time of record.
 
 ### `shopping_cart_commodities`
 Item in a shopping cart.
@@ -1243,7 +1419,7 @@ multiplied by [shopping_cart_commodity_stocks.quantity](#shopping_cart_commodity
 for each component.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_cart_id`: Belonged cart's [shopping_carts.id](#shopping_carts)
   - `shopping_sale_snapshot_id`: Target snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
   - `volume`
@@ -1282,7 +1458,7 @@ actually purchased can be multiplied by the
 [shopping_cart_commodities.volume](#shopping_cart_commodities) value of the parent entity.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_cart_commodity_id`: Belonged commodity's [shopping_cart_commodities.id](#shopping_cart_commodities)
   - `shopping_sale_snapshot_unit_id`: Target unit's [shopping_sale_snapshot_units.id](#shopping_sale_snapshot_units)
   - `shopping_sale_snapshot_unit_stock_id`: Target final stock's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
@@ -1309,7 +1485,7 @@ candidate value selected by the customer. Otherwise, enter the value
 entered by the customer.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_cart_commodity_stock_id`: Belonged cart-commodity-stock's [shopping_cart_commodity_stocks.id](#shopping_cart_commodity_stocks)
   - `shopping_sale_snapshot_unit_option_id`: Target option's [shopping_sale_snapshot_unit_options.id](#shopping_sale_snapshot_unit_options)
   - `shopping_sale_snapshot_unit_option_candidate_id`: Selected candidate's [shopping_sale_snapshot_unit_option_candidates.id](#shopping_sale_snapshot_unit_option_candidates)
@@ -1320,7 +1496,7 @@ entered by the customer.
 ## Orders
 ```mermaid
 erDiagram
-shopping_orders {
+"shopping_orders" {
     String id PK
     String shopping_customer_id FK
     String shopping_address_id FK "nullable"
@@ -1330,7 +1506,7 @@ shopping_orders {
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_order_goods {
+"shopping_order_goods" {
     String id PK
     String shopping_order_id FK
     String shopping_cart_commodity_id FK
@@ -1339,7 +1515,7 @@ shopping_order_goods {
     Int sequence
     DateTime confirmed_at "nullable"
 }
-shopping_order_publishes {
+"shopping_order_publishes" {
     String id PK
     String shopping_order_id FK
     String password "nullable"
@@ -1347,12 +1523,13 @@ shopping_order_publishes {
     DateTime paid_at "nullable"
     DateTime cancelled_at "nullable"
 }
-shopping_deliveries {
+"shopping_deliveries" {
     String id PK
-    String shopping_seller_id FK
+    String shopping_seller_customer_id FK
     String invoice_code "nullable"
+    DateTime created_at
 }
-shopping_delivery_pieces {
+"shopping_delivery_pieces" {
     String id PK
     String shopping_delivery_id FK
     String shopping_order_good_id FK
@@ -1360,17 +1537,17 @@ shopping_delivery_pieces {
     Float quantity
     Int sequence
 }
-shopping_delivery_journeys {
+"shopping_delivery_journeys" {
     String id PK
     String shopping_delivery_id FK
-    String state
+    String type
     String title "nullable"
     String description "nullable"
     DateTime created_at
     DateTime started_at
     DateTime completed_at "nullable"
 }
-shopping_addresses {
+"shopping_addresses" {
     String id PK
     String mobile
     String name
@@ -1383,12 +1560,31 @@ shopping_addresses {
     String special_note "nullable"
     DateTime created_at
 }
-shopping_orders }o--|| shopping_addresses : address
-shopping_order_goods }|--|| shopping_orders : order
-shopping_order_publishes |o--|| shopping_orders : order
-shopping_delivery_pieces }|--|| shopping_deliveries : delivery
-shopping_delivery_pieces }|--|| shopping_order_goods : good
-shopping_delivery_journeys }|--|| shopping_deliveries : delivery
+"shopping_cart_commodities" {
+    String id PK
+    String shopping_cart_id FK
+    String shopping_sale_snapshot_id FK
+    Int volume
+    DateTime created_at
+    Boolean published
+}
+"shopping_cart_commodity_stocks" {
+    String id PK
+    String shopping_cart_commodity_id FK
+    String shopping_sale_snapshot_unit_id FK
+    String shopping_sale_snapshot_unit_stock_id FK
+    Int quantity
+    Int sequence
+}
+"shopping_orders" }o--|| "shopping_addresses" : address
+"shopping_order_goods" }|--|| "shopping_orders" : order
+"shopping_order_goods" }|--|| "shopping_cart_commodities" : commodity
+"shopping_order_publishes" |o--|| "shopping_orders" : order
+"shopping_delivery_pieces" }|--|| "shopping_deliveries" : delivery
+"shopping_delivery_pieces" }|--|| "shopping_order_goods" : good
+"shopping_delivery_pieces" }|--|| "shopping_cart_commodity_stocks" : cart_commodity_stock
+"shopping_delivery_journeys" }|--|| "shopping_deliveries" : delivery
+"shopping_cart_commodity_stocks" }|--|| "shopping_cart_commodities" : commodity
 ```
 
 ### `shopping_orders`
@@ -1416,7 +1612,7 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
 [shopping_sale_snapshot_unit_stocks](#shopping_sale_snapshot_unit_stocks) | [shopping_cart_commodity_stocks](#shopping_cart_commodity_stocks) | x
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
   - `shopping_address_id`: Target address' [id](#shopping_addresses)
   - `cash`: Amount of cash payment.
@@ -1445,7 +1641,7 @@ that corresponds to the listing
 
 For reference, `shopping_order_goods` also contains `volume` information 
 separately from the belonging [shopping_cart_commodities.volume](#shopping_cart_commodities). This is 
-because there are often cases where you put 3 books in your shopping cart 
+because there are some cases where you put 3 books in your shopping cart 
 and then change them to 4 during the actual order application process. 
 This is to increase the reusability of the shopping cart by changing the 
 volume attribute of the current entity rather than directly changing the 
@@ -1459,7 +1655,7 @@ the unit in which customers issue issues or request exchanges or refunds
 for ordered products.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_order_id`: Belonged order's [shopping_orders.id](#shopping_orders)
   - `shopping_cart_commodity_id`: Belonged cart commodity's [shopping_cart_commodities.id](#shopping_cart_commodities)
   - `shopping_seller_id`
@@ -1497,7 +1693,7 @@ purchased his product.
 By the way, please note that just because the `shopping_order_publishes` 
 record exists, it does not mean that the payment has been completed. 
 Of course, with "credit cards" and "Google Pay", payment application and 
-payment occur at the same time. However, there are often cases where 
+payment occur at the same time. However, there are some cases where 
 payment is made after the payment application, such as "bank transfer" or 
 "virtual account payment". Therefore, to see the completion of payment, 
 be sure to check the `paid_at` property.
@@ -1506,7 +1702,7 @@ In addition, even after payment has been made, there may be cases where
 it is suddenly canceled, so please be aware of this as well.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_order_id`: Belonged order's [shopping_orders.id](#shopping_orders)
   - `password`
     > Password for encryption.
@@ -1544,15 +1740,16 @@ manufacturing, planning, shipping and delivering. Those steps are represented by
 another subsidiary entity [shopping_delivery_journeys](#shopping_delivery_journeys).
 
 **Properties**
-  - `id`: 
-  - `shopping_seller_id`: Belonged seller's [id](#shopping_sellers)
+  - `id`: Primary Key.
+  - `shopping_seller_customer_id`: Belonged seller's [id](#shopping_sellers)
   - `invoice_code`: Invoice code if exists.
+  - `created_at`: Creation time of record.
 
 ### `shopping_delivery_pieces`
 Which stocks are delivered.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_delivery_id`: Belonged delivery's [id](#shopping_deliveries)
   - `shopping_order_good_id`: Target good's [id](#shopping_order_goods)
   - `shopping_cart_commodity_stock_id`: Target stock-wrapper's [id](#shopping_sale_snapshot_unit_stocks)
@@ -1566,15 +1763,14 @@ Which stocks are delivered.
 Journey of delivery.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_delivery_id`: 
-  - `state`
-    > State of journey.
+  - `type`
+    > Type of journey.
     > 
     > - preparing
     > - shipping
     > - delivering
-    > - arrived
   - `title`: Title of journey.
   - `description`: Description of journey.
   - `created_at`: Creation time of record.
@@ -1585,10 +1781,10 @@ Journey of delivery.
 ## Coupons
 ```mermaid
 erDiagram
-shopping_coupons {
+"shopping_coupons" {
     String id PK
-    String shopping_administrator_id FK "nullable"
-    String shopping_seller_id FK "nullable"
+    String shopping_customer_id FK
+    String actor_type
     String name
     String access
     Boolean exclusive
@@ -1606,37 +1802,37 @@ shopping_coupons {
     DateTime updated_at
     DateTime deleted_at "nullable"
 }
-shopping_coupon_criterias {
+"shopping_coupon_criterias" {
     String id PK
     String shopping_coupon_id FK
     String type
     String direction
     Int sequence
 }
-shopping_coupon_section_criterias {
+"shopping_coupon_section_criterias" {
     String id PK
     String shopping_section_id FK
 }
-shopping_coupon_channel_criterias {
+"shopping_coupon_channel_criterias" {
     String id PK
     String shopping_channel_id FK
     String shopping_channel_category_id FK "nullable"
 }
-shopping_coupon_seller_criterias {
+"shopping_coupon_seller_criterias" {
     String id PK
     String shopping_seller_id FK
 }
-shopping_coupon_sale_criterias {
+"shopping_coupon_sale_criterias" {
     String id PK
     String shopping_sale_id FK
 }
-shopping_coupon_funnel_criterias {
+"shopping_coupon_funnel_criterias" {
     String id PK
     String kind
     String key "nullable"
     String value
 }
-shopping_coupon_tickets {
+"shopping_coupon_tickets" {
     String id PK
     String shopping_customer_id FK
     String shopping_coupon_id FK
@@ -1644,7 +1840,7 @@ shopping_coupon_tickets {
     DateTime created_at
     DateTime expired_at "nullable"
 }
-shopping_coupon_ticket_payments {
+"shopping_coupon_ticket_payments" {
     String id PK
     String shopping_coupon_ticket_id FK
     String shopping_order_id FK
@@ -1652,23 +1848,23 @@ shopping_coupon_ticket_payments {
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_coupon_disposables {
+"shopping_coupon_disposables" {
     String id PK
     String shopping_coupon_id FK
     String code UK
     DateTime created_at
     DateTime expired_at "nullable"
 }
-shopping_coupon_criterias }|--|| shopping_coupons : coupon
-shopping_coupon_section_criterias |o--|| shopping_coupon_criterias : base
-shopping_coupon_channel_criterias |o--|| shopping_coupon_criterias : base
-shopping_coupon_seller_criterias |o--|| shopping_coupon_criterias : base
-shopping_coupon_sale_criterias |o--|| shopping_coupon_criterias : base
-shopping_coupon_funnel_criterias |o--|| shopping_coupon_criterias : base
-shopping_coupon_tickets }|--|| shopping_coupons : coupon
-shopping_coupon_tickets |o--|| shopping_coupon_disposables : disposable
-shopping_coupon_ticket_payments |o--|| shopping_coupon_tickets : ticket
-shopping_coupon_disposables }|--|| shopping_coupons : coupon
+"shopping_coupon_criterias" }|--|| "shopping_coupons" : coupon
+"shopping_coupon_section_criterias" |o--|| "shopping_coupon_criterias" : base
+"shopping_coupon_channel_criterias" |o--|| "shopping_coupon_criterias" : base
+"shopping_coupon_seller_criterias" |o--|| "shopping_coupon_criterias" : base
+"shopping_coupon_sale_criterias" |o--|| "shopping_coupon_criterias" : base
+"shopping_coupon_funnel_criterias" |o--|| "shopping_coupon_criterias" : base
+"shopping_coupon_tickets" }|--|| "shopping_coupons" : coupon
+"shopping_coupon_tickets" |o--|| "shopping_coupon_disposables" : disposable
+"shopping_coupon_ticket_payments" |o--|| "shopping_coupon_tickets" : ticket
+"shopping_coupon_disposables" }|--|| "shopping_coupons" : coupon
 ```
 
 ### `shopping_coupons`
@@ -1701,9 +1897,13 @@ For more information, please refer to the properties below and the
 subsidiary entities described later.
 
 **Properties**
-  - `id`: 
-  - `shopping_administrator_id`: Belonged administrator's [administrators.id](#administrators)
-  - `shopping_seller_id`: Belonged seller's [shopping_sellers.id](#shopping_sellers)
+  - `id`: Primary Key.
+  - `shopping_customer_id`: Belonged administrator or seller's [shopping_customers.id](#shopping_customers)
+  - `actor_type`
+    > Type of the coupon creator.
+    > 
+    > - administrator
+    > - seller
   - `name`: Reprensentative name of coupon.
   - `access`
     > Access level of coupon.
@@ -1813,7 +2013,7 @@ value is "exclude", it is a coupon that cannot be applied to the reference
 object.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_coupon_id`: Belonged coupon's [shopping_coupons.id](#shopping_coupons)
   - `type`
     > Type of criteria.
@@ -1841,7 +2041,7 @@ are applied on a bundle basis. Coupons may or may not be applicable to
 eligible sections.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_section_id`: Target section's [shopping_coupon_criterias.id](#shopping_coupon_criterias)
 
 ### `shopping_coupon_channel_criterias`
@@ -1860,7 +2060,7 @@ conditions are applied on a bundle basis. Coupons may or may not be
 applicable for target channels and categories.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_channel_id`: Target channel's [shopping_channels.id](#shopping_channels)
   - `shopping_channel_category_id`: Target channel category's [shopping_channel_categories.id](#shopping_channel_categories)
 
@@ -1936,7 +2136,7 @@ discarded after that expiration date. Of course, it doesn't matter if you
 use the discount coupon for your order within the deadline.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
   - `shopping_coupon_id`: Belonged coupon's [shopping_coupons.id](#shopping_coupons)
   - `shopping_coupon_disposable_id`
@@ -1967,7 +2167,7 @@ payment of the ticket, but it can also be deleted when the attribution
 order itself is canceled.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_coupon_ticket_id`: Belonged ticket's [shopping_coupon_tickets.id](#shopping_coupon_tickets)
   - `shopping_order_id`: Target order's [shopping_orders.id](#shopping_orders)
   - `sequence`: Sequence order(?) in belonged order.
@@ -1992,7 +2192,7 @@ tickets multiple times using a discount coupon as a secret code, the
 issuing code must also be supported by the corresponding quantity.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_coupon_id`: Belonged coupon's [shopping_coupons.id](#shopping_coupons)
   - `code`
     > Identifier code.
@@ -2005,7 +2205,7 @@ issuing code must also be supported by the corresponding quantity.
 ## Coins
 ```mermaid
 erDiagram
-shopping_deposits {
+"shopping_deposits" {
     String id PK
     String code UK
     String source
@@ -2013,7 +2213,7 @@ shopping_deposits {
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_deposit_histories {
+"shopping_deposit_histories" {
     String id PK
     String shopping_deposit_id FK
     String shopping_citizen_id FK
@@ -2022,14 +2222,14 @@ shopping_deposit_histories {
     DateTime created_at
     DateTime cancelled_at "nullable"
 }
-shopping_deposit_charges {
+"shopping_deposit_charges" {
     String id PK
     String shopping_customer_id FK
     Float amount
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_deposit_charge_publishes {
+"shopping_deposit_charge_publishes" {
     String id PK
     String shopping_deposit_charge_id FK
     String password "nullable"
@@ -2037,7 +2237,7 @@ shopping_deposit_charge_publishes {
     DateTime paid_at "nullable"
     DateTime cancelled_at "nullable"
 }
-shopping_mileages {
+"shopping_mileages" {
     String id PK
     String code UK
     String source
@@ -2046,7 +2246,7 @@ shopping_mileages {
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_mileage_histories {
+"shopping_mileage_histories" {
     String id PK
     String shopping_mileage_id FK
     String shopping_citizen_id FK
@@ -2055,7 +2255,7 @@ shopping_mileage_histories {
     DateTime created_at
     DateTime cancelled_at "nullable"
 }
-shopping_customers {
+"shopping_customers" {
     String id PK
     String shopping_channel_id FK
     String shopping_member_id FK "nullable"
@@ -2066,7 +2266,7 @@ shopping_customers {
     String ip
     DateTime created_at
 }
-shopping_citizens {
+"shopping_citizens" {
     String id PK
     String shopping_channel_id FK "nullable"
     String mobile
@@ -2074,13 +2274,13 @@ shopping_citizens {
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_deposit_histories }|--|| shopping_deposits : deposit
-shopping_deposit_histories }|--|| shopping_citizens : citizen
-shopping_deposit_charges }|--|| shopping_customers : customer
-shopping_deposit_charge_publishes |o--|| shopping_deposit_charges : charge
-shopping_mileage_histories }|--|| shopping_mileages : mileage
-shopping_mileage_histories }|--|| shopping_citizens : citizen
-shopping_customers }o--|| shopping_citizens : citizen
+"shopping_deposit_histories" }|--|| "shopping_deposits" : deposit
+"shopping_deposit_histories" }|--|| "shopping_citizens" : citizen
+"shopping_deposit_charges" }|--|| "shopping_customers" : customer
+"shopping_deposit_charge_publishes" |o--|| "shopping_deposit_charges" : charge
+"shopping_mileage_histories" }|--|| "shopping_mileages" : mileage
+"shopping_mileage_histories" }|--|| "shopping_citizens" : citizen
+"shopping_customers" }o--|| "shopping_citizens" : citizen
 ```
 
 ### `shopping_deposits`
@@ -2093,7 +2293,7 @@ refers to the deposit/outcome details of deposits, but is simply
 metadata that specifies specifications for income/outcome scenarios.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `code`: Identifier code.
   - `source`: The source table occuring the deposit event.
   - `direction`
@@ -2116,7 +2316,7 @@ outcome. The minus value must be expressed by multiplying the
 [shopping_deposits.direction](#shopping_deposits) value of the corresponding.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_deposit_id`: Belonged metadata's [shopping_deposits.id](#shopping_deposits)
   - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
   - `source_id`: The source record occured deposit/outcome. 
@@ -2144,7 +2344,7 @@ completes the [payment](#shopping_deposit_charge_publishes)
 will the deposit increase be confirmed.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_customer_id`: Belonged metadata's [shopping_deposits.id](#shopping_deposits)
   - `amount`: Charging amount.
   - `created_at`: Creation time of record.
@@ -2169,7 +2369,7 @@ However, even after payment has been made, there may be cases where it is
 suddenly canceled, so you must be careful about this as well.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_deposit_charge_id`: Belonged charge appliance's [shopping_deposit_charges.id](#shopping_deposit_charges)
   - `password`
     > Password for encryption.
@@ -2199,7 +2399,7 @@ specifies specifications for scenarios in which mileage is deposited and
 withdrawn.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `code`: Identifier code.
   - `source`: The source table occuring the mileage event.
   - `direction`
@@ -2228,7 +2428,7 @@ outcome. The minus value must be expressed by multiplying the
 [shopping_mileages.direction](#shopping_mileages) value of the corresponding.
 
 **Properties**
-  - `id`: 
+  - `id`: Primary Key.
   - `shopping_mileage_id`: Belonged metadata's [shopping_mileages.id](#shopping_mileages)
   - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
   - `source_id`: The source record occured income/outcome. 
@@ -2247,41 +2447,43 @@ outcome. The minus value must be expressed by multiplying the
 ## Inquiries
 ```mermaid
 erDiagram
-shopping_sale_snapshot_inquiries {
+"shopping_sale_snapshot_inquiries" {
     String id PK
+    String shopping_sale_id FK
     String shopping_sale_snapshot_id FK
     String shopping_customer_id FK
     String type
+    DateTime created_at
     DateTime read_by_seller_at "nullable"
 }
-shopping_sale_snapshot_questions {
+"shopping_sale_snapshot_questions" {
     String id PK
     Boolean secret
 }
-shopping_sale_snapshot_reviews {
+"shopping_sale_snapshot_reviews" {
     String id PK
     String shopping_order_good_id FK
 }
-shopping_sale_snapshot_review_snapshots {
+"shopping_sale_snapshot_review_snapshots" {
     String id PK
     Float score
 }
-shopping_sale_snapshot_inquiry_answers {
+"shopping_sale_snapshot_inquiry_answers" {
     String id PK
     String shopping_sale_snapshot_inquiry_id FK
-    String shopping_seller_id FK
+    String shopping_seller_customer_id FK
 }
-shopping_sale_snapshot_inquiry_comments {
+"shopping_sale_snapshot_inquiry_comments" {
     String id PK
-    String shopping_seller_id FK "nullable"
-    String shopping_customer_id FK "nullable"
+    String shopping_customer_id FK
+    String actor_type
 }
-bbs_articles {
+"bbs_articles" {
     String id PK
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-bbs_article_snapshots {
+"bbs_article_snapshots" {
     String id PK
     String bbs_article_id FK
     String format
@@ -2289,29 +2491,29 @@ bbs_article_snapshots {
     String body
     DateTime created_at
 }
-bbs_article_comments {
+"bbs_article_comments" {
     String id PK
     String bbs_article_id FK
     String parent_id FK "nullable"
     DateTime created_at
     DateTime deleted_at "nullable"
 }
-shopping_sale_snapshots {
+"shopping_sale_snapshots" {
     String id PK
     String shopping_sale_id FK
     DateTime created_at
 }
-shopping_sale_snapshot_inquiries ||--|| bbs_articles : base
-shopping_sale_snapshot_inquiries }|--|| shopping_sale_snapshots : snapshot
-shopping_sale_snapshot_questions |o--|| shopping_sale_snapshot_inquiries : base
-shopping_sale_snapshot_reviews |o--|| shopping_sale_snapshot_inquiries : base
-shopping_sale_snapshot_review_snapshots ||--|| bbs_article_snapshots : base
-shopping_sale_snapshot_inquiry_answers ||--|| bbs_articles : base
-shopping_sale_snapshot_inquiry_answers }|--|| shopping_sale_snapshot_inquiries : inquiry
-shopping_sale_snapshot_inquiry_comments ||--|| bbs_article_comments : base
-bbs_article_snapshots }|--|| bbs_articles : article
-bbs_article_comments }|--|| bbs_articles : article
-bbs_article_comments }o--o| bbs_article_comments : parent
+"shopping_sale_snapshot_inquiries" ||--|| "bbs_articles" : base
+"shopping_sale_snapshot_inquiries" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_questions" |o--|| "shopping_sale_snapshot_inquiries" : base
+"shopping_sale_snapshot_reviews" |o--|| "shopping_sale_snapshot_inquiries" : base
+"shopping_sale_snapshot_review_snapshots" ||--|| "bbs_article_snapshots" : base
+"shopping_sale_snapshot_inquiry_answers" ||--|| "bbs_articles" : base
+"shopping_sale_snapshot_inquiry_answers" |o--|| "shopping_sale_snapshot_inquiries" : inquiry
+"shopping_sale_snapshot_inquiry_comments" ||--|| "bbs_article_comments" : base
+"bbs_article_snapshots" }|--|| "bbs_articles" : article
+"bbs_article_comments" }|--|| "bbs_articles" : article
+"bbs_article_comments" }o--o| "bbs_article_comments" : parent
 ```
 
 ### `shopping_sale_snapshot_inquiries`
@@ -2338,6 +2540,10 @@ unless the seller is a party.
 
 **Properties**
   - `id`: PK + FK.
+  - `shopping_sale_id`
+    > Belonged sale's [shopping_sales.id](#shopping_sales)
+    > 
+    > Duplicated property for fast sorting.
   - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
   - `shopping_customer_id`: Writer customer's [shopping_customers.id](#shopping_customers)
   - `type`
@@ -2345,6 +2551,10 @@ unless the seller is a party.
     > 
     > - `question`
     > - `review`
+  - `created_at`
+    > Creation time of record.
+    > 
+    > Duplicated property for fast sorting.
   - `read_by_seller_at`: The first time when the seller read the inquiry.
 
 ### `shopping_sale_snapshot_questions`
@@ -2391,7 +2601,7 @@ A snapshot of the content of the review for the sale snapshot.
 
 `shopping_sale_snapshot_review_snapshots` is a subtype entity of 
 [bbs_article_snapshots](#bbs_article_snapshots) and is designed to add a `score` property 
-to the content of {@link shopping_sale_snapshot_reviews review article).
+to the content of [review article](#shopping_sale_snapshot_reviews).
 
 In other words, after writing a review article, customers can edit it 
 and change the evaluation `score` at any time.
@@ -2422,13 +2632,13 @@ articles.
 **Properties**
   - `id`: PK + FK
   - `shopping_sale_snapshot_inquiry_id`: Belonged inquiry's [shopping_sale_snapshot_inquiries.id](#shopping_sale_snapshot_inquiries)
-  - `shopping_seller_id`: Answered seller's [shopping_sellers.id](#shopping_sellers)
+  - `shopping_seller_customer_id`: Answered seller's [shopping_customers.id](#shopping_customers)
 
 ### `shopping_sale_snapshot_inquiry_comments`
 A comment written on a question post.
 
 `shopping_sale_snapshot_inquiry_comments` is a subtype entity of 
-{@link bbs_article_comments), and is used when you want to communicate with 
+[bbs_article_comments](#bbs_article_comments), and is used when you want to communicate with 
 multiple people about an [inquiry](#shopping_sale_snapshot_inquiries) 
 written by a [customer](#shopping_customers).
 
@@ -2439,5 +2649,9 @@ the person who wrote the inquiry.
 
 **Properties**
   - `id`: PK + FK
-  - `shopping_seller_id`: Writer seller's [shopping_sellers.id](#shopping_sellers)
-  - `shopping_customer_id`: Writer customer's [shopping_customers.id](#shopping_customers)
+  - `shopping_customer_id`: Writer's [shopping_customers.id](#shopping_customers)
+  - `actor_type`
+    > Type of the writer.
+    > 
+    > - customer
+    > - seller
