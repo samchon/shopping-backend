@@ -20,6 +20,7 @@ erDiagram
     String name "nullable"
     String extension "nullable"
     String url
+    DateTime created_at
 }
 "bbs_articles" {
     String id PK
@@ -89,6 +90,7 @@ For reference, it is possible to omit one of file name or extension like
     > 
     > Possible to omit like `README` case.
   - `url`: URL path of the real file.
+  - `created_at`: Creation time of record.
 
 ### `bbs_articles`
 Article entity.

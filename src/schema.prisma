@@ -60,6 +60,9 @@ model attachment_files {
     /// @format url
     url String @db.VarChar
 
+    /// Creation time of record.
+    created_at DateTime @db.Timestamptz
+
     //----
     // RELATIONS
     //----
