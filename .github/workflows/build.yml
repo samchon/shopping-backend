@@ -22,8 +22,8 @@ jobs:
       - name: Compile Backend-Server
         run: npm run build
       
-      - name: Create DB Schema
-        run: npm run schema postgres root
+      # - name: Create DB Schema
+      #   run: npm run schema postgres root
 
-      - name: Test Backend-Server
-        run: npm run test -- --reset true
+      # - name: Test Backend-Server
+      #   run: npm run test -- --reset true

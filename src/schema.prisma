@@ -1,6 +1,6 @@
 datasource db {
     provider = "postgresql"
-    url      = env("POSTGRES_URL")
+    url      = env("POSTGRESQL_URL")
 }
 
 generator client {
@@ -30,6 +30,8 @@ model attachment_files {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -40,6 +42,10 @@ model attachment_files {
     /// @minLength 1
     /// @maxLength 255
     name String? @db.VarChar
+
+    //-----------------------------------------------------------
+    // ARTICLES
+    //-----------------------------------------------------------
 
     /// Extension.
     ///
@@ -54,16 +60,15 @@ model attachment_files {
     /// @format url
     url String @db.VarChar
 
-    /// Creation time of file.
-    ///
-    /// @format date-time
+    /// Creation time of record.
     created_at DateTime @db.Timestamptz
 
     //----
     // RELATIONS
     //----
-    bbs_article_snapshot_files          bbs_article_snapshot_files[]
-    bbs_article_comment_snapshots_files bbs_article_comment_snapshot_files[]
+    bbs_article_snapshot_files           bbs_article_snapshot_files[]
+    bbs_article_comment_snapshots_files  bbs_article_comment_snapshot_files[]
+    shopping_sale_snapshot_content_files shopping_sale_snapshot_content_files[]
 }
 
 /// Article entity.
@@ -91,6 +96,8 @@ model attachment_files {
 /// @erd Inquiries
 /// @author Samchon
 model bbs_articles {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -115,10 +122,12 @@ model bbs_articles {
     snapshots bbs_article_snapshots[]
 
     /// List of comments.
-    comments                               bbs_article_comments[]
+    comments bbs_article_comments[]
+
     shopping_sale_snapshot_inquiries       shopping_sale_snapshot_inquiries[]
     shopping_sale_snapshot_inquiry_answers shopping_sale_snapshot_inquiry_answers[]
-    mv_last                                mv_bbs_article_last_snapshots?
+
+    mv_last mv_bbs_article_last_snapshots?
 
     @@index([created_at])
 }
@@ -137,6 +146,8 @@ model bbs_article_snapshots {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -168,9 +179,11 @@ model bbs_article_snapshots {
     article bbs_articles @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
 
     /// List of wrappers of attachment files.
-    to_files                                bbs_article_snapshot_files[]
+    to_files bbs_article_snapshot_files[]
+
     shopping_sale_snapshot_review_snapshots shopping_sale_snapshot_review_snapshots[]
-    mv_last                                 mv_bbs_article_last_snapshots?
+
+    mv_last mv_bbs_article_last_snapshots?
 
     @@index([bbs_article_id, created_at])
 }
@@ -192,6 +205,8 @@ model bbs_article_snapshot_files {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -244,6 +259,8 @@ model bbs_article_comments {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -310,6 +327,8 @@ model bbs_article_comment_snapshots {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -355,6 +374,8 @@ model bbs_article_comment_snapshot_files {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -407,6 +428,8 @@ model shopping_channels {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -429,7 +452,11 @@ model shopping_channels {
     updated_at DateTime @db.Timestamptz
 
     /// Deletion time of record.
-    deleted_at                        DateTime?                           @db.Timestamptz
+    deleted_at DateTime? @db.Timestamptz
+
+    //----
+    // RELATIONS
+    //----
     shopping_channel_categories       shopping_channel_categories[]
     shopping_customers                shopping_customers[]
     shopping_citizens                 shopping_citizens[]
@@ -438,18 +465,16 @@ model shopping_channels {
     shopping_sale_snapshot_channels   shopping_sale_snapshot_channels[]
     shopping_coupon_channel_criterias shopping_coupon_channel_criterias[]
 
-    //----
-    // RELATIONS
-    //----
     @@unique([code])
     @@unique([name])
+    @@index([created_at])
 }
 
 /// Category of channel.
 ///
-/// ` is a concept that refers to classification categories within a specific 
-/// channel, and is exactly the same as the concept commonly referred to as 
-/// "category" in shopping malls.
+/// `shopping_channel_categories` is a concept that refers to classification 
+/// categories within a specific channel, and is exactly the same as the concept 
+/// commonly referred to as "category" in shopping malls.
 ///
 /// And `shopping_channel_categories` is different with 
 /// {@link shopping_sections}. {@link shopping_sections} refers to a "corner" 
@@ -481,6 +506,8 @@ model shopping_channel_categories {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -518,8 +545,7 @@ model shopping_channel_categories {
     shopping_coupon_channel_criterias         shopping_coupon_channel_criterias[]
 
     @@unique([shopping_channel_id, parent_id, name])
-    @@index([parent_id, name])
-    @@index([name])
+    @@index([parent_id])
 }
 
 /// Section information.
@@ -543,6 +569,8 @@ model shopping_sections {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -569,6 +597,7 @@ model shopping_sections {
 
     @@unique([code])
     @@unique([name])
+    @@index([created_at])
 }
 
 //-----------------------------------------------------------
@@ -577,23 +606,23 @@ model shopping_sections {
 /// Customer information, but not a person but a **connection** basis.
 ///
 /// `shopping_customers` is an entity that literally embodies the information 
-/// of those who participated in the market as customers. However, 
-/// `shopping_customers` is different from {@link shopping_sellers} or 
-/// {@link shopping_administrators}, where each person has one record based on 
-/// membership registration. `shopping_customers` issues a new record every 
-/// time it **connects**, even if it is the same person.
+/// of those who participated in the market as customers. By the way, the
+/// `shopping_Customers` does not mean a person, but a **connection** basis.
+/// Therefore, even if the same person connects to the shopping mall multiple,
+/// multiple records are created in `shopping_customers`.
 /// 
-/// The first purpose of this is to track the customer's inflow path in detail, and it is 
-/// for cases where the same person enters as a non-member, puts items in the 
+/// The first purpose of this is to track the customer's inflow path in detail, and 
+/// it is for cases where the same person enters as a non-member, puts items in the 
 /// {@link shopping_cart_commodities shopping cart} in advance, and only authenticates 
 /// their real name or registers/logs in at the moment of 
 /// {@link shopping_order_publishes payment}. It is the second. Lastly, it is 
 /// to accurately track the activities that a person performs at the 
-/// shopping mall in various ways, such as the same person accessing an 
-/// {@link shopping_external_users external service} to make a purchase, 
-/// creating multiple {@link shopping_members accounts} to make a purchase, 
-/// and making a purchase as a non-member with only 
-/// {@link shopping_citizens real name authentication}.
+/// shopping mall in various ways like below.
+///
+/// - Same person comes from an {@link shopping_external_users external service}
+/// - Same person creates multiple {@link shopping_members accounts}
+/// - Same person makes a purchase as a non-member with only {@link shopping_citizens real name authentication}
+/// - Same person acts both {@link shopping_sellers seller} and {@link shopping_administrators admin} at the same time
 /// 
 /// Therefore, `shopping_customers` can have multiple records with the same 
 /// {@link shopping_citizens}, {@link shopping_members}, and 
@@ -610,6 +639,8 @@ model shopping_customers {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -670,13 +701,27 @@ model shopping_customers {
     external_user shopping_external_users? @relation(fields: [shopping_external_user_id], references: [id], onDelete: Cascade)
 
     /// Belonged citizen.
-    citizen                                 shopping_citizens?                        @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
+    citizen shopping_citizens? @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
+
     shopping_carts                          shopping_carts[]
-    shopping_orders                         shopping_orders[]
+    shopping_coupons                        shopping_coupons[]
     shopping_coupon_tickets                 shopping_coupon_tickets[]
+    shopping_deliveries                     shopping_deliveries[]
     shopping_deposit_charges                shopping_deposit_charges[]
+    shopping_orders                         shopping_orders[]
+    shopping_sales                          shopping_sales[]
     shopping_sale_snapshot_inquiries        shopping_sale_snapshot_inquiries[]
+    shopping_sale_snapshot_inquiry_answers  shopping_sale_snapshot_inquiry_answers[]
     shopping_sale_snapshot_inquiry_comments shopping_sale_snapshot_inquiry_comments[]
+
+    @@index([shopping_channel_id, created_at])
+    @@index([shopping_citizen_id, created_at])
+    @@index([shopping_external_user_id, created_at])
+    @@index([shopping_member_id, created_at])
+    @@index([href])
+    @@index([referrer])
+    @@index([ip])
+    @@index([created_at])
 }
 
 /// External user information.
@@ -710,12 +755,14 @@ model shopping_external_users {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
     /// Identifier code of the external service.
     ///
-    /// It can be same with {@link shopping_channels_code} in common.
+    /// It can be same with {@link shopping_channels.code} in common.
     application String @db.VarChar
 
     /// Identifier key of external user from the external system.
@@ -748,6 +795,8 @@ model shopping_external_users {
 
     @@unique([application, uid])
     @@unique([application, nickname])
+    @@index([application, created_at])
+    @@index([created_at])
 }
 
 /// Citizen verification information.
@@ -771,6 +820,8 @@ model shopping_citizens {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -802,11 +853,21 @@ model shopping_citizens {
     //----
     // RELATIONS
     //----
-    channel                    shopping_channels?           @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
-    shopping_customers         shopping_customers[]
-    shopping_members           shopping_members[]
-    shopping_deposit_histories shopping_deposit_histories[]
-    shopping_mileage_histories shopping_mileage_histories[]
+    channel shopping_channels? @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
+
+    customers         shopping_customers[]
+    members           shopping_members[]
+    deposit_histories shopping_deposit_histories[]
+    mileage_histories shopping_mileage_histories[]
+
+    mv_deposit_balance                     mv_shopping_deposit_balances?
+    mv_mileage_balance                     mv_shopping_mileage_balances?
+    mv_shopping_coupon_citizen_inventories mv_shopping_coupon_citizen_inventories[]
+
+    @@unique([shopping_channel_id, mobile])
+    @@index([mobile])
+    @@index([name])
+    @@index([created_at])
 }
 
 /// Member Account.
@@ -835,6 +896,8 @@ model shopping_members {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -882,6 +945,12 @@ model shopping_members {
 
     of_seller shopping_sellers?
     of_admin  shopping_administrators?
+
+    @@unique([shopping_channel_id, nickname])
+    @@unique([shopping_channel_id, shopping_citizen_id])
+    @@index([shopping_citizen_id])
+    @@index([nickname])
+    @@index([created_at])
 }
 
 /// Email address of member.
@@ -905,6 +974,7 @@ model shopping_member_emails {
     /// just denormalized for composing unique constraint.
     ///
     /// @format uuid
+    /// @hidden
     shopping_channel_id String @db.Uuid
 
     /// Belonged member's {@link shopping_members.id}
@@ -925,25 +995,38 @@ model shopping_member_emails {
     //----
     channel shopping_channels @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
     member  shopping_members  @relation(fields: [shopping_member_id], references: [id], onDelete: Cascade)
+
+    @@unique([shopping_channel_id, value])
+    @@unique([shopping_member_id, value])
+    @@index([value])
 }
 
 /// Seller information.
 ///
-/// `shopping_sellers` is a subtype entity of {@link shopping_members}, and
-/// it means a person who registers {@link shopping_sales sales} to operate
-/// selling activities.
+/// `shopping_sellers` is an entity that embodies a person who registers
+/// {@link shoppingsales sales} to operate selling activities, with 
+/// {@link shoppingmembers membership} joining.
+///
+/// For reference, unlike {@link shopping_customers customers} which can 
+/// participate even without {@link shopping_members membership} joining, 
+/// seller must join membership to operate sales. Also, seller must
+/// do the {@link shopping_citizens real-name authentication}, too. 
 ///
 /// @namespace Actors
-/// @erd Sales
 /// @author Samchon
 model shopping_sellers {
     //----
     // COLUMNS
     //----
-    /// PK + FK.
+    /// Primary Key.
     ///
     /// @format uuid
     id String @id @db.Uuid
+
+    /// Belonged member's {@link shopping_members.id}.
+    ///
+    /// @format uuid
+    shopping_member_id String @db.Uuid
 
     /// Creation time of record.
     ///
@@ -957,19 +1040,25 @@ model shopping_sellers {
     deleted_at DateTime? @db.Timestamptz
 
     //----
-    // RELATIONS
+    // RELATIONSHIPS
     //----
-    base                                    shopping_members                          @relation(fields: [id], references: [id], onDelete: Cascade)
-    shopping_sales                          shopping_sales[]
-    shopping_order_goods                    shopping_order_goods[]
-    shopping_deliveries                     shopping_deliveries[]
-    shopping_coupons                        shopping_coupons[]
-    shopping_coupon_seller_criterias        shopping_coupon_seller_criterias[]
-    shopping_sale_snapshot_inquiry_answers  shopping_sale_snapshot_inquiry_answers[]
-    shopping_sale_snapshot_inquiry_comments shopping_sale_snapshot_inquiry_comments[]
+    member                           shopping_members                   @relation(fields: [shopping_member_id], references: [id], onDelete: Cascade)
+    shopping_order_goods             shopping_order_goods[]
+    shopping_coupon_seller_criterias shopping_coupon_seller_criterias[]
+
+    @@unique([shopping_member_id])
+    @@index([created_at])
 }
 
 /// Administrator account.
+///
+/// `shopping_administrators` is an entity that embodies a person who manages
+/// the shopping mall system, with {@link shopping_members membership} joining.
+///
+/// For reference, unlike {@link shopping_customers customers} which can 
+/// participate even without {@link shopping_members membership} joining, 
+/// administrator must join membership to operate sales. Also, administrator must
+/// do the {@link shopping_citizens real-name authentication}, too. 
 ///
 /// @todo Not detailed yet.
 /// @namespace Actors
@@ -978,10 +1067,15 @@ model shopping_administrators {
     //----
     // COLUMNS
     //----
-    /// PK + FK.
+    /// Primary Key.
     ///
     /// @format uuid
     id String @id @db.Uuid
+
+    /// Belonged member's {@link shopping_members.id}.
+    ///
+    /// @format uuid
+    shopping_member_id String @db.Uuid
 
     /// Creation time of record.
     ///
@@ -998,8 +1092,10 @@ model shopping_administrators {
     //----
     // RELATIONS
     //----
-    base             shopping_members   @relation(fields: [id], references: [id], onDelete: Cascade)
-    shopping_coupons shopping_coupons[]
+    member shopping_members @relation(fields: [id], references: [id], onDelete: Cascade)
+
+    @@unique([shopping_member_id])
+    @@index([created_at])
 }
 
 /// The address information.
@@ -1011,6 +1107,8 @@ model shopping_addresses {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1083,6 +1181,8 @@ model shopping_sales {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1091,12 +1191,15 @@ model shopping_sales {
     /// @format uuid
     shopping_section_id String @db.Uuid
 
-    /// Belonged seller's {@link shopping_sellers.id}
+    /// Belonged seller's {@link shopping_customers.id}
     ///
     /// @format uuid
-    shopping_seller_id String @db.Uuid
+    shopping_seller_customer_id String @db.Uuid
 
     /// Creation time of record.
+    ///
+    /// Note that, this property is different with `opened_at`, which means
+    /// the opening time of sale.
     created_at DateTime @db.Timestamptz
 
     /// Opening time of sale.
@@ -1134,11 +1237,19 @@ model shopping_sales {
     //----
     // RELATIONS
     //----
-    section shopping_sections @relation(fields: [shopping_section_id], references: [id], onDelete: Cascade)
-    seller  shopping_sellers  @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
+    section        shopping_sections         @relation(fields: [shopping_section_id], references: [id], onDelete: Cascade)
+    sellerCustomer shopping_customers        @relation(fields: [shopping_seller_customer_id], references: [id], onDelete: Cascade)
+    snapshots      shopping_sale_snapshots[]
 
-    snapshots                      shopping_sale_snapshots[]
+    inquiries                      shopping_sale_snapshot_inquiries[]
     shopping_coupon_sale_criterias shopping_coupon_sale_criterias[]
+
+    mv_last mv_shopping_sale_last_snapshots?
+
+    @@index([shopping_section_id])
+    @@index([shopping_seller_customer_id])
+    @@index([created_at])
+    @@index([opened_at, closed_at, suspended_at])
 }
 
 /// Sale snapshot information.
@@ -1162,6 +1273,8 @@ model shopping_sale_snapshots {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1179,12 +1292,20 @@ model shopping_sale_snapshots {
     // RELATIONS
     //----
     /// Belonged sale.
-    sale                             shopping_sales                     @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
-    shopping_sale_snapshot_contents  shopping_sale_snapshot_contents?
-    shopping_sale_snapshot_channels  shopping_sale_snapshot_channels[]
-    shopping_sale_snapshot_units     shopping_sale_snapshot_units[]
+    sale shopping_sales @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
+
+    content     shopping_sale_snapshot_contents?
+    to_channels shopping_sale_snapshot_channels[]
+    units       shopping_sale_snapshot_units[]
+    tags        shopping_sale_snapshot_tags[]
+
     shopping_cart_commodities        shopping_cart_commodities[]
     shopping_sale_snapshot_inquiries shopping_sale_snapshot_inquiries[]
+
+    mv_last  mv_shopping_sale_last_snapshots?
+    mv_price mv_shopping_sale_snapshot_prices?
+
+    @@index([shopping_sale_id, created_at])
 }
 
 /// Content information of sale snapshot.
@@ -1193,12 +1314,14 @@ model shopping_sale_snapshots {
 /// of {@link shopping_sale_snapshots sale snapshot}. Also, it contains
 /// revert policy of the sale.
 ///
-/// @namespace Sales
+/// @describe Sales
 /// @author Samchon
 model shopping_sale_snapshot_contents {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1231,8 +1354,43 @@ model shopping_sale_snapshot_contents {
     /// Belonged snapshot.
     snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
 
+    to_files shopping_sale_snapshot_content_files[]
+
     @@unique([shopping_sale_snapshot_id])
     @@index([title])
+}
+
+/// Attachment file of sale snapshot content.
+///
+/// @describe Sales
+/// @author Samchon
+model shopping_sale_snapshot_content_files {
+    id                                String @id @db.Uuid
+    shopping_sale_snapshot_content_id String @db.Uuid
+    attachment_file_id                String @db.Uuid
+    sequence                          Int    @db.Integer
+
+    content shopping_sale_snapshot_contents @relation(fields: [shopping_sale_snapshot_content_id], references: [id], onDelete: Cascade)
+    file    attachment_files                @relation(fields: [attachment_file_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_sale_snapshot_content_id])
+    @@index([attachment_file_id])
+}
+
+/// Search tag of sale snapshot.
+///
+/// @describe Sales
+/// @author Samchon
+model shopping_sale_snapshot_tags {
+    id                        String @id @db.Uuid
+    shopping_sale_snapshot_id String @db.Uuid
+    value                     String @db.VarChar
+    sequence                  Int    @db.Integer
+
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
+
+    @@unique([shopping_sale_snapshot_id, value])
+    @@index([value])
 }
 
 /// Target channel of sale snapshot to sell.
@@ -1249,6 +1407,8 @@ model shopping_sale_snapshot_channels {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1273,6 +1433,7 @@ model shopping_sale_snapshot_channels {
     to_categories shopping_sale_snapshot_channel_categories[]
 
     @@unique([shopping_sale_snapshot_id, shopping_channel_id])
+    @@index([shopping_channel_id])
 }
 
 /// Category classification info of sale snapshot.
@@ -1294,6 +1455,8 @@ model shopping_sale_snapshot_channel_categories {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1328,10 +1491,10 @@ model shopping_sale_snapshot_channel_categories {
 /// 
 /// For reference, the reason why `shopping_sale_snapshot_units` is separated 
 /// from {@link shopping_sale_snapshots} by an algebraic relationship of 
-/// 1: N is because there are often cases where multiple products are sold 
+/// 1: N is because there are some cases where multiple products are sold 
 /// in one listing. This is the case with so-called "bundled products".
 /// 
-/// - Bundle from regular product (laptop set)
+/// - Bundle from regular product (Macbook Set)
 ///   - main body
 ///   - keyboard
 ///   - mouse
@@ -1345,7 +1508,7 @@ model shopping_sale_snapshot_channel_categories {
 /// {@link shopping_sale_snapshot_unit_options options} and their 
 /// {@link shopping_sale_snapshot_unit_option_candidates candidate} values.
 /// 
-/// For example, even if you buy a laptop, the 
+/// For example, even if you buy a Macbook, the 
 /// {@link shopping_sale_snapshot_unit_stocks final stocks} are determined 
 /// only after selecting all the 
 /// {@link shopping_sale_snapshot_unit_options options} (CPU / RAM / SSD), etc.
@@ -1357,6 +1520,8 @@ model shopping_sale_snapshot_units {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1377,6 +1542,10 @@ model shopping_sale_snapshot_units {
     ///
     /// When the unit is required, the customer must select the unit. If do
     /// not select, customer can't buy it.
+    ///
+    /// For example, if there's a sale "Macbook Set" and one of the unit is 
+    /// the "Main Body", is it possible to buy the "Macbook Set" without the 
+    /// "Main Body" unit? This property is for that case.
     required Boolean @db.Boolean
 
     /// Sequence order in belonged snapshot.
@@ -1394,6 +1563,8 @@ model shopping_sale_snapshot_units {
     /// List of stocks.
     stocks                         shopping_sale_snapshot_unit_stocks[]
     shopping_cart_commodity_stocks shopping_cart_commodity_stocks[]
+
+    @@unique([shopping_sale_snapshot_id, name])
 }
 
 /// Individual option information on units for sale.
@@ -1430,6 +1601,8 @@ model shopping_sale_snapshot_unit_options {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1500,6 +1673,8 @@ model shopping_sale_snapshot_unit_option_candidates {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1561,6 +1736,8 @@ model shopping_sale_snapshot_unit_stocks {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1586,10 +1763,15 @@ model shopping_sale_snapshot_unit_stocks {
     /// @minimum 0
     real_price Float @db.DoublePrecision
 
-    /// Tax to pay.
+    /// Initial inventory quantity.
+    ///
+    /// If this stock has been sold over this quantity count, the stock can't
+    /// be sold anymore, because of out of stock. In that case, the seller can
+    /// supplement the inventory quantity by registering some 
+    /// {@link shopping_sale_snapshot_unit_stock_supplements} records.
     ///
     /// @minimum 0
-    tax Float @db.DoublePrecision
+    quantity Int
 
     /// Sequence order in belonged unit.
     sequence Int @db.Integer
@@ -1603,8 +1785,14 @@ model shopping_sale_snapshot_unit_stocks {
     /// List of choices.
     ///
     /// Which candidate values are chosen in each option.
-    choices                        shopping_sale_snapshot_unit_stock_choices[]
+    choices shopping_sale_snapshot_unit_stock_choices[]
+
+    /// List of supplements of inventory quantity.
+    supplements shopping_sale_snapshot_unit_stock_supplements[]
+
     shopping_cart_commodity_stocks shopping_cart_commodity_stocks[]
+
+    mv_inventory mv_shopping_sale_snapshot_unit_stock_inventories?
 
     @@unique([shopping_sale_snapshot_unit_id, name])
 }
@@ -1616,7 +1804,7 @@ model shopping_sale_snapshot_unit_stocks {
 /// "select" `type` was selected for each stock and which 
 /// {@link shopping_sale_snapshot_unit_option_candidates candidate value} was 
 /// selected within it.
-
+/// 
 /// Of course, if the bound {@link shopping_sale_snapshot_units unit} does not 
 /// have any {@link shopping_sale_snapshot_unit_options options}, this entity 
 /// can also be ignored.
@@ -1627,6 +1815,8 @@ model shopping_sale_snapshot_unit_stock_choices {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1655,6 +1845,52 @@ model shopping_sale_snapshot_unit_stock_choices {
     @@unique([shopping_sale_snapshot_unit_stock_id, shopping_sale_snapshot_unit_option_candidate_id])
 }
 
+/// Supplementation of inventory quantity of stock.
+///
+/// You know what? If a stock has been sold over its 
+/// {@link shopping_sale_snapshot_unit_stocks.inventory initial inventory quantity},
+/// the stock can't be sold anymore, because of out of stock. In that case, how the
+/// {@link shopping_sellers} should do?
+///
+/// When the sotck is sold out, seller can supplement the inventory record by
+/// registering this `shopping_sale_snapshot_unit_stock_supplements` record. Right,
+/// this `shopping_sale_snapshot_unit_stock_supplements` is an entity that embodies
+/// the supplementation of the inventory quantity of the belonged 
+/// {@link shopping_sale_snapshot_unit_stocks stock}.
+///
+/// @describe Sales
+/// @author Samchon
+model shopping_sale_snapshot_unit_stock_supplements {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Belonged stock's {@link shopping_sale_snapshot_unit_stocks.id}
+    ///
+    /// @format uuid
+    shopping_sale_snapshot_unit_stock_id String @db.Uuid
+
+    /// Supplemented inventory quantity.
+    quantity Int
+
+    /// Creation time of record.
+    ///
+    /// When the inventory be supplemented.
+    created_at DateTime @db.Timestamptz
+
+    //----
+    // RELATIONS
+    //----
+    /// Belonged stock.
+    stock shopping_sale_snapshot_unit_stocks @relation(fields: [shopping_sale_snapshot_unit_stock_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_sale_snapshot_unit_stock_id, created_at])
+}
+
 //-----------------------------------------------------------
 // CARTS
 //-----------------------------------------------------------
@@ -1663,6 +1899,12 @@ model shopping_sale_snapshot_unit_stock_choices {
 /// `shopping_carts` is literally a space where 
 /// {@link shopping_customers customer} temporarily stores products before
 /// {@link shopping_orders purchase}.
+///
+/// By the way, it is possible for {@link shopping_sellers sellers} or 
+/// {@link shopping_administrators administrators} to compose a shopping cart.
+/// Of course, the reason why they can compose a shopping cart is not for
+/// {@link shopping_orders purchasing}, but for providing a shopping cart template
+/// to {@link shopping_customers customers}.
 ///
 /// Sale | Cart | Order
 /// -----|------|------
@@ -1676,6 +1918,8 @@ model shopping_carts {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1684,8 +1928,18 @@ model shopping_carts {
     /// @format uuid
     shopping_customer_id String @db.Uuid
 
+    /// Type of the cart creator.
+    ///
+    /// - customer
+    /// - seller
+    /// - administrator
+    actor_type String @db.VarChar
+
     /// Creation time of record.
     created_at DateTime @db.Timestamptz
+
+    /// Deletion time of record.
+    deleted_at DateTime? @db.Timestamptz
 
     //----
     // RELATIONS
@@ -1695,6 +1949,8 @@ model shopping_carts {
 
     /// List of commodities containing sale snapshot.
     commodities shopping_cart_commodities[]
+
+    @@index([shopping_customer_id, actor_type, created_at, deleted_at])
 }
 
 /// Item in a shopping cart.
@@ -1719,11 +1975,14 @@ model shopping_carts {
 ///
 /// 
 /// @namespace Carts
+/// @erd Orders
 /// @author Samchon
 model shopping_cart_commodities {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1756,6 +2015,8 @@ model shopping_cart_commodities {
     /// cart commodity. This variable can be computed by referencing 
     /// {@link Orders order} related tables, but just denormalized for the
     /// performance reason.
+    ///
+    /// @hidden
     published Boolean
 
     //----
@@ -1772,6 +2033,8 @@ model shopping_cart_commodities {
 
     /// List of order goods for purchase.
     order_goods shopping_order_goods[]
+
+    mv_price mv_shopping_cart_commodity_prices?
 
     @@index([shopping_cart_id, created_at])
     @@index([shopping_sale_snapshot_id])
@@ -1797,11 +2060,14 @@ model shopping_cart_commodities {
 /// {@link shopping_cart_commodities.volume} value of the parent entity.
 ///
 /// @namespace Carts
+/// @erd Orders
 /// @author Samchon
 model shopping_cart_commodity_stocks {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1876,6 +2142,8 @@ model shopping_cart_commodity_stock_choices {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -1951,6 +2219,8 @@ model shopping_orders {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2005,9 +2275,11 @@ model shopping_orders {
     goods shopping_order_goods[]
 
     /// List of payed tickets for discount
-    ticket_payments shopping_coupon_ticket_payments[]
+    ticket_payments          shopping_coupon_ticket_payments[]
+    mv_shopping_order_prices mv_shopping_order_prices[]
 
     @@index([shopping_customer_id, created_at])
+    @@index([created_at])
 }
 
 /// Information about the individual goods that make up your order.
@@ -2024,7 +2296,7 @@ model shopping_orders {
 /// 
 /// For reference, `shopping_order_goods` also contains `volume` information 
 /// separately from the belonging {@link shopping_cart_commodities.volume}. This is 
-/// because there are often cases where you put 3 books in your shopping cart 
+/// because there are some cases where you put 3 books in your shopping cart 
 /// and then change them to 4 during the actual order application process. 
 /// This is to increase the reusability of the shopping cart by changing the 
 /// volume attribute of the current entity rather than directly changing the 
@@ -2043,6 +2315,8 @@ model shopping_order_goods {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2062,6 +2336,7 @@ model shopping_order_goods {
     /// but denormalized for performance reason.
     ///
     /// @format uuid
+    /// @hidden
     shopping_seller_id String @db.Uuid
 
     /// Volume count.
@@ -2100,12 +2375,15 @@ model shopping_order_goods {
     commodity shopping_cart_commodities @relation(fields: [shopping_cart_commodity_id], references: [id], onDelete: Cascade)
 
     /// Belonged seller.
-    seller                         shopping_sellers                 @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
-    shopping_delivery_pieces       shopping_delivery_pieces[]
-    shopping_sale_snapshot_reviews shopping_sale_snapshot_reviews[]
+    seller          shopping_sellers                 @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
+    delivery_pieces shopping_delivery_pieces[]
+    reviews         shopping_sale_snapshot_reviews[]
 
-    @@index([shopping_order_id])
+    mv_price mv_shopping_order_good_prices?
+
+    @@unique([shopping_order_id, shopping_cart_commodity_id])
     @@index([shopping_cart_commodity_id])
+    @@index([shopping_seller_id])
 }
 
 /// Order completion and payment information.
@@ -2119,7 +2397,7 @@ model shopping_order_goods {
 /// By the way, please note that just because the `shopping_order_publishes` 
 /// record exists, it does not mean that the payment has been completed. 
 /// Of course, with "credit cards" and "Google Pay", payment application and 
-/// payment occur at the same time. However, there are often cases where 
+/// payment occur at the same time. However, there are some cases where 
 /// payment is made after the payment application, such as "bank transfer" or 
 /// "virtual account payment". Therefore, to see the completion of payment, 
 /// be sure to check the `paid_at` property.
@@ -2133,6 +2411,8 @@ model shopping_order_publishes {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2195,23 +2475,34 @@ model shopping_deliveries {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
     /// Belonged seller's {@link shopping_sellers id}
     ///
     /// @format uuid
-    shopping_seller_id String @db.Uuid
+    shopping_seller_customer_id String @db.Uuid
 
     /// Invoice code if exists.
     invoice_code String? @db.VarChar
 
+    /// Creation time of record.
+    created_at DateTime @db.Timestamptz
+
     //----
     // RELATIONS
     //----
-    seller   shopping_sellers             @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
-    journeys shopping_delivery_journeys[]
-    pieces   shopping_delivery_pieces[]
+    sellerCustomer shopping_customers           @relation(fields: [shopping_seller_customer_id], references: [id], onDelete: Cascade)
+    journeys       shopping_delivery_journeys[]
+    pieces         shopping_delivery_pieces[]
+    // Considering principles, it must be UK. 
+    // However, some seller takes a mistake, so it can't be.
+
+    @@index([shopping_seller_customer_id, created_at])
+    @@index([invoice_code])
+    @@index([created_at])
 }
 
 /// Which stocks are delivered.
@@ -2222,6 +2513,8 @@ model shopping_delivery_pieces {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2258,6 +2551,10 @@ model shopping_delivery_pieces {
     delivery             shopping_deliveries            @relation(fields: [shopping_delivery_id], references: [id], onDelete: Cascade)
     good                 shopping_order_goods           @relation(fields: [shopping_order_good_id], references: [id], onDelete: Cascade)
     cart_commodity_stock shopping_cart_commodity_stocks @relation(fields: [shopping_cart_commodity_stock_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_delivery_id])
+    @@index([shopping_order_good_id])
+    @@index([shopping_cart_commodity_stock_id])
 }
 
 /// Journey of delivery.
@@ -2268,19 +2565,20 @@ model shopping_delivery_journeys {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
     /// @format uuid
     shopping_delivery_id String @db.Uuid
 
-    /// State of journey.
+    /// Type of journey.
     ///
     /// - preparing
     /// - shipping
     /// - delivering
-    /// - arrived
-    state String @db.VarChar
+    type String @db.VarChar
 
     /// Title of journey.
     title String? @db.VarChar
@@ -2302,6 +2600,8 @@ model shopping_delivery_journeys {
     //----
     /// Belonged delivery.
     delivery shopping_deliveries @relation(fields: [shopping_delivery_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_delivery_id])
 }
 
 //-----------------------------------------------------------
@@ -2338,18 +2638,21 @@ model shopping_delivery_journeys {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupons {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
-    /// Belonged administrator's {@link administrators.id}
+    /// Belonged administrator or seller's {@link shopping_customers.id}
     ///
     /// @format uuid
-    shopping_administrator_id String? @db.Uuid
+    shopping_customer_id String @db.Uuid
 
-    /// Belonged seller's {@link shopping_sellers.id}
+    /// Type of the coupon creator.
     ///
-    /// @format uuid
-    shopping_seller_id String? @db.Uuid
+    /// - administrator
+    /// - seller
+    actor_type String @db.VarChar
 
     /// Reprensentative name of coupon.
     name String @db.VarChar
@@ -2475,11 +2778,8 @@ model shopping_coupons {
     //----
     // RELATIONS
     //----
-    /// Administrator who created this coupon.
-    administrator shopping_administrators? @relation(fields: [shopping_administrator_id], references: [id], onDelete: Cascade)
-
-    /// Seller who created this coupon.
-    seller shopping_sellers? @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
+    /// Administrator or seller who've designed this coupon.
+    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
 
     /// List of criterias.
     criterias shopping_coupon_criterias[]
@@ -2494,10 +2794,14 @@ model shopping_coupons {
     /// List of tickets.
     ///
     /// Histories of tickets issued to customers.
-    tickets shopping_coupon_tickets[]
+    tickets                                shopping_coupon_tickets[]
+    mv_shopping_coupon_inventories         mv_shopping_coupon_inventories[]
+    mv_shopping_coupon_citizen_inventories mv_shopping_coupon_citizen_inventories[]
 
-    @@index([shopping_administrator_id])
-    @@index([shopping_seller_id])
+    @@index([shopping_customer_id, actor_type])
+    @@index([name])
+    @@index([created_at])
+    @@index([opened_at])
 }
 
 /// Supertype for the applicable conditions of the discount coupon.
@@ -2520,6 +2824,8 @@ model shopping_coupons {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupon_criterias {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2575,6 +2881,8 @@ model shopping_coupon_criterias {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupon_section_criterias {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2612,6 +2920,8 @@ model shopping_coupon_section_criterias {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupon_channel_criterias {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2770,6 +3080,8 @@ model shopping_coupon_funnel_criterias {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupon_tickets {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2812,9 +3124,8 @@ model shopping_coupon_tickets {
     payment shopping_coupon_ticket_payments?
 
     @@unique([shopping_coupon_disposable_id])
-    @@index([shopping_customer_id])
-    @@index([shopping_coupon_id])
-    @@index([shopping_coupon_disposable_id])
+    @@index([shopping_customer_id, created_at])
+    @@index([shopping_coupon_id, created_at])
 }
 
 /// Discount coupon ticket payment details.
@@ -2839,6 +3150,8 @@ model shopping_coupon_tickets {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupon_ticket_payments {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2894,6 +3207,8 @@ model shopping_coupon_ticket_payments {
 /// @namespace Coupons
 /// @author Samchon
 model shopping_coupon_disposables {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2943,6 +3258,8 @@ model shopping_deposits {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -2972,6 +3289,7 @@ model shopping_deposits {
 
     @@unique([code])
     @@index([source])
+    @@index([created_at])
 }
 
 /// Deposit income/outcome details of customers (citizens).
@@ -2990,6 +3308,8 @@ model shopping_deposit_histories {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -3030,6 +3350,11 @@ model shopping_deposit_histories {
     //----
     deposit shopping_deposits @relation(fields: [shopping_deposit_id], references: [id])
     citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+
+    @@index([shopping_deposit_id, created_at, cancelled_at])
+    @@index([shopping_deposit_id, source_id, created_at, cancelled_at])
+    @@index([shopping_citizen_id, created_at, cancelled_at])
+    @@index([created_at, cancelled_at])
 }
 
 /// Deposit deposit.
@@ -3049,6 +3374,8 @@ model shopping_deposit_charges {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -3075,6 +3402,9 @@ model shopping_deposit_charges {
     //----
     customer shopping_customers                 @relation(fields: [shopping_customer_id], references: [id])
     publish  shopping_deposit_charge_publishes?
+
+    @@index([shopping_customer_id, created_at, deleted_at])
+    @@index([created_at, deleted_at])
 }
 
 /// Payment progress information for deposits.
@@ -3097,6 +3427,8 @@ model shopping_deposit_charge_publishes {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -3146,6 +3478,8 @@ model shopping_deposit_charge_publishes {
 /// @namespace Coins
 /// @author Samchon
 model shopping_mileages {
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -3182,6 +3516,8 @@ model shopping_mileages {
     histories shopping_mileage_histories[]
 
     @@unique([code])
+    @@index([source])
+    @@index([created_at])
 }
 
 /// Mileagea income/outcome details of customers (citizens).
@@ -3200,6 +3536,8 @@ model shopping_mileage_histories {
     //----
     // COLUMNS
     //----
+    /// Primary Key.
+    ///
     /// @format uuid
     id String @id @db.Uuid
 
@@ -3240,6 +3578,11 @@ model shopping_mileage_histories {
     //----
     mileage shopping_mileages @relation(fields: [shopping_mileage_id], references: [id])
     citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+
+    @@index([shopping_mileage_id, created_at, cancelled_at])
+    @@index([shopping_mileage_id, source_id, created_at, cancelled_at])
+    @@index([shopping_citizen_id, created_at, cancelled_at])
+    @@index([created_at, cancelled_at])
 }
 
 //-----------------------------------------------------------
@@ -3277,6 +3620,13 @@ model shopping_sale_snapshot_inquiries {
     /// @format uuid
     id String @id @db.Uuid
 
+    /// Belonged sale's {@link shopping_sales.id}
+    ///
+    /// Duplicated property for fast sorting.
+    ///
+    /// @hidden
+    shopping_sale_id String @db.Uuid
+
     /// Belonged snapshot's {@link shopping_sale_snapshots.id}
     ///
     /// @format uuid
@@ -3293,6 +3643,13 @@ model shopping_sale_snapshot_inquiries {
     /// - `review`
     type String @db.VarChar
 
+    /// Creation time of record.
+    ///
+    /// Duplicated property for fast sorting.
+    ///
+    /// @hidden
+    created_at DateTime @db.Timestamptz
+
     /// The first time when the seller read the inquiry.
     read_by_seller_at DateTime? @db.Timestamptz
 
@@ -3300,12 +3657,16 @@ model shopping_sale_snapshot_inquiries {
     // RELATIONS
     //----
     base     bbs_articles            @relation(fields: [id], references: [id], onDelete: Cascade)
+    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
     snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
     customer shopping_customers      @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
 
-    of_question                            shopping_sale_snapshot_questions?
-    of_review                              shopping_sale_snapshot_reviews?
-    shopping_sale_snapshot_inquiry_answers shopping_sale_snapshot_inquiry_answers[]
+    of_question shopping_sale_snapshot_questions?
+    of_review   shopping_sale_snapshot_reviews?
+    answer      shopping_sale_snapshot_inquiry_answers?
+
+    @@index([shopping_sale_snapshot_id])
+    @@index([shopping_customer_id])
 }
 
 /// Question about sale snapshot.
@@ -3386,7 +3747,7 @@ model shopping_sale_snapshot_reviews {
 /// 
 /// `shopping_sale_snapshot_review_snapshots` is a subtype entity of 
 /// {@link bbs_article_snapshots} and is designed to add a `score` property 
-/// to the content of {@link shopping_sale_snapshot_reviews review article).
+/// to the content of {@link shopping_sale_snapshot_reviews review article}.
 /// 
 /// In other words, after writing a review article, customers can edit it 
 /// and change the evaluation `score` at any time.
@@ -3448,23 +3809,26 @@ model shopping_sale_snapshot_inquiry_answers {
     /// @format uuid
     shopping_sale_snapshot_inquiry_id String @db.Uuid
 
-    /// Answered seller's {@link shopping_sellers.id}
+    /// Answered seller's {@link shopping_customers.id}
     ///
     /// @format uuid
-    shopping_seller_id String @db.Uuid
+    shopping_seller_customer_id String @db.Uuid
 
     //----
     // RELATIONS
     //----
-    base    bbs_articles                     @relation(fields: [id], references: [id], onDelete: Cascade)
-    inquiry shopping_sale_snapshot_inquiries @relation(fields: [shopping_sale_snapshot_inquiry_id], references: [id], onDelete: Cascade)
-    seller  shopping_sellers                 @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
+    base           bbs_articles                     @relation(fields: [id], references: [id], onDelete: Cascade)
+    inquiry        shopping_sale_snapshot_inquiries @relation(fields: [shopping_sale_snapshot_inquiry_id], references: [id], onDelete: Cascade)
+    sellerCustomer shopping_customers               @relation(fields: [shopping_seller_customer_id], references: [id], onDelete: Cascade)
+
+    @@unique([shopping_sale_snapshot_inquiry_id])
+    @@index([shopping_seller_customer_id])
 }
 
 /// A comment written on a question post.
 /// 
 /// `shopping_sale_snapshot_inquiry_comments` is a subtype entity of 
-/// {@link bbs_article_comments), and is used when you want to communicate with 
+/// {@link bbs_article_comments}, and is used when you want to communicate with 
 /// multiple people about an {@link shopping_sale_snapshot_inquiries inquiry} 
 /// written by a {@link shopping_customers customer}.
 /// 
@@ -3484,34 +3848,158 @@ model shopping_sale_snapshot_inquiry_comments {
     /// @format uuid
     id String @id @db.Uuid
 
-    /// Writer seller's {@link shopping_sellers.id}
+    /// Writer's {@link shopping_customers.id}
     ///
     /// @format uuid
-    shopping_seller_id String? @db.Uuid
+    shopping_customer_id String @db.Uuid
 
-    /// Writer customer's {@link shopping_customers.id}
+    /// Type of the writer.
     ///
-    /// @format uuid
-    shopping_customer_id String? @db.Uuid
+    /// - customer
+    /// - seller
+    actor_type String @db.VarChar
 
     //----
     // RELATIONS
     //----
     base     bbs_article_comments @relation(fields: [id], references: [id], onDelete: Cascade)
-    seller   shopping_sellers?    @relation(fields: [shopping_seller_id], references: [id], onDelete: Cascade)
-    customer shopping_customers?  @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
+    customer shopping_customers   @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_customer_id])
 }
 
 //-----------------------------------------------------------
-// (FAKE )MATERIALIZED VIEWS
+// ARTICLES
 //-----------------------------------------------------------
+/// @hidden
+model mv_cache_times {
+    id     String   @id @db.Uuid
+    schema String   @db.VarChar
+    table  String   @db.VarChar
+    key    String   @db.VarChar
+    value  DateTime @db.Timestamptz
+
+    @@unique([schema, table, key])
+}
+
 /// @hidden
 model mv_bbs_article_last_snapshots {
     bbs_article_id          String @id @db.Uuid
     bbs_article_snapshot_id String @db.Uuid
 
-    article  bbs_articles          @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
-    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
+    article  bbs_articles          @relation(fields: [bbs_article_id], references: [id])
+    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id])
 
     @@unique([bbs_article_snapshot_id])
+}
+
+/// @hidden
+model mv_shopping_sale_last_snapshots {
+    shopping_sale_id          String @id @db.Uuid
+    shopping_sale_snapshot_id String @db.Uuid
+
+    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id])
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id])
+
+    @@unique([shopping_sale_snapshot_id])
+}
+
+/// @hidden
+model mv_shopping_sale_snapshot_prices {
+    shopping_sale_snapshot_id String @id @db.Uuid
+    nominal_representative    Float  @db.DoublePrecision
+    nominal_lowest            Float  @db.DoublePrecision
+    nominal_highest           Float  @db.DoublePrecision
+    real_representative       Float  @db.DoublePrecision
+    real_lowest               Float  @db.DoublePrecision
+    real_highest              Float  @db.DoublePrecision
+
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id])
+
+    @@index([real_representative])
+    @@index([real_lowest, real_highest])
+}
+
+/// @hidden
+model mv_shopping_sale_snapshot_unit_stock_inventories {
+    shopping_sale_snapshot_unit_stock_id String @id @db.Uuid
+    income                               Int    @db.Integer
+    outcome                              Int    @db.Integer
+
+    stock shopping_sale_snapshot_unit_stocks @relation(fields: [shopping_sale_snapshot_unit_stock_id], references: [id])
+
+    @@index([shopping_sale_snapshot_unit_stock_id])
+}
+
+/// @hidden
+model mv_shopping_cart_commodity_prices {
+    shopping_cart_commodity_id String @id @db.Uuid
+    nominal                    Float  @db.DoublePrecision
+    real                       Float  @db.DoublePrecision
+
+    commodity shopping_cart_commodities @relation(fields: [shopping_cart_commodity_id], references: [id])
+}
+
+/// @hidden
+model mv_shopping_order_good_prices {
+    shopping_order_good_id String @id @db.Uuid
+    nominal                Float  @db.DoublePrecision
+    real                   Float  @db.DoublePrecision
+    cash                   Float  @db.DoublePrecision
+    deposit                Float  @db.DoublePrecision
+    mileage                Float  @db.DoublePrecision
+    ticket                 Float  @db.DoublePrecision
+
+    good shopping_order_goods @relation(fields: [shopping_order_good_id], references: [id])
+}
+
+/// @hidden
+model mv_shopping_order_prices {
+    shopping_order_id String @id @db.Uuid
+    nominal           Float  @db.DoublePrecision
+    real              Float  @db.DoublePrecision
+    cash              Float  @db.DoublePrecision
+    deposit           Float  @db.DoublePrecision
+    mileage           Float  @db.DoublePrecision
+    ticket            Float  @db.DoublePrecision
+
+    order shopping_orders @relation(fields: [shopping_order_id], references: [id])
+}
+
+/// @hidden
+model mv_shopping_coupon_inventories {
+    shopping_coupon_id String @id @db.Uuid
+    value              Int    @db.Integer
+
+    coupon shopping_coupons @relation(fields: [shopping_coupon_id], references: [id])
+}
+
+/// @hidden
+model mv_shopping_coupon_citizen_inventories {
+    id                  String @id @db.Uuid
+    shopping_citizen_id String @db.Uuid
+    shopping_coupon_id  String @db.Uuid
+    value               Int    @db.Integer
+
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+    coupon  shopping_coupons  @relation(fields: [shopping_coupon_id], references: [id])
+
+    @@unique([shopping_citizen_id, shopping_coupon_id])
+    @@index([shopping_coupon_id])
+}
+
+/// @hidden
+model mv_shopping_deposit_balances {
+    shopping_citizen_id String @id @db.Uuid
+    value               Float  @db.DoublePrecision
+
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+}
+
+/// @hidden
+model mv_shopping_mileage_balances {
+    shopping_citizen_id String @id @db.Uuid
+    value               Float  @db.DoublePrecision
+
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
 }

@@ -6,7 +6,6 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 25
-    versioning-strategy: increase
     allow:
       - dependency-name: "@nestia/*"
       - dependency-name: "nestia"
@@ -18,5 +17,4 @@ updates:
     schedule:
       interval: 'daily'
     open-pull-requests-limit: 25
-    versioning-strategy: increase
 #######################################################

@@ -1,17 +1,67 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
+import { IShoppingCitizen } from "./IShoppingCitizen";
+import { IShoppingCustomer } from "./IShoppingCustomer";
 import { IShoppingMember } from "./IShoppingMember";
 
-export interface IShoppingSeller extends IShoppingMember {
-    type: "seller";
+/**
+ * Seller information.
+ *
+ * `IShoppingSeller` is an entity that embodies a person who registers
+ * {@link IShoppingSale sales} to operate selling activities, with
+ * {@link IShoppingMember membership} joining.
+ *
+ * For reference, unlike {@link IShoppingCustomer customers} which can
+ * participate even without membership joining, seller must join membership
+ * to operate sales. Also, seller must do the
+ * {@link IShoppingCitizen real-name and mobile authentication}, too.
+ *
+ * @author Samchon
+ */
+export interface IShoppingSeller {
+    /**
+     * Primary Key.
+     */
+    id: string & tags.Format<"uuid">;
+
+    /**
+     * Creation tmie of record.
+     *
+     * Another words, the time when the seller has signed up.
+     */
+    created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingSeller {
-    export interface IAuthorized extends IShoppingSeller {
-        setHeaders: {
-            "shopping-seller-authorization": string;
-        };
-        expired_at: string & tags.Format<"date-time">;
+    /**
+     * Invert information starting from seller info.
+     *
+     * Instead of accessing to the seller information from the
+     * {@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},
+     * `IShoppingSeller.IInvert` starts from the seller information
+     * and access to the customer, member and {@link IShoppingCitizen citizen}
+     * informations inversely.
+     */
+    export interface IInvert extends IShoppingSeller {
+        /**
+         * Discriminant for the type of customer.
+         */
+        type: "seller";
+
+        /**
+         * Membership joining information.
+         */
+        member: IShoppingMember.IInvert;
+
+        /**
+         * Customer, the connection information.
+         */
+        customer: IShoppingCustomer.IInvert;
+
+        /**
+         * Real-name and mobile number authentication information.
+         */
+        citizen: IShoppingCitizen;
     }
 
     export interface IRequest extends IPage.IRequest {
@@ -34,11 +84,5 @@ export namespace IShoppingSeller {
             | "seller.reviews.count";
     }
 
-    export interface IStore extends IShoppingMember.IStore {}
-}
-export namespace IShoppingSeller {
-    export interface IAuthorized extends IShoppingSeller {
-        setHeaders: { "shopping-seller-authorization": string };
-        expired_at: string & tags.Format<"date-time">;
-    }
+    export interface IJoin {}
 }
