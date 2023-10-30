@@ -97,7 +97,7 @@ export namespace BbsArticleProvider {
             : null;
 
     export const collect =
-        <Input extends IBbsArticle.IStore>(
+        <Input extends IBbsArticle.ICreate>(
             snapshotFactory: (
                 input: Input,
             ) => Omit<Prisma.bbs_article_snapshotsCreateInput, "article">,

@@ -61,6 +61,9 @@ export interface IShoppingSaleUnitStock {
     choices: IShoppingSaleUnitStockChoice[];
 }
 export namespace IShoppingSaleUnitStock {
+    /**
+     * Invert information from the cart.
+     */
     export interface IInvert {
         /**
          * Primary Key.

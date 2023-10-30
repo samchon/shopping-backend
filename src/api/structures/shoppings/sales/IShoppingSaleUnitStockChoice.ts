@@ -5,15 +5,16 @@ import { IShoppingSaleUnitOptionCandidate } from "./IShoppingSaleUnitOptionCandi
 
 /**
  * Selection information of final stock.
- * 
- * `IShoppingSaleUnitStockChoice` is an entity that represents which 
- * {@link IShoppingSaleUnitSelectableOption option} of each variable "select" 
-type was selected for each {@link IShoppingSaleUnitStock stock} and which 
- * {@link IShoppingSaleUnitOptionCandidate candidate value} was selected within it.
- * 
- * Of course, if the bound {@link IShoppingSaleUnit unit} does not have any 
+ *
+ * `IShoppingSaleUnitStockChoice` is an entity that represents which
+ * {@link IShoppingSaleUnitSelectableOption option} of each variable "select"
+ * type was selected for each {@link IShoppingSaleUnitStock stock} and which
+ * {@link IShoppingSaleUnitOptionCandidate candidate value} was selected within
+ * it.
+ *
+ * Of course, if the bound {@link IShoppingSaleUnit unit} does not have any
  * options, this entity can also be ignored.
- * 
+ *
  * @author Samchon
  */
 export interface IShoppingSaleUnitStockChoice {
@@ -34,6 +35,9 @@ export interface IShoppingSaleUnitStockChoice {
 }
 
 export namespace IShoppingSaleUnitStockChoice {
+    /**
+     * Invert information from the cart.
+     */
     export interface IInvert {
         /**
          * Primary Key.
@@ -56,6 +60,9 @@ export namespace IShoppingSaleUnitStockChoice {
         value: boolean | number | string | null;
     }
 
+    /**
+     * Creation information of stock choice.
+     */
     export interface ICreate {
         /**
          * Target option's index number in
