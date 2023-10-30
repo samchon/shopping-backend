@@ -58,7 +58,7 @@ export namespace IBbsArticle {
      * the article, as mentioned in {@link IBbsArticle}, the contents of the article
      * are separated from the article record to keep evidence and prevent fraud.
      */
-    export interface ISnapshot extends IStore {
+    export interface ISnapshot extends ICreate {
         /**
          * Primary Key.
          */
@@ -72,6 +72,9 @@ export namespace IBbsArticle {
         created_at: string & tags.Format<"date-time">;
     }
 
+    /**
+     * Request of summarized articles with pagination and searching/sorting options.
+     */
     export interface IRequest<
         Search extends IRequest.ISearch = IRequest.ISearch,
         Sortable extends
@@ -79,12 +82,12 @@ export namespace IBbsArticle {
             | string = IRequest.SortableColumns,
     > extends IPage.IRequest {
         /**
-         * Search condition.
+         * Search conditions.
          */
         search?: Search;
 
         /**
-         * Sort condition.
+         * Sorting conditions.
          */
         sort?: IPage.Sort<Sortable>;
     }
@@ -144,12 +147,12 @@ export namespace IBbsArticle {
     /**
      * Abriged information of the article.
      */
-    export interface IAbridge extends ISummary, IStore {}
+    export interface IAbridge extends ISummary, ICreate {}
 
     /**
-     * Store content type of the article.
+     * Creation information of the article.
      */
-    export interface IStore {
+    export interface ICreate {
         /**
          * Format of body.
          *
@@ -173,5 +176,8 @@ export namespace IBbsArticle {
         files: IAttachmentFile.IStore[];
     }
 
-    export type IUpdate = IStore;
+    /**
+     * Updating information of the article.
+     */
+    export type IUpdate = ICreate;
 }

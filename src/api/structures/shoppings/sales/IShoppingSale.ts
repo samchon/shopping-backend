@@ -91,8 +91,18 @@ export namespace IShoppingSale {
         closed_at: null | (string & tags.Format<"date-time">);
     }
 
+    /**
+     * Request of summarized sales with pagination and searching/sorting options.
+     */
     export interface IRequest extends IPage.IRequest {
+        /**
+         * Search conditions.
+         */
         search?: IRequest.ISearch;
+
+        /**
+         * Sorting conditions.
+         */
         sort?: IPage.Sort<IRequest.SortableColumns>;
     }
     export namespace IRequest {

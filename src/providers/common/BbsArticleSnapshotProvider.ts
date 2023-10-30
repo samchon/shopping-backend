@@ -57,7 +57,7 @@ export namespace BbsArticleSnapshotProvider {
         };
 
     export const collect = (
-        input: IBbsArticle.IStore,
+        input: IBbsArticle.ICreate,
     ): Omit<Prisma.bbs_article_snapshotsCreateInput, "article"> => ({
         id: v4(),
         title: input.title,

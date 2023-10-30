@@ -10,6 +10,6 @@ export namespace IShoppingSaleInquiryAnswer {
     export interface ISummary extends IBbsArticle.ISummary {
         seller: IShoppingSeller;
     }
-    export interface IStore extends IBbsArticle.IStore {}
+    export interface IStore extends IBbsArticle.ICreate {}
     export type IUpdate = Partial<IStore>;
 }

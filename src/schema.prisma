@@ -483,10 +483,10 @@ model shopping_channels {
 /// `shopping_channel_categories` can be classified into multiple categories 
 /// in a {@link shopping_sales sale} simultaneously.
 /// 
-/// Product | Corner         | Categories
-/// --------|----------------|--------------------------------------
-/// Beef    | Butcher corner | Frozen food, Meat, **Favorite food**
-/// Grape   | Fruit corner   | Fresh food, **Favorite food**
+/// Product | Section (corner) | Categories
+/// --------|------------------|--------------------------------------
+/// Beef    | Butcher corner   | Frozen food, Meat, **Favorite food**
+/// Grape   | Fruit corner     | Fresh food, **Favorite food**
 /// 
 /// In addition, as `shopping_channel_categories` has 1:N self recursive 
 /// relationship, it is possible to express below hierarchical structures. 
@@ -3599,13 +3599,13 @@ model shopping_mileage_histories {
 /// 
 /// In addition, since the customer is waiting for the seller's response after 
 /// writing the inquiry, whether the seller has viewed the inquiry written by 
-/// the customer is provided for reference as `read_by_seller_at` at property. 
-/// Of course, since the inquery itself is a subtype of a article, it is also 
+/// the customer is provided for reference as `read_by_seller_at` property. 
+/// Of course, since the inquiry itself is a subtype of a article, it is also 
 /// possible for sellers to communicate with each other through 
 /// {@link shopping_sale_snapshot_inquiry_comments comments} before an 
 /// {@link shopping_sale_snapshot_inquiry_responses official response}.
 /// 
-/// However, comments themselves can only be made by customers, even if they 
+/// However, comments themselves can be made by every customers, even if they 
 /// are not the person who wrote the article. Of course, it cannot be written 
 /// unless the seller is a party.
 ///
@@ -3694,6 +3694,9 @@ model shopping_sale_snapshot_questions {
     id String @id @db.Uuid
 
     /// Whether secret or not.
+    ///
+    /// If secret article, only the writer customer and related seller can see
+    /// the detailed content.
     secret Boolean @db.Boolean
 
     //----
@@ -3825,7 +3828,7 @@ model shopping_sale_snapshot_inquiry_answers {
     @@index([shopping_seller_customer_id])
 }
 
-/// A comment written on a question post.
+/// A comment written on an inquiry article.
 /// 
 /// `shopping_sale_snapshot_inquiry_comments` is a subtype entity of 
 /// {@link bbs_article_comments}, and is used when you want to communicate with 
@@ -3834,8 +3837,8 @@ model shopping_sale_snapshot_inquiry_answers {
 /// 
 /// For reference, only related parties can write comments for 
 /// {@link shopping_sellers sellers}, but there is no limit to customers. 
-/// In other words, anyone can freely write a comment, even if they are not 
-/// the person who wrote the inquiry.
+/// In other words, anyone customer can freely write a comment, even if they are 
+/// not the person who wrote the inquiry.
 ///
 /// @namespace Inquiries
 /// @author Samchon
