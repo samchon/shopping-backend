@@ -46,13 +46,35 @@ export interface IShoppingSaleSnapshot
         IShoppingSaleUnit
     > {}
 export namespace IShoppingSaleSnapshot {
+    /**
+     * Invert information of the sale snapshot, in the perspective of commodity.
+     *
+     * `IShoppingSaleSnapshot.IInvert` is a structure used to represent a
+     * snapshot in the perspective of a {@link IShoppingCommodity}, corresponding
+     * to an {@link IShoppingCartCommodityStock} entity.
+     *
+     * Therefore, `IShoppingSaleSnapshot.IInvert` does not contain every
+     * {@link IShoppingSaleUnit units} and {@link IShoppingSaleUnitStock stocks}
+     * of the snapshot records, but only some of the records which are put
+     * into the {@link IShoppingCartCommodity shopping cart}.
+     */
     export interface IInvert
         extends IBase<IShoppingSaleContent.IInvert, IShoppingSaleUnit.IInvert>,
             IShoppingSale.ITimestamps {
+        /**
+         * Belonged section's information.
+         */
         section: IShoppingSection;
+
+        /**
+         * Seller who've registered the sale.
+         */
         seller: IShoppingSeller;
     }
 
+    /**
+     * Summarized information of the sale snapshot.
+     */
     export interface ISummary
         extends IBase<
             IShoppingSaleContent.ISummary,

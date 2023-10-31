@@ -332,10 +332,10 @@ simultaneously classified in a [sale](#shopping_sales). Besides,
 `shopping_channel_categories` can be classified into multiple categories 
 in a [sale](#shopping_sales) simultaneously.
 
-Product | Corner         | Categories
---------|----------------|--------------------------------------
-Beef    | Butcher corner | Frozen food, Meat, **Favorite food**
-Grape   | Fruit corner   | Fresh food, **Favorite food**
+Product | Section (corner) | Categories
+--------|------------------|--------------------------------------
+Beef    | Butcher corner   | Frozen food, Meat, **Favorite food**
+Grape   | Fruit corner     | Fresh food, **Favorite food**
 
 In addition, as `shopping_channel_categories` has 1:N self recursive 
 relationship, it is possible to express below hierarchical structures. 
@@ -1414,7 +1414,7 @@ And while adding a sale snapshot to the shopping cart, the customer
 inevitably selects specific [units](#shopping_sale_snapshot_units) and 
 [final stocks](#shopping_sale_snapshot_unit_stocks) within the listing 
 snapshot. Information about these units and stocks is recorded in the 
-subsidiary entity [shopping_cart_commodity_stocks](#shopping_cart_commodity_stocks). There is also an 
+subsidiary entity [shopping_cart_commodity_stocks](#shopping_cart_commodity_stocks). Also, there is an 
 attribute `volume` that indicates how many sets of snapshots of the 
 target commodity will be purchased. This "volume" is a value that will be 
 multiplied by [shopping_cart_commodity_stocks.quantity](#shopping_cart_commodity_stocks), the quantity 
@@ -1478,13 +1478,13 @@ specifically used while putting a specific
 [stock](#shopping_sale_snapshot_unit_stocks) of the 
 [sale snapshot](#shopping_sale_snapshots) in the shopping cart, and 
 which [candidate values](#shopping_sale_snapshot_unit_option_candidates) 
-were selected or listed within the shopping cart.
+were selected or written within the shopping cart.
 
 Therefore, `shopping_cart_commodity_stock_choices` has reference properties 
 and predicate properties for candidate values in addition to references 
 to options. If the `type` of target option is "select", enter the 
 candidate value selected by the customer. Otherwise, enter the value 
-entered by the customer.
+written by the customer.
 
 **Properties**
   - `id`: Primary Key.
@@ -1650,7 +1650,7 @@ volume attribute of the current entity rather than directly changing the
 shopping_cart_commodities information.
 
 In addition, `shopping_order_goods` becomes the most basic unit for 
-the post-order process, that is, after-sales service (A/S). For example, 
+the post-order process, that is, after service (A/S). For example, 
 after receiving a customer's product, confirming the order is recorded 
 in the `confirmed_at` attribute. Additionally, `shopping_order_goods` is 
 the unit in which customers issue issues or request exchanges or refunds 
@@ -1701,7 +1701,7 @@ payment is made after the payment application, such as "bank transfer" or
 be sure to check the `paid_at` property.
 
 In addition, even after payment has been made, there may be cases where 
-it is suddenly canceled, so please be aware of this as well.
+it is suddenly cancelled, so please be aware of this as well.
 
 **Properties**
   - `id`: Primary Key.
@@ -1726,16 +1726,17 @@ it is suddenly canceled, so please be aware of this as well.
 ### `shopping_deliveries`
 Delivery information.
 
-When delivering purchase(s) to [customer](#shopping_customers), 
-[seller](#shopping_selleres) can deliver multiple 
-[stocks](#shopping_sale_snapshot_unit_stocks), [goods](#shopping_order_goods) 
-at once. Also, it is possible to deliver a stock or good in multiple times due to 
-physical restriction like volume or weight.
+When delivering [goods](#shopping_order_goods) to 
+[customer](#shopping_customers), [seller](#shopping_selleres) can deliver 
+multiple [stocks](#shopping_sale_snapshot_unit_stocks), goods at once. Also, 
+it is possible to deliver a stock or good in multiple times due to physical 
+restriction like volume or weight problem.
 
 As you can see from above, the relationship between delivery with 
 [order](#shopping_orders) (or good) is not 1: 1 or N: 1, but M: N. Entity 
-`shopping_deliveries` has been designed to represent such relationship, by referencing
-target stocks or goods through subsidiary entity [shopping_delivery_pieces](#shopping_delivery_pieces).
+`shopping_deliveries` has been designed to represent such relationship, by 
+referencing target stocks or goods through subsidiary entity 
+[shopping_delivery_pieces](#shopping_delivery_pieces).
 
 Also, delivery does not end with only one step. It has multiple processes like
 manufacturing, planning, shipping and delivering. Those steps are represented by
@@ -1750,6 +1751,14 @@ another subsidiary entity [shopping_delivery_journeys](#shopping_delivery_journe
 ### `shopping_delivery_pieces`
 Which stocks are delivered.
 
+`shopping_delivery_pieces` is a subsidiary entity of [shopping_deliveries](#shopping_deliveries), 
+describing how much quantity is delivered for each 
+[stock](#shopping_sale_snapshot_unit_stocks) in [shopping_orders](#shopping_orders).
+
+For reference, as an order can be delivered in multiple times due to volume or 
+weight problem, it is possible to have multiple `shopping_delivery_pieces` records 
+for a single stock.
+
 **Properties**
   - `id`: Primary Key.
   - `shopping_delivery_id`: Belonged delivery's [id](#shopping_deliveries)
@@ -1763,6 +1772,11 @@ Which stocks are delivered.
 
 ### `shopping_delivery_journeys`
 Journey of delivery.
+
+`shopping_delivery_journeys` is a subsidiary entity of [shopping_deliveries](#shopping_deliveries), 
+describing each journey of the delivery. For reference, the word journey means 
+each step of the delivery process, such as preparing, shipping, and delivering 
+[goods](#shopping_order_goods) to the [customer](#shopping_customers).
 
 **Properties**
   - `id`: Primary Key.
@@ -2166,7 +2180,7 @@ understood as a kind of deposit.
 
 Additionally, this record can be deleted by the customer reversing the 
 payment of the ticket, but it can also be deleted when the attribution 
-order itself is canceled.
+order itself is cancelled.
 
 **Properties**
   - `id`: Primary Key.
@@ -2368,7 +2382,7 @@ only when payment (`paid_at`) is complete. This is what the
 "process of payment" mentioned above means.
 
 However, even after payment has been made, there may be cases where it is 
-suddenly canceled, so you must be careful about this as well.
+suddenly cancelled, so you must be careful about this as well.
 
 **Properties**
   - `id`: Primary Key.
@@ -2530,13 +2544,13 @@ sale but snapshot).
 
 In addition, since the customer is waiting for the seller's response after 
 writing the inquiry, whether the seller has viewed the inquiry written by 
-the customer is provided for reference as `read_by_seller_at` at property. 
-Of course, since the inquery itself is a subtype of a article, it is also 
+the customer is provided for reference as `read_by_seller_at` property. 
+Of course, since the inquiry itself is a subtype of a article, it is also 
 possible for sellers to communicate with each other through 
 [comments](#shopping_sale_snapshot_inquiry_comments) before an 
 [official response](#shopping_sale_snapshot_inquiry_responses).
 
-However, comments themselves can only be made by customers, even if they 
+However, comments themselves can be made by every customers, even if they 
 are not the person who wrote the article. Of course, it cannot be written 
 unless the seller is a party.
 
@@ -2575,7 +2589,11 @@ question.
 
 **Properties**
   - `id`: PK + FK.
-  - `secret`: Whether secret or not.
+  - `secret`
+    > Whether secret or not.
+    > 
+    > If secret article, only the writer customer and related seller can see
+    > the detailed content.
 
 ### `shopping_sale_snapshot_reviews`
 Reviews for sale snapshots.
@@ -2637,7 +2655,7 @@ articles.
   - `shopping_seller_customer_id`: Answered seller's [shopping_customers.id](#shopping_customers)
 
 ### `shopping_sale_snapshot_inquiry_comments`
-A comment written on a question post.
+A comment written on an inquiry article.
 
 `shopping_sale_snapshot_inquiry_comments` is a subtype entity of 
 [bbs_article_comments](#bbs_article_comments), and is used when you want to communicate with 
@@ -2646,8 +2664,8 @@ written by a [customer](#shopping_customers).
 
 For reference, only related parties can write comments for 
 [sellers](#shopping_sellers), but there is no limit to customers. 
-In other words, anyone can freely write a comment, even if they are not 
-the person who wrote the inquiry.
+In other words, anyone customer can freely write a comment, even if they are 
+not the person who wrote the inquiry.
 
 **Properties**
   - `id`: PK + FK

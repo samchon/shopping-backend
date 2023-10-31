@@ -7,14 +7,56 @@ import { IShoppingOrderGood } from "./IShoppingOrderGood";
 import { IShoppingOrderPrice } from "./IShoppingOrderPrice";
 import { IShoppingOrderPublish } from "./IShoppingOrderPublish";
 
+/**
+ * Order application information.
+ *
+ * `IShoppingOrder` is an entity that embodies {@link IShoppingCustomer customer}'s
+ * order application information. However, please note that at this time, you are
+ * still at the "order application" stage and not the "order confirmation" stage.
+ *
+ * And as soon as a customer applies for an order, all
+ * {@link IShoppingCartCommodity commodities} in the target shopping cart are
+ * promoted to {@link IShoppingOrderGood goods}, and those good records are created
+ * under this `IShoppingOrder`.
+ *
+ * Of course, not all commodities in the target shopping cart become
+ * {@link IShoppingOrderGood}, but only those selected by the customer become the
+ * {@link IShoppingOrderGood}.
+ *
+ * @author Samchon
+ */
 export interface IShoppingOrder {
+    /**
+     * Primary Key.
+     */
     id: string & tags.Format<"uuid">;
+
+    /**
+     * Customer who've applied for the order.
+     */
     customer: IShoppingCustomer;
+
+    /**
+     * List of goods in the order.
+     */
     goods: IShoppingOrderGood[] & tags.MinItems<1>;
+
+    /**
+     * Price information including discounts.
+     */
     price: IShoppingOrderPrice;
+
+    publish: null | IShoppingOrderPublish;
+
+    /**
+     * Creation time of the record.
+     */
     created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingOrder {
+    /**
+     * Request of orders with pagination and searching/sorting conditions.
+     */
     export interface IRequest extends IPage.IRequest {
         search?: IRequest.ISearch;
         sort?: IPage.Sort<IRequest.SortableColumns>;
@@ -32,15 +74,14 @@ export namespace IShoppingOrder {
             | "order.created_at"
             | `order.paid_at`;
     }
-    export interface ISummary {
-        id: string & tags.Format<"uuid">;
-        goods: IShoppingOrderGood[];
-        price: IShoppingOrderPrice.ISummary;
-        publish: null | IShoppingOrderPublish.ISummary;
-        created_at: string & tags.Format<"date-time">;
-    }
 
-    export interface IStore {
-        goods: IShoppingOrderGood.IStore[];
+    /**
+     * Creation information of the order appliance.
+     */
+    export interface ICreate {
+        /**
+         * List of goods in the order.
+         */
+        goods: IShoppingOrderGood.ICreate[];
     }
 }
