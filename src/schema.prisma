@@ -2644,7 +2644,8 @@ model shopping_delivery_journeys {
 /// In addition, you can set whether to issue discount coupons publicly or give 
 /// them only to people who know the specific issuing code. In addition, there 
 /// are restrictions such as issued discount coupons having an expiration date 
-/// or being issued only to customers who came in through a specific channel.
+/// or being issued only to customers who came in through a 
+/// {@link shopping_coupon_funnel_criterias specific funnel}.
 /// 
 /// For more information, please refer to the properties below and the 
 /// subsidiary entities described later.
@@ -2765,10 +2766,10 @@ model shopping_coupons {
     /// with the shorter expiration date is used.
     expired_at DateTime? @db.Timestamptz
 
-    /// Issuance starting date.
+    /// Opening time of the coupon.
     opened_at DateTime? @db.Timestamptz
 
-    /// Issuance end date.
+    /// Closing time of the coupon.
     /// 
     /// Tickets cannot be issued after this time.
     /// 
@@ -3084,7 +3085,8 @@ model shopping_coupon_funnel_criterias {
 /// Discount coupon ticket issuance details.
 /// 
 /// `shopping_coupon_tickets` is an entity that symbolizes 
-/// {@link shopping_coupons discount coupon} tickets issued by customers.
+/// {@link shopping_coupons discount coupon} tickets issued by 
+/// {@link shopping_customers customers}.
 /// 
 /// And if the target discount coupon specification itself has an expiration 
 /// date, the expiration date is recorded in `expired_at` and is automatically 
@@ -3154,8 +3156,9 @@ model shopping_coupon_tickets {
 /// where an order is completed, but rather an entity designed to express an 
 /// order request, the creation of this `shopping_coupon_ticket_payments` record 
 /// does not actually mean that the attached ticket disappears. Until the 
-/// customer completes the payment and confirms the order, the ticket can be 
-/// understood as a kind of deposit.
+/// {@link shopping_customers customer} 
+/// {@link shopping_order_publishes.paid_at completes the payment} and 
+/// confirms the order, the ticket can be understood as a kind of deposit.
 /// 
 /// Additionally, this record can be deleted by the customer reversing the 
 /// payment of the ticket, but it can also be deleted when the attribution 
@@ -3792,7 +3795,7 @@ model shopping_sale_snapshot_review_snapshots {
     base bbs_article_snapshots @relation(fields: [id], references: [id], onDelete: Cascade)
 }
 
-/// Answers to questions about sale snapshots.
+/// Answers to inquiries about sale snapshots.
 /// 
 /// `shopping_sale_snapshot_inquiry_answers` is an entity that embodies the 
 /// official answer written by the {@link shopping_sellers seller} to the 
@@ -3800,8 +3803,8 @@ model shopping_sale_snapshot_review_snapshots {
 /// {@link shopping_customers customer}.
 /// 
 /// Of course, in addition to writing an official response like this, it is 
-/// also possible for the seller to communicate with the questioner and 
-/// multiple customers through 
+/// also possible for the seller to communicate with the inquiry written 
+/// customer and multiple customers through 
 /// {@link shopping_sale_snapshot_inquiry_comments comments} in the 
 /// attribution inquiry.
 /// 

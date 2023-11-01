@@ -47,10 +47,10 @@ export namespace IShoppingSaleContent {
     }
     export type ISummary = IInvert;
 
-    export interface IStore {
+    export interface ICreate {
         title: string;
         format: IShoppingSaleContent.Type;
         body: string;
-        files: IAttachmentFile.IStore[];
+        files: IAttachmentFile.ICreate[];
     }
 }

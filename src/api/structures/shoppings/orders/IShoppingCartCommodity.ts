@@ -97,6 +97,6 @@ export namespace IShoppingCartCommodity {
         /**
          * List of the stocks to be purchased.
          */
-        stocks: IShoppingCartCommodityStock.IStore[] & tags.MinItems<1>;
+        stocks: IShoppingCartCommodityStock.ICreate[] & tags.MinItems<1>;
     }
 }

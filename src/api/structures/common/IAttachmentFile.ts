@@ -9,7 +9,7 @@ import { tags } from "typia";
  * or {@link extension} like `.gitignore` or `README` case, but not
  * possible to omit both of them.
  */
-export interface IAttachmentFile extends IAttachmentFile.IStore {
+export interface IAttachmentFile extends IAttachmentFile.ICreate {
     /**
      * Primary Key.
      */
@@ -22,7 +22,7 @@ export interface IAttachmentFile extends IAttachmentFile.IStore {
 }
 
 export namespace IAttachmentFile {
-    export interface IStore {
+    export interface ICreate {
         /**
          * File name, except extension.
          *

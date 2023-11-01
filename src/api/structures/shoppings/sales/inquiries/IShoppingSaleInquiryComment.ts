@@ -54,7 +54,7 @@ export namespace IShoppingSaleInquiryComment {
     /**
      * Creation information of the comment.
      */
-    export interface ICreate extends IBbsArticleComment.IStore {}
+    export interface ICreate extends IBbsArticleComment.ICreate {}
 
     /**
      * Updating information of the comment.

@@ -70,7 +70,7 @@ export namespace IBbsArticleComment {
      * As mentioned in {@link IBbsArticleComment}, designed to keep evidence
      * and prevent fraud.
      */
-    export interface ISnapshot extends IStore {
+    export interface ISnapshot extends ICreate {
         /**
          * Primary Key.
          */
@@ -84,7 +84,7 @@ export namespace IBbsArticleComment {
         created_at: string & tags.Format<"date-time">;
     }
 
-    export interface IStore {
+    export interface ICreate {
         /**
          * Format of body.
          *
@@ -100,8 +100,8 @@ export namespace IBbsArticleComment {
         /**
          * List of attachment files.
          */
-        files: IAttachmentFile.IStore[];
+        files: IAttachmentFile.ICreate[];
     }
 
-    export type IUpdate = IStore;
+    export type IUpdate = ICreate;
 }

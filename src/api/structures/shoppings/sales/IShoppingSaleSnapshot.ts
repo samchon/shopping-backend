@@ -134,8 +134,8 @@ export namespace IShoppingSaleSnapshot {
      * Creation information of the snapshot.
      */
     export interface ICreate {
-        content: IShoppingSaleContent.IStore;
-        channels: IShoppingSaleChannel.IStore[];
+        content: IShoppingSaleContent.ICreate;
+        channels: IShoppingSaleChannel.ICreate[];
         units: IShoppingSaleUnit.ICreate[] & tags.MinItems<1>;
         tags: string[];
     }
