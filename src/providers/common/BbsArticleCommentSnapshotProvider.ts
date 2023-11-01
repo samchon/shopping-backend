@@ -1,7 +1,8 @@
 import { Prisma } from "@prisma/client";
+import { v4 } from "uuid";
+
 import { IBbsArticleComment } from "samchon/shopping-api/lib/structures/common/IBbsArticleComment";
 import { IEntity } from "samchon/shopping-api/lib/structures/common/IEntity";
-import { v4 } from "uuid";
 
 import { SGlobal } from "../../SGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
@@ -52,7 +53,7 @@ export namespace BbsArticleCommentSnapshotProvider {
         };
 
     export const collect = (
-        input: IBbsArticleComment.IStore,
+        input: IBbsArticleComment.ICreate,
     ): Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment"> => ({
         id: v4(),
         format: input.format,

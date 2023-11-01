@@ -31,7 +31,7 @@ export namespace IShoppingCartCommodityStock {
      * {@link IShoppingSaleSnapshotUnit.IInvert} and
      * {@link IShoppingSaleSnapshotUnitStock.IInvert}.
      */
-    export interface IStore {
+    export interface ICreate {
         /**
          * Target unit's {@link IShoppingSaleUnit.id}.
          */
@@ -45,7 +45,7 @@ export namespace IShoppingCartCommodityStock {
         /**
          * Creation information of the choices for each option.
          */
-        choices: IShoppingCartCommodityStockChoice.IStore[];
+        choices: IShoppingCartCommodityStockChoice.ICreate[];
 
         /**
          * Quantity of the stock to purchase.

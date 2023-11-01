@@ -26,7 +26,7 @@ export namespace IShoppingCartCommodityStockChoice {
      * When record being created, its corresponding structure would be
      * {@link IShoppingSaleUnitStockChoice.IInvert}.
      */
-    export interface IStore {
+    export interface ICreate {
         /**
          * Target option's {@link IShoppingSaleUnitOption.id}.
          */

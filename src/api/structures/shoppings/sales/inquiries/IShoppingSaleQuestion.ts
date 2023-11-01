@@ -61,7 +61,7 @@ export namespace IShoppingSaleQuestion {
     /**
      * Creation information of the question.
      */
-    export interface IStore extends IBbsArticle.ICreate {
+    export interface ICreate extends IBbsArticle.ICreate {
         /**
          * Whether the question article is secret or not.
          *

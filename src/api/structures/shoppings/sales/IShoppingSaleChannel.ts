@@ -28,7 +28,7 @@ export namespace IShoppingSaleChannel {
     /**
      * Creation information of the target channel (and categories) of sale to sell.
      */
-    export interface IStore {
+    export interface ICreate {
         /**
          * Target channel's {@link IShoppingChannel.code}.
          */

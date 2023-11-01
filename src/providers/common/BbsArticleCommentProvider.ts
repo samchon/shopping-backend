@@ -1,7 +1,8 @@
 import { Prisma } from "@prisma/client";
+import { v4 } from "uuid";
+
 import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
 import { IBbsArticleComment } from "samchon/shopping-api/lib/structures/common/IBbsArticleComment";
-import { v4 } from "uuid";
 
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";
 
@@ -34,7 +35,7 @@ export namespace BbsArticleCommentProvider {
         key === "created_at" ? { created_at: value } : null;
 
     export const collect =
-        <Input extends IBbsArticleComment.IStore>(
+        <Input extends IBbsArticleComment.ICreate>(
             factory: (
                 input: Input,
             ) => Omit<

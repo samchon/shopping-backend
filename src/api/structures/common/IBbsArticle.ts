@@ -173,7 +173,7 @@ export namespace IBbsArticle {
         /**
          * List of attachment files.
          */
-        files: IAttachmentFile.IStore[];
+        files: IAttachmentFile.ICreate[];
     }
 
     /**
