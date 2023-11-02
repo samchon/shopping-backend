@@ -46,7 +46,7 @@ export async function index(
           );
 }
 export namespace index {
-    export type Input = Primitive<IShoppingSale.IRequest>;
+    export type Input = Primitive<IPage.IRequest>;
     export type Output = Primitive<IPage<IShoppingSaleSnapshot.ISummary>>;
 
     export const METADATA = {

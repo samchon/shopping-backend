@@ -119,7 +119,13 @@ export namespace IShoppingCustomer {
     }
 
     export interface IAuthorized extends IShoppingCustomer {
-        setHeaders: { "shopping-customer-authorization": string };
+        setHeaders: { Authorization: string };
+        token: IToken;
+    }
+    export interface IToken {
+        access: string;
+        refresh: string;
         expired_at: string & tags.Format<"date-time">;
+        refreshable_until: string & tags.Format<"date-time">;
     }
 }

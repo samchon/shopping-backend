@@ -18,7 +18,7 @@ export function ShoppingSaleSnapshotsController<
         public async index(
             @props.AuthGuard() actor: Actor,
             @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-            @core.TypedBody() input: IShoppingSale.IRequest,
+            @core.TypedBody() input: IPage.IRequest,
         ): Promise<IPage<IShoppingSaleSnapshot.ISummary>> {
             actor;
             saleId;
