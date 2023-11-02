@@ -5,4 +5,5 @@
  */
 //================================================================
 export * as authenticate from "./authenticate";
+export * as orders from "./orders";
 export * as sales from "./sales";

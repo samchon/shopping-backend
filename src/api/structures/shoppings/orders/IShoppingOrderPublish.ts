@@ -60,3 +60,10 @@ export interface IShoppingOrderPublish {
      */
     deliveries: IShoppingDelivery[];
 }
+export namespace IShoppingOrderPublish {
+    export interface ICreate {
+        address: IShoppingAddress.ICreate;
+        vendor: string;
+        uid: string;
+    }
+}
