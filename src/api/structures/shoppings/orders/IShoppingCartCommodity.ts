@@ -98,5 +98,39 @@ export namespace IShoppingCartCommodity {
          * List of the stocks to be purchased.
          */
         stocks: IShoppingCartCommodityStock.ICreate[] & tags.MinItems<1>;
+
+        /**
+         * Volume of the commodity to purchase.
+         *
+         * A value indicating how many sets would be multiplied to the children
+         * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
+         */
+        volume: number & tags.Type<"uint32">;
+
+        /**
+         * Whether to accumulate the volume or not.
+         *
+         * If this attribute is not `false` and there's same commodity that
+         * composed with same stocks and options, then the volume will be
+         * accumulated to the existed one.
+         *
+         * Otherwise, duplicated commodity would be newly created.
+         *
+         * @default true
+         */
+        accumulate?: boolean;
+    }
+
+    /**
+     * Update information of a shopping cart commodity.
+     */
+    export interface IUpdate {
+        /**
+         * Volume of the commodity to purchase.
+         *
+         * A value indicating how many sets would be multiplied to the children
+         * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
+         */
+        volume: number & tags.Type<"uint32">;
     }
 }
