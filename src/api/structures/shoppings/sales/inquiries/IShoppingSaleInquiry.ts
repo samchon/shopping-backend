@@ -91,4 +91,21 @@ export namespace IShoppingSaleInquiry {
          */
         read_by_seller: boolean;
     }
+
+    export interface IAbridge extends IBbsArticle.IAbridge {
+        /**
+         * Customer who wrote the inquiry.
+         */
+        customer: IShoppingCustomer;
+
+        /**
+         * Formal answer for the inquiry by the seller.
+         */
+        answer: IShoppingSaleInquiryAnswer.IAbridge | null;
+
+        /**
+         * Whether the seller has viewed the inquiry or not.
+         */
+        read_by_seller: boolean;
+    }
 }

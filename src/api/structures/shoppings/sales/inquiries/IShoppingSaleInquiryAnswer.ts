@@ -33,6 +33,9 @@ export namespace IShoppingSaleInquiryAnswer {
     export interface ISummary extends IBbsArticle.ISummary {
         seller: IShoppingSeller;
     }
+    export interface IAbridge extends IBbsArticle.IAbridge {
+        seller: IShoppingSeller;
+    }
     export type ICreate = IBbsArticle.ICreate;
     export type IUpdate = IBbsArticle.IUpdate;
 }

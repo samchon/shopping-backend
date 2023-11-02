@@ -61,4 +61,6 @@ export namespace IShoppingAdministrator {
          */
         citizen: IShoppingCitizen;
     }
+
+    export interface IJoin {}
 }
