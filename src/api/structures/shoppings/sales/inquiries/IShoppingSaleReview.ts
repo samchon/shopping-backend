@@ -60,6 +60,16 @@ export namespace IShoppingSaleReview {
         score: number;
     }
 
+    /**
+     * Abridged information of the review.
+     */
+    export interface IAbridge extends IBbsArticle.IAbridge {
+        /**
+         * Score of the review.
+         */
+        score: number & tags.Minimum<0> & tags.Maximum<100>;
+    }
+
     export interface IInvertSearch {
         score?: IInvertSearch.IScoreRange;
         count?: IInvertSearch.ICountRange;

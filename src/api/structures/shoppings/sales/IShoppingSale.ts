@@ -155,7 +155,7 @@ export namespace IShoppingSale {
     /**
      * Creation information of sale.
      */
-    export interface IStore extends IShoppingSaleSnapshot.ICreate {
+    export interface ICreate extends IShoppingSaleSnapshot.ICreate {
         /**
          * Belonged section's {@link IShoppingSection.code}.
          */

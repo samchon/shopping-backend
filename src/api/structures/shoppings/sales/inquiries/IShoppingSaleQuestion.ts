@@ -59,6 +59,19 @@ export namespace IShoppingSaleQuestion {
     }
 
     /**
+     * Abridged information of the question.
+     */
+    export interface IAbridge extends IShoppingSaleInquiry.IAbridge {
+        /**
+         * Whether the question article is secret or not.
+         *
+         * If secret article, only the writer customer and related seller can see
+         * the detailed content.
+         */
+        secret: boolean;
+    }
+
+    /**
      * Creation information of the question.
      */
     export interface ICreate extends IBbsArticle.ICreate {
