@@ -1,5 +1,6 @@
 import { tags } from "typia";
 
+import { IPage } from "../../common/IPage";
 import { IShoppingAdministrator } from "../actors/IShoppingAdministrator";
 import { IShoppingSeller } from "../actors/IShoppingSeller";
 import { IShoppingCouponCriteria } from "./IShoppingCouponCriteria";
@@ -67,6 +68,23 @@ export interface IShoppingCoupon extends IShoppingCoupon.ICreate {
     created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingCoupon {
+    export interface IRequest extends IPage.IRequest {
+        search?: IRequest.ISearch;
+        sort?: IPage.Sort<IRequest.SortableColumns>;
+    }
+    export namespace IRequest {
+        export interface ISearch {
+            name?: string;
+        }
+        export type SortableColumns =
+            | "coupon.name"
+            | "coupon.unit"
+            | "coupon.value"
+            | "coupon.created_at"
+            | "coupon.opened_at"
+            | "coupon.closed_at";
+    }
+
     /**
      * Creation information of the coupon.
      */
@@ -101,4 +119,5 @@ export namespace IShoppingCoupon {
          */
         closed_at: null | (string & tags.Format<"date-time">);
     }
+    export type IUpdate = ICreate;
 }

@@ -39,4 +39,10 @@ export namespace IShoppingOrderPrice {
          */
         ticket: number & tags.Minimum<0>;
     }
+
+    export interface ICreate {
+        deposit: number;
+        mileage: number;
+        coupon_ids: Array<string & tags.Format<"uuid">>;
+    }
 }

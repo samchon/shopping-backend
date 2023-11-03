@@ -22,7 +22,7 @@ export interface IShoppingCouponFunnelCriteria
     /**
      * List of target funnels.
      */
-    funnels: Array<IShoppingCouponFunnelCriteria.IFunnel> & tags.MinLength<1>;
+    funnels: Array<IShoppingCouponFunnelCriteria.IFunnel> & tags.MinItems<1>;
 }
 export namespace IShoppingCouponFunnelCriteria {
     /**
@@ -73,6 +73,6 @@ export namespace IShoppingCouponFunnelCriteria {
         /**
          * List of target funnels.
          */
-        funnels: Array<IFunnel> & tags.MinLength<1>;
+        funnels: Array<IFunnel> & tags.MinItems<1>;
     }
 }
