@@ -183,7 +183,8 @@ model bbs_article_snapshots {
 
     shopping_sale_snapshot_review_snapshots shopping_sale_snapshot_review_snapshots[]
 
-    mv_last mv_bbs_article_last_snapshots?
+    mv_last                                  mv_bbs_article_last_snapshots?
+    shopping_sale_snapshot_inquiry_favorites shopping_sale_snapshot_inquiry_favorites[]
 
     @@index([bbs_article_id, created_at])
 }
@@ -634,6 +635,7 @@ model shopping_sections {
 ///
 /// @namespace Actors
 /// @erd Coins
+/// @erd Favorites
 /// @author Samchon
 model shopping_customers {
     //----
@@ -703,16 +705,19 @@ model shopping_customers {
     /// Belonged citizen.
     citizen shopping_citizens? @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
 
-    shopping_carts                          shopping_carts[]
-    shopping_coupons                        shopping_coupons[]
-    shopping_coupon_tickets                 shopping_coupon_tickets[]
-    shopping_deliveries                     shopping_deliveries[]
-    shopping_deposit_charges                shopping_deposit_charges[]
-    shopping_orders                         shopping_orders[]
-    shopping_sales                          shopping_sales[]
-    shopping_sale_snapshot_inquiries        shopping_sale_snapshot_inquiries[]
-    shopping_sale_snapshot_inquiry_answers  shopping_sale_snapshot_inquiry_answers[]
-    shopping_sale_snapshot_inquiry_comments shopping_sale_snapshot_inquiry_comments[]
+    shopping_carts                           shopping_carts[]
+    shopping_coupons                         shopping_coupons[]
+    shopping_coupon_tickets                  shopping_coupon_tickets[]
+    shopping_deliveries                      shopping_deliveries[]
+    shopping_deposit_charges                 shopping_deposit_charges[]
+    shopping_orders                          shopping_orders[]
+    shopping_sales                           shopping_sales[]
+    shopping_sale_snapshot_inquiries         shopping_sale_snapshot_inquiries[]
+    shopping_sale_snapshot_inquiry_answers   shopping_sale_snapshot_inquiry_answers[]
+    shopping_sale_snapshot_inquiry_comments  shopping_sale_snapshot_inquiry_comments[]
+    shopping_sale_favorites                  shopping_sale_favorites[]
+    shopping_sale_snapshot_inquiry_favorites shopping_sale_snapshot_inquiry_favorites[]
+    shopping_address_favorites               shopping_address_favorites[]
 
     @@index([shopping_channel_id, created_at])
     @@index([shopping_citizen_id, created_at])
@@ -1102,6 +1107,7 @@ model shopping_administrators {
 ///
 /// @namespace Actors
 /// @erd Orders
+/// @erd Favorites
 /// @author Samchon
 model shopping_addresses {
     //----
@@ -1148,7 +1154,8 @@ model shopping_addresses {
     // RELATIONS
     //----
     /// List of orders.
-    orders shopping_orders[]
+    orders                     shopping_orders[]
+    shopping_address_favorites shopping_address_favorites[]
 
     @@index([mobile])
     @@index([name])
@@ -1176,6 +1183,7 @@ model shopping_addresses {
 ///
 /// @namespace Sales
 /// @erd Systematic
+/// @erd Favorites
 /// @author Samchon
 model shopping_sales {
     //----
@@ -1244,7 +1252,8 @@ model shopping_sales {
     inquiries                      shopping_sale_snapshot_inquiries[]
     shopping_coupon_sale_criterias shopping_coupon_sale_criterias[]
 
-    mv_last mv_shopping_sale_last_snapshots?
+    mv_last                 mv_shopping_sale_last_snapshots?
+    shopping_sale_favorites shopping_sale_favorites[]
 
     @@index([shopping_section_id])
     @@index([shopping_seller_customer_id])
@@ -1268,6 +1277,7 @@ model shopping_sales {
 /// @erd Systematic
 /// @erd Inquiries
 /// @erd Carts
+/// @erd Favorites
 /// @author Samchon
 model shopping_sale_snapshots {
     //----
@@ -1302,8 +1312,9 @@ model shopping_sale_snapshots {
     shopping_cart_commodities        shopping_cart_commodities[]
     shopping_sale_snapshot_inquiries shopping_sale_snapshot_inquiries[]
 
-    mv_last  mv_shopping_sale_last_snapshots?
-    mv_price mv_shopping_sale_snapshot_prices?
+    mv_last                 mv_shopping_sale_last_snapshots?
+    mv_price                mv_shopping_sale_snapshot_prices?
+    shopping_sale_favorites shopping_sale_favorites[]
 
     @@index([shopping_sale_id, created_at])
 }
@@ -2229,7 +2240,7 @@ model shopping_orders {
     /// @format uuid
     shopping_customer_id String @db.Uuid
 
-    /// Target address' {@link shopping_addresses id}
+    /// Target address' {@link shopping_addresses.id}
     ///
     /// @format uuid
     shopping_address_id String? @db.Uuid
@@ -2481,7 +2492,7 @@ model shopping_deliveries {
     /// @format uuid
     id String @id @db.Uuid
 
-    /// Belonged seller's {@link shopping_sellers id}
+    /// Belonged seller's {@link shopping_sellers.id}
     ///
     /// @format uuid
     shopping_seller_customer_id String @db.Uuid
@@ -2527,17 +2538,17 @@ model shopping_delivery_pieces {
     /// @format uuid
     id String @id @db.Uuid
 
-    /// Belonged delivery's {@link shopping_deliveries id}
+    /// Belonged delivery's {@link shopping_deliveries.id}
     ///
     /// @format uuid
     shopping_delivery_id String @db.Uuid
 
-    /// Target good's {@link shopping_order_goods id}
+    /// Target good's {@link shopping_order_goods.id}
     ///
     /// @format uuid
     shopping_order_good_id String @db.Uuid
 
-    /// Target stock-wrapper's {@link shopping_sale_snapshot_unit_stocks id}
+    /// Target stock-wrapper's {@link shopping_sale_snapshot_unit_stocks.id}
     ///
     /// @format uuid
     shopping_cart_commodity_stock_id String @db.Uuid
@@ -3627,6 +3638,7 @@ model shopping_mileage_histories {
 /// unless the seller is a party.
 ///
 /// @namespace Inquiries
+/// @erd Favorites
 /// @author Samchon
 model shopping_sale_snapshot_inquiries {
     //----
@@ -3678,9 +3690,10 @@ model shopping_sale_snapshot_inquiries {
     snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
     customer shopping_customers      @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
 
-    of_question shopping_sale_snapshot_questions?
-    of_review   shopping_sale_snapshot_reviews?
-    answer      shopping_sale_snapshot_inquiry_answers?
+    of_question                              shopping_sale_snapshot_questions?
+    of_review                                shopping_sale_snapshot_reviews?
+    answer                                   shopping_sale_snapshot_inquiry_answers?
+    shopping_sale_snapshot_inquiry_favorites shopping_sale_snapshot_inquiry_favorites[]
 
     @@index([shopping_sale_snapshot_id])
     @@index([shopping_customer_id])
@@ -3889,7 +3902,156 @@ model shopping_sale_snapshot_inquiry_comments {
 }
 
 //-----------------------------------------------------------
-// ARTICLES
+// FAVORITES
+//-----------------------------------------------------------
+/// Favorite sales.
+///
+/// `shopping_sale_favorites` is an entity that symbolizes the 
+/// {@link shopping_sales sale} that the {@link shopping_customers customer}
+/// has favorited. Also, `shopping_sale_favorites` archives the 
+/// {@link shopping_sale_snapshots snapshot} of the sale at the time when the 
+/// customer favorites it.
+///
+/// @namespace Favorites
+/// @author Samchon
+model shopping_sale_favorites {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Belonged customer's {@link shopping_customers.id}
+    shopping_customer_id String @db.Uuid
+
+    /// Target sale's {@link shopping_sales.id}
+    shopping_sale_id String @db.Uuid
+
+    /// Target snapshot's {@link shopping_sale_snapshots.id}
+    ///
+    /// The snapshot of the sale at the time when the customer favorites it.
+    shopping_sale_snapshot_id String @db.Uuid
+
+    /// Creation time of record.
+    created_at DateTime @db.Timestamptz
+
+    /// Deletion time of record.
+    deleted_at DateTime? @db.Timestamptz
+
+    //----
+    // RELATIONS
+    //----
+    customer shopping_customers      @relation(fields: [shopping_customer_id], references: [id])
+    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id])
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id])
+
+    @@index([shopping_customer_id])
+    @@index([shopping_sale_id])
+    @@index([shopping_sale_snapshot_id])
+}
+
+/// Favorite inquiries.
+///
+/// `shopping_sale_snapshot_inquiry_favorites` is an entity that symbolizes 
+/// the {@link shopping_sale_snapshot_inquiries inquiry} that the 
+/// {@link shopping_customers customer} has favorited. Also, 
+/// `shopping_sale_snapshot_inquiry_favorites` archives the 
+/// {@link shopping_sale_snapshots snapshot} of the inquiry at the time when
+/// the customer favorites it. 
+/// 
+/// @namespace Favorites
+/// @author Samchon
+model shopping_sale_snapshot_inquiry_favorites {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Belonged customer's {@link shopping_customers.id}
+    shopping_customer_id String @db.Uuid
+
+    /// Target inquiry's {@link shopping_sale_snapshot_inquiries.id}
+    shopping_sale_snapshot_inquiry_id String @db.Uuid
+
+    /// Target snapshot's {@link shopping_sale_snapshots.id}
+    ///
+    /// The snapshot of the inquiry at the time when the customer favorites it.
+    bbs_article_snapshot_id String @db.Uuid
+
+    /// Creation time of record.
+    created_at DateTime @db.Timestamptz
+
+    /// Deletion time of record.
+    deleted_at DateTime? @db.Timestamptz
+
+    //----
+    // RELATIONS
+    //----
+    /// Belonged customer.
+    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id])
+
+    /// Belonged inquiry.
+    inquiry shopping_sale_snapshot_inquiries @relation(fields: [shopping_sale_snapshot_inquiry_id], references: [id])
+
+    /// Belonged snapshot.
+    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id])
+
+    @@index([shopping_customer_id])
+    @@index([shopping_sale_snapshot_inquiry_id])
+}
+
+/// Favorite addresses.
+///
+/// `shopping_address_favorites` is an entity that symbolizes the
+/// {@link shopping_addresses address} that the 
+/// {@link shopping_customers customer} has favorited.
+///
+/// @namespace Favorites
+/// @author Samchon
+model shopping_address_favorites {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Belonged customer's {@link shopping_customers.id}
+    shopping_customer_id String @db.Uuid
+
+    /// Target address's {@link shopping_addresses.id}
+    shopping_address_id String @db.Uuid
+
+    /// Title of the favorite address.
+    title String @db.VarChar
+
+    /// Whether the favorite address is primary or not.
+    primary Boolean @db.Boolean
+
+    /// Creation time of record.
+    created_at DateTime @db.Timestamptz
+
+    /// Deletion time of record.
+    deleted_at DateTime? @db.Timestamptz
+
+    //----
+    // RELATIONS
+    //----
+    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id])
+    address  shopping_addresses @relation(fields: [shopping_address_id], references: [id])
+
+    @@index([shopping_customer_id])
+    @@index([shopping_address_id])
+}
+
+//-----------------------------------------------------------
+// MATERIALIZED VIEWS
 //-----------------------------------------------------------
 /// @hidden
 model mv_cache_times {

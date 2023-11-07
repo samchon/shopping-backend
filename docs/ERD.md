@@ -7,6 +7,7 @@
 - [Sales](#Sales)
 - [Actors](#Actors)
 - [Coins](#Coins)
+- [Favorites](#Favorites)
 - [Orders](#Orders)
 - [Carts](#Carts)
 - [Coupons](#Coupons)
@@ -1645,6 +1646,154 @@ outcome. The minus value must be expressed by multiplying the
   - `cancelled_at`: Cancelled time of record.
 
 
+## Favorites
+```mermaid
+erDiagram
+"shopping_customers" {
+    String id PK
+    String shopping_channel_id FK
+    String shopping_member_id FK "nullable"
+    String shopping_external_user_id FK "nullable"
+    String shopping_citizen_id FK "nullable"
+    String href
+    String referrer
+    String ip
+    DateTime created_at
+}
+"shopping_addresses" {
+    String id PK
+    String mobile
+    String name
+    String country
+    String province
+    String city
+    String department
+    String possession
+    String zip_code
+    String special_note "nullable"
+    DateTime created_at
+}
+"shopping_sales" {
+    String id PK
+    String shopping_section_id FK
+    String shopping_seller_customer_id FK
+    DateTime created_at
+    DateTime opened_at "nullable"
+    DateTime closed_at "nullable"
+    DateTime paused_at "nullable"
+    DateTime suspended_at "nullable"
+}
+"shopping_sale_snapshots" {
+    String id PK
+    String shopping_sale_id FK
+    DateTime created_at
+}
+"shopping_sale_snapshot_inquiries" {
+    String id PK
+    String shopping_sale_id FK
+    String shopping_sale_snapshot_id FK
+    String shopping_customer_id FK
+    String type
+    DateTime created_at
+    DateTime read_by_seller_at "nullable"
+}
+"shopping_sale_favorites" {
+    String id PK
+    String shopping_customer_id FK
+    String shopping_sale_id FK
+    String shopping_sale_snapshot_id FK
+    DateTime created_at
+    DateTime deleted_at "nullable"
+}
+"shopping_sale_snapshot_inquiry_favorites" {
+    String id PK
+    String shopping_customer_id FK
+    String shopping_sale_snapshot_inquiry_id FK
+    String bbs_article_snapshot_id FK
+    DateTime created_at
+    DateTime deleted_at "nullable"
+}
+"shopping_address_favorites" {
+    String id PK
+    String shopping_customer_id FK
+    String shopping_address_id FK
+    String title
+    Boolean primary
+    DateTime created_at
+    DateTime deleted_at "nullable"
+}
+"shopping_sales" }|--|| "shopping_customers" : sellerCustomer
+"shopping_sale_snapshots" }|--|| "shopping_sales" : sale
+"shopping_sale_snapshot_inquiries" }|--|| "shopping_sales" : sale
+"shopping_sale_snapshot_inquiries" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_inquiries" }|--|| "shopping_customers" : customer
+"shopping_sale_favorites" }|--|| "shopping_customers" : customer
+"shopping_sale_favorites" }|--|| "shopping_sales" : sale
+"shopping_sale_favorites" }|--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_inquiry_favorites" }|--|| "shopping_customers" : customer
+"shopping_sale_snapshot_inquiry_favorites" }|--|| "shopping_sale_snapshot_inquiries" : inquiry
+"shopping_address_favorites" }|--|| "shopping_customers" : customer
+"shopping_address_favorites" }|--|| "shopping_addresses" : address
+```
+
+### `shopping_sale_favorites`
+Favorite sales.
+
+`shopping_sale_favorites` is an entity that symbolizes the 
+[sale](#shopping_sales) that the [customer](#shopping_customers)
+has favorited. Also, `shopping_sale_favorites` archives the 
+[snapshot](#shopping_sale_snapshots) of the sale at the time when the 
+customer favorites it.
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
+  - `shopping_sale_id`: Target sale's [shopping_sales.id](#shopping_sales)
+  - `shopping_sale_snapshot_id`
+    > Target snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
+    > 
+    > The snapshot of the sale at the time when the customer favorites it.
+  - `created_at`: Creation time of record.
+  - `deleted_at`: Deletion time of record.
+
+### `shopping_sale_snapshot_inquiry_favorites`
+Favorite inquiries.
+
+`shopping_sale_snapshot_inquiry_favorites` is an entity that symbolizes 
+the [inquiry](#shopping_sale_snapshot_inquiries) that the 
+[customer](#shopping_customers) has favorited. Also, 
+`shopping_sale_snapshot_inquiry_favorites` archives the 
+[snapshot](#shopping_sale_snapshots) of the inquiry at the time when
+the customer favorites it. 
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
+  - `shopping_sale_snapshot_inquiry_id`: Target inquiry's [shopping_sale_snapshot_inquiries.id](#shopping_sale_snapshot_inquiries)
+  - `bbs_article_snapshot_id`
+    > Target snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
+    > 
+    > The snapshot of the inquiry at the time when the customer favorites it.
+  - `created_at`: Creation time of record.
+  - `deleted_at`: Deletion time of record.
+
+### `shopping_address_favorites`
+Favorite addresses.
+
+`shopping_address_favorites` is an entity that symbolizes the
+[address](#shopping_addresses) that the 
+[customer](#shopping_customers) has favorited.
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
+  - `shopping_address_id`: Target address's [shopping_addresses.id](#shopping_addresses)
+  - `title`: Title of the favorite address.
+  - `primary`: Whether the favorite address is primary or not.
+  - `created_at`: Creation time of record.
+  - `deleted_at`: Deletion time of record.
+
+
 ## Orders
 ```mermaid
 erDiagram
@@ -1766,7 +1915,7 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
 **Properties**
   - `id`: Primary Key.
   - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
-  - `shopping_address_id`: Target address' [id](#shopping_addresses)
+  - `shopping_address_id`: Target address' [shopping_addresses.id](#shopping_addresses)
   - `cash`: Amount of cash payment.
   - `deposit`: Amount of deposit payment instead of cash.
   - `mileage`: Amount of mileage payment instead of cash.
@@ -1894,7 +2043,7 @@ another subsidiary entity [shopping_delivery_journeys](#shopping_delivery_journe
 
 **Properties**
   - `id`: Primary Key.
-  - `shopping_seller_customer_id`: Belonged seller's [id](#shopping_sellers)
+  - `shopping_seller_customer_id`: Belonged seller's [shopping_sellers.id](#shopping_sellers)
   - `invoice_code`: Invoice code if exists.
   - `created_at`: Creation time of record.
 
@@ -1911,9 +2060,9 @@ for a single stock.
 
 **Properties**
   - `id`: Primary Key.
-  - `shopping_delivery_id`: Belonged delivery's [id](#shopping_deliveries)
-  - `shopping_order_good_id`: Target good's [id](#shopping_order_goods)
-  - `shopping_cart_commodity_stock_id`: Target stock-wrapper's [id](#shopping_sale_snapshot_unit_stocks)
+  - `shopping_delivery_id`: Belonged delivery's [shopping_deliveries.id](#shopping_deliveries)
+  - `shopping_order_good_id`: Target good's [shopping_order_goods.id](#shopping_order_goods)
+  - `shopping_cart_commodity_stock_id`: Target stock-wrapper's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
   - `quantity`
     > Quantity count.
     > 
