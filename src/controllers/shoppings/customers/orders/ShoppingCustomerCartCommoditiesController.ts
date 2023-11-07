@@ -5,6 +5,7 @@ import { tags } from "typia";
 import { IPage } from "samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingCartDiscountable } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartDiscountable";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
@@ -74,5 +75,18 @@ export class ShoppingCustomerCartCommoditiesController {
         customer;
         cartId;
         id;
+    }
+
+    @core.TypedRoute.Patch("discountable")
+    public async discountable(
+        @ShoppingCustomerAuth() customer: IShoppingCustomer,
+        @core.TypedParam("cartId")
+        cartId: null | (string & tags.Format<"uuid">),
+        @core.TypedBody() input: IShoppingCartDiscountable.IRequest,
+    ): Promise<IShoppingCartDiscountable> {
+        customer;
+        cartId;
+        input;
+        return null!;
     }
 }

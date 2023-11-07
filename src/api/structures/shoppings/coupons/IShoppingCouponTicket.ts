@@ -1,5 +1,8 @@
 import { tags } from "typia";
 
+import { IPage } from "../../common/IPage";
+import { IShoppingCoupon } from "./IShoppingCoupon";
+
 /**
  * Discount coupon ticket issuance details.
  *
@@ -29,4 +32,24 @@ export interface IShoppingCouponTicket {
      * Expiration time of the ticket.
      */
     expired_at: null | (string & tags.Format<"date-time">);
+}
+export namespace IShoppingCouponTicket {
+    export interface IInvert extends IShoppingCouponTicket {
+        coupon: IShoppingCoupon;
+    }
+
+    export interface IRequest extends IPage.IRequest {
+        sort?: IPage.Sort<IRequest.SortableColumns>;
+    }
+    export namespace IRequest {
+        export type SortableColumns = "ticket.created_at" | "ticket.expired_at";
+    }
+
+    export interface ITake {
+        code: string;
+    }
+
+    export interface ICreate {
+        coupon_id: string & tags.Format<"uuid">;
+    }
 }

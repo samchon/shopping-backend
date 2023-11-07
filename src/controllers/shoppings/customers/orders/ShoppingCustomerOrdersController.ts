@@ -2,7 +2,9 @@ import core from "@nestia/core";
 import { tags } from "typia";
 
 import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingOrderPublish } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPublish";
+import { IShoppingOrder } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IShoppingOrderDiscountable } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
+import { IShoppingOrderPrice } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 import { ShoppingOrdersController } from "../../base/orders/ShoppingOrdersController";
@@ -14,8 +16,8 @@ export class ShoppingCustomerOrdersController extends ShoppingOrdersController({
     @core.TypedRoute.Post()
     public async create(
         @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedBody() input: IShoppingOrderPublish.ICreate,
-    ): Promise<IShoppingOrderPublish> {
+        @core.TypedBody() input: IShoppingOrder.ICreate,
+    ): Promise<IShoppingOrder> {
         customer;
         input;
         return null!;
@@ -28,5 +30,39 @@ export class ShoppingCustomerOrdersController extends ShoppingOrdersController({
     ): Promise<void> {
         customer;
         id;
+    }
+
+    @core.TypedRoute.Get(":id/price")
+    public async price(
+        @ShoppingCustomerAuth() customer: IShoppingCustomer,
+        @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    ): Promise<IShoppingOrderPrice> {
+        customer;
+        id;
+        return null!;
+    }
+
+    @core.TypedRoute.Patch(":id/discountable")
+    public async discountable(
+        @ShoppingCustomerAuth() customer: IShoppingCustomer,
+        @core.TypedParam("id") id: string & tags.Format<"uuid">,
+        @core.TypedBody() input: IShoppingOrderDiscountable.IRequest,
+    ): Promise<IShoppingOrderDiscountable> {
+        customer;
+        id;
+        input;
+        return null!;
+    }
+
+    @core.TypedRoute.Put(":id/discount")
+    public async discount(
+        @ShoppingCustomerAuth() customer: IShoppingCustomer,
+        @core.TypedParam("id") id: string & tags.Format<"uuid">,
+        @core.TypedBody() input: IShoppingOrderPrice.ICreate,
+    ): Promise<IShoppingOrderPrice> {
+        customer;
+        id;
+        input;
+        return null!;
     }
 }
