@@ -18,38 +18,38 @@ import { IShoppingCoupon } from "./IShoppingCoupon";
  * @author Samchon
  */
 export interface IShoppingCouponTicket {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
 
-    /**
-     * Expiration time of the ticket.
-     */
-    expired_at: null | (string & tags.Format<"date-time">);
+  /**
+   * Expiration time of the ticket.
+   */
+  expired_at: null | (string & tags.Format<"date-time">);
 }
 export namespace IShoppingCouponTicket {
-    export interface IInvert extends IShoppingCouponTicket {
-        coupon: IShoppingCoupon;
-    }
+  export interface IInvert extends IShoppingCouponTicket {
+    coupon: IShoppingCoupon;
+  }
 
-    export interface IRequest extends IPage.IRequest {
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export type SortableColumns = "ticket.created_at" | "ticket.expired_at";
-    }
+  export interface IRequest extends IPage.IRequest {
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export type SortableColumns = "ticket.created_at" | "ticket.expired_at";
+  }
 
-    export interface ITake {
-        code: string;
-    }
+  export interface ITake {
+    code: string;
+  }
 
-    export interface ICreate {
-        coupon_id: string & tags.Format<"uuid">;
-    }
+  export interface ICreate {
+    coupon_id: string & tags.Format<"uuid">;
+  }
 }

@@ -24,13 +24,13 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingCouponTicketPayment {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
 }

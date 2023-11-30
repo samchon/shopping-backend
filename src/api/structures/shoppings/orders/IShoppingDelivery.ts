@@ -26,16 +26,41 @@ import { IShoppingDeliveryPiece } from "./IShoppingDeliveryPiece";
  * @author Samchon
  */
 export interface IShoppingDelivery {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Seller who've delivered the goods.
-     */
-    seller: IShoppingSeller;
+  /**
+   * Seller who've delivered the goods.
+   */
+  seller: IShoppingSeller;
 
+  /**
+   * Invoice code if exists.
+   */
+  invoice_code: string | null;
+
+  /**
+   * List of pieces of the delivery.
+   */
+  pieces: IShoppingDeliveryPiece[];
+
+  /**
+   * List of journeys of the delivery.
+   */
+  journeys: IShoppingDeliveryJourney[];
+
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+export namespace ShoppingDelivery {
+  /**
+   * Creation information of the delivery.
+   */
+  export interface ICreate {
     /**
      * Invoice code if exists.
      */
@@ -44,39 +69,14 @@ export interface IShoppingDelivery {
     /**
      * List of pieces of the delivery.
      */
-    pieces: IShoppingDeliveryPiece[];
+    pieces: IShoppingDeliveryPiece.ICreate[];
 
     /**
      * List of journeys of the delivery.
+     *
+     * This is initial data, and it is also possible to accumulate journey data
+     * after the delivery creation.
      */
-    journeys: IShoppingDeliveryJourney[];
-
-    /**
-     * Creation time of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
-}
-export namespace ShoppingDelivery {
-    /**
-     * Creation information of the delivery.
-     */
-    export interface ICreate {
-        /**
-         * Invoice code if exists.
-         */
-        invoice_code: string | null;
-
-        /**
-         * List of pieces of the delivery.
-         */
-        pieces: IShoppingDeliveryPiece.ICreate[];
-
-        /**
-         * List of journeys of the delivery.
-         *
-         * This is initial data, and it is also possible to accumulate journey data
-         * after the delivery creation.
-         */
-        journeys: IShoppingDeliveryJourney.ICreate[];
-    }
+    journeys: IShoppingDeliveryJourney.ICreate[];
+  }
 }

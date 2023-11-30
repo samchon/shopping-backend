@@ -16,31 +16,31 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingSaleUnitStockSupplement {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
+  /**
+   * Supplemented quantity.
+   */
+  value: number & tags.Type<"uint32">;
+
+  /**
+   * Creation time of the record.
+   *
+   * Another words, the time when inventory of the stock being supplemented.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+export namespace IShoppingSaleUnitStockSupplement {
+  /**
+   * Creation information of the stock.
+   */
+  export interface ICreate {
     /**
      * Supplemented quantity.
      */
     value: number & tags.Type<"uint32">;
-
-    /**
-     * Creation time of the record.
-     *
-     * Another words, the time when inventory of the stock being supplemented.
-     */
-    created_at: string & tags.Format<"date-time">;
-}
-export namespace IShoppingSaleUnitStockSupplement {
-    /**
-     * Creation information of the stock.
-     */
-    export interface ICreate {
-        /**
-         * Supplemented quantity.
-         */
-        value: number & tags.Type<"uint32">;
-    }
+  }
 }

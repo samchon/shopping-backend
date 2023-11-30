@@ -31,15 +31,52 @@ import { IShoppingOrderPrice } from "./IShoppingOrderPrice";
  * @author Samchon
  */
 export interface IShoppingOrderGood {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
+  /**
+   * Commodity that is the basis of the good.
+   */
+  commodity: IShoppingCartCommodity;
+
+  /**
+   * Volume of the good.
+   *
+   * The value multiplied to {@link IShoppingCartCommodityStock.quantity}.
+   * It's purpose is exactly same with {@link IShoppingCartCommodity.volume},
+   * but rewritten because the {@link IShoppingCartCommodity} records are reusable
+   * until payment.
+   */
+  volume: number & tags.Type<"uint32">;
+
+  /**
+   * Price information including discounts and multipled volume.
+   */
+  price: IShoppingOrderPrice.ISummary;
+
+  /**
+   * Confirmation time of order good.
+   *
+   * When be confirmed, customer can't request refund or exchange.
+   *
+   * The confirmation be accomplished by following cases.
+   *
+   * - Customer does it directly.
+   * - 14 days after the delivery.
+   */
+  confirmed_at: null | (string & tags.Format<"date-time">);
+}
+export namespace IShoppingOrderGood {
+  /**
+   * Creation information of the good.
+   */
+  export interface ICreate {
     /**
-     * Commodity that is the basis of the good.
+     * Target commodity's {@link IShoppingCartCommodity.id}.
      */
-    commodity: IShoppingCartCommodity;
+    commodity_id: string & tags.Format<"uuid">;
 
     /**
      * Volume of the good.
@@ -50,42 +87,5 @@ export interface IShoppingOrderGood {
      * until payment.
      */
     volume: number & tags.Type<"uint32">;
-
-    /**
-     * Price information including discounts and multipled volume.
-     */
-    price: IShoppingOrderPrice.ISummary;
-
-    /**
-     * Confirmation time of order good.
-     *
-     * When be confirmed, customer can't request refund or exchange.
-     *
-     * The confirmation be accomplished by following cases.
-     *
-     * - Customer does it directly.
-     * - 14 days after the delivery.
-     */
-    confirmed_at: null | (string & tags.Format<"date-time">);
-}
-export namespace IShoppingOrderGood {
-    /**
-     * Creation information of the good.
-     */
-    export interface ICreate {
-        /**
-         * Target commodity's {@link IShoppingCartCommodity.id}.
-         */
-        commodity_id: string & tags.Format<"uuid">;
-
-        /**
-         * Volume of the good.
-         *
-         * The value multiplied to {@link IShoppingCartCommodityStock.quantity}.
-         * It's purpose is exactly same with {@link IShoppingCartCommodity.volume},
-         * but rewritten because the {@link IShoppingCartCommodity} records are reusable
-         * until payment.
-         */
-        volume: number & tags.Type<"uint32">;
-    }
+  }
 }

@@ -10,18 +10,18 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingMemberEmail {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Email address value.
-     */
-    value: string & tags.Format<"email">;
+  /**
+   * Email address value.
+   */
+  value: string & tags.Format<"email">;
 
-    /**
-     * Creation time of record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of record.
+   */
+  created_at: string & tags.Format<"date-time">;
 }

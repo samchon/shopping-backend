@@ -27,17 +27,55 @@ import { IShoppingSaleInquiryAnswer } from "./IShoppingSaleInquiryAnswer";
  * @author Samchon
  */
 export interface IShoppingSaleInquiry<
-    Type extends "question" | "review",
-    Snapshot extends IBbsArticle.ISnapshot,
+  Type extends "question" | "review",
+  Snapshot extends IBbsArticle.ISnapshot,
 > extends IBbsArticle<Snapshot> {
-    /**
-     * Type of the derived inquiry.
-     *
-     * - `question`: {@link IShoppingSaleQuestion}
-     * - `review`: {@link IShoppingSaleReview}
-     */
-    type: Type;
+  /**
+   * Type of the derived inquiry.
+   *
+   * - `question`: {@link IShoppingSaleQuestion}
+   * - `review`: {@link IShoppingSaleReview}
+   */
+  type: Type;
 
+  /**
+   * Customer who wrote the inquiry.
+   */
+  customer: IShoppingCustomer;
+
+  /**
+   * Formal answer for the inquiry by the seller.
+   */
+  answer: null | IShoppingSaleInquiryAnswer;
+
+  /**
+   * Whether the seller has viewed the inquiry or not.
+   */
+  read_by_seller: boolean;
+}
+export namespace IShoppingSaleInquiry {
+  /**
+   * Request of summarized informations with pagination searching/sorting options.
+   */
+  export interface IRequest<
+    Search extends IRequest.ISearch,
+    Sortable extends IRequest.SortableColumns | string,
+  > extends IBbsArticle.IRequest<Search, Sortable> {}
+  export namespace IRequest {
+    export interface ISearch extends IBbsArticle.IRequest.ISearch {
+      name?: string;
+      nickname?: string;
+      answered?: boolean | null;
+    }
+    export type SortableColumns =
+      | IBbsArticle.IRequest.SortableColumns
+      | "nickname";
+  }
+
+  /**
+   * Summarized information of an inquiry.
+   */
+  export interface ISummary extends IBbsArticle.ISummary {
     /**
      * Customer who wrote the inquiry.
      */
@@ -46,66 +84,28 @@ export interface IShoppingSaleInquiry<
     /**
      * Formal answer for the inquiry by the seller.
      */
-    answer: null | IShoppingSaleInquiryAnswer;
+    answer: IShoppingSaleInquiryAnswer.ISummary | null;
 
     /**
      * Whether the seller has viewed the inquiry or not.
      */
     read_by_seller: boolean;
-}
-export namespace IShoppingSaleInquiry {
+  }
+
+  export interface IAbridge extends IBbsArticle.IAbridge {
     /**
-     * Request of summarized informations with pagination searching/sorting options.
+     * Customer who wrote the inquiry.
      */
-    export interface IRequest<
-        Search extends IRequest.ISearch,
-        Sortable extends IRequest.SortableColumns | string,
-    > extends IBbsArticle.IRequest<Search, Sortable> {}
-    export namespace IRequest {
-        export interface ISearch extends IBbsArticle.IRequest.ISearch {
-            name?: string;
-            nickname?: string;
-            answered?: boolean | null;
-        }
-        export type SortableColumns =
-            | IBbsArticle.IRequest.SortableColumns
-            | "nickname";
-    }
+    customer: IShoppingCustomer;
 
     /**
-     * Summarized information of an inquiry.
+     * Formal answer for the inquiry by the seller.
      */
-    export interface ISummary extends IBbsArticle.ISummary {
-        /**
-         * Customer who wrote the inquiry.
-         */
-        customer: IShoppingCustomer;
+    answer: IShoppingSaleInquiryAnswer.IAbridge | null;
 
-        /**
-         * Formal answer for the inquiry by the seller.
-         */
-        answer: IShoppingSaleInquiryAnswer.ISummary | null;
-
-        /**
-         * Whether the seller has viewed the inquiry or not.
-         */
-        read_by_seller: boolean;
-    }
-
-    export interface IAbridge extends IBbsArticle.IAbridge {
-        /**
-         * Customer who wrote the inquiry.
-         */
-        customer: IShoppingCustomer;
-
-        /**
-         * Formal answer for the inquiry by the seller.
-         */
-        answer: IShoppingSaleInquiryAnswer.IAbridge | null;
-
-        /**
-         * Whether the seller has viewed the inquiry or not.
-         */
-        read_by_seller: boolean;
-    }
+    /**
+     * Whether the seller has viewed the inquiry or not.
+     */
+    read_by_seller: boolean;
+  }
 }

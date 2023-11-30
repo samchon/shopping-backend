@@ -41,102 +41,99 @@ import { IShoppingSaleAggregate } from "./aggregates/IShoppingSaleAggregate";
  * @author Samchon
  */
 export interface IShoppingSaleSnapshot
-    extends IShoppingSaleSnapshot.IBase<
-        IShoppingSaleContent,
-        IShoppingSaleUnit
-    > {}
+  extends IShoppingSaleSnapshot.IBase<
+    IShoppingSaleContent,
+    IShoppingSaleUnit
+  > {}
 export namespace IShoppingSaleSnapshot {
+  /**
+   * Invert information of the sale snapshot, in the perspective of commodity.
+   *
+   * `IShoppingSaleSnapshot.IInvert` is a structure used to represent a
+   * snapshot in the perspective of a {@link IShoppingCommodity}, corresponding
+   * to an {@link IShoppingCartCommodityStock} entity.
+   *
+   * Therefore, `IShoppingSaleSnapshot.IInvert` does not contain every
+   * {@link IShoppingSaleUnit units} and {@link IShoppingSaleUnitStock stocks}
+   * of the snapshot records, but only some of the records which are put
+   * into the {@link IShoppingCartCommodity shopping cart}.
+   */
+  export interface IInvert
+    extends IBase<IShoppingSaleContent.IInvert, IShoppingSaleUnit.IInvert>,
+      IShoppingSale.ITimestamps {
     /**
-     * Invert information of the sale snapshot, in the perspective of commodity.
+     * Belonged section's information.
+     */
+    section: IShoppingSection;
+
+    /**
+     * Seller who've registered the sale.
+     */
+    seller: IShoppingSeller;
+  }
+
+  /**
+   * Summarized information of the sale snapshot.
+   */
+  export interface ISummary
+    extends IBase<IShoppingSaleContent.ISummary, IShoppingSaleUnit.ISummary> {}
+
+  export interface IBase<Content, Unit> {
+    /**
+     * Primary Key of Sale.
+     */
+    id: string & tags.Format<"uuid">;
+
+    /**
+     * Primary Key of Snapshot.
+     */
+    snapshot_id: string & tags.Format<"uuid">;
+
+    /**
+     * Whether the snapshot is the latest one or not.
+     */
+    latest: boolean;
+
+    /**
+     * Creation time of the record.
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * Description and image content describing the sale.
+     */
+    content: Content;
+
+    /**
+     * List of search tags.
+     */
+    tags: string[];
+
+    /**
      *
-     * `IShoppingSaleSnapshot.IInvert` is a structure used to represent a
-     * snapshot in the perspective of a {@link IShoppingCommodity}, corresponding
-     * to an {@link IShoppingCartCommodityStock} entity.
+     */
+    aggregate: IShoppingSaleAggregate;
+
+    /**
+     * List of units.
      *
-     * Therefore, `IShoppingSaleSnapshot.IInvert` does not contain every
-     * {@link IShoppingSaleUnit units} and {@link IShoppingSaleUnitStock stocks}
-     * of the snapshot records, but only some of the records which are put
-     * into the {@link IShoppingCartCommodity shopping cart}.
+     * Records about individual product composition informations that are sold
+     * in the sale. Each {@link IShoppingSaleUnit unit} record has configurable
+     * {@link IShoppingSaleUnitOption options},
+     * {@link IShoppingSaleUnitOptionCandidate candidate} values for each
+     * option, and {@link IShoppingSaleUnitStock final stocks} determined by
+     * selecting every candidate values of each option.
      */
-    export interface IInvert
-        extends IBase<IShoppingSaleContent.IInvert, IShoppingSaleUnit.IInvert>,
-            IShoppingSale.ITimestamps {
-        /**
-         * Belonged section's information.
-         */
-        section: IShoppingSection;
+    units: Unit[] & tags.MinItems<1>;
+  }
 
-        /**
-         * Seller who've registered the sale.
-         */
-        seller: IShoppingSeller;
-    }
-
-    /**
-     * Summarized information of the sale snapshot.
-     */
-    export interface ISummary
-        extends IBase<
-            IShoppingSaleContent.ISummary,
-            IShoppingSaleUnit.ISummary
-        > {}
-
-    export interface IBase<Content, Unit> {
-        /**
-         * Primary Key of Sale.
-         */
-        id: string & tags.Format<"uuid">;
-
-        /**
-         * Primary Key of Snapshot.
-         */
-        snapshot_id: string & tags.Format<"uuid">;
-
-        /**
-         * Whether the snapshot is the latest one or not.
-         */
-        latest: boolean;
-
-        /**
-         * Creation time of the record.
-         */
-        created_at: string & tags.Format<"date-time">;
-
-        /**
-         * Description and image content describing the sale.
-         */
-        content: Content;
-
-        /**
-         * List of search tags.
-         */
-        tags: string[];
-
-        /**
-         *
-         */
-        aggregate: IShoppingSaleAggregate;
-
-        /**
-         * List of units.
-         *
-         * Records about individual product composition informations that are sold
-         * in the sale. Each {@link IShoppingSaleUnit unit} record has configurable
-         * {@link IShoppingSaleUnitOption options},
-         * {@link IShoppingSaleUnitOptionCandidate candidate} values for each
-         * option, and {@link IShoppingSaleUnitStock final stocks} determined by
-         * selecting every candidate values of each option.
-         */
-        units: Unit[] & tags.MinItems<1>;
-    }
-
-    /**
-     * Creation information of the snapshot.
-     */
-    export interface ICreate {
-        content: IShoppingSaleContent.ICreate;
-        channels: IShoppingSaleChannel.ICreate[];
-        units: IShoppingSaleUnit.ICreate[] & tags.MinItems<1>;
-        tags: string[];
-    }
+  /**
+   * Creation information of the snapshot.
+   */
+  export interface ICreate {
+    content: IShoppingSaleContent.ICreate;
+    channels: IShoppingSaleChannel.ICreate[];
+    units: IShoppingSaleUnit.ICreate[] & tags.MinItems<1>;
+    tags: string[];
+  }
 }

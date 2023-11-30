@@ -18,29 +18,29 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingCitizen extends IShoppingCitizen.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of record.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingCitizen {
+  /**
+   * Creation information of citizen verification.
+   */
+  export interface ICreate {
     /**
-     * Creation information of citizen verification.
+     * Mobile number.
      */
-    export interface ICreate {
-        /**
-         * Mobile number.
-         */
-        mobile: string & tags.Pattern<"^[0-9]*$">;
+    mobile: string & tags.Pattern<"^[0-9]*$">;
 
-        /**
-         * Real name, or equivalent nickname.
-         */
-        name: string;
-    }
+    /**
+     * Real name, or equivalent nickname.
+     */
+    name: string;
+  }
 }

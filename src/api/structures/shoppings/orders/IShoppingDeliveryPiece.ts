@@ -14,31 +14,31 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingDeliveryPiece extends IShoppingDeliveryPiece.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 }
 export namespace IShoppingDeliveryPiece {
+  /**
+   * Creation information of the delivery piece.
+   */
+  export interface ICreate {
     /**
-     * Creation information of the delivery piece.
+     * Target good's {@link IShoppingOrderGood.id}.
      */
-    export interface ICreate {
-        /**
-         * Target good's {@link IShoppingOrderGood.id}.
-         */
-        good_id: string & tags.Format<"uuid">;
+    good_id: string & tags.Format<"uuid">;
 
-        /**
-         * Target stock's {@link IShoppingSaleUnitStock.id}.
-         */
-        stock_id: string & tags.Format<"uuid">;
+    /**
+     * Target stock's {@link IShoppingSaleUnitStock.id}.
+     */
+    stock_id: string & tags.Format<"uuid">;
 
-        /**
-         * Quantity of the stock.
-         *
-         * It can be precision value to express splitted shipping.
-         */
-        quantity: number & tags.Minimum<0>;
-    }
+    /**
+     * Quantity of the stock.
+     *
+     * It can be precision value to express splitted shipping.
+     */
+    quantity: number & tags.Minimum<0>;
+  }
 }

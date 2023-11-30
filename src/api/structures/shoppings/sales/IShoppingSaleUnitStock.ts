@@ -33,6 +33,38 @@ import { IShoppingSaleUnitStockInventory } from "./IShoppingSaleUnitStockInvento
  * @author Samchon
  */
 export interface IShoppingSaleUnitStock {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * Representative name of the stock.
+   */
+  name: string;
+
+  /**
+   * Price of the stock.
+   */
+  price: IShoppingPrice;
+
+  /**
+   * Current inventory status of the stock.
+   */
+  inventory: IShoppingSaleUnitStockInventory;
+
+  /**
+   * List of choices.
+   *
+   * Which candidate values being chosen for each option.
+   */
+  choices: IShoppingSaleUnitStockChoice[];
+}
+export namespace IShoppingSaleUnitStock {
+  /**
+   * Invert information from the cart.
+   */
+  export interface IInvert {
     /**
      * Primary Key.
      */
@@ -49,74 +81,42 @@ export interface IShoppingSaleUnitStock {
     price: IShoppingPrice;
 
     /**
-     * Current inventory status of the stock.
+     * Quantity of the stock in the cart.
      */
-    inventory: IShoppingSaleUnitStockInventory;
+    quantity: number & tags.Type<"uint32">;
+
+    /**
+     * List of choices.
+     *
+     * Which values being written for each option.
+     */
+    choices: IShoppingSaleUnitStockChoice.IInvert[];
+  }
+
+  /**
+   * Creation information of the stock.
+   */
+  export interface ICreate {
+    /**
+     * Representative name of the stock.
+     */
+    name: string;
+
+    /**
+     * Price of the stock.
+     */
+    price: IShoppingPrice;
+
+    /**
+     * Initial inventory quantity.
+     */
+    quantity: number;
 
     /**
      * List of choices.
      *
      * Which candidate values being chosen for each option.
      */
-    choices: IShoppingSaleUnitStockChoice[];
-}
-export namespace IShoppingSaleUnitStock {
-    /**
-     * Invert information from the cart.
-     */
-    export interface IInvert {
-        /**
-         * Primary Key.
-         */
-        id: string & tags.Format<"uuid">;
-
-        /**
-         * Representative name of the stock.
-         */
-        name: string;
-
-        /**
-         * Price of the stock.
-         */
-        price: IShoppingPrice;
-
-        /**
-         * Quantity of the stock in the cart.
-         */
-        quantity: number & tags.Type<"uint32">;
-
-        /**
-         * List of choices.
-         *
-         * Which values being written for each option.
-         */
-        choices: IShoppingSaleUnitStockChoice.IInvert[];
-    }
-
-    /**
-     * Creation information of the stock.
-     */
-    export interface ICreate {
-        /**
-         * Representative name of the stock.
-         */
-        name: string;
-
-        /**
-         * Price of the stock.
-         */
-        price: IShoppingPrice;
-
-        /**
-         * Initial inventory quantity.
-         */
-        quantity: number;
-
-        /**
-         * List of choices.
-         *
-         * Which candidate values being chosen for each option.
-         */
-        choices: IShoppingSaleUnitStockChoice.ICreate[];
-    }
+    choices: IShoppingSaleUnitStockChoice.ICreate[];
+  }
 }

@@ -20,33 +20,33 @@ import { tags } from "typia";
  * @author Samchon
  */
 export namespace IShoppingCartCommodityStockChoice {
+  /**
+   * Creation information of the choice for each option.
+   *
+   * When record being created, its corresponding structure would be
+   * {@link IShoppingSaleUnitStockChoice.IInvert}.
+   */
+  export interface ICreate {
     /**
-     * Creation information of the choice for each option.
-     *
-     * When record being created, its corresponding structure would be
-     * {@link IShoppingSaleUnitStockChoice.IInvert}.
+     * Target option's {@link IShoppingSaleUnitOption.id}.
      */
-    export interface ICreate {
-        /**
-         * Target option's {@link IShoppingSaleUnitOption.id}.
-         */
-        option_id: string & tags.Format<"uuid">;
+    option_id: string & tags.Format<"uuid">;
 
-        /**
-         * Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}.
-         *
-         * When target option's type is `select`, then this attribute is not
-         * `null` but has a value.
-         */
-        candidate_id: null | (string & tags.Format<"uuid">);
+    /**
+     * Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}.
+     *
+     * When target option's type is `select`, then this attribute is not
+     * `null` but has a value.
+     */
+    candidate_id: null | (string & tags.Format<"uuid">);
 
-        /**
-         * Written value about the option.
-         *
-         * When target option's type is not `select`, but an atomic type value
-         * like `boolean`, `number` or `string`, then this attribute is not
-         * `null` but has the matched atomic value.
-         */
-        value: null | string;
-    }
+    /**
+     * Written value about the option.
+     *
+     * When target option's type is not `select`, but an atomic type value
+     * like `boolean`, `number` or `string`, then this attribute is not
+     * `null` but has the matched atomic value.
+     */
+    value: null | string;
+  }
 }

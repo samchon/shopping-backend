@@ -1,5 +1,5 @@
-import * as api from "./module";
+import * as ShoppingApi from "./module";
 
 export * from "./module";
 
-export default api;
+export default ShoppingApi;

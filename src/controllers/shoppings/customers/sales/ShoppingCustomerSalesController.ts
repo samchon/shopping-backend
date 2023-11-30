@@ -2,6 +2,6 @@ import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAut
 import { ShoppingSalesController } from "../../base/sales/ShoppingSalesController";
 
 export class ShoppingCustomerSalesController extends ShoppingSalesController({
-    path: "customers",
-    AuthGuard: ShoppingCustomerAuth,
+  path: "customers",
+  AuthGuard: ShoppingCustomerAuth,
 }) {}

@@ -13,27 +13,27 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingSaleUnitDescriptiveOption
-    extends IShoppingSaleUnitDescriptiveOption.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  extends IShoppingSaleUnitDescriptiveOption.ICreate {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 }
 export namespace IShoppingSaleUnitDescriptiveOption {
+  /**
+   * Creation information of the descriptive option.
+   */
+  export interface ICreate {
     /**
-     * Creation information of the descriptive option.
+     * Type of descriptive option.
+     *
+     * Which typed value should be written when purchasing.
      */
-    export interface ICreate {
-        /**
-         * Type of descriptive option.
-         *
-         * Which typed value should be written when purchasing.
-         */
-        type: "boolean" | "number" | "string";
+    type: "boolean" | "number" | "string";
 
-        /**
-         * Readable name of the option.
-         */
-        name: string;
-    }
+    /**
+     * Readable name of the option.
+     */
+    name: string;
+  }
 }

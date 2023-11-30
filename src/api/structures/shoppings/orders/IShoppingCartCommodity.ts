@@ -28,32 +28,76 @@ import { IShoppingCartCommodityStock } from "./IShoppingCartCommodityStock";
  * @author Samchon
  */
 export interface IShoppingCartCommodity {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * Invert information of the sale (snapshot), in the perspective of commodity.
+   */
+  sale: IShoppingSaleSnapshot.IInvert;
+
+  /**
+   * Whether current commodity is orderable or not.
+   *
+   * If this attribute is `false`, then the commodity is not orderable, because
+   * it has already been ordered.
+   */
+  orderable: boolean;
+
+  /**
+   * Whether current commodity is fake or not.
+   *
+   * When this attribute is `true`, then the commodity is not the real one,
+   * but just fake information only for calculating the discount effect by
+   * {@link IShoppingCoupon coupons}.
+   */
+  fake: boolean;
+
+  /**
+   * Volume of the commodity to purchase.
+   *
+   * A value indicating how many sets would be multiplied to the children
+   * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
+   */
+  volume: number & tags.Type<"uint32">;
+
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+export namespace IShoppingCartCommodity {
+  export interface IRequest extends IPage.IRequest {
+    search?: IRequest.ISearch;
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      min_price?: number;
+      max_price?: number;
+      sale?: IShoppingSale.IRequest.ISearch;
+    }
+    export type SortableColumns =
+      | IShoppingSale.IRequest.SortableColumns
+      | "commodity.price"
+      | "commodity.created_at";
+  }
+
+  /**
+   * Creation information of a shopping cart commodity.
+   */
+  export interface ICreate {
     /**
-     * Primary Key.
+     * Target sale's {@link IShoppingSale.id}.
      */
-    id: string & tags.Format<"uuid">;
+    sale_id: string & tags.Format<"uuid">;
 
     /**
-     * Invert information of the sale (snapshot), in the perspective of commodity.
+     * List of the stocks to be purchased.
      */
-    sale: IShoppingSaleSnapshot.IInvert;
-
-    /**
-     * Whether current commodity is orderable or not.
-     *
-     * If this attribute is `false`, then the commodity is not orderable, because
-     * it has already been ordered.
-     */
-    orderable: boolean;
-
-    /**
-     * Whether current commodity is fake or not.
-     *
-     * When this attribute is `true`, then the commodity is not the real one,
-     * but just fake information only for calculating the discount effect by
-     * {@link IShoppingCoupon coupons}.
-     */
-    fake: boolean;
+    stocks: IShoppingCartCommodityStock.ICreate[] & tags.MinItems<1>;
 
     /**
      * Volume of the commodity to purchase.
@@ -64,73 +108,29 @@ export interface IShoppingCartCommodity {
     volume: number & tags.Type<"uint32">;
 
     /**
-     * Creation time of the record.
+     * Whether to accumulate the volume or not.
+     *
+     * If this attribute is not `false` and there's same commodity that
+     * composed with same stocks and options, then the volume will be
+     * accumulated to the existed one.
+     *
+     * Otherwise, duplicated commodity would be newly created.
+     *
+     * @default true
      */
-    created_at: string & tags.Format<"date-time">;
-}
-export namespace IShoppingCartCommodity {
-    export interface IRequest extends IPage.IRequest {
-        search?: IRequest.ISearch;
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export interface ISearch {
-            min_price?: number;
-            max_price?: number;
-            sale?: IShoppingSale.IRequest.ISearch;
-        }
-        export type SortableColumns =
-            | IShoppingSale.IRequest.SortableColumns
-            | "commodity.price"
-            | "commodity.created_at";
-    }
+    accumulate?: boolean;
+  }
 
+  /**
+   * Update information of a shopping cart commodity.
+   */
+  export interface IUpdate {
     /**
-     * Creation information of a shopping cart commodity.
+     * Volume of the commodity to purchase.
+     *
+     * A value indicating how many sets would be multiplied to the children
+     * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
      */
-    export interface ICreate {
-        /**
-         * Target sale's {@link IShoppingSale.id}.
-         */
-        sale_id: string & tags.Format<"uuid">;
-
-        /**
-         * List of the stocks to be purchased.
-         */
-        stocks: IShoppingCartCommodityStock.ICreate[] & tags.MinItems<1>;
-
-        /**
-         * Volume of the commodity to purchase.
-         *
-         * A value indicating how many sets would be multiplied to the children
-         * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
-         */
-        volume: number & tags.Type<"uint32">;
-
-        /**
-         * Whether to accumulate the volume or not.
-         *
-         * If this attribute is not `false` and there's same commodity that
-         * composed with same stocks and options, then the volume will be
-         * accumulated to the existed one.
-         *
-         * Otherwise, duplicated commodity would be newly created.
-         *
-         * @default true
-         */
-        accumulate?: boolean;
-    }
-
-    /**
-     * Update information of a shopping cart commodity.
-     */
-    export interface IUpdate {
-        /**
-         * Volume of the commodity to purchase.
-         *
-         * A value indicating how many sets would be multiplied to the children
-         * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
-         */
-        volume: number & tags.Type<"uint32">;
-    }
+    volume: number & tags.Type<"uint32">;
+  }
 }

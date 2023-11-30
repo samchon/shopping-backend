@@ -33,66 +33,66 @@ import { IShoppingSaleUnitStock } from "./IShoppingSaleUnitStock";
  * @author Samchon
  */
 export interface IShoppingSaleUnit extends IShoppingSaleUnit.ISummary {
+  /**
+   * List of options.
+   */
+  options: IShoppingSaleUnitOption[];
+
+  /**
+   * List of final stocks.
+   */
+  stocks: IShoppingSaleUnitStock[] & tags.MinItems<1>;
+}
+export namespace IShoppingSaleUnit {
+  export interface IInvert extends ISummary {
+    /**
+     * List of final stocks.
+     */
+    stocks: IShoppingSaleUnitStock.IInvert[] & tags.MinItems<1>;
+  }
+  export interface ISummary {
+    /**
+     * Primary Key.
+     */
+    id: string & tags.Format<"uuid">;
+
+    /**
+     * Representative name of the unit.
+     */
+    name: string;
+
+    /**
+     * Whether the unit is primary or not.
+     *
+     * Just a labeling value.
+     */
+    primary: boolean;
+
+    /**
+     * Whether the unit is required or not.
+     *
+     * When the unit is required, the customer must select the unit. If do not
+     * select, customer can't buy it.
+     *
+     * For example, if there's a sale "Macbook Set" and one of the unit is the
+     * "Main Body", is it possible to buy the "Macbook Set" without the
+     * "Main Body" unit? This property is for that case.
+     */
+    required: boolean;
+  }
+
+  /**
+   * Creation information of sale unit.
+   */
+  export interface ICreate extends Omit<ISummary, "id"> {
     /**
      * List of options.
      */
-    options: IShoppingSaleUnitOption[];
+    options: IShoppingSaleUnitOption.ICreate[];
 
     /**
      * List of final stocks.
      */
-    stocks: IShoppingSaleUnitStock[] & tags.MinItems<1>;
-}
-export namespace IShoppingSaleUnit {
-    export interface IInvert extends ISummary {
-        /**
-         * List of final stocks.
-         */
-        stocks: IShoppingSaleUnitStock.IInvert[] & tags.MinItems<1>;
-    }
-    export interface ISummary {
-        /**
-         * Primary Key.
-         */
-        id: string & tags.Format<"uuid">;
-
-        /**
-         * Representative name of the unit.
-         */
-        name: string;
-
-        /**
-         * Whether the unit is primary or not.
-         *
-         * Just a labeling value.
-         */
-        primary: boolean;
-
-        /**
-         * Whether the unit is required or not.
-         *
-         * When the unit is required, the customer must select the unit. If do not
-         * select, customer can't buy it.
-         *
-         * For example, if there's a sale "Macbook Set" and one of the unit is the
-         * "Main Body", is it possible to buy the "Macbook Set" without the
-         * "Main Body" unit? This property is for that case.
-         */
-        required: boolean;
-    }
-
-    /**
-     * Creation information of sale unit.
-     */
-    export interface ICreate extends Omit<ISummary, "id"> {
-        /**
-         * List of options.
-         */
-        options: IShoppingSaleUnitOption.ICreate[];
-
-        /**
-         * List of final stocks.
-         */
-        stocks: IShoppingSaleUnitStock.ICreate[] & tags.MinItems<1>;
-    }
+    stocks: IShoppingSaleUnitStock.ICreate[] & tags.MinItems<1>;
+  }
 }

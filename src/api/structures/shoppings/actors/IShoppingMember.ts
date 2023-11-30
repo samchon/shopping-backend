@@ -19,84 +19,84 @@ import { IShoppingSeller } from "./IShoppingSeller";
  * @author Samchon
  */
 export interface IShoppingMember extends IShoppingMember.IInvert {
-    /**
-     * Citizen information.
-     *
-     * Only when has verified as a citizen, with mobile number and real name.
-     *
-     * For reference, if the member has signed up as a seller or administrator,
-     * this citizen information must be.
-     */
-    citizen: null | IShoppingCitizen;
+  /**
+   * Citizen information.
+   *
+   * Only when has verified as a citizen, with mobile number and real name.
+   *
+   * For reference, if the member has signed up as a seller or administrator,
+   * this citizen information must be.
+   */
+  citizen: null | IShoppingCitizen;
 
-    /**
-     * Seller information.
-     *
-     * If the member also signed up as a seller.
-     */
-    seller: null | IShoppingSeller;
+  /**
+   * Seller information.
+   *
+   * If the member also signed up as a seller.
+   */
+  seller: null | IShoppingSeller;
 
-    /**
-     * Administrator information.
-     *
-     * If the member also signed up as a administrator.
-     */
-    administrator: null | IShoppingAdministrator;
+  /**
+   * Administrator information.
+   *
+   * If the member also signed up as a administrator.
+   */
+  administrator: null | IShoppingAdministrator;
 }
 export namespace IShoppingMember {
+  /**
+   * Invert information of member.
+   *
+   * This invert member information has been designed to be used for another
+   * invert informations of sellers and administrators like below.
+   *
+   * - {@link IShoppingSeller.IInvert}
+   * - {@link IShoppingAdministrator.IInvert}
+   */
+  export interface IInvert {
     /**
-     * Invert information of member.
-     *
-     * This invert member information has been designed to be used for another
-     * invert informations of sellers and administrators like below.
-     *
-     * - {@link IShoppingSeller.IInvert}
-     * - {@link IShoppingAdministrator.IInvert}
+     * Primary Key.
      */
-    export interface IInvert {
-        /**
-         * Primary Key.
-         */
-        id: string & tags.Format<"uuid">;
+    id: string & tags.Format<"uuid">;
 
-        /**
-         * Nickname that uniquely identifies the member.
-         */
-        nickname: string;
+    /**
+     * Nickname that uniquely identifies the member.
+     */
+    nickname: string;
 
-        /**
-         * List of emails.
-         */
-        emails: IShoppingMemberEmail[];
+    /**
+     * List of emails.
+     */
+    emails: IShoppingMemberEmail[];
 
-        /**
-         * Creation time of record.
-         *
-         * Another words, the time when the member has signed up.
-         */
-        created_at: string & tags.Format<"date-time">;
-    }
+    /**
+     * Creation time of record.
+     *
+     * Another words, the time when the member has signed up.
+     */
+    created_at: string & tags.Format<"date-time">;
+  }
 
-    export interface IJoin extends ILogin {
-        /**
-         * Nickname that uniquely identifies the member.
-         */
-        nickname: string;
+  export interface IJoin extends ILogin {
+    /**
+     * Nickname that uniquely identifies the member.
+     */
+    nickname: string;
 
-        /**
-         * Citizen information.
-         */
-        citizen: null | IShoppingCitizen.ICreate;
-    }
-    export interface ILogin {
-        email: string & tags.Format<"email">;
-        password: string;
-    }
-    export interface IPasswordChange {
-        oldbie: string;
-        newbie: string;
-    }
-    export interface IPasswordReset {
-        email: string & tags.Format<"email">;
-    }
+    /**
+     * Citizen information.
+     */
+    citizen: null | IShoppingCitizen.ICreate;
+  }
+  export interface ILogin {
+    email: string & tags.Format<"email">;
+    password: string;
+  }
+  export interface IPasswordChange {
+    oldbie: string;
+    newbie: string;
+  }
+  export interface IPasswordReset {
+    email: string & tags.Format<"email">;
+  }
 }

@@ -2,9 +2,9 @@ import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAut
 import { ShoppingSaleInquiryCommentsController } from "../../base/sales/ShoppingSaleInquiryCommentsController";
 
 export class ShoppingCustomerSaleReviewCommentsController extends ShoppingSaleInquiryCommentsController(
-    "reviews",
-    {
-        path: "customers",
-        AuthGuard: ShoppingCustomerAuth,
-    },
+  "reviews",
+  {
+    path: "customers",
+    AuthGuard: ShoppingCustomerAuth,
+  },
 ) {}

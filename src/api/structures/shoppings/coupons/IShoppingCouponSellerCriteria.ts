@@ -17,21 +17,21 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  * @author Samchon
  */
 export interface IShoppingCouponSellerCriteria
-    extends IShoppingCouponCriteriaBase<"seller"> {
-    /**
-     * Target sellers to include or exclude.
-     */
-    sellers: IShoppingSeller[];
+  extends IShoppingCouponCriteriaBase<"seller"> {
+  /**
+   * Target sellers to include or exclude.
+   */
+  sellers: IShoppingSeller[] & tags.MinItems<1>;
 }
 export namespace IShoppingCouponSellerCriteria {
+  /**
+   * Creation information of the seller criteria.
+   */
+  export interface ICreate
+    extends IShoppingCouponCriteriaBase.ICreate<"seller"> {
     /**
-     * Creation information of the seller criteria.
+     * List of target seller's {@link IShoppingSeller.id}s.
      */
-    export interface ICreate
-        extends IShoppingCouponCriteriaBase.ICreate<"seller"> {
-        /**
-         * List of target seller's {@link IShoppingSeller.id}s.
-         */
-        seller_ids: Array<string & tags.Format<"uuid">>;
-    }
+    seller_ids: Array<string & tags.Format<"uuid">> & tags.MinItems<1>;
+  }
 }

@@ -26,62 +26,62 @@ import { IShoppingOrderPublish } from "./IShoppingOrderPublish";
  * @author Samchon
  */
 export interface IShoppingOrder {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Customer who've applied for the order.
-     */
-    customer: IShoppingCustomer;
+  /**
+   * Customer who've applied for the order.
+   */
+  customer: IShoppingCustomer;
 
+  /**
+   * List of goods in the order.
+   */
+  goods: IShoppingOrderGood[] & tags.MinItems<1>;
+
+  /**
+   * Price information including discounts.
+   */
+  price: IShoppingOrderPrice;
+
+  publish: null | IShoppingOrderPublish;
+
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+export namespace IShoppingOrder {
+  /**
+   * Request of orders with pagination and searching/sorting conditions.
+   */
+  export interface IRequest extends IPage.IRequest {
+    search?: IRequest.ISearch;
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      min_price?: number;
+      max_price?: number;
+      paid?: null | boolean;
+      sale?: IShoppingSale.IRequest.ISearch;
+    }
+    export type SortableColumns =
+      | "order.price"
+      | `order.quantity`
+      | "order.created_at"
+      | `order.paid_at`;
+  }
+
+  /**
+   * Creation information of the order appliance.
+   */
+  export interface ICreate {
     /**
      * List of goods in the order.
      */
-    goods: IShoppingOrderGood[] & tags.MinItems<1>;
-
-    /**
-     * Price information including discounts.
-     */
-    price: IShoppingOrderPrice;
-
-    publish: null | IShoppingOrderPublish;
-
-    /**
-     * Creation time of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
-}
-export namespace IShoppingOrder {
-    /**
-     * Request of orders with pagination and searching/sorting conditions.
-     */
-    export interface IRequest extends IPage.IRequest {
-        search?: IRequest.ISearch;
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export interface ISearch {
-            min_price?: number;
-            max_price?: number;
-            paid?: null | boolean;
-            sale?: IShoppingSale.IRequest.ISearch;
-        }
-        export type SortableColumns =
-            | "order.price"
-            | `order.quantity`
-            | "order.created_at"
-            | `order.paid_at`;
-    }
-
-    /**
-     * Creation information of the order appliance.
-     */
-    export interface ICreate {
-        /**
-         * List of goods in the order.
-         */
-        goods: IShoppingOrderGood.ICreate[];
-    }
+    goods: IShoppingOrderGood.ICreate[];
+  }
 }

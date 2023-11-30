@@ -18,49 +18,49 @@ import { IShoppingMember } from "./IShoppingMember";
  * @author Samchon
  */
 export interface IShoppingAdministrator {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of record.
-     *
-     * Another words, the time when the administrator has signed up.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of record.
+   *
+   * Another words, the time when the administrator has signed up.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingAdministrator {
+  /**
+   * Invert information starting from administrator info.
+   *
+   * Instead of accessing to the administrator information from the
+   * {@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},
+   * `IShoppingAdministrator.IInvert` starts from the administrator information
+   * and access to the customer, member and {@link IShoppingCitizen citizen}
+   * informations inversely.
+   */
+  export interface IInvert extends IShoppingAdministrator {
     /**
-     * Invert information starting from administrator info.
-     *
-     * Instead of accessing to the administrator information from the
-     * {@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},
-     * `IShoppingAdministrator.IInvert` starts from the administrator information
-     * and access to the customer, member and {@link IShoppingCitizen citizen}
-     * informations inversely.
+     * Discriminant for the type of customer.
      */
-    export interface IInvert extends IShoppingAdministrator {
-        /**
-         * Discriminant for the type of customer.
-         */
-        type: "administrator";
+    type: "administrator";
 
-        /**
-         * Membership joining information.
-         */
-        member: IShoppingMember.IInvert;
+    /**
+     * Membership joining information.
+     */
+    member: IShoppingMember.IInvert;
 
-        /**
-         * Customer, the connection information.
-         */
-        customer: IShoppingCustomer.IInvert;
+    /**
+     * Customer, the connection information.
+     */
+    customer: IShoppingCustomer.IInvert;
 
-        /**
-         * Real-name and mobile number authentication information.
-         */
-        citizen: IShoppingCitizen;
-    }
+    /**
+     * Real-name and mobile number authentication information.
+     */
+    citizen: IShoppingCitizen;
+  }
 
-    export interface IJoin {}
+  export interface IJoin {}
 }

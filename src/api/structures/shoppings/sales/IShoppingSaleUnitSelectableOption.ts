@@ -31,64 +31,63 @@ import { IShoppingSaleUnitOptionCandidate } from "./IShoppingSaleUnitOptionCandi
  * @author Samchon
  */
 export interface IShoppingSaleUnitSelectableOption
-    extends IShoppingSaleUnitSelectableOption.IInvert {
+  extends IShoppingSaleUnitSelectableOption.IInvert {
+  /**
+   * List of candidate values.
+   */
+  candidates: IShoppingSaleUnitOptionCandidate[] & tags.MinItems<1>;
+}
+export namespace IShoppingSaleUnitSelectableOption {
+  export interface IInvert {
+    /**
+     * Primary Key.
+     */
+    id: string & tags.Format<"uuid">;
+
+    /**
+     * Discriminant for the type of selectable option.
+     */
+    type: "select";
+
+    /**
+     * Represents the name of the option.
+     */
+    name: string;
+
+    /**
+     * Whether the option is variable or not.
+     *
+     * When type of current option is "select", this attribute means whether
+     * selecting different candidate value affects the final stock or not.
+     */
+    variable: boolean;
+  }
+
+  /**
+   * Creation information of the selectable option.
+   */
+  export interface ICreate {
+    /**
+     * Discriminant for the type of selectable option.
+     */
+    type: "select";
+
+    /**
+     * Represents the name of the option.
+     */
+    name: string;
+
+    /**
+     * Whether the option is variable or not.
+     *
+     * When type of current option is "select", this attribute means whether
+     * selecting different candidate value affects the final stock or not.
+     */
+    variable: boolean;
+
     /**
      * List of candidate values.
      */
-    candidates: IShoppingSaleUnitOptionCandidate[] & tags.MinItems<1>;
-}
-export namespace IShoppingSaleUnitSelectableOption {
-    export interface IInvert {
-        /**
-         * Primary Key.
-         */
-        id: string & tags.Format<"uuid">;
-
-        /**
-         * Discriminant for the type of selectable option.
-         */
-        type: "select";
-
-        /**
-         * Represents the name of the option.
-         */
-        name: string;
-
-        /**
-         * Whether the option is variable or not.
-         *
-         * When type of current option is "select", this attribute means whether
-         * selecting different candidate value affects the final stock or not.
-         */
-        variable: boolean;
-    }
-
-    /**
-     * Creation information of the selectable option.
-     */
-    export interface ICreate {
-        /**
-         * Discriminant for the type of selectable option.
-         */
-        type: "select";
-
-        /**
-         * Represents the name of the option.
-         */
-        name: string;
-
-        /**
-         * Whether the option is variable or not.
-         *
-         * When type of current option is "select", this attribute means whether
-         * selecting different candidate value affects the final stock or not.
-         */
-        variable: boolean;
-
-        /**
-         * List of candidate values.
-         */
-        candidates: IShoppingSaleUnitOptionCandidate.ICreate[] &
-            tags.MinItems<1>;
-    }
+    candidates: IShoppingSaleUnitOptionCandidate.ICreate[] & tags.MinItems<1>;
+  }
 }
