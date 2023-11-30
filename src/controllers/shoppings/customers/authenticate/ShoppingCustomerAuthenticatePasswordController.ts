@@ -1,10 +1,12 @@
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
 
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
+@Controller("shoppings/customers/authenticate/password")
 export class ShoppingCustomerAuthenticatePasswordController {
   @core.TypedRoute.Put("change")
   public async change(
