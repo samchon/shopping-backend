@@ -128,4 +128,7 @@ export namespace IShoppingCustomer {
         expired_at: string & tags.Format<"date-time">;
         refreshable_until: string & tags.Format<"date-time">;
     }
+    export interface IRefresh {
+        value: string;
+    }
 }

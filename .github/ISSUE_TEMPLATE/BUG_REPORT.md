@@ -20,7 +20,7 @@ When same error occurs with the `@next` version, then please fill the below temp
 
 ### Code occuring the bug
 ```typescript
-import api from "samchon/shopping-api";
+import api from "@samchon/shopping-api";
 
 /* Demonstration code occuring the bug you're reporting */
 ```

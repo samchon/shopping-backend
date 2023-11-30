@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
-import api from "samchon/shopping-api";
+import ShoppingApi from "@samchon/shopping-api";
 import { sleep_for } from "tstl/thread/global";
 
 import { Configuration } from "../../src/Configuration";
@@ -18,7 +18,7 @@ async function main(): Promise<void> {
     await sleep_for(4000);
 
     // API LIBRARY
-    const connection: api.IConnection = {
+    const connection: ShoppingApi.IConnection = {
         host: `http://127.0.0.1:${Configuration.API_PORT()}`,
     };
 
@@ -34,7 +34,7 @@ async function main(): Promise<void> {
         await Promise.all(
             ArrayUtil.repeat(600)(async (i) => {
                 await sleep_for(i * 10);
-                await api.functional.monitors.system.get(connection);
+                await ShoppingApi.functional.monitors.system.get(connection);
             }),
         );
     } catch (exp) {

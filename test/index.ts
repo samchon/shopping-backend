@@ -6,7 +6,7 @@ import { sleep_for } from "tstl/thread/global";
 import { Backend } from "../src/Backend";
 import { Configuration } from "../src/Configuration";
 import { SGlobal } from "../src/SGlobal";
-import api from "../src/api";
+import ShoppingApi from "../src/api";
 import { SetupWizard } from "../src/setup/SetupWizard";
 import { ArgumentParser } from "../src/utils/ArgumentParser";
 import { ErrorUtil } from "../src/utils/ErrorUtil";
@@ -79,7 +79,7 @@ async function main(): Promise<void> {
     await backend.open();
 
     // DO TEST
-    const connection: api.IConnection = {
+    const connection: ShoppingApi.IConnection = {
         host: `http://127.0.0.1:${Configuration.API_PORT()}`,
     };
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({

@@ -1,8 +1,8 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
-import { IPerformance } from "samchon/shopping-api/lib/structures/monitors/IPerformance";
+import { Controller } from "@nestjs/common";
+import { IPerformance } from "@samchon/shopping-api/lib/structures/monitors/IPerformance";
 
-@nest.Controller("monitors/performance")
+@Controller("monitors/performance")
 export class PerformanceController {
     @core.EncryptedRoute.Get()
     public async get(): Promise<IPerformance> {

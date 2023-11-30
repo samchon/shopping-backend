@@ -1,7 +1,6 @@
 import core from "@nestia/core";
-
-import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingMember } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 

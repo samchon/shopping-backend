@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client";
+import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
 import { v4 } from "uuid";
-
-import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
 
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";

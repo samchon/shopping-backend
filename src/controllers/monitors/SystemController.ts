@@ -1,12 +1,12 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
-import { ISystem } from "samchon/shopping-api/lib/structures/monitors/ISystem";
+import { Controller } from "@nestjs/common";
+import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 
 import { SystemProvider } from "../../providers/monitors/SystemProvider";
 
 import { DateUtil } from "../../utils/DateUtil";
 
-@nest.Controller("monitors/system")
+@Controller("monitors/system")
 export class SystemController {
     @core.TypedRoute.Get()
     public async get(): Promise<ISystem> {

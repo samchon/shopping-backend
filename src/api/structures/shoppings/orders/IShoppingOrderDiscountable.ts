@@ -7,6 +7,7 @@ export type IShoppingOrderDiscountable =
     IShoppingDiscountable<IShoppingOrderDiscountable.ICombination>;
 export namespace IShoppingOrderDiscountable {
     export type ICombination = IShoppingCouponCombination<IEntry>;
+
     export interface IEntry extends IShoppingCouponCombination.IEntry {
         good_id: string & tags.Format<"uuid">;
     }

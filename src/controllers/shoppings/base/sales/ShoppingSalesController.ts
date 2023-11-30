@@ -1,17 +1,16 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
+import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { tags } from "typia";
-
-import { IPage } from "samchon/shopping-api/lib/structures/common/IPage";
-import { IShoppingActorEntity } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
-import { IShoppingSale } from "samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSalesController<Actor extends IShoppingActorEntity>(
     props: IShoppingControllerProps,
 ) {
-    @nest.Controller(`shoppings/${props.path}/sales`)
+    @Controller(`shoppings/${props.path}/sales`)
     abstract class ShoppingSalesController {
         @core.TypedRoute.Patch()
         public async index(

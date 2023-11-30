@@ -1,8 +1,7 @@
 import core from "@nestia/core";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingSaleQuestion } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleQuestion";
 import { tags } from "typia";
-
-import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingSaleQuestion } from "samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleQuestion";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 import { ShoppingSaleQuestionsController } from "../../base/sales/ShoppingSaleQuestionsController";

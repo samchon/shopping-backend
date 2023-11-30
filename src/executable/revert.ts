@@ -1,6 +1,6 @@
+import ShoppingApi from "@samchon/shopping-api";
+import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 import { MutexConnector, RemoteMutex } from "mutex-server";
-import api from "samchon/shopping-api";
-import { ISystem } from "samchon/shopping-api/lib/structures/monitors/ISystem";
 import { Promisive } from "tgrid/typings/Promisive";
 import { UniqueLock } from "tstl/thread/UniqueLock";
 
@@ -41,10 +41,10 @@ async function main(): Promise<void> {
     }
 
     // PRINT THE COMMIT STATUS
-    const connection: api.IConnection = {
+    const connection: ShoppingApi.IConnection = {
         host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
     };
-    const system: ISystem = await api.functional.monitors.system.get(
+    const system: ISystem = await ShoppingApi.functional.monitors.system.get(
         connection,
     );
     console.log("branch", system.arguments[2], system.commit.branch);

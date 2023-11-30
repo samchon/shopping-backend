@@ -1,7 +1,6 @@
 import core from "@nestia/core";
-
-import { IShoppingActorEntity } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
-import { IShoppingCoupon } from "samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
+import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 import { ShoppingCouponsReadableController } from "./ShoppingCouponsReadableController";

@@ -1,7 +1,9 @@
-import nest from "@modules/nestjs";
+import {
+    InternalServerErrorException,
+    NotFoundException,
+} from "@nestjs/common";
 import { Prisma } from "@prisma/client";
-
-import { IRecordMerge } from "samchon/shopping-api/lib/structures/common/IRecordMerge";
+import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecordMerge";
 
 import { SGlobal } from "../../SGlobal";
 import { EntityUtil } from "../../utils/EntityUtil";
@@ -19,7 +21,7 @@ export namespace EntityMergeProvider {
                     .find((model) => model.name === table)
                     ?.fields.find((field) => field.isId === true);
             if (primary === undefined)
-                throw new nest.InternalServerErrorException("Invalid table.");
+                throw new InternalServerErrorException("Invalid table.");
 
             // FIND MATCHED RECORDS
             const count: number = finder
@@ -32,7 +34,7 @@ export namespace EntityMergeProvider {
                       },
                   });
             if (count !== input.absorbed.length + 1)
-                throw new nest.NotFoundException(
+                throw new NotFoundException(
                     "Unable to find matched record(s).",
                 );
 

@@ -45,14 +45,7 @@ export namespace IShoppingCouponCriteria {
     /**
      * Type of the criteria, the descriminator.
      */
-    export type Type =
-        | "channel"
-        | "section"
-        | "company"
-        | "brand"
-        | "seller"
-        | "sale"
-        | "funnel";
+    export type Type = "channel" | "section" | "seller" | "sale" | "funnel";
 
     /**
      * Union type of the creation information of the criteria.

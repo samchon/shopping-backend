@@ -6,8 +6,7 @@ module.exports = {
     trailingComma: "all",
     importOrder: [
         "<THIRD_PARTY_MODULES>",
-        "^samchon/shopping-api(.*)$",
-        "^samchon/shopping-models(.*)$",
+        "^@samchon/shopping-api(.*)$",
         "(.*)providers/(.*)$",
         "^[./]"
     ],

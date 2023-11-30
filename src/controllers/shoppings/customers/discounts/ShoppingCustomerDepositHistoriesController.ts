@@ -1,14 +1,13 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingDepositHistory } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositHistory";
 import { tags } from "typia";
-
-import { IPage } from "samchon/shopping-api/lib/structures/common/IPage";
-import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingDepositHistory } from "samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositHistory";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
-@nest.Controller(`shoppings/customers/deposits/histories`)
+@Controller(`shoppings/customers/deposits/histories`)
 export class ShoppingCustomerDepositHistoriesController {
     @core.TypedRoute.Patch()
     public async index(

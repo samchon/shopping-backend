@@ -1,6 +1,5 @@
+import { IAttachmentFile } from "@samchon/shopping-api/lib/structures/common/IAttachmentFile";
 import { v4 } from "uuid";
-
-import { IAttachmentFile } from "samchon/shopping-api/lib/structures/common/IAttachmentFile";
 
 import { Prisma } from ".prisma/client";
 

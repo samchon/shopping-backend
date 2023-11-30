@@ -1,8 +1,7 @@
 import { Prisma } from "@prisma/client";
+import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
+import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { v4 } from "uuid";
-
-import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
-import { IEntity } from "samchon/shopping-api/lib/structures/common/IEntity";
 
 import { SGlobal } from "../../SGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";

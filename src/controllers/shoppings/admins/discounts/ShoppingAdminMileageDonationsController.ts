@@ -1,14 +1,13 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
+import { IShoppingMileageDonation } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 import { tags } from "typia";
-
-import { IPage } from "samchon/shopping-api/lib/structures/common/IPage";
-import { IShoppingAdministrator } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
-import { IShoppingMileageDonation } from "samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 
-@nest.Controller(`shoppings/admins/mileages/donations`)
+@Controller(`shoppings/admins/mileages/donations`)
 export class ShoppingAdminMileageDonationsController {
     @core.TypedRoute.Patch()
     public async index(

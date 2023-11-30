@@ -21,7 +21,7 @@ export interface IShoppingCouponSaleCriteria
     /**
      * Target sales to include or exclude.
      */
-    sales: IShoppingSale[];
+    sales: IShoppingSale.ISummary[] & tags.MinItems<1>;
 }
 export namespace IShoppingCouponSaleCriteria {
     /**
@@ -32,6 +32,6 @@ export namespace IShoppingCouponSaleCriteria {
         /**
          * List of target sale's {@link IShoppingSale.id}s.
          */
-        sale_ids: Array<string & tags.Format<"uuid">>;
+        sale_ids: Array<string & tags.Format<"uuid">> & tags.MinItems<1>;
     }
 }

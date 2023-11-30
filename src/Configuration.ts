@@ -1,5 +1,9 @@
-import nest from "@modules/nestjs";
 import { ExceptionManager } from "@nestia/core";
+import {
+    ConflictException,
+    InternalServerErrorException,
+    NotFoundException,
+} from "@nestjs/common";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import path from "path";
 
@@ -30,10 +34,10 @@ export namespace Configuration {
 ExceptionManager.insert(PrismaClientKnownRequestError, (exp) => {
     switch (exp.code) {
         case "P2025":
-            return new nest.NotFoundException(exp.message);
+            return new NotFoundException(exp.message);
         case "P2002": // UNIQUE CONSTRAINT
-            return new nest.ConflictException(exp.message);
+            return new ConflictException(exp.message);
         default:
-            return new nest.InternalServerErrorException(exp.message);
+            return new InternalServerErrorException(exp.message);
     }
 });

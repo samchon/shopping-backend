@@ -1,14 +1,14 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingOrderPublish } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPublish";
 import { tags } from "typia";
-
-import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingOrderPublish } from "samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPublish";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
-@nest.Controller(`shoppings/customers/orders/:orderId/publish`)
+@Controller(`shoppings/customers/orders/:orderId/publish`)
 export class ShoppingCustomerOrderPublishesController {
+    @core.TypedRoute.Get("able")
     public async able(
         @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
         @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">,

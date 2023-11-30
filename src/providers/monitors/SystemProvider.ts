@@ -1,6 +1,6 @@
+import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 import fs from "fs";
 import git from "git-last-commit";
-import { ISystem } from "samchon/shopping-api/lib/structures/monitors/ISystem";
 import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
 

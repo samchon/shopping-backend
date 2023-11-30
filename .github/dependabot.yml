@@ -8,6 +8,7 @@ updates:
     open-pull-requests-limit: 25
     allow:
       - dependency-name: "@nestia/*"
+      - dependency-name: "@nestjs/*"
       - dependency-name: "nestia"
       - dependency-name: "tstl"
       - dependency-name: "typia"

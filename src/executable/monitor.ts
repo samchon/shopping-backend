@@ -1,6 +1,6 @@
 import { Configuration } from "../Configuration";
 import { SGlobal } from "../SGlobal";
-import api from "../api";
+import ShoppingApi from "../api";
 import { IPerformance } from "../api/structures/monitors/IPerformance";
 import { ISystem } from "../api/structures/monitors/ISystem";
 
@@ -10,12 +10,12 @@ async function main(): Promise<void> {
         SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
 
     // GET PERFORMANCE & SYSTEM INFO
-    const connection: api.IConnection = {
+    const connection: ShoppingApi.IConnection = {
         host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
     };
     const performance: IPerformance =
-        await api.functional.monitors.performance.get(connection);
-    const system: ISystem = await api.functional.monitors.system.get(
+        await ShoppingApi.functional.monitors.performance.get(connection);
+    const system: ISystem = await ShoppingApi.functional.monitors.system.get(
         connection,
     );
 

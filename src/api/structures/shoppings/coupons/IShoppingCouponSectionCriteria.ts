@@ -1,3 +1,5 @@
+import { tags } from "typia";
+
 import { IShoppingSection } from "../systematic/IShoppingSection";
 import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
 
@@ -19,7 +21,7 @@ export interface IShoppingCouponSectionCriteria
     /**
      * Target sections to include or exclude.
      */
-    sections: IShoppingSection[];
+    sections: IShoppingSection[] & tags.MinItems<1>;
 }
 export namespace IShoppingCouponSectionCriteria {
     /**
@@ -30,6 +32,6 @@ export namespace IShoppingCouponSectionCriteria {
         /**
          * List of target section's {@link IShoppingSection.code}s.
          */
-        section_codes: string[];
+        section_codes: string[] & tags.MinItems<1>;
     }
 }

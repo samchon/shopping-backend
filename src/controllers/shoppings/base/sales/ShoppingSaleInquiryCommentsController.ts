@@ -1,17 +1,16 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
+import { IShoppingSaleInquiryComment } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiryComment";
 import { tags } from "typia";
-
-import { IPage } from "samchon/shopping-api/lib/structures/common/IPage";
-import { IShoppingActorEntity } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
-import { IShoppingSaleInquiryComment } from "samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiryComment";
 
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSaleInquiryCommentsController<
     Actor extends IShoppingActorEntity,
 >(type: "questions" | "reviews", props: IShoppingControllerProps) {
-    @nest.Controller(
+    @Controller(
         `shoppings/${props.path}/sales/:saleId/${type}/:inquiryId/comments`,
     )
     abstract class ShoppingSaleInquiryCommentsController {

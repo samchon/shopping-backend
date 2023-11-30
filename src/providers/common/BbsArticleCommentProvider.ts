@@ -1,8 +1,7 @@
 import { Prisma } from "@prisma/client";
+import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
+import { IBbsArticleComment } from "@samchon/shopping-api/lib/structures/common/IBbsArticleComment";
 import { v4 } from "uuid";
-
-import { IBbsArticle } from "samchon/shopping-api/lib/structures/common/IBbsArticle";
-import { IBbsArticleComment } from "samchon/shopping-api/lib/structures/common/IBbsArticleComment";
 
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";
 

@@ -23,7 +23,7 @@ export interface IShoppingCouponChannelCriteria
     /**
      * List of target channels and categories.
      */
-    channels: IShoppingCouponChannelCriteria.IChannelTo[];
+    channels: IShoppingCouponChannelCriteria.IChannelTo[] & tags.MinItems<1>;
 }
 export namespace IShoppingCouponChannelCriteria {
     export interface IChannelTo {
@@ -64,6 +64,6 @@ export namespace IShoppingCouponChannelCriteria {
         /**
          * List of target channels and categories.
          */
-        channels: IChannelTo.ICreate[];
+        channels: IChannelTo.ICreate[] & tags.MinItems<1>;
     }
 }

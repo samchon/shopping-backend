@@ -1,14 +1,13 @@
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
-
-import { IShoppingAdministrator } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
-import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingMember } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
+import { Controller } from "@nestjs/common";
+import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
-@nest.Controller("shoppings/admins/authenticate")
+@Controller("shoppings/admins/authenticate")
 export class ShoppingAdminAuthenticateController {
     @core.TypedRoute.Get()
     public async get(

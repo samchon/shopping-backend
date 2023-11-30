@@ -1,20 +1,18 @@
-import fastify from "@modules/fastify";
-import nest from "@modules/nestjs";
 import core from "@nestia/core";
-
-import { IShoppingCitizen } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCitizen";
-import { IShoppingCustomer } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingMember } from "samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
+import { Controller } from "@nestjs/common";
+import { IShoppingCitizen } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCitizen";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
-@nest.Controller("shoppings/customers/authenticate")
+@Controller("shoppings/customers/authenticate")
 export class ShoppingCustomerAuthenticateController {
     @core.TypedRoute.Get()
     public async refresh(
-        @nest.Request() request: fastify.FastifyRequest,
+        @core.TypedBody() input: IShoppingCustomer.IRefresh,
     ): Promise<IShoppingCustomer.IAuthorized> {
-        request;
+        input;
         return null!;
     }
 
