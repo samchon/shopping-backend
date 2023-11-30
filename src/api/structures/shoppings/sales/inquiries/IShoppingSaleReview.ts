@@ -21,93 +21,93 @@ import { IShoppingSaleInquiry } from "./IShoppingSaleInquiry";
  * @author Samchon
  */
 export interface IShoppingSaleReview
-    extends IShoppingSaleInquiry<"review", IShoppingSaleReview.ISnapshot> {}
+  extends IShoppingSaleInquiry<"review", IShoppingSaleReview.ISnapshot> {}
 export namespace IShoppingSaleReview {
+  /**
+   * Snapshot content of the review article.
+   */
+  export interface ISnapshot extends IBbsArticle.ISnapshot {
     /**
-     * Snapshot content of the review article.
+     * Score of the review.
      */
-    export interface ISnapshot extends IBbsArticle.ISnapshot {
-        /**
-         * Score of the review.
-         */
-        score: number & tags.Minimum<0> & tags.Maximum<100>;
-    }
+    score: number & tags.Minimum<0> & tags.Maximum<100>;
+  }
 
+  /**
+   * Request of summarized informations with pagination searching/sorting options.
+   */
+  export interface IRequest
+    extends IShoppingSaleInquiry.IRequest<
+      IRequest.ISearch,
+      IRequest.SortableColumns
+    > {}
+  export namespace IRequest {
+    export interface ISearch
+      extends IShoppingSaleInquiry.IRequest.ISearch,
+        IInvertSearch.IScoreRange {}
+    export type SortableColumns =
+      | IShoppingSaleInquiry.IRequest.SortableColumns
+      | "score";
+  }
+
+  /**
+   * Summarized information of the review.
+   */
+  export interface ISummary extends IShoppingSaleInquiry.ISummary {
     /**
-     * Request of summarized informations with pagination searching/sorting options.
+     * Score of the review.
      */
-    export interface IRequest
-        extends IShoppingSaleInquiry.IRequest<
-            IRequest.ISearch,
-            IRequest.SortableColumns
-        > {}
-    export namespace IRequest {
-        export interface ISearch
-            extends IShoppingSaleInquiry.IRequest.ISearch,
-                IInvertSearch.IScoreRange {}
-        export type SortableColumns =
-            | IShoppingSaleInquiry.IRequest.SortableColumns
-            | "score";
-    }
+    score: number;
+  }
 
+  /**
+   * Abridged information of the review.
+   */
+  export interface IAbridge extends IBbsArticle.IAbridge {
     /**
-     * Summarized information of the review.
+     * Score of the review.
      */
-    export interface ISummary extends IShoppingSaleInquiry.ISummary {
-        /**
-         * Score of the review.
-         */
-        score: number;
-    }
+    score: number & tags.Minimum<0> & tags.Maximum<100>;
+  }
 
+  export interface IInvertSearch {
+    score?: IInvertSearch.IScoreRange;
+    count?: IInvertSearch.ICountRange;
+  }
+
+  export namespace IInvertSearch {
+    export interface IScoreRange {
+      minimum?: number & tags.Minimum<0> & tags.Maximum<100>;
+      maximum?: number & tags.Minimum<0> & tags.Maximum<100>;
+    }
+    export interface ICountRange {
+      minimum?: number & tags.Type<"uint32">;
+      maximum?: number & tags.Type<"uint32">;
+    }
+  }
+
+  /**
+   * Creation information of the review.
+   */
+  export interface ICreate extends IBbsArticle.ICreate {
     /**
-     * Abridged information of the review.
+     * Target good's {@link IShoppingOrderGood.id}.
      */
-    export interface IAbridge extends IBbsArticle.IAbridge {
-        /**
-         * Score of the review.
-         */
-        score: number & tags.Minimum<0> & tags.Maximum<100>;
-    }
-
-    export interface IInvertSearch {
-        score?: IInvertSearch.IScoreRange;
-        count?: IInvertSearch.ICountRange;
-    }
-
-    export namespace IInvertSearch {
-        export interface IScoreRange {
-            minimum?: number & tags.Minimum<0> & tags.Maximum<100>;
-            maximum?: number & tags.Minimum<0> & tags.Maximum<100>;
-        }
-        export interface ICountRange {
-            minimum?: number & tags.Type<"uint32">;
-            maximum?: number & tags.Type<"uint32">;
-        }
-    }
-
-    /**
-     * Creation information of the review.
-     */
-    export interface ICreate extends IBbsArticle.ICreate {
-        /**
-         * Target good's {@link IShoppingOrderGood.id}.
-         */
-        good_id: string & tags.Format<"uuid">;
-
-        /**
-         * Score of the review.
-         */
-        score: number & tags.Minimum<0> & tags.Maximum<100>;
-    }
+    good_id: string & tags.Format<"uuid">;
 
     /**
-     * Updating information of the review.
+     * Score of the review.
      */
-    export interface IUpdate extends IBbsArticle.IUpdate {
-        /**
-         * Score of the review.
-         */
-        score?: number & tags.Minimum<0> & tags.Maximum<100>;
-    }
+    score: number & tags.Minimum<0> & tags.Maximum<100>;
+  }
+
+  /**
+   * Updating information of the review.
+   */
+  export interface IUpdate extends IBbsArticle.IUpdate {
+    /**
+     * Score of the review.
+     */
+    score?: number & tags.Minimum<0> & tags.Maximum<100>;
+  }
 }

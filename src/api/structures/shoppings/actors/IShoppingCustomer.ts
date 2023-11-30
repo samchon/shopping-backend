@@ -38,97 +38,97 @@ import { IShoppingMember } from "./IShoppingMember";
  * @author Samchon
  */
 export interface IShoppingCustomer extends IShoppingCustomer.IInvert {
-    /**
-     * Discriminant for the type of customer.
-     */
-    type: "customer";
+  /**
+   * Discriminant for the type of customer.
+   */
+  type: "customer";
 
-    /**
-     * Membership information.
-     *
-     * If the customer has joined as a member.
-     */
-    member: null | IShoppingMember;
+  /**
+   * Membership information.
+   *
+   * If the customer has joined as a member.
+   */
+  member: null | IShoppingMember;
 
-    /**
-     * Citizen information.
-     *
-     * If the customer has verified his real name and mobile number.
-     */
-    citizen: null | IShoppingCitizen;
+  /**
+   * Citizen information.
+   *
+   * If the customer has verified his real name and mobile number.
+   */
+  citizen: null | IShoppingCitizen;
 }
 export namespace IShoppingCustomer {
+  /**
+   * Inverted customer informatino.
+   *
+   * This inverted customer information has been designed to be used for
+   * another invert informations of sellers and administrators like below.
+   *
+   * - {@link IShoppingSeller.IInvert}
+   * - {@link IShoppingAdministrator.IInvert}
+   */
+  export interface IInvert {
     /**
-     * Inverted customer informatino.
-     *
-     * This inverted customer information has been designed to be used for
-     * another invert informations of sellers and administrators like below.
-     *
-     * - {@link IShoppingSeller.IInvert}
-     * - {@link IShoppingAdministrator.IInvert}
+     * Primary Key.
      */
-    export interface IInvert {
-        /**
-         * Primary Key.
-         */
-        id: string & tags.Format<"uuid">;
+    id: string & tags.Format<"uuid">;
 
-        /**
-         * Belonged channel.
-         */
-        channel: IShoppingChannel;
+    /**
+     * Belonged channel.
+     */
+    channel: IShoppingChannel;
 
-        /**
-         * External user information.
-         *
-         * When the customer has come frome an external service.
-         */
-        external_user: null | IShoppingExternalUser;
+    /**
+     * External user information.
+     *
+     * When the customer has come frome an external service.
+     */
+    external_user: null | IShoppingExternalUser;
 
-        /**
-         * Connection address.
-         *
-         * Same with {@link window.location.href} of client.
-         */
-        href: string & tags.Format<"url">;
+    /**
+     * Connection address.
+     *
+     * Same with {@link window.location.href} of client.
+     */
+    href: string & tags.Format<"url">;
 
-        /**
-         * Referrer address.
-         *
-         * Same with {@link window.document.referrer} of client.
-         */
-        referrer: string & tags.Format<"url">;
+    /**
+     * Referrer address.
+     *
+     * Same with {@link window.document.referrer} of client.
+     */
+    referrer: string & tags.Format<"url">;
 
-        /**
-         * Connection IP Address.
-         */
-        ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+    /**
+     * Connection IP Address.
+     */
+    ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
 
-        /**
-         * Creation time of the connection record.
-         */
-        created_at: string & tags.Format<"date-time">;
-    }
+    /**
+     * Creation time of the connection record.
+     */
+    created_at: string & tags.Format<"date-time">;
+  }
 
-    export interface ICreate {
-        channel_code: string;
-        external_user: null | IShoppingExternalUser.ICreate;
-        href: string & tags.Format<"url">;
-        referrer: string & tags.Format<"url">;
-        ip?: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
-    }
+  export interface ICreate {
+    channel_code: string;
+    external_user: null | IShoppingExternalUser.ICreate;
+    href: string & tags.Format<"url">;
+    referrer: string & tags.Format<"url">;
+    ip?: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+  }
 
-    export interface IAuthorized extends IShoppingCustomer {
-        setHeaders: { Authorization: string };
-        token: IToken;
-    }
-    export interface IToken {
-        access: string;
-        refresh: string;
-        expired_at: string & tags.Format<"date-time">;
-        refreshable_until: string & tags.Format<"date-time">;
-    }
-    export interface IRefresh {
-        value: string;
-    }
+  export interface IAuthorized extends IShoppingCustomer {
+    setHeaders: { Authorization: string };
+    token: IToken;
+  }
+  export interface IToken {
+    access: string;
+    refresh: string;
+    expired_at: string & tags.Format<"date-time">;
+    refreshable_until: string & tags.Format<"date-time">;
+  }
+  export interface IRefresh {
+    value: string;
+  }
 }

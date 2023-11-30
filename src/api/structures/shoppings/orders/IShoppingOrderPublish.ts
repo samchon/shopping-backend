@@ -26,44 +26,44 @@ import { IShoppingDelivery } from "./IShoppingDelivery";
  * @author Samchon
  */
 export interface IShoppingOrderPublish {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
 
-    /**
-     * Time when the order was paid.
-     */
-    paid_at: null | (string & tags.Format<"date-time">);
+  /**
+   * Time when the order was paid.
+   */
+  paid_at: null | (string & tags.Format<"date-time">);
 
-    /**
-     * Time when the payment was cancelled.
-     */
-    cancelled_at: null | (string & tags.Format<"date-time">);
+  /**
+   * Time when the payment was cancelled.
+   */
+  cancelled_at: null | (string & tags.Format<"date-time">);
 
-    /**
-     * Address where the {@link IShoppingOrderGood goods} to be delivered.
-     */
-    address: IShoppingAddress;
+  /**
+   * Address where the {@link IShoppingOrderGood goods} to be delivered.
+   */
+  address: IShoppingAddress;
 
-    /**
-     * List of deliveries.
-     *
-     * An {@link IShoppingOrder order} can be delivered in multiple times. Of course,
-     * the opposite case is also possible, that a {@link IShoppingDelivery delivery}
-     * can be composed of multiple orders.
-     */
-    deliveries: IShoppingDelivery[];
+  /**
+   * List of deliveries.
+   *
+   * An {@link IShoppingOrder order} can be delivered in multiple times. Of course,
+   * the opposite case is also possible, that a {@link IShoppingDelivery delivery}
+   * can be composed of multiple orders.
+   */
+  deliveries: IShoppingDelivery[];
 }
 export namespace IShoppingOrderPublish {
-    export interface ICreate {
-        address: IShoppingAddress.ICreate;
-        vendor: string;
-        uid: string;
-    }
+  export interface ICreate {
+    address: IShoppingAddress.ICreate;
+    vendor: string;
+    uid: string;
+  }
 }

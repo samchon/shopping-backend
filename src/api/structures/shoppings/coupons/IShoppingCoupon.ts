@@ -42,82 +42,82 @@ import { IShoppingCouponRestriction } from "./IShoppingCouponRestriction";
  * @author Samchon
  */
 export interface IShoppingCoupon extends IShoppingCoupon.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Designer who've made the coupon.
-     */
-    designer: IShoppingAdministrator | IShoppingSeller;
+  /**
+   * Designer who've made the coupon.
+   */
+  designer: IShoppingAdministrator | IShoppingSeller;
 
-    /**
-     * Inventory information.
-     */
-    inventory: IShoppingCouponInventory;
+  /**
+   * Inventory information.
+   */
+  inventory: IShoppingCouponInventory;
 
-    /**
-     * List of criteria informations.
-     */
-    criterias: IShoppingCouponCriteria[];
+  /**
+   * List of criteria informations.
+   */
+  criterias: IShoppingCouponCriteria[];
 
-    /**
-     * Creation tie of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation tie of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingCoupon {
-    export interface IRequest extends IPage.IRequest {
-        search?: IRequest.ISearch;
-        sort?: IPage.Sort<IRequest.SortableColumns>;
+  export interface IRequest extends IPage.IRequest {
+    search?: IRequest.ISearch;
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      name?: string;
     }
-    export namespace IRequest {
-        export interface ISearch {
-            name?: string;
-        }
-        export type SortableColumns =
-            | "coupon.name"
-            | "coupon.unit"
-            | "coupon.value"
-            | "coupon.created_at"
-            | "coupon.opened_at"
-            | "coupon.closed_at";
-    }
+    export type SortableColumns =
+      | "coupon.name"
+      | "coupon.unit"
+      | "coupon.value"
+      | "coupon.created_at"
+      | "coupon.opened_at"
+      | "coupon.closed_at";
+  }
+
+  /**
+   * Creation information of the coupon.
+   */
+  export interface ICreate {
+    /**
+     * Discount information.
+     */
+    discount: IShoppingCouponDiscount;
 
     /**
-     * Creation information of the coupon.
+     * Restriction information.
      */
-    export interface ICreate {
-        /**
-         * Discount information.
-         */
-        discount: IShoppingCouponDiscount;
+    restriction: IShoppingCouponRestriction;
 
-        /**
-         * Restriction information.
-         */
-        restriction: IShoppingCouponRestriction;
+    /**
+     * Representative name of the coupon.
+     */
+    name: string;
 
-        /**
-         * Representative name of the coupon.
-         */
-        name: string;
+    /**
+     * Opening time of the coupon.
+     */
+    opened_at: null | (string & tags.Format<"date-time">);
 
-        /**
-         * Opening time of the coupon.
-         */
-        opened_at: null | (string & tags.Format<"date-time">);
-
-        /**
-         * Closing time of the coupon.
-         *
-         * Tickets cannot be issued after this time.
-         *
-         * However, previously issued tickets can still be used until their
-         * expiration date.
-         */
-        closed_at: null | (string & tags.Format<"date-time">);
-    }
-    export type IUpdate = ICreate;
+    /**
+     * Closing time of the coupon.
+     *
+     * Tickets cannot be issued after this time.
+     *
+     * However, previously issued tickets can still be used until their
+     * expiration date.
+     */
+    closed_at: null | (string & tags.Format<"date-time">);
+  }
+  export type IUpdate = ICreate;
 }

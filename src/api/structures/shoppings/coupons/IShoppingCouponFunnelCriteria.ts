@@ -18,61 +18,61 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  * @author Samchon
  */
 export interface IShoppingCouponFunnelCriteria
-    extends IShoppingCouponCriteriaBase<"funnel"> {
+  extends IShoppingCouponCriteriaBase<"funnel"> {
+  /**
+   * List of target funnels.
+   */
+  funnels: Array<IShoppingCouponFunnelCriteria.IFunnel> & tags.MinItems<1>;
+}
+export namespace IShoppingCouponFunnelCriteria {
+  /**
+   * Union type of funnel restriction.
+   */
+  export type IFunnel = IValueFunnel | IVariableFunnel;
+
+  /**
+   * Kind of funnel restriction by a value.
+   */
+  export interface IValueFunnel {
+    /**
+     * Kind of funnel restriction.
+     */
+    kind: "url" | "referrer";
+
+    /**
+     * Target value.
+     */
+    value: string;
+  }
+
+  /**
+   * Kind of funnel restriction by a variable.
+   */
+  export interface IVariableFunnel {
+    /**
+     * Kind of funnel restriction.
+     */
+    kind: "variable";
+
+    /**
+     * Target variable's key.
+     */
+    key: string;
+
+    /**
+     * Target variable's value.
+     */
+    value: string;
+  }
+
+  /**
+   * Creation information of the funnel criteria.
+   */
+  export interface ICreate
+    extends IShoppingCouponCriteriaBase.ICreate<"funnel"> {
     /**
      * List of target funnels.
      */
-    funnels: Array<IShoppingCouponFunnelCriteria.IFunnel> & tags.MinItems<1>;
-}
-export namespace IShoppingCouponFunnelCriteria {
-    /**
-     * Union type of funnel restriction.
-     */
-    export type IFunnel = IValueFunnel | IVariableFunnel;
-
-    /**
-     * Kind of funnel restriction by a value.
-     */
-    export interface IValueFunnel {
-        /**
-         * Kind of funnel restriction.
-         */
-        kind: "url" | "referrer";
-
-        /**
-         * Target value.
-         */
-        value: string;
-    }
-
-    /**
-     * Kind of funnel restriction by a variable.
-     */
-    export interface IVariableFunnel {
-        /**
-         * Kind of funnel restriction.
-         */
-        kind: "variable";
-
-        /**
-         * Target variable's key.
-         */
-        key: string;
-
-        /**
-         * Target variable's value.
-         */
-        value: string;
-    }
-
-    /**
-     * Creation information of the funnel criteria.
-     */
-    export interface ICreate
-        extends IShoppingCouponCriteriaBase.ICreate<"funnel"> {
-        /**
-         * List of target funnels.
-         */
-        funnels: Array<IFunnel> & tags.MinItems<1>;
-    }
+    funnels: Array<IFunnel> & tags.MinItems<1>;
+  }
 }

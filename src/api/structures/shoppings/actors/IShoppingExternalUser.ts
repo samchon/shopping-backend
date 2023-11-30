@@ -29,57 +29,57 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingExternalUser
-    extends Omit<IShoppingExternalUser.ICreate, "password"> {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  extends Omit<IShoppingExternalUser.ICreate, "password"> {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of record.
-     *
-     * Another word, first time when the external user connected.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of record.
+   *
+   * Another word, first time when the external user connected.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingExternalUser {
+  /**
+   * Creation information of external user.
+   */
+  export interface ICreate {
     /**
-     * Creation information of external user.
+     * Identifier code of the external service.
+     *
+     * It can be same with {@link IShoppingChannel.code} in common.
      */
-    export interface ICreate {
-        /**
-         * Identifier code of the external service.
-         *
-         * It can be same with {@link IShoppingChannel.code} in common.
-         */
-        application: string;
+    application: string;
 
-        /**
-         * Identifier key of external user from the external system.
-         */
-        uid: string;
+    /**
+     * Identifier key of external user from the external system.
+     */
+    uid: string;
 
-        /**
-         * Nickname of external user in the external system.
-         */
-        nickname: string;
+    /**
+     * Nickname of external user in the external system.
+     */
+    nickname: string;
 
-        /**
-         * Password of external user from the external system.
-         *
-         * This is a password issued to the user by an external service,
-         * and is by no means the actual user password. However, for
-         * {@link IShoppingCustomer customers} who entered the same
-         * application and code as the current external system user, this is
-         * to determine whether to view this as a correct external system
-         * user or a violation.
-         */
-        password: string;
+    /**
+     * Password of external user from the external system.
+     *
+     * This is a password issued to the user by an external service,
+     * and is by no means the actual user password. However, for
+     * {@link IShoppingCustomer customers} who entered the same
+     * application and code as the current external system user, this is
+     * to determine whether to view this as a correct external system
+     * user or a violation.
+     */
+    password: string;
 
-        /**
-         * Additional information about external user from the external
-         * system.
-         */
-        data: any;
-    }
+    /**
+     * Additional information about external user from the external
+     * system.
+     */
+    data: any;
+  }
 }

@@ -17,28 +17,28 @@ import { IShoppingChannelCategory } from "../systematic/IShoppingChannelCategory
  * @author Samchon
  */
 export interface IShoppingSaleChannel extends IShoppingChannel {
+  /**
+   * List of categories of the channel listing the sale.
+   *
+   * If empty, it means all categories of the channel is listing the sale.
+   */
+  categories: IShoppingChannelCategory.IInvert[];
+}
+export namespace IShoppingSaleChannel {
+  /**
+   * Creation information of the target channel (and categories) of sale to sell.
+   */
+  export interface ICreate {
     /**
-     * List of categories of the channel listing the sale.
+     * Target channel's {@link IShoppingChannel.code}.
+     */
+    code: string;
+
+    /**
+     * List of target categories' {@link IShoppingChannelCategory.id}s.
      *
      * If empty, it means all categories of the channel is listing the sale.
      */
-    categories: IShoppingChannelCategory.IInvert[];
-}
-export namespace IShoppingSaleChannel {
-    /**
-     * Creation information of the target channel (and categories) of sale to sell.
-     */
-    export interface ICreate {
-        /**
-         * Target channel's {@link IShoppingChannel.code}.
-         */
-        code: string;
-
-        /**
-         * List of target categories' {@link IShoppingChannelCategory.id}s.
-         *
-         * If empty, it means all categories of the channel is listing the sale.
-         */
-        category_ids: Array<string & tags.Format<"uuid">>;
-    }
+    category_ids: Array<string & tags.Format<"uuid">>;
+  }
 }

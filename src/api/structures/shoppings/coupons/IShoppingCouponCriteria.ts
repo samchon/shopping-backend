@@ -36,24 +36,24 @@ import { IShoppingCouponSellerCriteria } from "./IShoppingCouponSellerCriteria";
  * @author Samchon
  */
 export type IShoppingCouponCriteria =
-    | IShoppingCouponChannelCriteria
-    | IShoppingCouponSectionCriteria
-    | IShoppingCouponSellerCriteria
-    | IShoppingCouponSaleCriteria
-    | IShoppingCouponFunnelCriteria;
+  | IShoppingCouponChannelCriteria
+  | IShoppingCouponSectionCriteria
+  | IShoppingCouponSellerCriteria
+  | IShoppingCouponSaleCriteria
+  | IShoppingCouponFunnelCriteria;
 export namespace IShoppingCouponCriteria {
-    /**
-     * Type of the criteria, the descriminator.
-     */
-    export type Type = "channel" | "section" | "seller" | "sale" | "funnel";
+  /**
+   * Type of the criteria, the descriminator.
+   */
+  export type Type = "channel" | "section" | "seller" | "sale" | "funnel";
 
-    /**
-     * Union type of the creation information of the criteria.
-     */
-    export type ICreate =
-        | IShoppingCouponChannelCriteria.ICreate
-        | IShoppingCouponSectionCriteria.ICreate
-        | IShoppingCouponSellerCriteria.ICreate
-        | IShoppingCouponSaleCriteria.ICreate
-        | IShoppingCouponFunnelCriteria.ICreate;
+  /**
+   * Union type of the creation information of the criteria.
+   */
+  export type ICreate =
+    | IShoppingCouponChannelCriteria.ICreate
+    | IShoppingCouponSectionCriteria.ICreate
+    | IShoppingCouponSellerCriteria.ICreate
+    | IShoppingCouponSaleCriteria.ICreate
+    | IShoppingCouponFunnelCriteria.ICreate;
 }

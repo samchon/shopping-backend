@@ -17,21 +17,21 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  * @author Samchon
  */
 export interface IShoppingCouponSectionCriteria
-    extends IShoppingCouponCriteriaBase<"section"> {
-    /**
-     * Target sections to include or exclude.
-     */
-    sections: IShoppingSection[] & tags.MinItems<1>;
+  extends IShoppingCouponCriteriaBase<"section"> {
+  /**
+   * Target sections to include or exclude.
+   */
+  sections: IShoppingSection[] & tags.MinItems<1>;
 }
 export namespace IShoppingCouponSectionCriteria {
+  /**
+   * Creation information of the section criteria.
+   */
+  export interface ICreate
+    extends IShoppingCouponCriteriaBase.ICreate<"section"> {
     /**
-     * Creation information of the section criteria.
+     * List of target section's {@link IShoppingSection.code}s.
      */
-    export interface ICreate
-        extends IShoppingCouponCriteriaBase.ICreate<"section"> {
-        /**
-         * List of target section's {@link IShoppingSection.code}s.
-         */
-        section_codes: string[] & tags.MinItems<1>;
-    }
+    section_codes: string[] & tags.MinItems<1>;
+  }
 }

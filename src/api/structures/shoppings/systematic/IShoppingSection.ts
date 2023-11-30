@@ -20,11 +20,46 @@ import { IPage } from "../../common/IPage";
  * @author Samchon
  */
 export interface IShoppingSection {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
+  /**
+   * Identifier code.
+   */
+  code: string;
+
+  /**
+   * Representative name of the section.
+   */
+  name: string;
+
+  /**
+   * Creation time of record.
+   */
+  created_at: string & tags.Format<"date-time">;
+}
+export namespace IShoppingSection {
+  /**
+   * Request of the sections with pagination and searching/sorting options.
+   */
+  export interface IRequest extends IPage.IRequest {
+    search?: IRequest.ISearch;
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      code?: string;
+      name?: string;
+    }
+    export type SortableColumns = "section.code" | "section.name";
+  }
+
+  /**
+   * Creation information of the section.
+   */
+  export interface ICreate {
     /**
      * Identifier code.
      */
@@ -34,50 +69,15 @@ export interface IShoppingSection {
      * Representative name of the section.
      */
     name: string;
+  }
 
+  /**
+   * Updating information of the section.
+   */
+  export interface IUpdate {
     /**
-     * Creation time of record.
+     * Representative name of the section.
      */
-    created_at: string & tags.Format<"date-time">;
-}
-export namespace IShoppingSection {
-    /**
-     * Request of the sections with pagination and searching/sorting options.
-     */
-    export interface IRequest extends IPage.IRequest {
-        search?: IRequest.ISearch;
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export interface ISearch {
-            code?: string;
-            name?: string;
-        }
-        export type SortableColumns = "section.code" | "section.name";
-    }
-
-    /**
-     * Creation information of the section.
-     */
-    export interface ICreate {
-        /**
-         * Identifier code.
-         */
-        code: string;
-
-        /**
-         * Representative name of the section.
-         */
-        name: string;
-    }
-
-    /**
-     * Updating information of the section.
-     */
-    export interface IUpdate {
-        /**
-         * Representative name of the section.
-         */
-        name: string;
-    }
+    name: string;
+  }
 }

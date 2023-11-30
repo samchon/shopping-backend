@@ -18,62 +18,62 @@ import { IShoppingSaleUnitOptionCandidate } from "./IShoppingSaleUnitOptionCandi
  * @author Samchon
  */
 export interface IShoppingSaleUnitStockChoice {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * Target option's {@link IShoppingSaleUnitOption.id}
+   */
+  option_id: string & tags.Format<"uuid">;
+
+  /**
+   * Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}
+   */
+  candidate_id: string & tags.Format<"uuid">;
+}
+
+export namespace IShoppingSaleUnitStockChoice {
+  /**
+   * Invert information from the cart.
+   */
+  export interface IInvert {
     /**
      * Primary Key.
      */
     id: string & tags.Format<"uuid">;
 
     /**
-     * Target option's {@link IShoppingSaleUnitOption.id}
+     * Target option.
      */
-    option_id: string & tags.Format<"uuid">;
+    option: IShoppingSaleUnitOption.IInvert;
 
     /**
-     * Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}
+     * Selected candidate value.
      */
-    candidate_id: string & tags.Format<"uuid">;
-}
-
-export namespace IShoppingSaleUnitStockChoice {
-    /**
-     * Invert information from the cart.
-     */
-    export interface IInvert {
-        /**
-         * Primary Key.
-         */
-        id: string & tags.Format<"uuid">;
-
-        /**
-         * Target option.
-         */
-        option: IShoppingSaleUnitOption.IInvert;
-
-        /**
-         * Selected candidate value.
-         */
-        candidate: IShoppingSaleUnitOptionCandidate | null;
-
-        /**
-         * Written value.
-         */
-        value: boolean | number | string | null;
-    }
+    candidate: IShoppingSaleUnitOptionCandidate | null;
 
     /**
-     * Creation information of stock choice.
+     * Written value.
      */
-    export interface ICreate {
-        /**
-         * Target option's index number in
-         * {@link IShoppingSaleUnit.ICreate.options}.
-         */
-        option_index: number & tags.Type<"uint32">;
+    value: boolean | number | string | null;
+  }
 
-        /**
-         * Target candidate's index number in
-         * {@link IShoppingSaleUnitSelectableOption.ICreate.candidates}.
-         */
-        candidate_index: number & tags.Type<"uint32">;
-    }
+  /**
+   * Creation information of stock choice.
+   */
+  export interface ICreate {
+    /**
+     * Target option's index number in
+     * {@link IShoppingSaleUnit.ICreate.options}.
+     */
+    option_index: number & tags.Type<"uint32">;
+
+    /**
+     * Target candidate's index number in
+     * {@link IShoppingSaleUnitSelectableOption.ICreate.candidates}.
+     */
+    candidate_index: number & tags.Type<"uint32">;
+  }
 }

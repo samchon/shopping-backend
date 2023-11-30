@@ -3,6 +3,6 @@ import { Controller } from "@nestjs/common";
 
 @Controller("monitors/health")
 export class HealthController {
-    @core.TypedRoute.Get()
-    public get(): void {}
+  @core.TypedRoute.Get()
+  public get(): void {}
 }

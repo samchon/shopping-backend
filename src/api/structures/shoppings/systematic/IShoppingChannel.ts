@@ -16,67 +16,67 @@ import { IShoppingChannelCategory } from "./IShoppingChannelCategory";
  * @author Samchon
  */
 export interface IShoppingChannel extends IShoppingChannel.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of record.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingChannel {
+  /**
+   * Hierarchical channel information with children categories.
+   */
+  export interface IHierarchical extends IShoppingChannel {
     /**
-     * Hierarchical channel information with children categories.
+     * Children categories with hierarchical structure.
      */
-    export interface IHierarchical extends IShoppingChannel {
-        /**
-         * Children categories with hierarchical structure.
-         */
-        categories: IShoppingChannelCategory.IHierarchical[];
-    }
+    categories: IShoppingChannelCategory.IHierarchical[];
+  }
 
+  /**
+   * Request of the channels with pagination and searching/sorting options.
+   */
+  export interface IRequest extends IPage.IRequest {
+    search?: IRequest.ISearch;
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      code?: string;
+      name?: string;
+    }
+    export type SortableColumns = "channel.code" | "channel.name";
+  }
+
+  /**
+   * Creation information of the channel.
+   */
+  export interface ICreate {
     /**
-     * Request of the channels with pagination and searching/sorting options.
+     * Identifier code.
      */
-    export interface IRequest extends IPage.IRequest {
-        search?: IRequest.ISearch;
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export interface ISearch {
-            code?: string;
-            name?: string;
-        }
-        export type SortableColumns = "channel.code" | "channel.name";
-    }
-
-    /**
-     * Creation information of the channel.
-     */
-    export interface ICreate {
-        /**
-         * Identifier code.
-         */
-        code: string;
-
-        /**
-         * Name of the channel.
-         */
-        name: string;
-
-        /**
-         * Whether the channel is exclusive.
-         *
-         * If this value is `true`, the channel is disconnected from other
-         * channels and does not share customer information.
-         */
-        exclusive: boolean;
-    }
+    code: string;
 
     /**
-     * Updating information of the channel.
+     * Name of the channel.
      */
-    export type IUpdate = ICreate;
+    name: string;
+
+    /**
+     * Whether the channel is exclusive.
+     *
+     * If this value is `true`, the channel is disconnected from other
+     * channels and does not share customer information.
+     */
+    exclusive: boolean;
+  }
+
+  /**
+   * Updating information of the channel.
+   */
+  export type IUpdate = ICreate;
 }

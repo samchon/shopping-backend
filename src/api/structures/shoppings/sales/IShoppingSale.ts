@@ -26,8 +26,121 @@ import { IShoppingSaleReview } from "./inquiries/IShoppingSaleReview";
  * @author Samchon
  */
 export interface IShoppingSale
-    extends IShoppingSaleSnapshot,
-        IShoppingSale.ITimestamps {
+  extends IShoppingSaleSnapshot,
+    IShoppingSale.ITimestamps {
+  /**
+   * Belonged section.
+   */
+  section: IShoppingSection;
+
+  /**
+   * Seller who has registered the sale.
+   */
+  seller: IShoppingSeller;
+}
+export namespace IShoppingSale {
+  /**
+   * Definitions of timepoints of sale.
+   */
+  export interface ITimestamps {
+    /**
+     * Creation time of the record.
+     *
+     * Note that, this property is different with {@link opened_at},
+     * which means the timepoint of the sale is opened.
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * Paused time of the sale.
+     *
+     * The sale is paused by the seller, for some reason.
+     *
+     * {@link IShoppingCustomer Customers} can still see the sale on the
+     * both list and detail pages, but the sale has a warning label
+     * "The sale is paused by the seller".
+     */
+    paused_at: null | (string & tags.Format<"date-time">);
+
+    /**
+     * Suspended time of the sale.
+     *
+     * The sale is suspended by the seller, for some reason.
+     *
+     * {@link IShoppingCustomer Customers} cannot see the sale on the
+     * both list and detail pages. It is almost same with soft delettion,
+     * but there's a little bit difference that the owner
+     * {@link IShoppingSeller seller} can still see the sale and resume it.
+     *
+     * Of course, the {@link IShoppingCustomer customers} who have
+     * already purchased the sale can still see the sale on the
+     * {@link IShoppingOrder order} page.
+     */
+    suspended_at: null | (string & tags.Format<"date-time">);
+
+    /**
+     * Opening time of the sale.
+     */
+    opened_at: null | (string & tags.Format<"date-time">);
+
+    /**
+     * Closing time of the sale.
+     *
+     * If this value is `null`, the sale be continued forever.
+     */
+    closed_at: null | (string & tags.Format<"date-time">);
+  }
+
+  /**
+   * Request of summarized sales with pagination and searching/sorting options.
+   */
+  export interface IRequest extends IPage.IRequest {
+    /**
+     * Search conditions.
+     */
+    search?: IRequest.ISearch;
+
+    /**
+     * Sorting conditions.
+     */
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      show_paused?: boolean;
+      show_suspended?: boolean | "only";
+      title?: string;
+      content?: string;
+      title_or_content?: string;
+      review?: IShoppingSaleReview.IInvertSearch;
+      section_codes?: string[];
+      channel_codes?: string[];
+      channel_category_ids?: string[];
+      tags?: string[];
+      seller?: IShoppingSeller.IRequest.ISearch;
+    }
+
+    export type SortableColumns =
+      | IShoppingSeller.IRequest.SortableColumns
+      | "goods.publish_count"
+      | "goods.payments"
+      | "reviews.average"
+      | "reviews.count"
+      | "sale.created_at"
+      | "sale.updated_at"
+      | "sale.opened_at"
+      | "sale.closed_at"
+      | "sale.content.title";
+  }
+
+  /**
+   * Summarized information of sale.
+   *
+   * This summarized information being used for pagination.
+   */
+  export interface ISummary
+    extends IShoppingSaleSnapshot.ISummary,
+      ITimestamps {
     /**
      * Belonged section.
      */
@@ -37,149 +150,36 @@ export interface IShoppingSale
      * Seller who has registered the sale.
      */
     seller: IShoppingSeller;
-}
-export namespace IShoppingSale {
+  }
+
+  /**
+   * Creation information of sale.
+   */
+  export interface ICreate extends IShoppingSaleSnapshot.ICreate {
     /**
-     * Definitions of timepoints of sale.
+     * Belonged section's {@link IShoppingSection.code}.
      */
-    export interface ITimestamps {
-        /**
-         * Creation time of the record.
-         *
-         * Note that, this property is different with {@link opened_at},
-         * which means the timepoint of the sale is opened.
-         */
-        created_at: string & tags.Format<"date-time">;
-
-        /**
-         * Paused time of the sale.
-         *
-         * The sale is paused by the seller, for some reason.
-         *
-         * {@link IShoppingCustomer Customers} can still see the sale on the
-         * both list and detail pages, but the sale has a warning label
-         * "The sale is paused by the seller".
-         */
-        paused_at: null | (string & tags.Format<"date-time">);
-
-        /**
-         * Suspended time of the sale.
-         *
-         * The sale is suspended by the seller, for some reason.
-         *
-         * {@link IShoppingCustomer Customers} cannot see the sale on the
-         * both list and detail pages. It is almost same with soft delettion,
-         * but there's a little bit difference that the owner
-         * {@link IShoppingSeller seller} can still see the sale and resume it.
-         *
-         * Of course, the {@link IShoppingCustomer customers} who have
-         * already purchased the sale can still see the sale on the
-         * {@link IShoppingOrder order} page.
-         */
-        suspended_at: null | (string & tags.Format<"date-time">);
-
-        /**
-         * Opening time of the sale.
-         */
-        opened_at: null | (string & tags.Format<"date-time">);
-
-        /**
-         * Closing time of the sale.
-         *
-         * If this value is `null`, the sale be continued forever.
-         */
-        closed_at: null | (string & tags.Format<"date-time">);
-    }
+    section_code: string;
 
     /**
-     * Request of summarized sales with pagination and searching/sorting options.
-     */
-    export interface IRequest extends IPage.IRequest {
-        /**
-         * Search conditions.
-         */
-        search?: IRequest.ISearch;
-
-        /**
-         * Sorting conditions.
-         */
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export interface ISearch {
-            show_paused?: boolean;
-            show_suspended?: boolean | "only";
-            title?: string;
-            content?: string;
-            title_or_content?: string;
-            review?: IShoppingSaleReview.IInvertSearch;
-            section_codes?: string[];
-            channel_codes?: string[];
-            channel_category_ids?: string[];
-            tags?: string[];
-            seller?: IShoppingSeller.IRequest.ISearch;
-        }
-
-        export type SortableColumns =
-            | IShoppingSeller.IRequest.SortableColumns
-            | "goods.publish_count"
-            | "goods.payments"
-            | "reviews.average"
-            | "reviews.count"
-            | "sale.created_at"
-            | "sale.updated_at"
-            | "sale.opened_at"
-            | "sale.closed_at"
-            | "sale.content.title";
-    }
-
-    /**
-     * Summarized information of sale.
+     * Initial status of the sale.
      *
-     * This summarized information being used for pagination.
+     * `null` or `undefined`: No restriction
+     * `paused`: Starts with {@link ITimestamps.paused_at paused} status
+     * `suspended`: Starts with {@link ITimestamps.suspended_at suspended} status
      */
-    export interface ISummary
-        extends IShoppingSaleSnapshot.ISummary,
-            ITimestamps {
-        /**
-         * Belonged section.
-         */
-        section: IShoppingSection;
-
-        /**
-         * Seller who has registered the sale.
-         */
-        seller: IShoppingSeller;
-    }
+    status?: null | "paused" | "suspended";
 
     /**
-     * Creation information of sale.
+     * Opening time of the sale.
      */
-    export interface ICreate extends IShoppingSaleSnapshot.ICreate {
-        /**
-         * Belonged section's {@link IShoppingSection.code}.
-         */
-        section_code: string;
+    opened_at: null | (string & tags.Format<"date-time">);
 
-        /**
-         * Initial status of the sale.
-         *
-         * `null` or `undefined`: No restriction
-         * `paused`: Starts with {@link ITimestamps.paused_at paused} status
-         * `suspended`: Starts with {@link ITimestamps.suspended_at suspended} status
-         */
-        status?: null | "paused" | "suspended";
-
-        /**
-         * Opening time of the sale.
-         */
-        opened_at: null | (string & tags.Format<"date-time">);
-
-        /**
-         * Closing time of the sale.
-         *
-         * If this value is `null`, the sale be continued forever.
-         */
-        closed_at: null | (string & tags.Format<"date-time">);
-    }
+    /**
+     * Closing time of the sale.
+     *
+     * If this value is `null`, the sale be continued forever.
+     */
+    closed_at: null | (string & tags.Format<"date-time">);
+  }
 }

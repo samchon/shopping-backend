@@ -6,13 +6,13 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingSaleUnitStockInventory {
-    /**
-     * Total income quantity.
-     */
-    income: number & tags.Type<"uint32">;
+  /**
+   * Total income quantity.
+   */
+  income: number & tags.Type<"uint32">;
 
-    /**
-     * Total outcome quantity.
-     */
-    outcome: number & tags.Type<"uint32">;
+  /**
+   * Total outcome quantity.
+   */
+  outcome: number & tags.Type<"uint32">;
 }

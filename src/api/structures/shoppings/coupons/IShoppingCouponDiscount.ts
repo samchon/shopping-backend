@@ -10,64 +10,64 @@ import { tags } from "typia";
  * @author Samchon
  */
 export type IShoppingCouponDiscount =
-    | IShoppingCouponDiscount.IAmount
-    | IShoppingCouponDiscount.IPercent;
+  | IShoppingCouponDiscount.IAmount
+  | IShoppingCouponDiscount.IPercent;
 export namespace IShoppingCouponDiscount {
+  /**
+   * Discount information with amount unit.
+   */
+  export interface IAmount {
     /**
-     * Discount information with amount unit.
+     * Discount unit as amount.
+     *
+     * It means the order price would be discounted by the amount value.
      */
-    export interface IAmount {
-        /**
-         * Discount unit as amount.
-         *
-         * It means the order price would be discounted by the amount value.
-         */
-        unit: "amount";
-
-        /**
-         * Discount value as amount.
-         */
-        value: number;
-
-        /**
-         * Minimum purchase amount for discount.
-         *
-         * When setting this value, discount coupons cannot be applied to
-         * order totals that are less than this value.
-         */
-        threshold: null | (number & tags.Minimum<0>);
-    }
+    unit: "amount";
 
     /**
-     * Discount information with percent unit.
+     * Discount value as amount.
      */
-    export interface IPercent {
-        /**
-         * Discount unit as percent.
-         *
-         * It means the order price would be discounted by the percent value.
-         */
-        unit: "percent";
+    value: number;
 
-        /**
-         * Discount value as percent.
-         */
-        value: number & tags.Minimum<0> & tags.Maximum<100>;
+    /**
+     * Minimum purchase amount for discount.
+     *
+     * When setting this value, discount coupons cannot be applied to
+     * order totals that are less than this value.
+     */
+    threshold: null | (number & tags.Minimum<0>);
+  }
 
-        /**
-         * Minimum purchase amount for discount.
-         *
-         * When setting this value, discount coupons cannot be applied to
-         * order totals that are less than this value.
-         */
-        threshold: null | (number & tags.Minimum<0>);
+  /**
+   * Discount information with percent unit.
+   */
+  export interface IPercent {
+    /**
+     * Discount unit as percent.
+     *
+     * It means the order price would be discounted by the percent value.
+     */
+    unit: "percent";
 
-        /**
-         * Maximum amount available for discount.
-         *
-         * When this value is set, no further discount will be given no
-         * matter how much you order.
-         */
-        limit: null | (number & tags.ExclusiveMinimum<0>);
-    }
+    /**
+     * Discount value as percent.
+     */
+    value: number & tags.Minimum<0> & tags.Maximum<100>;
+
+    /**
+     * Minimum purchase amount for discount.
+     *
+     * When setting this value, discount coupons cannot be applied to
+     * order totals that are less than this value.
+     */
+    threshold: null | (number & tags.Minimum<0>);
+
+    /**
+     * Maximum amount available for discount.
+     *
+     * When this value is set, no further discount will be given no
+     * matter how much you order.
+     */
+    limit: null | (number & tags.ExclusiveMinimum<0>);
+  }
 }

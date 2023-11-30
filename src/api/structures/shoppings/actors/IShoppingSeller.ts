@@ -20,69 +20,69 @@ import { IShoppingMember } from "./IShoppingMember";
  * @author Samchon
  */
 export interface IShoppingSeller {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation tmie of record.
-     *
-     * Another words, the time when the seller has signed up.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation tmie of record.
+   *
+   * Another words, the time when the seller has signed up.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingSeller {
+  /**
+   * Invert information starting from seller info.
+   *
+   * Instead of accessing to the seller information from the
+   * {@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},
+   * `IShoppingSeller.IInvert` starts from the seller information
+   * and access to the customer, member and {@link IShoppingCitizen citizen}
+   * informations inversely.
+   */
+  export interface IInvert extends IShoppingSeller {
     /**
-     * Invert information starting from seller info.
-     *
-     * Instead of accessing to the seller information from the
-     * {@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},
-     * `IShoppingSeller.IInvert` starts from the seller information
-     * and access to the customer, member and {@link IShoppingCitizen citizen}
-     * informations inversely.
+     * Discriminant for the type of customer.
      */
-    export interface IInvert extends IShoppingSeller {
-        /**
-         * Discriminant for the type of customer.
-         */
-        type: "seller";
+    type: "seller";
 
-        /**
-         * Membership joining information.
-         */
-        member: IShoppingMember.IInvert;
+    /**
+     * Membership joining information.
+     */
+    member: IShoppingMember.IInvert;
 
-        /**
-         * Customer, the connection information.
-         */
-        customer: IShoppingCustomer.IInvert;
+    /**
+     * Customer, the connection information.
+     */
+    customer: IShoppingCustomer.IInvert;
 
-        /**
-         * Real-name and mobile number authentication information.
-         */
-        citizen: IShoppingCitizen;
+    /**
+     * Real-name and mobile number authentication information.
+     */
+    citizen: IShoppingCitizen;
+  }
+
+  export interface IRequest extends IPage.IRequest {
+    search?: IRequest.ISearch;
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export interface ISearch {
+      id?: string & tags.Format<"uuid">;
+      mobile?: string & tags.Pattern<"^[0-9]*$">;
+      name?: string;
+      email?: string & tags.Format<"email">;
+      nickname?: string;
     }
+    export type SortableColumns =
+      | "seller.created_at"
+      | "seller.goods.payments.real"
+      | "seller.goods.published_count"
+      | "seller.reviews.average"
+      | "seller.reviews.count";
+  }
 
-    export interface IRequest extends IPage.IRequest {
-        search?: IRequest.ISearch;
-        sort?: IPage.Sort<IRequest.SortableColumns>;
-    }
-    export namespace IRequest {
-        export interface ISearch {
-            id?: string & tags.Format<"uuid">;
-            mobile?: string & tags.Pattern<"^[0-9]*$">;
-            name?: string;
-            email?: string & tags.Format<"email">;
-            nickname?: string;
-        }
-        export type SortableColumns =
-            | "seller.created_at"
-            | "seller.goods.payments.real"
-            | "seller.goods.published_count"
-            | "seller.reviews.average"
-            | "seller.reviews.count";
-    }
-
-    export interface IJoin {}
+  export interface IJoin {}
 }

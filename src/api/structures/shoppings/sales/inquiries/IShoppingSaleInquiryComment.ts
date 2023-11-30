@@ -18,46 +18,45 @@ import { IShoppingSeller } from "../../actors/IShoppingSeller";
  * @author Samchon
  */
 export interface IShoppingSaleInquiryComment extends IBbsArticleComment {
-    /**
-     * Writer of the comment.
-     *
-     * Both customer and seller can write comment on the sale inquiry.
-     *
-     * By the way, no restriction on the customer, but seller must be the
-     * person who've registered the sale.
-     */
-    writer: IShoppingCustomer | IShoppingSeller;
+  /**
+   * Writer of the comment.
+   *
+   * Both customer and seller can write comment on the sale inquiry.
+   *
+   * By the way, no restriction on the customer, but seller must be the
+   * person who've registered the sale.
+   */
+  writer: IShoppingCustomer | IShoppingSeller;
 }
 export namespace IShoppingSaleInquiryComment {
-    /**
-     * Snapshot content of the comment.
-     */
-    export interface ISnapshot extends IBbsArticleComment.ISnapshot {}
+  /**
+   * Snapshot content of the comment.
+   */
+  export interface ISnapshot extends IBbsArticleComment.ISnapshot {}
 
-    /**
-     * Request of the comments with pagination and searching/sorting options.
-     */
-    export interface IRequest
-        extends IBbsArticleComment.IRequest<
-            IRequest.ISearch,
-            IRequest.SortableColumns
-        > {}
-    export namespace IRequest {
-        export interface ISearch extends IBbsArticleComment.IRequest.ISearch {
-            name?: string;
-            nickname?: string;
-        }
-        export type SortableColumns =
-            IBbsArticleComment.IRequest.SortableColumns;
+  /**
+   * Request of the comments with pagination and searching/sorting options.
+   */
+  export interface IRequest
+    extends IBbsArticleComment.IRequest<
+      IRequest.ISearch,
+      IRequest.SortableColumns
+    > {}
+  export namespace IRequest {
+    export interface ISearch extends IBbsArticleComment.IRequest.ISearch {
+      name?: string;
+      nickname?: string;
     }
+    export type SortableColumns = IBbsArticleComment.IRequest.SortableColumns;
+  }
 
-    /**
-     * Creation information of the comment.
-     */
-    export interface ICreate extends IBbsArticleComment.ICreate {}
+  /**
+   * Creation information of the comment.
+   */
+  export interface ICreate extends IBbsArticleComment.ICreate {}
 
-    /**
-     * Updating information of the comment.
-     */
-    export type IUpdate = ICreate;
+  /**
+   * Updating information of the comment.
+   */
+  export type IUpdate = ICreate;
 }

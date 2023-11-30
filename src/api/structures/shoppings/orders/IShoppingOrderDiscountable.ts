@@ -4,15 +4,15 @@ import { IShoppingCouponCombination } from "../coupons/IShoppingCouponCombinatio
 import { IShoppingDiscountable } from "../coupons/IShoppingDiscountable";
 
 export type IShoppingOrderDiscountable =
-    IShoppingDiscountable<IShoppingOrderDiscountable.ICombination>;
+  IShoppingDiscountable<IShoppingOrderDiscountable.ICombination>;
 export namespace IShoppingOrderDiscountable {
-    export type ICombination = IShoppingCouponCombination<IEntry>;
+  export type ICombination = IShoppingCouponCombination<IEntry>;
 
-    export interface IEntry extends IShoppingCouponCombination.IEntry {
-        good_id: string & tags.Format<"uuid">;
-    }
+  export interface IEntry extends IShoppingCouponCombination.IEntry {
+    good_id: string & tags.Format<"uuid">;
+  }
 
-    export interface IRequest {
-        good_ids: Array<string & tags.Format<"uuid">> | null;
-    }
+  export interface IRequest {
+    good_ids: Array<string & tags.Format<"uuid">> | null;
+  }
 }

@@ -22,20 +22,20 @@ import { IShoppingSeller } from "../../actors/IShoppingSeller";
  * @author Samchon
  */
 export interface IShoppingSaleInquiryAnswer extends IBbsArticle {
-    /**
-     * Seller who've written the answer.
-     */
-    seller: IShoppingSeller;
+  /**
+   * Seller who've written the answer.
+   */
+  seller: IShoppingSeller;
 }
 export namespace IShoppingSaleInquiryAnswer {
-    export interface ISnapshot extends IBbsArticle.ISnapshot {}
+  export interface ISnapshot extends IBbsArticle.ISnapshot {}
 
-    export interface ISummary extends IBbsArticle.ISummary {
-        seller: IShoppingSeller;
-    }
-    export interface IAbridge extends IBbsArticle.IAbridge {
-        seller: IShoppingSeller;
-    }
-    export type ICreate = IBbsArticle.ICreate;
-    export type IUpdate = IBbsArticle.IUpdate;
+  export interface ISummary extends IBbsArticle.ISummary {
+    seller: IShoppingSeller;
+  }
+  export interface IAbridge extends IBbsArticle.IAbridge {
+    seller: IShoppingSeller;
+  }
+  export type ICreate = IBbsArticle.ICreate;
+  export type IUpdate = IBbsArticle.IUpdate;
 }

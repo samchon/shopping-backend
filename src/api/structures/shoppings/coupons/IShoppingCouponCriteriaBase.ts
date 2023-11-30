@@ -23,29 +23,29 @@ import { IShoppingCouponCriteria } from "./IShoppingCouponCriteria";
  * @author Samchon
  */
 export interface IShoppingCouponCriteriaBase<
-    Type extends IShoppingCouponCriteria.Type,
+  Type extends IShoppingCouponCriteria.Type,
 > {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Descrimanator type.
-     */
-    type: Type;
+  /**
+   * Descrimanator type.
+   */
+  type: Type;
 
-    /**
-     * Direction of the criteria.
-     */
-    direction: "include" | "exclude";
+  /**
+   * Direction of the criteria.
+   */
+  direction: "include" | "exclude";
 }
 export namespace IShoppingCouponCriteriaBase {
-    /**
-     * Creation information of the basic coupon criteria.
-     */
-    export interface ICreate<Type extends IShoppingCouponCriteria.Type> {
-        type: Type;
-        direction: "include" | "exclude";
-    }
+  /**
+   * Creation information of the basic coupon criteria.
+   */
+  export interface ICreate<Type extends IShoppingCouponCriteria.Type> {
+    type: Type;
+    direction: "include" | "exclude";
+  }
 }

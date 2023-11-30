@@ -12,51 +12,51 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingDeliveryJourney
-    extends IShoppingDeliveryJourney.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  extends IShoppingDeliveryJourney.ICreate {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 
-    /**
-     * Creation time of the record.
-     */
-    created_at: string & tags.Format<"date-time">;
+  /**
+   * Creation time of the record.
+   */
+  created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingDeliveryJourney {
-    export type Type = "preparing" | "shipping" | "delivering";
+  export type Type = "preparing" | "shipping" | "delivering";
+
+  /**
+   * Creation information of the delivery journey.
+   */
+  export interface ICreate {
+    /**
+     * Type of journey.
+     *
+     * - preparing
+     * - shipping
+     * - delivering
+     */
+    type: Type;
 
     /**
-     * Creation information of the delivery journey.
+     * Title of journey.
      */
-    export interface ICreate {
-        /**
-         * Type of journey.
-         *
-         * - preparing
-         * - shipping
-         * - delivering
-         */
-        type: Type;
+    title: null | string;
 
-        /**
-         * Title of journey.
-         */
-        title: null | string;
+    /**
+     * Description of journey.
+     */
+    description: null | string;
 
-        /**
-         * Description of journey.
-         */
-        description: null | string;
+    /**
+     * Start time of the journey.
+     */
+    started_at: null | (string & tags.Format<"date-time">);
 
-        /**
-         * Start time of the journey.
-         */
-        started_at: null | (string & tags.Format<"date-time">);
-
-        /**
-         * Completion time of the journey.
-         */
-        completed_at: null | (string & tags.Format<"date-time">);
-    }
+    /**
+     * Completion time of the journey.
+     */
+    completed_at: null | (string & tags.Format<"date-time">);
+  }
 }

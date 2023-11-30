@@ -5,24 +5,23 @@ import { IPerformance } from "../api/structures/monitors/IPerformance";
 import { ISystem } from "../api/structures/monitors/ISystem";
 
 async function main(): Promise<void> {
-    // CONFIGURE MODE
-    if (process.argv[2])
-        SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+  // CONFIGURE MODE
+  if (process.argv[2]) SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
 
-    // GET PERFORMANCE & SYSTEM INFO
-    const connection: ShoppingApi.IConnection = {
-        host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
-    };
-    const performance: IPerformance =
-        await ShoppingApi.functional.monitors.performance.get(connection);
-    const system: ISystem = await ShoppingApi.functional.monitors.system.get(
-        connection,
-    );
+  // GET PERFORMANCE & SYSTEM INFO
+  const connection: ShoppingApi.IConnection = {
+    host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+  };
+  const performance: IPerformance =
+    await ShoppingApi.functional.monitors.performance.get(connection);
+  const system: ISystem = await ShoppingApi.functional.monitors.system.get(
+    connection,
+  );
 
-    // TRACE THEM
-    console.log({ performance, system });
+  // TRACE THEM
+  console.log({ performance, system });
 }
 main().catch((exp) => {
-    console.log(exp);
-    process.exit(-1);
+  console.log(exp);
+  process.exit(-1);
 });

@@ -18,21 +18,21 @@ import { tags } from "typia";
  * @author Samchon
  */
 export interface IShoppingSaleUnitOptionCandidate
-    extends IShoppingSaleUnitOptionCandidate.ICreate {
-    /**
-     * Primary Key.
-     */
-    id: string & tags.Format<"uuid">;
+  extends IShoppingSaleUnitOptionCandidate.ICreate {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
 }
 
 export namespace IShoppingSaleUnitOptionCandidate {
+  /**
+   * Creation information of the candidate value.
+   */
+  export interface ICreate {
     /**
-     * Creation information of the candidate value.
+     * Represents the name of the candidate value.
      */
-    export interface ICreate {
-        /**
-         * Represents the name of the candidate value.
-         */
-        name: string;
-    }
+    name: string;
+  }
 }

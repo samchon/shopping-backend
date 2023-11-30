@@ -11,82 +11,82 @@ import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAut
 
 @Controller(`shoppings/customers/orders/cart/:cartId/commodities`)
 export class ShoppingCustomerCartCommoditiesController {
-    @core.TypedRoute.Get()
-    public async index(
-        @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedParam("cartId")
-        cartId: null | (string & tags.Format<"uuid">),
-        @core.TypedBody() input: IShoppingCartCommodity.IRequest,
-    ): Promise<IPage<IShoppingCartCommodity>> {
-        customer;
-        cartId;
-        input;
-        return null!;
-    }
+  @core.TypedRoute.Get()
+  public async index(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedBody() input: IShoppingCartCommodity.IRequest,
+  ): Promise<IPage<IShoppingCartCommodity>> {
+    customer;
+    cartId;
+    input;
+    return null!;
+  }
 
-    @core.TypedRoute.Get(":id")
-    public async at(
-        @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedParam("cartId")
-        cartId: null | (string & tags.Format<"uuid">),
-        @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    ): Promise<IShoppingCartCommodity> {
-        customer;
-        cartId;
-        id;
-        return null!;
-    }
+  @core.TypedRoute.Get(":id")
+  public async at(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+  ): Promise<IShoppingCartCommodity> {
+    customer;
+    cartId;
+    id;
+    return null!;
+  }
 
-    @core.TypedRoute.Post()
-    public async create(
-        @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedParam("cartId")
-        cartId: null | (string & tags.Format<"uuid">),
-        @core.TypedBody() input: IShoppingCartCommodity.ICreate,
-    ): Promise<IShoppingCartCommodity> {
-        customer;
-        cartId;
-        input;
-        return null!;
-    }
+  @core.TypedRoute.Post()
+  public async create(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedBody() input: IShoppingCartCommodity.ICreate,
+  ): Promise<IShoppingCartCommodity> {
+    customer;
+    cartId;
+    input;
+    return null!;
+  }
 
-    @core.TypedRoute.Put(":id")
-    public async update(
-        @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedParam("cartId")
-        cartId: null | (string & tags.Format<"uuid">),
-        @core.TypedParam("id") id: string & tags.Format<"uuid">,
-        @core.TypedBody() input: IShoppingCartCommodity.IUpdate,
-    ): Promise<IShoppingCartCommodity> {
-        customer;
-        cartId;
-        id;
-        input;
-        return null!;
-    }
+  @core.TypedRoute.Put(":id")
+  public async update(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedBody() input: IShoppingCartCommodity.IUpdate,
+  ): Promise<IShoppingCartCommodity> {
+    customer;
+    cartId;
+    id;
+    input;
+    return null!;
+  }
 
-    @core.TypedRoute.Delete(":id")
-    public async erase(
-        @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedParam("cartId")
-        cartId: null | (string & tags.Format<"uuid">),
-        @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    ): Promise<void> {
-        customer;
-        cartId;
-        id;
-    }
+  @core.TypedRoute.Delete(":id")
+  public async erase(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+  ): Promise<void> {
+    customer;
+    cartId;
+    id;
+  }
 
-    @core.TypedRoute.Patch("discountable")
-    public async discountable(
-        @ShoppingCustomerAuth() customer: IShoppingCustomer,
-        @core.TypedParam("cartId")
-        cartId: null | (string & tags.Format<"uuid">),
-        @core.TypedBody() input: IShoppingCartDiscountable.IRequest,
-    ): Promise<IShoppingCartDiscountable> {
-        customer;
-        cartId;
-        input;
-        return null!;
-    }
+  @core.TypedRoute.Patch("discountable")
+  public async discountable(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedBody() input: IShoppingCartDiscountable.IRequest,
+  ): Promise<IShoppingCartDiscountable> {
+    customer;
+    cartId;
+    input;
+    return null!;
+  }
 }

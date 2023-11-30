@@ -40,20 +40,20 @@ import { IShoppingSaleUnitSelectableOption } from "./IShoppingSaleUnitSelectable
  * @author Samchon
  */
 export type IShoppingSaleUnitOption =
-    | IShoppingSaleUnitSelectableOption
-    | IShoppingSaleUnitDescriptiveOption;
+  | IShoppingSaleUnitSelectableOption
+  | IShoppingSaleUnitDescriptiveOption;
 export namespace IShoppingSaleUnitOption {
-    /**
-     * Inversely referenced information of the option.
-     */
-    export type IInvert =
-        | IShoppingSaleUnitSelectableOption.IInvert
-        | IShoppingSaleUnitDescriptiveOption;
+  /**
+   * Inversely referenced information of the option.
+   */
+  export type IInvert =
+    | IShoppingSaleUnitSelectableOption.IInvert
+    | IShoppingSaleUnitDescriptiveOption;
 
-    /**
-     * Creation information of the option.
-     */
-    export type ICreate =
-        | IShoppingSaleUnitSelectableOption.ICreate
-        | IShoppingSaleUnitDescriptiveOption.ICreate;
+  /**
+   * Creation information of the option.
+   */
+  export type ICreate =
+    | IShoppingSaleUnitSelectableOption.ICreate
+    | IShoppingSaleUnitDescriptiveOption.ICreate;
 }

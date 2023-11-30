@@ -9,40 +9,40 @@ import { IShoppingCouponTicketPayment } from "../coupons/IShoppingCouponTicketPa
  * @author Samchon
  */
 export interface IShoppingOrderPrice extends IShoppingOrderPrice.ISummary {
-    /**
-     * List of discount coupon ticket payments.
-     */
-    ticket_payments: IShoppingCouponTicketPayment[];
+  /**
+   * List of discount coupon ticket payments.
+   */
+  ticket_payments: IShoppingCouponTicketPayment[];
 }
 export namespace IShoppingOrderPrice {
+  /**
+   * Summarized information of the order price.
+   */
+  export interface ISummary extends IShoppingPrice {
     /**
-     * Summarized information of the order price.
+     * Amount of the cash payment.
      */
-    export interface ISummary extends IShoppingPrice {
-        /**
-         * Amount of the cash payment.
-         */
-        cash: number & tags.Minimum<0>;
+    cash: number & tags.Minimum<0>;
 
-        /**
-         * Amount of the deposit payment.
-         */
-        deposit: number & tags.Minimum<0>;
+    /**
+     * Amount of the deposit payment.
+     */
+    deposit: number & tags.Minimum<0>;
 
-        /**
-         * Amount of the mileage payment.
-         */
-        mileage: number & tags.Minimum<0>;
+    /**
+     * Amount of the mileage payment.
+     */
+    mileage: number & tags.Minimum<0>;
 
-        /**
-         * Amount of the discount coupon ticket payment.
-         */
-        ticket: number & tags.Minimum<0>;
-    }
+    /**
+     * Amount of the discount coupon ticket payment.
+     */
+    ticket: number & tags.Minimum<0>;
+  }
 
-    export interface ICreate {
-        deposit: number;
-        mileage: number;
-        coupon_ids: Array<string & tags.Format<"uuid">>;
-    }
+  export interface ICreate {
+    deposit: number;
+    mileage: number;
+    coupon_ids: Array<string & tags.Format<"uuid">>;
+  }
 }
