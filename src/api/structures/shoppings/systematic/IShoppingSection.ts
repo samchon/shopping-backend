@@ -53,7 +53,10 @@ export namespace IShoppingSection {
       code?: string;
       name?: string;
     }
-    export type SortableColumns = "section.code" | "section.name";
+    export type SortableColumns =
+      | "section.code"
+      | "section.name"
+      | "section.created_at";
   }
 
   /**

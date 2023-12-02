@@ -13,6 +13,7 @@ export function ShoppingSystematicSectionsController<
 >(props: IShoppingControllerProps) {
   @Controller(`shoppings/${props.path}/systematic/sections`)
   class ShoppingSystematicSectionsController {
+    @core.TypedRoute.Patch()
     public index(
       @props.AuthGuard() _actor: Actor,
       @core.TypedBody() input: IShoppingSection.IRequest,
