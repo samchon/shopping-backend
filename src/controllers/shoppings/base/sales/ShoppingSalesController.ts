@@ -27,7 +27,7 @@ export function ShoppingSalesController<Actor extends IShoppingActorEntity>(
     public async at(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    ): Promise<IShoppingSale.ISummary> {
+    ): Promise<IShoppingSale> {
       actor;
       id;
       return null!;

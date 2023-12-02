@@ -36,7 +36,7 @@ export interface IShoppingSale
   /**
    * Seller who has registered the sale.
    */
-  seller: IShoppingSeller;
+  seller: IShoppingSeller.IInvert;
 }
 export namespace IShoppingSale {
   /**
@@ -149,7 +149,7 @@ export namespace IShoppingSale {
     /**
      * Seller who has registered the sale.
      */
-    seller: IShoppingSeller;
+    seller: IShoppingSeller.IInvert;
   }
 
   /**

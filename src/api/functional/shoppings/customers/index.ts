@@ -10,3 +10,4 @@ export * as deposits from "./deposits";
 export * as mileages from "./mileages";
 export * as orders from "./orders";
 export * as sales from "./sales";
+export * as systematic from "./systematic";
