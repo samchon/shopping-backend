@@ -8,3 +8,4 @@ export * as authenticate from "./authenticate";
 export * as coupons from "./coupons";
 export * as orders from "./orders";
 export * as sales from "./sales";
+export * as systematic from "./systematic";

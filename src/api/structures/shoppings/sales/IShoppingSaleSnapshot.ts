@@ -105,6 +105,13 @@ export namespace IShoppingSaleSnapshot {
     content: Content;
 
     /**
+     * List of channels and categories.
+     *
+     * Which channels and categories the sale is registered to.
+     */
+    channels: IShoppingSaleChannel[] & tags.MinItems<1>;
+
+    /**
      * List of search tags.
      */
     tags: string[];

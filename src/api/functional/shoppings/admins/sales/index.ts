@@ -112,7 +112,7 @@ export async function at(
           );
 }
 export namespace at {
-    export type Output = Primitive<IShoppingSale.ISummary>;
+    export type Output = Primitive<IShoppingSale>;
 
     export const METADATA = {
         method: "GET",
@@ -128,8 +128,8 @@ export namespace at {
     export const path = (id: string & Format<"uuid">): string => {
         return `/shoppings/admins/sales/${encodeURIComponent(id ?? "null")}`;
     }
-    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<IShoppingSale.ISummary> =>
-        typia.random<Primitive<IShoppingSale.ISummary>>(g);
+    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<IShoppingSale> =>
+        typia.random<Primitive<IShoppingSale>>(g);
     export const simulate = async (
         connection: IConnection,
         id: string & Format<"uuid">,
