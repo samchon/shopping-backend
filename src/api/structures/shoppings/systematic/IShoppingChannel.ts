@@ -49,7 +49,10 @@ export namespace IShoppingChannel {
       code?: string;
       name?: string;
     }
-    export type SortableColumns = "channel.code" | "channel.name";
+    export type SortableColumns =
+      | "channel.code"
+      | "channel.name"
+      | "channel.created_at";
   }
 
   /**
@@ -78,5 +81,5 @@ export namespace IShoppingChannel {
   /**
    * Updating information of the channel.
    */
-  export type IUpdate = ICreate;
+  export type IUpdate = Pick<ICreate, "name" | "exclusive">;
 }
