@@ -1,6 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
+import { IShoppingBusinessAggregate } from "../sales/aggregates/IShoppingBusinessAggregate";
 import { IShoppingCitizen } from "./IShoppingCitizen";
 import { IShoppingCustomer } from "./IShoppingCustomer";
 import { IShoppingMember } from "./IShoppingMember";
@@ -24,6 +25,11 @@ export interface IShoppingSeller {
    * Primary Key.
    */
   id: string & tags.Format<"uuid">;
+
+  /**
+   * Aggregation of business performance.
+   */
+  aggregate: IShoppingBusinessAggregate;
 
   /**
    * Creation tmie of record.
@@ -79,7 +85,7 @@ export namespace IShoppingSeller {
     export type SortableColumns =
       | "seller.created_at"
       | "seller.goods.payments.real"
-      | "seller.goods.published_count"
+      | "seller.goods.publish_count"
       | "seller.reviews.average"
       | "seller.reviews.count";
   }

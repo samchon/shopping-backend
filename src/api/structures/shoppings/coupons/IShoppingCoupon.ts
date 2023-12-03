@@ -41,7 +41,7 @@ import { IShoppingCouponRestriction } from "./IShoppingCouponRestriction";
  *
  * @author Samchon
  */
-export interface IShoppingCoupon extends IShoppingCoupon.ICreate {
+export interface IShoppingCoupon {
   /**
    * Primary Key.
    */
@@ -61,6 +61,36 @@ export interface IShoppingCoupon extends IShoppingCoupon.ICreate {
    * List of criteria informations.
    */
   criterias: IShoppingCouponCriteria[];
+
+  /**
+   * Discount information.
+   */
+  discount: IShoppingCouponDiscount;
+
+  /**
+   * Restriction information.
+   */
+  restriction: IShoppingCouponRestriction;
+
+  /**
+   * Representative name of the coupon.
+   */
+  name: string;
+
+  /**
+   * Opening time of the coupon.
+   */
+  opened_at: null | (string & tags.Format<"date-time">);
+
+  /**
+   * Closing time of the coupon.
+   *
+   * Tickets cannot be issued after this time.
+   *
+   * However, previously issued tickets can still be used until their
+   * expiration date.
+   */
+  closed_at: null | (string & tags.Format<"date-time">);
 
   /**
    * Creation tie of the record.
@@ -98,6 +128,10 @@ export namespace IShoppingCoupon {
      * Restriction information.
      */
     restriction: IShoppingCouponRestriction;
+
+    criterias: IShoppingCouponCriteria.ICreate[];
+
+    disposable_codes: string[];
 
     /**
      * Representative name of the coupon.

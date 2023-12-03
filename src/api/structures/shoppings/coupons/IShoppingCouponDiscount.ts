@@ -36,6 +36,25 @@ export namespace IShoppingCouponDiscount {
      * order totals that are less than this value.
      */
     threshold: null | (number & tags.Minimum<0>);
+
+    /**
+     * Maximum amount available for discount.
+     *
+     * When this value is set, no further discount will be given no
+     * matter how much you order. This property would be meaningful
+     * only when the {@link multiplicative} is `true`.
+     */
+    limit: null | (number & tags.ExclusiveMinimum<0>);
+
+    /**
+     * Multiplicative or not.
+     *
+     * If this property is `true`, the discount value would be multiplied
+     * to the {@link IShoppingCartCommodity.volume} or
+     * {@link IShoppingOrderGood.volume} value. Also, in that case,
+     * the {@link limit} property would be meaningful.
+     */
+    multiplicative: boolean;
   }
 
   /**
