@@ -1,6 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
+import { IShoppingPrice } from "../base/IShoppingPrice";
 import { IShoppingSale } from "../sales/IShoppingSale";
 import { IShoppingSaleSnapshot } from "../sales/IShoppingSaleSnapshot";
 import { IShoppingCartCommodityStock } from "./IShoppingCartCommodityStock";
@@ -63,6 +64,8 @@ export interface IShoppingCartCommodity {
    */
   volume: number & tags.Type<"uint32">;
 
+  price: IShoppingPrice;
+
   /**
    * Creation time of the record.
    */
@@ -77,11 +80,15 @@ export namespace IShoppingCartCommodity {
     export interface ISearch {
       min_price?: number;
       max_price?: number;
+      min_volumed_price?: number;
+      max_volumed_price?: number;
       sale?: IShoppingSale.IRequest.ISearch;
     }
     export type SortableColumns =
       | IShoppingSale.IRequest.SortableColumns
       | "commodity.price"
+      | "commodity.volume"
+      | "commodity.volumed_price"
       | "commodity.created_at";
   }
 

@@ -9,9 +9,9 @@ import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
-@Controller(`shoppings/customers/orders/cart/:cartId/commodities`)
+@Controller(`shoppings/customers/carts/:cartId/commodities`)
 export class ShoppingCustomerCartCommoditiesController {
-  @core.TypedRoute.Get()
+  @core.TypedRoute.Patch()
   public async index(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
@@ -62,6 +62,19 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId;
     id;
     input;
+    return null!;
+  }
+
+  @core.TypedRoute.Get(":id/replica")
+  public async replica(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedParam("cartId")
+    cartId: null | (string & tags.Format<"uuid">),
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+  ): Promise<IShoppingCartCommodity.ICreate> {
+    customer;
+    cartId;
+    id;
     return null!;
   }
 

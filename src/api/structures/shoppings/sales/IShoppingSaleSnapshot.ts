@@ -5,8 +5,9 @@ import { IShoppingSection } from "../systematic/IShoppingSection";
 import { IShoppingSale } from "./IShoppingSale";
 import { IShoppingSaleChannel } from "./IShoppingSaleChannel";
 import { IShoppingSaleContent } from "./IShoppingSaleContent";
+import { IShoppingSalePriceRange } from "./IShoppingSalePriceRange";
 import { IShoppingSaleUnit } from "./IShoppingSaleUnit";
-import { IShoppingSaleAggregate } from "./aggregates/IShoppingSaleAggregate";
+import { IShoppingBusinessAggregate } from "./aggregates/IShoppingBusinessAggregate";
 
 /**
  * Snapshot record of sale.
@@ -69,14 +70,16 @@ export namespace IShoppingSaleSnapshot {
     /**
      * Seller who've registered the sale.
      */
-    seller: IShoppingSeller;
+    seller: IShoppingSeller.IInvert;
   }
 
   /**
    * Summarized information of the sale snapshot.
    */
   export interface ISummary
-    extends IBase<IShoppingSaleContent.ISummary, IShoppingSaleUnit.ISummary> {}
+    extends IBase<IShoppingSaleContent.ISummary, IShoppingSaleUnit.ISummary> {
+    price_range: IShoppingSalePriceRange;
+  }
 
   export interface IBase<Content, Unit> {
     /**
@@ -95,9 +98,16 @@ export namespace IShoppingSaleSnapshot {
     latest: boolean;
 
     /**
-     * Creation time of the record.
+     * Creation time of the sale.
      */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * Update time of the snapshot.
+     *
+     * In other words, the time when the snapshot is created.
+     */
+    updated_at: string & tags.Format<"date-time">;
 
     /**
      * Description and image content describing the sale.
@@ -117,9 +127,9 @@ export namespace IShoppingSaleSnapshot {
     tags: string[];
 
     /**
-     *
+     * Aggregation of business performance.
      */
-    aggregate: IShoppingSaleAggregate;
+    aggregate: Omit<IShoppingBusinessAggregate, "sale">;
 
     /**
      * List of units.

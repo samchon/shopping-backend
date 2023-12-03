@@ -1,9 +1,8 @@
-import { IShoppingSaleGoodAggregate } from "./IShoppingSaleGoodAggregate";
-import { IShoppingSaleInquiryAggregate } from "./IShoppingSaleInquiryAggregate";
-import { IShoppingSaleRefundAggregate } from "./IShoppingSaleRefundAggregate";
+import { tags } from "typia";
 
 export interface IShoppingSaleAggregate {
-  good: IShoppingSaleGoodAggregate;
-  inquiry: IShoppingSaleInquiryAggregate;
-  refund: IShoppingSaleRefundAggregate;
+  count: number & tags.Type<"uint32">;
+  opened_count: number & tags.Type<"uint32">;
+  paused_count: number & tags.Type<"uint32">;
+  suspended_count: number & tags.Type<"uint32">;
 }
