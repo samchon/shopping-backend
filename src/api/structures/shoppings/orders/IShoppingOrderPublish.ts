@@ -61,9 +61,16 @@ export interface IShoppingOrderPublish {
   deliveries: IShoppingDelivery[];
 }
 export namespace IShoppingOrderPublish {
-  export interface ICreate {
+  export type ICreate = ICashCreate | IZeroCreate;
+
+  export interface ICashCreate {
+    type: "cash";
     address: IShoppingAddress.ICreate;
     vendor: string;
     uid: string;
+  }
+  export interface IZeroCreate {
+    type: "zero";
+    address: IShoppingAddress.ICreate;
   }
 }

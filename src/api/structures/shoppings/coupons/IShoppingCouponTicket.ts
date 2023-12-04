@@ -24,6 +24,11 @@ export interface IShoppingCouponTicket {
   id: string & tags.Format<"uuid">;
 
   /**
+   * Target coupon.
+   */
+  coupon: IShoppingCoupon;
+
+  /**
    * Creation time of the record.
    */
   created_at: string & tags.Format<"date-time">;
@@ -34,10 +39,6 @@ export interface IShoppingCouponTicket {
   expired_at: null | (string & tags.Format<"date-time">);
 }
 export namespace IShoppingCouponTicket {
-  export interface IInvert extends IShoppingCouponTicket {
-    coupon: IShoppingCoupon;
-  }
-
   export interface IRequest extends IPage.IRequest {
     sort?: IPage.Sort<IRequest.SortableColumns>;
   }
