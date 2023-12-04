@@ -7,60 +7,54 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 import { IShoppingCouponCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponCriteria";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartDiscountable";
+import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
 import { test_api_shopping_admin_login } from "../../actors/test_api_hub_admin_login";
-import { test_api_shopping_customer_create } from "../../actors/test_api_shopping_customer_create";
+import { test_api_shopping_customer_join } from "../../actors/test_api_shopping_customer_join";
 import { test_api_shopping_seller_join } from "../../actors/test_api_shopping_seller_join";
+import { generate_random_cart_commodity } from "../../carts/internal/generate_random_cart_commodity";
 import { prepare_random_coupon } from "../../coupons/internal/prepare_random_coupon";
 import { generate_random_sole_sale } from "../../sales/internal/generate_random_sole_sale";
 import { generate_random_section } from "../../systematic/internal/generate_random_section";
-import { prepare_random_cart_commodity } from "./prepare_random_cart_commodity";
+import { generate_random_order } from "./generate_random_order";
 
-export const validate_api_shopping_cart_discountable =
+export const validate_api_shopping_order_discountable =
   (
     next?: (
       pool: ConnectionPool,
-      props: validate_api_shopping_cart_discountable.IProps,
+      props: validate_api_shopping_order_discountable.IProps,
     ) => Promise<any>,
   ) =>
-  async (pool: ConnectionPool) => {
+  async (pool: ConnectionPool): Promise<void> => {
     //----
     // PRELIMINIARIES
     //----
     // ACTORS
-    const customer: IShoppingCustomer = await test_api_shopping_customer_create(
+    const customer: IShoppingCustomer = await test_api_shopping_customer_join(
       pool,
     );
     await test_api_shopping_admin_login(pool);
     await test_api_shopping_seller_join(pool);
 
-    // SALES
-    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(3)(() =>
+    // SALES TO ORDER
+    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(4)(() =>
       generate_random_sole_sale(pool, {
         nominal: 50_000,
         real: 50_000,
       }),
     );
-
-    // COMMODITIES
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
       saleList,
-    )(async (sale) => {
-      const input: IShoppingCartCommodity.ICreate =
-        prepare_random_cart_commodity(sale, { volume: 1 });
-      input.stocks.forEach((stock) => (stock.quantity = 1));
-      const commodity: IShoppingCartCommodity =
-        await ShoppingApi.functional.shoppings.customers.carts.commodities.create(
-          pool.customer,
-          null,
-          input,
-        );
-      return typia.assertEquals(commodity);
-    });
+    )((sale) => generate_random_cart_commodity(pool, sale));
+    const order: IShoppingOrder = await generate_random_order(
+      pool,
+      commodities,
+      () => 1,
+    );
 
     //----
     // GENERATE COUPONS
@@ -132,13 +126,12 @@ export const validate_api_shopping_cart_discountable =
     // VALIDATE
     //----
     // GET DISCOUNTABLE INFO
-    const discountable: IShoppingCartDiscountable =
-      await ShoppingApi.functional.shoppings.customers.carts.commodities.discountable(
+    const discountable: IShoppingOrderDiscountable =
+      await ShoppingApi.functional.shoppings.customers.orders.discountable(
         pool.customer,
-        null,
+        order.id,
         {
-          commodity_ids: commodities.map((commodity) => commodity.id),
-          pseudos: [],
+          good_ids: order.goods.map((g) => g.id),
         },
       );
     typia.assertEquals(discountable);
@@ -160,7 +153,7 @@ export const validate_api_shopping_cart_discountable =
         await next(pool, {
           customer,
           sales: saleList,
-          commodities: commodities,
+          order,
           discountable,
           coupons: couponList,
           generator,
@@ -184,12 +177,12 @@ export const validate_api_shopping_cart_discountable =
     // TERMINATE
     if (error) throw error;
   };
-export namespace validate_api_shopping_cart_discountable {
+export namespace validate_api_shopping_order_discountable {
   export interface IProps {
     customer: IShoppingCustomer;
     sales: IShoppingSale[];
-    commodities: IShoppingCartCommodity[];
-    discountable: IShoppingCartDiscountable;
+    order: IShoppingOrder;
+    discountable: IShoppingOrderDiscountable;
     coupons: IShoppingCoupon[];
     generator: (
       exclusive: boolean,

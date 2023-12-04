@@ -1,5 +1,7 @@
 import { tags } from "typia";
 
+import { IShoppingCouponTicket } from "./IShoppingCouponTicket";
+
 /**
  * Discount coupon ticket payment details.
  *
@@ -28,6 +30,11 @@ export interface IShoppingCouponTicketPayment {
    * Primary Key.
    */
   id: string & tags.Format<"uuid">;
+
+  /**
+   * Target ticket.
+   */
+  ticket: IShoppingCouponTicket;
 
   /**
    * Creation time of the record.

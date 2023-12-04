@@ -21,6 +21,9 @@ jobs:
 
       - name: Compile Backend-Server
         run: npm run build
+
+      - name: Validate through EsLint
+        run: npm run eslint
       
       # - name: Create DB Schema
       #   run: npm run schema postgres root
