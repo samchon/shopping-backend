@@ -113,7 +113,7 @@ export const test_api_shopping_cart_commodity_index_sort = async (
     ),
     validator("reviews.average", "reviews.count")(
       GaffComparator.numbers((x) => [
-        x.sale.aggregate.inquiry.review.statistics?.average! ?? 0,
+        x.sale.aggregate.inquiry.review.statistics?.average ?? 0,
         x.sale.aggregate.inquiry.review.count,
       ]),
       (x) => x.sale.aggregate.inquiry.review.statistics !== null,
