@@ -1,5 +1,7 @@
 import { tags } from "typia";
 
+import { IPage } from "../../common/IPage";
+
 /**
  * Supplementation of inventory quantity of stock.
  *
@@ -34,6 +36,19 @@ export interface IShoppingSaleUnitStockSupplement {
   created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingSaleUnitStockSupplement {
+  /**
+   * Request information of the stock supplement list.
+   */
+  export interface IRequest extends IPage.IRequest {
+    /**
+     * Sortable columns.
+     */
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export type SortableColumns = "created_at";
+  }
+
   /**
    * Creation information of the stock.
    */

@@ -16,6 +16,7 @@ import { NestiaSimulator } from "../../../../utils/NestiaSimulator";
 export * as questions from "./questions";
 export * as reviews from "./reviews";
 export * as snapshots from "./snapshots";
+export * as units from "./units";
 
 /**
  * @controller ShoppingSellerSalesController.create
