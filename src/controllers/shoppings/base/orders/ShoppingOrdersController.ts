@@ -13,7 +13,7 @@ export function ShoppingOrdersController<Actor extends IShoppingActorEntity>(
 ) {
   @Controller(`shoppings/${props.path}/orders`)
   abstract class ShoppingOrdersController {
-    @core.TypedRoute.Get()
+    @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingOrder.IRequest,
