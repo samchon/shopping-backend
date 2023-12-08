@@ -41,6 +41,7 @@ export const test_api_shopping_delivery_journey_create = async (
       pool.seller,
       {
         shippers: [],
+        journeys: [],
         pieces: typia.assertEquals(
           await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
             pool.seller,

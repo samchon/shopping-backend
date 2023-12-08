@@ -64,10 +64,13 @@ export const test_api_shopping_delivery_journey_complete = async (
     pool.seller,
     delivery.id,
     delivery.journeys[0].id,
+    {
+      completed_at: new Date().toISOString(),
+    },
   );
 
   const read: IShoppingDelivery.IInvert =
-    await ShoppingApi.functional.shoppings.sellers.deliveries.fetch(
+    await ShoppingApi.functional.shoppings.sellers.deliveries.at(
       pool.seller,
       delivery.id,
     );
