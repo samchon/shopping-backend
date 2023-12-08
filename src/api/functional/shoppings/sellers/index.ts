@@ -5,6 +5,7 @@
  */
 //================================================================
 export * as authenticate from "./authenticate";
+export * as deliveries from "./deliveries";
 export * as coupons from "./coupons";
 export * as orders from "./orders";
 export * as sales from "./sales";

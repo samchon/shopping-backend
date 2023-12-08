@@ -5,4 +5,6 @@ export namespace TestGlobal {
 
   export const HREF = "http://localhost/TestAutomation";
   export const REFERRER = "http://localhost/NodeJS";
+
+  export const compareId = (x: string, y: string) => x.localeCompare(y);
 }

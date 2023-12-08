@@ -46,6 +46,9 @@ export interface IShoppingOrder {
    */
   price: IShoppingOrderPrice;
 
+  /**
+   * Order completion and payment information.
+   */
   publish: null | IShoppingOrderPublish;
 
   /**
@@ -61,6 +64,7 @@ export namespace IShoppingOrder {
     search?: IRequest.ISearch;
     sort?: IPage.Sort<IRequest.SortableColumns>;
   }
+
   export namespace IRequest {
     export interface ISearch {
       min_price?: number;

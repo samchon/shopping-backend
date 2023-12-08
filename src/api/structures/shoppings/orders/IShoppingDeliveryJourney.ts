@@ -22,9 +22,14 @@ export interface IShoppingDeliveryJourney
    * Creation time of the record.
    */
   created_at: string & tags.Format<"date-time">;
+
+  /**
+   * Deletion time of the record.
+   */
+  deleted_at: null | (string & tags.Format<"date-time">);
 }
 export namespace IShoppingDeliveryJourney {
-  export type Type = "preparing" | "shipping" | "delivering";
+  export type Type = "preparing" | "manufacturing" | "shipping" | "delivering";
 
   /**
    * Creation information of the delivery journey.
@@ -57,6 +62,17 @@ export namespace IShoppingDeliveryJourney {
     /**
      * Completion time of the journey.
      */
+    completed_at: null | (string & tags.Format<"date-time">);
+  }
+
+  /**
+   * Completion information of the delivery journey.
+   */
+  export interface IComplete {
+    /**
+     * Completion time of the journey.
+     */
+
     completed_at: null | (string & tags.Format<"date-time">);
   }
 }

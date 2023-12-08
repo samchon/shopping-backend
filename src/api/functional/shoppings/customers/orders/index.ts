@@ -15,6 +15,7 @@ import type { IShoppingOrderDiscountable } from "../../../../structures/shopping
 import type { IShoppingOrderPrice } from "../../../../structures/shoppings/orders/IShoppingOrderPrice";
 import { NestiaSimulator } from "../../../../utils/NestiaSimulator";
 
+export * as goods from "./goods";
 export * as publish from "./publish";
 
 /**

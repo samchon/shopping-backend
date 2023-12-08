@@ -2601,6 +2601,7 @@ model shopping_delivery_journeys {
     /// Type of journey.
     ///
     /// - preparing
+    /// - manufactoring
     /// - shipping
     /// - delivering
     type String @db.VarChar

@@ -1,6 +1,7 @@
 import { tags } from "typia";
 
 import { IShoppingCartCommodity } from "./IShoppingCartCommodity";
+import { IShoppingDelivery } from "./IShoppingDelivery";
 import { IShoppingOrderPrice } from "./IShoppingOrderPrice";
 
 /**
@@ -55,6 +56,11 @@ export interface IShoppingOrderGood {
    * Price information including discounts and multipled volume.
    */
   price: IShoppingOrderPrice.ISummary;
+
+  /**
+   * State of delivery about the good.
+   */
+  state: null | IShoppingDelivery.State;
 
   /**
    * Confirmation time of order good.
