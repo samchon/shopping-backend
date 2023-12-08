@@ -1,8 +1,11 @@
 import { tags } from "typia";
 
+import { IPage } from "../../common/IPage";
 import { IShoppingSeller } from "../actors/IShoppingSeller";
 import { IShoppingDeliveryJourney } from "./IShoppingDeliveryJourney";
 import { IShoppingDeliveryPiece } from "./IShoppingDeliveryPiece";
+import { IShoppingDeliveryShipper } from "./IShoppingDeliveryShipper";
+import { IShoppingOrder } from "./IShoppingOrder";
 
 /**
  * Delivery information.
@@ -37,35 +40,58 @@ export interface IShoppingDelivery {
   seller: IShoppingSeller;
 
   /**
-   * Invoice code if exists.
+   * List of journeys of the delivery.
    */
-  invoice_code: string | null;
+  journeys: IShoppingDeliveryJourney[];
 
   /**
    * List of pieces of the delivery.
    */
-  pieces: IShoppingDeliveryPiece[];
+  pieces: IShoppingDeliveryPiece[] & tags.MinItems<1>;
 
   /**
-   * List of journeys of the delivery.
+   * List of shippers of the delivery.
    */
-  journeys: IShoppingDeliveryJourney[];
+  shippers: IShoppingDeliveryShipper[];
+
+  /**
+   * State of the delivery.
+   */
+  state: IShoppingDelivery.State;
 
   /**
    * Creation time of the record.
    */
   created_at: string & tags.Format<"date-time">;
 }
-export namespace ShoppingDelivery {
+export namespace IShoppingDelivery {
+  export type State =
+    | "none"
+    | "inaction"
+    | "underway"
+    | "preparing"
+    | "manufacturing"
+    | "shipping"
+    | "delivering"
+    | "arrived"
+    | "confirmed";
+
+  export interface IRequest extends IPage.IRequest {}
+
+  /**
+   * Invert information of the delivery.
+   */
+  export interface IInvert extends IShoppingDelivery {
+    /**
+     * List of orders of the delivery.
+     */
+    orders: IShoppingOrder[] & tags.MinItems<1>;
+  }
+
   /**
    * Creation information of the delivery.
    */
   export interface ICreate {
-    /**
-     * Invoice code if exists.
-     */
-    invoice_code: string | null;
-
     /**
      * List of pieces of the delivery.
      */
@@ -78,5 +104,10 @@ export namespace ShoppingDelivery {
      * after the delivery creation.
      */
     journeys: IShoppingDeliveryJourney.ICreate[];
+
+    /**
+     * List of shippers of the delivery.
+     */
+    shippers: IShoppingDeliveryShipper.ICreate[];
   }
 }

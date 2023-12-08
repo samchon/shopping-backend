@@ -59,6 +59,11 @@ export interface IShoppingOrderPublish {
    * can be composed of multiple orders.
    */
   deliveries: IShoppingDelivery[];
+
+  /**
+   * State of the order, about the deliveries.
+   */
+  state: IShoppingDelivery.State;
 }
 export namespace IShoppingOrderPublish {
   export type ICreate = ICashCreate | IZeroCreate;
