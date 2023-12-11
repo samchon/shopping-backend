@@ -1,16 +1,17 @@
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
+import { ShoppingConfiguration } from "../ShoppingConfiguration";
+import { ShoppingGlobal } from "../ShoppingGlobal";
 import ShoppingApi from "../api";
 import { IPerformance } from "../api/structures/monitors/IPerformance";
 import { ISystem } from "../api/structures/monitors/ISystem";
 
 async function main(): Promise<void> {
   // CONFIGURE MODE
-  if (process.argv[2]) SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+  if (process.argv[2])
+    ShoppingGlobal.setMode(process.argv[2] as typeof ShoppingGlobal.mode);
 
   // GET PERFORMANCE & SYSTEM INFO
   const connection: ShoppingApi.IConnection = {
-    host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+    host: `http://${ShoppingConfiguration.MASTER_IP()}:${ShoppingConfiguration.API_PORT()}`,
   };
   const performance: IPerformance =
     await ShoppingApi.functional.monitors.performance.get(connection);

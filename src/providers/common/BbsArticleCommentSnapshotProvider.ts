@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import { IBbsArticleComment } from "@samchon/shopping-api/lib/structures/common/IBbsArticleComment";
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 
-import { SGlobal } from "../../SGlobal";
+import { ShoppingGlobal } from "../../ShoppingGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleCommentSnapshotProvider {
@@ -40,7 +40,7 @@ export namespace BbsArticleCommentSnapshotProvider {
       input: IBbsArticleComment.IUpdate,
     ): Promise<IBbsArticleComment.ISnapshot> => {
       const snapshot =
-        await SGlobal.prisma.bbs_article_comment_snapshots.create({
+        await ShoppingGlobal.prisma.bbs_article_comment_snapshots.create({
           data: {
             ...collect(input),
             comment: { connect: { id: comment.id } },

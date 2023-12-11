@@ -4,7 +4,7 @@ import { v4 } from "uuid";
 import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 
-import { SGlobal } from "../../SGlobal";
+import { ShoppingGlobal } from "../../ShoppingGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleSnapshotProvider {
@@ -36,14 +36,16 @@ export namespace BbsArticleSnapshotProvider {
   export const store =
     (article: IEntity) =>
     async (input: IBbsArticle.IUpdate): Promise<IBbsArticle.ISnapshot> => {
-      const snapshot = await SGlobal.prisma.bbs_article_snapshots.create({
-        data: {
-          ...collect(input),
-          article: { connect: { id: article.id } },
+      const snapshot = await ShoppingGlobal.prisma.bbs_article_snapshots.create(
+        {
+          data: {
+            ...collect(input),
+            article: { connect: { id: article.id } },
+          },
+          ...json.select(),
         },
-        ...json.select(),
-      });
-      await SGlobal.prisma.mv_bbs_article_last_snapshots.update({
+      );
+      await ShoppingGlobal.prisma.mv_bbs_article_last_snapshots.update({
         where: {
           bbs_article_id: article.id,
         },

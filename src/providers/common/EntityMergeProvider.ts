@@ -6,7 +6,7 @@ import { Prisma } from "@prisma/client";
 
 import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecordMerge";
 
-import { SGlobal } from "../../SGlobal";
+import { ShoppingGlobal } from "../../ShoppingGlobal";
 import { EntityUtil } from "../../utils/EntityUtil";
 
 export namespace EntityMergeProvider {
@@ -27,7 +27,7 @@ export namespace EntityMergeProvider {
       // FIND MATCHED RECORDS
       const count: number = finder
         ? await finder(input)
-        : await (SGlobal.prisma[table] as any).count({
+        : await (ShoppingGlobal.prisma[table] as any).count({
             where: {
               [primary.name]: {
                 in: [input.keep, ...input.absorbed],
@@ -38,6 +38,6 @@ export namespace EntityMergeProvider {
         throw new NotFoundException("Unable to find matched record(s).");
 
       // DO MERGE
-      await EntityUtil.merge(SGlobal.prisma)(table)(input);
+      await EntityUtil.merge(ShoppingGlobal.prisma)(table)(input);
     };
 }

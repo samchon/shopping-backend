@@ -5,23 +5,23 @@ import { UniqueLock } from "tstl/thread/UniqueLock";
 import ShoppingApi from "@samchon/shopping-api";
 import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
+import { ShoppingConfiguration } from "../ShoppingConfiguration";
+import { ShoppingGlobal } from "../ShoppingGlobal";
 import { IUpdateController } from "../updator/internal/IUpdateController";
 
 async function main(): Promise<void> {
   // CONFIGURE MODE
   if (!process.argv[2])
     throw new Error("Error on Updator.update(): no mode specified.");
-  SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+  ShoppingGlobal.setMode(process.argv[2] as typeof ShoppingGlobal.mode);
 
   // CONNECT TO THE UPDATOR SERVER
   const connector: MutexConnector<string, null> = new MutexConnector(
-    Configuration.SYSTEM_PASSWORD(),
+    ShoppingConfiguration.SYSTEM_PASSWORD(),
     null,
   );
   await connector.connect(
-    `ws://${Configuration.MASTER_IP()}:${Configuration.UPDATOR_PORT()}/update`,
+    `ws://${ShoppingConfiguration.MASTER_IP()}:${ShoppingConfiguration.UPDATOR_PORT()}/update`,
   );
 
   // REQUEST UPDATE WITH MONOPOLYING A GLOBAL MUTEX
@@ -40,7 +40,7 @@ async function main(): Promise<void> {
 
   // PRINT THE COMMIT STATUS
   const connection: ShoppingApi.IConnection = {
-    host: `http://${Configuration.MASTER_IP()}:${Configuration.API_PORT()}`,
+    host: `http://${ShoppingConfiguration.MASTER_IP()}:${ShoppingConfiguration.API_PORT()}`,
   };
   const system: ISystem = await ShoppingApi.functional.monitors.system.get(
     connection,

@@ -5,7 +5,7 @@ import { Singleton } from "tstl/thread/Singleton";
 
 import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 
-import { Configuration } from "../../Configuration";
+import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { DateUtil } from "../../utils/DateUtil";
 
 export class SystemProvider {
@@ -44,7 +44,7 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
 const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(
   async () => {
     const content: string = await fs.promises.readFile(
-      `${Configuration.ROOT}/package.json`,
+      `${ShoppingConfiguration.ROOT}/package.json`,
       "utf8",
     );
     return JSON.parse(content);
