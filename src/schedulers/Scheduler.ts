@@ -2,13 +2,13 @@ import { DynamicExecutor } from "@nestia/e2e";
 import mutex from "mutex-server";
 import { sleep_for } from "tstl/thread/global";
 
-import { SGlobal } from "../SGlobal";
+import { ShoppingGlobal } from "../ShoppingGlobal";
 import { MapUtil } from "../utils/MapUtil";
 
 export namespace Scheduler {
   export async function repeat(): Promise<never> {
     const critical: mutex.MutexConnector<string, null> =
-      await SGlobal.critical.get();
+      await ShoppingGlobal.critical.get();
     const mutex: mutex.RemoteMutex = await critical.getMutex("scheduler");
     await mutex.lock();
 

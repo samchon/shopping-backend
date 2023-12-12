@@ -17,12 +17,17 @@ export namespace IShoppingMileageHistory {
   }
   export namespace IRequest {
     export interface ISearch {
+      mileage?: {
+        code?: string;
+        direction?: 1 | -1;
+      };
       from?: string & tags.Format<"date-time">;
       to?: string & tags.Format<"date-time">;
     }
     export type SortableColumns =
-      | "mileage.code"
+      | "history.mileage.code"
       | "history.created_at"
-      | "history.value";
+      | "history.value"
+      | "history.directedValue";
   }
 }

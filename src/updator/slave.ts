@@ -1,13 +1,14 @@
-import { Configuration } from "../Configuration";
-import { SGlobal } from "../SGlobal";
+import { ShoppingConfiguration } from "../ShoppingConfiguration";
+import { ShoppingGlobal } from "../ShoppingGlobal";
 import { start_updator_slave } from "./internal/start_updator_slave";
 
 async function main(): Promise<void> {
   // CONFIGURE MODE
-  if (process.argv[2]) SGlobal.setMode(process.argv[2] as typeof SGlobal.mode);
+  if (process.argv[2])
+    ShoppingGlobal.setMode(process.argv[2] as typeof ShoppingGlobal.mode);
 
   // START THE CLIENT
-  await start_updator_slave(Configuration.MASTER_IP());
+  await start_updator_slave(ShoppingConfiguration.MASTER_IP());
 }
 main().catch((exp) => {
   console.log(exp);

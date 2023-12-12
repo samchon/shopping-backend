@@ -5,14 +5,14 @@ import { MutexConnector } from "mutex-server";
 import { MutableSingleton, Singleton } from "tstl";
 import typia from "typia";
 
-import { Configuration } from "./Configuration";
+import { ShoppingConfiguration } from "./ShoppingConfiguration";
 
 /**
- * Global variables of the server.
+ * Global variables of the shopping server.
  *
  * @author Samchon
  */
-export class SGlobal {
+export class ShoppingGlobal {
   public static testing: boolean = false;
 
   public static readonly prisma: PrismaClient = new PrismaClient();
@@ -29,7 +29,7 @@ export class SGlobal {
    *   - real: The server is for the real service.
    */
   public static get mode(): "local" | "dev" | "real" {
-    return (modeWrapper.value ??= environments.get().MODE);
+    return (modeWrapper.value ??= environments.get().SHOPPING_MODE);
   }
 
   /**
@@ -37,7 +37,7 @@ export class SGlobal {
    *
    * @param mode The new mode
    */
-  public static setMode(mode: typeof SGlobal.mode): void {
+  public static setMode(mode: typeof ShoppingGlobal.mode): void {
     typia.assert<typeof mode>(mode);
     modeWrapper.value = mode;
   }
@@ -46,28 +46,29 @@ export class SGlobal {
     MutexConnector<string, null>
   > = new MutableSingleton(async () => {
     const connector: MutexConnector<string, null> = new MutexConnector(
-      Configuration.SYSTEM_PASSWORD(),
+      ShoppingConfiguration.SYSTEM_PASSWORD(),
       null,
     );
     await connector.connect(
-      `ws://${Configuration.MASTER_IP()}:${Configuration.UPDATOR_PORT()}/api`,
+      `ws://${ShoppingConfiguration.MASTER_IP()}:${ShoppingConfiguration.UPDATOR_PORT()}/api`,
     );
     return connector;
   });
 }
-interface IEnvironments {
-  MODE: "local" | "dev" | "real";
-  UPDATOR_PORT: `${number}`;
-  API_PORT: `${number}`;
-  SYSTEM_PASSWORD: string;
 
-  POSTGRES_HOST: string;
-  POSTGRES_PORT: `${number}`;
-  POSTGRES_DATABASE: string;
-  POSTGRES_SCHEMA: string;
-  POSTGRES_USERNAME: string;
-  POSTGRES_USERNAME_READONLY: string;
-  POSTGRES_PASSWORD: string;
+interface IEnvironments {
+  SHOPPING_MODE: "local" | "dev" | "real";
+  SHOPPING_UPDATOR_PORT: `${number}`;
+  SHOPPING_API_PORT: `${number}`;
+  SHOPPING_SYSTEM_PASSWORD: string;
+
+  SHOPPING_POSTGRES_HOST: string;
+  SHOPPING_POSTGRES_PORT: `${number}`;
+  SHOPPING_POSTGRES_DATABASE: string;
+  SHOPPING_POSTGRES_SCHEMA: string;
+  SHOPPING_POSTGRES_USERNAME: string;
+  SHOPPING_POSTGRES_USERNAME_READONLY: string;
+  SHOPPING_POSTGRES_PASSWORD: string;
 }
 
 interface IMode {

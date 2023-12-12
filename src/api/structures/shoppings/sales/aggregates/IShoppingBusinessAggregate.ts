@@ -6,6 +6,6 @@ import { IShoppingSaleInquiryAggregate } from "./IShoppingSaleInquiryAggregate";
 export interface IShoppingBusinessAggregate {
   sale: IShoppingSaleAggregate;
   inquiry: IShoppingSaleInquiryAggregate;
-good: IShoppingSaleGoodAggregate;
+  good: IShoppingSaleGoodAggregate;
   refund: IShoppingSaleRefundAggregate;
 }

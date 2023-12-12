@@ -45,7 +45,7 @@ export interface IBbsArticleComment<
   created_at: string & tags.Format<"date-time">;
 }
 export namespace IBbsArticleComment {
-  export type Format = "TEXT" | "MARKDOWN" | "HTML";
+  export type Format = "txt" | "md" | "html";
 
   export interface IRequest<
     Search extends IRequest.ISearch = IRequest.ISearch,

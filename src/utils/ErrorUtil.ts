@@ -2,7 +2,7 @@ import fs from "fs";
 import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
 
-import { Configuration } from "../Configuration";
+import { ShoppingConfiguration } from "../ShoppingConfiguration";
 import { DirectoryUtil } from "./DirectoryUtil";
 
 import serializeError = require("serialize-error");
@@ -31,7 +31,7 @@ export namespace ErrorUtil {
 
       await directory.get();
       await fs.promises.writeFile(
-        `${Configuration.ROOT}/logs/errors/${prefix}_${fileName}.log`,
+        `${ShoppingConfiguration.ROOT}/logs/errors/${prefix}_${fileName}.log`,
         content,
         "utf8",
       );
@@ -45,6 +45,6 @@ function cipher(val: number): string {
 }
 
 const directory = new Singleton(async () => {
-  await DirectoryUtil.mkdir(`${Configuration.ROOT}/logs`);
-  await DirectoryUtil.mkdir(`${Configuration.ROOT}/logs/errors`);
+  await DirectoryUtil.mkdir(`${ShoppingConfiguration.ROOT}/logs`);
+  await DirectoryUtil.mkdir(`${ShoppingConfiguration.ROOT}/logs/errors`);
 });

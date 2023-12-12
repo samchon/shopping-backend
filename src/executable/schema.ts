@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-import { SGlobal } from "../SGlobal";
+import { ShoppingGlobal } from "../ShoppingGlobal";
 
 async function execute(
   database: string,
@@ -12,7 +12,7 @@ async function execute(
     const prisma = new PrismaClient({
       datasources: {
         db: {
-          url: `postgresql://${username}:${password}@${SGlobal.env.POSTGRES_HOST}:${SGlobal.env.POSTGRES_PORT}/${database}`,
+          url: `postgresql://${username}:${password}@${ShoppingGlobal.env.SHOPPING_POSTGRES_HOST}:${ShoppingGlobal.env.SHOPPING_POSTGRES_PORT}/${database}`,
         },
       },
     });
@@ -34,11 +34,11 @@ async function execute(
 
 async function main(): Promise<void> {
   const config = {
-    database: SGlobal.env.POSTGRES_DATABASE,
-    schema: SGlobal.env.POSTGRES_SCHEMA,
-    username: SGlobal.env.POSTGRES_USERNAME,
-    readonlyUsername: SGlobal.env.POSTGRES_USERNAME_READONLY,
-    password: SGlobal.env.POSTGRES_PASSWORD,
+    database: ShoppingGlobal.env.SHOPPING_POSTGRES_DATABASE,
+    schema: ShoppingGlobal.env.SHOPPING_POSTGRES_SCHEMA,
+    username: ShoppingGlobal.env.SHOPPING_POSTGRES_USERNAME,
+    readonlyUsername: ShoppingGlobal.env.SHOPPING_POSTGRES_USERNAME_READONLY,
+    password: ShoppingGlobal.env.SHOPPING_POSTGRES_PASSWORD,
   };
   const root = {
     account: process.argv[2] ?? "postgres",

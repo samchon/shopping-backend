@@ -29,4 +29,12 @@ export class ShoppingCustomerMileageHistoriesController {
     id;
     return null!;
   }
+
+  @core.TypedRoute.Get("balance")
+  public async balance(
+    @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
+  ): Promise<number> {
+    customer;
+    return null!;
+  }
 }

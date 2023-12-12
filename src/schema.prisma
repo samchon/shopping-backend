@@ -3276,7 +3276,7 @@ model shopping_coupon_disposables {
 /// Meta information of the deposit.
 /// 
 /// `shopping_deposits` is an entity that embodies the specifications for 
-/// incomes and outcomes at a shopping mall. In other words, 
+/// incomes and outcomes of deposit at a shopping mall. In other words, 
 /// `shopping_deposits` is not {@link shopping_deposit_histories}, which 
 /// refers to the deposit/outcome details of deposits, but is simply 
 /// metadata that specifies specifications for income/outcome scenarios.

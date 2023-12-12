@@ -49,7 +49,7 @@ export interface IBbsArticle<
   created_at: string & tags.Format<"date-time">;
 }
 export namespace IBbsArticle {
-  export type Format = "TEXT" | "MARKDOWN" | "HTML";
+  export type Format = "txt" | "md" | "html";
 
   /**
    * Snapshot of article.
