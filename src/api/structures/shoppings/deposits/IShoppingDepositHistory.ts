@@ -17,12 +17,17 @@ export namespace IShoppingDepositHistory {
   }
   export namespace IRequest {
     export interface ISearch {
+      deposit?: {
+        code?: string;
+        direction?: 1 | -1;
+      };
       from?: string & tags.Format<"date-time">;
       to?: string & tags.Format<"date-time">;
     }
     export type SortableColumns =
-      | "deposit.code"
+      | "history.deposit.code"
       | "history.created_at"
-      | "history.value";
+      | "history.value"
+      | "history.directedValue";
   }
 }
