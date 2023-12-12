@@ -1,6 +1,6 @@
 import { tags } from "typia";
 
-export interface IShoppingDeposit {
+export interface IShoppingDeposit extends IShoppingDeposit.ICreate {
   id: string & tags.Format<"uuid">;
   created_at: string & tags.Format<"date-time">;
 }
