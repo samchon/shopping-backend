@@ -12,7 +12,7 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../../actors/test_api_hub_admin_login";
+import { test_api_shopping_admin_login } from "../../actors/test_api_shopping_admin_login";
 import { test_api_shopping_customer_create } from "../../actors/test_api_shopping_customer_create";
 import { test_api_shopping_seller_join } from "../../actors/test_api_shopping_seller_join";
 import { prepare_random_coupon } from "../../coupons/internal/prepare_random_coupon";

@@ -5,7 +5,7 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 import { IShoppingMileageDonation } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_hub_admin_login";
+import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
 import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
 import { generate_random_mileage_donation } from "./internal/generate_random_mileage_donation";
 

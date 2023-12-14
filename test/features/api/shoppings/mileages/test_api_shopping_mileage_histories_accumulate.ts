@@ -8,7 +8,7 @@ import { IShoppingMileageHistory } from "@samchon/shopping-api/lib/structures/sh
 
 import { ShoppingConfiguration } from "../../../../../src/ShoppingConfiguration";
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_hub_admin_login";
+import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
 import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
 import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
 import { generate_random_mileage_histories } from "./internal/generate_random_mileage_histories";

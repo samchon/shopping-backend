@@ -5,7 +5,7 @@ import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
-import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
+import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
@@ -18,9 +18,9 @@ import { prepare_random_coupon } from "../coupons/internal/prepare_random_coupon
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_order } from "./internal/generate_random_order";
 
-export const test_api_shopping_order_discount_by_guest = async (
+export const test_api_shopping_order_discountable_multiplicative = async (
   pool: ConnectionPool,
-): Promise<void> => {
+) => {
   await test_api_shopping_admin_login(pool);
   await test_api_shopping_customer_create(pool);
   await test_api_shopping_seller_join(pool);
@@ -28,8 +28,11 @@ export const test_api_shopping_order_discount_by_guest = async (
   const sale: IShoppingSale = await generate_random_sale(pool);
   const commodity: IShoppingCartCommodity =
     await generate_random_cart_commodity(pool, sale);
-  const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
-
+  const order: IShoppingOrder = await generate_random_order(
+    pool,
+    [commodity],
+    () => 10,
+  );
   const coupon: IShoppingCoupon = await generate_random_coupon({
     types: [],
     direction: "include",
@@ -38,29 +41,36 @@ export const test_api_shopping_order_discount_by_guest = async (
     prepare: (criterias) =>
       prepare_random_coupon({
         criterias,
+        restriction: {
+          access: "public",
+          volume: null,
+          volume_per_citizen: null,
+        },
         discount: {
-          unit: "percent",
-          value: 50,
-          limit: null,
+          unit: "amount",
+          value: 1234,
           threshold: null,
+          multiplicative: true,
         },
       }),
     create: (input) =>
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
   });
 
-  const error: Error | null = await TestValidator.proceed(async () => {
-    const price: IShoppingOrderPrice =
-      await ShoppingApi.functional.shoppings.customers.orders.discount(
-        pool.customer,
-        order.id,
-        {
-          deposit: 0,
-          mileage: 0,
-          coupon_ids: [coupon.id],
-        },
-      );
-    typia.assertEquals(price);
+  const discountable: IShoppingOrderDiscountable =
+    await ShoppingApi.functional.shoppings.customers.orders.discountable(
+      pool.customer,
+      order.id,
+      {
+        good_ids: [order.goods[0].id],
+      },
+    );
+  typia.assertEquals(discountable);
+
+  const error: Error | null = TestValidator.proceed(() => {
+    TestValidator.equals("discountable.combinations[].amount")(
+      discountable.combinations.map((comb) => comb.amount),
+    )([12340]);
   });
   await ShoppingApi.functional.shoppings.admins.coupons.destroy(
     pool.admin,

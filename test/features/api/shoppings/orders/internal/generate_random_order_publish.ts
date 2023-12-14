@@ -10,6 +10,7 @@ import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppi
 import { IShoppingOrderPublish } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPublish";
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
+import { prepare_random_address } from "./prepare_random_address";
 
 export const generate_random_order_publish = async (
   pool: ConnectionPool,
@@ -25,17 +26,7 @@ export const generate_random_order_publish = async (
     );
   typia.assertEquals(price);
 
-  address ??= {
-    mobile: customer.citizen!.mobile,
-    name: customer.citizen!.name,
-    country: "Korea",
-    province: "Seoul",
-    city: "Seoul",
-    department: "Seocho-gu Seocho-dong X-Apartment",
-    possession: "1-101",
-    zip_code: "12345",
-    special_note: null,
-  };
+  address ??= prepare_random_address(customer.citizen!, address);
 
   const input: IShoppingOrderPublish.ICreate =
     price.cash === 0
