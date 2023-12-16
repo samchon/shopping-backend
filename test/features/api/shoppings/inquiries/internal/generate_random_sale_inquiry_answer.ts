@@ -1,4 +1,3 @@
-import { RandomGenerator } from "@nestia/e2e";
 import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
@@ -7,6 +6,7 @@ import { IShoppingSaleInquiry } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingSaleInquiryAnswer } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiryAnswer";
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
+import { prepare_random_bbs_article } from "../../../common/internal/prepare_random_bbs_article";
 
 export const generate_random_sale_inquiry_answer = async (
   pool: ConnectionPool,
@@ -19,13 +19,7 @@ export const generate_random_sale_inquiry_answer = async (
       pool.seller,
       sale.id,
       question.id,
-      {
-        title: RandomGenerator.paragraph()(),
-        body: RandomGenerator.content()()(),
-        format: "txt",
-        files: [],
-        ...input,
-      },
+      prepare_random_bbs_article(input),
     );
   return typia.assertEquals(answer);
 };

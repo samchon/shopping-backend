@@ -1,5 +1,3 @@
-import { TestValidator } from "@nestia/e2e";
-
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleQuestion } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleQuestion";
@@ -8,8 +6,8 @@ import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
 import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
-import { generate_random_sale_inquiry_answer } from "./internal/generate_random_sale_inquiry_answer";
 import { generate_random_sale_question } from "./internal/generate_random_sale_question";
+import { validate_api_shopping_sale_inquiry_answer_create } from "./internal/validate_api_shopping_sale_inquiry_answer_create";
 
 export const test_api_shopping_sale_question_answer_create = async (
   pool: ConnectionPool,
@@ -22,19 +20,9 @@ export const test_api_shopping_sale_question_answer_create = async (
     pool,
     sale,
   );
-  TestValidator.equals("not answered yet")(question.answer)(null);
-
-  question.answer = await generate_random_sale_inquiry_answer(
-    pool,
-    sale,
-    question,
-  );
-
-  const read: IShoppingSaleQuestion =
-    await ShoppingApi.functional.shoppings.customers.sales.questions.at(
-      pool.customer,
-      sale.id,
-      question.id,
-    );
-  TestValidator.equals("read")(question)(read);
+  await validate_api_shopping_sale_inquiry_answer_create({
+    read: ShoppingApi.functional.shoppings.customers.sales.questions.at,
+    create:
+      ShoppingApi.functional.shoppings.sellers.sales.questions.answer.create,
+  })(pool, sale, question);
 };
