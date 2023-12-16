@@ -40,7 +40,7 @@ export const test_api_shopping_sale_question_secret = async (
         typia.assertEquals(read);
         TestValidator.equals("read")(question)(read);
       } else
-        TestValidator.httpError(`read ${visible}`)(403)(() =>
+        await TestValidator.httpError(`read ${visible}`)(403)(() =>
           ShoppingApi.functional.shoppings[path].sales.questions.at(
             pool.customer,
             sale.id,

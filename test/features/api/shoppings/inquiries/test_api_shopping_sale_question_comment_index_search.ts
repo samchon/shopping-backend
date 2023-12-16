@@ -71,16 +71,16 @@ export const test_api_shopping_sale_question_comment_index_search = async (
 
   await search({
     fields: ["name"],
-    values: (c) => [c.writer?.citizen?.name!],
+    values: (c) => [c.writer.citizen!.name!],
     request: ([name]) => ({ name }),
-    filter: (c, [name]) => c.writer?.citizen?.name === name,
+    filter: (c, [name]) => c.writer.citizen!.name === name,
   });
   await search({
     fields: ["nickname"],
     values: (c) => [c.writer.member!.nickname],
     request: ([nickname]) => ({ nickname }),
     filter: (c, [nickname]) =>
-      c.writer.member!.nickname!?.includes(nickname) ?? false,
+      c.writer.member!.nickname.includes(nickname) ?? false,
   });
   await search({
     fields: ["body"],
