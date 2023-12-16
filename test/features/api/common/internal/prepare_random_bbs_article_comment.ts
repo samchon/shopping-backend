@@ -6,7 +6,7 @@ import { IBbsArticleComment } from "@samchon/shopping-api/lib/structures/common/
 import { prepare_random_attachment_file } from "./prepare_random_attachment_file";
 
 export const prepare_random_bbs_article_comment = (
-  input?: IBbsArticleComment.ICreate,
+  input?: Partial<IBbsArticleComment.ICreate>,
 ): IBbsArticleComment.ICreate => ({
   format: "txt",
   body: RandomGenerator.content()()(),
