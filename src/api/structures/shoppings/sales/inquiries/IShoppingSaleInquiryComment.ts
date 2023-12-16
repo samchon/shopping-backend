@@ -1,6 +1,5 @@
 import { IBbsArticleComment } from "../../../common/IBbsArticleComment";
-import { IShoppingCustomer } from "../../actors/IShoppingCustomer";
-import { IShoppingSeller } from "../../actors/IShoppingSeller";
+import { IShoppingActorEntity } from "../../actors/IShoppingActorEntity";
 
 /**
  * A comment written on an inquiry article.
@@ -26,7 +25,7 @@ export interface IShoppingSaleInquiryComment extends IBbsArticleComment {
    * By the way, no restriction on the customer, but seller must be the
    * person who've registered the sale.
    */
-  writer: IShoppingCustomer | IShoppingSeller;
+  writer: IShoppingActorEntity;
 }
 export namespace IShoppingSaleInquiryComment {
   /**

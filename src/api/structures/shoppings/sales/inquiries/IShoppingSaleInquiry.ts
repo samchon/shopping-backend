@@ -67,9 +67,7 @@ export namespace IShoppingSaleInquiry {
       nickname?: string;
       answered?: boolean | null;
     }
-    export type SortableColumns =
-      | IBbsArticle.IRequest.SortableColumns
-      | "nickname";
+    export type SortableColumns = IBbsArticle.IRequest.SortableColumns;
   }
 
   /**
