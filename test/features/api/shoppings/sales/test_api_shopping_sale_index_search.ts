@@ -1,25 +1,48 @@
 import { ArrayUtil, RandomGenerator, TestValidator } from "@nestia/e2e";
+import { randint } from "tstl";
 import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
 import { test_api_shopping_customer_create } from "../actors/test_api_shopping_customer_create";
 import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
+import { generate_random_order } from "../orders/internal/generate_random_order";
+import { generate_random_order_publish } from "../orders/internal/generate_random_order_publish";
 import { generate_random_sale } from "./internal/generate_random_sale";
+import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_index_search = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_customer_create(pool);
-
-  await ArrayUtil.asyncRepeat(25)(async () => {
+  const customer: IShoppingCustomer = await test_api_shopping_customer_create(
+    pool,
+  );
+  await ArrayUtil.asyncRepeat(REPEAT)(async () => {
     await test_api_shopping_seller_join(pool);
-    await generate_random_sale(pool);
+    const sale: IShoppingSale = await generate_random_sale(pool);
+    await ArrayUtil.asyncRepeat(randint(0, 4))(async () => {
+      const commodity: IShoppingCartCommodity =
+        await generate_random_cart_commodity(pool, sale);
+      const order: IShoppingOrder = await generate_random_order(pool, [
+        commodity,
+      ]);
+      order.publish = await generate_random_order_publish(
+        pool,
+        customer,
+        order,
+        true,
+      );
+      const good: IShoppingOrderGood = order.goods[0];
+      await generate_random_sale_review(pool, sale, good);
+    });
   });
 
   const total: IPage<IShoppingSale.ISummary> =
@@ -153,4 +176,4 @@ export const test_api_shopping_sale_index_search = async (
   });
 };
 
-const REPEAT = 25;
+const REPEAT = 10;
