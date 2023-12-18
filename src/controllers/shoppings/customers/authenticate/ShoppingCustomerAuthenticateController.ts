@@ -6,6 +6,10 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 import { IShoppingExternalUser } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingExternalUser";
 import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
+import { ShoppingCustomerProvider } from "../../../../providers/shoppings/actors/ShoppingCustomerProvider";
+import { ShoppingExternalUserProvider } from "../../../../providers/shoppings/actors/ShoppingExternalUserProvider";
+import { ShoppingMemberProvider } from "../../../../providers/shoppings/actors/ShoppingMemberProvider";
+
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller("shoppings/customers/authenticate")
@@ -14,8 +18,7 @@ export class ShoppingCustomerAuthenticateController {
   public async refresh(
     @core.TypedBody() input: IShoppingCustomer.IRefresh,
   ): Promise<IShoppingCustomer.IAuthorized> {
-    input;
-    return null!;
+    return ShoppingCustomerProvider.refresh(input.value);
   }
 
   @core.TypedRoute.Get()
@@ -38,9 +41,7 @@ export class ShoppingCustomerAuthenticateController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingMember.IJoin,
   ): Promise<IShoppingCustomer> {
-    customer;
-    input;
-    return null!;
+    return ShoppingMemberProvider.join(customer)(input);
   }
 
   @core.TypedRoute.Put("login")
@@ -48,9 +49,7 @@ export class ShoppingCustomerAuthenticateController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingMember.ILogin,
   ): Promise<IShoppingCustomer> {
-    customer;
-    input;
-    return null!;
+    return ShoppingMemberProvider.login(customer)(input);
   }
 
   @core.TypedRoute.Post("activate")
@@ -58,18 +57,22 @@ export class ShoppingCustomerAuthenticateController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingCitizen.ICreate,
   ): Promise<IShoppingCustomer> {
-    customer;
-    input;
-    return null!;
+    return ShoppingCustomerProvider.activate(customer)(input);
   }
 
+  /// @todo -> Must be shifted to the ShoppingCustomerProvider
   @core.TypedRoute.Post("external")
   public async external(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingExternalUser.ICreate,
   ): Promise<IShoppingCustomer> {
-    customer;
-    input;
-    return null!;
+    const external_user = await ShoppingExternalUserProvider.create(customer)(
+      input,
+    );
+    return {
+      ...customer,
+      citizen: customer.citizen ?? external_user.citizen,
+      external_user,
+    };
   }
 }

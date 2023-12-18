@@ -39,7 +39,7 @@ export interface IShoppingMember extends IShoppingMember.IInvert {
   /**
    * Administrator information.
    *
-   * If the member also signed up as a administrator.
+   * If the member also signed up as an administrator.
    */
   administrator: null | IShoppingAdministrator;
 }

@@ -400,6 +400,8 @@ erDiagram
 }
 "shopping_external_users" {
     String id PK
+    String shopping_channel_id FK
+    String shopping_citizen_id FK "nullable"
     String application
     String uid
     String nickname
@@ -440,7 +442,7 @@ erDiagram
 }
 "shopping_administrators" {
     String id PK
-    String shopping_member_id UK
+    String shopping_member_id FK
     DateTime created_at
     DateTime deleted_at "nullable"
 }
@@ -460,6 +462,7 @@ erDiagram
 "shopping_customers" }o--|| "shopping_members" : member
 "shopping_customers" }o--|| "shopping_external_users" : external_user
 "shopping_customers" }o--|| "shopping_citizens" : citizen
+"shopping_external_users" }o--|| "shopping_citizens" : citizen
 "shopping_members" }o--|| "shopping_citizens" : citizen
 "shopping_member_emails" }o--|| "shopping_members" : member
 "shopping_sellers" |o--|| "shopping_members" : member
@@ -544,6 +547,8 @@ be recorded in the `data` field in JSON format.
 
 **Properties**
   - `id`: Primary Key.
+  - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels)
+  - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
   - `application`
     > Identifier code of the external service.
     > 
@@ -1688,6 +1693,7 @@ each step of the delivery process, such as preparing, shipping, and delivering
     > Type of journey.
     > 
     > - preparing
+    > - manufactoring
     > - shipping
     > - delivering
   - `title`: Title of journey.
@@ -2209,7 +2215,7 @@ erDiagram
 Meta information of the deposit.
 
 `shopping_deposits` is an entity that embodies the specifications for 
-incomes and outcomes at a shopping mall. In other words, 
+incomes and outcomes of deposit at a shopping mall. In other words, 
 `shopping_deposits` is not [shopping_deposit_histories](#shopping_deposit_histories), which 
 refers to the deposit/outcome details of deposits, but is simply 
 metadata that specifies specifications for income/outcome scenarios.

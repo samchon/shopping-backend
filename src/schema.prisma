@@ -465,6 +465,7 @@ model shopping_channels {
     shopping_member_emails            shopping_member_emails[]
     shopping_sale_snapshot_channels   shopping_sale_snapshot_channels[]
     shopping_coupon_channel_criterias shopping_coupon_channel_criterias[]
+    shopping_external_users           shopping_external_users[]
 
     @@unique([code])
     @@unique([name])
@@ -765,6 +766,12 @@ model shopping_external_users {
     /// @format uuid
     id String @id @db.Uuid
 
+    /// Belonged channel's {@link shopping_channels.id}
+    shopping_channel_id String @db.Uuid
+
+    /// Belonged citizen's {@link shopping_citizens.id}
+    shopping_citizen_id String? @db.Uuid
+
     /// Identifier code of the external service.
     ///
     /// It can be same with {@link shopping_channels.code} in common.
@@ -796,10 +803,13 @@ model shopping_external_users {
     //----
     // RELATIONS
     //----
+    channel            shopping_channels    @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
+    citizen            shopping_citizens?   @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
     shopping_customers shopping_customers[]
 
-    @@unique([application, uid])
-    @@unique([application, nickname])
+    @@unique([shopping_channel_id, application, uid])
+    @@unique([shopping_channel_id, application, nickname])
+    @@index([shopping_citizen_id])
     @@index([application, created_at])
     @@index([created_at])
 }
@@ -868,6 +878,7 @@ model shopping_citizens {
     mv_deposit_balance                     mv_shopping_deposit_balances?
     mv_mileage_balance                     mv_shopping_mileage_balances?
     mv_shopping_coupon_citizen_inventories mv_shopping_coupon_citizen_inventories[]
+    shopping_external_users                shopping_external_users[]
 
     @@unique([shopping_channel_id, mobile])
     @@index([mobile])
@@ -1097,7 +1108,7 @@ model shopping_administrators {
     //----
     // RELATIONS
     //----
-    member shopping_members @relation(fields: [id], references: [id], onDelete: Cascade)
+    member shopping_members @relation(fields: [shopping_member_id], references: [id], onDelete: Cascade)
 
     @@unique([shopping_member_id])
     @@index([created_at])

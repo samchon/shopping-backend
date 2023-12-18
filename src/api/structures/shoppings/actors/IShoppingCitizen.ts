@@ -43,4 +43,11 @@ export namespace IShoppingCitizen {
      */
     name: string;
   }
+
+  export namespace IRequest {
+    export interface ISearch {
+      mobile?: string & tags.Pattern<"^[0-9]*$">;
+      name?: string;
+    }
+  }
 }

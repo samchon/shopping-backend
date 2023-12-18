@@ -48,6 +48,7 @@ export const test_api_shopping_customer_external = async (
     external_user: {
       ...external.external_user!,
       ...input.external,
+      citizen: null,
     },
   });
 
@@ -67,6 +68,7 @@ export const test_api_shopping_customer_external = async (
     external_user: {
       ...citizen.external_user!,
       ...input.external,
+      citizen: citizen.citizen,
     },
   });
 

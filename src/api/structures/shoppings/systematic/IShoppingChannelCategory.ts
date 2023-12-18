@@ -58,7 +58,7 @@ export namespace IShoppingChannelCategory {
      *
      * If no parent exists, then be `null`.
      */
-    parent: null | IShoppingChannelCategory;
+    parent: null | IShoppingChannelCategory.IInvert;
   }
 
   /**
