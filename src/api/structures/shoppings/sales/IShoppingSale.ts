@@ -123,14 +123,18 @@ export namespace IShoppingSale {
     export type SortableColumns =
       | IShoppingSeller.IRequest.SortableColumns
       | "goods.publish_count"
-      | "goods.payments"
+      | "goods.payments.real"
       | "reviews.average"
       | "reviews.count"
       | "sale.created_at"
       | "sale.updated_at"
       | "sale.opened_at"
       | "sale.closed_at"
-      | "sale.content.title";
+      | "sale.content.title"
+      | "sale.price_range.lowest.real"
+      | "sale.price_range.highest.real"
+      | "sale.price_range.lowest.discount_ratio"
+      | "sale.price_range.highest.discount_ratio";
   }
 
   /**

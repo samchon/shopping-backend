@@ -96,6 +96,16 @@ export const test_api_shopping_sale_review_index_search = async (
     request: ([title]) => ({ title }),
     filter: (arc, [title]) => arc.title.includes(title),
   });
+  await search({
+    fields: ["minimum", "minimum"],
+    values: (arc) => [
+      Math.max(0, arc.score * 0.9),
+      Math.min(100, arc.score * 1.1),
+    ],
+    request: ([minimum, maximum]) => ({ minimum, maximum }),
+    filter: (arc, [minimum, maximum]) =>
+      minimum <= arc.score && arc.score <= maximum,
+  });
   for (const flag of [true, false])
     await search({
       fields: ["answered"],

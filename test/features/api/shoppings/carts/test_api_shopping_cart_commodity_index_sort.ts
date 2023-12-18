@@ -99,7 +99,7 @@ export const test_api_shopping_cart_commodity_index_sort = async (
     validator("goods.publish_count")(
       GaffComparator.numbers((x) => x.sale.aggregate.good.publish_count),
     ),
-    validator("goods.payments")(
+    validator("goods.payments.real")(
       GaffComparator.numbers((x) => x.sale.aggregate.good.real_payment_amount),
     ),
     validator("reviews.average")(
