@@ -25,8 +25,8 @@ jobs:
       - name: Validate through EsLint
         run: npm run eslint
       
-      # - name: Create DB Schema
-      #   run: npm run schema postgres root
+      - name: Create DB Schema
+        run: npm run schema postgres root
 
-      # - name: Test Backend-Server
-      #   run: npm run test -- --reset true
+      - name: Test Backend-Server
+        run: npm run test -- --include actor --reset true

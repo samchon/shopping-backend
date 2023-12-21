@@ -13,9 +13,9 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_join } from "../../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_join } from "../../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../../carts/internal/generate_random_cart_commodity";
 import { prepare_random_coupon } from "../../coupons/internal/prepare_random_coupon";
 import { generate_random_sole_sale } from "../../sales/internal/generate_random_sole_sale";
@@ -34,11 +34,11 @@ export const validate_api_shopping_order_discountable =
     // PRELIMINIARIES
     //----
     // ACTORS
-    const customer: IShoppingCustomer = await test_api_shopping_customer_join(
+    const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
       pool,
     );
-    await test_api_shopping_admin_login(pool);
-    await test_api_shopping_seller_join(pool);
+    await test_api_shopping_actor_admin_login(pool);
+    await test_api_shopping_actor_seller_join(pool);
 
     // SALES TO ORDER
     const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(4)(() =>
@@ -60,7 +60,7 @@ export const validate_api_shopping_order_discountable =
     // GENERATE COUPONS
     //----
     const dummySection: IShoppingSection = await generate_random_section(pool);
-    const dummySeller: IShoppingSeller = await test_api_shopping_seller_join(
+    const dummySeller: IShoppingSeller = await test_api_shopping_actor_seller_join(
       pool,
     );
     const generator =

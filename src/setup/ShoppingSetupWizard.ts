@@ -2,8 +2,11 @@ import { PrismaClient } from "@prisma/client";
 import cp from "child_process";
 
 import { ShoppingGlobal } from "../ShoppingGlobal";
+import { ShoppingAdministratorSeeder } from "./seeders/ShoppingAdministratorSeeder";
+import { ShoppingChannelSeeder } from "./seeders/ShoppingChannelSeeder";
+import { ShoppingSectionSeeder } from "./seeders/ShoppingSectionSeeder";
 
-export namespace SetupWizard {
+export namespace ShoppingSetupWizard {
   export async function schema(client: PrismaClient): Promise<void> {
     if (ShoppingGlobal.testing === false)
       throw new Error(
@@ -22,5 +25,9 @@ export namespace SetupWizard {
     );
   }
 
-  export async function seed(): Promise<void> {}
+  export async function seed(): Promise<void> {
+    await ShoppingChannelSeeder.seed();
+    await ShoppingSectionSeeder.seed();
+    await ShoppingAdministratorSeeder.seed();
+  }
 }

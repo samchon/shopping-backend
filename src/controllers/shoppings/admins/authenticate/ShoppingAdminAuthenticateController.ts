@@ -5,6 +5,8 @@ import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/sho
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
+import { ShoppingAdministratorProvider } from "../../../../providers/shoppings/actors/ShoppingAdministratorProvider";
+
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
@@ -22,9 +24,7 @@ export class ShoppingAdminAuthenticateController {
     @ShoppingCustomerAuth("member") customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingAdministrator.IJoin,
   ): Promise<IShoppingAdministrator.IInvert> {
-    customer;
-    input;
-    return null!;
+    return ShoppingAdministratorProvider.join(customer)(input);
   }
 
   @core.TypedRoute.Put("login")
@@ -32,8 +32,6 @@ export class ShoppingAdminAuthenticateController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingMember.ILogin,
   ): Promise<IShoppingAdministrator.IInvert> {
-    customer;
-    input;
-    return null!;
+    return ShoppingAdministratorProvider.login(customer)(input);
   }
 }

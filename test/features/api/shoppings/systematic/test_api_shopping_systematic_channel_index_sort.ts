@@ -11,12 +11,12 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 
 export const test_api_shopping_systematic_channel_index_sort = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
+  await test_api_shopping_actor_admin_login(pool);
   await ArrayUtil.asyncRepeat(REPEAT)(async () => {
     const channel: IShoppingChannel =
       await ShoppingApi.functional.shoppings.admins.systematic.channels.create(

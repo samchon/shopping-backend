@@ -9,13 +9,13 @@ import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/sho
 import { IShoppingSaleUnitStockSupplement } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStockSupplement";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { prepare_random_sale } from "./internal/prepare_random_sale";
 
 export const test_api_shopping_sale_supplement = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   const input: IShoppingSale.ICreate = await prepare_random_sale(pool);
   for (const unit of input.units)

@@ -10,9 +10,9 @@ import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppi
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
 import { generate_random_order } from "../orders/internal/generate_random_order";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
@@ -21,9 +21,9 @@ import { generate_random_mileage_donation } from "./internal/generate_random_mil
 export const test_api_shopping_mileage_outcome_by_order = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_seller_join(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_customer_join(
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_seller_join(pool);
+  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
     pool,
   );
 

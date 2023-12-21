@@ -61,6 +61,8 @@ interface IEnvironments {
   SHOPPING_UPDATOR_PORT: `${number}`;
   SHOPPING_API_PORT: `${number}`;
   SHOPPING_SYSTEM_PASSWORD: string;
+  SHOPPING_JWT_SECRET_KEY: string;
+  SHOPPING_JWT_REFRESH_KEY: string;
 
   SHOPPING_POSTGRES_HOST: string;
   SHOPPING_POSTGRES_PORT: `${number}`;

@@ -1,5 +1,7 @@
 import { tags } from "typia";
 
+import { IShoppingCitizen } from "./IShoppingCitizen";
+
 /**
  * External user information.
  *
@@ -36,6 +38,11 @@ export interface IShoppingExternalUser
   id: string & tags.Format<"uuid">;
 
   /**
+   * Citizen activation info.
+   */
+  citizen: null | IShoppingCitizen;
+
+  /**
    * Creation time of record.
    *
    * Another word, first time when the external user connected.
@@ -47,6 +54,11 @@ export namespace IShoppingExternalUser {
    * Creation information of external user.
    */
   export interface ICreate {
+    /**
+     * Citizen activation info.
+     */
+    citizen: IShoppingCitizen.ICreate | null;
+
     /**
      * Identifier code of the external service.
      *
