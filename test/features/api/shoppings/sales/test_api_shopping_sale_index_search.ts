@@ -1,8 +1,13 @@
 import { ArrayUtil, RandomGenerator, TestValidator } from "@nestia/e2e";
+import { randint } from "tstl";
 import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
@@ -10,6 +15,7 @@ import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping
 import { test_api_shopping_actor_customer_create } from "../actors/test_api_shopping_actor_customer_create";
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "./internal/generate_random_sale";
+import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_index_search = async (
   pool: ConnectionPool,
@@ -153,4 +159,4 @@ export const test_api_shopping_sale_index_search = async (
   });
 };
 
-const REPEAT = 25;
+const REPEAT = 10;

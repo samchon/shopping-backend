@@ -68,6 +68,7 @@ export const test_api_shopping_sale_review_index_sort = async (
     validator("created_at")(GaffComparator.dates((x) => x.created_at)),
     validator("updated_at")(GaffComparator.dates((x) => x.updated_at)),
     validator("title")(GaffComparator.strings((x) => x.title)),
+    validator("score")(GaffComparator.numbers((x) => x.score)),
   ];
   for (const comp of components) {
     await comp("+");
