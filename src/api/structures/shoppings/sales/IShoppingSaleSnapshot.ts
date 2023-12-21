@@ -98,18 +98,6 @@ export namespace IShoppingSaleSnapshot {
     latest: boolean;
 
     /**
-     * Creation time of the sale.
-     */
-    created_at: string & tags.Format<"date-time">;
-
-    /**
-     * Update time of the snapshot.
-     *
-     * In other words, the time when the snapshot is created.
-     */
-    updated_at: string & tags.Format<"date-time">;
-
-    /**
      * Description and image content describing the sale.
      */
     content: Content;

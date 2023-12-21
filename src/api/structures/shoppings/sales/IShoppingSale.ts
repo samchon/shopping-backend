@@ -52,6 +52,13 @@ export namespace IShoppingSale {
     created_at: string & tags.Format<"date-time">;
 
     /**
+     * Last updated time of the record.
+     *
+     * In another words, creation time of the last snapshot.
+     */
+    updated_at: string & tags.Format<"date-time">;
+
+    /**
      * Paused time of the sale.
      *
      * The sale is paused by the seller, for some reason.
@@ -186,4 +193,9 @@ export namespace IShoppingSale {
      */
     closed_at: null | (string & tags.Format<"date-time">);
   }
+
+  /**
+   * Update information of sale.
+   */
+  export type IUpdate = IShoppingSaleSnapshot.ICreate;
 }

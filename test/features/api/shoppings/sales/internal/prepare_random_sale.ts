@@ -26,6 +26,9 @@ export const prepare_random_sale = async (
     files: ArrayUtil.repeat(randint(3, 10))(() =>
       prepare_random_attachment_file(),
     ),
+    thumbnails: ArrayUtil.repeat(randint(3, 10))(() =>
+      prepare_random_attachment_file(),
+    ),
   },
   opened_at: new Date().toISOString(),
   closed_at: null,

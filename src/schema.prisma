@@ -66,9 +66,10 @@ model attachment_files {
     //----
     // RELATIONS
     //----
-    bbs_article_snapshot_files           bbs_article_snapshot_files[]
-    bbs_article_comment_snapshots_files  bbs_article_comment_snapshot_files[]
-    shopping_sale_snapshot_content_files shopping_sale_snapshot_content_files[]
+    bbs_article_snapshot_files                bbs_article_snapshot_files[]
+    bbs_article_comment_snapshots_files       bbs_article_comment_snapshot_files[]
+    shopping_sale_snapshot_content_files      shopping_sale_snapshot_content_files[]
+    shopping_sale_snapshot_content_thumbnails shopping_sale_snapshot_content_thumbnails[]
 }
 
 /// Article entity.
@@ -1376,7 +1377,8 @@ model shopping_sale_snapshot_contents {
     /// Belonged snapshot.
     snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
 
-    to_files shopping_sale_snapshot_content_files[]
+    to_files      shopping_sale_snapshot_content_files[]
+    to_thumbnails shopping_sale_snapshot_content_thumbnails[]
 
     @@unique([shopping_sale_snapshot_id])
     @@index([title])
@@ -1387,6 +1389,19 @@ model shopping_sale_snapshot_contents {
 /// @describe Sales
 /// @author Samchon
 model shopping_sale_snapshot_content_files {
+    id                                String @id @db.Uuid
+    shopping_sale_snapshot_content_id String @db.Uuid
+    attachment_file_id                String @db.Uuid
+    sequence                          Int    @db.Integer
+
+    content shopping_sale_snapshot_contents @relation(fields: [shopping_sale_snapshot_content_id], references: [id], onDelete: Cascade)
+    file    attachment_files                @relation(fields: [attachment_file_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_sale_snapshot_content_id])
+    @@index([attachment_file_id])
+}
+
+model shopping_sale_snapshot_content_thumbnails {
     id                                String @id @db.Uuid
     shopping_sale_snapshot_content_id String @db.Uuid
     attachment_file_id                String @db.Uuid
@@ -1444,6 +1459,9 @@ model shopping_sale_snapshot_channels {
     /// @format uuid
     shopping_channel_id String @db.Uuid
 
+    /// Sequence order in belonged snapshot.
+    sequence Int @db.Integer
+
     //----
     // RELATIONS
     //----
@@ -1491,6 +1509,9 @@ model shopping_sale_snapshot_channel_categories {
     ///
     /// @format uuid
     shopping_channel_category_id String @db.Uuid
+
+    /// Sequence order in belonged channel.
+    sequence Int @db.Integer
 
     //----
     // RELATIONS
@@ -1668,8 +1689,9 @@ model shopping_sale_snapshot_unit_options {
     unit shopping_sale_snapshot_units @relation(fields: [shopping_sale_snapshot_unit_id], references: [id], onDelete: Cascade)
 
     /// List of candidates.
-    candidates                            shopping_sale_snapshot_unit_option_candidates[]
-    shopping_cart_commodity_stock_choices shopping_cart_commodity_stock_choices[]
+    candidates                                shopping_sale_snapshot_unit_option_candidates[]
+    shopping_cart_commodity_stock_choices     shopping_cart_commodity_stock_choices[]
+    shopping_sale_snapshot_unit_stock_choices shopping_sale_snapshot_unit_stock_choices[]
 
     @@unique([shopping_sale_snapshot_unit_id, name])
 }
@@ -1847,6 +1869,11 @@ model shopping_sale_snapshot_unit_stock_choices {
     /// @format uuid
     shopping_sale_snapshot_unit_stock_id String @db.Uuid
 
+    /// Belonged option's {@link shopping_sale_snapshot_unit_options.id}
+    ///
+    /// @format uuid
+    shopping_sale_snapshot_unit_option_id String @db.Uuid
+
     /// Belonged candidate's {@link shopping_sale_snapshot_unit_option_candidates.id}
     ///
     /// @format uuid
@@ -1860,6 +1887,8 @@ model shopping_sale_snapshot_unit_stock_choices {
     //----
     /// Belonged stock.
     stock shopping_sale_snapshot_unit_stocks @relation(map: "fk_shopping_sale_snapshot_unit_stock_choices_stock", fields: [shopping_sale_snapshot_unit_stock_id], references: [id], onDelete: Cascade)
+
+    option shopping_sale_snapshot_unit_options? @relation(map: "fk_shopping_sale_snapshot_unit_stock_choices_option", fields: [shopping_sale_snapshot_unit_option_id], references: [id], onDelete: Cascade)
 
     /// Belonged candidate.
     candidate shopping_sale_snapshot_unit_option_candidates? @relation(map: "fk_shopping_sale_snapshot_unit_stock_choices_candidate", fields: [shopping_sale_snapshot_unit_option_candidate_id], references: [id], onDelete: Cascade)

@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
+import { ShoppingSaleProvider } from "../../../../providers/shoppings/sales/ShoppingSaleProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSalesController<Actor extends IShoppingActorEntity>(
@@ -28,9 +30,7 @@ export function ShoppingSalesController<Actor extends IShoppingActorEntity>(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSale> {
-      actor;
-      id;
-      return null!;
+      return ShoppingSaleProvider.at(actor)(id);
     }
   }
   return ShoppingSalesController;
