@@ -6,16 +6,16 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
-import { test_api_shopping_customer_join } from "./test_api_shopping_customer_join";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_customer_join } from "./test_api_shopping_actor_customer_join";
 
-export const test_api_shopping_customer_password_change = async (
+export const test_api_shopping_actor_customer_password_change = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // MEMBERSHIP JOINING
-  const joined: IShoppingCustomer = await test_api_shopping_customer_join(pool);
+  const joined: IShoppingCustomer = await test_api_shopping_actor_customer_join(pool);
   const login = async (password: string) => {
-    await test_api_shopping_customer_create(pool);
+    await test_api_shopping_actor_customer_create(pool);
     const authorized: IShoppingCustomer =
       await ShoppingApi.functional.shoppings.customers.authenticate.login(
         pool.customer,

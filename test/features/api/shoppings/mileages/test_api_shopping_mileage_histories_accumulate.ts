@@ -8,17 +8,17 @@ import { IShoppingMileageHistory } from "@samchon/shopping-api/lib/structures/sh
 
 import { ShoppingConfiguration } from "../../../../../src/ShoppingConfiguration";
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_mileage_histories } from "./internal/generate_random_mileage_histories";
 
 export const test_api_shopping_mileage_histories_accumulate = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_seller_join(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_customer_join(
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_seller_join(pool);
+  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
     pool,
   );
   const { donation, good } = await generate_random_mileage_histories(

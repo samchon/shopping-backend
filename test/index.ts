@@ -7,9 +7,10 @@ import { ShoppingBackend } from "../src/ShoppingBackend";
 import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../src/ShoppingGlobal";
 import ShoppingApi from "../src/api";
-import { SetupWizard } from "../src/setup/SetupWizard";
+import { ShoppingSetupWizard } from "../src/setup/ShoppingSetupWizard";
 import { ArgumentParser } from "../src/utils/ArgumentParser";
 import { ErrorUtil } from "../src/utils/ErrorUtil";
+import { ConnectionPool } from "./ConnectionPool";
 
 interface IOptions {
   reset: boolean;
@@ -69,9 +70,9 @@ async function main(): Promise<void> {
 
   if (options.reset) {
     await StopWatch.trace("Reset DB")(() =>
-      SetupWizard.schema(ShoppingGlobal.prisma),
+      ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
     );
-    await StopWatch.trace("Seed Data")(SetupWizard.seed);
+    await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
   }
 
   // OPEN SERVER
@@ -85,10 +86,10 @@ async function main(): Promise<void> {
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",
     parameters: () => [
-      {
+      new ConnectionPool({
         host: connection.host,
         encryption: connection.encryption,
-      },
+      }),
     ],
     filter: (func) =>
       (!options.include?.length ||

@@ -6,8 +6,8 @@ import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/o
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
 import { generate_random_order } from "../orders/internal/generate_random_order";
 import { generate_random_order_publish } from "../orders/internal/generate_random_order_publish";
@@ -16,10 +16,10 @@ import { generate_random_sole_sale } from "../sales/internal/generate_random_sol
 export const test_api_shopping_cart_commodity_create_exhaused = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const customer: IShoppingCustomer = await test_api_shopping_customer_join(
+  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
     pool,
   );
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sole_sale(
     pool,

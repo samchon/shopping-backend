@@ -7,17 +7,17 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingDepositHistory } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositHistory";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_deposit_histories } from "./internal/generate_random_deposit_histories";
 
 export const test_api_shopping_deposit_histories_index_search = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_customer_join(pool);
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_customer_join(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   await ArrayUtil.asyncRepeat(10)(() =>
     generate_random_deposit_histories(pool, {

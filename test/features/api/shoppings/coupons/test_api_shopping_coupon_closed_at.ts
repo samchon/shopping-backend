@@ -9,9 +9,9 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 
 import { ActorPath } from "../../../../../src/typings/ActorPath";
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
@@ -20,9 +20,9 @@ export const test_api_shopping_coupon_closed_at = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // AUTHORIZE ACTORS
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_customer_join(pool);
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_customer_join(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   // CREATE COUPON TO BE CLOSED
   const closed_at: Date = new Date(Date.now() + 3_000);

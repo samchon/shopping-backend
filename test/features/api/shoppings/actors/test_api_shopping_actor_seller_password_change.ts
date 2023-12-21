@@ -6,19 +6,19 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
-import { test_api_shopping_seller_join } from "./test_api_shopping_seller_join";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_seller_join } from "./test_api_shopping_actor_seller_join";
 
-export const test_api_shopping_seller_password_change = async (
+export const test_api_shopping_actor_seller_password_change = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // JOIN AS A SELLER
-  const joined: IShoppingSeller.IInvert = await test_api_shopping_seller_join(
+  const joined: IShoppingSeller.IInvert = await test_api_shopping_actor_seller_join(
     pool,
   );
 
   const login = async (password: string) => {
-    await test_api_shopping_customer_create(pool, pool.seller);
+    await test_api_shopping_actor_customer_create(pool, pool.seller);
     const authorized: IShoppingSeller.IInvert =
       await ShoppingApi.functional.shoppings.sellers.authenticate.login(
         pool.seller,

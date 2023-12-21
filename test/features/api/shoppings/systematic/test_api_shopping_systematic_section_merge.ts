@@ -7,18 +7,18 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_create } from "../actors/test_api_shopping_customer_create";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_create } from "../actors/test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_section } from "./internal/generate_random_section";
 
 export const test_api_shopping_systematic_section_merge = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_customer_create(pool);
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_customer_create(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   const prefix: string = RandomGenerator.alphabets(8);
   const sectionList: IShoppingSection[] = await ArrayUtil.asyncRepeat(REPEAT)(

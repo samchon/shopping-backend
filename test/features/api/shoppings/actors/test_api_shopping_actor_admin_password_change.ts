@@ -7,9 +7,9 @@ import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
-export const test_api_shopping_admin_password_change = async (
+export const test_api_shopping_actor_admin_password_change = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   const input: IShoppingMember.IJoin = {
@@ -23,7 +23,7 @@ export const test_api_shopping_admin_password_change = async (
   };
 
   const login = async (password: string) => {
-    await test_api_shopping_customer_create(pool, pool.admin);
+    await test_api_shopping_actor_customer_create(pool, pool.admin);
     const authorized: IShoppingAdministrator.IInvert =
       await ShoppingApi.functional.shoppings.admins.authenticate.login(
         pool.admin,

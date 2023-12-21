@@ -6,19 +6,19 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_customer_create } from "../actors/test_api_shopping_customer_create";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_customer_create } from "../actors/test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "./internal/generate_random_sale";
 
 export const test_api_shopping_sale_index_search = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_customer_create(pool);
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_customer_create(pool);
 
   await ArrayUtil.asyncRepeat(25)(async () => {
-    await test_api_shopping_seller_join(pool);
+    await test_api_shopping_actor_seller_join(pool);
     await generate_random_sale(pool);
   });
 

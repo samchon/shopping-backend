@@ -7,22 +7,29 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
 
-export const test_api_shopping_customer_create = async (
+export const test_api_shopping_actor_customer_ip = async (
   pool: ConnectionPool,
-  connection?: ShoppingApi.IConnection,
-): Promise<IShoppingCustomer.IAuthorized> => {
+): Promise<void> => {
+  const automatic = await create(pool.customer, undefined);
+  const manual = await create(pool.customer, PSEUDO);
+
+  TestValidator.predicate("automatic")(() => automatic.ip !== PSEUDO);
+  TestValidator.equals("manual")(manual.ip)(PSEUDO);
+};
+
+const create = async (connection: ShoppingApi.IConnection, ip?: string) => {
   const customer: IShoppingCustomer.IAuthorized =
     await ShoppingApi.functional.shoppings.customers.authenticate.create(
-      connection ?? pool.customer,
+      connection,
       {
         href: TestGlobal.HREF,
         referrer: TestGlobal.REFERRER,
         channel_code: TestGlobal.CHANNEL,
         external_user: null,
+        ip,
       },
     );
-  TestValidator.equals("citizen")(customer.citizen)(null);
-  TestValidator.equals("external_user")(customer.external_user)(null);
-  TestValidator.equals("member")(customer.member)(null);
   return typia.assertEquals(customer);
 };
+
+const PSEUDO = "192.168.0.100";

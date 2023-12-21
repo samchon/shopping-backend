@@ -8,16 +8,16 @@ import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
-export const test_api_shopping_customer_join = async (
+export const test_api_shopping_actor_customer_join = async (
   pool: ConnectionPool,
   connection?: ShoppingApi.IConnection,
   input?: Partial<IShoppingMember.IJoin>,
 ): Promise<IShoppingCustomer.IAuthorized> => {
   // A CUSTOMER -> GUEST
   const issued: IShoppingCustomer.IAuthorized =
-    await test_api_shopping_customer_create(pool, connection);
+    await test_api_shopping_actor_customer_create(pool, connection);
   TestValidator.equals("issued.member")(false)(!!issued.member);
   TestValidator.equals("issued.citizen")(false)(!!issued.citizen);
 

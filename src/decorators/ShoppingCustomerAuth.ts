@@ -1,13 +1,15 @@
 import { ExecutionContext, createParamDecorator } from "@nestjs/common";
-import { Singleton } from "tstl";
+import { VariadicSingleton } from "tstl";
+
+import { ShoppingCustomerProvider } from "../providers/shoppings/actors/ShoppingCustomerProvider";
 
 export const ShoppingCustomerAuth = (level?: "guest" | "member" | "citizen") =>
-  singleton.get(level)();
+  singleton.get(level ?? "guest")();
 
-const singleton = new Singleton((level?: "guest" | "member" | "citizen") =>
-  createParamDecorator(async (_0: any, ctx: ExecutionContext) => {
-    level;
-    ctx.switchToHttp().getRequest();
-    return null!;
-  }),
+const singleton = new VariadicSingleton(
+  (level: "guest" | "member" | "citizen") =>
+    createParamDecorator(async (_0: any, ctx: ExecutionContext) => {
+      const request = ctx.switchToHttp().getRequest();
+      return ShoppingCustomerProvider.authorize(level)(request);
+    }),
 );

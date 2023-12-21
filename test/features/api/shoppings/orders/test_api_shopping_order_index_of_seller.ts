@@ -11,9 +11,9 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
-import { test_api_shopping_customer_create } from "../actors/test_api_shopping_customer_create";
-import { test_api_shopping_customer_join } from "../actors/test_api_shopping_customer_join";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_customer_create } from "../actors/test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_order } from "./internal/generate_random_order";
@@ -22,11 +22,11 @@ import { generate_random_order_publish } from "./internal/generate_random_order_
 export const test_api_shopping_order_index_of_seller = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const customer: IShoppingCustomer = await test_api_shopping_customer_join(
+  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
     pool,
   );
   const groups: IGroup[] = await ArrayUtil.asyncRepeat(REPEAT)(async () => {
-    const seller = await test_api_shopping_seller_join(pool);
+    const seller = await test_api_shopping_actor_seller_join(pool);
     const sale = await generate_random_sale(pool);
     return { seller, sale, orders: [] };
   });
@@ -54,7 +54,7 @@ export const test_api_shopping_order_index_of_seller = async (
   });
 
   for (const { seller, orders } of groups) {
-    await test_api_shopping_customer_create(pool, pool.seller);
+    await test_api_shopping_actor_customer_create(pool, pool.seller);
     await ShoppingApi.functional.shoppings.sellers.authenticate.login(
       pool.seller,
       {

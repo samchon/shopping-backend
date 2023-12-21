@@ -40,14 +40,14 @@ export namespace ShoppingExternalUserProvider {
   }
 
   export const create =
-    (channel: IEntity) =>
+    (related: { channel: IEntity; customer: IEntity | null }) =>
     async (
       input: IShoppingExternalUser.ICreate,
     ): Promise<IShoppingExternalUser> => {
       const oldbie =
         await ShoppingGlobal.prisma.shopping_external_users.findFirst({
           where: {
-            shopping_channel_id: channel.id,
+            shopping_channel_id: related.channel.id,
             application: input.application,
             uid: input.uid,
           },
@@ -69,14 +69,14 @@ export namespace ShoppingExternalUserProvider {
 
       const citizen =
         input.citizen !== null
-          ? await ShoppingCitizenProvider.create(channel)(input.citizen)
+          ? await ShoppingCitizenProvider.create(related.channel)(input.citizen)
           : null;
       const record = await ShoppingGlobal.prisma.shopping_external_users.create(
         {
           data: {
             id: v4(),
             channel: {
-              connect: { id: channel.id },
+              connect: { id: related.channel.id },
             },
             citizen:
               citizen !== null
@@ -96,6 +96,14 @@ export namespace ShoppingExternalUserProvider {
           ...json.select(),
         },
       );
+      if (related.customer !== null)
+        await ShoppingGlobal.prisma.shopping_customers.update({
+          where: { id: related.customer.id },
+          data: {
+            shopping_external_user_id: record.id,
+            shopping_citizen_id: citizen?.id ?? undefined,
+          },
+        });
       return json.transform(record);
     };
 }

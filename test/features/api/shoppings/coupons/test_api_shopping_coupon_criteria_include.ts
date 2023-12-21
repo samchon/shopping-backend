@@ -14,8 +14,8 @@ import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
 import { generate_random_order } from "../orders/internal/generate_random_order";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
@@ -26,7 +26,7 @@ export const test_api_shopping_coupon_criteria_include = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // PREPARE ASSETS
-  await test_api_shopping_admin_login(pool);
+  await test_api_shopping_actor_admin_login(pool);
   const outside: IGroup = await generate_group(pool, 0);
   const inside: IGroup = await generate_group(pool, 1);
 
@@ -162,7 +162,7 @@ const generate_group = async (
   customer.citizen = activated.citizen;
 
   // A NEW SALE WITH NEW SELLER
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_seller_join(pool);
   const sale: IShoppingSale = await generate_random_sale(pool, {
     section_code: section.code,
     channels: [

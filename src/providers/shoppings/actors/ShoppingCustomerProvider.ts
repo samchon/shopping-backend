@@ -158,9 +158,10 @@ export namespace ShoppingCustomerProvider {
     ): Promise<IShoppingCustomer.IAuthorized> => {
       const channel = await ShoppingChannelProvider.get(input.channel_code);
       const external_user = input.external_user
-        ? await ShoppingExternalUserProvider.create(channel)(
-            input.external_user,
-          )
+        ? await ShoppingExternalUserProvider.create({
+            channel,
+            customer: null,
+          })(input.external_user)
         : null;
       const record = await ShoppingGlobal.prisma.shopping_customers.create({
         data: await collect({ channel, external_user, request })(input),

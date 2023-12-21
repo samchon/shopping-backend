@@ -8,8 +8,8 @@ import { IShoppingCouponCriteria } from "@samchon/shopping-api/lib/structures/sh
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
@@ -17,8 +17,8 @@ import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 export const test_api_shopping_coupon_create_by_seller = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
   const create =

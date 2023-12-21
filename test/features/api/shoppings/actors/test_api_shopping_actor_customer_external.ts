@@ -8,14 +8,14 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 import { IShoppingExternalUser } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingExternalUser";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
-export const test_api_shopping_customer_external = async (
+export const test_api_shopping_actor_customer_external = async (
   pool: ConnectionPool,
 ): Promise<IShoppingCustomer> => {
   // INITIALIZE CUSTOMER, A GUEST
   const issued: IShoppingCustomer.IAuthorized =
-    await test_api_shopping_customer_create(pool);
+    await test_api_shopping_actor_customer_create(pool);
   validate("issue")(issued)({
     ...issued,
     citizen: null,
@@ -31,7 +31,8 @@ export const test_api_shopping_customer_external = async (
       nickname: RandomGenerator.name(8),
       data: null,
       password: v4(),
-    }),
+      citizen: null,
+    } satisfies IShoppingExternalUser.ICreate),
     citizen: typia.assert<IShoppingCitizen.ICreate>({
       name: RandomGenerator.name(8),
       mobile: RandomGenerator.mobile(),
@@ -59,6 +60,7 @@ export const test_api_shopping_customer_external = async (
       input.citizen,
     );
   typia.assertEquals(citizen);
+
   validate("citizen")(citizen)({
     ...issued,
     citizen: {
@@ -73,7 +75,7 @@ export const test_api_shopping_customer_external = async (
   });
 
   // RE-CREATE CUSTOMER AND EXTERNAL AGAIN
-  await test_api_shopping_customer_create(pool);
+  await test_api_shopping_actor_customer_create(pool);
   await ShoppingApi.functional.shoppings.customers.authenticate.external(
     pool.customer,
     input.external,

@@ -1,7 +1,9 @@
+import { ShoppingGlobal } from "../src/ShoppingGlobal";
+
 export namespace TestGlobal {
   export const CHANNEL = "samchon";
   export const SECTION = "general";
-  export const PASSWORD = "https://github.com/samchon";
+  export const PASSWORD = ShoppingGlobal.env.SHOPPING_SYSTEM_PASSWORD;
 
   export const HREF = "http://localhost/TestAutomation";
   export const REFERRER = "http://localhost/NodeJS";

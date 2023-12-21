@@ -1,5 +1,6 @@
 import core from "@nestia/core";
-import { Controller } from "@nestjs/common";
+import { Controller, Request } from "@nestjs/common";
+import { FastifyRequest } from "fastify";
 
 import { IShoppingCitizen } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCitizen";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -14,6 +15,12 @@ import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAut
 
 @Controller("shoppings/customers/authenticate")
 export class ShoppingCustomerAuthenticateController {
+  /**
+   *
+   * @param input
+   * @returns
+   * @assignHeaders setHeaders
+   */
   @core.TypedRoute.Patch("refresh")
   public async refresh(
     @core.TypedBody() input: IShoppingCustomer.IRefresh,
@@ -28,12 +35,19 @@ export class ShoppingCustomerAuthenticateController {
     return customer;
   }
 
+  /**
+   *
+   * @param request
+   * @param input
+   * @returns
+   * @assignHeaders setHeaders
+   */
   @core.TypedRoute.Post()
   public async create(
+    @Request() request: FastifyRequest,
     @core.TypedBody() input: IShoppingCustomer.ICreate,
   ): Promise<IShoppingCustomer.IAuthorized> {
-    input;
-    return null!;
+    return ShoppingCustomerProvider.create(request)(input);
   }
 
   @core.TypedRoute.Post("join")
@@ -66,9 +80,10 @@ export class ShoppingCustomerAuthenticateController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingExternalUser.ICreate,
   ): Promise<IShoppingCustomer> {
-    const external_user = await ShoppingExternalUserProvider.create(customer)(
-      input,
-    );
+    const external_user = await ShoppingExternalUserProvider.create({
+      customer,
+      channel: customer.channel,
+    })(input);
     return {
       ...customer,
       citizen: customer.citizen ?? external_user.citizen,

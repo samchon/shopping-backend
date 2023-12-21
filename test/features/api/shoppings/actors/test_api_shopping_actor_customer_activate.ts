@@ -5,14 +5,14 @@ import { IShoppingCitizen } from "@samchon/shopping-api/lib/structures/shoppings
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
-export const test_api_shopping_customer_activate = async (
+export const test_api_shopping_actor_customer_activate = async (
   pool: ConnectionPool,
 ): Promise<IShoppingCustomer> => {
   // STARTS WITH A GUEST
   const issued: IShoppingCustomer.IAuthorized =
-    await test_api_shopping_customer_create(pool);
+    await test_api_shopping_actor_customer_create(pool);
   TestValidator.equals("issued.citizen")(false)(!!issued.citizen);
 
   // ACTIVATE CITIZEN

@@ -7,14 +7,14 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
-import { test_api_shopping_customer_create } from "./test_api_shopping_customer_create";
+import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
-export const test_api_shopping_seller_join = async (
+export const test_api_shopping_actor_seller_join = async (
   pool: ConnectionPool,
   email?: string,
 ): Promise<IShoppingSeller.IInvert> => {
   // STARTS FROM THE CUSTOMER (GUEST)
-  await test_api_shopping_customer_create(pool, pool.seller);
+  await test_api_shopping_actor_customer_create(pool, pool.seller);
 
   // MEMBERSHIP JOINING
   const input: IShoppingMember.IJoin = {

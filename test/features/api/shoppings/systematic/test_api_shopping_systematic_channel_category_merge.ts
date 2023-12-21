@@ -7,16 +7,16 @@ import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
-import { test_api_shopping_admin_login } from "../actors/test_api_shopping_admin_login";
-import { test_api_shopping_seller_join } from "../actors/test_api_shopping_seller_join";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_channel } from "./internal/generate_random_channel";
 
 export const test_api_shopping_systematic_channel_category_merge = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  await test_api_shopping_admin_login(pool);
-  await test_api_shopping_seller_join(pool);
+  await test_api_shopping_actor_admin_login(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
   const channel: IShoppingChannel = await generate_random_channel(pool);
   const rough: Rough = prepare({ level: 0, index: 0 });
