@@ -11,6 +11,7 @@ import type { Format } from "typia/lib/tags/Format";
 
 import type { IPage } from "../../../../structures/common/IPage";
 import type { IShoppingSale } from "../../../../structures/shoppings/sales/IShoppingSale";
+import type { IShoppingSaleSnapshot } from "../../../../structures/shoppings/sales/IShoppingSaleSnapshot";
 import { NestiaSimulator } from "../../../../utils/NestiaSimulator";
 
 export * as questions from "./questions";
@@ -122,7 +123,7 @@ export async function update(
           );
 }
 export namespace update {
-    export type Input = Primitive<IShoppingSale.ICreate>;
+    export type Input = Primitive<IShoppingSaleSnapshot.ICreate>;
     export type Output = Primitive<IShoppingSale>;
 
     export const METADATA = {
