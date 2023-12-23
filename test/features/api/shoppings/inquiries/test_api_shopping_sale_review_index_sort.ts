@@ -23,9 +23,8 @@ export const test_api_shopping_sale_review_index_sort = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
   const total: IShoppingSaleReview[] = await ArrayUtil.asyncRepeat(10)(

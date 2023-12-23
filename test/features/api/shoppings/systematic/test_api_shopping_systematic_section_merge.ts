@@ -22,9 +22,9 @@ export const test_api_shopping_systematic_section_merge = async (
 
   const prefix: string = RandomGenerator.alphabets(8);
   const sectionList: IShoppingSection[] = await ArrayUtil.asyncRepeat(REPEAT)(
-    () =>
+    (i) =>
       generate_random_section(pool, {
-        code: `${prefix}-${RandomGenerator.name(8)}`,
+        code: `${prefix}-${RandomGenerator.name(8)}-${i}`,
       }),
   );
   await ArrayUtil.asyncForEach(sectionList)((section) =>
@@ -58,12 +58,16 @@ export const test_api_shopping_systematic_section_merge = async (
       {
         limit: REPEAT,
         sort: ["-sale.created_at"],
+        search: {
+          section_codes: sectionPage.data.map((section) => section.code),
+        },
       },
     );
   typia.assertEquals(salePage);
   salePage.data.forEach((sale) =>
     TestValidator.equals("sale.section")(sectionList[0])(sale.section),
   );
+  TestValidator.equals("sales.length")(REPEAT)(salePage.data.length);
 };
 
 const REPEAT = 4;

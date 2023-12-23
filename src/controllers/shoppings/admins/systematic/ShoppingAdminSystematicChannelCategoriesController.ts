@@ -4,6 +4,9 @@ import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecor
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 
+import { ShoppingChannelCategoryProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelCategoryProvider";
+import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
+
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingSystematicChannelCategoriesController } from "../../base/systematic/ShoppingSystematicChannelCategoriesController";
 
@@ -19,9 +22,9 @@ export class ShoppingAdminSystematicChannelCategoriesController extends Shopping
     @core.TypedParam("channelCode") channelCode: string,
     @core.TypedBody() input: IShoppingChannelCategory.ICreate,
   ): Promise<IShoppingChannelCategory> {
-    channelCode;
-    input;
-    return null!;
+    return ShoppingChannelCategoryProvider.create(
+      await ShoppingChannelProvider.get(channelCode),
+    )(input);
   }
 
   @core.TypedRoute.Put(":id")
@@ -31,9 +34,9 @@ export class ShoppingAdminSystematicChannelCategoriesController extends Shopping
     @core.TypedParam("id") id: string,
     @core.TypedBody() input: IShoppingChannelCategory.IUpdate,
   ): Promise<void> {
-    channelCode;
-    id;
-    input;
+    return ShoppingChannelCategoryProvider.update(
+      await ShoppingChannelProvider.get(channelCode),
+    )(id)(input);
   }
 
   @core.TypedRoute.Delete("merge")
@@ -42,7 +45,8 @@ export class ShoppingAdminSystematicChannelCategoriesController extends Shopping
     @core.TypedParam("channelCode") channelCode: string,
     @core.TypedBody() input: IRecordMerge,
   ): Promise<void> {
-    channelCode;
-    input;
+    return ShoppingChannelCategoryProvider.merge(
+      await ShoppingChannelProvider.get(channelCode),
+    )(input);
   }
 }

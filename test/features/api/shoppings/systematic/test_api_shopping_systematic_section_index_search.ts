@@ -21,7 +21,7 @@ export const test_api_shopping_systematic_section_index_search = async (
     async (input: IShoppingSection.IRequest.ISearch) => {
       const page: IPage<IShoppingSection> =
         await ShoppingApi.functional.shoppings.admins.systematic.sections.index(
-          pool.customer,
+          pool.admin,
           {
             limit: sectionList.length,
             search: input,

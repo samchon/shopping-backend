@@ -110,7 +110,7 @@ export namespace IShoppingSaleUnitStock {
     /**
      * Initial inventory quantity.
      */
-    quantity: number;
+    quantity: number & tags.Type<"uint32">;
 
     /**
      * List of choices.

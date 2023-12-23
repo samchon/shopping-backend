@@ -13,9 +13,8 @@ export const test_api_shopping_actor_seller_login = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // JOIN AS A SELLER
-  const joined: IShoppingSeller.IInvert = await test_api_shopping_actor_seller_join(
-    pool,
-  );
+  const joined: IShoppingSeller.IInvert =
+    await test_api_shopping_actor_seller_join(pool);
 
   const login = async (password: string) => {
     await test_api_shopping_actor_customer_create(pool, pool.seller);

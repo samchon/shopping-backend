@@ -18,9 +18,8 @@ export const test_api_shopping_mileage_histories_accumulate = async (
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
   const { donation, good } = await generate_random_mileage_histories(
     pool,
     customer,

@@ -5,6 +5,8 @@ import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecor
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
+import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
+
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingSystematicChannelsController } from "../../base/systematic/ShoppingSystematicChannelsController";
 
@@ -19,8 +21,7 @@ export class ShoppingAdminSystematicChannelsController extends ShoppingSystemati
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IShoppingChannel.ICreate,
   ): Promise<IShoppingChannel> {
-    input;
-    return null!;
+    return ShoppingChannelProvider.create(input);
   }
 
   @core.TypedRoute.Put(":id")
@@ -29,8 +30,7 @@ export class ShoppingAdminSystematicChannelsController extends ShoppingSystemati
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingChannel.IUpdate,
   ): Promise<void> {
-    id;
-    input;
+    return ShoppingChannelProvider.update(id)(input);
   }
 
   @core.TypedRoute.Delete("merge")
@@ -38,6 +38,6 @@ export class ShoppingAdminSystematicChannelsController extends ShoppingSystemati
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IRecordMerge,
   ): Promise<void> {
-    input;
+    return ShoppingChannelProvider.merge(input);
   }
 }

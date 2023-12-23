@@ -1,10 +1,13 @@
 import { ArrayUtil } from "@nestia/e2e";
+import fs from "fs";
+
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
-import fs from "fs";
-import { ShoppingConfiguration } from "../../ShoppingConfiguration";
+
 import { ShoppingChannelCategoryProvider } from "../../providers/shoppings/systematic/ShoppingChannelCategoryProvider";
 import { ShoppingChannelProvider } from "../../providers/shoppings/systematic/ShoppingChannelProvider";
+
+import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { CsvUtil } from "../../utils/CsvUtil";
 
 export namespace ShoppingChannelSeeder {
@@ -17,7 +20,9 @@ export namespace ShoppingChannelSeeder {
   const seedChannel =
     (dict: Map<string, IHierarchy>) =>
     async (input: IShoppingChannel.ICreate): Promise<void> => {
-      const channel: IShoppingChannel = await ShoppingChannelProvider.create(input);
+      const channel: IShoppingChannel = await ShoppingChannelProvider.create(
+        input,
+      );
       dict.set(channel.code, { channel, last: [] });
     };
 

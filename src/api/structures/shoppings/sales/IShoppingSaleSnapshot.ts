@@ -73,11 +73,16 @@ export namespace IShoppingSaleSnapshot {
     seller: IShoppingSeller.IInvert;
   }
 
+  
+
   /**
    * Summarized information of the sale snapshot.
    */
   export interface ISummary
     extends IBase<IShoppingSaleContent.ISummary, IShoppingSaleUnit.ISummary> {
+    /**
+     * Price range of the unit.
+     */
     price_range: IShoppingSalePriceRange;
   }
 
@@ -96,18 +101,6 @@ export namespace IShoppingSaleSnapshot {
      * Whether the snapshot is the latest one or not.
      */
     latest: boolean;
-
-    /**
-     * Creation time of the sale.
-     */
-    created_at: string & tags.Format<"date-time">;
-
-    /**
-     * Update time of the snapshot.
-     *
-     * In other words, the time when the snapshot is created.
-     */
-    updated_at: string & tags.Format<"date-time">;
 
     /**
      * Description and image content describing the sale.

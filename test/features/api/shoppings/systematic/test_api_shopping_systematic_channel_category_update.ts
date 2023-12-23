@@ -39,7 +39,7 @@ export const test_api_shopping_systematic_channel_category_update = async (
     child.id,
     {
       parent_id: right.id,
-      name: right.name,
+      name: child.name,
     },
   );
 

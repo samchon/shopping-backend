@@ -13,9 +13,8 @@ export const test_api_shopping_mileage_donation = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
   const donation: IShoppingMileageDonation =
     await generate_random_mileage_donation(pool, customer.citizen!, {
       value: 10_000,

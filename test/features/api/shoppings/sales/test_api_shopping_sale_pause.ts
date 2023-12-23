@@ -20,7 +20,7 @@ export const test_api_shopping_sale_pause = async (
   await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
-  await ShoppingApi.functional.shoppings.sellers.sales.suspend(
+  await ShoppingApi.functional.shoppings.sellers.sales.pause(
     pool.seller,
     sale.id,
   );
@@ -33,7 +33,7 @@ export const test_api_shopping_sale_pause = async (
 
   await validate_sale_at(pool)(read)(true);
   await validate_sale_index(pool)([read])(true);
-  TestValidator.equals("paused_at")(!!read.suspended_at)(true);
+  TestValidator.equals("paused_at")(!!read.paused_at)(true);
 
   await ShoppingApi.functional.shoppings.sellers.sales.restore(
     pool.seller,

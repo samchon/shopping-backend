@@ -11,6 +11,7 @@
 - [Coins](#Coins)
 - [Inquiries](#Inquiries)
 - [Favorites](#Favorites)
+- [default](#default)
 
 ## Articles
 ```mermaid
@@ -279,11 +280,13 @@ erDiagram
     String id PK
     String shopping_sale_snapshot_id FK
     String shopping_channel_id FK
+    Int sequence
 }
 "shopping_sale_snapshot_channel_categories" {
     String id PK
     String shopping_sale_snapshot_channel_id FK
     String shopping_channel_category_id FK
+    Int sequence
 }
 "shopping_channel_categories" }o--|| "shopping_channels" : channel
 "shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
@@ -744,11 +747,13 @@ erDiagram
     String id PK
     String shopping_sale_snapshot_id FK
     String shopping_channel_id FK
+    Int sequence
 }
 "shopping_sale_snapshot_channel_categories" {
     String id PK
     String shopping_sale_snapshot_channel_id FK
     String shopping_channel_category_id FK
+    Int sequence
 }
 "shopping_sale_snapshot_units" {
     String id PK
@@ -784,6 +789,7 @@ erDiagram
 "shopping_sale_snapshot_unit_stock_choices" {
     String id PK
     String shopping_sale_snapshot_unit_stock_id FK
+    String shopping_sale_snapshot_unit_option_id FK
     String shopping_sale_snapshot_unit_option_candidate_id FK
     Int sequence
 }
@@ -824,6 +830,7 @@ erDiagram
 "shopping_sale_snapshot_unit_option_candidates" }o--|| "shopping_sale_snapshot_unit_options" : option
 "shopping_sale_snapshot_unit_stocks" }o--|| "shopping_sale_snapshot_units" : unit
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_stocks" : stock
+"shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_options" : option
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_option_candidates" : candidate
 "shopping_channel_categories" }o--|| "shopping_channels" : channel
 "shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
@@ -918,6 +925,7 @@ resolve the M:N relationship between two tables.
   - `id`: Primary Key.
   - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots).
   - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels).
+  - `sequence`: Sequence order in belonged snapshot.
 
 ### `shopping_sale_snapshot_channel_categories`
 Category classification info of sale snapshot.
@@ -936,6 +944,7 @@ major category, all minor categories belonging to it can also be used.
   - `id`: Primary Key.
   - `shopping_sale_snapshot_channel_id`: Belonged assigned channel of sale snapshot's [shopping_sale_snapshot_channels.id](#shopping_sale_snapshot_channels)
   - `shopping_channel_category_id`: Belonged channel category's [shopping_channel_categories.id](#shopping_channel_categories)
+  - `sequence`: Sequence order in belonged channel.
 
 ### `shopping_sale_snapshot_units`
 Product composition information handled in the sale snapshot.
@@ -1124,6 +1133,7 @@ can also be ignored.
 **Properties**
   - `id`: Primary Key.
   - `shopping_sale_snapshot_unit_stock_id`: Belonged stock's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
+  - `shopping_sale_snapshot_unit_option_id`: Belonged option's [shopping_sale_snapshot_unit_options.id](#shopping_sale_snapshot_unit_options)
   - `shopping_sale_snapshot_unit_option_candidate_id`: Belonged candidate's [shopping_sale_snapshot_unit_option_candidates.id](#shopping_sale_snapshot_unit_option_candidates)
   - `sequence`: Sequence order in belonged stock.
 
@@ -2735,3 +2745,23 @@ Favorite addresses.
   - `primary`: Whether the favorite address is primary or not.
   - `created_at`: Creation time of record.
   - `deleted_at`: Deletion time of record.
+
+
+## default
+```mermaid
+erDiagram
+"shopping_sale_snapshot_content_thumbnails" {
+    String id PK
+    String shopping_sale_snapshot_content_id FK
+    String attachment_file_id FK
+    Int sequence
+}
+```
+
+### `shopping_sale_snapshot_content_thumbnails`
+
+**Properties**
+  - `id`: 
+  - `shopping_sale_snapshot_content_id`: 
+  - `attachment_file_id`: 
+  - `sequence`: 

@@ -50,7 +50,7 @@ export namespace IShoppingSaleUnitStockSupplement {
   }
 
   /**
-   * Creation information of the stock.
+   * Creation information of the supplement.
    */
   export interface ICreate {
     /**
@@ -58,4 +58,9 @@ export namespace IShoppingSaleUnitStockSupplement {
      */
     value: number & tags.Type<"uint32">;
   }
+
+  /**
+   * Update information of the supplement.
+   */
+  export type IUpdate = ICreate;
 }

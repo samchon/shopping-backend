@@ -37,6 +37,11 @@ export interface IShoppingSaleContent {
    * List of attached files.
    */
   files: IAttachmentFile[];
+
+  /**
+   * List of thumbnails.
+   */
+  thumbnails: IAttachmentFile[];
 }
 export namespace IShoppingSaleContent {
   export type Type = "html" | "md" | "txt";
@@ -44,6 +49,7 @@ export namespace IShoppingSaleContent {
   export interface IInvert {
     id: string & tags.Format<"uuid">;
     title: string;
+    thumbnails: IAttachmentFile[];
   }
   export type ISummary = IInvert;
 
@@ -52,5 +58,6 @@ export namespace IShoppingSaleContent {
     format: IShoppingSaleContent.Type;
     body: string;
     files: IAttachmentFile.ICreate[];
+    thumbnails: IAttachmentFile.ICreate[];
   }
 }

@@ -4,6 +4,9 @@ import { tags } from "typia";
 
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 
+import { ShoppingChannelCategoryProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelCategoryProvider";
+import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSystematicChannelCategoriesController(
@@ -18,8 +21,9 @@ export function ShoppingSystematicChannelCategoriesController(
       @props.AuthGuard() _actor: unknown,
       @core.TypedParam("channelCode") channelCode: string,
     ): Promise<IShoppingChannelCategory.IHierarchical[]> {
-      channelCode;
-      return null!;
+      return ShoppingChannelCategoryProvider.hierarchical.entire(
+        await ShoppingChannelProvider.get(channelCode),
+      );
     }
 
     @core.TypedRoute.Get(":id")
@@ -28,9 +32,9 @@ export function ShoppingSystematicChannelCategoriesController(
       @core.TypedParam("channelCode") channelCode: string,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingChannelCategory> {
-      channelCode;
-      id;
-      return null!;
+      return ShoppingChannelCategoryProvider.at(
+        await ShoppingChannelProvider.get(channelCode),
+      )(id);
     }
 
     @core.TypedRoute.Get(":id/invert")
@@ -39,9 +43,9 @@ export function ShoppingSystematicChannelCategoriesController(
       @core.TypedParam("channelCode") channelCode: string,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingChannelCategory.IInvert> {
-      channelCode;
-      id;
-      return null!;
+      return ShoppingChannelCategoryProvider.invert(
+        await ShoppingChannelProvider.get(channelCode),
+      )(id);
     }
   }
   return ShoppingSystematicChannelCategoriesController;
