@@ -68,5 +68,5 @@ export const test_api_shopping_sale_supplement = async (
     ?.stocks.find((s) => s.id === stock.id);
   if (stockAgain === undefined)
     throw new Error("Failed to find the matched stock");
-  TestValidator.equals("inventory.income")(500)(stock.inventory.income);
+  TestValidator.equals("inventory.income")(500)(stockAgain.inventory.income);
 };

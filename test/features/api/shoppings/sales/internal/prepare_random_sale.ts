@@ -24,10 +24,10 @@ export const prepare_random_sale = async (
     title: RandomGenerator.paragraph()(),
     body: RandomGenerator.content()()(),
     format: "txt",
-    files: ArrayUtil.repeat(randint(3, 10))(() =>
+    files: ArrayUtil.repeat(randint(0, 3))(() =>
       prepare_random_attachment_file(),
     ),
-    thumbnails: ArrayUtil.repeat(randint(3, 10))(() =>
+    thumbnails: ArrayUtil.repeat(randint(1, 3))(() =>
       prepare_random_attachment_file(),
     ),
   },

@@ -16,12 +16,12 @@ export namespace ShoppingSaleSnapshotContentProvider {
       title: input.title,
       format: input.format as "txt",
       body: input.body,
-      files: input.to_files.map((r) =>
-        AttachmentFileProvider.json.transform(r.file),
-      ),
-      thumbnails: input.to_thumbnails.map((r) =>
-        AttachmentFileProvider.json.transform(r.file),
-      ),
+      files: input.to_files
+        .sort((a, b) => a.sequence - b.sequence)
+        .map((r) => AttachmentFileProvider.json.transform(r.file)),
+      thumbnails: input.to_thumbnails
+        .sort((a, b) => a.sequence - b.sequence)
+        .map((r) => AttachmentFileProvider.json.transform(r.file)),
     });
     export const select = () =>
       ({

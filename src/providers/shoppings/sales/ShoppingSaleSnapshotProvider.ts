@@ -44,9 +44,9 @@ export namespace ShoppingSaleSnapshotProvider {
       return {
         id: input.shopping_sale_id,
         snapshot_id: input.id,
-        channels: await ArrayUtil.asyncMap(input.to_channels)(
-          ShoppingSaleSnapshotChannelProvider.json.transform,
-        ),
+        channels: await ArrayUtil.asyncMap(
+          input.to_channels.sort((a, b) => (a.sequence = b.sequence)),
+        )(ShoppingSaleSnapshotChannelProvider.json.transform),
         units: input.units
           .sort((a, b) => (a.sequence = b.sequence))
           .map(ShoppingSaleSnapshotUnitProvider.summary.transform),
@@ -94,11 +94,11 @@ export namespace ShoppingSaleSnapshotProvider {
       return {
         id: input.shopping_sale_id,
         snapshot_id: input.id,
-        channels: await ArrayUtil.asyncMap(input.to_channels)(
-          ShoppingSaleSnapshotChannelProvider.json.transform,
-        ),
+        channels: await ArrayUtil.asyncMap(
+          input.to_channels.sort((a, b) => (a.sequence = b.sequence)),
+        )(ShoppingSaleSnapshotChannelProvider.json.transform),
         units: input.units
-          .sort((a, b) => (a.sequence = b.sequence))
+          .sort((a, b) => a.sequence - b.sequence)
           .map(ShoppingSaleSnapshotUnitProvider.json.transform),
         content: ShoppingSaleSnapshotContentProvider.json.transform(
           input.content,

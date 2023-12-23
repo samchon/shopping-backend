@@ -1,6 +1,8 @@
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
+import { ShoppingSaleDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/sales/ShoppingSaleDiagnoser";
+import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -124,7 +126,7 @@ export namespace ShoppingSaleProvider {
         transform: summary.transform,
       })({
         where: {
-          AND: [...where(actor), ...(await search(actor)(input.search))],
+          AND: [...where(actor, true), ...(await search(actor)(input.search))],
         },
         orderBy: input.sort?.length
           ? PaginationUtil.orderBy(orderBy(actor))(input.sort)
@@ -132,20 +134,31 @@ export namespace ShoppingSaleProvider {
       })(input);
 
   export const at =
-    (actor: IShoppingActorEntity) =>
+    (
+      actor: IShoppingActorEntity,
+      strict: boolean = actor.type === "customer" ? true : false,
+    ) =>
     async (id: string): Promise<IShoppingSale> => {
       const record =
         await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
           where: {
             id,
-            AND: where(actor),
+            AND: where(actor, false),
           },
           ...json.select(),
         });
-      return json.transform(record);
+      const sale: IShoppingSale = await json.transform(record);
+      if (actor.type === "customer" && strict === true) {
+        const diagnoses: IDiagnosis[] = ShoppingSaleDiagnoser.readable({
+          accessor: "id",
+          checkPause: false,
+        })(sale);
+        if (diagnoses.length) throw ErrorProvider.unprocessable(diagnoses);
+      }
+      return sale;
     };
 
-  const where = (actor: IShoppingActorEntity) =>
+  const where = (actor: IShoppingActorEntity, strict: boolean) =>
     (actor.type === "seller"
       ? [
           {
@@ -156,7 +169,7 @@ export namespace ShoppingSaleProvider {
             },
           },
         ]
-      : actor.type === "customer"
+      : actor.type === "customer" && strict === true
       ? [
           {
             opened_at: { lte: new Date() },
@@ -372,6 +385,12 @@ export namespace ShoppingSaleProvider {
           suspended_at: null,
         },
       });
+    };
+
+  export const replica =
+    (seller: IShoppingSeller.IInvert) => async (id: string) => {
+      const sale: IShoppingSale = await at(seller)(id);
+      return ShoppingSaleDiagnoser.replica(sale);
     };
 
   const ownership = (seller: IShoppingSeller.IInvert) => async (id: string) => {
