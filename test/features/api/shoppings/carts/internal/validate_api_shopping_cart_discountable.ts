@@ -32,9 +32,8 @@ export const validate_api_shopping_cart_discountable =
     // PRELIMINIARIES
     //----
     // ACTORS
-    const customer: IShoppingCustomer = await test_api_shopping_actor_customer_create(
-      pool,
-    );
+    const customer: IShoppingCustomer =
+      await test_api_shopping_actor_customer_create(pool);
     await test_api_shopping_actor_admin_login(pool);
     await test_api_shopping_actor_seller_join(pool);
 
@@ -66,9 +65,8 @@ export const validate_api_shopping_cart_discountable =
     // GENERATE COUPONS
     //----
     const dummySection: IShoppingSection = await generate_random_section(pool);
-    const dummySeller: IShoppingSeller = await test_api_shopping_actor_seller_join(
-      pool,
-    );
+    const dummySeller: IShoppingSeller =
+      await test_api_shopping_actor_seller_join(pool);
     const generator =
       (exclusive: boolean) =>
       async (

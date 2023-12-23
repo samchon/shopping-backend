@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
+import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSystematicChannelsController<
@@ -18,8 +20,7 @@ export function ShoppingSystematicChannelsController<
       @props.AuthGuard() _actor: Actor,
       @core.TypedBody() input: IShoppingChannel.IRequest,
     ): Promise<IPage<IShoppingChannel>> {
-      input;
-      return null!;
+      return ShoppingChannelProvider.index(input);
     }
 
     @core.TypedRoute.Patch("hierarchical")
@@ -27,8 +28,7 @@ export function ShoppingSystematicChannelsController<
       @props.AuthGuard() _actor: unknown,
       @core.TypedBody() input: IShoppingChannel.IRequest,
     ): Promise<IPage<IShoppingChannel.IHierarchical>> {
-      input;
-      return null!;
+      return ShoppingChannelProvider.hierarchical(input);
     }
 
     @core.TypedRoute.Get(":id")
@@ -36,8 +36,7 @@ export function ShoppingSystematicChannelsController<
       @props.AuthGuard() _actor: Actor,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingChannel> {
-      id;
-      return null!;
+      return ShoppingChannelProvider.at(id);
     }
 
     @core.TypedRoute.Get(":code/get")
@@ -45,8 +44,7 @@ export function ShoppingSystematicChannelsController<
       @props.AuthGuard() _actor: Actor,
       @core.TypedParam("code") code: string,
     ): Promise<IShoppingChannel> {
-      code;
-      return null!;
+      return ShoppingChannelProvider.get(code);
     }
   }
   return ShoppingSystematicChannelsController;

@@ -10,6 +10,7 @@ import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
 import { TestGlobal } from "../../../../../TestGlobal";
+import { prepare_random_attachment_file } from "../../../common/internal/prepare_random_attachment_file";
 import { prepare_random_sale_unit } from "./prepare_random_sale_unit";
 
 export const prepare_random_sale = async (
@@ -54,7 +55,3 @@ const channels = async (
     category_ids: [RandomGenerator.pick(page.data[0].categories).id],
   }));
 };
-
-function prepare_random_attachment_file(): any {
-  throw new Error("Function not implemented.");
-}

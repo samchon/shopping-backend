@@ -139,9 +139,7 @@ export namespace IShoppingSale {
       | "sale.closed_at"
       | "sale.content.title"
       | "sale.price_range.lowest.real"
-      | "sale.price_range.highest.real"
-      | "sale.price_range.lowest.discount_ratio"
-      | "sale.price_range.highest.discount_ratio";
+      | "sale.price_range.highest.real";
   }
 
   /**
@@ -198,4 +196,21 @@ export namespace IShoppingSale {
    * Update information of sale.
    */
   export type IUpdate = IShoppingSaleSnapshot.ICreate;
+
+  /**
+   * Update opening time information of sale.
+   */
+  export interface IUpdateOpeningTime {
+    /**
+     * Opening time of the sale.
+     */
+    opened_at: null | (string & tags.Format<"date-time">);
+
+    /**
+     * Closing time of the sale.
+     *
+     * If this value is `null`, the sale be continued forever.
+     */
+    closed_at: null | (string & tags.Format<"date-time">);
+  }
 }

@@ -38,6 +38,11 @@ export namespace EntityMergeProvider {
         throw new NotFoundException("Unable to find matched record(s).");
 
       // DO MERGE
-      await EntityUtil.merge(ShoppingGlobal.prisma)(table)(input);
+      try {
+        await EntityUtil.merge(ShoppingGlobal.prisma)(table)(input);
+      } catch (exp) {
+        console.log(exp);
+        throw exp;
+      }
     };
 }

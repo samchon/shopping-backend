@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -7,7 +8,6 @@ import { IShoppingSaleUnitStockSupplement } from "@samchon/shopping-api/lib/stru
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
-import { Prisma } from "@prisma/client";
 
 export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
   export namespace json {
@@ -20,7 +20,8 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
       value: input.quantity,
       created_at: input.created_at.toISOString(),
     });
-    export const select = () => ({} satisfies Prisma.shopping_sale_snapshot_unit_stock_supplementsFindManyArgs);
+    export const select = () =>
+      ({} satisfies Prisma.shopping_sale_snapshot_unit_stock_supplementsFindManyArgs);
   }
 
   export const index =
@@ -32,7 +33,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
       PaginationUtil.paginate({
         schema:
           ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements,
-        payload: json.select,
+        payload: json.select(),
         transform: json.transform,
       })({
         where: {
@@ -120,27 +121,29 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
       return json.transform(record);
     };
 
-  export const update = 
+  export const update =
     (seller: IShoppingSeller.IInvert) =>
     (related: { sale: IEntity; unit: IEntity; stock: IEntity }) =>
     (id: string) =>
     async (input: IShoppingSaleUnitStockSupplement.IUpdate): Promise<void> => {
-      const supplement = 
-        await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.findFirstOrThrow({
-          where: {
-            id,
-            stock: {
-              id: related.stock.id,
-              unit: {
-                id: related.unit.id,
-                snapshot: {
-                  mv_last: { isNot: null },
-                  sale: {
-                    id: related.sale.id,
-                    sellerCustomer: {
-                      member: {
-                        of_seller: {
-                          id: seller.id,
+      const supplement =
+        await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.findFirstOrThrow(
+          {
+            where: {
+              id,
+              stock: {
+                id: related.stock.id,
+                unit: {
+                  id: related.unit.id,
+                  snapshot: {
+                    mv_last: { isNot: null },
+                    sale: {
+                      id: related.sale.id,
+                      sellerCustomer: {
+                        member: {
+                          of_seller: {
+                            id: seller.id,
+                          },
                         },
                       },
                     },
@@ -149,47 +152,53 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
               },
             },
           },
-        });
-      await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.update({
-        where: {
-          id,
+        );
+      await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.update(
+        {
+          where: {
+            id,
+          },
+          data: {
+            quantity: input.value,
+          },
         },
-        data: {
-          quantity: input.value
-        }
-      });
-      await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update({
-        where: {
-          shopping_sale_snapshot_unit_stock_id: related.stock.id
+      );
+      await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
+        {
+          where: {
+            shopping_sale_snapshot_unit_stock_id: related.stock.id,
+          },
+          data: {
+            income: {
+              increment: input.value - supplement.quantity,
+            },
+          },
         },
-        data: {
-          income: {
-            increment: input.value - supplement.quantity
-          }
-        }
-      });
-    }
+      );
+    };
 
-  export const erase = 
+  export const erase =
     (seller: IShoppingSeller.IInvert) =>
     (related: { sale: IEntity; unit: IEntity; stock: IEntity }) =>
     async (id: string): Promise<void> => {
-      const supplement = 
-        await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.findFirstOrThrow({
-          where: {
-            id,
-            stock: {
-              id: related.stock.id,
-              unit: {
-                id: related.unit.id,
-                snapshot: {
-                  mv_last: { isNot: null },
-                  sale: {
-                    id: related.sale.id,
-                    sellerCustomer: {
-                      member: {
-                        of_seller: {
-                          id: seller.id,
+      const supplement =
+        await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.findFirstOrThrow(
+          {
+            where: {
+              id,
+              stock: {
+                id: related.stock.id,
+                unit: {
+                  id: related.unit.id,
+                  snapshot: {
+                    mv_last: { isNot: null },
+                    sale: {
+                      id: related.sale.id,
+                      sellerCustomer: {
+                        member: {
+                          of_seller: {
+                            id: seller.id,
+                          },
                         },
                       },
                     },
@@ -198,21 +207,25 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
               },
             },
           },
-        });
-      await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.delete({
-        where: {
-          id,
-        }
-      });
-      await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update({
-        where: {
-          shopping_sale_snapshot_unit_stock_id: related.stock.id
+        );
+      await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.delete(
+        {
+          where: {
+            id,
+          },
         },
-        data: {
-          income: {
-            decrement: supplement.quantity
-          }
-        }
-      });
-    }
+      );
+      await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
+        {
+          where: {
+            shopping_sale_snapshot_unit_stock_id: related.stock.id,
+          },
+          data: {
+            income: {
+              decrement: supplement.quantity,
+            },
+          },
+        },
+      );
+    };
 }

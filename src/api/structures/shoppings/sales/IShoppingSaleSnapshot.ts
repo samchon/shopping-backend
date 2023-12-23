@@ -73,11 +73,16 @@ export namespace IShoppingSaleSnapshot {
     seller: IShoppingSeller.IInvert;
   }
 
+  
+
   /**
    * Summarized information of the sale snapshot.
    */
   export interface ISummary
     extends IBase<IShoppingSaleContent.ISummary, IShoppingSaleUnit.ISummary> {
+    /**
+     * Price range of the unit.
+     */
     price_range: IShoppingSalePriceRange;
   }
 

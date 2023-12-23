@@ -18,9 +18,8 @@ import { validate_api_shopping_sale_inquiry_answer_update } from "./internal/val
 export const test_api_shopping_sale_review_answer_update = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
   const commodity: IShoppingCartCommodity =

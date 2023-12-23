@@ -22,9 +22,8 @@ import { generate_random_order_publish } from "./internal/generate_random_order_
 export const test_api_shopping_order_index_of_seller = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
   const groups: IGroup[] = await ArrayUtil.asyncRepeat(REPEAT)(async () => {
     const seller = await test_api_shopping_actor_seller_join(pool);
     const sale = await generate_random_sale(pool);

@@ -13,7 +13,9 @@ export const test_api_shopping_actor_customer_password_change = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // MEMBERSHIP JOINING
-  const joined: IShoppingCustomer = await test_api_shopping_actor_customer_join(pool);
+  const joined: IShoppingCustomer = await test_api_shopping_actor_customer_join(
+    pool,
+  );
   const login = async (password: string) => {
     await test_api_shopping_actor_customer_create(pool);
     const authorized: IShoppingCustomer =

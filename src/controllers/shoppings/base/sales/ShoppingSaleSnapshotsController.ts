@@ -7,6 +7,8 @@ import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
 
+import { ShoppingSaleSnapshotProvider } from "../../../../providers/shoppings/sales/ShoppingSaleSnapshotProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSaleSnapshotsController<
@@ -20,10 +22,7 @@ export function ShoppingSaleSnapshotsController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedBody() input: IPage.IRequest,
     ): Promise<IPage<IShoppingSaleSnapshot.ISummary>> {
-      actor;
-      saleId;
-      input;
-      return null!;
+      return ShoppingSaleSnapshotProvider.index(actor)({ id: saleId })(input);
     }
 
     @core.TypedRoute.Get(":id")
@@ -32,10 +31,7 @@ export function ShoppingSaleSnapshotsController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSaleSnapshot> {
-      actor;
-      saleId;
-      id;
-      return null!;
+      return ShoppingSaleSnapshotProvider.at(actor)({ id: saleId })(id);
     }
 
     @core.TypedRoute.Get(":id/flip")
@@ -44,10 +40,7 @@ export function ShoppingSaleSnapshotsController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSale> {
-      actor;
-      saleId;
-      id;
-      return null!;
+      return ShoppingSaleSnapshotProvider.flip(actor)({ id: saleId })(id);
     }
   }
   return ShoppingSaleSnapshotsController;

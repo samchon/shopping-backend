@@ -33,9 +33,8 @@ export const test_api_shopping_order_publish_of_zero = async (
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
 
   // CREATE SALE TO ORDER
   const sale: IShoppingSale = await generate_random_sole_sale(pool, {

@@ -118,18 +118,6 @@ export const test_api_shopping_sale_index_sort = async (
     validator("sale.price_range.highest.real")(
       GaffComparator.numbers((x) => x.price_range.highest.real),
     ),
-    validator("sale.price_range.lowest.discount_ratio")(
-      GaffComparator.numbers((x) => {
-        const { nominal, real } = x.price_range.lowest;
-        return (nominal - real) / nominal;
-      }),
-    ),
-    validator("sale.price_range.highest.discount_ratio")(
-      GaffComparator.numbers((x) => {
-        const { nominal, real } = x.price_range.highest;
-        return (nominal - real) / nominal;
-      }),
-    ),
   ];
   for (const comp of components) {
     await comp("+");

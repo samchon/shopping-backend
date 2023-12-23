@@ -1325,7 +1325,7 @@ model shopping_sale_snapshots {
     shopping_sale_snapshot_inquiries shopping_sale_snapshot_inquiries[]
 
     mv_last                 mv_shopping_sale_last_snapshots?
-    mv_price                mv_shopping_sale_snapshot_prices?
+    mv_price_range          mv_shopping_sale_snapshot_prices?
     shopping_sale_favorites shopping_sale_favorites[]
 
     @@index([shopping_sale_id, created_at])
@@ -1606,6 +1606,7 @@ model shopping_sale_snapshot_units {
     /// List of stocks.
     stocks                         shopping_sale_snapshot_unit_stocks[]
     shopping_cart_commodity_stocks shopping_cart_commodity_stocks[]
+    mv_price_range                 mv_shopping_sale_snapshot_unit_prices?
 
     @@unique([shopping_sale_snapshot_id, name])
 }
@@ -3417,8 +3418,8 @@ model shopping_deposit_histories {
     //----
     // RELATIONS
     //----
-    deposit shopping_deposits @relation(fields: [shopping_deposit_id], references: [id])
-    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+    deposit shopping_deposits @relation(fields: [shopping_deposit_id], references: [id], onDelete: Cascade)
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_deposit_id, created_at, cancelled_at])
     @@index([shopping_deposit_id, source_id, created_at, cancelled_at])
@@ -3469,7 +3470,7 @@ model shopping_deposit_charges {
     //----
     // RELATIONS
     //----
-    customer shopping_customers                 @relation(fields: [shopping_customer_id], references: [id])
+    customer shopping_customers                 @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
     publish  shopping_deposit_charge_publishes?
 
     @@index([shopping_customer_id, created_at, deleted_at])
@@ -3530,7 +3531,7 @@ model shopping_deposit_charge_publishes {
     //----
     // RELATIONS
     //----
-    charge shopping_deposit_charges @relation(fields: [shopping_deposit_charge_id], references: [id])
+    charge shopping_deposit_charges @relation(fields: [shopping_deposit_charge_id], references: [id], onDelete: Cascade)
 
     @@unique([shopping_deposit_charge_id])
 }
@@ -3645,8 +3646,8 @@ model shopping_mileage_histories {
     //----
     // RELATIONS
     //----
-    mileage shopping_mileages @relation(fields: [shopping_mileage_id], references: [id])
-    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+    mileage shopping_mileages @relation(fields: [shopping_mileage_id], references: [id], onDelete: Cascade)
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_mileage_id, created_at, cancelled_at])
     @@index([shopping_mileage_id, source_id, created_at, cancelled_at])
@@ -3984,9 +3985,9 @@ model shopping_sale_favorites {
     //----
     // RELATIONS
     //----
-    customer shopping_customers      @relation(fields: [shopping_customer_id], references: [id])
-    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id])
-    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id])
+    customer shopping_customers      @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
+    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_customer_id])
     @@index([shopping_sale_id])
@@ -4034,13 +4035,13 @@ model shopping_sale_snapshot_inquiry_favorites {
     // RELATIONS
     //----
     /// Belonged customer.
-    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id])
+    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
 
     /// Belonged inquiry.
-    inquiry shopping_sale_snapshot_inquiries @relation(fields: [shopping_sale_snapshot_inquiry_id], references: [id])
+    inquiry shopping_sale_snapshot_inquiries @relation(fields: [shopping_sale_snapshot_inquiry_id], references: [id], onDelete: Cascade)
 
     /// Belonged snapshot.
-    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id])
+    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_customer_id])
     @@index([shopping_sale_snapshot_inquiry_id])
@@ -4084,8 +4085,8 @@ model shopping_address_favorites {
     //----
     // RELATIONS
     //----
-    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id])
-    address  shopping_addresses @relation(fields: [shopping_address_id], references: [id])
+    customer shopping_customers @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
+    address  shopping_addresses @relation(fields: [shopping_address_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_customer_id])
     @@index([shopping_address_id])
@@ -4110,8 +4111,8 @@ model mv_bbs_article_last_snapshots {
     bbs_article_id          String @id @db.Uuid
     bbs_article_snapshot_id String @db.Uuid
 
-    article  bbs_articles          @relation(fields: [bbs_article_id], references: [id])
-    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id])
+    article  bbs_articles          @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
+    snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
 
     @@unique([bbs_article_snapshot_id])
 }
@@ -4121,8 +4122,8 @@ model mv_shopping_sale_last_snapshots {
     shopping_sale_id          String @id @db.Uuid
     shopping_sale_snapshot_id String @db.Uuid
 
-    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id])
-    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id])
+    sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
 
     @@unique([shopping_sale_snapshot_id])
 }
@@ -4130,17 +4131,25 @@ model mv_shopping_sale_last_snapshots {
 /// @hidden
 model mv_shopping_sale_snapshot_prices {
     shopping_sale_snapshot_id String @id @db.Uuid
-    nominal_representative    Float  @db.DoublePrecision
     nominal_lowest            Float  @db.DoublePrecision
     nominal_highest           Float  @db.DoublePrecision
-    real_representative       Float  @db.DoublePrecision
     real_lowest               Float  @db.DoublePrecision
     real_highest              Float  @db.DoublePrecision
 
-    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id])
+    snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
 
-    @@index([real_representative])
     @@index([real_lowest, real_highest])
+}
+
+/// @hidden
+model mv_shopping_sale_snapshot_unit_prices {
+    shopping_sale_snapshot_unit_id String @id @db.Uuid
+    nominal_lowest                 Float  @db.DoublePrecision
+    nominal_highest                Float  @db.DoublePrecision
+    real_lowest                    Float  @db.DoublePrecision
+    real_highest                   Float  @db.DoublePrecision
+
+    unit shopping_sale_snapshot_units @relation(fields: [shopping_sale_snapshot_unit_id], references: [id], onDelete: Cascade)
 }
 
 /// @hidden
@@ -4149,7 +4158,7 @@ model mv_shopping_sale_snapshot_unit_stock_inventories {
     income                               Int    @db.Integer
     outcome                              Int    @db.Integer
 
-    stock shopping_sale_snapshot_unit_stocks @relation(fields: [shopping_sale_snapshot_unit_stock_id], references: [id])
+    stock shopping_sale_snapshot_unit_stocks @relation(fields: [shopping_sale_snapshot_unit_stock_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_sale_snapshot_unit_stock_id])
 }
@@ -4160,7 +4169,7 @@ model mv_shopping_cart_commodity_prices {
     nominal                    Float  @db.DoublePrecision
     real                       Float  @db.DoublePrecision
 
-    commodity shopping_cart_commodities @relation(fields: [shopping_cart_commodity_id], references: [id])
+    commodity shopping_cart_commodities @relation(fields: [shopping_cart_commodity_id], references: [id], onDelete: Cascade)
 }
 
 /// @hidden
@@ -4173,7 +4182,7 @@ model mv_shopping_order_good_prices {
     mileage                Float  @db.DoublePrecision
     ticket                 Float  @db.DoublePrecision
 
-    good shopping_order_goods @relation(fields: [shopping_order_good_id], references: [id])
+    good shopping_order_goods @relation(fields: [shopping_order_good_id], references: [id], onDelete: Cascade)
 }
 
 /// @hidden
@@ -4186,7 +4195,7 @@ model mv_shopping_order_prices {
     mileage           Float  @db.DoublePrecision
     ticket            Float  @db.DoublePrecision
 
-    order shopping_orders @relation(fields: [shopping_order_id], references: [id])
+    order shopping_orders @relation(fields: [shopping_order_id], references: [id], onDelete: Cascade)
 }
 
 /// @hidden
@@ -4194,7 +4203,7 @@ model mv_shopping_coupon_inventories {
     shopping_coupon_id String @id @db.Uuid
     value              Int    @db.Integer
 
-    coupon shopping_coupons @relation(fields: [shopping_coupon_id], references: [id])
+    coupon shopping_coupons @relation(fields: [shopping_coupon_id], references: [id], onDelete: Cascade)
 }
 
 /// @hidden
@@ -4204,8 +4213,8 @@ model mv_shopping_coupon_citizen_inventories {
     shopping_coupon_id  String @db.Uuid
     value               Int    @db.Integer
 
-    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
-    coupon  shopping_coupons  @relation(fields: [shopping_coupon_id], references: [id])
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
+    coupon  shopping_coupons  @relation(fields: [shopping_coupon_id], references: [id], onDelete: Cascade)
 
     @@unique([shopping_citizen_id, shopping_coupon_id])
     @@index([shopping_coupon_id])
@@ -4216,7 +4225,7 @@ model mv_shopping_deposit_balances {
     shopping_citizen_id String @id @db.Uuid
     value               Float  @db.DoublePrecision
 
-    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
 }
 
 /// @hidden
@@ -4224,5 +4233,5 @@ model mv_shopping_mileage_balances {
     shopping_citizen_id String @id @db.Uuid
     value               Float  @db.DoublePrecision
 
-    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id])
+    citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
 }

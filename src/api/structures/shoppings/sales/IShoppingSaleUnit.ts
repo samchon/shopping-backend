@@ -1,5 +1,6 @@
 import { tags } from "typia";
 
+import { IShoppingSalePriceRange } from "./IShoppingSalePriceRange";
 import { IShoppingSaleUnitOption } from "./IShoppingSaleUnitOption";
 import { IShoppingSaleUnitStock } from "./IShoppingSaleUnitStock";
 
@@ -32,7 +33,7 @@ import { IShoppingSaleUnitStock } from "./IShoppingSaleUnitStock";
  *
  * @author Samchon
  */
-export interface IShoppingSaleUnit extends IShoppingSaleUnit.ISummary {
+export interface IShoppingSaleUnit extends IShoppingSaleUnit.IBase {
   /**
    * List of options.
    */
@@ -44,13 +45,18 @@ export interface IShoppingSaleUnit extends IShoppingSaleUnit.ISummary {
   stocks: IShoppingSaleUnitStock[] & tags.MinItems<1>;
 }
 export namespace IShoppingSaleUnit {
-  export interface IInvert extends ISummary {
+  export interface IInvert extends IBase {
     /**
      * List of final stocks.
      */
     stocks: IShoppingSaleUnitStock.IInvert[] & tags.MinItems<1>;
   }
-  export interface ISummary {
+
+  export interface ISummary extends IBase {
+    price_range: IShoppingSalePriceRange;
+  }
+
+  export interface IBase {
     /**
      * Primary Key.
      */
@@ -84,7 +90,7 @@ export namespace IShoppingSaleUnit {
   /**
    * Creation information of sale unit.
    */
-  export interface ICreate extends Omit<ISummary, "id"> {
+  export interface ICreate extends Omit<IBase, "id"> {
     /**
      * List of options.
      */

@@ -20,9 +20,7 @@ export function ShoppingSalesController<Actor extends IShoppingActorEntity>(
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingSale.IRequest,
     ): Promise<IPage<IShoppingSale.ISummary>> {
-      actor;
-      input;
-      return null!;
+      return ShoppingSaleProvider.index(actor)(input);
     }
 
     @core.TypedRoute.Get(":id")

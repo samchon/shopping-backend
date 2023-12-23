@@ -30,6 +30,15 @@ export class ShoppingSellerSalesController extends ShoppingSalesController({
     return ShoppingSaleProvider.update(seller)(id)(input);
   }
 
+  @core.TypedRoute.Put(":id/open")
+  public async open(
+    @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedBody() input: IShoppingSale.IUpdateOpeningTime,
+  ): Promise<void> {
+    return ShoppingSaleProvider.updateOpeningTime(seller)(id)(input);
+  }
+
   @core.TypedRoute.Post(":id/replica")
   public async replica(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,

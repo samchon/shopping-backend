@@ -22,9 +22,8 @@ import { prepare_random_sale_unit } from "../sales/internal/prepare_random_sale_
 export const test_api_shopping_delivery_incompletes = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
   const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(REPEAT)(

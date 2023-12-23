@@ -23,12 +23,10 @@ export const test_api_shopping_sale_review_comment_index_sort = async (
 ): Promise<void> => {
   const admin: IShoppingAdministrator.IInvert =
     await test_api_shopping_actor_admin_login(pool);
-  const customer: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
-  const seller: IShoppingSeller.IInvert = await test_api_shopping_actor_seller_join(
-    pool,
-  );
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
+  const seller: IShoppingSeller.IInvert =
+    await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
   const commodity: IShoppingCartCommodity =

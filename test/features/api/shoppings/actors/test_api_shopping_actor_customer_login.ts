@@ -12,7 +12,9 @@ import { test_api_shopping_actor_customer_join } from "./test_api_shopping_actor
 export const test_api_shopping_actor_customer_login = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const joined: IShoppingCustomer = await test_api_shopping_actor_customer_join(pool);
+  const joined: IShoppingCustomer = await test_api_shopping_actor_customer_join(
+    pool,
+  );
   const guest: IShoppingCustomer.IAuthorized =
     await test_api_shopping_actor_customer_create(pool);
   TestValidator.equals("guest.member")(guest.member)(null);

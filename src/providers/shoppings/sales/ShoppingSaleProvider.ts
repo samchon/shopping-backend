@@ -1,24 +1,63 @@
 import { Prisma } from "@prisma/client";
+import { v4 } from "uuid";
+
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
+import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
+import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
+import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
+import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
+
+import { ShoppingGlobal } from "../../../ShoppingGlobal";
+import { ErrorProvider } from "../../../utils/ErrorProvider";
+import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingSellerProvider } from "../actors/ShoppingSellerProvider";
 import { ShoppingSectionProvider } from "../systematic/ShoppingSectionProvider";
 import { ShoppingSaleSnapshotProvider } from "./ShoppingSaleSnapshotProvider";
-import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
-import { ErrorProvider } from "../../../utils/ErrorProvider";
-import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
-import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
-import { ShoppingGlobal } from "../../../ShoppingGlobal";
-import { v4 } from "uuid";
-import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 
 export namespace ShoppingSaleProvider {
   /* -----------------------------------------------------------
     TRANSFORMERS
   ----------------------------------------------------------- */
+  export namespace summary {
+    export const transform = async (
+      input: Prisma.shopping_salesGetPayload<ReturnType<typeof select>>,
+    ): Promise<IShoppingSale.ISummary> => {
+      const snapshot = input.mv_last?.snapshot;
+      if (!snapshot) throw ErrorProvider.internal("No snapshot found.");
+      return {
+        section: ShoppingSectionProvider.json.transform(input.section),
+        seller: ShoppingSellerProvider.invert.transform(() =>
+          ErrorProvider.internal(`The sale has not been registered by seller.`),
+        )(input.sellerCustomer),
+        created_at: input.created_at.toISOString(),
+        updated_at: snapshot.created_at.toISOString(),
+        paused_at: input.paused_at?.toISOString() ?? null,
+        suspended_at: input.suspended_at?.toISOString() ?? null,
+        opened_at: input.opened_at?.toISOString() ?? null,
+        closed_at: input.closed_at?.toISOString() ?? null,
+        latest: true,
+        ...(await ShoppingSaleSnapshotProvider.summary.transform(snapshot)),
+      };
+    };
+    export const select = () =>
+      ({
+        include: {
+          section: ShoppingSectionProvider.json.select(),
+          sellerCustomer: ShoppingSellerProvider.invert.select(),
+          mv_last: {
+            include: {
+              snapshot: ShoppingSaleSnapshotProvider.summary.select(),
+            },
+          },
+        },
+      } satisfies Prisma.shopping_salesFindManyArgs);
+  }
+
   export namespace json {
     export const transform = async (
       input: Prisma.shopping_salesGetPayload<
         ReturnType<typeof ShoppingSaleProvider.json.select>
-      >
+      >,
     ): Promise<IShoppingSale> => {
       const snapshot = input.mv_last?.snapshot;
       if (!snapshot) throw ErrorProvider.internal("No snapshot found.");
@@ -34,71 +73,205 @@ export namespace ShoppingSaleProvider {
         opened_at: input.opened_at?.toISOString() ?? null,
         closed_at: input.closed_at?.toISOString() ?? null,
         latest: true,
-        ...await ShoppingSaleSnapshotProvider.json.transform(snapshot),
+        ...(await ShoppingSaleSnapshotProvider.json.transform(snapshot)),
       };
     };
-    export const select = () => ({
-      include: {
-        sellerCustomer: ShoppingSellerProvider.invert.select(),
-        section: ShoppingSectionProvider.json.select(),
-        mv_last: {
-          include: {
-            snapshot: ShoppingSaleSnapshotProvider.json.select(),
-          }
-        }
-      },
-    } satisfies Prisma.shopping_salesFindManyArgs)
+    export const select = () =>
+      ({
+        include: {
+          section: ShoppingSectionProvider.json.select(),
+          sellerCustomer: ShoppingSellerProvider.invert.select(),
+          mv_last: {
+            include: {
+              snapshot: ShoppingSaleSnapshotProvider.json.select(),
+            },
+          },
+        },
+      } satisfies Prisma.shopping_salesFindManyArgs);
+  }
+
+  export namespace history {
+    export const transform = (
+      input: Prisma.shopping_salesGetPayload<ReturnType<typeof select>>,
+    ): Omit<IShoppingSale, keyof IShoppingSaleSnapshot | "updated_at"> => ({
+      section: ShoppingSectionProvider.json.transform(input.section),
+      seller: ShoppingSellerProvider.invert.transform(() =>
+        ErrorProvider.internal("The sale has not been registered by seller."),
+      )(input.sellerCustomer),
+      created_at: input.created_at.toISOString(),
+      paused_at: input.paused_at?.toISOString() ?? null,
+      suspended_at: input.suspended_at?.toISOString() ?? null,
+      opened_at: input.opened_at?.toISOString() ?? null,
+      closed_at: input.closed_at?.toISOString() ?? null,
+    });
+    export const select = () =>
+      ({
+        include: {
+          section: ShoppingSectionProvider.json.select(),
+          sellerCustomer: ShoppingSellerProvider.invert.select(),
+        },
+      } satisfies Prisma.shopping_salesFindManyArgs);
   }
 
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const at = 
-    (actor: IShoppingActorEntity) => 
-    async (id: string): Promise<IShoppingSale> => {
-      const record = await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
+  export const index =
+    (actor: IShoppingActorEntity) => async (input: IShoppingSale.IRequest) =>
+      PaginationUtil.paginate({
+        schema: ShoppingGlobal.prisma.shopping_sales,
+        payload: summary.select(),
+        transform: summary.transform,
+      })({
         where: {
-          id,
-          AND: where(actor),
+          AND: [...where(actor), ...(await search(actor)(input.search))],
         },
-        ...json.select(),
-      });
+        orderBy: input.sort?.length
+          ? PaginationUtil.orderBy(orderBy(actor))(input.sort)
+          : [{ created_at: "desc" }],
+      })(input);
+
+  export const at =
+    (actor: IShoppingActorEntity) =>
+    async (id: string): Promise<IShoppingSale> => {
+      const record =
+        await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
+          where: {
+            id,
+            AND: where(actor),
+          },
+          ...json.select(),
+        });
       return json.transform(record);
     };
 
-  const where = (actor: IShoppingActorEntity) => (
-    actor.type === 'seller'
-      ? [{
-        sellerCustomer: {
-          member: {
-            of_seller: { id: actor.id },
-          },
-        },
-      }] : 
-      actor.type === 'customer'
+  const where = (actor: IShoppingActorEntity) =>
+    (actor.type === "seller"
       ? [
-        {
-          opened_at: { lte: new Date() },
-          suspended_at: null,
-          OR: [
-            { closed_at: null },
-            {
-              closed_at: { gt: new Date() },
+          {
+            sellerCustomer: {
+              member: {
+                of_seller: { id: actor.id },
+              },
             },
-          ],
-        },
-      ]
-      :
-      []
-  ) satisfies Prisma.shopping_salesWhereInput["AND"];
-    
+          },
+        ]
+      : actor.type === "customer"
+      ? [
+          {
+            opened_at: { lte: new Date() },
+            suspended_at: null,
+            OR: [
+              { closed_at: null },
+              {
+                closed_at: { gt: new Date() },
+              },
+            ],
+          },
+        ]
+      : []) satisfies Prisma.shopping_salesWhereInput["AND"];
+
+  const search =
+    (actor: IShoppingActorEntity) =>
+    async (input: IShoppingSale.IRequest.ISearch | undefined) =>
+      [
+        // SALE
+        ...(input?.seller !== undefined
+          ? ShoppingSellerProvider.searchFromCustomer(input.seller).map(
+              (sellerCustomer) => ({ sellerCustomer }),
+            )
+          : []),
+        ...(input?.section_codes?.length
+          ? [{ section: { code: { in: input.section_codes } } }]
+          : []),
+        // STATUS
+        ...(input?.show_paused === false ? [{ paused_at: { not: null } }] : []),
+        ...(input?.show_suspended !== undefined
+          ? input.show_suspended === false
+            ? [{ suspended_at: null }]
+            : []
+          : actor.type === "customer"
+          ? [{ suspended_at: null }]
+          : []),
+        // TO THE SNAPSHOT
+        ...(
+          await ShoppingSaleSnapshotProvider.search("input.search")(input)
+        ).map((snapshot) => ({
+          mv_last: {
+            [actor.type === "customer" ? "approved" : "last"]: snapshot,
+          },
+        })),
+        // @todo - AGGREGATES
+      ] satisfies Prisma.shopping_salesWhereInput["AND"];
+
+  const orderBy =
+    (actor: IShoppingActorEntity) =>
+    (key: IShoppingSale.IRequest.SortableColumns, direction: "asc" | "desc") =>
+      (key === "sale.created_at"
+        ? { created_at: direction }
+        : key === "sale.updated_at"
+        ? {
+            mv_last: {
+              snapshot: {
+                created_at: direction,
+              },
+            },
+          }
+        : key === "sale.opened_at"
+        ? { opened_at: direction }
+        : key === "sale.closed_at"
+        ? { closed_at: direction }
+        : key === "sale.content.title"
+        ? {
+            mv_last: {
+              [actor.type === "customer" ? "approved" : "last"]: {
+                content: { title: direction },
+              },
+            },
+          }
+        : key === "sale.price_range.lowest.real"
+        ? {
+            mv_last: {
+              snapshot: {
+                mv_price_range: {
+                  real_lowest: direction,
+                },
+              },
+            },
+          }
+        : key === "sale.price_range.highest.real"
+        ? {
+            mv_last: {
+              snapshot: {
+                mv_price_range: {
+                  real_highest: direction,
+                },
+              },
+            },
+          }
+        : key === "goods.publish_count" ||
+          key === "goods.payments.real" ||
+          key === "reviews.average" ||
+          key === "reviews.count" ||
+          key === "seller.reviews.average"
+        ? { created_at: direction } // @todo
+        : {
+            sellerCustomer: {
+              member: {
+                of_seller: ShoppingSellerProvider.orderBy(key, direction),
+              },
+            },
+          }) satisfies Prisma.shopping_salesOrderByWithRelationInput;
+
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create = 
+  export const create =
     (seller: IShoppingSeller.IInvert) =>
     async (input: IShoppingSale.ICreate): Promise<IShoppingSale> => {
-      const section: IShoppingSection = await ShoppingSectionProvider.get(input.section_code);
+      const section: IShoppingSection = await ShoppingSectionProvider.get(
+        input.section_code,
+      );
       const snapshot = await ShoppingSaleSnapshotProvider.collect(input);
       const record = await ShoppingGlobal.prisma.shopping_sales.create({
         data: {
@@ -115,9 +288,9 @@ export namespace ShoppingSaleProvider {
           mv_last: {
             create: {
               snapshot: {
-                connect: { id: snapshot.id }
-              }
-            }
+                connect: { id: snapshot.id },
+              },
+            },
           },
           created_at: new Date(),
           opened_at: input.opened_at,
@@ -128,28 +301,77 @@ export namespace ShoppingSaleProvider {
       return json.transform(record);
     };
 
-  export const update = 
+  export const update =
     (seller: IShoppingSeller.IInvert) =>
     (id: string) =>
     async (input: IShoppingSale.IUpdate): Promise<IShoppingSale> => {
       await ownership(seller)(id);
 
-      const snapshot = await ShoppingGlobal.prisma.shopping_sale_snapshots.create({
-        data: {
-          sale: { connect: { id } },
-          ...await ShoppingSaleSnapshotProvider.collect(input),
-        },
-        ...ShoppingSaleSnapshotProvider.json.select(),
-      });
+      const snapshot =
+        await ShoppingGlobal.prisma.shopping_sale_snapshots.create({
+          data: {
+            sale: { connect: { id } },
+            ...(await ShoppingSaleSnapshotProvider.collect(input)),
+          },
+          ...ShoppingSaleSnapshotProvider.json.select(),
+        });
       await ShoppingGlobal.prisma.mv_shopping_sale_last_snapshots.update({
-        where: { 
-          shopping_sale_id: id 
+        where: {
+          shopping_sale_id: id,
         },
         data: {
           snapshot: { connect: { id: snapshot.id } },
         },
       });
       return at(seller)(id);
+    };
+
+  export const updateOpeningTime =
+    (seller: IShoppingSeller.IInvert) =>
+    (id: string) =>
+    async (input: IShoppingSale.IUpdateOpeningTime): Promise<void> => {
+      await ownership(seller)(id);
+      await ShoppingGlobal.prisma.shopping_sales.update({
+        where: { id },
+        data: {
+          opened_at: input.opened_at,
+          closed_at: input.closed_at,
+        },
+      });
+    };
+
+  export const suspend =
+    (seller: IShoppingSeller.IInvert) => async (id: string) => {
+      await ownership(seller)(id);
+      await ShoppingGlobal.prisma.shopping_sales.update({
+        where: { id },
+        data: {
+          suspended_at: new Date(),
+        },
+      });
+    };
+
+  export const pause =
+    (seller: IShoppingSeller.IInvert) => async (id: string) => {
+      await ownership(seller)(id);
+      await ShoppingGlobal.prisma.shopping_sales.update({
+        where: { id },
+        data: {
+          paused_at: new Date(),
+        },
+      });
+    };
+
+  export const restore =
+    (seller: IShoppingSeller.IInvert) => async (id: string) => {
+      await ownership(seller)(id);
+      await ShoppingGlobal.prisma.shopping_sales.update({
+        where: { id },
+        data: {
+          paused_at: null,
+          suspended_at: null,
+        },
+      });
     };
 
   const ownership = (seller: IShoppingSeller.IInvert) => async (id: string) => {
@@ -160,10 +382,10 @@ export namespace ShoppingSaleProvider {
           member: {
             of_seller: {
               id: seller.id,
-            }
+            },
           },
         },
-      }
+      },
     });
   };
 }

@@ -20,21 +20,23 @@ export const prepare_random_coupon = (
   discount:
     input?.discount?.unit !== undefined
       ? input.discount.unit === "amount"
-        ? {
+        ? ({
             unit: "amount",
             value: 5_000,
             threshold: null,
             limit: null,
             multiplicative: false,
-            ...((input.discount ?? {}) as Partial<IShoppingCouponDiscount.IAmount>),
-          } satisfies IShoppingCouponDiscount.IAmount
-        : {
+            ...((input.discount ??
+              {}) as Partial<IShoppingCouponDiscount.IAmount>),
+          } satisfies IShoppingCouponDiscount.IAmount)
+        : ({
             unit: "percent",
             value: 10,
             threshold: null,
             limit: null,
-            ...((input.discount ?? {}) as Partial<IShoppingCouponDiscount.IPercent>),
-          } satisfies IShoppingCouponDiscount.IPercent
+            ...((input.discount ??
+              {}) as Partial<IShoppingCouponDiscount.IPercent>),
+          } satisfies IShoppingCouponDiscount.IPercent)
       : {
           unit: "amount",
           value: 5_000,

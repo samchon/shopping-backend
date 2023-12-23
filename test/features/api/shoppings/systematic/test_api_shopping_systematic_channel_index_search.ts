@@ -21,7 +21,7 @@ export const test_api_shopping_systematic_channel_index_search = async (
     async (input: IShoppingChannel.IRequest.ISearch) => {
       const page: IPage<IShoppingChannel> =
         await ShoppingApi.functional.shoppings.admins.systematic.channels.index(
-          pool.customer,
+          pool.admin,
           {
             limit: channelList.length,
             search: input,
@@ -33,7 +33,7 @@ export const test_api_shopping_systematic_channel_index_search = async (
   )(channelList, 4);
 
   await search({
-    fields: ["sectiob.name"],
+    fields: ["channel.name"],
     values: (channel) => [channel.name],
     request: ([name]) => ({ name }),
     filter: (channel, [name]) => channel.name.includes(name),
