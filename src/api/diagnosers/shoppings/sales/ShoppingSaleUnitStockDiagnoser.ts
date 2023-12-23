@@ -30,6 +30,11 @@ export namespace ShoppingSaleUnitStockDiagnoser {
           }),
         );
       });
+      if (stock.data.price.nominal < stock.data.price.real)
+        output.push({
+          accessor: `input.units[${unit.index}].stocks[${stock.index}].price.real`,
+          message: `Real price cannot be greater than nominal price`,
+        });
       return output;
     };
 
