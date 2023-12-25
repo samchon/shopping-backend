@@ -39,6 +39,8 @@ export namespace IShoppingCartCommodityStock {
 
     /**
      * Target stock's {@link IShoppingSaleUnitStock.id}.
+     *
+     * It must be matched with the {@link choices} property.
      */
     stock_id: string & tags.Format<"uuid">;
 

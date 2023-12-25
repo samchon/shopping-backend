@@ -158,6 +158,12 @@ export namespace ShoppingSaleProvider {
       return sale;
     };
 
+  export const replica =
+    (seller: IShoppingSeller.IInvert) => async (id: string) => {
+      const sale: IShoppingSale = await at(seller)(id);
+      return ShoppingSaleDiagnoser.replica(sale);
+    };
+
   const where = (actor: IShoppingActorEntity, strict: boolean) =>
     (actor.type === "seller"
       ? [
@@ -385,12 +391,6 @@ export namespace ShoppingSaleProvider {
           suspended_at: null,
         },
       });
-    };
-
-  export const replica =
-    (seller: IShoppingSeller.IInvert) => async (id: string) => {
-      const sale: IShoppingSale = await at(seller)(id);
-      return ShoppingSaleDiagnoser.replica(sale);
     };
 
   const ownership = (seller: IShoppingSeller.IInvert) => async (id: string) => {

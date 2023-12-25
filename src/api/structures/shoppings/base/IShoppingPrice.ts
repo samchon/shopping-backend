@@ -20,3 +20,9 @@ export interface IShoppingPrice {
    */
   real: number & tags.Minimum<0>;
 }
+export namespace IShoppingPrice {
+  export interface ISearch {
+    minimum?: number;
+    maximum?: number;
+  }
+}

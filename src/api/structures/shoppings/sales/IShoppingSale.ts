@@ -2,6 +2,7 @@ import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
 import { IShoppingSeller } from "../actors/IShoppingSeller";
+import { IShoppingPrice } from "../base/IShoppingPrice";
 import { IShoppingSection } from "../systematic/IShoppingSection";
 import { IShoppingSaleSnapshot } from "./IShoppingSaleSnapshot";
 import { IShoppingSaleReview } from "./inquiries/IShoppingSaleReview";
@@ -119,6 +120,7 @@ export namespace IShoppingSale {
       title?: string;
       content?: string;
       title_or_content?: string;
+      price?: IShoppingPrice.ISearch;
       review?: IShoppingSaleReview.IInvertSearch;
       section_codes?: string[];
       channel_codes?: string[];
