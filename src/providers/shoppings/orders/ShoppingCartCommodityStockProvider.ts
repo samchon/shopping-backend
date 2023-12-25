@@ -23,9 +23,9 @@ export namespace ShoppingCartCommodityStockProvider {
           id: input.stock.id,
           name: input.stock.name,
           quantity: input.quantity,
-          choices: input.choices.map(
-            ShoppingCartCommodityStockChoiceProvider.json.transform,
-          ),
+          choices: input.choices
+            .sort((a, b) => a.sequence - b.sequence)
+            .map(ShoppingCartCommodityStockChoiceProvider.json.transform),
           price: {
             nominal: input.stock.nominal_price,
             real: input.stock.real_price,

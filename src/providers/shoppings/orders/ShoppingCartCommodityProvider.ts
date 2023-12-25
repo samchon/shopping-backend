@@ -39,9 +39,9 @@ export namespace ShoppingCartCommodityProvider {
         )),
         units: [],
       };
-      const units: IShoppingSaleUnit.IInvert[] = input.stocks.map(
-        ShoppingCartCommodityStockProvider.json.transform,
-      );
+      const units: IShoppingSaleUnit.IInvert[] = input.stocks
+        .sort((a, b) => a.sequence - b.sequence)
+        .map(ShoppingCartCommodityStockProvider.json.transform);
       const dict: Map<string, IShoppingSaleUnit.IInvert[]> = new Map();
       for (const u of units) MapUtil.take(dict)(u.id, () => []).push(u);
 

@@ -13,7 +13,7 @@ import { generate_random_sole_sale } from "../sales/internal/generate_random_sol
 import { generate_random_order } from "./internal/generate_random_order";
 import { generate_random_order_publish } from "./internal/generate_random_order_publish";
 
-export const test_api_shopping_order_create_exhaused = async (
+export const test_api_shopping_order_create_exhausted = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
