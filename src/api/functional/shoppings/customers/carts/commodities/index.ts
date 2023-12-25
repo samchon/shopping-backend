@@ -241,7 +241,7 @@ export async function update(
     cartId: null | string & Format<"uuid">,
     id: string & Format<"uuid">,
     input: update.Input,
-): Promise<update.Output> {
+): Promise<void> {
     return !!connection.simulate
         ? update.simulate(
               connection,
@@ -266,7 +266,6 @@ export async function update(
 }
 export namespace update {
     export type Input = Primitive<IShoppingCartCommodity.IUpdate>;
-    export type Output = Primitive<IShoppingCartCommodity>;
 
     export const METADATA = {
         method: "PUT",
@@ -285,14 +284,12 @@ export namespace update {
     export const path = (cartId: null | string & Format<"uuid">, id: string & Format<"uuid">): string => {
         return `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities/${encodeURIComponent(id ?? "null")}`;
     }
-    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<IShoppingCartCommodity> =>
-        typia.random<Primitive<IShoppingCartCommodity>>(g);
     export const simulate = async (
         connection: IConnection,
         cartId: null | string & Format<"uuid">,
         id: string & Format<"uuid">,
         input: update.Input,
-    ): Promise<Output> => {
+    ): Promise<void> => {
         const assert = NestiaSimulator.assert({
             method: METADATA.method,
             host: connection.host,
@@ -302,12 +299,6 @@ export namespace update {
         assert.param("cartId")(() => typia.assert(cartId));
         assert.param("id")(() => typia.assert(id));
         assert.body(() => typia.assert(input));
-        return random(
-            typeof connection.simulate === 'object' &&
-                connection.simulate !== null
-                ? connection.simulate
-                : undefined
-        );
     }
 }
 

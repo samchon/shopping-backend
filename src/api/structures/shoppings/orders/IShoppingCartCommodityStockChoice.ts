@@ -47,6 +47,6 @@ export namespace IShoppingCartCommodityStockChoice {
      * like `boolean`, `number` or `string`, then this attribute is not
      * `null` but has the matched atomic value.
      */
-    value: null | string;
+    value: null | boolean | number | string;
   }
 }

@@ -26,7 +26,7 @@ export const test_api_shopping_cart_commodity_create_snapshot = async (
     );
   typia.assertEquals(updated);
 
-  await TestValidator.httpError("snapshot")(410)(() =>
+  await TestValidator.httpError("snapshot")(422)(() =>
     generate_random_cart_commodity(pool, sale),
   );
 };

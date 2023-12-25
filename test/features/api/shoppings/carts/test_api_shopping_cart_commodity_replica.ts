@@ -34,6 +34,5 @@ export const test_api_shopping_cart_commodity_replica = async (
       commodity.id,
     );
   typia.assertEquals(replica);
-
   TestValidator.equals("replica")(input)(replica);
 };

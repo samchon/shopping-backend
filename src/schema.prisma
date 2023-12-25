@@ -2059,6 +2059,9 @@ model shopping_cart_commodities {
     /// Creation time of record.
     created_at DateTime @db.Timestamptz
 
+    /// Deletion time of record.
+    deleted_at DateTime? @db.Timestamptz
+
     /// Whether be published or not.
     ///
     /// Is current commodity ordered and be paid?
@@ -4168,6 +4171,7 @@ model mv_shopping_cart_commodity_prices {
     shopping_cart_commodity_id String @id @db.Uuid
     nominal                    Float  @db.DoublePrecision
     real                       Float  @db.DoublePrecision
+    volumed_price              Float  @db.DoublePrecision
 
     commodity shopping_cart_commodities @relation(fields: [shopping_cart_commodity_id], references: [id], onDelete: Cascade)
 }

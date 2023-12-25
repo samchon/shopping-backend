@@ -7,6 +7,8 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartDiscountable";
 
+import { ShoppingCartCommodityProvider } from "../../../../providers/shoppings/orders/ShoppingCartCommodityProvider";
+
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller(`shoppings/customers/carts/:cartId/commodities`)
@@ -18,10 +20,9 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedBody() input: IShoppingCartCommodity.IRequest,
   ): Promise<IPage<IShoppingCartCommodity>> {
-    customer;
-    cartId;
-    input;
-    return null!;
+    return ShoppingCartCommodityProvider.index(customer)(
+      cartId ? { id: cartId } : null,
+    )(input);
   }
 
   @core.TypedRoute.Get(":id")
@@ -31,10 +32,9 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingCartCommodity> {
-    customer;
-    cartId;
-    id;
-    return null!;
+    return ShoppingCartCommodityProvider.at(customer)(
+      cartId ? { id: cartId } : null,
+    )(id);
   }
 
   @core.TypedRoute.Post()
@@ -44,10 +44,9 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedBody() input: IShoppingCartCommodity.ICreate,
   ): Promise<IShoppingCartCommodity> {
-    customer;
-    cartId;
-    input;
-    return null!;
+    return ShoppingCartCommodityProvider.create(customer)(
+      cartId ? { id: cartId } : null,
+    )(input);
   }
 
   @core.TypedRoute.Put(":id")
@@ -57,12 +56,10 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingCartCommodity.IUpdate,
-  ): Promise<IShoppingCartCommodity> {
-    customer;
-    cartId;
-    id;
-    input;
-    return null!;
+  ): Promise<void> {
+    return ShoppingCartCommodityProvider.update(customer)(
+      cartId ? { id: cartId } : null,
+    )(id)(input);
   }
 
   @core.TypedRoute.Get(":id/replica")
@@ -72,10 +69,9 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingCartCommodity.ICreate> {
-    customer;
-    cartId;
-    id;
-    return null!;
+    return ShoppingCartCommodityProvider.replica(customer)(
+      cartId ? { id: cartId } : null,
+    )(id);
   }
 
   @core.TypedRoute.Delete(":id")
@@ -85,9 +81,9 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
-    customer;
-    cartId;
-    id;
+    return ShoppingCartCommodityProvider.erase(customer)(
+      cartId ? { id: cartId } : null,
+    )(id);
   }
 
   @core.TypedRoute.Patch("discountable")

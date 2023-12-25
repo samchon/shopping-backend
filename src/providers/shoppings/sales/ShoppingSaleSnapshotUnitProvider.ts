@@ -73,6 +73,21 @@ export namespace ShoppingSaleSnapshotUnitProvider {
       } satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs);
   }
 
+  export namespace invert {
+    export const transform = (
+      input: Prisma.shopping_sale_snapshot_unitsGetPayload<
+        ReturnType<typeof select>
+      >,
+    ): Omit<IShoppingSaleUnit.IInvert, "stocks"> => ({
+      id: input.id,
+      name: input.name,
+      primary: input.primary,
+      required: input.required,
+    });
+    export const select = () =>
+      ({} satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs);
+  }
+
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */

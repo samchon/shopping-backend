@@ -20,7 +20,7 @@ export const test_api_shopping_cart_commodity_create_paused = async (
     pool.seller,
     sale.id,
   );
-  await TestValidator.httpError("paused")(410)(() =>
+  await TestValidator.httpError("paused")(422)(() =>
     generate_random_cart_commodity(pool, sale),
   );
 };

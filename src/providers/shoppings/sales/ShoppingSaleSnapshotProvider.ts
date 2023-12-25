@@ -17,6 +17,7 @@ import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/s
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
+import { ShoppingSellerProvider } from "../actors/ShoppingSellerProvider";
 import { ShoppingChannelCategoryProvider } from "../systematic/ShoppingChannelCategoryProvider";
 import { ShoppingSaleProvider } from "./ShoppingSaleProvider";
 import { ShoppingSaleSnapshotChannelProvider } from "./ShoppingSaleSnapshotChannelProvider";
@@ -144,6 +145,46 @@ export namespace ShoppingSaleSnapshotProvider {
       } satisfies Prisma.shopping_sale_snapshotsFindManyArgs);
   }
 
+  export namespace invert {
+    export const transform = async (
+      input: Prisma.shopping_sale_snapshotsGetPayload<
+        ReturnType<typeof select>
+      >,
+    ): Promise<Omit<IShoppingSaleSnapshot.IInvert, "units">> => {
+      if (input.content === null)
+        throw ErrorProvider.internal(
+          "No shopping_sale_snapshot_contents record exists.",
+        );
+      return {
+        ...ShoppingSaleProvider.history.transform(input.sale),
+        id: input.shopping_sale_id,
+        snapshot_id: input.id,
+        channels: await ArrayUtil.asyncMap(
+          input.to_channels.sort((a, b) => (a.sequence = b.sequence)),
+        )(ShoppingSaleSnapshotChannelProvider.json.transform),
+        content: ShoppingSaleSnapshotContentProvider.summary.transform(
+          input.content,
+        ),
+        aggregate: aggregate.get(), // @todo -> must be the real data,
+        tags: input.tags
+          .sort((a, b) => (a.sequence = b.sequence))
+          .map((tag) => tag.value),
+        updated_at: input.created_at.toISOString(),
+        latest: input.mv_last !== null,
+      };
+    };
+    export const select = () =>
+      ({
+        include: {
+          sale: ShoppingSaleProvider.history.select(),
+          content: ShoppingSaleSnapshotContentProvider.summary.select(),
+          to_channels: ShoppingSaleSnapshotChannelProvider.json.select(),
+          tags: true,
+          mv_last: true,
+        },
+      } satisfies Prisma.shopping_sale_snapshotsFindManyArgs);
+  }
+
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
@@ -217,6 +258,29 @@ export namespace ShoppingSaleSnapshotProvider {
     (accessor: string) =>
     async (input: IShoppingSale.IRequest.ISearch | undefined) =>
       Prisma.validator<Prisma.shopping_sale_snapshotsWhereInput["AND"]>()([
+        // PRICE
+        ...(input?.price?.minimum !== undefined
+          ? [
+              {
+                mv_price_range: {
+                  real_lowest: {
+                    gte: input.price.minimum,
+                  },
+                },
+              },
+            ]
+          : []),
+        ...(input?.price?.maximum !== undefined
+          ? [
+              {
+                mv_price_range: {
+                  real_highest: {
+                    lte: input.price.maximum,
+                  },
+                },
+              },
+            ]
+          : []),
         // CONTENT
         ...(input?.title?.length
           ? [
@@ -312,6 +376,49 @@ export namespace ShoppingSaleSnapshotProvider {
           : []),
         // @todo - AGGREGATE NOT YET
       ]);
+
+  export const orderBy = (
+    key: IShoppingSale.IRequest.SortableColumns,
+    value: "asc" | "desc",
+  ) =>
+    Prisma.validator<Prisma.shopping_sale_snapshotsOrderByWithRelationInput>()(
+      key === "sale.created_at"
+        ? { sale: { created_at: value } }
+        : key === "sale.updated_at"
+        ? { created_at: value }
+        : key === "sale.opened_at"
+        ? { sale: { opened_at: value } }
+        : key === "sale.closed_at"
+        ? { sale: { closed_at: value } }
+        : key === "sale.price_range.lowest.real"
+        ? {
+            mv_price_range: {
+              real_lowest: value,
+            },
+          }
+        : key === "sale.price_range.highest.real"
+        ? {
+            mv_price_range: {
+              real_highest: value,
+            },
+          }
+        : key === "sale.content.title"
+        ? { content: { title: value } }
+        : key === "goods.payments.real" ||
+          key === "goods.publish_count" ||
+          key === "reviews.average" ||
+          key === "reviews.count"
+        ? { created_at: value } // @todo
+        : {
+            sale: {
+              sellerCustomer: {
+                member: {
+                  of_seller: ShoppingSellerProvider.orderBy(key, value),
+                },
+              },
+            },
+          },
+    );
 
   const searchCategories =
     (accessor: string) =>

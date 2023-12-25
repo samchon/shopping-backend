@@ -1218,6 +1218,7 @@ erDiagram
     String shopping_sale_snapshot_id FK
     Int volume
     DateTime created_at
+    DateTime deleted_at "nullable"
     Boolean published
 }
 "shopping_cart_commodity_stocks" {
@@ -1347,6 +1348,7 @@ for each component.
     > 
     > The value multiplied to [shopping_cart_commodity_stocks.quantity](#shopping_cart_commodity_stocks).
   - `created_at`: Creation time of record.
+  - `deleted_at`: Deletion time of record.
   - `published`
     > Whether be published or not.
     > 
@@ -1486,6 +1488,7 @@ erDiagram
     String shopping_sale_snapshot_id FK
     Int volume
     DateTime created_at
+    DateTime deleted_at "nullable"
     Boolean published
 }
 "shopping_cart_commodity_stocks" {

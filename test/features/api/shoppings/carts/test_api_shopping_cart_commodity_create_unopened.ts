@@ -9,7 +9,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_cart_commodity } from "./internal/generate_random_cart_commodity";
 
-export const test_api_shopping_cart_commodity_create_closed = async (
+export const test_api_shopping_cart_commodity_create_unopened = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_customer_create(pool);
