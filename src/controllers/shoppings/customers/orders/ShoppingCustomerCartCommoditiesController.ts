@@ -69,10 +69,9 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingCartCommodity.ICreate> {
-    customer;
-    cartId;
-    id;
-    return null!;
+    return ShoppingCartCommodityProvider.replica(customer)(
+      cartId ? { id: cartId } : null,
+    )(id);
   }
 
   @core.TypedRoute.Delete(":id")

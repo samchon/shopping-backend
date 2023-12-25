@@ -296,7 +296,7 @@ export namespace ShoppingCartCommodityProvider {
     async (
       input: IShoppingCartCommodity.ICreate,
     ): Promise<IShoppingCartCommodity | null> => {
-      if (input.accumulate !== true) return null;
+      if (input.accumulate === false) return null;
 
       const neighbor =
         await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
