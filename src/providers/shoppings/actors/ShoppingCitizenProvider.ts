@@ -13,8 +13,8 @@ export namespace ShoppingCitizenProvider {
       input: Prisma.shopping_citizensGetPayload<ReturnType<typeof select>>,
     ): IShoppingCitizen => ({
       id: input.id,
-      mobile: AesPkcs5.decrypt(input.mobile, KEY, IV),
-      name: AesPkcs5.decrypt(input.name, KEY, IV),
+      mobile: decrypt(input.mobile),
+      name: decrypt(input.name),
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
@@ -61,6 +61,7 @@ export namespace ShoppingCitizenProvider {
       ...(input?.name?.length ? [{ name: encrypt(input.name) }] : []),
     ]);
 
+  const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
   const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
 }
 

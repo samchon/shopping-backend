@@ -1168,6 +1168,7 @@ model shopping_addresses {
     /// List of orders.
     orders                     shopping_orders[]
     shopping_address_favorites shopping_address_favorites[]
+    shopping_order_publishes   shopping_order_publishes[]
 
     @@index([mobile])
     @@index([name])
@@ -1837,7 +1838,8 @@ model shopping_sale_snapshot_unit_stocks {
 
     shopping_cart_commodity_stocks shopping_cart_commodity_stocks[]
 
-    mv_inventory mv_shopping_sale_snapshot_unit_stock_inventories?
+    mv_inventory             mv_shopping_sale_snapshot_unit_stock_inventories?
+    shopping_delivery_pieces shopping_delivery_pieces[]
 
     @@unique([shopping_sale_snapshot_unit_id, name])
 }
@@ -2165,8 +2167,7 @@ model shopping_cart_commodity_stocks {
     stock shopping_sale_snapshot_unit_stocks @relation(map: "rel_shopping_cart_commodity_stocks_stock", fields: [shopping_sale_snapshot_unit_stock_id], references: [id], onDelete: Cascade)
 
     /// List of choices, how customer has determined for each option.
-    choices                  shopping_cart_commodity_stock_choices[]
-    shopping_delivery_pieces shopping_delivery_pieces[]
+    choices shopping_cart_commodity_stock_choices[]
 
     @@index([shopping_cart_commodity_id])
     @@index([shopping_sale_snapshot_unit_id], map: "idx_shopping_cart_commodity_stocks_unit")
@@ -2330,8 +2331,8 @@ model shopping_orders {
     goods shopping_order_goods[]
 
     /// List of payed tickets for discount
-    ticket_payments          shopping_coupon_ticket_payments[]
-    mv_shopping_order_prices mv_shopping_order_prices[]
+    ticket_payments shopping_coupon_ticket_payments[]
+    mv_price        mv_shopping_order_prices?
 
     @@index([shopping_customer_id, created_at])
     @@index([created_at])
@@ -2476,6 +2477,15 @@ model shopping_order_publishes {
     /// @format uuid
     shopping_order_id String @db.Uuid
 
+    /// Target address' {@link shopping_addresses.id}
+    ///
+    /// The place to receive the goods. For reference, the address information
+    /// also has an information of receiver, and it can be different with the
+    /// customer who has ordered.
+    ///
+    /// @format uuid
+    shopping_address_id String @db.Uuid
+
     /// Password for encryption.
     ///
     /// This shopping mall system uses a randomly issued password to 
@@ -2502,6 +2512,10 @@ model shopping_order_publishes {
     //----
     /// Belonged order.
     order shopping_orders @relation(fields: [shopping_order_id], references: [id], onDelete: Cascade)
+
+    /// Target addresss.
+    address shopping_addresses         @relation(fields: [shopping_address_id], references: [id], onDelete: Cascade)
+    pieces  shopping_delivery_pieces[]
 
     @@unique([shopping_order_id])
 }
@@ -2542,6 +2556,9 @@ model shopping_deliveries {
     shopping_seller_customer_id String @db.Uuid
 
     /// Invoice code if exists.
+    ///
+    /// Considering principles, it must be UK. 
+    /// However, some seller takes a mistake, so it can't be.
     invoice_code String? @db.VarChar
 
     /// Creation time of record.
@@ -2553,8 +2570,7 @@ model shopping_deliveries {
     sellerCustomer shopping_customers           @relation(fields: [shopping_seller_customer_id], references: [id], onDelete: Cascade)
     journeys       shopping_delivery_journeys[]
     pieces         shopping_delivery_pieces[]
-    // Considering principles, it must be UK. 
-    // However, some seller takes a mistake, so it can't be.
+    shippers       shopping_delivery_shippers[]
 
     @@index([shopping_seller_customer_id, created_at])
     @@index([invoice_code])
@@ -2587,15 +2603,20 @@ model shopping_delivery_pieces {
     /// @format uuid
     shopping_delivery_id String @db.Uuid
 
+    /// Target order-publish'es {@link shopping_order_publishes.id}
+    ///
+    /// @format uuid 
+    shopping_order_publish_id String @db.Uuid
+
     /// Target good's {@link shopping_order_goods.id}
     ///
     /// @format uuid
     shopping_order_good_id String @db.Uuid
 
-    /// Target stock-wrapper's {@link shopping_sale_snapshot_unit_stocks.id}
+    /// Target stock's {@link shopping_sale_snapshot_unit_stocks.id}
     ///
     /// @format uuid
-    shopping_cart_commodity_stock_id String @db.Uuid
+    shopping_sale_snapshot_unit_stock_id String @db.Uuid
 
     /// Quantity count.
     ///
@@ -2612,13 +2633,46 @@ model shopping_delivery_pieces {
     //----
     // RELATIONS
     //----
-    delivery             shopping_deliveries            @relation(fields: [shopping_delivery_id], references: [id], onDelete: Cascade)
-    good                 shopping_order_goods           @relation(fields: [shopping_order_good_id], references: [id], onDelete: Cascade)
-    cart_commodity_stock shopping_cart_commodity_stocks @relation(fields: [shopping_cart_commodity_stock_id], references: [id], onDelete: Cascade)
+    delivery shopping_deliveries                @relation(fields: [shopping_delivery_id], references: [id], onDelete: Cascade)
+    publish  shopping_order_publishes           @relation(fields: [shopping_order_publish_id], references: [id], onDelete: Cascade)
+    good     shopping_order_goods               @relation(fields: [shopping_order_good_id], references: [id], onDelete: Cascade)
+    stock    shopping_sale_snapshot_unit_stocks @relation(fields: [shopping_sale_snapshot_unit_stock_id], references: [id], onDelete: Cascade)
 
     @@index([shopping_delivery_id])
     @@index([shopping_order_good_id])
-    @@index([shopping_cart_commodity_stock_id])
+}
+
+model shopping_delivery_shippers {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Belonged delivery's {@link shopping_deliveries.id}
+    ///
+    /// @format uuid
+    shopping_delivery_id String @db.Uuid
+
+    /// Mobile number of shipper.
+    mobile String @db.VarChar
+
+    /// Name of shipper.
+    name String @db.VarChar
+
+    /// Company of shipper.
+    company String? @db.VarChar
+
+    created_at DateTime @db.Timestamptz
+
+    //----
+    // RELATIONS
+    //----
+    delivery shopping_deliveries @relation(fields: [shopping_delivery_id], references: [id], onDelete: Cascade)
+
+    @@index([shopping_delivery_id])
 }
 
 /// Journey of delivery.
@@ -2660,10 +2714,13 @@ model shopping_delivery_journeys {
     created_at DateTime @db.Timestamptz
 
     /// Start time of journey.
-    started_at DateTime @db.Timestamptz
+    started_at DateTime? @db.Timestamptz
 
     /// Completion time of journey.
     completed_at DateTime? @db.Timestamptz
+
+    /// Deletion time of record.
+    deleted_at DateTime? @db.Timestamptz
 
     //----
     // RELATIONS

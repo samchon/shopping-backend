@@ -75,6 +75,7 @@ export const test_api_shopping_delivery_state = async (
           journeys: [],
           pieces: [
             {
+              publish_id: order.publish!.id,
               good_id: order.goods[Math.floor(i / REPEAT)].id,
               stock_id:
                 order.goods[Math.floor(i / REPEAT)].commodity.sale.units[0]

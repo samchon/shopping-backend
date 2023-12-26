@@ -8,7 +8,6 @@ export interface IShoppingDeliveryShipper
 export namespace IShoppingDeliveryShipper {
   export interface ICreate {
     company: null | string;
-    code: null | string;
     name: string;
     mobile: string;
   }

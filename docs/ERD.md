@@ -1440,6 +1440,7 @@ erDiagram
 "shopping_order_publishes" {
     String id PK
     String shopping_order_id FK
+    String shopping_address_id FK
     String password "nullable"
     DateTime created_at
     DateTime paid_at "nullable"
@@ -1454,8 +1455,9 @@ erDiagram
 "shopping_delivery_pieces" {
     String id PK
     String shopping_delivery_id FK
+    String shopping_order_publish_id FK
     String shopping_order_good_id FK
-    String shopping_cart_commodity_stock_id FK
+    String shopping_sale_snapshot_unit_stock_id FK
     Float quantity
     Int sequence
 }
@@ -1466,8 +1468,9 @@ erDiagram
     String title "nullable"
     String description "nullable"
     DateTime created_at
-    DateTime started_at
+    DateTime started_at "nullable"
     DateTime completed_at "nullable"
+    DateTime deleted_at "nullable"
 }
 "shopping_addresses" {
     String id PK
@@ -1503,9 +1506,10 @@ erDiagram
 "shopping_order_goods" }o--|| "shopping_orders" : order
 "shopping_order_goods" }o--|| "shopping_cart_commodities" : commodity
 "shopping_order_publishes" |o--|| "shopping_orders" : order
+"shopping_order_publishes" }o--|| "shopping_addresses" : address
 "shopping_delivery_pieces" }o--|| "shopping_deliveries" : delivery
+"shopping_delivery_pieces" }o--|| "shopping_order_publishes" : publish
 "shopping_delivery_pieces" }o--|| "shopping_order_goods" : good
-"shopping_delivery_pieces" }o--|| "shopping_cart_commodity_stocks" : cart_commodity_stock
 "shopping_delivery_journeys" }o--|| "shopping_deliveries" : delivery
 "shopping_cart_commodity_stocks" }o--|| "shopping_cart_commodities" : commodity
 ```
@@ -1627,6 +1631,12 @@ it is suddenly cancelled, so please be aware of this as well.
 **Properties**
   - `id`: Primary Key.
   - `shopping_order_id`: Belonged order's [shopping_orders.id](#shopping_orders)
+  - `shopping_address_id`
+    > Target address' [shopping_addresses.id](#shopping_addresses)
+    > 
+    > The place to receive the goods. For reference, the address information
+    > also has an information of receiver, and it can be different with the
+    > customer who has ordered.
   - `password`
     > Password for encryption.
     > 
@@ -1666,7 +1676,11 @@ another subsidiary entity [shopping_delivery_journeys](#shopping_delivery_journe
 **Properties**
   - `id`: Primary Key.
   - `shopping_seller_customer_id`: Belonged seller's [shopping_sellers.id](#shopping_sellers)
-  - `invoice_code`: Invoice code if exists.
+  - `invoice_code`
+    > Invoice code if exists.
+    > 
+    > Considering principles, it must be UK. 
+    > However, some seller takes a mistake, so it can't be.
   - `created_at`: Creation time of record.
 
 ### `shopping_delivery_pieces`
@@ -1683,8 +1697,9 @@ for a single stock.
 **Properties**
   - `id`: Primary Key.
   - `shopping_delivery_id`: Belonged delivery's [shopping_deliveries.id](#shopping_deliveries)
+  - `shopping_order_publish_id`: Target order-publish'es [shopping_order_publishes.id](#shopping_order_publishes)
   - `shopping_order_good_id`: Target good's [shopping_order_goods.id](#shopping_order_goods)
-  - `shopping_cart_commodity_stock_id`: Target stock-wrapper's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
+  - `shopping_sale_snapshot_unit_stock_id`: Target stock's [shopping_sale_snapshot_unit_stocks.id](#shopping_sale_snapshot_unit_stocks)
   - `quantity`
     > Quantity count.
     > 
@@ -1714,6 +1729,7 @@ each step of the delivery process, such as preparing, shipping, and delivering
   - `created_at`: Creation time of record.
   - `started_at`: Start time of journey.
   - `completed_at`: Completion time of journey.
+  - `deleted_at`: Deletion time of record.
 
 
 ## Coupons
@@ -2759,6 +2775,14 @@ erDiagram
     String attachment_file_id FK
     Int sequence
 }
+"shopping_delivery_shippers" {
+    String id PK
+    String shopping_delivery_id FK
+    String mobile
+    String name
+    String company "nullable"
+    DateTime created_at
+}
 ```
 
 ### `shopping_sale_snapshot_content_thumbnails`
@@ -2768,3 +2792,13 @@ erDiagram
   - `shopping_sale_snapshot_content_id`: 
   - `attachment_file_id`: 
   - `sequence`: 
+
+### `shopping_delivery_shippers`
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_delivery_id`: Belonged delivery's [shopping_deliveries.id](#shopping_deliveries)
+  - `mobile`: Mobile number of shipper.
+  - `name`: Name of shipper.
+  - `company`: Company of shipper.
+  - `created_at`: 
