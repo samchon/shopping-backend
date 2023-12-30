@@ -32,7 +32,7 @@ export namespace ShoppingOrderGoodProvider {
           mileage: input.mv_price.mileage,
           ticket: input.mv_price.ticket,
         },
-        state: null, // @todo
+        state: (input.mv_state?.value ?? null) as "none",
         confirmed_at: input.confirmed_at?.toISOString() ?? null,
       };
     };
@@ -41,6 +41,7 @@ export namespace ShoppingOrderGoodProvider {
         include: {
           commodity: ShoppingCartCommodityProvider.json.select(),
           mv_price: true,
+          mv_state: true,
         },
       } satisfies Prisma.shopping_order_goodsFindManyArgs);
   }
@@ -58,6 +59,16 @@ export namespace ShoppingOrderGoodProvider {
           connect: { id: seller.id },
         },
         volume: input.volume,
+        mv_price: {
+          create: {
+            nominal: commodity.price.nominal * input.volume,
+            real: commodity.price.real * input.volume,
+            cash: commodity.price.real * input.volume,
+            deposit: 0,
+            mileage: 0,
+            ticket: 0,
+          },
+        },
         sequence,
       } satisfies Prisma.shopping_order_goodsCreateWithoutOrderInput);
 }

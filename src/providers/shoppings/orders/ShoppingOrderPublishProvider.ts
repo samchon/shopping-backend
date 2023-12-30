@@ -17,7 +17,7 @@ export namespace ShoppingOrderPublishProvider {
       deliveries: ShoppingDeliveryPieceProvider.jsonFromPublish.transform(
         input.pieces,
       ),
-      state: "none", // @todo
+      state: (input.mv_state?.value ?? "none") as "none",
       created_at: input.created_at.toISOString(),
       paid_at: input.paid_at?.toISOString() ?? null,
       cancelled_at: input.cancelled_at?.toISOString() ?? null,
@@ -25,8 +25,9 @@ export namespace ShoppingOrderPublishProvider {
     export const select = () =>
       ({
         include: {
-          address: true,
           pieces: ShoppingDeliveryPieceProvider.jsonFromPublish.select(),
+          address: true,
+          mv_state: true,
         },
       } satisfies Prisma.shopping_order_publishesFindManyArgs);
   }

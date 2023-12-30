@@ -54,7 +54,7 @@ export namespace ShoppingDeliveryProvider {
       shippers: input.shippers.map(
         ShoppingDeliveryShipperProvider.json.transform,
       ),
-      state: "none", // @todo
+      state: (input.mv_state?.value ?? "none") as "none",
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
@@ -63,6 +63,7 @@ export namespace ShoppingDeliveryProvider {
           sellerCustomer: ShoppingSellerProvider.invert.select(),
           shippers: ShoppingDeliveryShipperProvider.json.select(),
           journeys: ShoppingDeliveryJourneyProvider.json.select(),
+          mv_state: true,
         },
       } satisfies Prisma.shopping_deliveriesFindManyArgs);
   }
