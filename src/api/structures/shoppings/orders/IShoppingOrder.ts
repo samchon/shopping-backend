@@ -76,7 +76,42 @@ export namespace IShoppingOrder {
       | "order.price"
       | `order.quantity`
       | "order.created_at"
-      | `order.paid_at`;
+      | `order.publish.paid_at`;
+  }
+
+  /**
+   * Invert information from delivery.
+   */
+  export interface IInvertFromDelivery {
+    /**
+     * Primary Key.
+     */
+    id: string & tags.Format<"uuid">;
+
+    /**
+     * Customer who've applied for the order.
+     */
+    customer: IShoppingCustomer;
+
+    /**
+     * List of goods in the order.
+     */
+    goods: IShoppingOrderGood[] & tags.MinItems<1>;
+
+    /**
+     * Price information including discounts.
+     */
+    price: IShoppingOrderPrice;
+
+    /**
+     * Order completion and payment information.
+     */
+    publish: null | IShoppingOrderPublish.IInvertFromDelivery;
+
+    /**
+     * Creation time of the record.
+     */
+    created_at: string & tags.Format<"date-time">;
   }
 
   /**

@@ -65,6 +65,8 @@ export namespace IShoppingDeliveryJourney {
     completed_at: null | (string & tags.Format<"date-time">);
   }
 
+  export type IUpdate = ICreate;
+
   /**
    * Completion information of the delivery journey.
    */

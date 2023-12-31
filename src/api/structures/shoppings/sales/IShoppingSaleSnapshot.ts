@@ -73,8 +73,6 @@ export namespace IShoppingSaleSnapshot {
     seller: IShoppingSeller.IInvert;
   }
 
-  
-
   /**
    * Summarized information of the sale snapshot.
    */

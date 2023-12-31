@@ -76,7 +76,12 @@ export namespace IShoppingDelivery {
     | "arrived"
     | "confirmed";
 
-  export interface IRequest extends IPage.IRequest {}
+  export interface IRequest extends IPage.IRequest {
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
+  export namespace IRequest {
+    export type SortableColumns = "delivery.created_at";
+  }
 
   /**
    * Invert information of the delivery.
@@ -85,7 +90,7 @@ export namespace IShoppingDelivery {
     /**
      * List of orders of the delivery.
      */
-    orders: IShoppingOrder[] & tags.MinItems<1>;
+    orders: IShoppingOrder.IInvertFromDelivery[] & tags.MinItems<1>;
   }
 
   /**

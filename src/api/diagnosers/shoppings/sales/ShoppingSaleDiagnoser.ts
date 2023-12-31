@@ -37,7 +37,7 @@ export namespace ShoppingSaleDiagnoser {
 
   export const readable =
     (props: { accessor: string; checkPause: boolean }) =>
-    (sale: IShoppingSale): IDiagnosis[] => {
+    (sale: IShoppingSale.ITimestamps): IDiagnosis[] => {
       const output: IDiagnosis[] = [];
 
       // OPENING TIME

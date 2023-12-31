@@ -25,38 +25,14 @@ import { IShoppingDelivery } from "./IShoppingDelivery";
  *
  * @author Samchon
  */
-export interface IShoppingOrderPublish {
-  /**
-   * Primary Key.
-   */
-  id: string & tags.Format<"uuid">;
-
-  /**
-   * Creation time of the record.
-   */
-  created_at: string & tags.Format<"date-time">;
-
-  /**
-   * Time when the order was paid.
-   */
-  paid_at: null | (string & tags.Format<"date-time">);
-
-  /**
-   * Time when the payment was cancelled.
-   */
-  cancelled_at: null | (string & tags.Format<"date-time">);
-
-  /**
-   * Address where the {@link IShoppingOrderGood goods} to be delivered.
-   */
-  address: IShoppingAddress;
-
+export interface IShoppingOrderPublish
+  extends IShoppingOrderPublish.IInvertFromDelivery {
   /**
    * List of deliveries.
    *
-   * An {@link IShoppingOrder order} can be delivered in multiple times. Of course,
-   * the opposite case is also possible, that a {@link IShoppingDelivery delivery}
-   * can be composed of multiple orders.
+   * An {@link IShoppingOrder order} can be delivered in multiple times.
+   * Of course, the opposite case is also possible, that a
+   * {@link IShoppingDelivery delivery} can be composed of multiple orders.
    */
   deliveries: IShoppingDelivery[];
 
@@ -66,8 +42,37 @@ export interface IShoppingOrderPublish {
   state: IShoppingDelivery.State;
 }
 export namespace IShoppingOrderPublish {
-  export type ICreate = ICashCreate | IZeroCreate;
+  /**
+   * Invert information from the delivery.
+   */
+  export interface IInvertFromDelivery {
+    /**
+     * Primary Key.
+     */
+    id: string & tags.Format<"uuid">;
 
+    /**
+     * Creation time of the record.
+     */
+    created_at: string & tags.Format<"date-time">;
+
+    /**
+     * Time when the order was paid.
+     */
+    paid_at: null | (string & tags.Format<"date-time">);
+
+    /**
+     * Time when the payment was cancelled.
+     */
+    cancelled_at: null | (string & tags.Format<"date-time">);
+
+    /**
+     * Address where the {@link IShoppingOrderGood goods} to be delivered.
+     */
+    address: IShoppingAddress;
+  }
+
+  export type ICreate = ICashCreate | IZeroCreate;
   export interface ICashCreate {
     type: "cash";
     address: IShoppingAddress.ICreate;

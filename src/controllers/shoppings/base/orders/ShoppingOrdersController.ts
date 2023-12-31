@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 
+import { ShoppingOrderProvider } from "../../../../providers/shoppings/orders/ShoppingOrderProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingOrdersController<Actor extends IShoppingActorEntity>(
@@ -18,9 +20,7 @@ export function ShoppingOrdersController<Actor extends IShoppingActorEntity>(
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingOrder.IRequest,
     ): Promise<IPage<IShoppingOrder>> {
-      actor;
-      input;
-      return null!;
+      return ShoppingOrderProvider.index(actor)(input);
     }
 
     @core.TypedRoute.Get(":id")
@@ -28,9 +28,7 @@ export function ShoppingOrdersController<Actor extends IShoppingActorEntity>(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingOrder> {
-      actor;
-      id;
-      return null!;
+      return ShoppingOrderProvider.at(actor)(id);
     }
   }
   return ShoppingOrdersController;

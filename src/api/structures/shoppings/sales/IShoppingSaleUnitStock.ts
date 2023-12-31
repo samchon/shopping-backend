@@ -86,6 +86,11 @@ export namespace IShoppingSaleUnitStock {
     quantity: number & tags.Type<"uint32">;
 
     /**
+     * Current inventory status of the stock.
+     */
+    inventory: IShoppingSaleUnitStockInventory;
+
+    /**
      * List of choices.
      *
      * Which values being written for each option.

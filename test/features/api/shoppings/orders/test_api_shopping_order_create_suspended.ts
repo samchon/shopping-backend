@@ -25,7 +25,7 @@ export const test_api_shopping_order_create_suspended = async (
     pool.seller,
     sale.id,
   );
-  await TestValidator.httpError("suspended")(410)(() =>
+  await TestValidator.httpError("suspended")(422)(() =>
     generate_random_order(pool, [commodity]),
   );
 };

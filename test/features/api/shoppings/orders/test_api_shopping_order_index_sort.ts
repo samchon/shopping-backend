@@ -76,7 +76,7 @@ export const test_api_shopping_order_index_sort = async (
       ),
     ),
     validator("order.created_at")(GaffComparator.dates((x) => x.created_at)),
-    validator("order.paid_at")(
+    validator("order.publish.paid_at")(
       GaffComparator.dates((x) => x.publish?.paid_at ?? "9999-12-31 09:00:00"),
     ),
   ];

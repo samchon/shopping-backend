@@ -25,6 +25,11 @@ export namespace IShoppingDeliveryPiece {
    */
   export interface ICreate {
     /**
+     * Target publish's {@link IShoppingOrderPublish.id}.
+     */
+    publish_id: string & tags.Format<"uuid">;
+
+    /**
      * Target good's {@link IShoppingOrderGood.id}.
      */
     good_id: string & tags.Format<"uuid">;

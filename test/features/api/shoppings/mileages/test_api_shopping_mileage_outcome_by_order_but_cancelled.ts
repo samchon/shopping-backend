@@ -56,7 +56,7 @@ export const test_api_shopping_mileage_outcome_by_order_but_erased = async (
     order,
     false,
   );
-  await ShoppingApi.functional.shoppings.customers.orders.publish.erase(
+  await ShoppingApi.functional.shoppings.customers.orders.publish.cancel(
     pool.customer,
     order.id,
   );
