@@ -2825,11 +2825,9 @@ model shopping_delivery_journeys {
 /// @hidden
 model mv_shopping_order_prices {
   shopping_order_id String @id @db.Uuid
+  quantity          Int    @db.Integer
   nominal           Float  @db.DoublePrecision
   real              Float  @db.DoublePrecision
-  cash              Float  @db.DoublePrecision
-  deposit           Float  @db.DoublePrecision
-  mileage           Float  @db.DoublePrecision
   ticket            Float  @db.DoublePrecision
 
   order shopping_orders @relation(fields: [shopping_order_id], references: [id], onDelete: Cascade)

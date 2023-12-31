@@ -1,31 +1,41 @@
 import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
+import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingCartCommodityStock } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodityStock";
 import { IShoppingCartCommodityStockChoice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodityStockChoice";
 import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStock";
 import { IShoppingSaleUnitStockChoice } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStockChoice";
 
-import { IIndexedInput } from "../../common/IIndexedInput";
 import { ShoppingCartCommodityStockChoiceDiagnoser } from "./ShoppingCartCommodityStockChoiceDiagnoser";
 
 export namespace ShoppingCartCommodityStockDiagnoser {
   export const validatae =
     (unit: IShoppingSaleUnit) =>
+    (commodity: IShoppingCartCommodity.ICreate) =>
     (
-      input: IIndexedInput<IShoppingCartCommodityStock.ICreate>,
+      input: IShoppingCartCommodityStock.ICreate,
+      sequence: number,
     ): IDiagnosis[] => {
       const output: IDiagnosis[] = [];
-      input.data.choices.forEach((choice, i) => {
-        ShoppingCartCommodityStockChoiceDiagnoser.validate(unit)(input.index)({
+      input.choices.forEach((choice, i) => {
+        ShoppingCartCommodityStockChoiceDiagnoser.validate(unit)(sequence)({
           data: choice,
           index: i,
         });
       });
-      const stock: IShoppingSaleUnitStock | undefined = find(unit)(input.data);
+      const stock: IShoppingSaleUnitStock | undefined = find(unit)(input);
       if (undefined === stock)
         output.push({
-          accessor: `$input.stocks[${input.index}]`,
+          accessor: `$input.stocks[${sequence}]`,
           message: `Unable to find the matched stock.`,
+        });
+      else if (
+        stock.inventory.income - stock.inventory.outcome <
+        input.quantity * commodity.volume
+      )
+        output.push({
+          accessor: `$input.stocks[${sequence}].quantity`,
+          message: `Insufficient inventory.`,
         });
       return output;
     };

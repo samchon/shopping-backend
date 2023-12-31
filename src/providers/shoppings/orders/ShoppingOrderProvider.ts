@@ -1,14 +1,21 @@
 import { ArrayUtil } from "@nestia/e2e";
 import { Prisma } from "@prisma/client";
+import { IPointer } from "tstl";
 import { v4 } from "uuid";
 
+import { ShoppingOrderDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/orders/ShoppingOrderDiagnoser";
+import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { ErrorProvider } from "../../../utils/ErrorProvider";
+import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingCustomerProvider } from "../actors/ShoppingCustomerProvider";
+import { ShoppingSaleSnapshotProvider } from "../sales/ShoppingSaleSnapshotProvider";
 import { ShoppingCartCommodityProvider } from "./ShoppingCartCommodityProvider";
 import { ShoppingOrderGoodProvider } from "./ShoppingOrderGoodProvider";
 import { ShoppingOrderPublishProvider } from "./ShoppingOrderPublishProvider";
@@ -36,9 +43,9 @@ export namespace ShoppingOrderProvider {
         price: {
           nominal: input.mv_price.nominal,
           real: input.mv_price.real,
-          cash: input.mv_price.cash,
-          deposit: input.mv_price.deposit,
-          mileage: input.mv_price.mileage,
+          cash: input.cash,
+          deposit: input.deposit,
+          mileage: input.mileage,
           ticket: input.mv_price.ticket,
           ticket_payments: [], // @todo
         },
@@ -55,6 +62,120 @@ export namespace ShoppingOrderProvider {
         },
       } satisfies Prisma.shopping_ordersFindManyArgs);
   }
+
+  /* -----------------------------------------------------------
+    READERS
+  ----------------------------------------------------------- */
+  export const index =
+    (actor: IShoppingActorEntity) =>
+    async (input: IShoppingOrder.IRequest): Promise<IPage<IShoppingOrder>> =>
+      PaginationUtil.paginate({
+        schema: ShoppingGlobal.prisma.shopping_orders,
+        payload: json.select(),
+        transform: json.transform,
+      })({
+        where: {
+          AND: [where(actor), ...(await search(input.search))],
+        },
+        orderBy: input.sort?.length
+          ? PaginationUtil.orderBy(orderBy)(input.sort)
+          : [{ created_at: "desc" }],
+      })(input);
+
+  export const at =
+    (actor: IShoppingActorEntity) =>
+    async (id: string): Promise<IShoppingOrder> => {
+      const record =
+        await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow({
+          where: {
+            id,
+            ...where(actor),
+          },
+          ...json.select(),
+        });
+      return json.transform(record);
+    };
+
+  export const where = (actor: IShoppingActorEntity) =>
+    (actor.type === "customer"
+      ? {
+          customer: ShoppingCustomerProvider.where(actor),
+          deleted_at: null,
+        }
+      : actor.type === "seller"
+      ? {
+          goods: {
+            some: {
+              shopping_seller_id: actor.id,
+            },
+          },
+          publish: { isNot: null },
+          deleted_at: null,
+        }
+      : {
+          publish: { isNot: null },
+          deleted_at: null,
+        }) satisfies Prisma.shopping_ordersWhereInput;
+
+  const search = async (input: IShoppingOrder.IRequest.ISearch | undefined) =>
+    Prisma.validator<Prisma.shopping_ordersWhereInput["AND"]>()([
+      ...(input?.min_price !== undefined
+        ? [
+            {
+              mv_price: {
+                real: {
+                  gte: input.min_price,
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.max_price !== undefined
+        ? [
+            {
+              mv_price: {
+                real: {
+                  lte: input.max_price,
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.paid !== undefined
+        ? [
+            {
+              publish: {
+                paid_at: input.paid === false ? null : { not: null },
+              },
+            },
+          ]
+        : []),
+      ...(
+        await ShoppingSaleSnapshotProvider.search("input.search.sale")(
+          input?.sale,
+        )
+      ).map((snapshot) => ({
+        goods: {
+          some: {
+            commodity: {
+              snapshot,
+            },
+          },
+        },
+      })),
+    ]);
+
+  const orderBy = (
+    key: IShoppingOrder.IRequest.SortableColumns,
+    value: "asc" | "desc",
+  ) =>
+    (key === "order.created_at"
+      ? { created_at: value }
+      : key === "order.publish.paid_at"
+      ? { publish: { paid_at: value } }
+      : {
+          mv_price: { real: value },
+        }) satisfies Prisma.shopping_ordersOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS
@@ -76,24 +197,26 @@ export namespace ShoppingOrderProvider {
           ...ShoppingCartCommodityProvider.json.select(),
         }),
       )(ShoppingCartCommodityProvider.json.transform);
-      if (commodities.length !== input.goods.length)
-        throw ErrorProvider.notFound({
-          accessor: "input.goods[].commodity_id",
-          message: "Unable to find some commodities.",
-        });
+
+      // VALIDATE
+      const diagnoses: IDiagnosis[] =
+        ShoppingOrderDiagnoser.validate(commodities)(input);
+      if (diagnoses.length) throw ErrorProvider.unprocessable(diagnoses);
 
       // COLLECT GOODS
+      const quantity: IPointer<number> = { value: 0 };
       const goods = input.goods.map((raw, i) => {
-        const commodity: IShoppingCartCommodity | undefined = commodities.find(
+        const commodity: IShoppingCartCommodity = commodities.find(
           (c) => c.id === raw.commodity_id,
-        );
-        if (commodity === undefined)
-          throw ErrorProvider.internal(
-            "Unable to find commodity of matched sale.",
-          );
-        const sellerId: string = commodity.sale.seller.id;
+        )!;
+        quantity.value +=
+          raw.volume *
+          commodity.sale.units
+            .map((u) => u.stocks.map((s) => s.quantity))
+            .flat()
+            .reduce((a, b) => a + b);
         return ShoppingOrderGoodProvider.collect({
-          id: sellerId,
+          id: commodity.sale.seller.id,
         })(commodity)(raw, i);
       });
 
@@ -116,9 +239,50 @@ export namespace ShoppingOrderProvider {
           deposit: 0,
           created_at: new Date(),
           deleted_at: null,
+          mv_price: {
+            create: {
+              quantity: quantity.value,
+              nominal: goods
+                .map((g) => g.mv_price.create.nominal)
+                .reduce((x, y) => x + y),
+              real: goods
+                .map((g) => g.mv_price.create.real)
+                .reduce((x, y) => x + y),
+              ticket: 0,
+            },
+          },
         },
         ...json.select(),
       });
       return json.transform(record);
+    };
+
+  export const erase =
+    (customer: IShoppingCustomer) =>
+    async (id: string): Promise<void> => {
+      const record =
+        await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow({
+          where: {
+            id,
+            ...where(customer),
+          },
+          include: {
+            publish: true,
+          },
+        });
+      if (record.publish !== null)
+        throw ErrorProvider.gone({
+          accessor: "id",
+          message: "Order has already been published.",
+        });
+      await ShoppingGlobal.prisma.shopping_orders.update({
+        where: {
+          id,
+        },
+        data: {
+          deleted_at: new Date(),
+        },
+      });
+      // @todo - post processings
     };
 }

@@ -28,10 +28,10 @@ export namespace ShoppingCartCommodityDiagnoser {
           });
         else
           output.push(
-            ...ShoppingCartCommodityStockDiagnoser.validatae(unit)({
-              data: stock,
-              index: i,
-            }),
+            ...ShoppingCartCommodityStockDiagnoser.validatae(unit)(input)(
+              stock,
+              i,
+            ),
           );
       });
       return output;

@@ -76,7 +76,7 @@ export namespace IShoppingOrder {
       | "order.price"
       | `order.quantity`
       | "order.created_at"
-      | `order.paid_at`;
+      | `order.publish.paid_at`;
   }
 
   /**

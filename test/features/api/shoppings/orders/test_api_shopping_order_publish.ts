@@ -7,6 +7,7 @@ import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/o
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
@@ -20,6 +21,7 @@ export const test_api_shopping_order_publish = async (
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
+  await test_api_shopping_actor_admin_login(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
   const commodity: IShoppingCartCommodity =

@@ -66,7 +66,7 @@ export const test_api_shopping_deposit_outcome_by_order_but_cancelled = async (
     order,
     false,
   );
-  await ShoppingApi.functional.shoppings.customers.orders.publish.erase(
+  await ShoppingApi.functional.shoppings.customers.orders.publish.cancel(
     pool.customer,
     order.id,
   );
