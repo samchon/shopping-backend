@@ -38,6 +38,9 @@ export const test_api_shopping_order_publish = async (
     const read: IShoppingOrder = await ShoppingApi.functional.shoppings[
       `${actor}s`
     ].orders.at(pool[actor], order.id);
-    TestValidator.equals("read")(order)(read);
+    TestValidator.equals(
+      "read",
+      (key) => key === "orderable" || key === "inventory",
+    )(order)(read);
   }
 };

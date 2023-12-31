@@ -77,6 +77,7 @@ export namespace ShoppingOrderPublishProvider {
     async (
       input: IShoppingOrderPublish.ICreate,
     ): Promise<IShoppingOrderPublish> => {
+      // PRELIMINARIES
       const reference = await able(customer)(order);
       const props: {
         created_at: Date;
@@ -103,6 +104,7 @@ export namespace ShoppingOrderPublishProvider {
         });
       })();
 
+      // DO ARCHIVE
       const publish =
         await ShoppingGlobal.prisma.shopping_order_publishes.create({
           data: {
@@ -123,7 +125,22 @@ export namespace ShoppingOrderPublishProvider {
           },
           ...json.select(),
         });
-      // @todo -> post processings
+
+      // POST-PROCESSING
+      await ShoppingGlobal.prisma.shopping_cart_commodities.updateMany({
+        data: {
+          published: true,
+        },
+        where: {
+          order_goods: {
+            some: {
+              shopping_order_id: order.id,
+            },
+          },
+        },
+      });
+      if (props.paid_at !== null && props.cancelled_at === null)
+        await handlePayment(order);
       return json.transform(publish);
     };
 
@@ -156,8 +173,67 @@ export namespace ShoppingOrderPublishProvider {
           cancelled_at: new Date(),
         },
       });
-      // @todo -> post processings
+      await handleCancel(order);
     };
+
+  const handlePayment = async (order: IEntity) => {
+    // DECREASE INVENTORY
+    for (const { stock_id, quantity } of await getStocks(order))
+      await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
+        {
+          where: {
+            shopping_sale_snapshot_unit_stock_id: stock_id,
+          },
+          data: {
+            outcome: {
+              increment: quantity,
+            },
+          },
+        },
+      );
+  };
+
+  const handleCancel = async (order: IEntity) => {
+    // INCREASE INVENTORY
+    for (const { stock_id, quantity } of await getStocks(order))
+      await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
+        {
+          where: {
+            shopping_sale_snapshot_unit_stock_id: stock_id,
+          },
+          data: {
+            outcome: {
+              decrement: quantity,
+            },
+          },
+        },
+      );
+
+    // @todo - ROLL-BACK DISCOUNTS
+  };
+
+  const getStocks = async (order: IEntity): Promise<IStockQuantity[]> => {
+    const goodList = await ShoppingGlobal.prisma.shopping_order_goods.findMany({
+      where: {
+        shopping_order_id: order.id,
+      },
+      include: {
+        commodity: {
+          include: {
+            stocks: true,
+          },
+        },
+      },
+    });
+    return goodList
+      .map((good) =>
+        good.commodity.stocks.map((s) => ({
+          stock_id: s.shopping_sale_snapshot_unit_stock_id,
+          quantity: s.quantity * good.volume,
+        })),
+      )
+      .flat();
+  };
 
   // const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
   const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
@@ -165,3 +241,8 @@ export namespace ShoppingOrderPublishProvider {
 
 const KEY = "1ejeh9i3v2tlxbj5ueuyhn85kc3woqwv";
 const IV = "cuks39ovlcu4htzw";
+
+interface IStockQuantity {
+  stock_id: string;
+  quantity: number;
+}
