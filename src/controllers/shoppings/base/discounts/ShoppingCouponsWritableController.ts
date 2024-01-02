@@ -1,13 +1,16 @@
 import core from "@nestia/core";
 
-import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
+import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
+import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
+
+import { ShoppingCouponProvider } from "../../../../providers/shoppings/coupons/ShoppingCouponProvider";
 
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 import { ShoppingCouponsReadableController } from "./ShoppingCouponsReadableController";
 
 export function ShoppingCouponsWritableController<
-  Actor extends IShoppingActorEntity,
+  Actor extends IShoppingSeller.IInvert | IShoppingAdministrator.IInvert,
 >(props: IShoppingControllerProps) {
   abstract class ShoppingCouponsWritableController extends ShoppingCouponsReadableController<Actor>(
     props,
@@ -17,21 +20,7 @@ export function ShoppingCouponsWritableController<
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingCoupon.ICreate,
     ): Promise<IShoppingCoupon> {
-      actor;
-      input;
-      return null!;
-    }
-
-    @core.TypedRoute.Put(":id")
-    public async update(
-      @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string,
-      @core.TypedBody() input: IShoppingCoupon.IUpdate,
-    ): Promise<IShoppingCoupon> {
-      actor;
-      id;
-      input;
-      return null!;
+      return ShoppingCouponProvider.create(actor)(input);
     }
 
     @core.TypedRoute.Delete(":id")
@@ -39,8 +28,7 @@ export function ShoppingCouponsWritableController<
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("id") id: string,
     ): Promise<void> {
-      actor;
-      id;
+      return ShoppingCouponProvider.erase(actor)(id);
     }
   }
   return ShoppingCouponsWritableController;

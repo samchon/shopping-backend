@@ -118,7 +118,7 @@ export namespace ShoppingOrderProvider {
         }) satisfies Prisma.shopping_ordersWhereInput;
 
   const search = async (input: IShoppingOrder.IRequest.ISearch | undefined) =>
-    Prisma.validator<Prisma.shopping_ordersWhereInput["AND"]>()([
+    [
       ...(input?.min_price !== undefined
         ? [
             {
@@ -163,7 +163,7 @@ export namespace ShoppingOrderProvider {
           },
         },
       })),
-    ]);
+    ] satisfies Prisma.shopping_ordersWhereInput["AND"];
 
   const orderBy = (
     key: IShoppingOrder.IRequest.SortableColumns,

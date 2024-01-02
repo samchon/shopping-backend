@@ -16,7 +16,7 @@ export namespace AttachmentFileProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.attachment_filesFindManyArgs>()({});
+      ({} satisfies Prisma.attachment_filesFindManyArgs);
   }
 
   export function collect(

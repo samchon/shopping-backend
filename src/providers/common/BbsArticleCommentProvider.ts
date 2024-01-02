@@ -19,11 +19,11 @@ export namespace BbsArticleCommentProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.bbs_article_commentsFindManyArgs>()({
+      ({
         include: {
           snapshots: BbsArticleCommentSnapshotProvider.json.select(),
-        } as const,
-      });
+        },
+      } satisfies Prisma.bbs_article_commentsFindManyArgs);
   }
 
   export const orderBy = (

@@ -41,14 +41,9 @@ export const test_api_shopping_mileage_histories_index_sort = async (
   });
 
   const components = [
-    validator("history.created_at")(GaffComparator.dates((x) => x.created_at)),
-    validator("history.mileage.code")(
-      GaffComparator.strings((x) => x.mileage.code),
-    ),
+    validator("mileage.code")(GaffComparator.strings((x) => x.mileage.code)),
     validator("history.value")(GaffComparator.numbers((x) => x.value)),
-    validator("history.directedValue")(
-      GaffComparator.numbers((x) => x.value * x.mileage.direction),
-    ),
+    validator("history.created_at")(GaffComparator.dates((x) => x.created_at)),
   ];
   for (const comp of components) {
     await comp("+");

@@ -85,4 +85,43 @@ export namespace ShoppingCartCommodityStockDiagnoser {
       }
       return undefined;
     };
+
+  export const preview =
+    (unit: IShoppingSaleUnit) =>
+    (
+      input: IShoppingCartCommodityStock.ICreate,
+    ): IShoppingSaleUnitStock.IInvert => {
+      const stock: IShoppingSaleUnitStock | undefined = find(unit)(input);
+      if (stock === undefined)
+        throw new Error("Unable to find the matched stock.");
+      return {
+        id: stock.id,
+        name: stock.name,
+        price: stock.price,
+        inventory: stock.inventory,
+        quantity: input.quantity,
+        choices: input.choices.map((raw) => {
+          const choice = stock.choices.find(
+            (c) =>
+              c.option_id === raw.option_id &&
+              c.candidate_id === raw.candidate_id,
+          );
+          if (choice === undefined)
+            throw new Error("Unable to find the matched choice.");
+          const option = unit.options.find((o) => o.id === choice.option_id);
+          if (option === undefined)
+            throw new Error("Unable to find the matched option.");
+          return {
+            id: choice.id,
+            option,
+            candidate:
+              option.type === "select" && raw.candidate_id !== null
+                ? option.candidates.find((c) => c.id === raw.candidate_id) ??
+                  null
+                : null,
+            value: raw.value,
+          };
+        }),
+      };
+    };
 }

@@ -42,14 +42,14 @@ export namespace ShoppingMemberProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_membersFindManyArgs>()({
+      ({
         include: {
           citizen: ShoppingCitizenProvider.json.select(),
           of_seller: ShoppingSellerProvider.json.select(),
           of_admin: ShoppingAdministratorProvider.json.select(),
           emails: ShoppingMemberEmailProvider.json.select(),
         },
-      });
+      } satisfies Prisma.shopping_membersFindManyArgs);
   }
 
   /* -----------------------------------------------------------
@@ -230,7 +230,7 @@ export namespace ShoppingMemberProvider {
       password: string;
     }) =>
     (input: Omit<IShoppingMember.IJoin, "citizen" | "password">) =>
-      Prisma.validator<Prisma.shopping_membersCreateInput>()({
+      ({
         id: v4(),
         channel: {
           connect: { id: props.customer.channel.id },
@@ -258,5 +258,5 @@ export namespace ShoppingMemberProvider {
         created_at: new Date(),
         updated_at: new Date(),
         withdrawn_at: null,
-      });
+      } satisfies Prisma.shopping_membersCreateInput);
 }

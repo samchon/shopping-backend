@@ -56,4 +56,13 @@ export namespace IShoppingCouponCriteria {
     | IShoppingCouponSellerCriteria.ICreate
     | IShoppingCouponSaleCriteria.ICreate
     | IShoppingCouponFunnelCriteria.ICreate;
+
+  /**
+   * @internal
+   */
+  export interface ICollectBase {
+    id: string;
+    direction: "include" | "exclude";
+    type: Type;
+  }
 }

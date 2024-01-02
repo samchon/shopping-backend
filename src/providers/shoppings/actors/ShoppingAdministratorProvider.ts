@@ -31,7 +31,7 @@ export namespace ShoppingAdministratorProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_administratorsFindManyArgs>()({});
+      ({} satisfies Prisma.shopping_administratorsFindManyArgs);
   }
 
   export namespace invert {
@@ -84,7 +84,7 @@ export namespace ShoppingAdministratorProvider {
         };
       };
     export const select = () =>
-      Prisma.validator<Prisma.shopping_customersFindManyArgs>()({
+      ({
         include: {
           channel: ShoppingChannelProvider.json.select(),
           external_user: ShoppingExternalUserProvider.json.select(),
@@ -96,7 +96,7 @@ export namespace ShoppingAdministratorProvider {
             },
           },
         },
-      });
+      } satisfies Prisma.shopping_customersFindManyArgs);
   }
 
   /* -----------------------------------------------------------

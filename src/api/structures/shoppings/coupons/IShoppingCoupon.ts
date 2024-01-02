@@ -153,5 +153,4 @@ export namespace IShoppingCoupon {
      */
     closed_at: null | (string & tags.Format<"date-time">);
   }
-  export type IUpdate = ICreate;
 }

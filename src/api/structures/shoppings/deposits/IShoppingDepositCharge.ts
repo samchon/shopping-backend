@@ -19,12 +19,23 @@ export namespace IShoppingDepositCharge {
     export interface ISearch {
       from?: string & tags.Format<"date-time">;
       to?: string & tags.Format<"date-time">;
+      minimum?: number;
+      maximum?: number;
+      state: "pending" | "published" | "payed" | "cancelled";
+      publish?: {
+        from?: string & tags.Format<"date-time">;
+        to?: string & tags.Format<"date-time">;
+        payment?: {
+          from?: string & tags.Format<"date-time">;
+          to?: string & tags.Format<"date-time">;
+        };
+      };
     }
     export type SortableColumns =
-      | "charge.created_at"
-      | "charge.value"
-      | "charge.publish.created_at"
-      | "charge.publish.paid_at";
+      | "created_at"
+      | "value"
+      | "publish.created_at"
+      | "publish.paid_at";
   }
   export interface ICreate {
     value: number;

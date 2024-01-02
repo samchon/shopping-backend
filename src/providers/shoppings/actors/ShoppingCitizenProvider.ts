@@ -18,7 +18,7 @@ export namespace ShoppingCitizenProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_citizensFindManyArgs>()({});
+      ({} satisfies Prisma.shopping_citizensFindManyArgs);
   }
 
   export const create =
@@ -56,10 +56,10 @@ export namespace ShoppingCitizenProvider {
   export const search = (
     input: IShoppingCitizen.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.shopping_citizensWhereInput["AND"]>()([
+    [
       ...(input?.mobile?.length ? [{ mobile: encrypt(input.mobile) }] : []),
       ...(input?.name?.length ? [{ name: encrypt(input.name) }] : []),
-    ]);
+    ] satisfies Prisma.shopping_citizensWhereInput["AND"];
 
   const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
   const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);

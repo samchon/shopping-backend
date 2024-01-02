@@ -1774,6 +1774,7 @@ erDiagram
     Float value
     Float threshold "nullable"
     Int limit "nullable"
+    Boolean multiplicative
     Int volume "nullable"
     Int volume_per_citizen "nullable"
     Int expired_in "nullable"
@@ -1927,6 +1928,26 @@ subsidiary entities described later.
     > 
     > When this value is set, no further discount will be given no matter 
     > how much you order.
+  - `multiplicative`
+    > Whether be multiplied to quantity or not.
+    > 
+    > `multiplicative` is a property which means whether the same coupon
+    > can be multiplied to the quantity of order or not. It would be meaningful 
+    > only when the unit of discount is "amount". Otherwise, it's always `false`.
+    > 
+    > Therefore, if the `multiplicative` value is `true`, the discount amount
+    > will be multiplied by the quantity of order. For example, if the discount
+    > amount is `1,000 won` and the quantity of order is `3`, the total discount 
+    > amount will be `3,000 won`.
+    > 
+    > For reference, if there's a stock that its price is lower than the
+    > amount value, the stock wouldn't be discounted. Also, the "quantity" is
+    > based on the quantity of primary unit, not the quantity of stock.
+    > 
+    > ex) `5,000 won` coupon and `10` quantity of order
+    > 
+    > - `false`: Only `5,000 won` would be discounted
+    > - `true`: `50,000 won` would be discounted
   - `volume`
     > Limited quantity issued.
     > 
@@ -2204,13 +2225,14 @@ erDiagram
     String shopping_citizen_id FK
     String source_id
     Float value
+    Float balance
     DateTime created_at
     DateTime cancelled_at "nullable"
 }
 "shopping_deposit_charges" {
     String id PK
     String shopping_customer_id FK
-    Float amount
+    Float value
     DateTime created_at
     DateTime deleted_at "nullable"
 }
@@ -2231,12 +2253,21 @@ erDiagram
     DateTime created_at
     DateTime deleted_at "nullable"
 }
+"shopping_mileage_donations" {
+    String id PK
+    String shopping_admin_customer_id FK
+    String shopping_citizen_id FK
+    Float value
+    String reason
+    DateTime created_at
+}
 "shopping_mileage_histories" {
     String id PK
     String shopping_mileage_id FK
     String shopping_citizen_id FK
     String source_id
     Float value
+    Float balance
     DateTime created_at
     DateTime cancelled_at "nullable"
 }
@@ -2263,6 +2294,8 @@ erDiagram
 "shopping_deposit_histories" }o--|| "shopping_citizens" : citizen
 "shopping_deposit_charges" }o--|| "shopping_customers" : customer
 "shopping_deposit_charge_publishes" |o--|| "shopping_deposit_charges" : charge
+"shopping_mileage_donations" }o--|| "shopping_customers" : adminCustomer
+"shopping_mileage_donations" }o--|| "shopping_citizens" : citizen
 "shopping_mileage_histories" }o--|| "shopping_mileages" : mileage
 "shopping_mileage_histories" }o--|| "shopping_citizens" : citizen
 "shopping_customers" }o--|| "shopping_citizens" : citizen
@@ -2313,6 +2346,10 @@ outcome. The minus value must be expressed by multiplying the
     > If you want to express the figures for incomes and outcomes as 
     > positive/negative numbers, you can also multiply this field value by 
     > the attributed [shopping_deposits.direction](#shopping_deposits) value.
+  - `balance`
+    > Balance value.
+    > 
+    > Total balance value after the transaction.
   - `created_at`: Creation time of record.
   - `cancelled_at`: Cancelled time of record.
 
@@ -2331,7 +2368,7 @@ will the deposit increase be confirmed.
 **Properties**
   - `id`: Primary Key.
   - `shopping_customer_id`: Belonged metadata's [shopping_deposits.id](#shopping_deposits)
-  - `amount`: Charging amount.
+  - `value`: Charging amount.
   - `created_at`: Creation time of record.
   - `deleted_at`
     > Deletion time of record.
@@ -2401,6 +2438,16 @@ withdrawn.
   - `created_at`: Creation time of record.
   - `deleted_at`: Deletion time of record.
 
+### `shopping_mileage_donations`
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_admin_customer_id`: Belonged seller's [shopping_customers.id](#shopping_customers)
+  - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
+  - `value`: Amount of donation.
+  - `reason`: Reason of donation.
+  - `created_at`: Creation time of record.
+
 ### `shopping_mileage_histories`
 Mileagea income/outcome details of customers (citizens).
 
@@ -2425,6 +2472,10 @@ outcome. The minus value must be expressed by multiplying the
     > If you want to express the figures for incomes and outcomes as 
     > positive/negative numbers, you can also multiply this field value by 
     > the attributed [shopping_mileages.direction](#shopping_mileages) value.
+  - `balance`
+    > Balance value.
+    > 
+    > Total balance value after the transaction.
   - `created_at`: Creation time of record.
   - `cancelled_at`: Cancelled time of record.
 

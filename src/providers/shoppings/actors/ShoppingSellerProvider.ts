@@ -33,7 +33,7 @@ export namespace ShoppingSellerProvider {
       aggregate: aggregate.get(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_sellersFindManyArgs>()({});
+      ({} satisfies Prisma.shopping_sellersFindManyArgs);
   }
   export namespace invert {
     export const transform =
@@ -86,7 +86,7 @@ export namespace ShoppingSellerProvider {
         };
       };
     export const select = () =>
-      Prisma.validator<Prisma.shopping_customersFindManyArgs>()({
+      ({
         include: {
           channel: ShoppingChannelProvider.json.select(),
           external_user: ShoppingExternalUserProvider.json.select(),
@@ -98,7 +98,7 @@ export namespace ShoppingSellerProvider {
             },
           },
         },
-      });
+      } satisfies Prisma.shopping_customersFindManyArgs);
   }
 
   /* -----------------------------------------------------------
@@ -129,7 +129,7 @@ export namespace ShoppingSellerProvider {
   export const searchFromCustomer = (
     input: IShoppingSeller.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.shopping_customersWhereInput["AND"]>()([
+    [
       ...(input?.id?.length
         ? [{ member: { of_seller: { id: input.id } } }]
         : []),
@@ -140,17 +140,17 @@ export namespace ShoppingSellerProvider {
       ...(input?.nickname?.length
         ? [{ member: { nickname: input.nickname } }]
         : []),
-    ]);
+    ] satisfies Prisma.shopping_customersWhereInput["AND"];
 
   export const orderBy = (
     key: IShoppingSeller.IRequest.SortableColumns,
     value: "asc" | "desc",
   ) =>
-    Prisma.validator<Prisma.shopping_sellersOrderByWithRelationInput>()(
-      key === "seller.created_at"
-        ? { created_at: value }
-        : { created_at: value }, // @todo -> statistics
-    );
+    (key === "seller.created_at"
+      ? { created_at: value }
+      : {
+          created_at: value,
+        }) satisfies Prisma.shopping_sellersOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS

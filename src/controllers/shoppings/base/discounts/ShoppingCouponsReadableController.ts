@@ -5,6 +5,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 
+import { ShoppingCouponProvider } from "../../../../providers/shoppings/coupons/ShoppingCouponProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingCouponsReadableController<
@@ -17,9 +19,7 @@ export function ShoppingCouponsReadableController<
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingCoupon.IRequest,
     ): Promise<IPage<IShoppingCoupon>> {
-      actor;
-      input;
-      return null!;
+      return ShoppingCouponProvider.index(actor)(input);
     }
 
     @core.TypedRoute.Get(":id")
@@ -27,9 +27,7 @@ export function ShoppingCouponsReadableController<
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("id") id: string,
     ): Promise<IShoppingCoupon> {
-      actor;
-      id;
-      return null!;
+      return ShoppingCouponProvider.at(actor)(id);
     }
   }
   return ShoppingCouponsReadableController;

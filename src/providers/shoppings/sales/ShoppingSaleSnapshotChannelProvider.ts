@@ -46,19 +46,17 @@ export namespace ShoppingSaleSnapshotChannelProvider {
           accessor: `input.channels[${sequence}].code`,
           message: `Unable to find the matched channel with code "${input.code}".`,
         });
-      return Prisma.validator<Prisma.shopping_sale_snapshot_channelsCreateWithoutSnapshotInput>()(
-        {
-          id: v4(),
-          channel: { connect: { id: channel.id } },
-          to_categories: {
-            create: input.category_ids.map((id, i) => ({
-              id: v4(),
-              shopping_channel_category_id: id,
-              sequence: i,
-            })),
-          },
-          sequence,
+      return {
+        id: v4(),
+        channel: { connect: { id: channel.id } },
+        to_categories: {
+          create: input.category_ids.map((id, i) => ({
+            id: v4(),
+            shopping_channel_category_id: id,
+            sequence: i,
+          })),
         },
-      );
+        sequence,
+      } satisfies Prisma.shopping_sale_snapshot_channelsCreateWithoutSnapshotInput;
     };
 }

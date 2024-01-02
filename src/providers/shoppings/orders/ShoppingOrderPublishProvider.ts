@@ -118,7 +118,7 @@ export namespace ShoppingOrderPublishProvider {
             password:
               input.type === "zero"
                 ? null
-                : encrypt(RandomGenerator.alphabets(8)),
+                : encrypt(RandomGenerator.alphabets(16)),
             created_at: props.created_at,
             paid_at: props.paid_at,
             cancelled_at: props.cancelled_at,

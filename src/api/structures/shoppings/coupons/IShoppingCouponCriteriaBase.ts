@@ -1,5 +1,3 @@
-import { tags } from "typia";
-
 import { IShoppingCouponCriteria } from "./IShoppingCouponCriteria";
 
 /**
@@ -25,11 +23,6 @@ import { IShoppingCouponCriteria } from "./IShoppingCouponCriteria";
 export interface IShoppingCouponCriteriaBase<
   Type extends IShoppingCouponCriteria.Type,
 > {
-  /**
-   * Primary Key.
-   */
-  id: string & tags.Format<"uuid">;
-
   /**
    * Descrimanator type.
    */

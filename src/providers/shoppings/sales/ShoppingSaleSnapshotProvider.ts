@@ -257,7 +257,7 @@ export namespace ShoppingSaleSnapshotProvider {
   export const search =
     (accessor: string) =>
     async (input: IShoppingSale.IRequest.ISearch | undefined) =>
-      Prisma.validator<Prisma.shopping_sale_snapshotsWhereInput["AND"]>()([
+      [
         // PRICE
         ...(input?.price?.minimum !== undefined
           ? [
@@ -375,50 +375,48 @@ export namespace ShoppingSaleSnapshotProvider {
             ]
           : []),
         // @todo - AGGREGATE NOT YET
-      ]);
+      ] satisfies Prisma.shopping_sale_snapshotsWhereInput["AND"];
 
   export const orderBy = (
     key: IShoppingSale.IRequest.SortableColumns,
     value: "asc" | "desc",
   ) =>
-    Prisma.validator<Prisma.shopping_sale_snapshotsOrderByWithRelationInput>()(
-      key === "sale.created_at"
-        ? { sale: { created_at: value } }
-        : key === "sale.updated_at"
-        ? { created_at: value }
-        : key === "sale.opened_at"
-        ? { sale: { opened_at: value } }
-        : key === "sale.closed_at"
-        ? { sale: { closed_at: value } }
-        : key === "sale.price_range.lowest.real"
-        ? {
-            mv_price_range: {
-              real_lowest: value,
-            },
-          }
-        : key === "sale.price_range.highest.real"
-        ? {
-            mv_price_range: {
-              real_highest: value,
-            },
-          }
-        : key === "sale.content.title"
-        ? { content: { title: value } }
-        : key === "goods.payments.real" ||
-          key === "goods.publish_count" ||
-          key === "reviews.average" ||
-          key === "reviews.count"
-        ? { created_at: value } // @todo
-        : {
-            sale: {
-              sellerCustomer: {
-                member: {
-                  of_seller: ShoppingSellerProvider.orderBy(key, value),
-                },
+    (key === "sale.created_at"
+      ? { sale: { created_at: value } }
+      : key === "sale.updated_at"
+      ? { created_at: value }
+      : key === "sale.opened_at"
+      ? { sale: { opened_at: value } }
+      : key === "sale.closed_at"
+      ? { sale: { closed_at: value } }
+      : key === "sale.price_range.lowest.real"
+      ? {
+          mv_price_range: {
+            real_lowest: value,
+          },
+        }
+      : key === "sale.price_range.highest.real"
+      ? {
+          mv_price_range: {
+            real_highest: value,
+          },
+        }
+      : key === "sale.content.title"
+      ? { content: { title: value } }
+      : key === "goods.payments.real" ||
+        key === "goods.publish_count" ||
+        key === "reviews.average" ||
+        key === "reviews.count"
+      ? { created_at: value } // @todo
+      : {
+          sale: {
+            sellerCustomer: {
+              member: {
+                of_seller: ShoppingSellerProvider.orderBy(key, value),
               },
             },
           },
-    );
+        }) satisfies Prisma.shopping_sale_snapshotsOrderByWithRelationInput;
 
   const searchCategories =
     (accessor: string) =>

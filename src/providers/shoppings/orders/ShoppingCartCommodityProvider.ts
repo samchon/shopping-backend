@@ -43,7 +43,7 @@ export namespace ShoppingCartCommodityProvider {
         .sort((a, b) => a.sequence - b.sequence)
         .map(ShoppingCartCommodityStockProvider.json.transform);
       const dict: Map<string, IShoppingSaleUnit.IInvert[]> = new Map();
-      for (const u of units) MapUtil.take(dict)(u.id, () => []).push(u);
+      for (const u of units) MapUtil.take(dict)(u.id)(() => []).push(u);
 
       return {
         id: input.id,
@@ -54,7 +54,7 @@ export namespace ShoppingCartCommodityProvider {
             stocks: units.map((u) => u.stocks[0]),
           })),
         },
-        fake: false,
+        pseudo: false,
         price: {
           nominal: input.mv_price.nominal,
           real: input.mv_price.real,
@@ -137,7 +137,7 @@ export namespace ShoppingCartCommodityProvider {
   const search = async (
     input: IShoppingCartCommodity.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.shopping_cart_commoditiesWhereInput["AND"]>()([
+    [
       ...(input?.sale !== undefined
         ? [
             ...(
@@ -149,7 +149,7 @@ export namespace ShoppingCartCommodityProvider {
             })),
           ]
         : []),
-    ]);
+    ] satisfies Prisma.shopping_cart_commoditiesWhereInput["AND"];
 
   const orderBy = (
     key: IShoppingCartCommodity.IRequest.SortableColumns,

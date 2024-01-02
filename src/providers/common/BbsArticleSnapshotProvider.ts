@@ -22,15 +22,15 @@ export namespace BbsArticleSnapshotProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.bbs_article_snapshotsFindManyArgs>()({
+      ({
         include: {
           to_files: {
             include: {
               file: AttachmentFileProvider.json.select(),
             },
           },
-        } as const,
-      });
+        },
+      } satisfies Prisma.bbs_article_snapshotsFindManyArgs);
   }
 
   export const store =

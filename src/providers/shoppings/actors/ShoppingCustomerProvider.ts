@@ -45,14 +45,14 @@ export namespace ShoppingCustomerProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_customersFindManyArgs>()({
+      ({
         include: {
           channel: ShoppingChannelProvider.json.select(),
           citizen: ShoppingCitizenProvider.json.select(),
           external_user: ShoppingExternalUserProvider.json.select(),
           member: ShoppingMemberProvider.json.select(),
         },
-      });
+      } satisfies Prisma.shopping_customersFindManyArgs);
   }
 
   /* -----------------------------------------------------------
@@ -229,8 +229,8 @@ export namespace ShoppingCustomerProvider {
       external_user: IShoppingExternalUser | null;
       request: { ip: string };
     }) =>
-    (input: IShoppingCustomer.ICreate) => {
-      return Prisma.validator<Prisma.shopping_customersCreateInput>()({
+    (input: IShoppingCustomer.ICreate) =>
+      ({
         id: v4(),
         channel: { connect: { id: props.channel.id } },
         external_user:
@@ -247,8 +247,7 @@ export namespace ShoppingCustomerProvider {
         referrer: input.referrer,
         ip: input.ip ?? props.request.ip,
         created_at: new Date(),
-      });
-    };
+      } satisfies Prisma.shopping_customersCreateInput);
 
   /* -----------------------------------------------------------
     PREDICATORS
@@ -263,7 +262,7 @@ export namespace ShoppingCustomerProvider {
       (x.member !== null && x.member.id === y.member?.id);
 
   export const where = (customer: IShoppingCustomer) =>
-    Prisma.validator<Prisma.shopping_customersWhereInput>()({
+    ({
       OR: [
         {
           id: customer.id,
@@ -278,5 +277,5 @@ export namespace ShoppingCustomerProvider {
           ? [{ shopping_citizen_id: customer.citizen.id }]
           : []),
       ],
-    });
+    } satisfies Prisma.shopping_customersWhereInput);
 }

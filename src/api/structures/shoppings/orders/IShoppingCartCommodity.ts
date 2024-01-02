@@ -48,13 +48,13 @@ export interface IShoppingCartCommodity {
   orderable: boolean;
 
   /**
-   * Whether current commodity is fake or not.
+   * Whether current commodity is pseudo or not.
    *
    * When this attribute is `true`, then the commodity is not the real one,
    * but just fake information only for calculating the discount effect by
    * {@link IShoppingCoupon coupons}.
    */
-  fake: boolean;
+  pseudo: boolean;
 
   /**
    * Volume of the commodity to purchase.
