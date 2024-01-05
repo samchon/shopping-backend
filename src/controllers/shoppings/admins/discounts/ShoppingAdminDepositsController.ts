@@ -6,28 +6,26 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingDeposit } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDeposit";
 
+import { ShoppingDepositProvider } from "../../../../providers/shoppings/deposits/ShoppingDepositProvider";
+
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 
 @Controller(`shoppings/admins/deposits`)
 export class ShoppingAdminDepositsController {
   @core.TypedRoute.Patch()
   public async index(
-    @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
+    @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IPage.IRequest,
   ): Promise<IPage<IShoppingDeposit>> {
-    admin;
-    input;
-    return null!;
+    return ShoppingDepositProvider.index(input);
   }
 
   @core.TypedRoute.Get(":id")
   public async at(
-    @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
+    @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingDeposit> {
-    admin;
-    id;
-    return null!;
+    return ShoppingDepositProvider.at(id);
   }
 
   @core.TypedRoute.Post()
@@ -35,9 +33,7 @@ export class ShoppingAdminDepositsController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IShoppingDeposit.ICreate,
   ): Promise<IShoppingDeposit> {
-    admin;
-    input;
-    return null!;
+    return ShoppingDepositProvider.create(admin)(input);
   }
 
   @core.TypedRoute.Delete(":id")
@@ -45,7 +41,6 @@ export class ShoppingAdminDepositsController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
-    admin;
-    id;
+    return ShoppingDepositProvider.erase(admin)(id);
   }
 }

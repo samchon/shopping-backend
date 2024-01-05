@@ -2,10 +2,13 @@ import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 
+import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { ErrorProvider } from "../../../utils/ErrorProvider";
+import { ShoppingMileageHistoryProvider } from "../mileages/ShoppingMileageHistoryProvider";
 import { ShoppingCartCommodityProvider } from "./ShoppingCartCommodityProvider";
 
 export namespace ShoppingOrderGoodProvider {
@@ -71,4 +74,59 @@ export namespace ShoppingOrderGoodProvider {
         },
         sequence,
       } satisfies Prisma.shopping_order_goodsCreateWithoutOrderInput);
+
+  export const confirm =
+    (customer: IShoppingCustomer) =>
+    (order: IEntity) =>
+    async (id: string): Promise<void> => {
+      const good =
+        await ShoppingGlobal.prisma.shopping_order_goods.findFirstOrThrow({
+          where: { id, shopping_order_id: order.id },
+          include: {
+            mv_price: true,
+            order: {
+              include: {
+                publish: true,
+              },
+            },
+          },
+        });
+      if (good.confirmed_at !== null)
+        throw ErrorProvider.gone({
+          accessor: "id",
+          message: "Already confirmed.",
+        });
+      if (good.order.publish === null)
+        throw ErrorProvider.unprocessable({
+          accessor: "orderId",
+          message: "Order has not been published yet.",
+        });
+      else if (good.order.publish.paid_at === null)
+        throw ErrorProvider.unprocessable({
+          accessor: "orderId",
+          message: "Order has not been paid yet.",
+        });
+      else if (good.order.publish.cancelled_at !== null)
+        throw ErrorProvider.gone({
+          accessor: "orderId",
+          message: "Order has been cancelled.",
+        });
+      else if (good.mv_price === null)
+        throw ErrorProvider.internal("mv_price is null");
+
+      await ShoppingGlobal.prisma.shopping_order_goods.update({
+        where: { id },
+        data: {
+          mv_state: {
+            create: {
+              value: "confirmed",
+            },
+          },
+          confirmed_at: new Date(),
+        },
+      });
+      await ShoppingMileageHistoryProvider.emplace(customer.citizen!)(
+        "shopping_order_good_confirm_reward",
+      )(good, (ratio) => good.mv_price!.real * ratio!);
+    };
 }

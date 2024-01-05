@@ -185,6 +185,33 @@ export namespace ShoppingDepositChargeProvider {
       });
     };
 
+  export const erase =
+    (customer: IShoppingCustomer) =>
+    async (id: string): Promise<void> => {
+      const record =
+        await ShoppingGlobal.prisma.shopping_deposit_charges.findFirstOrThrow({
+          where: {
+            id,
+            customer: ShoppingCustomerProvider.where(customer),
+          },
+          include: {
+            publish: true,
+          },
+        });
+      if (record.publish !== null)
+        throw ErrorProvider.gone({
+          accessor: "id",
+          message: "Charge has already been published.",
+        });
+
+      await ShoppingGlobal.prisma.shopping_deposit_charges.update({
+        where: { id: record.id },
+        data: {
+          deleted_at: new Date(),
+        },
+      });
+    };
+
   const collect =
     (customer: IShoppingCustomer) => (input: IShoppingDepositCharge.ICreate) =>
       ({

@@ -1,6 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
+import { IShoppingCustomer } from "../actors/IShoppingCustomer";
 import { IShoppingCoupon } from "./IShoppingCoupon";
 
 /**
@@ -22,6 +23,11 @@ export interface IShoppingCouponTicket {
    * Primary Key.
    */
   id: string & tags.Format<"uuid">;
+
+  /**
+   * Customer who've taken the coupon ticket.
+   */
+  customer: IShoppingCustomer;
 
   /**
    * Target coupon.

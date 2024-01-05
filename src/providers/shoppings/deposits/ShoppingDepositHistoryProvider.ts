@@ -140,7 +140,7 @@ export namespace ShoppingDepositHistoryProvider {
       return json.transform(record);
     };
 
-  export const balance = async (citizen: IEntity): Promise<number> => {
+  export const getBalance = async (citizen: IEntity): Promise<number> => {
     const record =
       await ShoppingGlobal.prisma.mv_shopping_deposit_balances.findFirst({
         where: {
@@ -153,7 +153,7 @@ export namespace ShoppingDepositHistoryProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
+  export const emplace =
     (citizen: IEntity) =>
     (depositCode: string) =>
     async (source: IEntity, value: number): Promise<void> => {
@@ -175,28 +175,47 @@ export namespace ShoppingDepositHistoryProvider {
       const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
         depositCode,
       );
-      const previous: number = await balance(citizen);
-      const increment: number = deposit.direction * props.value;
-      const after: number = previous + increment;
+      const balance: number = await getBalance(citizen);
+      const previous =
+        await ShoppingGlobal.prisma.shopping_deposit_histories.findFirst({
+          where: {
+            shopping_deposit_id: deposit.id,
+            shopping_citizen_id: citizen.id,
+            cancelled_at: null,
+          },
+        });
+      const increment: number =
+        deposit.direction * (props.value - (previous?.value ?? 0));
+      const after: number = balance + increment;
       if (after < 0) throw ErrorProvider.paymentRequired("not enough deposit");
 
       const entity: T = await props.task();
       const record =
-        await ShoppingGlobal.prisma.shopping_deposit_histories.create({
-          data: {
-            id: v4(),
-            deposit: {
-              connect: { id: deposit.id },
-            },
-            citizen: {
-              connect: { id: citizen.id },
-            },
-            source_id: props.source(entity).id,
-            value: props.value,
-            balance: previous,
-            created_at: new Date(),
-          },
-        });
+        previous === null
+          ? await ShoppingGlobal.prisma.shopping_deposit_histories.create({
+              data: {
+                id: v4(),
+                deposit: {
+                  connect: { id: deposit.id },
+                },
+                citizen: {
+                  connect: { id: citizen.id },
+                },
+                source_id: props.source(entity).id,
+                value: props.value,
+                balance: balance,
+                created_at: new Date(),
+              },
+            })
+          : await ShoppingGlobal.prisma.shopping_deposit_histories.update({
+              where: {
+                id: previous.id,
+              },
+              data: {
+                value: props.value,
+                balance: balance,
+              },
+            });
 
       await ShoppingGlobal.prisma.mv_shopping_deposit_balances.upsert({
         where: {
@@ -232,20 +251,16 @@ export namespace ShoppingDepositHistoryProvider {
   export const cancel =
     (citizen: IEntity) =>
     (depositCode: string) =>
-    async <T>(props: {
-      task: () => Promise<T>;
-      source: (entity: T) => IEntity;
-    }): Promise<T> => {
+    async (source: IEntity): Promise<void> => {
       const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
         depositCode,
       );
-      const entity: T = await props.task();
       const history =
         await ShoppingGlobal.prisma.shopping_deposit_histories.findFirstOrThrow(
           {
             where: {
               shopping_deposit_id: deposit.id,
-              source_id: props.source(entity).id,
+              source_id: source.id,
               shopping_citizen_id: citizen.id,
             },
           },
@@ -283,6 +298,5 @@ export namespace ShoppingDepositHistoryProvider {
           },
         },
       });
-      return entity;
     };
 }

@@ -10,14 +10,18 @@ import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingCustomerProvider } from "../actors/ShoppingCustomerProvider";
+import { ShoppingDepositHistoryProvider } from "../deposits/ShoppingDepositHistoryProvider";
+import { ShoppingMileageHistoryProvider } from "../mileages/ShoppingMileageHistoryProvider";
 import { ShoppingSaleSnapshotProvider } from "../sales/ShoppingSaleSnapshotProvider";
 import { ShoppingCartCommodityProvider } from "./ShoppingCartCommodityProvider";
 import { ShoppingOrderGoodProvider } from "./ShoppingOrderGoodProvider";
+import { ShoppingOrderPriceProvider } from "./ShoppingOrderPriceProvider";
 import { ShoppingOrderPublishProvider } from "./ShoppingOrderPublishProvider";
 
 export namespace ShoppingOrderProvider {
@@ -267,6 +271,7 @@ export namespace ShoppingOrderProvider {
             ...where(customer),
           },
           include: {
+            ...ShoppingOrderPriceProvider.json.select(customer).include,
             publish: true,
           },
         });
@@ -275,6 +280,30 @@ export namespace ShoppingOrderProvider {
           accessor: "id",
           message: "Order has already been published.",
         });
+
+      const price: IShoppingOrderPrice =
+        await ShoppingOrderPriceProvider.json.transform(record);
+
+      if (customer.citizen) {
+        if (price.deposit)
+          await ShoppingDepositHistoryProvider.cancel(customer.citizen)(
+            "shopping_order_payment",
+          )(record);
+        if (price.ticket)
+          await ShoppingMileageHistoryProvider.cancel(customer.citizen)(
+            "shopping_order_payment",
+          )(record);
+        if (price.ticket_payments.length)
+          await ShoppingGlobal.prisma.shopping_coupon_ticket_payments.deleteMany(
+            {
+              where: {
+                id: {
+                  in: price.ticket_payments.map((ctp) => ctp.id),
+                },
+              },
+            },
+          );
+      }
       await ShoppingGlobal.prisma.shopping_orders.update({
         where: {
           id,
@@ -283,6 +312,5 @@ export namespace ShoppingOrderProvider {
           deleted_at: new Date(),
         },
       });
-      // @todo - post processings
     };
 }

@@ -49,22 +49,24 @@ export const test_api_shopping_order_discount_by_guest = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
   });
 
-  const error: Error | null = await TestValidator.proceed(async () => {
-    const price: IShoppingOrderPrice =
-      await ShoppingApi.functional.shoppings.customers.orders.discount(
-        pool.customer,
-        order.id,
-        {
-          deposit: 0,
-          mileage: 0,
-          coupon_ids: [coupon.id],
-        },
-      );
-    typia.assertEquals(price);
+  await TestValidator.httpError("discount by guest")(403)(async () => {
+    const error: Error | null = await TestValidator.proceed(async () => {
+      const price: IShoppingOrderPrice =
+        await ShoppingApi.functional.shoppings.customers.orders.discount(
+          pool.customer,
+          order.id,
+          {
+            deposit: 0,
+            mileage: 0,
+            coupon_ids: [coupon.id],
+          },
+        );
+      typia.assertEquals(price);
+    });
+    await ShoppingApi.functional.shoppings.admins.coupons.destroy(
+      pool.admin,
+      coupon.id,
+    );
+    if (error !== null) throw error;
   });
-  await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-    pool.admin,
-    coupon.id,
-  );
-  if (error) throw error;
 };

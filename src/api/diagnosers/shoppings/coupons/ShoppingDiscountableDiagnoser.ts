@@ -46,34 +46,28 @@ export namespace ShoppingDiscountableDiagnoser {
   const _Filter_threshold =
     <T extends IEntity>(accessor: IAccessor<T>) =>
     (coupon: IShoppingCoupon) =>
-    (data: T[]) => {
-      if (coupon.discount.threshold === null) return data;
-      const sum: number =
+    (data: T[]): T[] => {
+      if (coupon.discount.threshold === null)
+        return coupon.discount.unit === "amount" &&
+          coupon.discount.multiplicative === true
+          ? data.filter(
+              (elem) => accessor.item(elem).price.real >= coupon.discount.value,
+            )
+          : data;
+      else if (
         coupon.discount.unit === "amount" &&
         coupon.discount.multiplicative === true
-          ? data
-              .map((elem) => {
-                const divider: number = _Get_multiplicative_count(
-                  accessor.item(elem),
-                );
-                return (
-                  _Get_price(accessor)(elem) / accessor.volume(elem) / divider
-                );
-              })
-              .reduce((a, b) => a + b, 0)
-          : data
-              .map((elem) => _Get_price(accessor)(elem))
-              .reduce((x, y) => x + y, 0);
+      )
+        return data.filter(
+          (elem) =>
+            accessor.item(elem).price.real >= coupon.discount.threshold! &&
+            accessor.item(elem).price.real >= coupon.discount.value,
+        );
+      const sum: number = data
+        .map((elem) => _Get_price(accessor)(elem))
+        .reduce((x, y) => x + y, 0);
       return sum >= coupon.discount.threshold ? data : [];
     };
-
-  const _Get_multiplicative_count = (
-    commodity: IShoppingCartCommodity,
-  ): number =>
-    commodity.sale.units
-      .filter((u) => u.primary)
-      .map((u) => u.stocks.map((s) => s.quantity).reduce((a, b) => a + b, 0))
-      .reduce((a, b) => a + b, 0);
 
   const _Get_price =
     <T extends IEntity>(accessor: IAccessor<T>) =>
@@ -151,8 +145,7 @@ export namespace ShoppingDiscountableDiagnoser {
           () => new Map<string, number>(),
         ).set(elem.id, value);
       };
-
-      if (coupon.discount.unit === "percent") {
+      if (coupon.discount.unit === "percent")
         for (const elem of data) {
           // DISCOUNTED VALUE
           const value: number =
@@ -162,11 +155,16 @@ export namespace ShoppingDiscountableDiagnoser {
           output.amount += value;
           adjust(elem, value);
         }
-      } else {
+      else if (coupon.discount.multiplicative === true)
+        for (const elem of data) {
+          const value: number = coupon.discount.value * accessor.volume(elem);
+          adjust(elem, value);
+          output.amount += value;
+        }
+      else {
         const denominator: number = data
           .map((elem) => _Get_price(accessor)(elem))
           .reduce((x, y) => x + y, 0);
-
         for (const elem of data) {
           const value: number =
             ((coupon.discount.value / 100) * _Get_price(accessor)(elem)) /

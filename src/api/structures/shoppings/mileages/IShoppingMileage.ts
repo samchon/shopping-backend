@@ -4,6 +4,7 @@ import { IPage } from "../../common/IPage";
 
 export interface IShoppingMileage extends IShoppingMileage.ICreate {
   id: string & tags.Format<"uuid">;
+  value: null | number;
   created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingMileage {
@@ -13,6 +14,7 @@ export namespace IShoppingMileage {
     code: string;
     source: string;
     direction: Direction;
+    value: null | number;
   }
 
   export interface IRequest extends IPage.IRequest {

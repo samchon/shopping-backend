@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
+import { IShoppingCitizen } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCitizen";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingDepositChargePublish } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositChargePublish";
 
@@ -11,6 +12,7 @@ import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { PaymentService } from "../../../services/PaymentService";
 import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { ShoppingCustomerProvider } from "../actors/ShoppingCustomerProvider";
+import { ShoppingDepositHistoryProvider } from "../deposits/ShoppingDepositHistoryProvider";
 import { ShoppingMileageHistoryProvider } from "../mileages/ShoppingMileageHistoryProvider";
 
 export namespace ShoppingDepositChargePublishProvider {
@@ -36,19 +38,24 @@ export namespace ShoppingDepositChargePublishProvider {
     READERS
   ----------------------------------------------------------- */
   export const able =
-    (customer: IShoppingCustomer) => async (charge: IEntity) => {
-      const knock =
-        await ShoppingGlobal.prisma.shopping_deposit_charges.findFirstOrThrow({
-          where: {
-            id: charge.id,
-            customer: ShoppingCustomerProvider.where(customer),
-          },
-          include: {
-            publish: true,
-          },
-        });
-      return knock;
+    (customer: IShoppingCustomer) =>
+    async (charge: IEntity): Promise<boolean> => {
+      return (await knock(customer)(charge)) !== null;
     };
+
+  const knock = (customer: IShoppingCustomer) => async (charge: IEntity) => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_deposit_charges.findFirstOrThrow({
+        where: {
+          id: charge.id,
+          customer: ShoppingCustomerProvider.where(customer),
+        },
+        include: {
+          publish: true,
+        },
+      });
+    return record.publish === null ? record : null;
+  };
 
   /* -----------------------------------------------------------
     WRITERS
@@ -65,7 +72,12 @@ export namespace ShoppingDepositChargePublishProvider {
           accessor: "headers.Authorzation",
           message: "You are not a citizen yet.",
         });
-      const reference = await able(customer)(charge);
+      const reference = await knock(customer)(charge);
+      if (reference === null)
+        throw ErrorProvider.gone({
+          accessor: "id",
+          message: "The order already has been published.",
+        });
       const props = await PaymentService.enroll({
         vendor: input.vendor,
         uid: input.uid,
@@ -90,11 +102,22 @@ export namespace ShoppingDepositChargePublishProvider {
         });
 
       // POST-PROCESSING
-      await ShoppingMileageHistoryProvider.create(customer.citizen)(
-        "shopping_deposit_charge",
-      )(charge, reference.value);
+      if (publish.paid_at !== null && publish.cancelled_at === null)
+        await handlePayment(customer.citizen)(charge, reference.value);
 
       return json.transform(publish);
+    };
+
+  const handlePayment =
+    (citizen: IShoppingCitizen) =>
+    async (charge: IEntity, value: number): Promise<void> => {
+      await ShoppingDepositHistoryProvider.emplace(citizen)(
+        "shopping_deposit_charge",
+      )(charge, value);
+
+      await ShoppingMileageHistoryProvider.emplace(citizen)(
+        "shopping_deposit_charge_reward",
+      )(charge, (ratio) => value * ratio!);
     };
 
   // const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);

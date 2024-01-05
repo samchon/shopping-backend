@@ -61,9 +61,7 @@ export const test_api_shopping_order_discountable_after_erase =
       ),
     )(
       discountable.combinations.map((comb) =>
-        comb.tickets
-          .map((t) => t.coupon)
-          .sort((a, b) => a.id.localeCompare(b.id)),
+        comb.coupons.sort((a, b) => a.id.localeCompare(b.id)),
       ),
     );
   });

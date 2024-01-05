@@ -140,7 +140,7 @@ export namespace ShoppingMileageHistoryProvider {
       return json.transform(record);
     };
 
-  export const balance = async (citizen: IEntity): Promise<number> => {
+  export const getBalance = async (citizen: IEntity): Promise<number> => {
     const record =
       await ShoppingGlobal.prisma.mv_shopping_mileage_balances.findFirst({
         where: {
@@ -153,10 +153,13 @@ export namespace ShoppingMileageHistoryProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
+  export const emplace =
     (citizen: IEntity) =>
     (mileageCode: string) =>
-    async (source: IEntity, value: number): Promise<void> => {
+    async (
+      source: IEntity,
+      value: (value: number | null) => number,
+    ): Promise<void> => {
       await process(citizen)(mileageCode)({
         task: async () => source,
         source: (entity) => entity,
@@ -170,33 +173,53 @@ export namespace ShoppingMileageHistoryProvider {
     async <T extends IEntity>(props: {
       task: () => Promise<T>;
       source: (entity: T) => IEntity;
-      value: number;
+      value: (value: number | null) => number;
     }): Promise<T> => {
       const mileage: IShoppingMileage = await ShoppingMileageProvider.get(
         mileageCode,
       );
-      const previous: number = await balance(citizen);
-      const increment: number = mileage.direction * props.value;
-      const after: number = previous + increment;
+      const balance: number = await getBalance(citizen);
+      const previous =
+        await ShoppingGlobal.prisma.shopping_mileage_histories.findFirst({
+          where: {
+            shopping_mileage_id: mileage.id,
+            shopping_citizen_id: citizen.id,
+            cancelled_at: null,
+          },
+        });
+      const increment: number =
+        mileage.direction *
+        (props.value(mileage.value) - (previous?.value ?? 0));
+      const after: number = balance + increment;
       if (after < 0) throw ErrorProvider.paymentRequired("not enough mileage");
 
       const entity: T = await props.task();
       const record =
-        await ShoppingGlobal.prisma.shopping_mileage_histories.create({
-          data: {
-            id: v4(),
-            mileage: {
-              connect: { id: mileage.id },
-            },
-            citizen: {
-              connect: { id: citizen.id },
-            },
-            source_id: props.source(entity).id,
-            value: props.value,
-            balance: previous,
-            created_at: new Date(),
-          },
-        });
+        previous === null
+          ? await ShoppingGlobal.prisma.shopping_mileage_histories.create({
+              data: {
+                id: v4(),
+                mileage: {
+                  connect: { id: mileage.id },
+                },
+                citizen: {
+                  connect: { id: citizen.id },
+                },
+                source_id: props.source(entity).id,
+                value: props.value(mileage.value),
+                balance: balance,
+                created_at: new Date(),
+              },
+            })
+          : await ShoppingGlobal.prisma.shopping_mileage_histories.update({
+              where: {
+                id: previous.id,
+              },
+              data: {
+                value: props.value(mileage.value),
+                balance: balance,
+              },
+            });
 
       await ShoppingGlobal.prisma.mv_shopping_mileage_balances.upsert({
         where: {
@@ -232,20 +255,16 @@ export namespace ShoppingMileageHistoryProvider {
   export const cancel =
     (citizen: IEntity) =>
     (mileageCode: string) =>
-    async <T>(props: {
-      task: () => Promise<T>;
-      source: (entity: T) => IEntity;
-    }): Promise<T> => {
+    async (source: IEntity): Promise<void> => {
       const mileage: IShoppingMileage = await ShoppingMileageProvider.get(
         mileageCode,
       );
-      const entity: T = await props.task();
       const history =
         await ShoppingGlobal.prisma.shopping_mileage_histories.findFirstOrThrow(
           {
             where: {
               shopping_mileage_id: mileage.id,
-              source_id: props.source(entity).id,
+              source_id: source.id,
               shopping_citizen_id: citizen.id,
             },
           },
@@ -283,6 +302,5 @@ export namespace ShoppingMileageHistoryProvider {
           },
         },
       });
-      return entity;
     };
 }

@@ -1,8 +1,11 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingDepositCharge } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositCharge";
+
+import { ShoppingDepositChargeProvider } from "../../../../providers/shoppings/deposits/ShoppingDepositChargeProvider";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
@@ -12,10 +15,8 @@ export class ShoppingCustomerDepositChargesController {
   public async index(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingDepositCharge.IRequest,
-  ): Promise<IShoppingDepositCharge> {
-    customer;
-    input;
-    return null!;
+  ): Promise<IPage<IShoppingDepositCharge>> {
+    return ShoppingDepositChargeProvider.index(customer)(input);
   }
 
   @core.TypedRoute.Get(":id")
@@ -23,9 +24,7 @@ export class ShoppingCustomerDepositChargesController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("id") id: string,
   ): Promise<IShoppingDepositCharge> {
-    customer;
-    id;
-    return null!;
+    return ShoppingDepositChargeProvider.at(customer)(id);
   }
 
   @core.TypedRoute.Post()
@@ -33,9 +32,7 @@ export class ShoppingCustomerDepositChargesController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingDepositCharge.ICreate,
   ): Promise<IShoppingDepositCharge> {
-    customer;
-    input;
-    return null!;
+    return ShoppingDepositChargeProvider.create(customer)(input);
   }
 
   @core.TypedRoute.Put(":id")
@@ -43,11 +40,8 @@ export class ShoppingCustomerDepositChargesController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("id") id: string,
     @core.TypedBody() input: IShoppingDepositCharge.IUpdate,
-  ): Promise<IShoppingDepositCharge> {
-    customer;
-    id;
-    input;
-    return null!;
+  ): Promise<void> {
+    return ShoppingDepositChargeProvider.update(customer)(id)(input);
   }
 
   @core.TypedRoute.Delete(":id")
@@ -55,7 +49,6 @@ export class ShoppingCustomerDepositChargesController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("id") id: string,
   ): Promise<void> {
-    customer;
-    id;
+    return ShoppingDepositChargeProvider.erase(customer)(id);
   }
 }

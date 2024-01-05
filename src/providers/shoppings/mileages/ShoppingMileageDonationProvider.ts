@@ -14,8 +14,8 @@ import { ShoppingMileageHistoryProvider } from "./ShoppingMileageHistoryProvider
 
 export namespace ShoppingMileageDonationProvider {
   /* -----------------------------------------------------------
-        TRANSFORMERS
-    ----------------------------------------------------------- */
+    TRANSFORMERS
+  ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
       input: Prisma.shopping_mileage_donationsGetPayload<
@@ -43,21 +43,26 @@ export namespace ShoppingMileageDonationProvider {
       } satisfies Prisma.shopping_mileage_donationsFindManyArgs);
   }
 
-  export const index = (
-    input: IShoppingMileageDonation.IRequest,
-  ): Promise<IPage<IShoppingMileageDonation>> =>
-    PaginationUtil.paginate({
-      schema: ShoppingGlobal.prisma.shopping_mileage_donations,
-      payload: json.select(),
-      transform: json.transform,
-    })({
-      where: {
-        AND: where(input.search),
-      },
-      orderBy: input.sort?.length
-        ? PaginationUtil.orderBy(orderBy)(input.sort)
-        : [{ created_at: "desc" }],
-    })(input);
+  /* -----------------------------------------------------------
+    READERS
+  ----------------------------------------------------------- */
+  export const index =
+    (_admin: IShoppingAdministrator.IInvert) =>
+    (
+      input: IShoppingMileageDonation.IRequest,
+    ): Promise<IPage<IShoppingMileageDonation>> =>
+      PaginationUtil.paginate({
+        schema: ShoppingGlobal.prisma.shopping_mileage_donations,
+        payload: json.select(),
+        transform: json.transform,
+      })({
+        where: {
+          AND: where(input.search),
+        },
+        orderBy: input.sort?.length
+          ? PaginationUtil.orderBy(orderBy)(input.sort)
+          : [{ created_at: "desc" }],
+      })(input);
 
   const where = (
     input: IShoppingMileageDonation.IRequest.ISearch | undefined,
@@ -90,17 +95,24 @@ export namespace ShoppingMileageDonationProvider {
           value: value,
         }) satisfies Prisma.shopping_mileage_donationsOrderByWithRelationInput;
 
-  export const at = async (id: string): Promise<IShoppingMileageDonation> => {
-    const record =
-      await ShoppingGlobal.prisma.shopping_mileage_donations.findFirstOrThrow({
-        where: { id },
-        ...json.select(),
-      });
-    return json.transform(record);
-  };
+  export const at =
+    (_admin: IShoppingAdministrator.IInvert) =>
+    async (id: string): Promise<IShoppingMileageDonation> => {
+      const record =
+        await ShoppingGlobal.prisma.shopping_mileage_donations.findFirstOrThrow(
+          {
+            where: { id },
+            ...json.select(),
+          },
+        );
+      return json.transform(record);
+    };
 
+  /* -----------------------------------------------------------
+    WRITERS
+  ----------------------------------------------------------- */
   export const create =
-    (administrator: IShoppingAdministrator.IInvert) =>
+    (admin: IShoppingAdministrator.IInvert) =>
     async (input: IShoppingMileageDonation.ICreate) => {
       const citizen =
         await ShoppingGlobal.prisma.shopping_citizens.findFirstOrThrow({
@@ -111,11 +123,11 @@ export namespace ShoppingMileageDonationProvider {
       )({
         task: () =>
           ShoppingGlobal.prisma.shopping_mileage_donations.create({
-            data: collect(administrator)(input),
+            data: collect(admin)(input),
             ...json.select(),
           }),
         source: (entity) => entity,
-        value: input.value,
+        value: () => input.value,
       });
       return json.transform(record);
     };

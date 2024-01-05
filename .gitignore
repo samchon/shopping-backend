@@ -3,7 +3,8 @@ lib/
 node_modules/
 src/migrations/
 
-*.DS_Store
-package-lock.json
 .npmrc
+package-lock.json
+*.DS_Store
+*.log
 *.sh

@@ -1,13 +1,14 @@
 import { TestValidator } from "@nestia/e2e";
+import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMileage } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileage";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
-import { ShoppingConfiguration } from "../../../../../src/ShoppingConfiguration";
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
@@ -40,11 +41,16 @@ export const test_api_shopping_mileage_income_by_review_of_text = async (
     files: [],
   });
 
+  const mileage: IShoppingMileage =
+    await ShoppingApi.functional.shoppings.admins.mileages.get(
+      pool.admin,
+      "shopping_sale_snapshot_review_text_reward",
+    );
+  typia.assertEquals(mileage);
+
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(
-    ShoppingConfiguration.MILEAGE_REWARDS.TEXT_REVIEW,
-  );
+  TestValidator.equals("balance")(balance)(typia.assert<number>(mileage.value));
 };

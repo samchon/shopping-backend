@@ -15,8 +15,8 @@ export class ShoppingCustomerOrderPublishesController {
   public async able(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">,
-  ): Promise<void> {
-    await ShoppingOrderPublishProvider.able(customer)({ id: orderId });
+  ): Promise<boolean> {
+    return ShoppingOrderPublishProvider.able(customer)({ id: orderId });
   }
 
   @core.TypedRoute.Post()

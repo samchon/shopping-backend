@@ -40,7 +40,7 @@ export const validate_api_shopping_order_discountable =
     await test_api_shopping_actor_seller_join(pool);
 
     // SALES TO ORDER
-    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(4)(() =>
+    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(3)(() =>
       generate_random_sole_sale(pool, {
         nominal: 50_000,
         real: 50_000,
@@ -72,6 +72,8 @@ export const validate_api_shopping_order_discountable =
             prepare_random_coupon({
               restriction: {
                 exclusive,
+                volume: null,
+                volume_per_citizen: null,
               },
               discount: {
                 unit: "amount",
@@ -106,6 +108,11 @@ export const validate_api_shopping_order_discountable =
         type: "seller",
         direction: "include",
         seller_ids: [saleList[0].seller.id],
+      }),
+      await generator(false)({
+        type: "section",
+        direction: "include",
+        section_codes: [saleList[0].section.code],
       }),
       // OUT-OF-DISCOUNTABLE
       await generator(true)({

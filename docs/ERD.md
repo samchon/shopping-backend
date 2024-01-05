@@ -1929,22 +1929,21 @@ subsidiary entities described later.
     > When this value is set, no further discount will be given no matter 
     > how much you order.
   - `multiplicative`
-    > Whether be multiplied to quantity or not.
+    > Whether be multiplied to volume or not.
     > 
     > `multiplicative` is a property which means whether the same coupon
-    > can be multiplied to the quantity of order or not. It would be meaningful 
+    > can be multiplied to the volume of order or not. It would be meaningful 
     > only when the unit of discount is "amount". Otherwise, it's always `false`.
     > 
     > Therefore, if the `multiplicative` value is `true`, the discount amount
-    > will be multiplied by the quantity of order. For example, if the discount
-    > amount is `1,000 won` and the quantity of order is `3`, the total discount 
+    > will be multiplied by the volume of order. For example, if the discount
+    > amount is `1,000 won` and the volume of order is `3`, the total discount 
     > amount will be `3,000 won`.
     > 
-    > For reference, if there's a stock that its price is lower than the
-    > amount value, the stock wouldn't be discounted. Also, the "quantity" is
-    > based on the quantity of primary unit, not the quantity of stock.
+    > For reference, if there's a good that its price is lower than the amount 
+    > value, the good wouldn't be discounted.
     > 
-    > ex) `5,000 won` coupon and `10` quantity of order
+    > ex) `5,000 won` coupon and `10` volume of order
     > 
     > - `false`: Only `5,000 won` would be discounted
     > - `true`: `50,000 won` would be discounted
@@ -2249,7 +2248,7 @@ erDiagram
     String code UK
     String source
     Int direction
-    Float default "nullable"
+    Float value "nullable"
     DateTime created_at
     DateTime deleted_at "nullable"
 }
@@ -2429,10 +2428,10 @@ withdrawn.
     > 
     > - `1`: Income
     > - `-1`: outcome
-  - `default`
+  - `value`
     > Default value of mileage.
     > 
-    > Possible to mit, and how to use this default value is up to the
+    > Possible to omit, and how to use this default value is up to the
     > backend program. It is okay to use it as a default value when
     > creating a new record, or percentage value to be applied.
   - `created_at`: Creation time of record.

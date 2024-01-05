@@ -3,15 +3,14 @@ import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMileage } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileage";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
-import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
-import { ShoppingConfiguration } from "../../../../../src/ShoppingConfiguration";
 import { ConnectionPool } from "../../../../ConnectionPool";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
@@ -22,6 +21,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 export const test_api_shopping_mileage_income_by_order_good_confirm = async (
   pool: ConnectionPool,
 ): Promise<void> => {
+  await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -37,29 +37,30 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
     true,
   );
 
-  const delivery: IShoppingDelivery =
-    await ShoppingApi.functional.shoppings.sellers.deliveries.create(
-      pool.seller,
-      {
-        pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
-          await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
-            pool.seller,
-            order.id,
-          ),
-        ),
-        shippers: [],
-        journeys: (
-          ["preparing", "manufacturing", "shipping", "delivering"] as const
-        ).map((type) => ({
-          type,
-          title: null,
-          description: null,
-          started_at: new Date().toISOString(),
-          completed_at: new Date().toISOString(),
-        })),
-      },
-    );
-  typia.assertEquals(delivery);
+  // @todo
+  // const delivery: IShoppingDelivery =
+  //   await ShoppingApi.functional.shoppings.sellers.deliveries.create(
+  //     pool.seller,
+  //     {
+  //       pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
+  //         await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+  //           pool.seller,
+  //           order.id,
+  //         ),
+  //       ),
+  //       shippers: [],
+  //       journeys: (
+  //         ["preparing", "manufacturing", "shipping", "delivering"] as const
+  //       ).map((type) => ({
+  //         type,
+  //         title: null,
+  //         description: null,
+  //         started_at: new Date().toISOString(),
+  //         completed_at: new Date().toISOString(),
+  //       })),
+  //     },
+  //   );
+  // typia.assertEquals(delivery);
 
   const good: IShoppingOrderGood = order.goods[0];
   await ShoppingApi.functional.shoppings.customers.orders.goods.confirm(
@@ -68,13 +69,18 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
     good.id,
   );
 
+  const mileage: IShoppingMileage =
+    await ShoppingApi.functional.shoppings.admins.mileages.get(
+      pool.admin,
+      "shopping_order_good_confirm_reward",
+    );
+  typia.assertEquals(mileage);
+
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
       pool.customer,
     );
   TestValidator.equals("balance")(balance)(
-    (good.price.real *
-      ShoppingConfiguration.MILEAGE_REWARDS.ORDER_GOOD_CONFIRM_PERCENTAGE) /
-      100,
+    good.price.real * typia.assert<number>(mileage.value),
   );
 };

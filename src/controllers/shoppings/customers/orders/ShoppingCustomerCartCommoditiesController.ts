@@ -93,9 +93,8 @@ export class ShoppingCustomerCartCommoditiesController {
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedBody() input: IShoppingCartDiscountable.IRequest,
   ): Promise<IShoppingCartDiscountable> {
-    customer;
-    cartId;
-    input;
-    return null!;
+    return ShoppingCartCommodityProvider.discountable(customer)(
+      cartId ? { id: cartId } : null,
+    )(input);
   }
 }

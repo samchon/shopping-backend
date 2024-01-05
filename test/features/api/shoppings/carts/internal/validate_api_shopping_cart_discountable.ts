@@ -13,7 +13,7 @@ import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
 import { test_api_shopping_actor_admin_login } from "../../actors/test_api_shopping_actor_admin_login";
-import { test_api_shopping_actor_customer_create } from "../../actors/test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_customer_join } from "../../actors/test_api_shopping_actor_customer_join";
 import { test_api_shopping_actor_seller_join } from "../../actors/test_api_shopping_actor_seller_join";
 import { prepare_random_coupon } from "../../coupons/internal/prepare_random_coupon";
 import { generate_random_sole_sale } from "../../sales/internal/generate_random_sole_sale";
@@ -33,7 +33,7 @@ export const validate_api_shopping_cart_discountable =
     //----
     // ACTORS
     const customer: IShoppingCustomer =
-      await test_api_shopping_actor_customer_create(pool);
+      await test_api_shopping_actor_customer_join(pool);
     await test_api_shopping_actor_admin_login(pool);
     await test_api_shopping_actor_seller_join(pool);
 
@@ -78,6 +78,8 @@ export const validate_api_shopping_cart_discountable =
             prepare_random_coupon({
               restriction: {
                 exclusive,
+                volume: null,
+                volume_per_citizen: null,
               },
               discount: {
                 unit: "amount",
@@ -112,6 +114,11 @@ export const validate_api_shopping_cart_discountable =
         type: "seller",
         direction: "include",
         seller_ids: [saleList[0].seller.id],
+      }),
+      await generator(false)({
+        type: "section",
+        direction: "include",
+        section_codes: [saleList[0].section.code],
       }),
       // OUT-OF-DISCOUNTABLE
       await generator(true)({

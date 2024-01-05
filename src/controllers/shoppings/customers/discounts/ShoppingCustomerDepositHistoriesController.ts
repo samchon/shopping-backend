@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingDepositHistory } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositHistory";
 
+import { ShoppingDepositHistoryProvider } from "../../../../providers/shoppings/deposits/ShoppingDepositHistoryProvider";
+
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller(`shoppings/customers/deposits/histories`)
@@ -15,9 +17,7 @@ export class ShoppingCustomerDepositHistoriesController {
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingDepositHistory.IRequest,
   ): Promise<IPage<IShoppingDepositHistory>> {
-    customer;
-    input;
-    return null!;
+    return ShoppingDepositHistoryProvider.index(customer.citizen!)(input);
   }
 
   @core.TypedRoute.Get(":id")
@@ -25,16 +25,13 @@ export class ShoppingCustomerDepositHistoriesController {
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingDepositHistory> {
-    customer;
-    id;
-    return null!;
+    return ShoppingDepositHistoryProvider.at(customer.citizen!)(id);
   }
 
   @core.TypedRoute.Get("balance")
   public async balance(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
   ): Promise<number> {
-    customer;
-    return null!;
+    return ShoppingDepositHistoryProvider.getBalance(customer.citizen!);
   }
 }

@@ -46,21 +46,15 @@ export class ShoppingCustomerOrdersController extends ShoppingOrdersController({
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingOrderDiscountable.IRequest,
   ): Promise<IShoppingOrderDiscountable> {
-    customer;
-    id;
-    input;
-    return null!;
+    return ShoppingOrderPriceProvider.discountable(customer)({ id })(input);
   }
 
   @core.TypedRoute.Put(":id/discount")
   public async discount(
-    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingOrderPrice.ICreate,
   ): Promise<IShoppingOrderPrice> {
-    customer;
-    id;
-    input;
-    return null!;
+    return ShoppingOrderPriceProvider.discount(customer)({ id })(input);
   }
 }

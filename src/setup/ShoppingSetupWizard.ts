@@ -4,6 +4,8 @@ import cp from "child_process";
 import { ShoppingGlobal } from "../ShoppingGlobal";
 import { ShoppingAdministratorSeeder } from "./seeders/ShoppingAdministratorSeeder";
 import { ShoppingChannelSeeder } from "./seeders/ShoppingChannelSeeder";
+import { ShoppingDepositSeeder } from "./seeders/ShoppingDepositSeeder";
+import { ShoppingMileageSeeder } from "./seeders/ShoppingMileageSeeder";
 import { ShoppingSectionSeeder } from "./seeders/ShoppingSectionSeeder";
 
 export namespace ShoppingSetupWizard {
@@ -29,5 +31,7 @@ export namespace ShoppingSetupWizard {
     await ShoppingChannelSeeder.seed();
     await ShoppingSectionSeeder.seed();
     await ShoppingAdministratorSeeder.seed();
+    await ShoppingDepositSeeder.seed();
+    await ShoppingMileageSeeder.seed();
   }
 }
