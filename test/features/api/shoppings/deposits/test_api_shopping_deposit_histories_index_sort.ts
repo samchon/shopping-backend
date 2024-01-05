@@ -43,14 +43,9 @@ export const test_api_shopping_deposit_histories_index_sort = async (
   });
 
   const components = [
-    validator("history.created_at")(GaffComparator.dates((x) => x.created_at)),
-    validator("history.deposit.code")(
-      GaffComparator.strings((x) => x.deposit.code),
-    ),
+    validator("deposit.code")(GaffComparator.strings((x) => x.deposit.code)),
     validator("history.value")(GaffComparator.numbers((x) => x.value)),
-    validator("history.directedValue")(
-      GaffComparator.numbers((x) => x.value * x.deposit.direction),
-    ),
+    validator("history.created_at")(GaffComparator.dates((x) => x.created_at)),
   ];
   for (const comp of components) {
     await comp("+");

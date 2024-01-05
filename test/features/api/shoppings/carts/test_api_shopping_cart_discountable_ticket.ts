@@ -36,7 +36,7 @@ export const test_api_shopping_cart_discountable_ticket =
       discountable.combinations.map((c) => c.amount),
     )(props.discountable.combinations.map((c) => c.amount));
     TestValidator.equals("combinations[].coupons.length")(
-      discountable.combinations.map((comb) => comb.tickets.length),
+      discountable.combinations.map((comb) => comb.coupons.length),
     )([0, 0]);
     TestValidator.equals("combinations[].tickets.length")(
       discountable.combinations.map((comb) => comb.tickets.length),

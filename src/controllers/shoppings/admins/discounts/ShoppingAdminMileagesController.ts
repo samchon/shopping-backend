@@ -6,28 +6,34 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingMileage } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileage";
 
+import { ShoppingMileageProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageProvider";
+
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 
 @Controller(`shoppings/admins/mileages`)
 export class ShoppingAdminMileagesController {
   @core.TypedRoute.Patch()
   public async index(
-    @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
+    @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IPage.IRequest,
   ): Promise<IPage<IShoppingMileage>> {
-    admin;
-    input;
-    return null!;
+    return ShoppingMileageProvider.index(input);
   }
 
   @core.TypedRoute.Get(":id")
   public async at(
-    @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
+    @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingMileage> {
-    admin;
-    id;
-    return null!;
+    return ShoppingMileageProvider.at(id);
+  }
+
+  @core.TypedRoute.Get(":code/get")
+  public async get(
+    @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
+    @core.TypedParam("code") code: string,
+  ): Promise<IShoppingMileage> {
+    return ShoppingMileageProvider.get(code);
   }
 
   @core.TypedRoute.Post()
@@ -35,9 +41,7 @@ export class ShoppingAdminMileagesController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IShoppingMileage.ICreate,
   ): Promise<IShoppingMileage> {
-    admin;
-    input;
-    return null!;
+    return ShoppingMileageProvider.create(admin)(input);
   }
 
   @core.TypedRoute.Delete(":id")
@@ -45,7 +49,6 @@ export class ShoppingAdminMileagesController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
-    admin;
-    id;
+    return ShoppingMileageProvider.erase(admin)(id);
   }
 }

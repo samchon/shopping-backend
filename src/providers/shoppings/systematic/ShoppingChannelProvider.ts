@@ -26,7 +26,7 @@ export namespace ShoppingChannelProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_channelsFindManyArgs>()({});
+      ({} satisfies Prisma.shopping_channelsFindManyArgs);
   }
 
   export const hierarchical = async (
@@ -66,7 +66,7 @@ export namespace ShoppingChannelProvider {
   export const search = (
     input: IShoppingChannel.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.shopping_channelsWhereInput["AND"]>()([
+    [
       ...(input?.code?.length
         ? [
             {
@@ -86,19 +86,19 @@ export namespace ShoppingChannelProvider {
             },
           ]
         : []),
-    ]);
+    ] satisfies Prisma.shopping_channelsWhereInput["AND"];
 
   export const orderBy = (
     key: IShoppingChannel.IRequest.SortableColumns,
     value: "asc" | "desc",
   ) =>
-    Prisma.validator<Prisma.shopping_channelsOrderByWithRelationInput>()(
-      key === "channel.code"
-        ? { code: value }
-        : key === "channel.name"
-        ? { name: value }
-        : { created_at: value },
-    );
+    (key === "channel.code"
+      ? { code: value }
+      : key === "channel.name"
+      ? { name: value }
+      : {
+          created_at: value,
+        }) satisfies Prisma.shopping_channelsOrderByWithRelationInput;
 
   export const at = async (
     id: string,
@@ -165,7 +165,7 @@ export namespace ShoppingChannelProvider {
     )(input);
 
   const collect = (input: IShoppingChannel.ICreate) =>
-    Prisma.validator<Prisma.shopping_channelsCreateInput>()({
+    ({
       id: v4(),
       code: input.code,
       name: input.name,
@@ -173,5 +173,5 @@ export namespace ShoppingChannelProvider {
       created_at: new Date(),
       updated_at: new Date(),
       deleted_at: null,
-    });
+    } satisfies Prisma.shopping_channelsCreateInput);
 }

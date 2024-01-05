@@ -13,7 +13,7 @@ import { test_api_shopping_actor_customer_create } from "../actors/test_api_shop
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_coupon } from "../coupons/internal/generate_random_coupon";
 import { prepare_random_coupon } from "../coupons/internal/prepare_random_coupon";
-import { generate_random_sale } from "../sales/internal/generate_random_sale";
+import { generate_random_sole_sale } from "../sales/internal/generate_random_sole_sale";
 import { generate_random_cart_commodity } from "./internal/generate_random_cart_commodity";
 
 export const test_api_shopping_cart_discountable_multiplicative = async (
@@ -23,7 +23,10 @@ export const test_api_shopping_cart_discountable_multiplicative = async (
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  const sale: IShoppingSale = await generate_random_sale(pool);
+  const sale: IShoppingSale = await generate_random_sole_sale(pool, {
+    nominal: 50_000,
+    real: 50_000,
+  });
   const commodity: IShoppingCartCommodity =
     await generate_random_cart_commodity(pool, sale, {
       volume: 10,

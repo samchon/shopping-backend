@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-backend",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Backend for shopping",
   "scripts": {
     "test": "node bin/test",
@@ -102,7 +102,7 @@
     "prisma": "^5.3.1",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
-    "typia": "^5.3.7"
+    "typia": "^5.3.8"
   },
   "private": true
 }

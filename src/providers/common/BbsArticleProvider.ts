@@ -19,11 +19,11 @@ export namespace BbsArticleProvider {
     });
 
     export const select = () =>
-      Prisma.validator<Prisma.bbs_articlesFindManyArgs>()({
+      ({
         include: {
           snapshots: BbsArticleSnapshotProvider.json.select(),
-        } as const,
-      });
+        },
+      } satisfies Prisma.bbs_articlesFindManyArgs);
   }
 
   export namespace abridge {
@@ -55,7 +55,7 @@ export namespace BbsArticleProvider {
             },
           },
         },
-      } as const,
+      },
     });
   }
 
@@ -80,7 +80,7 @@ export namespace BbsArticleProvider {
             },
           },
         },
-      } as const,
+      },
     });
   }
 

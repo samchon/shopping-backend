@@ -8,6 +8,7 @@ import type { IConnection, Primitive } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
 import typia from "typia";
 
+import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingDepositCharge } from "../../../../../structures/shoppings/deposits/IShoppingDepositCharge";
 import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
 
@@ -44,7 +45,7 @@ export async function index(
 }
 export namespace index {
     export type Input = Primitive<IShoppingDepositCharge.IRequest>;
-    export type Output = Primitive<IShoppingDepositCharge>;
+    export type Output = Primitive<IPage<IShoppingDepositCharge>>;
 
     export const METADATA = {
         method: "PATCH",
@@ -63,8 +64,8 @@ export namespace index {
     export const path = (): string => {
         return `/shoppings/customers/deposits/charges`;
     }
-    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<IShoppingDepositCharge> =>
-        typia.random<Primitive<IShoppingDepositCharge>>(g);
+    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<IPage<IShoppingDepositCharge>> =>
+        typia.random<Primitive<IPage<IShoppingDepositCharge>>>(g);
     export const simulate = async (
         connection: IConnection,
         input: index.Input,
@@ -227,7 +228,7 @@ export async function update(
     connection: IConnection,
     id: string,
     input: update.Input,
-): Promise<update.Output> {
+): Promise<void> {
     return !!connection.simulate
         ? update.simulate(
               connection,
@@ -251,7 +252,6 @@ export async function update(
 }
 export namespace update {
     export type Input = Primitive<IShoppingDepositCharge.ICreate>;
-    export type Output = Primitive<IShoppingDepositCharge>;
 
     export const METADATA = {
         method: "PUT",
@@ -270,13 +270,11 @@ export namespace update {
     export const path = (id: string): string => {
         return `/shoppings/customers/deposits/charges/${encodeURIComponent(id ?? "null")}`;
     }
-    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<IShoppingDepositCharge> =>
-        typia.random<Primitive<IShoppingDepositCharge>>(g);
     export const simulate = async (
         connection: IConnection,
         id: string,
         input: update.Input,
-    ): Promise<Output> => {
+    ): Promise<void> => {
         const assert = NestiaSimulator.assert({
             method: METADATA.method,
             host: connection.host,
@@ -285,12 +283,6 @@ export namespace update {
         });
         assert.param("id")(() => typia.assert(id));
         assert.body(() => typia.assert(input));
-        return random(
-            typeof connection.simulate === 'object' &&
-                connection.simulate !== null
-                ? connection.simulate
-                : undefined
-        );
     }
 }
 

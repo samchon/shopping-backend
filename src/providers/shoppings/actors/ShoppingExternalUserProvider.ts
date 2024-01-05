@@ -32,11 +32,11 @@ export namespace ShoppingExternalUserProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_external_usersFindManyArgs>()({
+      ({
         include: {
           citizen: ShoppingCitizenProvider.json.select(),
         },
-      });
+      } satisfies Prisma.shopping_external_usersFindManyArgs);
   }
 
   export const create =

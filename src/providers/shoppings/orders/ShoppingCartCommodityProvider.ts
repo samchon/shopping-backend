@@ -1,12 +1,15 @@
+import { ArrayUtil } from "@nestia/e2e";
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { ShoppingCartCommodityDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/orders/ShoppingCartCommodityDiagnoser";
+import { ShoppingCartDiscountableDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/orders/ShoppingCartDiscountableDiagnoser";
 import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartDiscountable";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
 import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
@@ -16,6 +19,10 @@ import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { MapUtil } from "../../../utils/MapUtil";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingCustomerProvider } from "../actors/ShoppingCustomerProvider";
+import { ShoppingCouponProvider } from "../coupons/ShoppingCouponProvider";
+import { ShoppingCouponTicketProvider } from "../coupons/ShoppingCouponTicketProvider";
+import { ShoppingDepositHistoryProvider } from "../deposits/ShoppingDepositHistoryProvider";
+import { ShoppingMileageHistoryProvider } from "../mileages/ShoppingMileageHistoryProvider";
 import { ShoppingSaleProvider } from "../sales/ShoppingSaleProvider";
 import { ShoppingSaleSnapshotProvider } from "../sales/ShoppingSaleSnapshotProvider";
 import { ShoppingCartCommodityStockProvider } from "./ShoppingCartCommodityStockProvider";
@@ -43,7 +50,7 @@ export namespace ShoppingCartCommodityProvider {
         .sort((a, b) => a.sequence - b.sequence)
         .map(ShoppingCartCommodityStockProvider.json.transform);
       const dict: Map<string, IShoppingSaleUnit.IInvert[]> = new Map();
-      for (const u of units) MapUtil.take(dict)(u.id, () => []).push(u);
+      for (const u of units) MapUtil.take(dict)(u.id)(() => []).push(u);
 
       return {
         id: input.id,
@@ -54,7 +61,7 @@ export namespace ShoppingCartCommodityProvider {
             stocks: units.map((u) => u.stocks[0]),
           })),
         },
-        fake: false,
+        pseudo: false,
         price: {
           nominal: input.mv_price.nominal,
           real: input.mv_price.real,
@@ -134,10 +141,80 @@ export namespace ShoppingCartCommodityProvider {
       return ShoppingCartCommodityDiagnoser.replica(commodity);
     };
 
+  export const discountable =
+    (customer: IShoppingCustomer) =>
+    (cart: IEntity | null) =>
+    async (
+      input: IShoppingCartDiscountable.IRequest,
+    ): Promise<IShoppingCartDiscountable> => {
+      const commodities =
+        input.commodity_ids !== null
+          ? await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+              where: {
+                id: {
+                  in: input.commodity_ids,
+                },
+                cart: {
+                  customer: ShoppingCustomerProvider.where(customer),
+                  actor_type: "customer",
+                  id: cart ? cart.id : undefined,
+                },
+                published: false,
+                deleted_at: null,
+              },
+              ...json.select(),
+            })
+          : await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+              where: {
+                cart: {
+                  customer: ShoppingCustomerProvider.where(customer),
+                  actor_type: "customer",
+                },
+                published: false,
+                deleted_at: null,
+              },
+              ...json.select(),
+            });
+      if (
+        input.commodity_ids !== null &&
+        commodities.length !== input.commodity_ids.length
+      )
+        throw ErrorProvider.notFound({
+          accessor: "input.commodity_ids",
+          message: "Some commodities are not found.",
+        });
+      const pseudos: IShoppingCartCommodity[] =
+        input.pseudos.length === 0
+          ? []
+          : await ArrayUtil.asyncMap(input.pseudos)(async (raw) =>
+              ShoppingCartCommodityDiagnoser.preview(
+                await ShoppingSaleProvider.at(customer, true)(raw.sale_id),
+              )(raw),
+            );
+
+      return {
+        deposit: customer.citizen
+          ? await ShoppingDepositHistoryProvider.getBalance(customer.citizen)
+          : 0,
+        mileage: customer.citizen
+          ? await ShoppingMileageHistoryProvider.getBalance(customer.citizen)
+          : 0,
+        combinations: ShoppingCartDiscountableDiagnoser.combinate(customer)(
+          await take(ShoppingCouponProvider.index(customer)),
+          customer.citizen
+            ? await take(ShoppingCouponTicketProvider.index(customer))
+            : [],
+        )([
+          ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
+          ...pseudos,
+        ]),
+      };
+    };
+
   const search = async (
     input: IShoppingCartCommodity.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.shopping_cart_commoditiesWhereInput["AND"]>()([
+    [
       ...(input?.sale !== undefined
         ? [
             ...(
@@ -149,7 +226,7 @@ export namespace ShoppingCartCommodityProvider {
             })),
           ]
         : []),
-    ]);
+    ] satisfies Prisma.shopping_cart_commoditiesWhereInput["AND"];
 
   const orderBy = (
     key: IShoppingCartCommodity.IRequest.SortableColumns,
@@ -350,3 +427,10 @@ export namespace ShoppingCartCommodityProvider {
       return null;
     };
 }
+
+const take = async <T extends object>(
+  closure: (input: IPage.IRequest) => Promise<IPage<T>>,
+): Promise<T[]> => {
+  const page: IPage<T> = await closure({ limit: 0 });
+  return page.data;
+};

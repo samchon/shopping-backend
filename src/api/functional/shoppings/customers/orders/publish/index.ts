@@ -20,7 +20,7 @@ import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
 export async function able(
     connection: IConnection,
     orderId: string & Format<"uuid">,
-): Promise<void> {
+): Promise<able.Output> {
     return !!connection.simulate
         ? able.simulate(
               connection,
@@ -35,6 +35,7 @@ export async function able(
           );
 }
 export namespace able {
+    export type Output = Primitive<false | true>;
 
     export const METADATA = {
         method: "GET",
@@ -50,10 +51,12 @@ export namespace able {
     export const path = (orderId: string & Format<"uuid">): string => {
         return `/shoppings/customers/orders/${encodeURIComponent(orderId ?? "null")}/publish/able`;
     }
+    export const random = (g?: Partial<typia.IRandomGenerator>): Primitive<false | true> =>
+        typia.random<Primitive<false | true>>(g);
     export const simulate = async (
         connection: IConnection,
         orderId: string & Format<"uuid">,
-    ): Promise<void> => {
+    ): Promise<Output> => {
         const assert = NestiaSimulator.assert({
             method: METADATA.method,
             host: connection.host,
@@ -61,6 +64,12 @@ export namespace able {
             contentType: "application/json",
         });
         assert.param("orderId")(() => typia.assert(orderId));
+        return random(
+            typeof connection.simulate === 'object' &&
+                connection.simulate !== null
+                ? connection.simulate
+                : undefined
+        );
     }
 }
 

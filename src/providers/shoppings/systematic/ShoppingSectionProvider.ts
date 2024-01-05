@@ -23,7 +23,7 @@ export namespace ShoppingSectionProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_sectionsFindManyArgs>()({});
+      ({} satisfies Prisma.shopping_sectionsFindManyArgs);
   }
 
   /* -----------------------------------------------------------
@@ -48,7 +48,7 @@ export namespace ShoppingSectionProvider {
   export const search = (
     input: IShoppingSection.IRequest.ISearch | undefined,
   ) =>
-    Prisma.validator<Prisma.shopping_sectionsWhereInput["AND"]>()([
+    [
       ...(input?.code?.length ? [{ code: { contains: input.code } }] : []),
       ...(input?.name?.length
         ? [
@@ -60,19 +60,19 @@ export namespace ShoppingSectionProvider {
             },
           ]
         : []),
-    ]);
+    ] satisfies Prisma.shopping_sectionsWhereInput["AND"];
 
   export const orderBy = (
     key: IShoppingSection.IRequest.SortableColumns,
     value: "asc" | "desc",
   ) =>
-    Prisma.validator<Prisma.shopping_sectionsOrderByWithRelationInput>()(
-      key === "section.code"
-        ? { code: value }
-        : key === "section.name"
-        ? { name: value }
-        : { created_at: value },
-    );
+    (key === "section.code"
+      ? { code: value }
+      : key === "section.name"
+      ? { name: value }
+      : {
+          created_at: value,
+        }) satisfies Prisma.shopping_sectionsOrderByWithRelationInput;
 
   export const at = async (id: string): Promise<IShoppingSection> => {
     const record =
@@ -123,12 +123,12 @@ export namespace ShoppingSectionProvider {
     )(input);
 
   const collect = (input: IShoppingSection.ICreate) =>
-    Prisma.validator<Prisma.shopping_sectionsCreateInput>()({
+    ({
       id: v4(),
       code: input.code,
       name: input.name,
       created_at: new Date(),
       updated_at: new Date(),
       deleted_at: null,
-    });
+    } satisfies Prisma.shopping_sectionsCreateInput);
 }

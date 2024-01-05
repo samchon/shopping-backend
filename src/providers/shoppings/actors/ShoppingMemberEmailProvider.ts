@@ -12,6 +12,6 @@ export namespace ShoppingMemberEmailProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      Prisma.validator<Prisma.shopping_member_emailsFindManyArgs>()({});
+      ({} satisfies Prisma.shopping_member_emailsFindManyArgs);
   }
 }

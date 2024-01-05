@@ -34,12 +34,6 @@ export namespace ShoppingConfiguration {
       : "your-real-server-master-ip";
   export const SYSTEM_PASSWORD = () =>
     ShoppingGlobal.env.SHOPPING_SYSTEM_PASSWORD;
-
-  export const MILEAGE_REWARDS = {
-    PHOTO_REVIEW: 1_000,
-    TEXT_REVIEW: 300,
-    ORDER_GOOD_CONFIRM_PERCENTAGE: 3,
-  };
 }
 
 ExceptionManager.insert(PrismaClientKnownRequestError, (exp) => {

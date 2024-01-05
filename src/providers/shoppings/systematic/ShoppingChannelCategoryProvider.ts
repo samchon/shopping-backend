@@ -138,7 +138,7 @@ export namespace ShoppingChannelCategoryProvider {
 
   const collect =
     (channel: IEntity) => (input: IShoppingChannelCategory.ICreate) =>
-      Prisma.validator<Prisma.shopping_channel_categoriesCreateInput>()({
+      ({
         id: v4(),
         channel: { connect: { id: channel.id } },
         parent:
@@ -149,7 +149,7 @@ export namespace ShoppingChannelCategoryProvider {
         created_at: new Date(),
         updated_at: new Date(),
         deleted_at: null,
-      });
+      } satisfies Prisma.shopping_channel_categoriesCreateInput);
 }
 
 const cache = new VariadicSingleton((channel_id: string) => {

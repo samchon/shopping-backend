@@ -4,9 +4,9 @@ import typia from "typia";
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMileage } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileage";
 import { IShoppingMileageHistory } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageHistory";
 
-import { ShoppingConfiguration } from "../../../../../src/ShoppingConfiguration";
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
@@ -35,14 +35,24 @@ export const test_api_shopping_mileage_histories_accumulate = async (
     );
   typia.assertEquals(histories);
 
+  const getDefaultValue = async (code: string): Promise<number> => {
+    const mileage: IShoppingMileage =
+      await ShoppingApi.functional.shoppings.admins.mileages.get(
+        pool.admin,
+        code,
+      );
+    typia.assertEquals(mileage);
+    return typia.assert<number>(mileage.value);
+  };
+
   TestValidator.equals("histories[].value")(
     histories.data.map((history) => history.value * history.mileage.direction),
   )([
     donation.value,
     -donation.value,
-    ShoppingConfiguration.MILEAGE_REWARDS.PHOTO_REVIEW,
+    await getDefaultValue("shopping_sale_snapshot_review_photo_reward"),
     good.price.real *
-      ShoppingConfiguration.MILEAGE_REWARDS.ORDER_GOOD_CONFIRM_PERCENTAGE,
+      (await getDefaultValue("shopping_order_good_confirm_reward")),
   ]);
 
   TestValidator.equals("histories[].balance")(

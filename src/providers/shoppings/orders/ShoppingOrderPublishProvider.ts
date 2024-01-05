@@ -48,25 +48,25 @@ export namespace ShoppingOrderPublishProvider {
     READERS
   ----------------------------------------------------------- */
   export const able =
-    (customer: IShoppingCustomer) => async (order: IEntity) => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow({
-          where: {
-            id: order.id,
-            customer: ShoppingCustomerProvider.where(customer),
-            deleted_at: null,
-          },
-          include: {
-            publish: true,
-          },
-        });
-      if (record.publish !== null)
-        throw ErrorProvider.gone({
-          accessor: "id",
-          message: "The order already has been published.",
-        });
-      return record;
-    };
+    (customer: IShoppingCustomer) =>
+    async (order: IEntity): Promise<boolean> =>
+      (await knock(customer)(order)) !== null;
+
+  const knock = (customer: IShoppingCustomer) => async (order: IEntity) => {
+    const record = await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow(
+      {
+        where: {
+          id: order.id,
+          customer: ShoppingCustomerProvider.where(customer),
+          deleted_at: null,
+        },
+        include: {
+          publish: true,
+        },
+      },
+    );
+    return record.publish === null ? record : null;
+  };
 
   /* -----------------------------------------------------------
     WRITERS
@@ -78,7 +78,12 @@ export namespace ShoppingOrderPublishProvider {
       input: IShoppingOrderPublish.ICreate,
     ): Promise<IShoppingOrderPublish> => {
       // PRELIMINARIES
-      const reference = await able(customer)(order);
+      const reference = await knock(customer)(order);
+      if (reference === null)
+        throw ErrorProvider.gone({
+          accessor: "id",
+          message: "The order already has been published.",
+        });
       const props: {
         created_at: Date;
         paid_at: null | Date;
@@ -118,7 +123,7 @@ export namespace ShoppingOrderPublishProvider {
             password:
               input.type === "zero"
                 ? null
-                : encrypt(RandomGenerator.alphabets(8)),
+                : encrypt(RandomGenerator.alphabets(16)),
             created_at: props.created_at,
             paid_at: props.paid_at,
             cancelled_at: props.cancelled_at,

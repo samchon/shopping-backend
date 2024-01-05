@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingMileageDonation } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 
+import { ShoppingMileageDonationProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageDonationProvider";
+
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 
 @Controller(`shoppings/admins/mileages/donations`)
@@ -15,9 +17,7 @@ export class ShoppingAdminMileageDonationsController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IShoppingMileageDonation.IRequest,
   ): Promise<IPage<IShoppingMileageDonation>> {
-    admin;
-    input;
-    return null!;
+    return ShoppingMileageDonationProvider.index(admin)(input);
   }
 
   @core.TypedRoute.Get(":id")
@@ -25,9 +25,7 @@ export class ShoppingAdminMileageDonationsController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingMileageDonation> {
-    admin;
-    id;
-    return null!;
+    return ShoppingMileageDonationProvider.at(admin)(id);
   }
 
   @core.TypedRoute.Post()
@@ -35,8 +33,6 @@ export class ShoppingAdminMileageDonationsController {
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
     @core.TypedBody() input: IShoppingMileageDonation.ICreate,
   ): Promise<IShoppingMileageDonation> {
-    admin;
-    input;
-    return null!;
+    return ShoppingMileageDonationProvider.create(admin)(input);
   }
 }

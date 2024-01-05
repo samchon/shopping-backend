@@ -742,6 +742,7 @@ model shopping_customers {
   shopping_sale_favorites                  shopping_sale_favorites[]
   shopping_sale_snapshot_inquiry_favorites shopping_sale_snapshot_inquiry_favorites[]
   shopping_address_favorites               shopping_address_favorites[]
+  shopping_mileage_donations               shopping_mileage_donations[]
 
   @@index([shopping_channel_id, created_at])
   @@index([shopping_citizen_id, created_at])
@@ -902,6 +903,7 @@ model shopping_citizens {
   mv_mileage_balance                     mv_shopping_mileage_balances?
   mv_shopping_coupon_citizen_inventories mv_shopping_coupon_citizen_inventories[]
   shopping_external_users                shopping_external_users[]
+  shopping_mileage_donations             shopping_mileage_donations[]
 
   @@unique([shopping_channel_id, mobile])
   @@index([mobile])
@@ -2987,6 +2989,26 @@ model shopping_coupons {
   /// how much you order.
   limit Int? @db.Integer /// @format uint @minimum 1
 
+  /// Whether be multiplied to volume or not.
+  ///
+  /// `multiplicative` is a property which means whether the same coupon
+  /// can be multiplied to the volume of order or not. It would be meaningful 
+  /// only when the unit of discount is "amount". Otherwise, it's always `false`.
+  /// 
+  /// Therefore, if the `multiplicative` value is `true`, the discount amount
+  /// will be multiplied by the volume of order. For example, if the discount
+  /// amount is `1,000 won` and the volume of order is `3`, the total discount 
+  /// amount will be `3,000 won`.
+  ///
+  /// For reference, if there's a good that its price is lower than the amount 
+  /// value, the good wouldn't be discounted.
+  ///
+  /// ex) `5,000 won` coupon and `10` volume of order
+  /// 
+  /// - `false`: Only `5,000 won` would be discounted
+  /// - `true`: `50,000 won` would be discounted
+  multiplicative Boolean @db.Boolean
+
   /// Limited quantity issued.
   /// 
   /// If there is a limit to the quantity issued, it becomes impossible to 
@@ -3075,9 +3097,9 @@ model shopping_coupons {
   /// List of tickets.
   ///
   /// Histories of tickets issued to customers.
-  tickets                                shopping_coupon_tickets[]
-  mv_shopping_coupon_inventories         mv_shopping_coupon_inventories[]
-  mv_shopping_coupon_citizen_inventories mv_shopping_coupon_citizen_inventories[]
+  tickets                shopping_coupon_tickets[]
+  mv_inventory           mv_shopping_coupon_inventories?
+  mv_citizen_inventories mv_shopping_coupon_citizen_inventories[]
 
   @@index([shopping_customer_id, actor_type])
   @@index([name])
@@ -3535,14 +3557,14 @@ model mv_shopping_coupon_inventories {
 /// @hidden
 model mv_shopping_coupon_citizen_inventories {
   id                  String @id @db.Uuid
-  shopping_citizen_id String @db.Uuid
   shopping_coupon_id  String @db.Uuid
+  shopping_citizen_id String @db.Uuid
   value               Int    @db.Integer
 
   citizen shopping_citizens @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
   coupon  shopping_coupons  @relation(fields: [shopping_coupon_id], references: [id], onDelete: Cascade)
 
-  @@unique([shopping_citizen_id, shopping_coupon_id])
+  @@unique([shopping_coupon_id, shopping_citizen_id])
   @@index([shopping_coupon_id])
 }
 
@@ -3644,6 +3666,11 @@ model shopping_deposit_histories {
   /// @minimum 0
   value Float @db.DoublePrecision
 
+  /// Balance value.
+  ///
+  /// Total balance value after the transaction.
+  balance Float @db.DoublePrecision
+
   /// Creation time of record.
   created_at DateTime @db.Timestamptz
 
@@ -3692,7 +3719,7 @@ model shopping_deposit_charges {
   /// Charging amount.
   ///
   /// @exclusiveMinimum 0
-  amount Float @db.DoublePrecision
+  value Float @db.DoublePrecision
 
   /// Creation time of record.
   created_at DateTime @db.Timestamptz
@@ -3802,12 +3829,12 @@ model shopping_mileages {
 
   /// Default value of mileage.
   ///
-  /// Possible to mit, and how to use this default value is up to the
+  /// Possible to omit, and how to use this default value is up to the
   /// backend program. It is okay to use it as a default value when
   /// creating a new record, or percentage value to be applied.
   ///
   /// @minimum 0
-  default Float? @db.DoublePrecision
+  value Float? @db.DoublePrecision
 
   /// Creation time of record.
   created_at DateTime @db.Timestamptz
@@ -3823,6 +3850,46 @@ model shopping_mileages {
   @@unique([code])
   @@index([source])
   @@index([created_at])
+}
+
+/// @namespace Coins
+/// @author Samchon
+model shopping_mileage_donations {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// Belonged seller's {@link shopping_customers.id}
+  ///
+  /// @format uuid
+  shopping_admin_customer_id String @db.Uuid
+
+  /// Belonged citizen's {@link shopping_citizens.id}
+  ///
+  /// @format uuid
+  shopping_citizen_id String @db.Uuid
+
+  /// Amount of donation.
+  value Float @db.DoublePrecision
+
+  /// Reason of donation.
+  reason String
+
+  /// Creation time of record.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  adminCustomer shopping_customers @relation(fields: [shopping_admin_customer_id], references: [id], onDelete: Cascade)
+  citizen       shopping_citizens  @relation(fields: [shopping_citizen_id], references: [id], onDelete: Cascade)
+
+  @@index([shopping_admin_customer_id])
+  @@index([shopping_citizen_id, created_at])
 }
 
 /// Mileagea income/outcome details of customers (citizens).
@@ -3871,6 +3938,11 @@ model shopping_mileage_histories {
   ///
   /// @minimum 0
   value Float @db.DoublePrecision
+
+  /// Balance value.
+  ///
+  /// Total balance value after the transaction.
+  balance Float @db.DoublePrecision
 
   /// Creation time of record.
   created_at DateTime @db.Timestamptz

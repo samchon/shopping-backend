@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMileageHistory } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageHistory";
 
+import { ShoppingMileageHistoryProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageHistoryProvider";
+
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller(`shoppings/customers/mileages/histories`)
@@ -15,9 +17,7 @@ export class ShoppingCustomerMileageHistoriesController {
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedBody() input: IShoppingMileageHistory.IRequest,
   ): Promise<IPage<IShoppingMileageHistory>> {
-    customer;
-    input;
-    return null!;
+    return ShoppingMileageHistoryProvider.index(customer.citizen!)(input);
   }
 
   @core.TypedRoute.Get(":id")
@@ -25,16 +25,13 @@ export class ShoppingCustomerMileageHistoriesController {
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingMileageHistory> {
-    customer;
-    id;
-    return null!;
+    return ShoppingMileageHistoryProvider.at(customer.citizen!)(id);
   }
 
   @core.TypedRoute.Get("balance")
   public async balance(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
   ): Promise<number> {
-    customer;
-    return null!;
+    return ShoppingMileageHistoryProvider.getBalance(customer.citizen!);
   }
 }
