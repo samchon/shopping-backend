@@ -1,7 +1,7 @@
 import { ArrayUtil } from "@nestia/e2e";
 import { Prisma } from "@prisma/client";
 
-import { ShoppingCouponTicketDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/coupons/HubCouponTicketDiagnoser";
+import { ShoppingCouponTicketDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/coupons/ShoppingCouponTicketDiagnoser";
 import { ShoppingOrderDiscountableDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/orders/ShoppingOrderDiscountableDiagnoser";
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
