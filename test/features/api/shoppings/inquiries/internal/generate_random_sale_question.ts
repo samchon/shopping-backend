@@ -18,7 +18,7 @@ export const generate_random_sale_question = async (
       sale.id,
       {
         ...prepare_random_bbs_article(input),
-        secret: false,
+        secret: input?.secret ?? false,
       },
     );
   return typia.assertEquals(question);

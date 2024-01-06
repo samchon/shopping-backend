@@ -50,22 +50,20 @@ export const test_api_shopping_mileage_histories_accumulate = async (
   )([
     donation.value,
     -donation.value,
-    await getDefaultValue("shopping_sale_snapshot_review_photo_reward"),
     good.price.real *
       (await getDefaultValue("shopping_order_good_confirm_reward")),
+    await getDefaultValue("shopping_sale_snapshot_review_photo_reward"),
   ]);
 
   TestValidator.equals("histories[].balance")(
-    histories.data.map(
-      (history) => history.balance * history.mileage.direction,
-    ),
+    histories.data.map((history) => history.balance),
   )(
     histories.data.map(
       (history, i) =>
-        history.balance +
+        history.value * history.mileage.direction +
         histories.data
-          .slice(0, i - 1)
-          .map((history) => history.balance * history.mileage.direction)
+          .slice(0, i)
+          .map((history) => history.value * history.mileage.direction)
           .reduce((a, b) => a + b, 0),
     ),
   );

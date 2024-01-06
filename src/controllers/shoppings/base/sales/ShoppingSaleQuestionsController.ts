@@ -6,6 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingSaleQuestion } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleQuestion";
 
+import { ShoppingSaleQuestionProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotQuestionProvider";
+
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSaleQuestionsController<
@@ -19,10 +21,7 @@ export function ShoppingSaleQuestionsController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedBody() input: IShoppingSaleQuestion.IRequest,
     ): Promise<IPage<IShoppingSaleQuestion.ISummary>> {
-      actor;
-      saleId;
-      input;
-      return null!;
+      return ShoppingSaleQuestionProvider.index(actor)({ id: saleId })(input);
     }
 
     @core.TypedRoute.Patch("abridges")
@@ -31,10 +30,9 @@ export function ShoppingSaleQuestionsController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedBody() input: IShoppingSaleQuestion.IRequest,
     ): Promise<IPage<IShoppingSaleQuestion.IAbridge>> {
-      actor;
-      saleId;
-      input;
-      return null!;
+      return ShoppingSaleQuestionProvider.abridges(actor)({ id: saleId })(
+        input,
+      );
     }
 
     @core.TypedRoute.Get(":id")
@@ -43,10 +41,7 @@ export function ShoppingSaleQuestionsController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSaleQuestion> {
-      actor;
-      saleId;
-      id;
-      return null!;
+      return ShoppingSaleQuestionProvider.at(actor)({ id: saleId })(id);
     }
   }
   return ShoppingSaleQuestionsController;

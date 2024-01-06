@@ -40,7 +40,7 @@ export const test_api_shopping_order_create_exhausted = async (
     order,
     true,
   );
-  await TestValidator.httpError("exhaused")(410)(() =>
+  await TestValidator.httpError("exhaused")(422)(() =>
     generate_random_order(pool, [anotherCommodity]),
   );
 };

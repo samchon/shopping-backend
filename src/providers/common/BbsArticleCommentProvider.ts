@@ -1,8 +1,8 @@
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
-import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
 import { IBbsArticleComment } from "@samchon/shopping-api/lib/structures/common/IBbsArticleComment";
+import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 
 import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotProvider";
 
@@ -26,6 +26,24 @@ export namespace BbsArticleCommentProvider {
       } satisfies Prisma.bbs_article_commentsFindManyArgs);
   }
 
+  export const search = (
+    input: IBbsArticleComment.IRequest.ISearch | undefined,
+  ) =>
+    (input?.body?.length
+      ? [
+          {
+            snapshots: {
+              some: {
+                body: {
+                  contains: input.body,
+                  mode: "insensitive",
+                },
+              },
+            },
+          },
+        ]
+      : []) satisfies Prisma.bbs_article_commentsWhereInput["AND"];
+
   export const orderBy = (
     key: IBbsArticleComment.IRequest.SortableColumns,
     value: "asc" | "desc",
@@ -38,11 +56,11 @@ export namespace BbsArticleCommentProvider {
         input: Input,
       ) => Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment">,
     ) =>
-    (related: { article: Pick<IBbsArticle, "id"> }) =>
+    (article: IEntity) =>
     (input: Input): Prisma.bbs_article_commentsCreateInput => ({
       id: v4(),
       article: {
-        connect: { id: related.article.id },
+        connect: { id: article.id },
       },
       snapshots: {
         create: [factory(input)],

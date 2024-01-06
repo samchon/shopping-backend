@@ -31,7 +31,7 @@ export const validate_api_shopping_sale_inquiry_answer_create =
     TestValidator.equals("not answered yet")(inquiry.answer)(null);
 
     const answer: IShoppingSaleInquiryAnswer = await accessor.create(
-      pool.customer,
+      pool.seller,
       sale.id,
       inquiry.id,
       prepare_random_bbs_article(),

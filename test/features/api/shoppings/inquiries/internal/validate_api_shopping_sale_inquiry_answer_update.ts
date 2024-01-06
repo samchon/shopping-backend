@@ -26,7 +26,6 @@ export const validate_api_shopping_sale_inquiry_answer_update =
       connection: ShoppingApi.IConnection,
       saleId: string,
       inquiryId: string,
-      id: string,
       input: IShoppingSaleInquiryAnswer.IUpdate,
     ) => Promise<IShoppingSaleInquiryAnswer.ISnapshot>;
   }) =>
@@ -36,7 +35,7 @@ export const validate_api_shopping_sale_inquiry_answer_update =
     inquiry: Inquiry,
   ): Promise<void> => {
     const answer: IShoppingSaleInquiryAnswer = await accessor.create(
-      pool.customer,
+      pool.seller,
       sale.id,
       inquiry.id,
       prepare_random_bbs_article(),
@@ -46,10 +45,9 @@ export const validate_api_shopping_sale_inquiry_answer_update =
     answer.snapshots.push(
       ...(await ArrayUtil.asyncRepeat(4)(() =>
         accessor.update(
-          pool.customer,
+          pool.seller,
           sale.id,
           inquiry.id,
-          answer.id,
           prepare_random_bbs_article(),
         ),
       )),

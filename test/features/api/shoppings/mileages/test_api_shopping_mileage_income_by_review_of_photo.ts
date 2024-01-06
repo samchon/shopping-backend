@@ -11,6 +11,7 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { prepare_random_attachment_file } from "../../common/internal/prepare_random_attachment_file";
+import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
@@ -22,6 +23,7 @@ import { generate_random_sale_review } from "../sales/internal/generate_random_s
 export const test_api_shopping_mileage_income_by_review_of_photo = async (
   pool: ConnectionPool,
 ): Promise<void> => {
+  await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -45,7 +47,7 @@ export const test_api_shopping_mileage_income_by_review_of_photo = async (
   const mileage: IShoppingMileage =
     await ShoppingApi.functional.shoppings.admins.mileages.get(
       pool.admin,
-      "shopping_order_good_photo_reward",
+      "shopping_sale_snapshot_review_photo_reward",
     );
   typia.assertEquals(mileage);
 

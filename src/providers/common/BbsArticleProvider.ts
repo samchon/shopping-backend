@@ -84,17 +84,95 @@ export namespace BbsArticleProvider {
     });
   }
 
+  export const search = (input: IBbsArticle.IRequest.ISearch | undefined) =>
+    [
+      ...(input?.title?.length
+        ? [
+            {
+              mv_last: {
+                snapshot: {
+                  title: {
+                    contains: input.title,
+                    mode: "insensitive" as const,
+                  },
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.body?.length
+        ? [
+            {
+              mv_last: {
+                snapshot: {
+                  body: {
+                    contains: input.body,
+                    mode: "insensitive" as const,
+                  },
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.title_or_body?.length
+        ? [
+            {
+              OR: [
+                {
+                  mv_last: {
+                    snapshot: {
+                      title: {
+                        contains: input.title_or_body,
+                        mode: "insensitive" as const,
+                      },
+                    },
+                  },
+                },
+                {
+                  mv_last: {
+                    snapshot: {
+                      body: {
+                        contains: input.title_or_body,
+                        mode: "insensitive" as const,
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          ]
+        : []),
+      ...(input?.from?.length
+        ? [
+            {
+              created_at: {
+                gte: new Date(input.from),
+              },
+            },
+          ]
+        : []),
+      ...(input?.to?.length
+        ? [
+            {
+              created_at: {
+                lte: new Date(input.to),
+              },
+            },
+          ]
+        : []),
+    ] satisfies Prisma.bbs_articlesWhereInput["AND"];
+
   export const orderBy = (
     key: IBbsArticle.IRequest.SortableColumns,
     value: "asc" | "desc",
-  ): Prisma.bbs_articlesOrderByWithRelationInput | null =>
-    key === "title"
+  ) =>
+    (key === "title"
       ? { mv_last: { snapshot: { title: value } } }
       : key === "created_at"
       ? { created_at: value }
-      : key === "updated_at"
-      ? { mv_last: { snapshot: { created_at: value } } }
-      : null;
+      : {
+          mv_last: { snapshot: { created_at: value } },
+        }) satisfies Prisma.bbs_articlesOrderByWithRelationInput;
 
   export const collect =
     <Input extends IBbsArticle.ICreate>(

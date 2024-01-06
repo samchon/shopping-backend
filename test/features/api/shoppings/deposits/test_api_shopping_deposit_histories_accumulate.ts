@@ -16,7 +16,7 @@ export const test_api_shopping_deposit_histories_accumulate = async (
   await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  await ArrayUtil.asyncRepeat(4)(() =>
+  await ArrayUtil.asyncRepeat(3)(() =>
     generate_random_deposit_histories(pool, {
       charge: 1_000,
       discount: 300,
@@ -35,19 +35,17 @@ export const test_api_shopping_deposit_histories_accumulate = async (
 
   TestValidator.equals("histories[].value")(
     histories.data.map((history) => history.value * history.deposit.direction),
-  )(ArrayUtil.repeat(3)(() => [1_000, 300]).flat());
+  )(ArrayUtil.repeat(3)(() => [1_000, -300]).flat());
 
   TestValidator.equals("histories[].balance")(
-    histories.data.map(
-      (history) => history.balance * history.deposit.direction,
-    ),
+    histories.data.map((history) => history.balance),
   )(
     histories.data.map(
       (history, i) =>
-        history.balance +
+        history.value * history.deposit.direction +
         histories.data
-          .slice(0, i - 1)
-          .map((history) => history.balance * history.deposit.direction)
+          .slice(0, i)
+          .map((history) => history.value * history.deposit.direction)
           .reduce((a, b) => a + b, 0),
     ),
   );

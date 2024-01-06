@@ -46,7 +46,7 @@ export const generate_random_order_publish = async (
           // @todo - interact with payment system
           type: "cash",
           vendor: "somewhere",
-          uid: v4(),
+          uid: `vbank::${v4()}`,
           address,
         };
 

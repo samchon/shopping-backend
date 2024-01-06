@@ -147,6 +147,24 @@ export namespace ShoppingCustomerProvider {
     };
   };
 
+  export const where = (customer: IShoppingCustomer) =>
+    ({
+      OR: [
+        {
+          id: customer.id,
+        },
+        ...(customer.external_user
+          ? [{ shopping_external_user_id: customer.external_user.id }]
+          : []),
+        ...(customer.member
+          ? [{ shopping_member_id: customer.member.id }]
+          : []),
+        ...(customer.citizen
+          ? [{ shopping_citizen_id: customer.citizen.id }]
+          : []),
+      ],
+    } satisfies Prisma.shopping_customersWhereInput);
+
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
@@ -252,6 +270,26 @@ export namespace ShoppingCustomerProvider {
   /* -----------------------------------------------------------
     PREDICATORS
   ----------------------------------------------------------- */
+  export const anonymous = (
+    customer: IShoppingCustomer,
+  ): IShoppingCustomer => ({
+    id: v4(),
+    type: "customer",
+    citizen: {
+      id: v4(),
+      mobile: "0".repeat(11),
+      name: "*******",
+      created_at: new Date().toISOString(),
+    },
+    external_user: null,
+    member: null,
+    channel: customer.channel,
+    href: customer.href,
+    referrer: customer.referrer,
+    ip: customer.ip,
+    created_at: new Date().toISOString(),
+  });
+
   export const equals =
     (x: IShoppingCustomer) =>
     (y: IShoppingCustomer): boolean =>
@@ -260,22 +298,4 @@ export namespace ShoppingCustomerProvider {
       (x.external_user !== null &&
         x.external_user.id === y.external_user?.id) ||
       (x.member !== null && x.member.id === y.member?.id);
-
-  export const where = (customer: IShoppingCustomer) =>
-    ({
-      OR: [
-        {
-          id: customer.id,
-        },
-        ...(customer.external_user
-          ? [{ shopping_external_user_id: customer.external_user.id }]
-          : []),
-        ...(customer.member
-          ? [{ shopping_member_id: customer.member.id }]
-          : []),
-        ...(customer.citizen
-          ? [{ shopping_citizen_id: customer.citizen.id }]
-          : []),
-      ],
-    } satisfies Prisma.shopping_customersWhereInput);
 }
