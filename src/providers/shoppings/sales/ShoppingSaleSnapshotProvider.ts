@@ -254,6 +254,27 @@ export namespace ShoppingSaleSnapshotProvider {
       return history.transform(record);
     };
 
+  export const searchInvert =
+    (accessor: string) =>
+    async (input: IShoppingSale.IRequest.ISearch | undefined) =>
+      [
+        ...(await search(accessor)(input)),
+        ...(input?.seller !== undefined
+          ? ShoppingSellerProvider.searchFromCustomer(input.seller).map(
+              (sellerCustomer) => ({ sale: { sellerCustomer } }),
+            )
+          : []),
+        ...(input?.section_codes?.length
+          ? [
+              {
+                sale: {
+                  section: { code: { in: input.section_codes } },
+                },
+              },
+            ]
+          : []),
+      ] satisfies Prisma.shopping_sale_snapshotsWhereInput["AND"];
+
   export const search =
     (accessor: string) =>
     async (input: IShoppingSale.IRequest.ISearch | undefined) =>

@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
@@ -39,13 +40,17 @@ export namespace ShoppingOrderGoodProvider {
         confirmed_at: input.confirmed_at?.toISOString() ?? null,
       };
     };
-    export const select = () =>
+    export const select = (actor: null | IShoppingActorEntity) =>
       ({
         include: {
           commodity: ShoppingCartCommodityProvider.json.select(),
           mv_price: true,
           mv_state: true,
         },
+        where:
+          actor?.type === "seller"
+            ? { shopping_seller_id: actor.id }
+            : undefined,
       } satisfies Prisma.shopping_order_goodsFindManyArgs);
   }
 

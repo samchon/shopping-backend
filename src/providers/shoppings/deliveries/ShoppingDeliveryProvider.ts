@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
 
@@ -84,13 +85,13 @@ export namespace ShoppingDeliveryProvider {
       state: "none", // @todo
       created_at: input.created_at.toISOString(),
     });
-    export const select = () =>
+    export const select = (actor: null | IShoppingActorEntity) =>
       ({
         include: {
           sellerCustomer: ShoppingSellerProvider.invert.select(),
           shippers: ShoppingDeliveryShipperProvider.json.select(),
           journeys: ShoppingDeliveryJourneyProvider.json.select(),
-          pieces: ShoppingDeliveryPieceProvider.invert.select(),
+          pieces: ShoppingDeliveryPieceProvider.invert.select(actor),
         },
       } satisfies Prisma.shopping_deliveriesFindManyArgs);
   }
@@ -105,7 +106,7 @@ export namespace ShoppingDeliveryProvider {
     ): Promise<IPage<IShoppingDelivery.IInvert>> =>
       PaginationUtil.paginate({
         schema: ShoppingGlobal.prisma.shopping_deliveries,
-        payload: invert.select(),
+        payload: invert.select(seller),
         transform: invert.transform,
       })({
         where: {
@@ -137,7 +138,7 @@ export namespace ShoppingDeliveryProvider {
               },
             },
           },
-          ...invert.select(),
+          ...invert.select(seller),
         });
       return invert.transform(record);
     };

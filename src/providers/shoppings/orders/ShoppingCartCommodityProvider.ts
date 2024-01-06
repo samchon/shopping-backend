@@ -218,12 +218,56 @@ export namespace ShoppingCartCommodityProvider {
       ...(input?.sale !== undefined
         ? [
             ...(
-              await ShoppingSaleSnapshotProvider.search("input.search.sale")(
-                input.sale,
-              )
+              await ShoppingSaleSnapshotProvider.searchInvert(
+                "input.search.sale",
+              )(input.sale)
             ).map((snapshot) => ({
               snapshot,
             })),
+          ]
+        : []),
+      ...(input?.min_price !== undefined
+        ? [
+            {
+              mv_price: {
+                real: {
+                  gte: input.min_price,
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.max_price !== undefined
+        ? [
+            {
+              mv_price: {
+                real: {
+                  lte: input.max_price,
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.min_volumed_price !== undefined
+        ? [
+            {
+              mv_price: {
+                volumed_price: {
+                  gte: input.min_volumed_price,
+                },
+              },
+            },
+          ]
+        : []),
+      ...(input?.max_volumed_price !== undefined
+        ? [
+            {
+              mv_price: {
+                volumed_price: {
+                  lte: input.max_volumed_price,
+                },
+              },
+            },
           ]
         : []),
     ] satisfies Prisma.shopping_cart_commoditiesWhereInput["AND"];

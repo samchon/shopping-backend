@@ -15,6 +15,7 @@ import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { BbsArticleCommentProvider } from "../../../common/BbsArticleCommentProvider";
 import { BbsArticleCommentSnapshotProvider } from "../../../common/BbsArticleCommentSnapshotProvider";
 import { ShoppingActorProvider } from "../../actors/ShoppingActorProvider";
+import { ShoppingCitizenProvider } from "../../actors/ShoppingCitizenProvider";
 import { ShoppingCustomerProvider } from "../../actors/ShoppingCustomerProvider";
 
 export namespace ShoppingSaleSnapshotInquiryCommentProvider {
@@ -86,9 +87,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
                 bbs_article_id: related.inquiry.id,
               },
             },
-            ...BbsArticleCommentProvider.search(input.search).map((base) => ({
-              base,
-            })),
+            ...search(input.search),
           ],
         },
         orderBy: input.sort?.length
@@ -137,6 +136,34 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
         );
       return json.transform(record);
     };
+
+  const search = (
+    input: undefined | IShoppingSaleInquiryComment.IRequest.ISearch,
+  ) =>
+    [
+      ...BbsArticleCommentProvider.search(input).map((base) => ({
+        base,
+      })),
+      ...(input?.name?.length
+        ? ShoppingCitizenProvider.search(input).map((citizen) => ({
+            customer: { citizen },
+          }))
+        : []),
+      ...(input?.nickname?.length
+        ? [
+            {
+              customer: {
+                member: {
+                  nickname: {
+                    contains: input.nickname,
+                    mode: "insensitive" as const,
+                  },
+                },
+              },
+            },
+          ]
+        : []),
+    ] satisfies Prisma.shopping_sale_snapshot_inquiry_commentsWhereInput["AND"];
 
   /* -----------------------------------------------------------
     WRITERS
