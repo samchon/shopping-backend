@@ -34,7 +34,7 @@ export namespace BbsArticleCommentSnapshotProvider {
       } satisfies Prisma.bbs_article_comment_snapshotsFindManyArgs);
   }
 
-  export const store =
+  export const create =
     (comment: IEntity) =>
     async (
       input: IBbsArticleComment.IUpdate,

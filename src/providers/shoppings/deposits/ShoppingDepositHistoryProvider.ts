@@ -159,7 +159,7 @@ export namespace ShoppingDepositHistoryProvider {
     async (source: IEntity, value: number): Promise<void> => {
       await process(citizen)(depositCode)({
         task: async () => source,
-        source: (entity) => entity,
+        source,
         value,
       });
     };
@@ -169,25 +169,26 @@ export namespace ShoppingDepositHistoryProvider {
     (depositCode: string) =>
     async <T extends IEntity>(props: {
       task: () => Promise<T>;
-      source: (entity: T) => IEntity;
+      source: IEntity;
       value: number;
     }): Promise<T> => {
       const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
         depositCode,
       );
-      const balance: number = await getBalance(citizen);
       const previous =
         await ShoppingGlobal.prisma.shopping_deposit_histories.findFirst({
           where: {
-            shopping_deposit_id: deposit.id,
             shopping_citizen_id: citizen.id,
+            shopping_deposit_id: deposit.id,
+            source_id: props.source.id,
             cancelled_at: null,
           },
         });
       const increment: number =
         deposit.direction * (props.value - (previous?.value ?? 0));
-      const after: number = balance + increment;
-      if (after < 0) throw ErrorProvider.paymentRequired("not enough deposit");
+      const balance: number = increment + (await getBalance(citizen));
+      if (balance < 0)
+        throw ErrorProvider.paymentRequired("not enough deposit");
 
       const entity: T = await props.task();
       const record =
@@ -201,9 +202,9 @@ export namespace ShoppingDepositHistoryProvider {
                 citizen: {
                   connect: { id: citizen.id },
                 },
-                source_id: props.source(entity).id,
+                source_id: props.source.id,
                 value: props.value,
-                balance: balance,
+                balance,
                 created_at: new Date(),
               },
             })
@@ -213,7 +214,7 @@ export namespace ShoppingDepositHistoryProvider {
               },
               data: {
                 value: props.value,
-                balance: balance,
+                balance,
               },
             });
 
@@ -223,7 +224,7 @@ export namespace ShoppingDepositHistoryProvider {
         },
         create: {
           shopping_citizen_id: citizen.id,
-          value: after,
+          value: balance,
         },
         update: {
           value: {
@@ -235,7 +236,7 @@ export namespace ShoppingDepositHistoryProvider {
         where: {
           shopping_citizen_id: citizen.id,
           created_at: {
-            gte: record.created_at,
+            gt: record.created_at,
           },
           cancelled_at: null,
         },

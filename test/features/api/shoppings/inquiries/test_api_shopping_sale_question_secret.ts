@@ -6,7 +6,6 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleQuestion } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleQuestion";
 
-import { ActorPath } from "../../../../../src/typings/ActorPath";
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
@@ -25,15 +24,18 @@ export const test_api_shopping_sale_question_secret = async (
   const question: IShoppingSaleQuestion = await generate_random_sale_question(
     pool,
     sale,
+    {
+      secret: true,
+    },
   );
 
   const validate =
-    (path: ActorPath) =>
+    (type: "customer" | "seller" | "admin") =>
     async (visible: boolean): Promise<void> => {
       if (visible) {
         const read: IShoppingSaleQuestion =
-          await ShoppingApi.functional.shoppings[path].sales.questions.at(
-            pool.customer,
+          await ShoppingApi.functional.shoppings[`${type}s`].sales.questions.at(
+            pool[type],
             sale.id,
             question.id,
           );
@@ -41,35 +43,33 @@ export const test_api_shopping_sale_question_secret = async (
         TestValidator.equals("read")(question)(read);
       } else
         await TestValidator.httpError(`read ${visible}`)(403)(() =>
-          ShoppingApi.functional.shoppings[path].sales.questions.at(
-            pool.customer,
+          ShoppingApi.functional.shoppings[`${type}s`].sales.questions.at(
+            pool[type],
             sale.id,
             question.id,
           ),
         );
 
       const page: IPage<IShoppingSaleQuestion.ISummary> =
-        await ShoppingApi.functional.shoppings[path].sales.questions.index(
-          pool.customer,
-          sale.id,
-          {
-            limit: 1,
-          },
-        );
+        await ShoppingApi.functional.shoppings[
+          `${type}s`
+        ].sales.questions.index(pool[type], sale.id, {
+          limit: 1,
+        });
       const summary: IShoppingSaleQuestion.ISummary =
         typia.assertEquals(page).data[0];
       const masked = () =>
         summary.customer.citizen!.name.includes("*") &&
-        summary.customer.citizen!.mobile.includes("*") &&
+        summary.customer.citizen!.mobile.includes("0") &&
         summary.title.includes("*");
       TestValidator.predicate(`page ${visible}`)(
-        visible ? masked : () => !masked(),
+        visible ? () => !masked() : masked,
       );
     };
 
-  await validate("customers")(true);
+  await validate("customer")(true);
   await test_api_shopping_actor_customer_join(pool);
-  await validate("customers")(false);
-  await validate("sellers")(false);
-  await validate("admins")(false);
+  await validate("customer")(false);
+  await validate("seller")(true);
+  await validate("admin")(true);
 };

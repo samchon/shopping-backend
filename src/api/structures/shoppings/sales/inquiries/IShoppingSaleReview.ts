@@ -63,7 +63,7 @@ export namespace IShoppingSaleReview {
   /**
    * Abridged information of the review.
    */
-  export interface IAbridge extends IBbsArticle.IAbridge {
+  export interface IAbridge extends IShoppingSaleInquiry.IAbridge {
     /**
      * Score of the review.
      */
@@ -108,6 +108,6 @@ export namespace IShoppingSaleReview {
     /**
      * Score of the review.
      */
-    score?: number & tags.Minimum<0> & tags.Maximum<100>;
+    score: number & tags.Minimum<0> & tags.Maximum<100>;
   }
 }

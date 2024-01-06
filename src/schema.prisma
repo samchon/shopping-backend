@@ -125,8 +125,8 @@ model bbs_articles {
   /// List of comments.
   comments bbs_article_comments[]
 
-  shopping_sale_snapshot_inquiries       shopping_sale_snapshot_inquiries[]
-  shopping_sale_snapshot_inquiry_answers shopping_sale_snapshot_inquiry_answers[]
+  of_inquiry        shopping_sale_snapshot_inquiries?
+  of_inquiry_answer shopping_sale_snapshot_inquiry_answers?
 
   mv_last mv_bbs_article_last_snapshots?
 
@@ -182,8 +182,7 @@ model bbs_article_snapshots {
   /// List of wrappers of attachment files.
   to_files bbs_article_snapshot_files[]
 
-  shopping_sale_snapshot_review_snapshots shopping_sale_snapshot_review_snapshots[]
-
+  of_review                                shopping_sale_snapshot_review_snapshots?
   mv_last                                  mv_bbs_article_last_snapshots?
   shopping_sale_snapshot_inquiry_favorites shopping_sale_snapshot_inquiry_favorites[]
 
@@ -309,8 +308,8 @@ model bbs_article_comments {
   /// accumulated every time the comment is modified.
   ///
   /// @minItems 1
-  snapshots                               bbs_article_comment_snapshots[]
-  shopping_sale_snapshot_inquiry_comments shopping_sale_snapshot_inquiry_comments[]
+  snapshots  bbs_article_comment_snapshots[]
+  of_inquiry shopping_sale_snapshot_inquiry_comments?
 
   @@index([bbs_article_id, parent_id, created_at])
 }
@@ -1283,11 +1282,9 @@ model shopping_sales {
   //----
   // RELATIONS
   //----
-  section        shopping_sections         @relation(fields: [shopping_section_id], references: [id], onDelete: Cascade)
-  sellerCustomer shopping_customers        @relation(fields: [shopping_seller_customer_id], references: [id], onDelete: Cascade)
-  snapshots      shopping_sale_snapshots[]
-
-  inquiries                      shopping_sale_snapshot_inquiries[]
+  section                        shopping_sections                @relation(fields: [shopping_section_id], references: [id], onDelete: Cascade)
+  sellerCustomer                 shopping_customers               @relation(fields: [shopping_seller_customer_id], references: [id], onDelete: Cascade)
+  snapshots                      shopping_sale_snapshots[]
   shopping_coupon_sale_criterias shopping_coupon_sale_criterias[]
 
   mv_last                 mv_shopping_sale_last_snapshots?
@@ -4014,13 +4011,6 @@ model shopping_sale_snapshot_inquiries {
   /// @format uuid
   id String @id @db.Uuid
 
-  /// Belonged sale's {@link shopping_sales.id}
-  ///
-  /// Duplicated property for fast sorting.
-  ///
-  /// @hidden
-  shopping_sale_id String @db.Uuid
-
   /// Belonged snapshot's {@link shopping_sale_snapshots.id}
   ///
   /// @format uuid
@@ -4051,7 +4041,6 @@ model shopping_sale_snapshot_inquiries {
   // RELATIONS
   //----
   base     bbs_articles            @relation(fields: [id], references: [id], onDelete: Cascade)
-  sale     shopping_sales          @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
   snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
   customer shopping_customers      @relation(fields: [shopping_customer_id], references: [id], onDelete: Cascade)
 

@@ -29,4 +29,4 @@ jobs:
         run: npm run schema postgres root
 
       - name: Test Backend-Server
-        run: npm run test -- --include actor systematic sale cart order --exclude question review exhaust index --reset true
+        run: npm run test -- --exclude delivery index --reset true

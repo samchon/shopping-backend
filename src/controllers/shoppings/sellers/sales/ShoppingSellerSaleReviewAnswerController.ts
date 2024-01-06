@@ -5,6 +5,8 @@ import { tags } from "typia";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSaleInquiryAnswer } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiryAnswer";
 
+import { ShoppingSaleSnapshotInquiryAnswerProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotInquiryAnswerProvider";
+
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
 
 @Controller("shoppings/sellers/sales/:saleId/reviews/:reviewId/answer")
@@ -16,26 +18,22 @@ export class ShoppingSellerSaleReviewAnswerController {
     @core.TypedParam("reviewId") reviewId: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingSaleInquiryAnswer.ICreate,
   ): Promise<IShoppingSaleInquiryAnswer> {
-    seller;
-    saleId;
-    reviewId;
-    input;
-    return null!;
+    return ShoppingSaleSnapshotInquiryAnswerProvider.create(seller)({
+      sale: { id: saleId },
+      inquiry: { id: reviewId },
+    })(input);
   }
 
-  @core.TypedRoute.Put(":id")
+  @core.TypedRoute.Put()
   public async update(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("reviewId") reviewId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingSaleInquiryAnswer.IUpdate,
   ): Promise<IShoppingSaleInquiryAnswer.ISnapshot> {
-    seller;
-    saleId;
-    reviewId;
-    id;
-    input;
-    return null!;
+    return ShoppingSaleSnapshotInquiryAnswerProvider.update(seller)({
+      sale: { id: saleId },
+      inquiry: { id: reviewId },
+    })(input);
   }
 }

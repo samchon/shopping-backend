@@ -2484,7 +2484,6 @@ outcome. The minus value must be expressed by multiplying the
 erDiagram
 "shopping_sale_snapshot_inquiries" {
     String id PK
-    String shopping_sale_id FK
     String shopping_sale_snapshot_id FK
     String shopping_customer_id FK
     String type
@@ -2575,10 +2574,6 @@ unless the seller is a party.
 
 **Properties**
   - `id`: PK + FK.
-  - `shopping_sale_id`
-    > Belonged sale's [shopping_sales.id](#shopping_sales)
-    > 
-    > Duplicated property for fast sorting.
   - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
   - `shopping_customer_id`: Writer customer's [shopping_customers.id](#shopping_customers)
   - `type`
@@ -2765,7 +2760,6 @@ erDiagram
 }
 "shopping_sale_snapshot_inquiries" {
     String id PK
-    String shopping_sale_id FK
     String shopping_sale_snapshot_id FK
     String shopping_customer_id FK
     String type
@@ -2781,7 +2775,6 @@ erDiagram
 "shopping_address_favorites" }o--|| "shopping_addresses" : address
 "shopping_sales" }o--|| "shopping_customers" : sellerCustomer
 "shopping_sale_snapshots" }o--|| "shopping_sales" : sale
-"shopping_sale_snapshot_inquiries" }o--|| "shopping_sales" : sale
 "shopping_sale_snapshot_inquiries" }o--|| "shopping_sale_snapshots" : snapshot
 "shopping_sale_snapshot_inquiries" }o--|| "shopping_customers" : customer
 ```

@@ -67,7 +67,10 @@ export namespace IShoppingSaleInquiry {
       nickname?: string;
       answered?: boolean | null;
     }
-    export type SortableColumns = IBbsArticle.IRequest.SortableColumns;
+    export type SortableColumns =
+      | "nickname"
+      | "answered_at"
+      | IBbsArticle.IRequest.SortableColumns;
   }
 
   /**

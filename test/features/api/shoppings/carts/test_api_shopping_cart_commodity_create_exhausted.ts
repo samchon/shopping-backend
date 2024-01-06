@@ -38,7 +38,7 @@ export const test_api_shopping_cart_commodity_create_exhausted = async (
     true,
   );
 
-  await TestValidator.httpError("exhaused")(410)(() =>
+  await TestValidator.httpError("exhaused")(422)(() =>
     generate_random_cart_commodity(pool, sale, { volume: 1 }),
   );
 };
