@@ -1,7 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
 import { Prisma } from "@prisma/client";
-import { Singleton } from "tstl";
-import typia from "typia";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -11,7 +9,6 @@ import { IShoppingPrice } from "@samchon/shopping-api/lib/structures/shoppings/b
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
 import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
-import { IShoppingBusinessAggregate } from "@samchon/shopping-api/lib/structures/shoppings/sales/aggregates/IShoppingBusinessAggregate";
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
@@ -54,7 +51,6 @@ export namespace ShoppingSaleSnapshotProvider {
         content: ShoppingSaleSnapshotContentProvider.summary.transform(
           input.content,
         ),
-        aggregate: aggregate.get(), // @todo -> must be the real data,
         tags: input.tags
           .sort((a, b) => (a.sequence = b.sequence))
           .map((tag) => tag.value),
@@ -104,7 +100,6 @@ export namespace ShoppingSaleSnapshotProvider {
         content: ShoppingSaleSnapshotContentProvider.json.transform(
           input.content,
         ),
-        aggregate: aggregate.get(), // @todo -> must be the real data,
         tags: input.tags
           .sort((a, b) => (a.sequence = b.sequence))
           .map((tag) => tag.value),
@@ -165,7 +160,6 @@ export namespace ShoppingSaleSnapshotProvider {
         content: ShoppingSaleSnapshotContentProvider.summary.transform(
           input.content,
         ),
-        aggregate: aggregate.get(), // @todo -> must be the real data,
         tags: input.tags
           .sort((a, b) => (a.sequence = b.sequence))
           .map((tag) => tag.value),
@@ -586,8 +580,3 @@ export namespace ShoppingSaleSnapshotProvider {
     } satisfies Prisma.mv_shopping_sale_snapshot_pricesCreateWithoutSnapshotInput;
   };
 }
-
-// @todo -> remove
-const aggregate = new Singleton(
-  typia.createRandom<IShoppingBusinessAggregate>(),
-);

@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingBusinessAggregate } from "../sales/aggregates/IShoppingBusinessAggregate";
+// import { IShoppingBusinessAggregate } from "../sales/aggregates/IShoppingBusinessAggregate";
 import { IShoppingCitizen } from "./IShoppingCitizen";
 import { IShoppingCustomer } from "./IShoppingCustomer";
 import { IShoppingMember } from "./IShoppingMember";
@@ -26,10 +26,10 @@ export interface IShoppingSeller {
    */
   id: string & tags.Format<"uuid">;
 
-  /**
-   * Aggregation of business performance.
-   */
-  aggregate: IShoppingBusinessAggregate;
+  // /**
+  //  * Aggregation of business performance.
+  //  */
+  // aggregate: IShoppingBusinessAggregate;
 
   /**
    * Creation tmie of record.

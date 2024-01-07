@@ -121,36 +121,36 @@ export const test_api_shopping_sale_index_search = async (
       sale.seller.member.nickname.includes(nickname),
   });
 
-  //----
-  // AGGREGATES
-  //----
-  await search({
-    fields: ["sale.review.score"],
-    values: (sale) => [
-      (sale.aggregate.inquiry.review.statistics?.average ?? 0) * 0.8,
-      (sale.aggregate.inquiry.review.statistics?.average ?? 0) * 1.2,
-    ],
-    request: ([minimum, maximum]) => ({
-      review: { score: { minimum, maximum } },
-    }),
-    filter: (sale, [minimum, maximum]) =>
-      minimum <= (sale.aggregate.inquiry.review.statistics?.average ?? 0) &&
-      (sale.aggregate.inquiry.review.statistics?.average ?? 0) <= maximum,
-  });
+  // //----
+  // // AGGREGATES
+  // //----
+  // await search({
+  //   fields: ["sale.review.score"],
+  //   values: (sale) => [
+  //     (sale.aggregate.inquiry.review.statistics?.average ?? 0) * 0.8,
+  //     (sale.aggregate.inquiry.review.statistics?.average ?? 0) * 1.2,
+  //   ],
+  //   request: ([minimum, maximum]) => ({
+  //     review: { score: { minimum, maximum } },
+  //   }),
+  //   filter: (sale, [minimum, maximum]) =>
+  //     minimum <= (sale.aggregate.inquiry.review.statistics?.average ?? 0) &&
+  //     (sale.aggregate.inquiry.review.statistics?.average ?? 0) <= maximum,
+  // });
 
-  await search({
-    fields: ["sale.review.count"],
-    values: (sale) => [
-      Math.max(0, sale.aggregate.inquiry.review.count - 1),
-      sale.aggregate.inquiry.review.count + 1,
-    ],
-    request: ([minimum, maximum]) => ({
-      review: { score: { minimum, maximum } },
-    }),
-    filter: (sale, [minimum, maximum]) =>
-      minimum <= sale.aggregate.inquiry.review.count &&
-      sale.aggregate.inquiry.review.count <= maximum,
-  });
+  // await search({
+  //   fields: ["sale.review.count"],
+  //   values: (sale) => [
+  //     Math.max(0, sale.aggregate.inquiry.review.count - 1),
+  //     sale.aggregate.inquiry.review.count + 1,
+  //   ],
+  //   request: ([minimum, maximum]) => ({
+  //     review: { score: { minimum, maximum } },
+  //   }),
+  //   filter: (sale, [minimum, maximum]) =>
+  //     minimum <= sale.aggregate.inquiry.review.count &&
+  //     sale.aggregate.inquiry.review.count <= maximum,
+  // });
 };
 
 const REPEAT = 10;
