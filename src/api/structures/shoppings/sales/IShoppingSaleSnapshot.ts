@@ -7,7 +7,8 @@ import { IShoppingSaleChannel } from "./IShoppingSaleChannel";
 import { IShoppingSaleContent } from "./IShoppingSaleContent";
 import { IShoppingSalePriceRange } from "./IShoppingSalePriceRange";
 import { IShoppingSaleUnit } from "./IShoppingSaleUnit";
-import { IShoppingBusinessAggregate } from "./aggregates/IShoppingBusinessAggregate";
+
+// import { IShoppingBusinessAggregate } from "./aggregates/IShoppingBusinessAggregate";
 
 /**
  * Snapshot record of sale.
@@ -117,10 +118,10 @@ export namespace IShoppingSaleSnapshot {
      */
     tags: string[];
 
-    /**
-     * Aggregation of business performance.
-     */
-    aggregate: Omit<IShoppingBusinessAggregate, "sale">;
+    // /**
+    //  * Aggregation of business performance.
+    //  */
+    // aggregate: Omit<IShoppingBusinessAggregate, "sale">;
 
     /**
      * List of units.

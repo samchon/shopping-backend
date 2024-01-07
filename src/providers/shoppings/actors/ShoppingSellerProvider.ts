@@ -1,14 +1,11 @@
 import { ForbiddenException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
-import { Singleton } from "tstl";
-import typia from "typia";
 import { v4 } from "uuid";
 
 import { ShoppingSellerDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/actors/ShoppingSellerDiagnoser";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
-import { IShoppingBusinessAggregate } from "@samchon/shopping-api/lib/structures/shoppings/sales/aggregates/IShoppingBusinessAggregate";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { JwtTokenService } from "../../../services/JwtTokenService";
@@ -30,7 +27,6 @@ export namespace ShoppingSellerProvider {
     ): IShoppingSeller => ({
       id: input.id,
       created_at: input.created_at.toISOString(),
-      aggregate: aggregate.get(),
     });
     export const select = () =>
       ({} satisfies Prisma.shopping_sellersFindManyArgs);
@@ -82,7 +78,6 @@ export namespace ShoppingSellerProvider {
             created_at: customer.created_at.toISOString(),
           },
           created_at: seller.created_at.toISOString(),
-          aggregate: aggregate.get(),
         };
       };
     export const select = () =>
@@ -205,7 +200,3 @@ export namespace ShoppingSellerProvider {
       return ShoppingSellerDiagnoser.invert(customer)!;
     };
 }
-
-const aggregate = new Singleton(() =>
-  typia.random<IShoppingBusinessAggregate>(),
-);

@@ -2,6 +2,7 @@ import { ArrayUtil } from "@nestia/e2e";
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
 import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
@@ -108,7 +109,7 @@ export namespace ShoppingDeliveryPieceProvider {
         pieces: inputList.map(json.transform),
       };
     };
-    export const select = () =>
+    export const select = (actor: null | IShoppingActorEntity) =>
       ({
         include: {
           publish: {
@@ -116,7 +117,7 @@ export namespace ShoppingDeliveryPieceProvider {
               address: true,
               order: {
                 include: {
-                  ...ShoppingOrderProvider.json.select().include,
+                  ...ShoppingOrderProvider.json.select(actor).include,
                   publish: undefined,
                 },
               },

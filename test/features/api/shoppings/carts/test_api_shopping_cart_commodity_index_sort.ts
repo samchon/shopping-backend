@@ -75,49 +75,49 @@ export const test_api_shopping_cart_commodity_index_sort = async (
     validator("seller.created_at")(
       GaffComparator.dates((x) => x.sale.seller.created_at),
     ),
-    validator("seller.goods.payments.real")(
-      GaffComparator.numbers(
-        (x) => x.sale.seller.aggregate.good.real_payment_amount,
-      ),
-    ),
-    validator("seller.goods.publish_count")(
-      GaffComparator.numbers((x) => x.sale.seller.aggregate.good.publish_count),
-    ),
-    validator("seller.reviews.average")(
-      GaffComparator.numbers(
-        (x) => x.sale.seller.aggregate.inquiry.review.statistics?.average ?? 0,
-      ),
-      (x) => x.sale.seller.aggregate.inquiry.review.statistics !== null,
-    ),
-    validator("seller.reviews.count")(
-      GaffComparator.numbers(
-        (x) => x.sale.seller.aggregate.inquiry.review.count,
-      ),
-    ),
+    // validator("seller.goods.payments.real")(
+    //   GaffComparator.numbers(
+    //     (x) => x.sale.seller.aggregate.good.real_payment_amount,
+    //   ),
+    // ),
+    // validator("seller.goods.publish_count")(
+    //   GaffComparator.numbers((x) => x.sale.seller.aggregate.good.publish_count),
+    // ),
+    // validator("seller.reviews.average")(
+    //   GaffComparator.numbers(
+    //     (x) => x.sale.seller.aggregate.inquiry.review.statistics?.average ?? 0,
+    //   ),
+    //   (x) => x.sale.seller.aggregate.inquiry.review.statistics !== null,
+    // ),
+    // validator("seller.reviews.count")(
+    //   GaffComparator.numbers(
+    //     (x) => x.sale.seller.aggregate.inquiry.review.count,
+    //   ),
+    // ),
 
-    // SALE
-    validator("goods.publish_count")(
-      GaffComparator.numbers((x) => x.sale.aggregate.good.publish_count),
-    ),
-    validator("goods.payments.real")(
-      GaffComparator.numbers((x) => x.sale.aggregate.good.real_payment_amount),
-    ),
-    validator("reviews.average")(
-      GaffComparator.numbers(
-        (x) => x.sale.aggregate.inquiry.review.statistics?.average ?? 0,
-      ),
-      (x) => x.sale.aggregate.inquiry.review.statistics !== null,
-    ),
-    validator("reviews.count")(
-      GaffComparator.numbers((x) => x.sale.aggregate.inquiry.review.count),
-    ),
-    validator("reviews.average", "reviews.count")(
-      GaffComparator.numbers((x) => [
-        x.sale.aggregate.inquiry.review.statistics?.average ?? 0,
-        x.sale.aggregate.inquiry.review.count,
-      ]),
-      (x) => x.sale.aggregate.inquiry.review.statistics !== null,
-    ),
+    // // SALE
+    // validator("goods.publish_count")(
+    //   GaffComparator.numbers((x) => x.sale.aggregate.good.publish_count),
+    // ),
+    // validator("goods.payments.real")(
+    //   GaffComparator.numbers((x) => x.sale.aggregate.good.real_payment_amount),
+    // ),
+    // validator("reviews.average")(
+    //   GaffComparator.numbers(
+    //     (x) => x.sale.aggregate.inquiry.review.statistics?.average ?? 0,
+    //   ),
+    //   (x) => x.sale.aggregate.inquiry.review.statistics !== null,
+    // ),
+    // validator("reviews.count")(
+    //   GaffComparator.numbers((x) => x.sale.aggregate.inquiry.review.count),
+    // ),
+    // validator("reviews.average", "reviews.count")(
+    //   GaffComparator.numbers((x) => [
+    //     x.sale.aggregate.inquiry.review.statistics?.average ?? 0,
+    //     x.sale.aggregate.inquiry.review.count,
+    //   ]),
+    //   (x) => x.sale.aggregate.inquiry.review.statistics !== null,
+    // ),
     validator("sale.created_at")(
       GaffComparator.dates((x) => x.sale.created_at),
     ),

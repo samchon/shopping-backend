@@ -129,9 +129,9 @@ export namespace ShoppingSaleProvider {
           AND: [...where(actor, true), ...(await search(actor)(input.search))],
         },
         orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy(actor))(input.sort)
+          ? PaginationUtil.orderBy(orderBy)(input.sort)
           : [{ created_at: "desc" }],
-      })(input);
+      } satisfies Prisma.shopping_salesFindManyArgs)(input);
 
   export const at =
     (
@@ -216,71 +216,70 @@ export namespace ShoppingSaleProvider {
         ...(
           await ShoppingSaleSnapshotProvider.search("input.search")(input)
         ).map((snapshot) => ({
-          mv_last: {
-            [actor.type === "customer" ? "approved" : "last"]: snapshot,
-          },
+          mv_last: { snapshot },
         })),
         // @todo - AGGREGATES
       ] satisfies Prisma.shopping_salesWhereInput["AND"];
 
-  const orderBy =
-    (actor: IShoppingActorEntity) =>
-    (key: IShoppingSale.IRequest.SortableColumns, direction: "asc" | "desc") =>
-      (key === "sale.created_at"
-        ? { created_at: direction }
-        : key === "sale.updated_at"
-        ? {
-            mv_last: {
-              snapshot: {
-                created_at: direction,
+  const orderBy = (
+    key: IShoppingSale.IRequest.SortableColumns,
+    direction: "asc" | "desc",
+  ) =>
+    (key === "sale.created_at"
+      ? { created_at: direction }
+      : key === "sale.updated_at"
+      ? {
+          mv_last: {
+            snapshot: {
+              created_at: direction,
+            },
+          },
+        }
+      : key === "sale.opened_at"
+      ? { opened_at: direction }
+      : key === "sale.closed_at"
+      ? { closed_at: direction }
+      : key === "sale.content.title"
+      ? {
+          mv_last: {
+            snapshot: {
+              content: { title: direction },
+            },
+          },
+        }
+      : key === "sale.price_range.lowest.real"
+      ? {
+          mv_last: {
+            snapshot: {
+              mv_price_range: {
+                real_lowest: direction,
               },
             },
-          }
-        : key === "sale.opened_at"
-        ? { opened_at: direction }
-        : key === "sale.closed_at"
-        ? { closed_at: direction }
-        : key === "sale.content.title"
-        ? {
-            mv_last: {
-              [actor.type === "customer" ? "approved" : "last"]: {
-                content: { title: direction },
+          },
+        }
+      : key === "sale.price_range.highest.real"
+      ? {
+          mv_last: {
+            snapshot: {
+              mv_price_range: {
+                real_highest: direction,
               },
             },
-          }
-        : key === "sale.price_range.lowest.real"
-        ? {
-            mv_last: {
-              snapshot: {
-                mv_price_range: {
-                  real_lowest: direction,
-                },
-              },
+          },
+        }
+      : key === "goods.publish_count" ||
+        key === "goods.payments.real" ||
+        key === "reviews.average" ||
+        key === "reviews.count" ||
+        key === "seller.reviews.average"
+      ? { created_at: direction } // @todo
+      : {
+          sellerCustomer: {
+            member: {
+              of_seller: ShoppingSellerProvider.orderBy(key, direction),
             },
-          }
-        : key === "sale.price_range.highest.real"
-        ? {
-            mv_last: {
-              snapshot: {
-                mv_price_range: {
-                  real_highest: direction,
-                },
-              },
-            },
-          }
-        : key === "goods.publish_count" ||
-          key === "goods.payments.real" ||
-          key === "reviews.average" ||
-          key === "reviews.count" ||
-          key === "seller.reviews.average"
-        ? { created_at: direction } // @todo
-        : {
-            sellerCustomer: {
-              member: {
-                of_seller: ShoppingSellerProvider.orderBy(key, direction),
-              },
-            },
-          }) satisfies Prisma.shopping_salesOrderByWithRelationInput;
+          },
+        }) satisfies Prisma.shopping_salesOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS

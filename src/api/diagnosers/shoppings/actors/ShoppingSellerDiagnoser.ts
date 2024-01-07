@@ -20,7 +20,6 @@ export namespace ShoppingSellerDiagnoser {
       customer: typia.misc.assertClone<IShoppingCustomer.IInvert>(customer),
       member: typia.misc.assertClone<IShoppingMember.IInvert>(member),
       created_at: seller.created_at,
-      aggregate: seller.aggregate,
     };
   };
 }

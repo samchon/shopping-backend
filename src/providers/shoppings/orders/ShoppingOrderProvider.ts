@@ -56,11 +56,11 @@ export namespace ShoppingOrderProvider {
         created_at: input.created_at.toISOString(),
       };
     };
-    export const select = () =>
+    export const select = (actor: null | IShoppingActorEntity) =>
       ({
         include: {
           customer: ShoppingCustomerProvider.json.select(),
-          goods: ShoppingOrderGoodProvider.json.select(),
+          goods: ShoppingOrderGoodProvider.json.select(actor),
           publish: ShoppingOrderPublishProvider.json.select(),
           mv_price: true,
         },
@@ -75,7 +75,7 @@ export namespace ShoppingOrderProvider {
     async (input: IShoppingOrder.IRequest): Promise<IPage<IShoppingOrder>> =>
       PaginationUtil.paginate({
         schema: ShoppingGlobal.prisma.shopping_orders,
-        payload: json.select(),
+        payload: json.select(actor),
         transform: json.transform,
       })({
         where: {
@@ -95,7 +95,7 @@ export namespace ShoppingOrderProvider {
             id,
             ...where(actor),
           },
-          ...json.select(),
+          ...json.select(actor),
         });
       return json.transform(record);
     };
@@ -155,7 +155,7 @@ export namespace ShoppingOrderProvider {
           ]
         : []),
       ...(
-        await ShoppingSaleSnapshotProvider.search("input.search.sale")(
+        await ShoppingSaleSnapshotProvider.searchInvert("input.search.sale")(
           input?.sale,
         )
       ).map((snapshot) => ({
@@ -177,6 +177,10 @@ export namespace ShoppingOrderProvider {
       ? { created_at: value }
       : key === "order.publish.paid_at"
       ? { publish: { paid_at: value } }
+      : key === "order.quantity"
+      ? {
+          mv_price: { quantity: value },
+        }
       : {
           mv_price: { real: value },
         }) satisfies Prisma.shopping_ordersOrderByWithRelationInput;
@@ -256,7 +260,7 @@ export namespace ShoppingOrderProvider {
             },
           },
         },
-        ...json.select(),
+        ...json.select(customer),
       });
       return json.transform(record);
     };
