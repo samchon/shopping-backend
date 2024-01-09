@@ -5,6 +5,8 @@ import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMileage } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileage";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
+import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -37,30 +39,31 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
     true,
   );
 
-  // @todo
-  // const delivery: IShoppingDelivery =
-  //   await ShoppingApi.functional.shoppings.sellers.deliveries.create(
-  //     pool.seller,
-  //     {
-  //       pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
-  //         await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
-  //           pool.seller,
-  //           order.id,
-  //         ),
-  //       ),
-  //       shippers: [],
-  //       journeys: (
-  //         ["preparing", "manufacturing", "shipping", "delivering"] as const
-  //       ).map((type) => ({
-  //         type,
-  //         title: null,
-  //         description: null,
-  //         started_at: new Date().toISOString(),
-  //         completed_at: new Date().toISOString(),
-  //       })),
-  //     },
-  //   );
-  // typia.assertEquals(delivery);
+  const delivery: IShoppingDelivery =
+    await ShoppingApi.functional.shoppings.sellers.deliveries.create(
+      pool.seller,
+      {
+        pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
+          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
+            pool.seller,
+            {
+              publish_ids: [order.publish.id],
+            },
+          ),
+        ),
+        shippers: [],
+        journeys: (
+          ["preparing", "manufacturing", "shipping", "delivering"] as const
+        ).map((type) => ({
+          type,
+          title: null,
+          description: null,
+          started_at: new Date().toISOString(),
+          completed_at: new Date().toISOString(),
+        })),
+      },
+    );
+  typia.assertEquals(delivery);
 
   const good: IShoppingOrderGood = order.goods[0];
   await ShoppingApi.functional.shoppings.customers.orders.goods.confirm(

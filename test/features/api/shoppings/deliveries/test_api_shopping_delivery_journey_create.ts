@@ -42,9 +42,11 @@ export const test_api_shopping_delivery_journey_create = async (
         shippers: [],
         journeys: [],
         pieces: typia.assertEquals(
-          await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
             pool.seller,
-            order.id,
+            {
+              publish_ids: [order.publish.id],
+            },
           ),
         ),
       },
@@ -75,7 +77,7 @@ export const test_api_shopping_delivery_journey_create = async (
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      delivery.id,
+      order.id,
     );
   typia.assertEquals(reloaded);
   TestValidator.equals("journeys")(reloaded.publish!.deliveries[0].journeys)(

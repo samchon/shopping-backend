@@ -1457,8 +1457,8 @@ erDiagram
 "shopping_deliveries" {
     String id PK
     String shopping_seller_customer_id FK
-    String invoice_code "nullable"
     DateTime created_at
+    DateTime deleted_at "nullable"
 }
 "shopping_delivery_pieces" {
     String id PK
@@ -1483,6 +1483,7 @@ erDiagram
     String type
     String title "nullable"
     String description "nullable"
+    Int sequence
     DateTime created_at
     DateTime started_at "nullable"
     DateTime completed_at "nullable"
@@ -1693,12 +1694,8 @@ another subsidiary entity [shopping_delivery_journeys](#shopping_delivery_journe
 **Properties**
   - `id`: Primary Key.
   - `shopping_seller_customer_id`: Belonged seller's [shopping_sellers.id](#shopping_sellers)
-  - `invoice_code`
-    > Invoice code if exists.
-    > 
-    > Considering principles, it must be UK. 
-    > However, some seller takes a mistake, so it can't be.
   - `created_at`: Creation time of record.
+  - `deleted_at`: Deletion time of record.
 
 ### `shopping_delivery_pieces`
 Which stocks are delivered.
@@ -1754,6 +1751,7 @@ each step of the delivery process, such as preparing, shipping, and delivering
     > - delivering
   - `title`: Title of journey.
   - `description`: Description of journey.
+  - `sequence`: Sequence order in belonged delivery.
   - `created_at`: Creation time of record.
   - `started_at`: Start time of journey.
   - `completed_at`: Completion time of journey.

@@ -2,6 +2,7 @@ import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
+import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingDeliveryShipper } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryShipper";
 
@@ -14,7 +15,7 @@ export namespace ShoppingDeliveryShipperProvider {
         ReturnType<typeof select>
       >,
     ): IShoppingDeliveryShipper => ({
-      id: v4(),
+      id: input.id,
       company: input.company,
       name: decrypt(input.name),
       mobile: decrypt(input.mobile),
@@ -26,23 +27,22 @@ export namespace ShoppingDeliveryShipperProvider {
 
   export const create =
     (seller: IShoppingSeller.IInvert) =>
-    (id: string) =>
+    (delivery: IEntity) =>
     async (
       input: IShoppingDeliveryShipper.ICreate,
     ): Promise<IShoppingDeliveryShipper> => {
-      const delivery =
-        await ShoppingGlobal.prisma.shopping_deliveries.findFirstOrThrow({
-          where: {
-            id,
-            sellerCustomer: {
-              member: {
-                of_seller: {
-                  id: seller.id,
-                },
+      await ShoppingGlobal.prisma.shopping_deliveries.findFirstOrThrow({
+        where: {
+          id: delivery.id,
+          sellerCustomer: {
+            member: {
+              of_seller: {
+                id: seller.id,
               },
             },
           },
-        });
+        },
+      });
       const record =
         await ShoppingGlobal.prisma.shopping_delivery_shippers.create({
           data: {

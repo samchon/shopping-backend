@@ -1,10 +1,13 @@
 import { RandomGenerator } from "@nestia/e2e";
 import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
 import { Prisma } from "@prisma/client";
+import typia from "typia";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
+import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
 import { IShoppingOrderPublish } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPublish";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
@@ -29,17 +32,27 @@ export namespace ShoppingOrderPublishProvider {
       deliveries: ShoppingDeliveryPieceProvider.jsonFromPublish.transform(
         input.pieces,
       ),
-      state: (input.mv_state?.value ?? "none") as "none",
+      state: typia.assert<IShoppingDelivery.State>(
+        input.mv_state?.value ?? input.mv_seller_states?.[0]?.value ?? "none",
+      ),
       created_at: input.created_at.toISOString(),
       paid_at: input.paid_at?.toISOString() ?? null,
       cancelled_at: input.cancelled_at?.toISOString() ?? null,
     });
-    export const select = () =>
+    export const select = (actor: null | IShoppingActorEntity) =>
       ({
         include: {
           pieces: ShoppingDeliveryPieceProvider.jsonFromPublish.select(),
           address: true,
-          mv_state: true,
+          mv_state: actor?.type === "seller" ? undefined : true,
+          mv_seller_states:
+            actor?.type === "seller"
+              ? {
+                  where: {
+                    shopping_seller_id: actor.id,
+                  },
+                }
+              : undefined,
         },
       } satisfies Prisma.shopping_order_publishesFindManyArgs);
   }
@@ -128,7 +141,7 @@ export namespace ShoppingOrderPublishProvider {
             paid_at: props.paid_at,
             cancelled_at: props.cancelled_at,
           },
-          ...json.select(),
+          ...json.select(customer),
         });
 
       // POST-PROCESSING
@@ -181,7 +194,57 @@ export namespace ShoppingOrderPublishProvider {
       await handleCancel(order);
     };
 
-  const handlePayment = async (order: IEntity) => {
+  const handlePayment = async (
+    order: IEntity,
+    refer?: { publish: null | IEntity; goods: IEntity[] },
+  ) => {
+    // STATES OF DELIVERIES
+    if (refer === undefined)
+      refer = await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow({
+        where: {
+          id: order.id,
+        },
+        include: {
+          publish: true,
+          goods: true,
+        },
+      });
+    await ShoppingGlobal.prisma.mv_shopping_order_publish_states.create({
+      data: {
+        shopping_order_publish_id: refer.publish!.id,
+        value: "none",
+      },
+    });
+    await ShoppingGlobal.prisma.mv_shopping_order_good_states.createMany({
+      data: refer.goods.map((good) => ({
+        shopping_order_good_id: good.id,
+        value: "none",
+      })),
+    });
+    await ShoppingGlobal.prisma.mv_shopping_order_publish_seller_states.createMany(
+      {
+        data: [
+          ...new Set(
+            (
+              await ShoppingGlobal.prisma.shopping_order_goods.findMany({
+                where: {
+                  shopping_order_id: order.id,
+                },
+                select: {
+                  shopping_seller_id: true,
+                },
+              })
+            ).map((og) => og.shopping_seller_id),
+          ),
+        ].map((shopping_seller_id) => ({
+          id: v4(),
+          shopping_order_publish_id: refer!.publish!.id,
+          shopping_seller_id,
+          value: "none",
+        })),
+      },
+    );
+
     // DECREASE INVENTORY
     for (const { stock_id, quantity } of await getStocks(order))
       await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(

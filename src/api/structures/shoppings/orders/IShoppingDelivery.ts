@@ -65,16 +65,25 @@ export interface IShoppingDelivery {
   created_at: string & tags.Format<"date-time">;
 }
 export namespace IShoppingDelivery {
+  /**
+   * State of delivery
+   *
+   * - `none`: No delivery or journey record
+   * - `underway`: Some pieces are over preparing, but others are not
+   * - `preparing`: At least preparing
+   * - `manufacturing`: At least manufacturing
+   * - `shipping`: At least shipping
+   * - `delivering`: At least delivering
+   * - `arrived`: Every pieces are arrived
+   */
   export type State =
     | "none"
-    | "inaction"
     | "underway"
     | "preparing"
     | "manufacturing"
     | "shipping"
     | "delivering"
-    | "arrived"
-    | "confirmed";
+    | "arrived";
 
   export interface IRequest extends IPage.IRequest {
     sort?: IPage.Sort<IRequest.SortableColumns>;
@@ -100,7 +109,7 @@ export namespace IShoppingDelivery {
     /**
      * List of pieces of the delivery.
      */
-    pieces: IShoppingDeliveryPiece.ICreate[];
+    pieces: IShoppingDeliveryPiece.ICreate[] & tags.MinItems<1>;
 
     /**
      * List of journeys of the delivery.

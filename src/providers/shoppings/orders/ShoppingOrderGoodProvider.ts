@@ -89,6 +89,7 @@ export namespace ShoppingOrderGoodProvider {
           where: { id, shopping_order_id: order.id },
           include: {
             mv_price: true,
+            mv_state: true,
             order: {
               include: {
                 publish: true,
@@ -118,18 +119,19 @@ export namespace ShoppingOrderGoodProvider {
         });
       else if (good.mv_price === null)
         throw ErrorProvider.internal("mv_price is null");
+      else if (good.mv_state?.value !== "arrived")
+        throw ErrorProvider.unprocessable({
+          accessor: "id",
+          message: "The good has not been arrived yet.",
+        });
 
       await ShoppingGlobal.prisma.shopping_order_goods.update({
         where: { id },
         data: {
-          mv_state: {
-            create: {
-              value: "confirmed",
-            },
-          },
           confirmed_at: new Date(),
         },
       });
+
       await ShoppingMileageHistoryProvider.emplace(customer.citizen!)(
         "shopping_order_good_confirm_reward",
       )(good, (ratio) => good.mv_price!.real * ratio!);

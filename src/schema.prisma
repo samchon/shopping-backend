@@ -1082,10 +1082,10 @@ model shopping_sellers {
   //----
   // RELATIONSHIPS
   //----
-  member                                       shopping_members                               @relation(fields: [shopping_member_id], references: [id], onDelete: Cascade)
-  shopping_order_goods                         shopping_order_goods[]
-  shopping_coupon_seller_criterias             shopping_coupon_seller_criterias[]
-  mv_shopping_order_good_publish_seller_states mv_shopping_order_good_publish_seller_states[]
+  member                                  shopping_members                          @relation(fields: [shopping_member_id], references: [id], onDelete: Cascade)
+  shopping_order_goods                    shopping_order_goods[]
+  shopping_coupon_seller_criterias        shopping_coupon_seller_criterias[]
+  mv_shopping_order_publish_seller_states mv_shopping_order_publish_seller_states[]
 
   @@unique([shopping_member_id])
   @@index([created_at])
@@ -2597,10 +2597,10 @@ model shopping_order_publishes {
   order shopping_orders @relation(fields: [shopping_order_id], references: [id], onDelete: Cascade)
 
   /// Target addresss.
-  address          shopping_addresses                             @relation(fields: [shopping_address_id], references: [id], onDelete: Cascade)
+  address          shopping_addresses                        @relation(fields: [shopping_address_id], references: [id], onDelete: Cascade)
   pieces           shopping_delivery_pieces[]
   mv_state         mv_shopping_order_publish_states?
-  mv_seller_states mv_shopping_order_good_publish_seller_states[]
+  mv_seller_states mv_shopping_order_publish_seller_states[]
 
   @@unique([shopping_order_id])
 }
@@ -2640,14 +2640,11 @@ model shopping_deliveries {
   /// @format uuid
   shopping_seller_customer_id String @db.Uuid
 
-  /// Invoice code if exists.
-  ///
-  /// Considering principles, it must be UK. 
-  /// However, some seller takes a mistake, so it can't be.
-  invoice_code String? @db.VarChar
-
   /// Creation time of record.
   created_at DateTime @db.Timestamptz
+
+  /// Deletion time of record.
+  deleted_at DateTime? @db.Timestamptz
 
   //----
   // RELATIONS
@@ -2659,7 +2656,6 @@ model shopping_deliveries {
   mv_state       mv_shopping_delivery_states?
 
   @@index([shopping_seller_customer_id, created_at])
-  @@index([invoice_code])
   @@index([created_at])
 }
 
@@ -2800,6 +2796,9 @@ model shopping_delivery_journeys {
   /// Description of journey.
   description String?
 
+  /// Sequence order in belonged delivery.
+  sequence Int @db.Integer
+
   /// Creation time of record.
   created_at DateTime @db.Timestamptz
 
@@ -2862,7 +2861,7 @@ model mv_shopping_order_good_states {
 }
 
 /// @hidden
-model mv_shopping_order_good_publish_seller_states {
+model mv_shopping_order_publish_seller_states {
   id                        String @id @db.Uuid
   shopping_order_publish_id String @db.Uuid
   shopping_seller_id        String @db.Uuid

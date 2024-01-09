@@ -17,7 +17,7 @@ import { generate_random_order } from "../orders/internal/generate_random_order"
 import { generate_random_order_publish } from "../orders/internal/generate_random_order_publish";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
-export const test_api_shopping_delivery_journey_erase = async (
+export const test_api_shopping_delivery_shipper_create = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
@@ -41,9 +41,11 @@ export const test_api_shopping_delivery_journey_erase = async (
       {
         shippers: [],
         pieces: typia.assertEquals(
-          await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
             pool.seller,
-            order.id,
+            {
+              publish_ids: [order.publish.id],
+            },
           ),
         ),
         journeys: (["preparing", "manufacturing", "delivering"] as const).map(
@@ -62,7 +64,6 @@ export const test_api_shopping_delivery_journey_erase = async (
   const inputList: IShoppingDeliveryShipper.ICreate[] = new Array(4)
     .fill(0)
     .map(() => ({
-      code: RandomGenerator.alphaNumeric(8),
       name: RandomGenerator.name(),
       mobile: RandomGenerator.mobile(),
       company: RandomGenerator.name(),
@@ -82,7 +83,7 @@ export const test_api_shopping_delivery_journey_erase = async (
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      delivery.id,
+      order.id,
     );
   typia.assertEquals(reloaded);
   TestValidator.equals("shippers")(reloaded.publish!.deliveries[0].shippers)(

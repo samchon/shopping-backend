@@ -20,12 +20,16 @@ export interface IShoppingDeliveryPiece extends IShoppingDeliveryPiece.ICreate {
   id: string & tags.Format<"uuid">;
 }
 export namespace IShoppingDeliveryPiece {
+  export interface IRequest {
+    publish_ids: Array<string & tags.Format<"uuid">>;
+  }
+
   /**
    * Creation information of the delivery piece.
    */
   export interface ICreate {
     /**
-     * Target publish's {@link IShoppingOrderPublish.id}.
+     * Target order's {@link IShoppingOrderPublish.id}.
      */
     publish_id: string & tags.Format<"uuid">;
 

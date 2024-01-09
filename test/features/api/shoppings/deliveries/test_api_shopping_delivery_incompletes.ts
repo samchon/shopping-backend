@@ -1,4 +1,5 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
+import { IPointer, randint } from "tstl";
 import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
@@ -36,9 +37,9 @@ export const test_api_shopping_delivery_incompletes = async (
     saleList,
   )((sale) =>
     generate_random_cart_commodity(pool, sale, {
-      volume: REPEAT / 2,
+      volume: REPEAT / 4,
       stocks: sale.units.map((unit) =>
-        prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 2 }),
+        prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 4 }),
       ),
     }),
   );
@@ -50,37 +51,73 @@ export const test_api_shopping_delivery_incompletes = async (
     true,
   );
 
-  const validate = async (i: number) => {
+  const left: IPointer<number> = {
+    value: order.goods
+      .map(
+        (good) =>
+          good.volume *
+          good.commodity.sale.units
+            .map((u) => u.stocks.map((s) => s.quantity))
+            .flat()
+            .flat()
+            .reduce((a, b) => a + b, 0),
+      )
+      .reduce((a, b) => a + b, 0),
+  };
+  while (left.value > 0) {
+    // VALIDATE INCOMPLETES
     const incompletes: IShoppingDeliveryPiece.ICreate[] =
-      await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+      await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
         pool.seller,
-        order.id,
+        {
+          publish_ids: [order.publish!.id],
+        },
       );
     typia.assertEquals(incompletes);
-    TestValidator.equals("incompletes.length")(incompletes.length)(
-      Math.ceil(REPEAT * REPEAT - i / REPEAT),
+    TestValidator.equals("left")(left.value)(
+      incompletes.map((i) => i.quantity).reduce((a, b) => a + b, 0),
     );
-    TestValidator.equals("incompletes[].quantity")(
-      incompletes.map((it) => it.quantity).reduce((a, b) => a + b, 0),
-    )(REPEAT * REPEAT - i);
 
+    // PREPARE NEW DELIVERY INPUT
+    const input: IShoppingDeliveryPiece.ICreate[] = [];
+    const quantity: number = Math.min(left.value, randint(1, 4));
+    const remainder: IPointer<number> = { value: quantity };
+
+    for (const i of incompletes) {
+      const target: number = Math.min(i.quantity, remainder.value);
+      input.push({
+        ...i,
+        quantity: target,
+      });
+      remainder.value -= target;
+      if (remainder.value === 0) break;
+    }
+
+    // DO CREATE IT
     const delivery: IShoppingDelivery =
       await ShoppingApi.functional.shoppings.sellers.deliveries.create(
         pool.seller,
         {
           journeys: [],
           shippers: [],
-          pieces: [],
+          pieces: input,
         },
       );
     typia.assertEquals(delivery);
-  };
-  await ArrayUtil.asyncRepeat(REPEAT * REPEAT)(validate);
+    TestValidator.equals("quantity")(quantity)(
+      delivery.pieces.map((i) => i.quantity).reduce((a, b) => a + b, 0),
+    );
 
+    left.value -= quantity;
+  }
+
+  // NO MORE INCOMPLETES
   const incompletes: IShoppingDeliveryPiece.ICreate[] =
-    await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+    await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
       pool.seller,
-      order.id,
+      {
+        publish_ids: [order.publish.id],
+      },
     );
   TestValidator.equals("empty")(incompletes.length)(0);
 };
