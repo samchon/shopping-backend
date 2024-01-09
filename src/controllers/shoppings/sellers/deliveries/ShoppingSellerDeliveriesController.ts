@@ -5,7 +5,9 @@ import { tags } from "typia";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
+import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 
+import { ShoppingDeliveryPieceProvider } from "../../../../providers/shoppings/deliveries/ShoppingDeliveryPieceProvider";
 import { ShoppingDeliveryProvider } from "../../../../providers/shoppings/deliveries/ShoppingDeliveryProvider";
 
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
@@ -33,8 +35,14 @@ export class ShoppingSellerDeliveriesController {
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedBody() input: IShoppingDelivery.ICreate,
   ): Promise<IShoppingDelivery> {
-    seller;
-    input;
-    return null!;
+    return ShoppingDeliveryProvider.create(seller)(input);
+  }
+
+  @core.TypedRoute.Patch("incompletes")
+  public async incompletes(
+    @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
+    @core.TypedBody() input: IShoppingDeliveryPiece.IRequest,
+  ): Promise<IShoppingDeliveryPiece.ICreate[]> {
+    return ShoppingDeliveryPieceProvider.incompletes(seller)(input);
   }
 }

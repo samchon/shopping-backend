@@ -61,7 +61,7 @@ export namespace ShoppingOrderProvider {
         include: {
           customer: ShoppingCustomerProvider.json.select(),
           goods: ShoppingOrderGoodProvider.json.select(actor),
-          publish: ShoppingOrderPublishProvider.json.select(),
+          publish: ShoppingOrderPublishProvider.json.select(actor),
           mv_price: true,
         },
       } satisfies Prisma.shopping_ordersFindManyArgs);

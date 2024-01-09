@@ -40,9 +40,11 @@ export const test_api_shopping_delivery_journey_erase = async (
       {
         shippers: [],
         pieces: typia.assertEquals(
-          await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
             pool.seller,
-            order.id,
+            {
+              publish_ids: [order.publish.id],
+            },
           ),
         ),
         journeys: (["preparing", "manufacturing", "delivering"] as const).map(
@@ -61,13 +63,13 @@ export const test_api_shopping_delivery_journey_erase = async (
   await ShoppingApi.functional.shoppings.sellers.deliveries.journeys.erase(
     pool.seller,
     delivery.id,
-    delivery.journeys[0].id,
+    delivery.journeys.at(-1)!.id,
   );
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      delivery.id,
+      order.id,
     );
   typia.assertEquals(reloaded);
   TestValidator.equals("deleted_at")(

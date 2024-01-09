@@ -40,9 +40,11 @@ export const test_api_shopping_delivery_journey_complete = async (
       {
         shippers: [],
         pieces: typia.assertEquals(
-          await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
+          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
             pool.seller,
-            order.id,
+            {
+              publish_ids: [order.publish.id],
+            },
           ),
         ),
         journeys: (["preparing", "manufacturing", "delivering"] as const).map(

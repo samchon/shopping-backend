@@ -4,9 +4,12 @@ import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
+import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
 import { IShoppingDeliveryJourney } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryJourney";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
+import { ErrorProvider } from "../../../utils/ErrorProvider";
+import { ShoppingDeliveryPieceProvider } from "./ShoppingDeliveryPieceProvider";
 import { ShoppingDeliveryProvider } from "./ShoppingDeliveryProvider";
 
 export namespace ShoppingDeliveryJourneyProvider {
@@ -74,11 +77,16 @@ export namespace ShoppingDeliveryJourneyProvider {
       const record =
         await ShoppingGlobal.prisma.shopping_delivery_journeys.create({
           data: {
-            ...collect(input),
+            ...collect(input, 0),
             shopping_delivery_id: delivery.id,
           },
           ...json.select(),
         });
+      await updateStates(seller)(delivery)(
+        input.type === "delivering" && input.completed_at !== null
+          ? "arrived"
+          : input.type,
+      );
       return json.transform(record);
     };
 
@@ -87,8 +95,12 @@ export namespace ShoppingDeliveryJourneyProvider {
     (delivery: IEntity) =>
     (id: string) =>
     async (input: IShoppingDeliveryJourney.IComplete): Promise<void> => {
-      const prev: IShoppingDeliveryJourney = await at(seller)(delivery)(id);
-      prev; // @todo -> change state
+      const current: IShoppingDeliveryJourney = await at(seller)(delivery)(id);
+      if (current.completed_at !== null)
+        throw ErrorProvider.gone({
+          accessor: "id",
+          message: "Already completed",
+        });
 
       await ShoppingGlobal.prisma.shopping_delivery_journeys.update({
         where: {
@@ -98,54 +110,88 @@ export namespace ShoppingDeliveryJourneyProvider {
           completed_at: input.completed_at ?? new Date(),
         },
       });
-    };
-
-  export const update =
-    (seller: IShoppingSeller.IInvert) =>
-    (delivery: IEntity) =>
-    (id: string) =>
-    async (input: IShoppingDeliveryJourney.IUpdate): Promise<void> => {
-      const prev: IShoppingDeliveryJourney = await at(seller)(delivery)(id);
-      prev; // @todo -> change state
-
-      await ShoppingGlobal.prisma.shopping_delivery_journeys.update({
-        where: {
-          id,
-        },
-        data: collectUpdate(input),
-      });
+      if (current.type === "delivering")
+        await updateStates(seller)(delivery)("arrived");
     };
 
   export const erase =
     (seller: IShoppingSeller.IInvert) =>
     (delivery: IEntity) =>
-    (id: string) =>
-    async (): Promise<void> => {
-      await ShoppingDeliveryProvider.find({})(seller)(delivery.id);
-      await ShoppingGlobal.prisma.shopping_delivery_journeys.delete({
+    async (id: string): Promise<void> => {
+      const current: IShoppingDeliveryJourney = await at(seller)(delivery)(id);
+      await ShoppingGlobal.prisma.shopping_delivery_journeys.update({
         where: {
-          id,
+          id: current.id,
+        },
+        data: {
+          deleted_at: new Date(),
         },
       });
+
+      const last =
+        await ShoppingGlobal.prisma.shopping_delivery_journeys.findFirst({
+          where: {
+            shopping_delivery_id: delivery.id,
+            deleted_at: null,
+          },
+          orderBy: [
+            {
+              created_at: "desc",
+            },
+            {
+              sequence: "desc",
+            },
+          ],
+        });
+      await updateStates(seller)(delivery)(
+        last === null
+          ? "none"
+          : typia.assert<IShoppingDeliveryJourney.Type>(last.type),
+      );
     };
 
-  export const collect = (input: IShoppingDeliveryJourney.ICreate) =>
+  export const collect = (
+    input: IShoppingDeliveryJourney.ICreate,
+    sequence: number,
+  ) =>
     ({
-      ...collectUpdate(input),
       id: v4(),
-      created_at: new Date(),
-    } satisfies Prisma.shopping_delivery_journeysCreateWithoutDeliveryInput);
-
-  const collectUpdate = (input: IShoppingDeliveryJourney.ICreate) =>
-    ({
       type: typia.assert<IShoppingDeliveryJourney.Type>(input.type),
       title: input.title,
       description: input.description,
       started_at: input.started_at,
       completed_at: input.completed_at,
       deleted_at: null,
-    } satisfies Omit<
-      Prisma.shopping_delivery_journeysCreateWithoutDeliveryInput,
-      "id" | "created_at"
-    >);
+      created_at: new Date(),
+      sequence,
+    } satisfies Prisma.shopping_delivery_journeysCreateWithoutDeliveryInput);
+
+  const updateStates =
+    (seller: IShoppingSeller.IInvert) =>
+    (delivery: IEntity) =>
+    async (state: IShoppingDelivery.State): Promise<void> => {
+      const reference =
+        await ShoppingGlobal.prisma.shopping_deliveries.findFirstOrThrow({
+          where: {
+            id: delivery.id,
+          },
+          include: {
+            pieces: ShoppingDeliveryPieceProvider.json.select(),
+          },
+        });
+      await ShoppingDeliveryProvider.setState({
+        root: true,
+        incompletes: await ShoppingDeliveryPieceProvider.incompletes(seller)({
+          publish_ids: [
+            ...new Set(
+              reference.pieces.map((p) => p.shopping_order_publish_id),
+            ),
+          ],
+        }),
+        delivery,
+        pieces: reference.pieces.map(
+          ShoppingDeliveryPieceProvider.json.transform,
+        ),
+      })(state);
+    };
 }

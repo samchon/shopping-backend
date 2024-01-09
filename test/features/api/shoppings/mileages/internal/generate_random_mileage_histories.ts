@@ -4,8 +4,8 @@ import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMileageDonation } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-// import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
-// import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
+import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
+import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
@@ -53,29 +53,31 @@ export const generate_random_mileage_histories = async (
     true,
   );
 
-  // const delivery: IShoppingDelivery =
-  //   await ShoppingApi.functional.shoppings.sellers.deliveries.create(
-  //     pool.seller,
-  //     {
-  //       pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
-  //         await ShoppingApi.functional.shoppings.sellers.orders.incompletes(
-  //           pool.seller,
-  //           order.id,
-  //         ),
-  //       ),
-  //       shippers: [],
-  //       journeys: (
-  //         ["preparing", "manufacturing", "shipping", "delivering"] as const
-  //       ).map((type) => ({
-  //         type,
-  //         title: null,
-  //         description: null,
-  //         started_at: new Date().toISOString(),
-  //         completed_at: new Date().toISOString(),
-  //       })),
-  //     },
-  //   );
-  // typia.assertEquals(delivery);
+  const delivery: IShoppingDelivery =
+    await ShoppingApi.functional.shoppings.sellers.deliveries.create(
+      pool.seller,
+      {
+        pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
+          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
+            pool.seller,
+            {
+              publish_ids: [order.publish.id],
+            },
+          ),
+        ),
+        shippers: [],
+        journeys: (
+          ["preparing", "manufacturing", "shipping", "delivering"] as const
+        ).map((type) => ({
+          type,
+          title: null,
+          description: null,
+          started_at: new Date().toISOString(),
+          completed_at: new Date().toISOString(),
+        })),
+      },
+    );
+  typia.assertEquals(delivery);
 
   const good: IShoppingOrderGood = order.goods[0];
   await ShoppingApi.functional.shoppings.customers.orders.goods.confirm(

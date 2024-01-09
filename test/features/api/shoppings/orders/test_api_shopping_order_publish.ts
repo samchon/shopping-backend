@@ -40,7 +40,7 @@ export const test_api_shopping_order_publish = async (
     ].orders.at(pool[actor], order.id);
     TestValidator.equals(
       "read",
-      (key) => key === "orderable" || key === "inventory",
+      (key) => key === "orderable" || key === "inventory" || key === "state",
     )(order)(read);
   }
 };

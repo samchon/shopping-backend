@@ -7,17 +7,16 @@ import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/sho
 import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
 import { IShoppingDeliveryJourney } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryJourney";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_cart_commodity } from "../carts/internal/generate_random_cart_commodity";
-import { prepare_random_cart_commodity_stock } from "../carts/internal/prepare_random_cart_commodity_stock";
 import { generate_random_order } from "../orders/internal/generate_random_order";
 import { generate_random_order_publish } from "../orders/internal/generate_random_order_publish";
-import { generate_random_sale } from "../sales/internal/generate_random_sale";
-import { prepare_random_sale_unit } from "../sales/internal/prepare_random_sale_unit";
+import { generate_random_sole_sale } from "../sales/internal/generate_random_sole_sale";
 
 export const test_api_shopping_delivery_state = async (
   pool: ConnectionPool,
@@ -26,23 +25,32 @@ export const test_api_shopping_delivery_state = async (
     await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(REPEAT)(
-    async () =>
-      await generate_random_sale(pool, {
-        units: new Array(REPEAT).fill(0).map(() => prepare_random_sale_unit()),
-      }),
+  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(2)(() =>
+    generate_random_sole_sale(pool, {
+      nominal: 100_000,
+      real: 50_000,
+    }),
   );
   const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
     saleList,
   )((sale) =>
     generate_random_cart_commodity(pool, sale, {
-      volume: REPEAT / 2,
-      stocks: sale.units.map((unit) =>
-        prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 2 }),
-      ),
+      volume: 2,
+      stocks: [
+        {
+          unit_id: sale.units[0].id,
+          stock_id: sale.units[0].stocks[0].id,
+          choices: [],
+          quantity: 2,
+        },
+      ],
     }),
   );
-  const order: IShoppingOrder = await generate_random_order(pool, commodities);
+  const order: IShoppingOrder = await generate_random_order(
+    pool,
+    commodities,
+    () => 2,
+  );
   order.publish = await generate_random_order_publish(
     pool,
     customer,
@@ -59,44 +67,51 @@ export const test_api_shopping_delivery_state = async (
     typia.assertEquals(read);
     TestValidator.equals("states")([
       read.publish!.state,
-      read.goods.map((g) => g.state!),
+      ...read.goods.map((g) => g.state!),
     ])(states);
   };
   await validate(["none", "none", "none"]);
 
-  const deliveries: IShoppingDelivery[] = await ArrayUtil.asyncRepeat(
-    REPEAT * REPEAT,
-  )(async (i) => {
-    const delivery: IShoppingDelivery =
-      await ShoppingApi.functional.shoppings.sellers.deliveries.create(
-        pool.seller,
-        {
-          shippers: [],
-          journeys: [],
-          pieces: [
-            {
-              publish_id: order.publish!.id,
-              good_id: order.goods[Math.floor(i / REPEAT)].id,
-              stock_id:
-                order.goods[Math.floor(i / REPEAT)].commodity.sale.units[0]
-                  .stocks[0].id,
-              quantity: 1,
-            },
-          ],
-        },
-      );
-    typia.assertEquals(delivery);
+  const deliveries: IShoppingDelivery[] = await ArrayUtil.asyncRepeat(8)(
+    async (i) => {
+      const good: IShoppingOrderGood = order.goods[Math.floor(i / 4)];
+      const delivery: IShoppingDelivery =
+        await ShoppingApi.functional.shoppings.sellers.deliveries.create(
+          pool.seller,
+          {
+            shippers: [],
+            journeys: [
+              {
+                type: "preparing",
+                title: "title",
+                description: "description",
+                started_at: new Date().toISOString(),
+                completed_at: null,
+              },
+            ],
+            pieces: [
+              {
+                publish_id: order.publish!.id,
+                good_id: good.id,
+                stock_id: good.commodity.sale.units[0].stocks[0].id,
+                quantity: 1,
+              },
+            ],
+          },
+        );
+      typia.assertEquals(delivery);
 
-    await validate([
-      "underway",
-      i === 0 ? "underway" : "inaction",
-      i < 2 ? "none" : i === 3 ? "underway" : "inaction",
-    ]);
-    return delivery;
-  });
+      await validate([
+        i === 7 ? "preparing" : "underway",
+        i >= 3 ? "preparing" : "underway",
+        i < 4 ? "none" : i === 7 ? "preparing" : "underway",
+      ]);
+      return delivery;
+    },
+  );
 
   await ArrayUtil.asyncMap(TYPES)(async (current, i) => {
-    const prev: IShoppingDelivery.State = i === 0 ? "underway" : TYPES[i - 1];
+    const prev: IShoppingDelivery.State = i === 0 ? "preparing" : TYPES[i - 1];
     await ArrayUtil.asyncMap(deliveries)(async (delivery, j) => {
       const journey: IShoppingDeliveryJourney =
         await ShoppingApi.functional.shoppings.sellers.deliveries.journeys.create(
@@ -112,9 +127,9 @@ export const test_api_shopping_delivery_state = async (
         );
       delivery.journeys.push(typia.assertEquals(journey));
       await validate([
-        j === deliveries.length - 1 ? current : prev,
-        j === 0 ? current : prev,
-        j < 2 ? "none" : j === 3 ? current : prev,
+        j === 7 ? current : prev,
+        j >= 3 ? current : prev,
+        j === 7 ? current : prev,
       ]);
     });
   });
@@ -131,24 +146,10 @@ export const test_api_shopping_delivery_state = async (
     );
     await validate([
       i === deliveries.length - 1 ? "arrived" : "delivering",
-      i === 0 ? "arrived" : "delivering",
-      i < 2 ? "none" : i === 3 ? "arrived" : "delivering",
-    ]);
-  });
-
-  await ArrayUtil.asyncMap(order.goods)(async (good, i) => {
-    await ShoppingApi.functional.shoppings.customers.orders.goods.confirm(
-      pool.customer,
-      order.id,
-      good.id,
-    );
-    await validate([
-      i === order.goods.length - 1 ? "confirmed" : "arrived",
-      i === 0 ? "confirmed" : "arrived",
-      i < 2 ? "none" : i === 3 ? "confirmed" : "arrived",
+      i >= 3 ? "arrived" : "delivering",
+      i === 7 ? "arrived" : "delivering",
     ]);
   });
 };
 
-const REPEAT = 2;
-const TYPES = ["preparing", "manufacturing", "shipping", "delivering"] as const;
+const TYPES = ["manufacturing", "shipping", "delivering"] as const;

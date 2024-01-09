@@ -39,6 +39,7 @@ export namespace IShoppingDeliveryJourney {
      * Type of journey.
      *
      * - preparing
+     * - manufacturing
      * - shipping
      * - delivering
      */
