@@ -62,5 +62,10 @@ export namespace IShoppingAdministrator {
     citizen: IShoppingCitizen;
   }
 
+  /**
+   * Joining request info.
+   *
+   * @todo fill proper properties
+   */
   export interface IJoin {}
 }

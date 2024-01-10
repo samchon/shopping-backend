@@ -22,7 +22,6 @@ export namespace ShoppingChannelProvider {
       id: input.id,
       code: input.code,
       name: input.name,
-      exclusive: input.exclusive,
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
@@ -154,7 +153,6 @@ export namespace ShoppingChannelProvider {
         where: { id: record.id },
         data: {
           name: input.name ?? record.name,
-          exclusive: input.exclusive ?? record.exclusive,
         },
       });
     };
@@ -169,7 +167,6 @@ export namespace ShoppingChannelProvider {
       id: v4(),
       code: input.code,
       name: input.name,
-      exclusive: input.exclusive,
       created_at: new Date(),
       updated_at: new Date(),
       deleted_at: null,
