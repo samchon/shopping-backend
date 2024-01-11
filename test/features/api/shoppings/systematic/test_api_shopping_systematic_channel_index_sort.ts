@@ -24,7 +24,6 @@ export const test_api_shopping_systematic_channel_index_sort = async (
         {
           code: RandomGenerator.alphabets(8),
           name: RandomGenerator.name(8),
-          exclusive: true,
         },
       );
     return typia.assertEquals(channel);

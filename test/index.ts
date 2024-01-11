@@ -82,6 +82,10 @@ async function main(): Promise<void> {
   // DO TEST
   const connection: ShoppingApi.IConnection = {
     host: `http://127.0.0.1:${ShoppingConfiguration.API_PORT()}`,
+    encryption: {
+      key: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_KEY,
+      iv: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_IV,
+    },
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",

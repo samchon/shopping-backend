@@ -151,7 +151,6 @@ async function generate_group(
       {
         name: RandomGenerator.name(),
         code: RandomGenerator.alphabets(16),
-        exclusive: true,
       },
     );
   const section: IShoppingSection =

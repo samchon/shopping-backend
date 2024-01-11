@@ -4,12 +4,12 @@ import { IShoppingSaleInquiry } from "./IShoppingSaleInquiry";
 /**
  * Question about sale snapshot.
  *
- * `IShoppingSaleInquiryAnswer` is a subtype entity of {@link IShoppingSaleInquiry},
+ * `IShoppingSaleQuestion` is a subtype entity of {@link IShoppingSaleInquiry},
  * and is used when a {@link IShoppingCustomer customer} wants to ask something
  * about a {@link IShoppingSale sale} ({@link IShoppingSaleSnapshot snapshot} at
  * the time) registered by the {@link IShoppingSeller seller}.
  *
- * And, like most shopping malls, `IShoppingSaleInquiryAnswer` also provides
+ * And, like most shopping malls, `IShoppingSaleQuestion` also provides
  * a {@link secret} attribute, allowing you to create a "secret message" that can
  * only be viewed by the seller and the customer who wrote the question.
  *

@@ -20,7 +20,6 @@ export const test_api_shopping_systematic_channel_create = async (
     channel.id,
     {
       name,
-      exclusive: true,
     },
   );
 
