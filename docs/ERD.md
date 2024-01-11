@@ -238,7 +238,6 @@ erDiagram
     String id PK
     String code UK
     String name UK
-    Boolean exclusive
     DateTime created_at
     DateTime updated_at
     DateTime deleted_at "nullable"
@@ -311,11 +310,6 @@ just use only one. This concept is designed to be expandable in the future.
   - `id`: Primary Key.
   - `code`: Identifier code.
   - `name`: Name of channel.
-  - `exclusive`
-    > Whether the channel is exclusive.
-    > 
-    > If this value is `true`, the channel is disconnected from other 
-    > channels and does not share customer information.
   - `created_at`: Creation time of record.
   - `updated_at`: Update time of record.
   - `deleted_at`: Deletion time of record.
@@ -796,7 +790,6 @@ erDiagram
     String id PK
     String code UK
     String name UK
-    Boolean exclusive
     DateTime created_at
     DateTime updated_at
     DateTime deleted_at "nullable"

@@ -68,18 +68,15 @@ export namespace IShoppingChannel {
      * Name of the channel.
      */
     name: string;
-
-    /**
-     * Whether the channel is exclusive.
-     *
-     * If this value is `true`, the channel is disconnected from other
-     * channels and does not share customer information.
-     */
-    exclusive: boolean;
   }
 
   /**
    * Updating information of the channel.
    */
-  export type IUpdate = Pick<ICreate, "name" | "exclusive">;
+  export interface IUpdate {
+    /**
+     * Name of the channel.
+     */
+    name: string;
+  }
 }

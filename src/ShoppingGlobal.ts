@@ -60,6 +60,9 @@ interface IEnvironments {
   SHOPPING_MODE: "local" | "dev" | "real";
   SHOPPING_UPDATOR_PORT: `${number}`;
   SHOPPING_API_PORT: `${number}`;
+  SHOPPING_API_ENCRYPTION_KEY: string;
+  SHOPPING_API_ENCRYPTION_IV: string;
+
   SHOPPING_SYSTEM_PASSWORD: string;
   SHOPPING_JWT_SECRET_KEY: string;
   SHOPPING_JWT_REFRESH_KEY: string;

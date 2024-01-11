@@ -77,6 +77,9 @@ export namespace IShoppingMember {
     created_at: string & tags.Format<"date-time">;
   }
 
+  /**
+   * Joining request info.
+   */
   export interface IJoin extends ILogin {
     /**
      * Nickname that uniquely identifies the member.
@@ -88,15 +91,48 @@ export namespace IShoppingMember {
      */
     citizen: null | IShoppingCitizen.ICreate;
   }
+
+  /**
+   * Login request info.
+   */
   export interface ILogin {
+    /**
+     * Email address of member.
+     *
+     * If the member has multiple email addresses, just use one of them.
+     */
     email: string & tags.Format<"email">;
+
+    /**
+     * Password of the member account.
+     */
     password: string;
   }
+
+  /**
+   * Request info of password change.
+   */
   export interface IPasswordChange {
+    /**
+     * Current password.
+     */
     oldbie: string;
+
+    /**
+     * The new password to change.
+     */
     newbie: string;
   }
+
+  /**
+   * Request info of password reset.
+   */
   export interface IPasswordReset {
+    /**
+     * Email address of member.
+     *
+     * If the member has multiple email addresses, just use one of them.
+     */
     email: string & tags.Format<"email">;
   }
 }

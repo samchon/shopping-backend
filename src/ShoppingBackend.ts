@@ -17,7 +17,10 @@ export class ShoppingBackend {
     //----
     // MOUNT CONTROLLERS
     this.application_ = await NestFactory.create(
-      await core.DynamicModule.mount(__dirname + "/controllers"),
+      await core.EncryptedModule.dynamic(__dirname + "/controllers", {
+        key: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_KEY,
+        iv: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_IV,
+      }),
       new FastifyAdapter(),
       { logger: false },
     );

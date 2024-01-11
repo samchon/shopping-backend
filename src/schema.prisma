@@ -451,12 +451,6 @@ model shopping_channels {
   /// Name of channel.
   name String @db.VarChar
 
-  /// Whether the channel is exclusive.
-  ///
-  /// If this value is `true`, the channel is disconnected from other 
-  /// channels and does not share customer information.
-  exclusive Boolean @db.Boolean
-
   /// Creation time of record.
   created_at DateTime @db.Timestamptz
 

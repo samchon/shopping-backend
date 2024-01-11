@@ -75,7 +75,6 @@ const CHANNELS: IShoppingChannel.ICreate[] = [
   {
     code: "samchon",
     name: "Samchon Shopping Mall",
-    exclusive: false,
   },
 ];
 

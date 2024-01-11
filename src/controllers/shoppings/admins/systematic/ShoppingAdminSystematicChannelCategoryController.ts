@@ -10,12 +10,26 @@ import { ShoppingChannelProvider } from "../../../../providers/shoppings/systema
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingSystematicChannelCategoriesController } from "../../base/systematic/ShoppingSystematicChannelCategoriesController";
 
-export class ShoppingAdminSystematicChannelCategoriesController extends ShoppingSystematicChannelCategoriesController(
+export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSystematicChannelCategoriesController(
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",
   },
 ) {
+  /**
+   * Create a new category.
+   *
+   * Create a new {@link IShoppingChannelCategory category} of a
+   * {@link IShoppingChannel channel} with given name. If required, it is
+   * possible to specify the parent category by its ID.
+   *
+   * @param channelCode Belonged channel's {@link IShoppingChannel.code}
+   * @param input Create info of the category
+   * @returns Newly created category
+   * @tag Systematic
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
@@ -27,6 +41,20 @@ export class ShoppingAdminSystematicChannelCategoriesController extends Shopping
     )(input);
   }
 
+  /**
+   * Update a category.
+   *
+   * Update a {@link IShoppingChannelCategory category}'s name. If required,
+   * it is possible to change the parent category by its ID. Of course, detaching
+   * from the parent category so that becoming the root category is also possible.
+   *
+   * @param channelCode Belonged channel's {@link IShoppingChannel.code}
+   * @param id Target category's {@link IShoppingChannelCategory.id}
+   * @param input Update info of the category
+   * @tag Systematic
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Put(":id")
   public async update(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
@@ -39,6 +67,25 @@ export class ShoppingAdminSystematicChannelCategoriesController extends Shopping
     )(id)(input);
   }
 
+  /**
+   * Merge multiple categories into one.
+   *
+   * In this shopping mall system, it is not possible to delete a
+   * {@link IShoppingChannelCategory category}, because it is a systematic
+   * entity affecting to all other core entities like
+   * {@link IShoppingSale sales}. Instead of deleting, you can merge multiple
+   * categories into one.
+   *
+   * If you specify a category to absorb others, then all of other categories
+   * will be merged into the specified one. Also, subsidiary entities of
+   * categories also be merged and their references also be merged cascadingly.
+   *
+   * @param channelCode Belonged channel's {@link IShoppingChannel.code}
+   * @param input Merge info of the categories
+   * @tag Systematic
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Delete("merge")
   public async merge(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,

@@ -16,7 +16,6 @@ export const generate_random_channel = async (
       {
         code: RandomGenerator.alphabets(16),
         name: RandomGenerator.name(8),
-        exclusive: true,
         ...input,
       },
     );
