@@ -10,7 +10,7 @@ import { ShoppingDepositChargePublishProvider } from "../../../../providers/shop
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller(`shoppings/customers/deposits/charges/:chargeId/publish`)
-export class ShoppingCustomerDepositChargePublishesController {
+export class ShoppingCustomerDepositChargePublishController {
   public async able(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("chargeId") chargeId: string & tags.Format<"uuid">,

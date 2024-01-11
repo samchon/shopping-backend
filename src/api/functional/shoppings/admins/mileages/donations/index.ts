@@ -26,7 +26,7 @@ import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
  * 
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated mileage donation history list
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageDonationController.index
@@ -107,7 +107,7 @@ export namespace index {
  * 
  * @param id Target history's {@link IShoppingMileageDonation.id}
  * @returns Mileage donation history
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageDonationController.at
@@ -183,7 +183,7 @@ export namespace at {
  * 
  * @param input Request info of mileage donation
  * @returns Mileage donation history
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageDonationController.create

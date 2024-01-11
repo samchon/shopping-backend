@@ -25,7 +25,7 @@ export class ShoppingAdminMileageController {
    *
    * @param input Request info of pagination, searching and sorting
    * @returns Paginated mileage metadata list
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -44,7 +44,7 @@ export class ShoppingAdminMileageController {
    *
    * @param id Target mileage's {@link IShoppingMileage.id}
    * @returns Mileage metadata
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -63,7 +63,7 @@ export class ShoppingAdminMileageController {
    *
    * @param id Target mileage's {@link IShoppingMileage.code}
    * @returns Mileage metadata
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -88,7 +88,7 @@ export class ShoppingAdminMileageController {
    *
    * @param input Create information of mileage metadata
    * @returns Newly created mileage metadata
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -108,7 +108,7 @@ export class ShoppingAdminMileageController {
    * decreased by the mileage's reason why.
    *
    * @param id Target mileage's {@link IShoppingMileage.id}
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */

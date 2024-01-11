@@ -26,7 +26,7 @@ import { NestiaSimulator } from "../../../../utils/NestiaSimulator";
  * 
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated deposit metadata list
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminDepositController.index
@@ -107,7 +107,7 @@ export namespace index {
  * 
  * @param id Target deposit's {@link IShoppingDeposit.id}
  * @returns Deposit metadata
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminDepositController.at
@@ -176,7 +176,7 @@ export namespace at {
  * Get a {@link IShoppingDeposit deposit} metadata information with its code.
  * 
  * @returns Deposit metadata
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminDepositController.get
@@ -252,7 +252,7 @@ export namespace get {
  * 
  * @param input Create information of deposit metadata
  * @returns Newly created deposit metadata
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminDepositController.create
@@ -334,7 +334,7 @@ export namespace create {
  * decreased by the deposit's reason why.
  * 
  * @param id Target deposit's {@link IShoppingDeposit.id}
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminDepositController.erase

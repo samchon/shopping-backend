@@ -62,8 +62,15 @@ export interface IShoppingCartCommodity {
    * A value indicating how many sets would be multiplied to the children
    * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
    */
-  volume: number & tags.Type<"uint32">;
+  volume: number & tags.Type<"uint32"> & tags.Minimum<1>;
 
+  /**
+   * Price of the commodity.
+   *
+   * For reference, this price value has not been multiplied by the
+   * {@link volume} value. It just sumed up the prices of the children
+   * {@link IShoppingSaleUnitStock.IInvert.price} values.
+   */
   price: IShoppingPrice;
 
   /**
@@ -112,7 +119,7 @@ export namespace IShoppingCartCommodity {
      * A value indicating how many sets would be multiplied to the children
      * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
      */
-    volume: number & tags.Type<"uint32">;
+    volume: number & tags.Type<"uint32"> & tags.Minimum<1>;
 
     /**
      * Whether to accumulate the volume or not.
@@ -138,6 +145,6 @@ export namespace IShoppingCartCommodity {
      * A value indicating how many sets would be multiplied to the children
      * {@link IShoppingSaleUnitStock.IInvert.quantity} values.
      */
-    volume: number & tags.Type<"uint32">;
+    volume: number & tags.Type<"uint32"> & tags.Minimum<1>;
   }
 }

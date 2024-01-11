@@ -54,6 +54,6 @@ export namespace IShoppingCartCommodityStock {
      *
      * This value is multiplied by the {@link IShoppingCartCommodity.volume}.
      */
-    quantity: number & tags.Type<"uint32">;
+    quantity: number & tags.Type<"uint32"> & tags.Minimum<1>;
   }
 }

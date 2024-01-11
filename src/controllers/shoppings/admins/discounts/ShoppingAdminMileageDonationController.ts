@@ -25,7 +25,7 @@ export class ShoppingAdminMileageDonationController {
    *
    * @param input Request info of pagination, searching and sorting
    * @returns Paginated mileage donation history list
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -44,7 +44,7 @@ export class ShoppingAdminMileageDonationController {
    *
    * @param id Target history's {@link IShoppingMileageDonation.id}
    * @returns Mileage donation history
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -69,7 +69,7 @@ export class ShoppingAdminMileageDonationController {
    *
    * @param input Request info of mileage donation
    * @returns Mileage donation history
-   * @tag Mileage
+   * @tag Discount
    *
    * @author Samchon
    */

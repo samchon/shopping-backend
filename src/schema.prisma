@@ -695,7 +695,7 @@ model shopping_customers {
   /// {@link window.document.referrer}
   ///
   /// @format url
-  referrer String @db.VarChar /// @format url
+  referrer String? @db.VarChar /// @format url
 
   /// IP address,
   ///

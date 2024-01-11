@@ -9,7 +9,25 @@ import { ShoppingOrderGoodProvider } from "../../../../providers/shoppings/order
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller("/shoppings/customers/orders/:orderId/goods")
-export class ShoppingCustomerOrderGoodsController {
+export class ShoppingCustomerOrderGoodController {
+  /**
+   * Confirm an order good.
+   *
+   * Confirm an {@link IShoppingOrderGood order good} that has been
+   * completed {@link IShoppingDelivery delivering} to the
+   * {@link IShoppingCustomer customer}.
+   *
+   * In other words, belonged {@link IShoppingOrder order} must be
+   * {@link IShoppingPublish.paid_at published, paid} and delivery of
+   * the good must be {@link IShoppingDeliveryJourney arrived} to the
+   * customer. If not, 428 unprocessable entity error would be thrown.
+   *
+   * @param orderId Belonged order's {@link IShoppingOrder.id}
+   * @param id Target good's {@link IShoppingOrderGood.id}
+   * @tag Order
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Put(":id/confirm")
   public async confirm(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
