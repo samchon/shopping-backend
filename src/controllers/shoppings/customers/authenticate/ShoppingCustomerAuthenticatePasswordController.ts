@@ -10,6 +10,18 @@ import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAut
 
 @Controller("shoppings/customers/authenticate/password")
 export class ShoppingCustomerAuthenticatePasswordController {
+  /**
+   * Change password.
+   *
+   * Change password of {@link IShoppingMember member} with the current password.
+   *
+   * The reason why the current password is required is for security.
+   *
+   * @param input New password and current password
+   * @tag Authenticate
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Put("change")
   public async change(
     @ShoppingCustomerAuth("member") customer: IShoppingCustomer,

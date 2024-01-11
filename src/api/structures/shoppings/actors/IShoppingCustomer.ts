@@ -97,7 +97,7 @@ export namespace IShoppingCustomer {
      *
      * Same with {@link window.document.referrer} of client.
      */
-    referrer: string & tags.Format<"url">;
+    referrer: null | (string & tags.Format<"url">);
 
     /**
      * Connection IP Address.
@@ -114,7 +114,7 @@ export namespace IShoppingCustomer {
     channel_code: string;
     external_user: null | IShoppingExternalUser.ICreate;
     href: string & tags.Format<"url">;
-    referrer: string & tags.Format<"url">;
+    referrer: null | (string & tags.Format<"url">);
     ip?: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
   }
 

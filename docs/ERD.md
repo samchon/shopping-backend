@@ -390,7 +390,7 @@ erDiagram
     String shopping_external_user_id FK "nullable"
     String shopping_citizen_id FK "nullable"
     String href
-    String referrer
+    String referrer "nullable"
     String ip
     DateTime created_at
 }
@@ -2268,7 +2268,7 @@ erDiagram
     String shopping_external_user_id FK "nullable"
     String shopping_citizen_id FK "nullable"
     String href
-    String referrer
+    String referrer "nullable"
     String ip
     DateTime created_at
 }
@@ -2717,7 +2717,7 @@ erDiagram
     String shopping_external_user_id FK "nullable"
     String shopping_citizen_id FK "nullable"
     String href
-    String referrer
+    String referrer "nullable"
     String ip
     DateTime created_at
 }

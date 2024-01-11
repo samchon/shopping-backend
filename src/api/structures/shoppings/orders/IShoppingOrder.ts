@@ -43,6 +43,11 @@ export interface IShoppingOrder {
 
   /**
    * Price information including discounts.
+   *
+   * For reference, this price value has multiplied by the {@link volume} value.
+   * Therefore, even if {@link volume} value is equal to the target
+   * {@link IShoppingCartCommodity.volume}, this price value can be different
+   * with the {@link IShoppingCartCommodity.price} value.
    */
   price: IShoppingOrderPrice;
 

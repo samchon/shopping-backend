@@ -36,7 +36,10 @@ export namespace ShoppingCouponCriteriaDiagnoser {
           if (funnel.kind === "url")
             return customer.href.startsWith(funnel.value);
           else if (funnel.kind === "referrer")
-            return customer.referrer.startsWith(funnel.value);
+            return (
+              customer.referrer !== null &&
+              customer.referrer.startsWith(funnel.value)
+            );
           else if (funnel.kind === "variable") {
             const question: number = customer.href.lastIndexOf("?");
             if (question === -1) return false;

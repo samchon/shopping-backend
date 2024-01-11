@@ -83,7 +83,7 @@ export namespace IShoppingSaleUnitStock {
     /**
      * Quantity of the stock in the cart.
      */
-    quantity: number & tags.Type<"uint32">;
+    quantity: number & tags.Type<"uint32"> & tags.Minimum<1>;
 
     /**
      * Current inventory status of the stock.
@@ -115,7 +115,7 @@ export namespace IShoppingSaleUnitStock {
     /**
      * Initial inventory quantity.
      */
-    quantity: number & tags.Type<"uint32">;
+    quantity: number & tags.Type<"uint32"> & tags.Minimum<1>;
 
     /**
      * List of choices.

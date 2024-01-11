@@ -28,7 +28,7 @@ export * as donations from "./donations";
  * 
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated mileage metadata list
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageController.index
@@ -109,7 +109,7 @@ export namespace index {
  * 
  * @param id Target mileage's {@link IShoppingMileage.id}
  * @returns Mileage metadata
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageController.at
@@ -178,7 +178,7 @@ export namespace at {
  * Get a {@link IShoppingMileage mileage} metadata information with its code.
  * 
  * @returns Mileage metadata
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageController.get
@@ -254,7 +254,7 @@ export namespace get {
  * 
  * @param input Create information of mileage metadata
  * @returns Newly created mileage metadata
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageController.create
@@ -336,7 +336,7 @@ export namespace create {
  * decreased by the mileage's reason why.
  * 
  * @param id Target mileage's {@link IShoppingMileage.id}
- * @tag Mileage
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingAdminMileageController.erase
