@@ -1,6 +1,11 @@
-# Backend
+# Shopping Backend
 ## 1. Outline
-Example backend server of Shopping Mall for education.
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/samchon/shopping-backend/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/@nestia/shopping-api.svg)](https://www.npmjs.com/package/@samchon/shopping-api)
+[![Build Status](https://github.com/samchon/shopping-backend/workflows/build/badge.svg)](https://github.com/samchon/shopping-backend/actions?query=workflow%3Abuild)
+[![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://nestia.io/docs/)
+
+Example backend server of Shopping mall for education.
 
 `@samchon/shopping-backend` is an example backend project of [NestJS](https://nestjs.com) and [Prisma](https://prisma.io) stack. It has been developed to educate how to adapt **functional programming** in the NestJS development. Therefore, it is not the actual e-commerce service, and implementation of most functions is different from the actual shopping mall and may be meaningless.
 
