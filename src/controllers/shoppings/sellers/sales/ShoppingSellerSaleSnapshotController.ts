@@ -5,9 +5,9 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
-import { ShoppingSaleSnapshotsController } from "../../base/sales/ShoppingSaleSnapshotsController";
+import { ShoppingSaleSnapshotController } from "../../base/sales/ShoppingSaleSnapshotController";
 
-export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotsController(
+export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotController(
   {
     path: "sellers",
     AuthGuard: ShoppingSellerAuth,

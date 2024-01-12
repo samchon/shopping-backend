@@ -20,6 +20,9 @@
   },
   "include": [
     "lib",
+    "package.json",
+    "swagger.json",
+    "LICENSE",
     "README.md"
   ]
 }

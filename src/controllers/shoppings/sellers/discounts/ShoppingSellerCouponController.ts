@@ -1,7 +1,7 @@
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
-import { ShoppingCouponsWritableController } from "../../base/discounts/ShoppingCouponsWritableController";
+import { ShoppingCouponWritableController } from "../../base/discounts/ShoppingCouponWritableController";
 
-export class ShoppingSellerCouponController extends ShoppingCouponsWritableController(
+export class ShoppingSellerCouponController extends ShoppingCouponWritableController(
   {
     path: "sellers",
     AuthGuard: ShoppingSellerAuth,

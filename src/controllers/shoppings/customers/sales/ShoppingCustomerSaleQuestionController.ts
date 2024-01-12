@@ -7,9 +7,9 @@ import { IShoppingSaleQuestion } from "@samchon/shopping-api/lib/structures/shop
 import { ShoppingSaleQuestionProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotQuestionProvider";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
-import { ShoppingSaleQuestionsController } from "../../base/sales/ShoppingSaleQuestionsController";
+import { ShoppingSaleQuestionController } from "../../base/sales/ShoppingSaleQuestionController";
 
-export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestionsController(
+export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestionController(
   {
     path: "customers",
     AuthGuard: ShoppingCustomerAuth,

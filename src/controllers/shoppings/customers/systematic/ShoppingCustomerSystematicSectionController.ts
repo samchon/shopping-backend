@@ -1,7 +1,7 @@
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
-import { ShoppingSystematicSectionsController } from "../../base/systematic/ShoppingSystematicSectionsController";
+import { ShoppingSystematicSectionController } from "../../base/systematic/ShoppingSystematicSectionController";
 
-export class ShoppingCustomerSystematicSectionController extends ShoppingSystematicSectionsController(
+export class ShoppingCustomerSystematicSectionController extends ShoppingSystematicSectionController(
   {
     AuthGuard: ShoppingCustomerAuth,
     path: "customers",

@@ -41,8 +41,8 @@ export class ShoppingCustomerOrderPublishController {
    *
    * {@link IShoppingOrderPublish Publish} an {@link IShoppingOrder order} that
    * has been applied by the {@link IShoppingCustomer} with
-   * {@link IShoppingAddress address} to delivery and payment info gotten from
-   * the payment vendor system.
+   * {@link IShoppingAddress address} to delivery and payment information gotten
+   * from the payment vendor system.
    *
    * If the order has been discounted for entire order price, then no need
    * to send payment vendor info. Instead, only address info is required.

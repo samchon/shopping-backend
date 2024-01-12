@@ -33,6 +33,9 @@ export class ShoppingCustomerCouponTicketController {
    *
    * @param input Request info of pagination, searching and sorting
    * @returns Paginated coupon tickets
+   * @tag Discount
+   *
+   * @author Samchon
    */
   @core.TypedRoute.Patch()
   public async index(

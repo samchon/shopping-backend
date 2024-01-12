@@ -388,8 +388,10 @@ export namespace join {
  * this `login` function, you must first create a customer record and token by
  * calling the {@link create } function.
  * 
- * @param input
- * @returns
+ * @param input Login request info
+ * @returns Logged in Customer information
+ * @tag Authenticate
+ * @author Samchon
  * 
  * @controller ShoppingCustomerAuthenticateController.login
  * @path PUT /shoppings/customers/authenticate/login

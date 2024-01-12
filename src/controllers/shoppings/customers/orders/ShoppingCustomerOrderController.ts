@@ -10,9 +10,9 @@ import { ShoppingOrderPriceProvider } from "../../../../providers/shoppings/orde
 import { ShoppingOrderProvider } from "../../../../providers/shoppings/orders/ShoppingOrderProvider";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
-import { ShoppingOrdersController } from "../../base/orders/ShoppingOrdersController";
+import { ShoppingOrderController } from "../../base/orders/ShoppingOrderController";
 
-export class ShoppingCustomerOrderController extends ShoppingOrdersController({
+export class ShoppingCustomerOrderController extends ShoppingOrderController({
   path: "customers",
   AuthGuard: ShoppingCustomerAuth,
 }) {
@@ -106,6 +106,9 @@ export class ShoppingCustomerOrderController extends ShoppingOrdersController({
    * @param id Target order's {@link IShoppingOrder.id}
    * @param input Request info for discountable
    * @returns Discountable info
+   * @tag Order
+   *
+   * @author Samchon
    */
   @core.TypedRoute.Patch(":id/discountable")
   public async discountable(

@@ -54,6 +54,9 @@ export class ShoppingSellerDeliveryController {
    *
    * @param id Target delivery's {@link IShoppingDelivery.id}
    * @returns Delivery info with target orders
+   * @tag Order
+   *
+   * @author Samchon
    */
   @core.TypedRoute.Get(":id")
   public async at(

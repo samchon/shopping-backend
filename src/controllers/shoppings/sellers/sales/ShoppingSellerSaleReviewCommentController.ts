@@ -1,7 +1,7 @@
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
-import { ShoppingSaleInquiryCommentsController } from "../../base/sales/ShoppingSaleInquiryCommentsController";
+import { ShoppingSaleInquiryCommentController } from "../../base/sales/ShoppingSaleInquiryCommentController";
 
-export class ShoppingSellerSaleReviewCommentController extends ShoppingSaleInquiryCommentsController(
+export class ShoppingSellerSaleReviewCommentController extends ShoppingSaleInquiryCommentController(
   "reviews",
   {
     path: "sellers",

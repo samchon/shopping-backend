@@ -119,6 +119,8 @@ export namespace index {
  * 
  * @param id Target delivery's {@link IShoppingDelivery.id}
  * @returns Delivery info with target orders
+ * @tag Order
+ * @author Samchon
  * 
  * @controller ShoppingSellerDeliveryController.at
  * @path GET /shoppings/sellers/deliveries/:id

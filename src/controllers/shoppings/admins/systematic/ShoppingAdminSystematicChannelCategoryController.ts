@@ -8,9 +8,9 @@ import { ShoppingChannelCategoryProvider } from "../../../../providers/shoppings
 import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
 
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
-import { ShoppingSystematicChannelCategoriesController } from "../../base/systematic/ShoppingSystematicChannelCategoriesController";
+import { ShoppingSystematicChannelCategoryController } from "../../base/systematic/ShoppingSystematicChannelCategoryController";
 
-export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSystematicChannelCategoriesController(
+export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSystematicChannelCategoryController(
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",

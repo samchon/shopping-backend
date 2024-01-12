@@ -12,6 +12,13 @@ export const NESTIA_CONFIG: INestiaConfig = {
         description: "Local Server",
       },
     ],
+    security: {
+      bearer: {
+        type: "apiKey",
+        name: "Authorization",
+        in: "header",
+      },
+    },
   },
 };
 export default NESTIA_CONFIG;

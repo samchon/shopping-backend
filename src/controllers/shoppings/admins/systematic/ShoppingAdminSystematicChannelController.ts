@@ -8,9 +8,9 @@ import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings
 import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
 
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
-import { ShoppingSystematicChannelsController } from "../../base/systematic/ShoppingSystematicChannelsController";
+import { ShoppingSystematicChannelController } from "../../base/systematic/ShoppingSystematicChannelController";
 
-export class ShoppingAdminSystematicChannelController extends ShoppingSystematicChannelsController(
+export class ShoppingAdminSystematicChannelController extends ShoppingSystematicChannelController(
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",

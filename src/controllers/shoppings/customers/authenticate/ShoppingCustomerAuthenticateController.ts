@@ -145,9 +145,11 @@ export class ShoppingCustomerAuthenticateController {
    * this `login` function, you must first create a customer record and token by
    * calling the {@link create} function.
    *
-   * @param customer
-   * @param input
-   * @returns
+   * @param input Login request info
+   * @returns Logged in Customer information
+   * @tag Authenticate
+   *
+   * @author Samchon
    */
   @core.TypedRoute.Put("login")
   public async login(

@@ -34,6 +34,8 @@ import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
  * 
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated coupon tickets
+ * @tag Discount
+ * @author Samchon
  * 
  * @controller ShoppingCustomerCouponTicketController.index
  * @path PATCH /shoppings/customers/coupons/tickets
