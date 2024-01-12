@@ -81,7 +81,7 @@ export class ShoppingCustomerAuthenticateController {
    * valid for 3 hours, and if you want to maintain customer authentication even
    * after 3 hours, you must call the {@link refresh} function.
    *
-   * @param input Create information of the customer.
+   * @param input Creation information of the customer.
    * @returns Created customer information with token.
    * @tag Authenticate
    *
@@ -145,9 +145,11 @@ export class ShoppingCustomerAuthenticateController {
    * this `login` function, you must first create a customer record and token by
    * calling the {@link create} function.
    *
-   * @param customer
-   * @param input
-   * @returns
+   * @param input Login request info
+   * @returns Logged in Customer information
+   * @tag Authenticate
+   *
+   * @author Samchon
    */
   @core.TypedRoute.Put("login")
   public async login(

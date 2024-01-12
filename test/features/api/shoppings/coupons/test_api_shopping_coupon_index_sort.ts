@@ -63,9 +63,7 @@ export const test_api_shopping_coupon_index_sort = async (
   );
 
   // PREPARE VALIDATOR
-  const validator = TestValidator.sort(
-    "ShoppingCouponsController() with sort options",
-  )<
+  const validator = TestValidator.sort("coupons.index with sort options")<
     IShoppingCoupon,
     IShoppingCoupon.IRequest.SortableColumns,
     IPage.Sort<IShoppingCoupon.IRequest.SortableColumns>

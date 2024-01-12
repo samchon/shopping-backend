@@ -14,7 +14,7 @@ export const test_api_shopping_systematic_channel_create = async (
   await test_api_shopping_actor_admin_login(pool);
 
   const channel: IShoppingChannel = await generate_random_channel(pool);
-  const read: IShoppingChannel =
+  const read: IShoppingChannel.IHierarchical =
     await ShoppingApi.functional.shoppings.admins.systematic.channels.at(
       pool.admin,
       channel.id,

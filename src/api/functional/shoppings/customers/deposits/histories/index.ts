@@ -26,7 +26,7 @@ import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
  * 
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated deposit histories
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingCustomerDepositHistoryController.index
@@ -107,7 +107,7 @@ export namespace index {
  * 
  * @param id
  * @returns Deposit history info
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingCustomerDepositHistoryController.at
@@ -176,7 +176,7 @@ export namespace at {
  * Get current balance of the deposit of the {@link IShoppingCustomer customer}.
  * 
  * @returns Balance of the deposit
- * @tag Deposit
+ * @tag Discount
  * @author Samchon
  * 
  * @controller ShoppingCustomerDepositHistoryController.balance

@@ -86,7 +86,7 @@ export class ShoppingAdminMileageController {
    * following the record's reason why. The logic must be developed manually
    * in the backend side.
    *
-   * @param input Create information of mileage metadata
+   * @param input Creation information of mileage metadata
    * @returns Newly created mileage metadata
    * @tag Discount
    *

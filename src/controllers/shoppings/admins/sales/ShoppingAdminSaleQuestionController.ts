@@ -1,7 +1,7 @@
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
-import { ShoppingSaleQuestionsController } from "../../base/sales/ShoppingSaleQuestionsController";
+import { ShoppingSaleQuestionController } from "../../base/sales/ShoppingSaleQuestionController";
 
-export class ShoppingAdminSaleQuestionController extends ShoppingSaleQuestionsController(
+export class ShoppingAdminSaleQuestionController extends ShoppingSaleQuestionController(
   {
     path: "admins",
     AuthGuard: ShoppingAdminAuth,

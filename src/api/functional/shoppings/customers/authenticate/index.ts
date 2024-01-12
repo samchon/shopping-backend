@@ -194,7 +194,7 @@ export namespace get {
  * valid for 3 hours, and if you want to maintain customer authentication even
  * after 3 hours, you must call the {@link refresh } function.
  * 
- * @param input Create information of the customer.
+ * @param input Creation information of the customer.
  * @returns Created customer information with token.
  * @tag Authenticate
  * @assignHeaders setHeaders
@@ -388,8 +388,10 @@ export namespace join {
  * this `login` function, you must first create a customer record and token by
  * calling the {@link create } function.
  * 
- * @param input
- * @returns
+ * @param input Login request info
+ * @returns Logged in Customer information
+ * @tag Authenticate
+ * @author Samchon
  * 
  * @controller ShoppingCustomerAuthenticateController.login
  * @path PUT /shoppings/customers/authenticate/login

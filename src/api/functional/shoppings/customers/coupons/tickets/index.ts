@@ -34,6 +34,8 @@ import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
  * 
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated coupon tickets
+ * @tag Discount
+ * @author Samchon
  * 
  * @controller ShoppingCustomerCouponTicketController.index
  * @path PATCH /shoppings/customers/coupons/tickets
@@ -198,7 +200,7 @@ export namespace at {
  * also has {@link IShoppingCouponTicket.expired_at expiration time}, and it
  * would be disabled after the expiration time.
  * 
- * @param input Create info of coupon ticket
+ * @param input Creation info of coupon ticket
  * @returns Newly created coupon ticket
  * @tag Discount
  * @author Samchon

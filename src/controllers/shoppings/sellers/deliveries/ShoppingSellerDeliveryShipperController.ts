@@ -10,7 +10,25 @@ import { ShoppingDeliveryShipperProvider } from "../../../../providers/shoppings
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
 
 @Controller("shoppings/sellers/deliveries/:deliveryId/shippers")
-export class ShoppingSellerDeliveryShippersController {
+export class ShoppingSellerDeliveryShipperController {
+  /**
+   * Create a new shipper.
+   *
+   * Create a new {@link IShoppingDeliveryShipper shipper} of the
+   * {@link IShoppingDelivery delivery}.
+   *
+   * This action does not affect to the related {@link IShoppingOrder orders} or
+   * {@link IShoppingOrderGood goods} like {@link IShoppingDeliveryJourney}
+   * or {@link IShoppingDeliveryPiece} case, but just informs to the
+   * {@link IShoppingCustomer customer}.
+   *
+   * @param deliveryId Belonged delivery's {@link IShoppingDelivery.id}
+   * @param input Creation info of the shipper
+   * @returns Newly created shipper
+   * @tag Order
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Post()
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,

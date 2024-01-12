@@ -19,10 +19,10 @@ export class ShoppingAdminAuthenticateController {
    * current {@link IShoppingCustomer customer}.
    *
    * If current {@link IShoppingMember member} is not an administrator,
-   * it throws forbidden exception.
+   * it throws 403 forbidden exception.
    *
    * @returns Admin info
-   * @tag Authenticaate
+   * @tag Authenticate
    *
    * @author Samchon
    */
@@ -37,7 +37,6 @@ export class ShoppingAdminAuthenticateController {
    * Join as an administrator.
    *
    * Join as an administrator with {@link IShoppingAdministrator.IJoin joining info}.
-   *
    *
    * This method is allowed only when the {@link IShoppingCustomer customer} already
    * has joined the {@link IShoppingMember membership}. IF not, he (she) must

@@ -6,9 +6,9 @@ import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/sho
 import { ShoppingCouponProvider } from "../../../../providers/shoppings/coupons/ShoppingCouponProvider";
 
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
-import { ShoppingCouponsWritableController } from "../../base/discounts/ShoppingCouponsWritableController";
+import { ShoppingCouponWritableController } from "../../base/discounts/ShoppingCouponWritableController";
 
-export class ShoppingAdminCouponController extends ShoppingCouponsWritableController(
+export class ShoppingAdminCouponController extends ShoppingCouponWritableController(
   {
     path: "admins",
     AuthGuard: ShoppingAdminAuth,

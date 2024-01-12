@@ -8,9 +8,9 @@ import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings
 import { ShoppingSectionProvider } from "../../../../providers/shoppings/systematic/ShoppingSectionProvider";
 
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
-import { ShoppingSystematicSectionsController } from "../../base/systematic/ShoppingSystematicSectionsController";
+import { ShoppingSystematicSectionController } from "../../base/systematic/ShoppingSystematicSectionController";
 
-export class ShoppingAdminSystematicSectionController extends ShoppingSystematicSectionsController(
+export class ShoppingAdminSystematicSectionController extends ShoppingSystematicSectionController(
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",
@@ -25,7 +25,7 @@ export class ShoppingAdminSystematicSectionController extends ShoppingSystematic
    * of products with other section, {@link IShoppingAdministrator administrator}
    * should perform this action only when a new section being required.
    *
-   * @param input Create info of the section
+   * @param input Creation info of the section
    * @returns Newly created section
    * @tag Systematic
    *

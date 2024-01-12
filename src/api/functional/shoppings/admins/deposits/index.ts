@@ -250,7 +250,7 @@ export namespace get {
  * following the record's reason why. The logic must be developed manually
  * in the backend side.
  * 
- * @param input Create information of deposit metadata
+ * @param input Creation information of deposit metadata
  * @returns Newly created deposit metadata
  * @tag Discount
  * @author Samchon

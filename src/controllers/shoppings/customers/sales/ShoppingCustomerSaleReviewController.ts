@@ -7,9 +7,9 @@ import { IShoppingSaleReview } from "@samchon/shopping-api/lib/structures/shoppi
 import { ShoppingSaleReviewProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotReviewProvider";
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
-import { ShoppingSaleReviewsController } from "../../base/sales/ShoppingSaleReviewsController";
+import { ShoppingSaleReviewController } from "../../base/sales/ShoppingSaleReviewController";
 
-export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewsController(
+export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewController(
   {
     path: "customers",
     AuthGuard: ShoppingCustomerAuth,
@@ -29,9 +29,9 @@ export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewsCon
    * 428 unprocessable entity error would be thrown, either.
    *
    * @param saleId Belonged sale's {@link IShoppingSale.id}
-   * @param input Create info of the review
+   * @param input Creation info of the review
    * @returns Newly created review
-   * @tag Inquiry
+   * @tag Sale
    *
    * @author Samchon
    */
@@ -66,7 +66,7 @@ export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewsCon
    * @param id Target review's {@link IShoppingSaleReview.id}
    * @param input Update info of the review
    * @returns Newly created snapshot record of the review
-   * @tag Inquiry
+   * @tag Sale
    *
    * @author Samchon
    */
