@@ -5,7 +5,7 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["views"]
+  previewFeatures = ["postgresqlExtensions", "views"]
   binaryTargets   = ["native"]
 }
 
@@ -47,7 +47,6 @@ model attachment_files {
   //-----------------------------------------------------------
   // ARTICLES
   //-----------------------------------------------------------
-
   /// Extension.
   ///
   /// Possible to omit like `README` case.
@@ -71,6 +70,8 @@ model attachment_files {
   bbs_article_comment_snapshots_files       bbs_article_comment_snapshot_files[]
   shopping_sale_snapshot_content_files      shopping_sale_snapshot_content_files[]
   shopping_sale_snapshot_content_thumbnails shopping_sale_snapshot_content_thumbnails[]
+
+  @@index([url])
 }
 
 /// Article entity.
@@ -188,6 +189,8 @@ model bbs_article_snapshots {
   shopping_sale_snapshot_inquiry_favorites shopping_sale_snapshot_inquiry_favorites[]
 
   @@index([bbs_article_id, created_at])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Attachment file of article snapshot.
@@ -362,6 +365,7 @@ model bbs_article_comment_snapshots {
   files bbs_article_comment_snapshot_files[]
 
   @@index([bbs_article_comment_id, created_at])
+  @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Attachment file of comment snapshot.
@@ -830,6 +834,7 @@ model shopping_external_users {
   @@index([shopping_citizen_id])
   @@index([application, created_at])
   @@index([created_at])
+  @@index([nickname(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Citizen verification information.
@@ -984,7 +989,7 @@ model shopping_members {
   @@unique([shopping_channel_id, nickname])
   @@unique([shopping_channel_id, shopping_citizen_id])
   @@index([shopping_citizen_id])
-  @@index([nickname])
+  @@index([nickname(ops: raw("gin_trgm_ops"))], type: Gin)
   @@index([created_at])
 }
 
@@ -1033,7 +1038,7 @@ model shopping_member_emails {
 
   @@unique([shopping_channel_id, value])
   @@unique([shopping_member_id, value])
-  @@index([value])
+  @@index([value(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Seller information.
@@ -1347,52 +1352,6 @@ model shopping_sale_snapshots {
   shopping_sale_favorites shopping_sale_favorites[]
 
   @@index([shopping_sale_id, created_at])
-}
-
-/// Target channel of sale snapshot to sell.
-/// 
-/// `shopping_sale_snapshot_channels` is an entity that expresses through 
-/// which {@link shopping_channels channel} a listing 
-/// {@link shopping_sale_snapshots snapshot} is sold, and is designed to 
-/// resolve the M:N relationship between two tables.
-/// 
-/// @namespace Sales
-/// @erd Systematic
-/// @author Samchon
-model shopping_sale_snapshot_channels {
-  //----
-  // COLUMNS
-  //----
-  /// Primary Key.
-  ///
-  /// @format uuid
-  id String @id @db.Uuid
-
-  /// Belonged snapshot's {@link shopping_sale_snapshots.id}.
-  ///
-  /// @format uuid
-  shopping_sale_snapshot_id String @db.Uuid
-
-  /// Belonged channel's {@link shopping_channels.id}.
-  ///
-  /// @format uuid
-  shopping_channel_id String @db.Uuid
-
-  /// Sequence order in belonged snapshot.
-  sequence Int @db.Integer
-
-  //----
-  // RELATIONS
-  //----
-  /// Belonged snapshot.
-  snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
-
-  /// Belonged channel.
-  channel       shopping_channels                           @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
-  to_categories shopping_sale_snapshot_channel_categories[]
-
-  @@unique([shopping_sale_snapshot_id, shopping_channel_id])
-  @@index([shopping_channel_id])
 }
 
 /// Product composition information handled in the sale snapshot.
@@ -1813,6 +1772,52 @@ model shopping_sale_snapshot_unit_stock_supplements {
   @@index([shopping_sale_snapshot_unit_stock_id, created_at])
 }
 
+/// Target channel of sale snapshot to sell.
+/// 
+/// `shopping_sale_snapshot_channels` is an entity that expresses through 
+/// which {@link shopping_channels channel} a listing 
+/// {@link shopping_sale_snapshots snapshot} is sold, and is designed to 
+/// resolve the M:N relationship between two tables.
+/// 
+/// @namespace Sales
+/// @erd Systematic
+/// @author Samchon
+model shopping_sale_snapshot_channels {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// Belonged snapshot's {@link shopping_sale_snapshots.id}.
+  ///
+  /// @format uuid
+  shopping_sale_snapshot_id String @db.Uuid
+
+  /// Belonged channel's {@link shopping_channels.id}.
+  ///
+  /// @format uuid
+  shopping_channel_id String @db.Uuid
+
+  /// Sequence order in belonged snapshot.
+  sequence Int @db.Integer
+
+  //----
+  // RELATIONS
+  //----
+  /// Belonged snapshot.
+  snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
+
+  /// Belonged channel.
+  channel       shopping_channels                           @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
+  to_categories shopping_sale_snapshot_channel_categories[]
+
+  @@unique([shopping_sale_snapshot_id, shopping_channel_id])
+  @@index([shopping_channel_id])
+}
+
 /// Category classification info of sale snapshot.
 ///
 /// `shopping_sale_snapshot_channel_categories` is an entity that expresses 
@@ -1913,7 +1918,8 @@ model shopping_sale_snapshot_contents {
   to_thumbnails shopping_sale_snapshot_content_thumbnails[]
 
   @@unique([shopping_sale_snapshot_id])
-  @@index([title])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// Attachment file of sale snapshot content.
@@ -1963,7 +1969,7 @@ model shopping_sale_snapshot_tags {
   snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
 
   @@unique([shopping_sale_snapshot_id, value])
-  @@index([value])
+  @@index([value(ops: raw("gin_trgm_ops"))], type: Gin)
 }
 
 /// @hidden
@@ -2598,6 +2604,8 @@ model shopping_order_publishes {
   mv_seller_states mv_shopping_order_publish_seller_states[]
 
   @@unique([shopping_order_id])
+  @@index([created_at, paid_at, cancelled_at])
+  @@index([paid_at, cancelled_at])
 }
 
 /// Delivery information.
@@ -3093,7 +3101,7 @@ model shopping_coupons {
   mv_citizen_inventories mv_shopping_coupon_citizen_inventories[]
 
   @@index([shopping_customer_id, actor_type])
-  @@index([name])
+  @@index([name(ops: raw("gin_trgm_ops"))], type: Gin)
   @@index([created_at])
   @@index([opened_at])
 }

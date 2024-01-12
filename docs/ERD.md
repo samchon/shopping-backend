@@ -736,12 +736,6 @@ erDiagram
     String shopping_sale_id FK
     DateTime created_at
 }
-"shopping_sale_snapshot_channels" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String shopping_channel_id FK
-    Int sequence
-}
 "shopping_sale_snapshot_units" {
     String id PK
     String shopping_sale_snapshot_id FK
@@ -780,6 +774,12 @@ erDiagram
     String shopping_sale_snapshot_unit_option_candidate_id FK
     Int sequence
 }
+"shopping_sale_snapshot_channels" {
+    String id PK
+    String shopping_sale_snapshot_id FK
+    String shopping_channel_id FK
+    Int sequence
+}
 "shopping_sale_snapshot_channel_categories" {
     String id PK
     String shopping_sale_snapshot_channel_id FK
@@ -813,8 +813,6 @@ erDiagram
 }
 "shopping_sales" }o--|| "shopping_sections" : section
 "shopping_sale_snapshots" }o--|| "shopping_sales" : sale
-"shopping_sale_snapshot_channels" }o--|| "shopping_sale_snapshots" : snapshot
-"shopping_sale_snapshot_channels" }o--|| "shopping_channels" : channel
 "shopping_sale_snapshot_units" }o--|| "shopping_sale_snapshots" : snapshot
 "shopping_sale_snapshot_unit_options" }o--|| "shopping_sale_snapshot_units" : unit
 "shopping_sale_snapshot_unit_option_candidates" }o--|| "shopping_sale_snapshot_unit_options" : option
@@ -822,6 +820,8 @@ erDiagram
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_stocks" : stock
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_options" : option
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_option_candidates" : candidate
+"shopping_sale_snapshot_channels" }o--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_channels" }o--|| "shopping_channels" : channel
 "shopping_sale_snapshot_channel_categories" }o--|| "shopping_sale_snapshot_channels" : to_channel
 "shopping_sale_snapshot_channel_categories" }o--|| "shopping_channel_categories" : category
 "shopping_channel_categories" }o--|| "shopping_channels" : channel
@@ -904,20 +904,6 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
     > Creation time of record.
     > 
     > It means the time when the seller created or updated the sale.
-
-### `shopping_sale_snapshot_channels`
-Target channel of sale snapshot to sell.
-
-`shopping_sale_snapshot_channels` is an entity that expresses through 
-which [channel](#shopping_channels) a listing 
-[snapshot](#shopping_sale_snapshots) is sold, and is designed to 
-resolve the M:N relationship between two tables.
-
-**Properties**
-  - `id`: Primary Key.
-  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots).
-  - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels).
-  - `sequence`: Sequence order in belonged snapshot.
 
 ### `shopping_sale_snapshot_units`
 Product composition information handled in the sale snapshot.
@@ -1109,6 +1095,20 @@ can also be ignored.
   - `shopping_sale_snapshot_unit_option_id`: Belonged option's [shopping_sale_snapshot_unit_options.id](#shopping_sale_snapshot_unit_options)
   - `shopping_sale_snapshot_unit_option_candidate_id`: Belonged candidate's [shopping_sale_snapshot_unit_option_candidates.id](#shopping_sale_snapshot_unit_option_candidates)
   - `sequence`: Sequence order in belonged stock.
+
+### `shopping_sale_snapshot_channels`
+Target channel of sale snapshot to sell.
+
+`shopping_sale_snapshot_channels` is an entity that expresses through 
+which [channel](#shopping_channels) a listing 
+[snapshot](#shopping_sale_snapshots) is sold, and is designed to 
+resolve the M:N relationship between two tables.
+
+**Properties**
+  - `id`: Primary Key.
+  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots).
+  - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels).
+  - `sequence`: Sequence order in belonged snapshot.
 
 ### `shopping_sale_snapshot_channel_categories`
 Category classification info of sale snapshot.
