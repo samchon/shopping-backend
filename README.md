@@ -2,7 +2,9 @@
 ## 1. Outline
 Example backend server of Shopping Mall for education.
 
-`@samchon/shopping-backend` is an example backend project of [NestJS](https://nestjs.com) and [Prisma](https://prisma.io) stack. It has been developed to educate how to adapt functional programming in the NestJS development. Also, `@samchon/shopping-backend` guides how to utilize those 3rd party libraries in production, and demonostrates how they are powerful for the productivity.
+`@samchon/shopping-backend` is an example backend project of [NestJS](https://nestjs.com) and [Prisma](https://prisma.io) stack. It has been developed to educate how to adapt **functional programming** in the NestJS development. Therefore, it is not the actual e-commerce service, and implementation of most functions is different from the actual shopping mall and may be meaningless.
+
+Also, `@samchon/shopping-backend` guides how to utilize those 3rd party libraries (what I've developed) in the production, and demonostrates how they are powerful for the productivity. Especially, I have ideally implemented **TDD (Test Driven Development)** through below libaries. I hope this repo would be helpful for your learning.
 
   - [typia](https://github.com/samchon/typia): Superfast runtime validator
   - [nestia](https://github.com/samchon/nestia): NestJS helper libaries like SDK generation
@@ -57,35 +59,51 @@ npm run dev
 
 
 ## 3. Development
+> - A. Definition only
+>   - Design prisma schema file
+>   - Build and Share ERD document with your companions
+>   - Write DTO structures
+>   - Declare controller method only
+> - B. Software Development Kit
+>   - Build SDK from the declaration only controller files
+>   - SDK supports mockup simulator, boosting up frontend development
+>   - SDK is type safe, so development be much safer
+> - C. Test Automation Program
+>   - Build test program earlier than main program development
+>   - Utilize SDK library in the test program development
+>   - This is the TDD (Test Driven Development)
+> - D. Main Program Development
+
 ### 3.1. Definition
 ![ERD](https://private-user-images.githubusercontent.com/13158709/285461559-9fa92ed4-1f9a-4fd9-bceb-dd4b20d45537.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MDUwNjk5NzIsIm5iZiI6MTcwNTA2OTY3MiwicGF0aCI6Ii8xMzE1ODcwOS8yODU0NjE1NTktOWZhOTJlZDQtMWY5YS00ZmQ5LWJjZWItZGQ0YjIwZDQ1NTM3LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDAxMTIlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwMTEyVDE0Mjc1MlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTAyMjM0ZTliYjYyM2M0ZTVmNGM0MDk4OTlhZDg2ZTZhMGM0YmI2NzViMjY3NjgzZjJmZGM0MWE3Y2I4NzQ4NmImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.mBsBpuQ_xQwMVKKHNCdJ_XJRmn_dRosTz5a_SeYzvHs)
 
-If you want to add a new feature or update ordinary thing in the API level, you should write the code down to the matched *API controller*, who is stored in the [src/controllers](src/controllers) directory as the [Main Program](#34-main-program). 
+Before developing the main program, define it before.
 
-However, [@samchon](https://github.com/samchon) does not recommend to writing code down into the [Main Program](#34-main-program) first, without any consideration. Instead, [@samchon](https://github.com/samchon) recommends to declare the definition first and implement the [Main Program](#34-main-program) later.
+At first, design the DB architecture on the Prisma Schema file ([prisma/schema.prisma](prisma/schema.prisma)). Writing the schema definitions, don't forget to write the detailed descriptions on each tables and properties. After that, build ERD (Enterprise Relationship Diagram) document through `npm run build:prisma` command. The ERD document will be generated on the [docs/ERD.md](docs/ERD.md) path. If you share the ERD document with your companions, your team can enjoy increased productivity by standardizing words and entities.
 
-Therefore, if you want to add a new feature in the API level, define the matched data entity in the [prisma/schema.prisma](prisma/schema.prisma) file and [src/api/structures](src/api/structures) directories. After the data entity definition, declare function header in the matched API controller class in the [src/controllers](src/controllers). Note that, it's only the declaration, type only, not meaning to implement the function body.
+At second, write DTO structures under the [src/api/structures](src/api/structures) directory and declare API endpoint specs under the [src/controllers](src/controllers) directory. Note that, do not implement the function body of the controller. Just write declaration only. Below code is never pseudo code, but actual code for current step.
 
-After those declarations, build the client [SDK](#32-software-development-kit) through the `npm run build:api` command and implement the [Test Automation Program](#33-test-automation-program) using the [SDK](#32-software-development-kit) with use case scenarios. Development of the [Main Program](#34-main-program) should be started after those preparations are all being ready. Of course, the [Main Program](#34-main-program) can be verified with the pre-developed [Test Automation Program](#33-test-automation-program) in everytime.
-
-  - Declare data entity
-  - Declare API function header
-  - Build the client [SDK](#32-software-development-kit)
-  - Implement the [Test Automation Program](#33-test-automation-program)
-  - Develop the [Main Program](#34-main-program)
-  - Validate the [Main Program](#34-main-program) through the [Test Automation Program](#33-test-automation-program)
-  - Deploy to the Dev and Real servers.
+```typescript
+@Controlleer("bbs/articles")
+export class BbsArticleController {
+  @TypedRoute.Patch()
+  public async index(
+    @TypedBody() input: IBbsArticle.IRequest
+  ): Promise<IPage<IBbsArticle.ISummary>> {
+    input;
+    return null!;
+  }
+}
+```
 
 ### 3.2. Software Development Kit
+![nestia-sdk-demo](https://user-images.githubusercontent.com/13158709/215004990-368c589d-7101-404e-b81b-fbc936382f05.gif)
+
 [`@samchon/shopping-backend`](https://github.com/samchon/shopping-backend) provides SDK (Software Development Kit) for convenience.
 
-For the client developers who are connecting to this backend server, [`@samchon/shopping-backend`](https://github.com/samchon/shopping-backend) provides not only API documents like the Swagger, but also provides the API interaction library, one of the typical SDK (Software Development Kit) for the convenience.
+SDK library means a collection of `fetch` functions with proper types automatically generated by [nestia](https://github.com/samchon/nestia). As you can see from the above gif image, SDK library boosts up client developments by providing type hints and auto completions about the API endpoints of your backend server. 
 
-With the SDK, client developers never need to re-define the duplicated API interfaces, by reading Swagger Documents. Just utilize the provided interfaces and asynchronous functions defined in the SDK. It would be much convenient than any other Rest API solutions.
-
-Furthermore, the SDK supports mockup simulator. If client developer configures `simulate` option to be `true`, the SDK library will not send HTTP request to the backend server, but simulate the API by itself. With this mockup simulator feature, frontend developers can directly start the interaction development, even when the [main program development](#34-main-program) is on a progress.
-
-To build the SDK in local, just type the `npm run build:sdk` command. The SDK would be generated by [`nestia`](https://github.com/samchon/nestia), by analyzing source code of the [controller](src/controllers) classes in the compilation level, automatically. Otherwise you want to publish the SDK .ibrary, run the `npm run package:api` command instead.
+Furthermore, the SDK library supports mockup simulator. If client developer configures `simulate` option to be `true`, the SDK library will not send HTTP request to your backend server, but simulate the API endpoints by itself. With that feature, frontend developers can directly start the interaction development, even when the [main program development](#34-main-program) is on a progress.
 
 ```bash
 # BUILD SDK IN LOCAL
@@ -95,84 +113,14 @@ npm run build:sdk
 npm run package:api
 ```
 
-When the SDK has been published, client programmers can interact with this backend server very easily. Just let them to install the SDK and call the SDK functions with the `await` symbol like below.
-
-![nestia-sdk-demo](https://user-images.githubusercontent.com/13158709/215004990-368c589d-7101-404e-b81b-fbc936382f05.gif)
-
-```typescript
-import api from "@samchon/bbs-api";
-
-import { IBbsCitizen } from "@samchon/bbs-api/lib/structures/bbs/actors/IBbsCitizen";
-import { IBbsQuestionArticle } from "@samchon/bbs-api/lib/structures/bbs/articles/IBbsQuestionArticle";
-import { IBbsSection } from "@samchon/bbs-api/lib/api/structures/bbs/systematic/IBbsSection";
-
-async function main(): Promise<void>
-{
-    //----
-    // PREPARATIONS
-    //----
-    // CONNECTION INFO
-    const connection: api.IConnection = {
-        host: "http://127.0.0.1:37001",
-        simulate: true, // TURN ON MOCKUP SIMULATOR
-    };
-
-    // ISSUE A CUSTOMER ACCOUNT
-    const customer: IBbsCustomer = await api.functional.bbs.customers.authenticate.issue
-    (
-        connection,
-        {
-            href: window.location.href,
-            referrer: window.document.referrer
-        }
-    );
-
-    // ACTIVATE THE CUSTOMER
-    customer.citizen = await api.functional.bbs.customers.authenticate.activate
-    (
-        connection,
-        {
-            name: "Jeongho Nam",
-            mobile: "821036270016"
-        }
-    );
-
-    //----
-    // WRITE A QUESTION ARTICLE
-    //----
-    // FIND TARGET SECTION
-    const sectionList: IBbsSection[] = await api.functional.bbs.customers.systematic.sections.index
-    (
-        connection
-    );
-    const section: IBbsSection = sectionList.find(section => section.type === "qna")!;
-
-    // PREPARE INPUT DATA
-    const input: IBbsQuestionArticle.IStore = {
-        title: "Some Question Title",
-        body: "Some Question Body Content...",
-        files: []
-    };
-
-    // DO WRITE
-    const question: IBbsQuestionArticle = await api.functional.bbs.customers.articles.qna.store
-    (
-        connection, 
-        section.code,
-        input
-    );
-    console.log(question);
-}
-```
-
 ### 3.3. Test Automation Program
 > TDD (Test Driven Development)
 
 After the [Definition](#31-definition) and client [SDK](#32-software-development-kit) generation, you've to design the use-case scenario and implement a test automation program who represents the use-case scenario and guarantees the [Main Program](#34-main-program).
 
-To add a new test function in the Test Automation Program, create a new TS file under the [test/features](test/features) directory following the below category and implement the test scenario function with representative function name and `export` symbol. I think many all of the ordinary files wrote in the [test/features](test/features) directory would be good sample for you. Therefore, I will not describe how the make the test function detaily.
+To add a new test function in the Test Automation Program, create a new TS file under the [test/features](test/features) directory following the below category and implement the test scenario function with representative function name and `export` symbol.
 
-Anyway, you've to remind that, the Test Automation Program resets the DB schema whenever being run. Therefore, you've to be careful if import data has been stored in the local (or dev) DB server. To avoid the resetting the DB, configure the `skipReset` option like below.
+Note that, the Test Automation Program resets the local DB schema whenever being run. Therefore, you've to be careful if import data has been stored in the local DB server. To avoid the resetting the local DB, configure the `skipReset` option like below.
 
 Also, the Test Automation Program runs all of the test functions placed into the [test/features](test/features) directory. However, those full testing may consume too much time. Therefore, if you want to reduce the testing time by specializing some test functions, use the `include` option like below.
 
