@@ -25,7 +25,7 @@ export class ShoppingAdminSystematicChannelController extends ShoppingSystematic
    * {@link IShoppingAdministrator administrator} should perform this action
    * only when a new application being registered.
    *
-   * @param input Create info of the channel
+   * @param input Creation info of the channel
    * @returns Newly created channel
    * @tag Systematic
    *

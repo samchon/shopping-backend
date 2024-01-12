@@ -21,7 +21,7 @@ import { NestiaSimulator } from "../../../../../../utils/NestiaSimulator";
  * possible to specify the parent category by its ID.
  * 
  * @param channelCode Belonged channel's {@link IShoppingChannel.code }
- * @param input Create info of the category
+ * @param input Creation info of the category
  * @returns Newly created category
  * @tag Systematic
  * @author Samchon

@@ -106,7 +106,7 @@ export namespace able {
  * that you have to check it after calling this publish function.
  * 
  * @param orderId Target order's {@link IShoppingOrder.id }
- * @param input Create info of the publish
+ * @param input Creation info of the publish
  * @returns Newly created publish
  * @tag Order
  * @author Samchon
@@ -197,7 +197,7 @@ export namespace create {
  * request would be sent to the payment vendor system.
  * 
  * @param orderId Target order's {@link IShoppingOrder.id }
- * @tag Ordere
+ * @tag Order
  * @author Samchon
  * 
  * @controller ShoppingCustomerOrderPublishController.cancel

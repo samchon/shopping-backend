@@ -13,7 +13,28 @@ import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
 @Controller(
   "shoppings/sellers/sales/:saleId/units/:unitId/stocks/:stockId/supplements",
 )
-export class ShoppingSellerSaleUnitStockSupplementsController {
+export class ShoppingSellerSaleUnitStockSupplementController {
+  /**
+   * List up every supplements.
+   *
+   * List up every {@link IShoppingSaleUnitStockSupplement supplement histories}
+   * of a specific {@link IShoppingSaleUnitStock stock}.
+   *
+   * If you want, you can limit the result by configuring
+   * {@link IShoppingSaleUnitStockSupplement.IRequest.search search condition} in
+   * the request body. Also, it is possible to customize sequence order of
+   * records by configuring {@link IShoppingSaleUnitStockSupplement.IRequest.sort}
+   * property.
+   *
+   * @param saleId Belonged sale's {@link IShoppingSale.id}
+   * @param unitId Belonged unit's {@link IShoppingSaleUnit.id}
+   * @param stockId Target stock's {@link IShoppingSaleUnitStock.id}
+   * @param input Request info of pagination, searching and sorting
+   * @returns Paginated supplements
+   * @tag Sale
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
@@ -29,6 +50,25 @@ export class ShoppingSellerSaleUnitStockSupplementsController {
     })(input);
   }
 
+  /**
+   * Create a supplement.
+   *
+   * Create a {@link IShoppingSaleUnitStockSupplement supplement history} of a
+   * specific {@link IShoppingSaleUnitStock stock}.
+   *
+   * Therefore, {@link IShoppingSaleUnitStockInventory.income inventory} of the
+   * target stock will be increased by the
+   * {@link IShoppingSaleUnitStockSupplement.value supplement's value}.
+   *
+   * @param saleId Belonged sale's {@link IShoppingSale.id}
+   * @param unitId Belonged unit's {@link IShoppingSaleUnit.id}
+   * @param stockId Target stock's {@link IShoppingSaleUnitStock.id}
+   * @param input Ceate info of the supplement
+   * @returns Created supplement
+   * @tag Sale
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Post()
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
@@ -44,6 +84,25 @@ export class ShoppingSellerSaleUnitStockSupplementsController {
     })(input);
   }
 
+  /**
+   * Update a supplement.
+   *
+   * Update quantity value of a {@link IShoppingSaleUnitStockSupplement supplement}
+   * of a specific {@link IShoppingSaleUnitStock stock}.
+   *
+   * Therefore, {@link IShoppingSaleUnitStockInventory.income inventory} of the
+   * target stock will be changed by the
+   * {@link IShoppingSaleUnitStockSupplement.value supplement's value}.
+   *
+   * @param saleId Belonged sale's {@link IShoppingSale.id}
+   * @param unitId Belonged unit's {@link IShoppingSaleUnit.id}
+   * @param stockId Target stock's {@link IShoppingSaleUnitStock.id}
+   * @param id Target supplement's {@link IShoppingSaleUnitStockSupplement.id}
+   * @param input Update info (quantity) of the supplement
+   * @tag Sale
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Put(":id")
   public async update(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
@@ -60,6 +119,24 @@ export class ShoppingSellerSaleUnitStockSupplementsController {
     })(id)(input);
   }
 
+  /**
+   * Erase a supplement.
+   *
+   * Erase a {@link IShoppingSaleUnitStockSupplement supplement} of a specific
+   * {@link IShoppingSaleUnitStock stock}.
+   *
+   * Therefore, {@link IShoppingSaleUnitStockInventory.income inventory} of the
+   * target stock will be decreased by the
+   * {@link IShoppingSaleUnitStockSupplement.value supplement's value}.
+   *
+   * @param saleId Belonged sale's {@link IShoppingSale.id}
+   * @param unitId Belonged unit's {@link IShoppingSaleUnit.id}
+   * @param stockId Target stock's {@link IShoppingSaleUnitStock.id}
+   * @param id Target supplement's {@link IShoppingSaleUnitStockSupplement.id}
+   * @tag Sale
+   *
+   * @author Samchon
+   */
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,

@@ -30,9 +30,9 @@ export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestion
    * {@link index pagiation API}.
    *
    * @param saleId Belonged sale's {@link IShoppingSale.id}
-   * @param input Create info of the question
+   * @param input Creation info of the question
    * @returns Newly created question
-   * @tag Inquiry
+   * @tag Sale
    *
    * @author Samchon
    */
@@ -67,7 +67,7 @@ export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestion
    * @param id Target question's {@link IShoppingSaleQuestion.id}
    * @param input Update info of the question
    * @returns Newly created snapshot record of the question
-   * @tag Inquiry
+   * @tag Sale
    *
    * @author Samchon
    */

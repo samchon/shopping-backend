@@ -30,7 +30,7 @@ export * as publish from "./publish";
  * just customer is appling the order. The order be completed only when customer
  * {@link IShoppingOrderPublish.paid_at pays} the order.
  * 
- * @param input Create info of the order
+ * @param input Creation info of the order
  * @returns Newly created order
  * @tag Order
  * @author Samchon

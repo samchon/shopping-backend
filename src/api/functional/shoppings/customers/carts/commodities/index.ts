@@ -224,7 +224,7 @@ export namespace at {
  * {@link IShoppingSaleUnitStock stock}'s status before.
  * 
  * @param cartId Belonged cart's ID
- * @param input Create info of the commodity
+ * @param input Creation info of the commodity
  * @returns Newly created commodity
  * @tag Order
  * @author Samchon
@@ -401,18 +401,18 @@ export namespace update {
  * Get a {@link IShoppingCartCommodity.ICreate } typed info of the target
  * commodity for replication.
  * 
- * By the way,if the *cartId* is different with the belonged cart's ID,
+ * By the way, if the *cartId* is different with the belonged cart's ID,
  * then 404 not found exception would be thrown. Otherwise, the *cartId*
  * has `null` value, such dependency checking would be skipped, but still
  * ownership would be validated.
  * 
  * Also, if target {@link IShoppingSale sale} has been suspended or
- * {@link IShoppingSaleUnitStockInventory out of stock} suddenly, then 410
- * gone error would be thrown, either.
+ * {@link IShoppingSaleUnitStockInventory out of stock} suddenly,
+ * then 410 gone error would be thrown, either.
  * 
  * @param cartId Belonged cart's ID
  * @param id Target commodity's {@link IShoppingCartCommodity.id}
- * @returns Create info of the commodity for replication
+ * @returns Creation info of the commodity for replication
  * @tag Order
  * @author Samchon
  * 

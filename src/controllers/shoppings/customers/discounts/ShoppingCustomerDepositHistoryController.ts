@@ -25,7 +25,7 @@ export class ShoppingCustomerDepositHistoryController {
    *
    * @param input Request info of pagination, searching and sorting
    * @returns Paginated deposit histories
-   * @tag Deposit
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -44,7 +44,7 @@ export class ShoppingCustomerDepositHistoryController {
    *
    * @param id
    * @returns Deposit history info
-   * @tag Deposit
+   * @tag Discount
    *
    * @author Samchon
    */
@@ -62,7 +62,7 @@ export class ShoppingCustomerDepositHistoryController {
    * Get current balance of the deposit of the {@link IShoppingCustomer customer}.
    *
    * @returns Balance of the deposit
-   * @tag Deposit
+   * @tag Discount
    *
    * @author Samchon
    */

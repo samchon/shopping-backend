@@ -181,7 +181,7 @@ export namespace at {
  * The deposit charge be completed only when customer
  * {@link IShoppingDepositChargePublish.publish pay} the deposit charge.
  * 
- * @param input Create info of the deposit charge
+ * @param input Creation info of the deposit charge
  * @returns Newly created deposit charge
  * @tag Discount
  * @author Samchon

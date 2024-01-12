@@ -29,9 +29,9 @@ export * as comments from "./comments";
  * 428 unprocessable entity error would be thrown, either.
  * 
  * @param saleId Belonged sale's {@link IShoppingSale.id }
- * @param input Create info of the review
+ * @param input Creation info of the review
  * @returns Newly created review
- * @tag Inquiry
+ * @tag Sale
  * @author Samchon
  * 
  * @controller ShoppingCustomerSaleReviewController.create
@@ -131,7 +131,7 @@ export namespace create {
  * @param id Target review's {@link IShoppingSaleReview.id}
  * @param input Update info of the review
  * @returns Newly created snapshot record of the review
- * @tag Inquiry
+ * @tag Sale
  * @author Samchon
  * 
  * @controller ShoppingCustomerSaleReviewController.update

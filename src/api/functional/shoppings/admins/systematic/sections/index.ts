@@ -23,7 +23,7 @@ import { NestiaSimulator } from "../../../../../utils/NestiaSimulator";
  * of products with other section, {@link IShoppingAdministrator administrator}
  * should perform this action only when a new section being required.
  * 
- * @param input Create info of the section
+ * @param input Creation info of the section
  * @returns Newly created section
  * @tag Systematic
  * @author Samchon
