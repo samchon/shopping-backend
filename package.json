@@ -25,7 +25,7 @@
     "package:api": "npm run build:swagger && npm run build:api && cd packages/api && npm publish --access public",
     "start": "node lib/executable/server",
     "start:swagger": "ts-node src/executable/swagger.ts",
-    "schema": "node lib/executable/schema"
+    "schema": "ts-node src/executable/schema"
   },
   "repository": {
     "type": "git",
@@ -85,8 +85,8 @@
     "dotenv-expand": "^10.0.0",
     "git-last-commit": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mutex-server": "^0.3.1",
     "prisma": "^5.3.1",
+    "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^2.5.13",
     "typia": "^5.3.9",

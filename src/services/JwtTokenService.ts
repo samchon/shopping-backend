@@ -1,5 +1,5 @@
 import { ErrorProvider } from "../utils/ErrorProvider";
-import { JwtTokenManager } from "../utils/TokenManager";
+import { JwtTokenManager } from "../utils/JwtTokenManager";
 
 export namespace JwtTokenService {
   export const authorize =

@@ -12,7 +12,7 @@ import typia from "typia";
 import type { ISystem } from "../../../structures/monitors/ISystem";
 
 /**
- * GEt system information.
+ * Get system information.
  * 
  * Get system information with commit and package information.
  * 

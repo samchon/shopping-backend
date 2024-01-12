@@ -17,7 +17,7 @@
 erDiagram
 "attachment_files" {
     String id PK
-    String name "nullable"
+    String name
     String extension "nullable"
     String url
     DateTime created_at
@@ -84,7 +84,7 @@ For reference, it is possible to omit one of file name or extension like
   - `name`
     > File name, except extension.
     > 
-    > Possible to omit like `.gitignore` case.
+    > If there's file `.gitignore`, then its name is an empty string.
   - `extension`
     > Extension.
     > 

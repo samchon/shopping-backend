@@ -10,7 +10,7 @@ import { DateUtil } from "../../utils/DateUtil";
 @Controller("monitors/system")
 export class MonitorSystemController {
   /**
-   * GEt system information.
+   * Get system information.
    *
    * Get system information with commit and package information.
    *

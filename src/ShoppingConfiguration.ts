@@ -24,16 +24,6 @@ export namespace ShoppingConfiguration {
   })();
 
   export const API_PORT = () => Number(ShoppingGlobal.env.SHOPPING_API_PORT);
-  export const UPDATOR_PORT = () =>
-    Number(ShoppingGlobal.env.SHOPPING_UPDATOR_PORT);
-  export const MASTER_IP = () =>
-    ShoppingGlobal.mode === "local"
-      ? "127.0.0.1"
-      : ShoppingGlobal.mode === "dev"
-      ? "your-dev-server-ip"
-      : "your-real-server-master-ip";
-  export const SYSTEM_PASSWORD = () =>
-    ShoppingGlobal.env.SHOPPING_SYSTEM_PASSWORD;
 }
 
 ExceptionManager.insert(PrismaClientKnownRequestError, (exp) => {
