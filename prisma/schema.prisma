@@ -1,6 +1,7 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("SHOPPING_POSTGRES_URL")
+  provider   = "postgresql"
+  url        = env("SHOPPING_POSTGRES_URL")
+  extensions = [pg_trgm]
 }
 
 generator client {
