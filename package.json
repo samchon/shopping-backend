@@ -25,8 +25,6 @@
     "package:api": "npm run build:swagger && npm run build:api && cd packages/api && npm publish --access public",
     "start": "node lib/executable/server",
     "start:swagger": "ts-node src/executable/swagger.ts",
-    "start:updator:master": "node lib/executable/updator-master",
-    "start:updator:slave": "node lib/executable/updator-slave",
     "schema": "node lib/executable/schema"
   },
   "repository": {
