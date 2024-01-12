@@ -1,11 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
-import { MutexConnector } from "mutex-server";
-import { MutableSingleton, Singleton } from "tstl";
+import { Singleton } from "tstl";
 import typia from "typia";
-
-import { ShoppingConfiguration } from "./ShoppingConfiguration";
 
 /**
  * Global variables of the shopping server.
@@ -41,19 +38,6 @@ export class ShoppingGlobal {
     typia.assert<typeof mode>(mode);
     modeWrapper.value = mode;
   }
-
-  public static readonly critical: MutableSingleton<
-    MutexConnector<string, null>
-  > = new MutableSingleton(async () => {
-    const connector: MutexConnector<string, null> = new MutexConnector(
-      ShoppingConfiguration.SYSTEM_PASSWORD(),
-      null,
-    );
-    await connector.connect(
-      `ws://${ShoppingConfiguration.MASTER_IP()}:${ShoppingConfiguration.UPDATOR_PORT()}/api`,
-    );
-    return connector;
-  });
 }
 
 interface IEnvironments {

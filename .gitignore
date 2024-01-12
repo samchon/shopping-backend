@@ -1,7 +1,8 @@
 bin/
+dist/
 lib/
 node_modules/
-src/migrations/
+prisma/migrations/
 
 .npmrc
 package-lock.json

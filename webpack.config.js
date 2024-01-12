@@ -46,12 +46,12 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: "./node_modules/.prisma/client/*.node",
-          to: () => Promise.resolve("[path][name][ext]"),
+          from: ".env",
+          to: "[name][ext]",
         },
         {
-          from: "package.json",
-          to: "[name][ext]",
+          from: "./node_modules/.prisma/client/*.node",
+          to: () => Promise.resolve("[path][name][ext]"),
         },
       ],
     }),

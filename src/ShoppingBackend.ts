@@ -1,4 +1,3 @@
-import core from "@nestia/core";
 import { NestFactory } from "@nestjs/core";
 import {
   FastifyAdapter,
@@ -6,21 +5,15 @@ import {
 } from "@nestjs/platform-fastify";
 
 import { ShoppingConfiguration } from "./ShoppingConfiguration";
-import { ShoppingGlobal } from "./ShoppingGlobal";
+import { ShoppingModule } from "./ShoppingModule";
 
 export class ShoppingBackend {
   private application_?: NestFastifyApplication;
 
   public async open(): Promise<void> {
-    //----
-    // OPEN THE BACKEND SERVER
-    //----
     // MOUNT CONTROLLERS
     this.application_ = await NestFactory.create(
-      await core.EncryptedModule.dynamic(__dirname + "/controllers", {
-        key: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_KEY,
-        iv: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_IV,
-      }),
+      ShoppingModule,
       new FastifyAdapter(),
       { logger: false },
     );
@@ -28,18 +21,6 @@ export class ShoppingBackend {
     // DO OPEN
     this.application_.enableCors();
     await this.application_.listen(ShoppingConfiguration.API_PORT());
-
-    //----
-    // POST-PROCESSES
-    //----
-    // INFORM TO THE PM2
-    if (process.send) process.send("ready");
-
-    // WHEN KILL COMMAND COMES
-    process.on("SIGINT", async () => {
-      await this.close();
-      process.exit(0);
-    });
   }
 
   public async close(): Promise<void> {
@@ -48,11 +29,5 @@ export class ShoppingBackend {
     // DO CLOSE
     await this.application_.close();
     delete this.application_;
-
-    // EXIT FROM THE CRITICAL-SERVER
-    if ((await ShoppingGlobal.critical.is_loaded()) === true) {
-      const critical = await ShoppingGlobal.critical.get();
-      await critical.close();
-    }
   }
 }

@@ -3,8 +3,6 @@ import { randint } from "tstl/algorithm/random";
 import { Singleton } from "tstl/thread/Singleton";
 
 import { ShoppingBackend } from "../ShoppingBackend";
-import { ShoppingGlobal } from "../ShoppingGlobal";
-import { Scheduler } from "../schedulers/Scheduler";
 import { ErrorUtil } from "../utils/ErrorUtil";
 
 const EXTENSION = __filename.substr(-2);
@@ -51,19 +49,14 @@ async function main(): Promise<void> {
   const backend: ShoppingBackend = new ShoppingBackend();
   await backend.open();
 
-  //----
-  // POST-PROCESSES
-  //----
-  // UNEXPECTED ERRORS
+  // POST-PROCESS
+  process.send?.("ready");
+  process.on("SIGTERM", async () => {
+    await backend.close();
+    process.exit(0);
+  });
   global.process.on("uncaughtException", handle_error);
   global.process.on("unhandledRejection", handle_error);
-
-  // SCHEDULER ONLY WHEN MASTER
-  if (
-    ShoppingGlobal.env.SHOPPING_MODE !== "real" ||
-    process.argv[3] === "master"
-  )
-    await Scheduler.repeat();
 }
 main().catch((exp) => {
   console.log(exp);
