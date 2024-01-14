@@ -55,8 +55,8 @@ async function main(): Promise<void> {
     await backend.close();
     process.exit(0);
   });
-  global.process.on("uncaughtException", handle_error);
-  global.process.on("unhandledRejection", handle_error);
+  process.on("uncaughtException", handle_error);
+  process.on("unhandledRejection", handle_error);
 }
 main().catch((exp) => {
   console.log(exp);

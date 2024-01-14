@@ -5,7 +5,7 @@ about: Create a report to help us improve
 ---
 
 ## Bug Report
-Note that, the bug you're reporting may have registered in the [Issues](https://github.com/samchon/backend/search?type=Issues) by another user. Even the bug you're reporting may have been fixed in the `@next` version. In those reasons, I recommend you to check the old [Issues](https://github.com/samchon/backend/search?type=Issues) and reproduct your code with the `@next` version before publishing the bug reporting issue.
+Note that, the bug you're reporting may have registered in the [Issues](https://github.com/samchon/shopping-backend/search?type=Issues) by another user. Even the bug you're reporting may have been fixed in the `@next` version. In those reasons, I recommend you to check the old [Issues](https://github.com/samchon/shopping-backend/search?type=Issues) and reproduct your code with the `@next` version before publishing the bug reporting issue.
 
 ```bash
 `npm install --save samchon/shopping-api@next`

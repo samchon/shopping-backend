@@ -10,7 +10,7 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 import { JwtTokenService } from "../../../services/JwtTokenService";
 import { ErrorProvider } from "../../../utils/ErrorProvider";
-import { JwtTokenManager } from "../../../utils/TokenManager";
+import { JwtTokenManager } from "../../../utils/JwtTokenManager";
 import { ShoppingChannelProvider } from "../systematic/ShoppingChannelProvider";
 import { ShoppingCitizenProvider } from "./ShoppingCitizenProvider";
 import { ShoppingExternalUserProvider } from "./ShoppingExternalUserProvider";
