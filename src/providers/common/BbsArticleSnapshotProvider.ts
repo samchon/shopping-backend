@@ -30,7 +30,7 @@ export namespace BbsArticleSnapshotProvider {
             },
           },
         },
-      } satisfies Prisma.bbs_article_snapshotsFindManyArgs);
+      }) satisfies Prisma.bbs_article_snapshotsFindManyArgs;
   }
 
   export const create =

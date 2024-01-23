@@ -54,7 +54,7 @@ export namespace ShoppingOrderPublishProvider {
                 }
               : undefined,
         },
-      } satisfies Prisma.shopping_order_publishesFindManyArgs);
+      }) satisfies Prisma.shopping_order_publishesFindManyArgs;
   }
 
   /* -----------------------------------------------------------

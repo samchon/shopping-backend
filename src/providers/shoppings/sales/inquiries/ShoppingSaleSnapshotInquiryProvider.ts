@@ -55,14 +55,14 @@ export namespace ShoppingSaleSnapshotInquiryProvider {
           },
         }
       : key === "answered_at"
-      ? {
-          answer: {
-            base: {
-              created_at: direction,
+        ? {
+            answer: {
+              base: {
+                created_at: direction,
+              },
             },
-          },
-        }
-      : {
-          base: BbsArticleProvider.orderBy(key, direction),
-        }) satisfies Prisma.shopping_sale_snapshot_inquiriesOrderByWithRelationInput;
+          }
+        : {
+            base: BbsArticleProvider.orderBy(key, direction),
+          }) satisfies Prisma.shopping_sale_snapshot_inquiriesOrderByWithRelationInput;
 }

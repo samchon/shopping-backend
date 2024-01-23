@@ -28,7 +28,7 @@ export namespace ShoppingCouponTicketPaymentProvider {
         include: {
           ticket: ShoppingCouponTicketProvider.json.select(actor),
         },
-      } satisfies Prisma.shopping_coupon_ticket_paymentsFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_ticket_paymentsFindManyArgs;
   }
 
   /* -----------------------------------------------------------

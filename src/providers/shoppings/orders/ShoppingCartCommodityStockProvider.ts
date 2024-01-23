@@ -53,7 +53,7 @@ export namespace ShoppingCartCommodityStockProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_cart_commodity_stocksFindManyArgs);
+      }) satisfies Prisma.shopping_cart_commodity_stocksFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -78,5 +78,5 @@ export namespace ShoppingCartCommodityStockProvider {
       },
       quantity: input.quantity,
       sequence,
-    } satisfies Prisma.shopping_cart_commodity_stocksCreateWithoutCommodityInput);
+    }) satisfies Prisma.shopping_cart_commodity_stocksCreateWithoutCommodityInput;
 }

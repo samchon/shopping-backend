@@ -20,9 +20,8 @@ export namespace ShoppingChannelSeeder {
   const seedChannel =
     (dict: Map<string, IHierarchy>) =>
     async (input: IShoppingChannel.ICreate): Promise<void> => {
-      const channel: IShoppingChannel = await ShoppingChannelProvider.create(
-        input,
-      );
+      const channel: IShoppingChannel =
+        await ShoppingChannelProvider.create(input);
       dict.set(channel.code, { channel, last: [] });
     };
 

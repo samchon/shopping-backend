@@ -33,8 +33,8 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
         input.actor_type === "customer"
           ? customer
           : input.actor_type === "seller"
-          ? ShoppingSellerDiagnoser.invert(customer)
-          : ShoppingAdministratorDiagnoser.invert(customer);
+            ? ShoppingSellerDiagnoser.invert(customer)
+            : ShoppingAdministratorDiagnoser.invert(customer);
       if (writer === null)
         throw ErrorProvider.internal(
           `The comment has not been registered by ${input.actor_type}.`,
@@ -50,7 +50,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
           base: BbsArticleCommentProvider.json.select(),
           customer: ShoppingCustomerProvider.json.select(),
         },
-      } satisfies Prisma.shopping_sale_snapshot_inquiry_commentsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_inquiry_commentsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -239,5 +239,5 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
             id: actor.type === "customer" ? actor.id : actor.customer.id,
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_inquiry_commentsCreateInput);
+      }) satisfies Prisma.shopping_sale_snapshot_inquiry_commentsCreateInput;
 }

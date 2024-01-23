@@ -32,7 +32,7 @@ export namespace ShoppingDeliveryJourneyProvider {
       deleted_at: input.deleted_at?.toISOString() ?? null,
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_delivery_journeysFindManyArgs);
+      ({}) satisfies Prisma.shopping_delivery_journeysFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -164,7 +164,7 @@ export namespace ShoppingDeliveryJourneyProvider {
       deleted_at: null,
       created_at: new Date(),
       sequence,
-    } satisfies Prisma.shopping_delivery_journeysCreateWithoutDeliveryInput);
+    }) satisfies Prisma.shopping_delivery_journeysCreateWithoutDeliveryInput;
 
   const updateStates =
     (seller: IShoppingSeller.IInvert) =>

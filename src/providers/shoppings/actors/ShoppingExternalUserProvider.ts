@@ -36,7 +36,7 @@ export namespace ShoppingExternalUserProvider {
         include: {
           citizen: ShoppingCitizenProvider.json.select(),
         },
-      } satisfies Prisma.shopping_external_usersFindManyArgs);
+      }) satisfies Prisma.shopping_external_usersFindManyArgs;
   }
 
   export const create =

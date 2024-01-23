@@ -48,7 +48,7 @@ export namespace ShoppingCouponChannelCriterialProvider {
         include: {
           channel: ShoppingChannelProvider.json.select(),
         },
-      } satisfies Prisma.shopping_coupon_channel_criteriasFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_channel_criteriasFindManyArgs;
   }
 
   /* -----------------------------------------------------------

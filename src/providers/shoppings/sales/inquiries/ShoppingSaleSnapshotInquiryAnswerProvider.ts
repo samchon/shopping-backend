@@ -34,7 +34,7 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
           base: BbsArticleProvider.summarize.select(),
           sellerCustomer: ShoppingSellerProvider.invert.select(),
         },
-      } satisfies Prisma.shopping_sale_snapshot_inquiry_answersFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_inquiry_answersFindManyArgs;
   }
 
   export namespace abridge {
@@ -57,7 +57,7 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
           base: BbsArticleProvider.abridge.select(),
           sellerCustomer: ShoppingSellerProvider.invert.select(),
         },
-      } satisfies Prisma.shopping_sale_snapshot_inquiry_answersFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_inquiry_answersFindManyArgs;
   }
 
   export namespace json {
@@ -83,7 +83,7 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
           base: BbsArticleProvider.json.select(),
           sellerCustomer: ShoppingSellerProvider.invert.select(),
         },
-      } satisfies Prisma.shopping_sale_snapshot_inquiry_answersFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_inquiry_answersFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -173,5 +173,5 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
             id: seller.customer.id,
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_inquiry_answersCreateInput);
+      }) satisfies Prisma.shopping_sale_snapshot_inquiry_answersCreateInput;
 }

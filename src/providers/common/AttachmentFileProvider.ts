@@ -1,8 +1,7 @@
+import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IAttachmentFile } from "@samchon/shopping-api/lib/structures/common/IAttachmentFile";
-
-import { Prisma } from "@prisma/client";
 
 export namespace AttachmentFileProvider {
   export namespace json {
@@ -16,7 +15,7 @@ export namespace AttachmentFileProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.attachment_filesFindManyArgs);
+      ({}) satisfies Prisma.attachment_filesFindManyArgs;
   }
 
   export function collect(

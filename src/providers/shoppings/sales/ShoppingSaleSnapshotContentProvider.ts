@@ -37,7 +37,7 @@ export namespace ShoppingSaleSnapshotContentProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_contentsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_contentsFindManyArgs;
   }
 
   export namespace summary {
@@ -61,7 +61,7 @@ export namespace ShoppingSaleSnapshotContentProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_contentsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_contentsFindManyArgs;
   }
 
   export const collect = (input: IShoppingSaleContent.ICreate) =>
@@ -88,5 +88,5 @@ export namespace ShoppingSaleSnapshotContentProvider {
           sequence: i,
         })),
       },
-    } satisfies Prisma.shopping_sale_snapshot_contentsCreateWithoutSnapshotInput);
+    }) satisfies Prisma.shopping_sale_snapshot_contentsCreateWithoutSnapshotInput;
 }

@@ -44,7 +44,7 @@ export namespace ShoppingSaleSnapshotUnitProvider {
         include: {
           mv_price_range: true,
         },
-      } satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs;
   }
 
   export namespace json {
@@ -70,7 +70,7 @@ export namespace ShoppingSaleSnapshotUnitProvider {
           options: ShoppingSaleSnapshotUnitOptionProvider.json.select(),
           stocks: ShoppingSaleSnapshotUnitStockProvider.json.select(),
         },
-      } satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs;
   }
 
   export namespace invert {
@@ -85,7 +85,7 @@ export namespace ShoppingSaleSnapshotUnitProvider {
       required: input.required,
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs);
+      ({}) satisfies Prisma.shopping_sale_snapshot_unitsFindManyArgs;
   }
 
   /* -----------------------------------------------------------

@@ -37,7 +37,7 @@ export namespace ShoppingDepositHistoryProvider {
           citizen: ShoppingCitizenProvider.json.select(),
           deposit: ShoppingDepositProvider.json.select(),
         },
-      } satisfies Prisma.shopping_deposit_historiesFindManyArgs);
+      }) satisfies Prisma.shopping_deposit_historiesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -122,10 +122,10 @@ export namespace ShoppingDepositHistoryProvider {
     (key === "history.created_at"
       ? { created_at: value }
       : key === "history.value"
-      ? { value: value }
-      : {
-          deposit: ShoppingDepositProvider.orderBy(key, value),
-        }) satisfies Prisma.shopping_deposit_historiesOrderByWithRelationInput;
+        ? { value: value }
+        : {
+            deposit: ShoppingDepositProvider.orderBy(key, value),
+          }) satisfies Prisma.shopping_deposit_historiesOrderByWithRelationInput;
 
   export const at =
     (citizen: IShoppingCitizen) =>
@@ -172,9 +172,8 @@ export namespace ShoppingDepositHistoryProvider {
       source: IEntity;
       value: number;
     }): Promise<T> => {
-      const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
-        depositCode,
-      );
+      const deposit: IShoppingDeposit =
+        await ShoppingDepositProvider.get(depositCode);
       const previous =
         await ShoppingGlobal.prisma.shopping_deposit_histories.findFirst({
           where: {
@@ -253,9 +252,8 @@ export namespace ShoppingDepositHistoryProvider {
     (citizen: IEntity) =>
     (depositCode: string) =>
     async (source: IEntity): Promise<void> => {
-      const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
-        depositCode,
-      );
+      const deposit: IShoppingDeposit =
+        await ShoppingDepositProvider.get(depositCode);
       const history =
         await ShoppingGlobal.prisma.shopping_deposit_histories.findFirstOrThrow(
           {

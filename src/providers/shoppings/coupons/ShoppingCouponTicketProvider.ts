@@ -36,7 +36,7 @@ export namespace ShoppingCouponTicketProvider {
           customer: ShoppingCustomerProvider.json.select(),
           coupon: ShoppingCouponProvider.json.select(actor),
         },
-      } satisfies Prisma.shopping_coupon_ticketsFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_ticketsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -164,13 +164,13 @@ export namespace ShoppingCouponTicketProvider {
                     ),
                   )
                 : coupon.restriction.expired_at !== null
-                ? new Date(coupon.restriction.expired_at)
-                : coupon.restriction.expired_in !== null
-                ? new Date(
-                    Date.now() +
-                      coupon.restriction.expired_in * 24 * 60 * 60 * 1000,
-                  )
-                : null,
+                  ? new Date(coupon.restriction.expired_at)
+                  : coupon.restriction.expired_in !== null
+                    ? new Date(
+                        Date.now() +
+                          coupon.restriction.expired_in * 24 * 60 * 60 * 1000,
+                      )
+                    : null,
           },
           ...json.select(customer),
         },

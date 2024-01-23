@@ -25,7 +25,7 @@ export namespace ShoppingChannelProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_channelsFindManyArgs);
+      ({}) satisfies Prisma.shopping_channelsFindManyArgs;
   }
 
   export const hierarchical = async (
@@ -36,9 +36,8 @@ export namespace ShoppingChannelProvider {
       ...page,
       data: await ArrayUtil.asyncMap(page.data)(async (channel) => ({
         ...channel,
-        categories: await ShoppingChannelCategoryProvider.hierarchical.entire(
-          channel,
-        ),
+        categories:
+          await ShoppingChannelCategoryProvider.hierarchical.entire(channel),
       })),
     };
   };
@@ -94,10 +93,10 @@ export namespace ShoppingChannelProvider {
     (key === "channel.code"
       ? { code: value }
       : key === "channel.name"
-      ? { name: value }
-      : {
-          created_at: value,
-        }) satisfies Prisma.shopping_channelsOrderByWithRelationInput;
+        ? { name: value }
+        : {
+            created_at: value,
+          }) satisfies Prisma.shopping_channelsOrderByWithRelationInput;
 
   export const at = async (
     id: string,
@@ -108,9 +107,8 @@ export namespace ShoppingChannelProvider {
       });
     return {
       ...json.transform(record),
-      categories: await ShoppingChannelCategoryProvider.hierarchical.entire(
-        record,
-      ),
+      categories:
+        await ShoppingChannelCategoryProvider.hierarchical.entire(record),
     };
   };
 
@@ -123,9 +121,8 @@ export namespace ShoppingChannelProvider {
       });
     return {
       ...json.transform(record),
-      categories: await ShoppingChannelCategoryProvider.hierarchical.entire(
-        record,
-      ),
+      categories:
+        await ShoppingChannelCategoryProvider.hierarchical.entire(record),
     };
   };
 
@@ -170,5 +167,5 @@ export namespace ShoppingChannelProvider {
       created_at: new Date(),
       updated_at: new Date(),
       deleted_at: null,
-    } satisfies Prisma.shopping_channelsCreateInput);
+    }) satisfies Prisma.shopping_channelsCreateInput;
 }

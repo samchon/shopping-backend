@@ -49,7 +49,7 @@ export namespace ShoppingMemberProvider {
           of_admin: ShoppingAdministratorProvider.json.select(),
           emails: ShoppingMemberEmailProvider.json.select(),
         },
-      } satisfies Prisma.shopping_membersFindManyArgs);
+      }) satisfies Prisma.shopping_membersFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -258,5 +258,5 @@ export namespace ShoppingMemberProvider {
         created_at: new Date(),
         updated_at: new Date(),
         withdrawn_at: null,
-      } satisfies Prisma.shopping_membersCreateInput);
+      }) satisfies Prisma.shopping_membersCreateInput;
 }

@@ -31,7 +31,7 @@ export namespace ShoppingDepositChargePublishProvider {
       cancelled_at: input.cancelled_at?.toISOString() ?? null,
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_deposit_charge_publishesFindManyArgs);
+      ({}) satisfies Prisma.shopping_deposit_charge_publishesFindManyArgs;
   }
 
   /* -----------------------------------------------------------

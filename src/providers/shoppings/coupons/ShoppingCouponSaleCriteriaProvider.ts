@@ -30,7 +30,7 @@ export namespace ShoppingCouponSaleCriteriaProvider {
         include: {
           sale: ShoppingSaleProvider.summary.select(),
         },
-      } satisfies Prisma.shopping_coupon_sale_criteriasFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_sale_criteriasFindManyArgs;
   }
 
   /* -----------------------------------------------------------

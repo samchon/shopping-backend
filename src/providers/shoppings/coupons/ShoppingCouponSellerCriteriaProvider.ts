@@ -26,7 +26,7 @@ export namespace ShoppingCouponSellerCriteriaProvider {
         include: {
           seller: ShoppingSellerProvider.json.select(),
         },
-      } satisfies Prisma.shopping_coupon_seller_criteriasFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_seller_criteriasFindManyArgs;
   }
 
   /* -----------------------------------------------------------

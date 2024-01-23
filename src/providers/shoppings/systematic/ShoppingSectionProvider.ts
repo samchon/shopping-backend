@@ -23,7 +23,7 @@ export namespace ShoppingSectionProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_sectionsFindManyArgs);
+      ({}) satisfies Prisma.shopping_sectionsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -69,10 +69,10 @@ export namespace ShoppingSectionProvider {
     (key === "section.code"
       ? { code: value }
       : key === "section.name"
-      ? { name: value }
-      : {
-          created_at: value,
-        }) satisfies Prisma.shopping_sectionsOrderByWithRelationInput;
+        ? { name: value }
+        : {
+            created_at: value,
+          }) satisfies Prisma.shopping_sectionsOrderByWithRelationInput;
 
   export const at = async (id: string): Promise<IShoppingSection> => {
     const record =
@@ -130,5 +130,5 @@ export namespace ShoppingSectionProvider {
       created_at: new Date(),
       updated_at: new Date(),
       deleted_at: null,
-    } satisfies Prisma.shopping_sectionsCreateInput);
+    }) satisfies Prisma.shopping_sectionsCreateInput;
 }

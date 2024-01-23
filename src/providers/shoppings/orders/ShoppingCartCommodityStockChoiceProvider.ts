@@ -55,10 +55,10 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
           option.type === "select"
             ? null
             : option.type === "boolean"
-            ? input.value === "boolean"
-            : option.type === "number"
-            ? Number(input.value)
-            : input.value,
+              ? input.value === "boolean"
+              : option.type === "number"
+                ? Number(input.value)
+                : input.value,
       };
     };
     export const select = () =>
@@ -67,7 +67,7 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
           option: true,
           candidate: true,
         },
-      } satisfies Prisma.shopping_cart_commodity_stock_choicesFindManyArgs);
+      }) satisfies Prisma.shopping_cart_commodity_stock_choicesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -88,5 +88,5 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
           : undefined,
       value: input.value !== null ? String(input.value) : null,
       sequence,
-    } satisfies Prisma.shopping_cart_commodity_stock_choicesCreateWithoutStockInput);
+    }) satisfies Prisma.shopping_cart_commodity_stock_choicesCreateWithoutStockInput;
 }

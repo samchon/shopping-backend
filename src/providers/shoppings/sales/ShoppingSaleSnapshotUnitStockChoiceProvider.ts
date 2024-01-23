@@ -17,7 +17,7 @@ export namespace ShoppingSaleSnapshotUnitStockChoiceProvider {
       candidate_id: input.shopping_sale_snapshot_unit_option_candidate_id,
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_sale_snapshot_unit_stock_choicesFindManyArgs);
+      ({}) satisfies Prisma.shopping_sale_snapshot_unit_stock_choicesFindManyArgs;
   }
 
   export const collect =

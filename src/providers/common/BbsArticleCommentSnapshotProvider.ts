@@ -31,7 +31,7 @@ export namespace BbsArticleCommentSnapshotProvider {
             },
           },
         },
-      } satisfies Prisma.bbs_article_comment_snapshotsFindManyArgs);
+      }) satisfies Prisma.bbs_article_comment_snapshotsFindManyArgs;
   }
 
   export const create =

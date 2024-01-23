@@ -38,7 +38,7 @@ export namespace ShoppingSaleSnapshotUnitStockProvider {
           choices: ShoppingSaleSnapshotUnitStockChoiceProvider.json.select(),
           mv_inventory: true,
         },
-      } satisfies Prisma.shopping_sale_snapshot_unit_stocksFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_unit_stocksFindManyArgs;
   }
 
   export const collect =
@@ -66,5 +66,5 @@ export namespace ShoppingSaleSnapshotUnitStockProvider {
             outcome: 0,
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_unit_stocksCreateWithoutUnitInput);
+      }) satisfies Prisma.shopping_sale_snapshot_unit_stocksCreateWithoutUnitInput;
 }

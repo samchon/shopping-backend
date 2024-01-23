@@ -51,7 +51,7 @@ export namespace ShoppingOrderGoodProvider {
           actor?.type === "seller"
             ? { shopping_seller_id: actor.id }
             : undefined,
-      } satisfies Prisma.shopping_order_goodsFindManyArgs);
+      }) satisfies Prisma.shopping_order_goodsFindManyArgs;
   }
 
   export const collect =
@@ -78,7 +78,7 @@ export namespace ShoppingOrderGoodProvider {
           },
         },
         sequence,
-      } satisfies Prisma.shopping_order_goodsCreateWithoutOrderInput);
+      }) satisfies Prisma.shopping_order_goodsCreateWithoutOrderInput;
 
   export const confirm =
     (customer: IShoppingCustomer) =>

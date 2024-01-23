@@ -52,7 +52,7 @@ export namespace ShoppingCustomerProvider {
           external_user: ShoppingExternalUserProvider.json.select(),
           member: ShoppingMemberProvider.json.select(),
         },
-      } satisfies Prisma.shopping_customersFindManyArgs);
+      }) satisfies Prisma.shopping_customersFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -65,9 +65,8 @@ export namespace ShoppingCustomerProvider {
         authorization?: string;
       };
     }): Promise<IShoppingCustomer> => {
-      const asset: JwtTokenManager.IAsset = await JwtTokenService.authorize(
-        "shopping_customers",
-      )(request);
+      const asset: JwtTokenManager.IAsset =
+        await JwtTokenService.authorize("shopping_customers")(request);
       const record = await ShoppingGlobal.prisma.shopping_customers.findFirst({
         ...json.select(),
         where: { id: asset.id },
@@ -98,9 +97,8 @@ export namespace ShoppingCustomerProvider {
     else if (input.startsWith("Bearer "))
       input = input.substring("Bearer ".length);
 
-    const decoded: JwtTokenManager.IAsset = await JwtTokenManager.verify(
-      "refresh",
-    )(input);
+    const decoded: JwtTokenManager.IAsset =
+      await JwtTokenManager.verify("refresh")(input);
     if (decoded.table !== "shopping_customers")
       throw ErrorProvider.unauthorized({
         accessor: "headers.Authorization",
@@ -163,7 +161,7 @@ export namespace ShoppingCustomerProvider {
           ? [{ shopping_citizen_id: customer.citizen.id }]
           : []),
       ],
-    } satisfies Prisma.shopping_customersWhereInput);
+    }) satisfies Prisma.shopping_customersWhereInput;
 
   /* -----------------------------------------------------------
     WRITERS
@@ -265,7 +263,7 @@ export namespace ShoppingCustomerProvider {
         referrer: input.referrer,
         ip: input.ip ?? props.request.ip,
         created_at: new Date(),
-      } satisfies Prisma.shopping_customersCreateInput);
+      }) satisfies Prisma.shopping_customersCreateInput;
 
   /* -----------------------------------------------------------
     PREDICATORS

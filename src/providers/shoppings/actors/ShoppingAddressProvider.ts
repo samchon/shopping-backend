@@ -22,7 +22,7 @@ export namespace ShoppingAddressProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_addressesFindManyArgs);
+      ({}) satisfies Prisma.shopping_addressesFindManyArgs;
   }
 
   export const collect = (input: IShoppingAddress.ICreate) =>
@@ -38,7 +38,7 @@ export namespace ShoppingAddressProvider {
       zip_code: input.zip_code,
       special_note: input.special_note,
       created_at: new Date(),
-    } satisfies Prisma.shopping_addressesCreateInput);
+    }) satisfies Prisma.shopping_addressesCreateInput;
 
   const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
   const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);

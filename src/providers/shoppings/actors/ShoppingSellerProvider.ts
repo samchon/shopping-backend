@@ -29,7 +29,7 @@ export namespace ShoppingSellerProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_sellersFindManyArgs);
+      ({}) satisfies Prisma.shopping_sellersFindManyArgs;
   }
   export namespace invert {
     export const transform =
@@ -93,7 +93,7 @@ export namespace ShoppingSellerProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_customersFindManyArgs);
+      }) satisfies Prisma.shopping_customersFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -104,9 +104,8 @@ export namespace ShoppingSellerProvider {
       authorization?: string;
     };
   }): Promise<IShoppingSeller.IInvert> => {
-    const asset: JwtTokenManager.IAsset = await JwtTokenService.authorize(
-      "shopping_customers",
-    )(request);
+    const asset: JwtTokenManager.IAsset =
+      await JwtTokenService.authorize("shopping_customers")(request);
     const customer = await ShoppingGlobal.prisma.shopping_customers.findFirst({
       where: { id: asset.id },
       ...invert.select(),

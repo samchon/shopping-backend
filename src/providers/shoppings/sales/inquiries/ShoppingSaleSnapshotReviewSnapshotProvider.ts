@@ -26,7 +26,7 @@ export namespace ShoppingSaleReviewSnapshotProvider {
           ...BbsArticleSnapshotProvider.json.select().include,
           of_review: true,
         },
-      } satisfies Prisma.bbs_article_snapshotsFindManyArgs);
+      }) satisfies Prisma.bbs_article_snapshotsFindManyArgs;
   }
 
   export const create =
@@ -52,5 +52,5 @@ export namespace ShoppingSaleReviewSnapshotProvider {
           score: input.score,
         },
       },
-    } satisfies Prisma.bbs_article_snapshotsCreateWithoutArticleInput);
+    }) satisfies Prisma.bbs_article_snapshotsCreateWithoutArticleInput;
 }
