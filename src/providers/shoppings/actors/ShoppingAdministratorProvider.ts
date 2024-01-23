@@ -31,7 +31,7 @@ export namespace ShoppingAdministratorProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_administratorsFindManyArgs);
+      ({}) satisfies Prisma.shopping_administratorsFindManyArgs;
   }
 
   export namespace invert {
@@ -96,7 +96,7 @@ export namespace ShoppingAdministratorProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_customersFindManyArgs);
+      }) satisfies Prisma.shopping_customersFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -107,9 +107,8 @@ export namespace ShoppingAdministratorProvider {
       authorization?: string;
     };
   }): Promise<IShoppingAdministrator.IInvert> => {
-    const asset: JwtTokenManager.IAsset = await JwtTokenService.authorize(
-      "shopping_customers",
-    )(request);
+    const asset: JwtTokenManager.IAsset =
+      await JwtTokenService.authorize("shopping_customers")(request);
     const customer = await ShoppingGlobal.prisma.shopping_customers.findFirst({
       where: { id: asset.id },
       ...invert.select(),

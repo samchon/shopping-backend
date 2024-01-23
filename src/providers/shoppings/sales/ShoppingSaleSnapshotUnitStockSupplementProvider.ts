@@ -21,7 +21,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_sale_snapshot_unit_stock_supplementsFindManyArgs);
+      ({}) satisfies Prisma.shopping_sale_snapshot_unit_stock_supplementsFindManyArgs;
   }
 
   export const index =

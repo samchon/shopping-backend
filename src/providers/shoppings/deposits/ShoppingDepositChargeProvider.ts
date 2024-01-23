@@ -35,7 +35,7 @@ export namespace ShoppingDepositChargeProvider {
           customer: ShoppingCustomerProvider.json.select(),
           // publish: ShoppingDepositChargePublishProvider.json.select(),
         },
-      } satisfies Prisma.shopping_deposit_chargesFindManyArgs);
+      }) satisfies Prisma.shopping_deposit_chargesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -121,14 +121,14 @@ export namespace ShoppingDepositChargeProvider {
     (key === "created_at"
       ? { created_at: value }
       : key === "value"
-      ? { value: value }
-      : key === "publish.created_at"
-      ? { publish: { created_at: value } }
-      : key === "publish.paid_at"
-      ? { publish: { paid_at: value } }
-      : {
-          publish: { cancelled_at: value },
-        }) satisfies Prisma.shopping_deposit_chargesOrderByWithRelationInput;
+        ? { value: value }
+        : key === "publish.created_at"
+          ? { publish: { created_at: value } }
+          : key === "publish.paid_at"
+            ? { publish: { paid_at: value } }
+            : {
+                publish: { cancelled_at: value },
+              }) satisfies Prisma.shopping_deposit_chargesOrderByWithRelationInput;
 
   export const at =
     (customer: IShoppingCustomer) =>
@@ -220,5 +220,5 @@ export namespace ShoppingDepositChargeProvider {
         value: input.value,
         created_at: new Date(),
         deleted_at: null,
-      } satisfies Prisma.shopping_deposit_chargesCreateInput);
+      }) satisfies Prisma.shopping_deposit_chargesCreateInput;
 }

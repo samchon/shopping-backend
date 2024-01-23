@@ -34,7 +34,7 @@ export namespace ShoppingSaleSnapshotChannelProvider {
           channel: ShoppingChannelProvider.json.select(),
           to_categories: true,
         },
-      } satisfies Prisma.shopping_sale_snapshot_channelsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_channelsFindManyArgs;
   }
 
   export const collect =

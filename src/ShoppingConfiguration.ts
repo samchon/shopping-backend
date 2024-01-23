@@ -19,8 +19,8 @@ export namespace ShoppingConfiguration {
     return splitted.at(-1) === "src" && splitted.at(-2) === "bin"
       ? path.resolve(__dirname + "/../..")
       : fs.existsSync(__dirname + "/.env")
-      ? __dirname
-      : path.resolve(__dirname + "/..");
+        ? __dirname
+        : path.resolve(__dirname + "/..");
   })();
 
   export const API_PORT = () => Number(ShoppingGlobal.env.SHOPPING_API_PORT);

@@ -78,7 +78,7 @@ export namespace ShoppingCartCommodityProvider {
           stocks: ShoppingCartCommodityStockProvider.json.select(),
           mv_price: true,
         },
-      } satisfies Prisma.shopping_cart_commoditiesFindManyArgs);
+      }) satisfies Prisma.shopping_cart_commoditiesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -279,12 +279,12 @@ export namespace ShoppingCartCommodityProvider {
     key === "commodity.created_at"
       ? { created_at: value }
       : key === "commodity.price"
-      ? { mv_price: { real: value } }
-      : key === "commodity.volume"
-      ? { volume: value }
-      : key === "commodity.volumed_price"
-      ? { mv_price: { volumed_price: value } }
-      : { snapshot: ShoppingSaleSnapshotProvider.orderBy(key, value) };
+        ? { mv_price: { real: value } }
+        : key === "commodity.volume"
+          ? { volume: value }
+          : key === "commodity.volumed_price"
+            ? { mv_price: { volumed_price: value } }
+            : { snapshot: ShoppingSaleSnapshotProvider.orderBy(key, value) };
 
   /* -----------------------------------------------------------
     WRITERS

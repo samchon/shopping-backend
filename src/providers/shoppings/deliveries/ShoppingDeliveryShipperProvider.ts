@@ -22,7 +22,7 @@ export namespace ShoppingDeliveryShipperProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_delivery_shippersFindManyArgs);
+      ({}) satisfies Prisma.shopping_delivery_shippersFindManyArgs;
   }
 
   export const create =
@@ -61,7 +61,7 @@ export namespace ShoppingDeliveryShipperProvider {
       name: encrypt(input.name),
       mobile: encrypt(input.mobile),
       created_at: new Date(),
-    } satisfies Prisma.shopping_delivery_shippersCreateWithoutDeliveryInput);
+    }) satisfies Prisma.shopping_delivery_shippersCreateWithoutDeliveryInput;
 
   const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
   const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);

@@ -24,9 +24,8 @@ export namespace JwtTokenService {
         const token: string = req.headers.authorization.substring(
           BEARER_PREFIX.length,
         );
-        const asset: JwtTokenManager.IAsset = await JwtTokenManager.verify(
-          "access",
-        )(token);
+        const asset: JwtTokenManager.IAsset =
+          await JwtTokenManager.verify("access")(token);
         if (!asset)
           throw ErrorProvider.unauthorized({
             accessor: "headers.authorization",

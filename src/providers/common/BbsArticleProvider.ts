@@ -23,7 +23,7 @@ export namespace BbsArticleProvider {
         include: {
           snapshots: BbsArticleSnapshotProvider.json.select(),
         },
-      } satisfies Prisma.bbs_articlesFindManyArgs);
+      }) satisfies Prisma.bbs_articlesFindManyArgs;
   }
 
   export namespace abridge {
@@ -169,10 +169,10 @@ export namespace BbsArticleProvider {
     (key === "title"
       ? { mv_last: { snapshot: { title: value } } }
       : key === "created_at"
-      ? { created_at: value }
-      : {
-          mv_last: { snapshot: { created_at: value } },
-        }) satisfies Prisma.bbs_articlesOrderByWithRelationInput;
+        ? { created_at: value }
+        : {
+            mv_last: { snapshot: { created_at: value } },
+          }) satisfies Prisma.bbs_articlesOrderByWithRelationInput;
 
   export const collect =
     <Input extends IBbsArticle.ICreate>(

@@ -149,7 +149,7 @@ export namespace ShoppingChannelCategoryProvider {
         created_at: new Date(),
         updated_at: new Date(),
         deleted_at: null,
-      } satisfies Prisma.shopping_channel_categoriesCreateInput);
+      }) satisfies Prisma.shopping_channel_categoriesCreateInput;
 }
 
 const cache = new VariadicSingleton((channel_id: string) => {

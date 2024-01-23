@@ -57,38 +57,40 @@ export namespace ShoppingCouponCriterialProvider {
                     ),
                 }
               : type === "section"
-              ? <IShoppingCouponSectionCriteria>{
-                  type,
-                  direction,
-                  sections:
-                    ShoppingCouponSectionCriteriaProvider.json.transform(
-                      inputList.map((i) => i.of_section!),
-                    ),
-                }
-              : type === "sale"
-              ? <IShoppingCouponSaleCriteria>{
-                  type,
-                  direction,
-                  sales:
-                    await ShoppingCouponSaleCriteriaProvider.json.transform(
-                      inputList.map((i) => i.of_sale!),
-                    ),
-                }
-              : type === "seller"
-              ? <IShoppingCouponSellerCriteria>{
-                  type,
-                  direction,
-                  sellers: ShoppingCouponSellerCriteriaProvider.json.transform(
-                    inputList.map((i) => i.of_seller!),
-                  ),
-                }
-              : <IShoppingCouponFunnelCriteria>{
-                  type,
-                  direction,
-                  funnels: ShoppingCouponFunnelCriteriaProvider.json.transform(
-                    inputList.map((i) => i.of_funnel!),
-                  ),
-                },
+                ? <IShoppingCouponSectionCriteria>{
+                    type,
+                    direction,
+                    sections:
+                      ShoppingCouponSectionCriteriaProvider.json.transform(
+                        inputList.map((i) => i.of_section!),
+                      ),
+                  }
+                : type === "sale"
+                  ? <IShoppingCouponSaleCriteria>{
+                      type,
+                      direction,
+                      sales:
+                        await ShoppingCouponSaleCriteriaProvider.json.transform(
+                          inputList.map((i) => i.of_sale!),
+                        ),
+                    }
+                  : type === "seller"
+                    ? <IShoppingCouponSellerCriteria>{
+                        type,
+                        direction,
+                        sellers:
+                          ShoppingCouponSellerCriteriaProvider.json.transform(
+                            inputList.map((i) => i.of_seller!),
+                          ),
+                      }
+                    : <IShoppingCouponFunnelCriteria>{
+                        type,
+                        direction,
+                        funnels:
+                          ShoppingCouponFunnelCriteriaProvider.json.transform(
+                            inputList.map((i) => i.of_funnel!),
+                          ),
+                      },
         );
       };
       const output = [
@@ -106,7 +108,7 @@ export namespace ShoppingCouponCriterialProvider {
           of_seller: ShoppingCouponSellerCriteriaProvider.json.select(),
           of_funnel: ShoppingCouponFunnelCriteriaProvider.json.select(),
         },
-      } satisfies Prisma.shopping_coupon_criteriasFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_criteriasFindManyArgs;
   }
 
   /* -----------------------------------------------------------

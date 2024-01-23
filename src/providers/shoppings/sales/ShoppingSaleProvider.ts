@@ -52,7 +52,7 @@ export namespace ShoppingSaleProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_salesFindManyArgs);
+      }) satisfies Prisma.shopping_salesFindManyArgs;
   }
 
   export namespace json {
@@ -89,7 +89,7 @@ export namespace ShoppingSaleProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_salesFindManyArgs);
+      }) satisfies Prisma.shopping_salesFindManyArgs;
   }
 
   export namespace history {
@@ -112,7 +112,7 @@ export namespace ShoppingSaleProvider {
           section: ShoppingSectionProvider.json.select(),
           sellerCustomer: ShoppingSellerProvider.invert.select(),
         },
-      } satisfies Prisma.shopping_salesFindManyArgs);
+      }) satisfies Prisma.shopping_salesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -176,19 +176,19 @@ export namespace ShoppingSaleProvider {
           },
         ]
       : actor.type === "customer" && strict === true
-      ? [
-          {
-            opened_at: { lte: new Date() },
-            suspended_at: null,
-            OR: [
-              { closed_at: null },
-              {
-                closed_at: { gt: new Date() },
-              },
-            ],
-          },
-        ]
-      : []) satisfies Prisma.shopping_salesWhereInput["AND"];
+        ? [
+            {
+              opened_at: { lte: new Date() },
+              suspended_at: null,
+              OR: [
+                { closed_at: null },
+                {
+                  closed_at: { gt: new Date() },
+                },
+              ],
+            },
+          ]
+        : []) satisfies Prisma.shopping_salesWhereInput["AND"];
 
   const search =
     (actor: IShoppingActorEntity) =>
@@ -210,8 +210,8 @@ export namespace ShoppingSaleProvider {
             ? [{ suspended_at: null }]
             : []
           : actor.type === "customer"
-          ? [{ suspended_at: null }]
-          : []),
+            ? [{ suspended_at: null }]
+            : []),
         // TO THE SNAPSHOT
         ...(
           await ShoppingSaleSnapshotProvider.search("input.search")(input)
@@ -228,58 +228,61 @@ export namespace ShoppingSaleProvider {
     (key === "sale.created_at"
       ? { created_at: direction }
       : key === "sale.updated_at"
-      ? {
-          mv_last: {
-            snapshot: {
-              created_at: direction,
-            },
-          },
-        }
-      : key === "sale.opened_at"
-      ? { opened_at: direction }
-      : key === "sale.closed_at"
-      ? { closed_at: direction }
-      : key === "sale.content.title"
-      ? {
-          mv_last: {
-            snapshot: {
-              content: { title: direction },
-            },
-          },
-        }
-      : key === "sale.price_range.lowest.real"
-      ? {
-          mv_last: {
-            snapshot: {
-              mv_price_range: {
-                real_lowest: direction,
+        ? {
+            mv_last: {
+              snapshot: {
+                created_at: direction,
               },
             },
-          },
-        }
-      : key === "sale.price_range.highest.real"
-      ? {
-          mv_last: {
-            snapshot: {
-              mv_price_range: {
-                real_highest: direction,
-              },
-            },
-          },
-        }
-      : key === "goods.publish_count" ||
-        key === "goods.payments.real" ||
-        key === "reviews.average" ||
-        key === "reviews.count" ||
-        key === "seller.reviews.average"
-      ? { created_at: direction } // @todo
-      : {
-          sellerCustomer: {
-            member: {
-              of_seller: ShoppingSellerProvider.orderBy(key, direction),
-            },
-          },
-        }) satisfies Prisma.shopping_salesOrderByWithRelationInput;
+          }
+        : key === "sale.opened_at"
+          ? { opened_at: direction }
+          : key === "sale.closed_at"
+            ? { closed_at: direction }
+            : key === "sale.content.title"
+              ? {
+                  mv_last: {
+                    snapshot: {
+                      content: { title: direction },
+                    },
+                  },
+                }
+              : key === "sale.price_range.lowest.real"
+                ? {
+                    mv_last: {
+                      snapshot: {
+                        mv_price_range: {
+                          real_lowest: direction,
+                        },
+                      },
+                    },
+                  }
+                : key === "sale.price_range.highest.real"
+                  ? {
+                      mv_last: {
+                        snapshot: {
+                          mv_price_range: {
+                            real_highest: direction,
+                          },
+                        },
+                      },
+                    }
+                  : key === "goods.publish_count" ||
+                      key === "goods.payments.real" ||
+                      key === "reviews.average" ||
+                      key === "reviews.count" ||
+                      key === "seller.reviews.average"
+                    ? { created_at: direction } // @todo
+                    : {
+                        sellerCustomer: {
+                          member: {
+                            of_seller: ShoppingSellerProvider.orderBy(
+                              key,
+                              direction,
+                            ),
+                          },
+                        },
+                      }) satisfies Prisma.shopping_salesOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS

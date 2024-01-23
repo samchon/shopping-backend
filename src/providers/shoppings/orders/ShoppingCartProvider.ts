@@ -16,20 +16,20 @@ export namespace ShoppingCartProvider {
           actor.type === "customer"
             ? ShoppingCustomerProvider.where(actor)
             : actor.type === "seller"
-            ? {
-                member: {
-                  of_seller: {
-                    id: actor.id,
+              ? {
+                  member: {
+                    of_seller: {
+                      id: actor.id,
+                    },
+                  },
+                }
+              : {
+                  member: {
+                    of_admin: {
+                      id: actor.id,
+                    },
                   },
                 },
-              }
-            : {
-                member: {
-                  of_admin: {
-                    id: actor.id,
-                  },
-                },
-              },
         actor_type: actor.type,
         deleted_at: null,
       },

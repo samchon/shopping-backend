@@ -27,7 +27,7 @@ export namespace ShoppingCouponFunnelCriteriaProvider {
             },
       );
     export const select = () =>
-      ({} satisfies Prisma.shopping_coupon_funnel_criteriasFindManyArgs);
+      ({}) satisfies Prisma.shopping_coupon_funnel_criteriasFindManyArgs;
   }
 
   /* -----------------------------------------------------------

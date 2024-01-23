@@ -66,7 +66,7 @@ export namespace ShoppingSaleReviewProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_reviewsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_reviewsFindManyArgs;
   }
 
   export namespace abridge {
@@ -111,7 +111,7 @@ export namespace ShoppingSaleReviewProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_reviewsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_reviewsFindManyArgs;
   }
 
   export namespace json {
@@ -160,7 +160,7 @@ export namespace ShoppingSaleReviewProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_reviewsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_reviewsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -461,5 +461,5 @@ export namespace ShoppingSaleReviewProvider {
         good: {
           connect: { id: related.good.id },
         },
-      } satisfies Prisma.shopping_sale_snapshot_reviewsCreateInput);
+      }) satisfies Prisma.shopping_sale_snapshot_reviewsCreateInput;
 }

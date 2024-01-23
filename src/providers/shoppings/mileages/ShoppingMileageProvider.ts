@@ -26,7 +26,7 @@ export namespace ShoppingMileageProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_mileagesFindManyArgs);
+      ({}) satisfies Prisma.shopping_mileagesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -88,10 +88,10 @@ export namespace ShoppingMileageProvider {
     (key === "mileage.code"
       ? { code: value }
       : key === "mileage.source"
-      ? { source: value }
-      : {
-          direction: value,
-        }) satisfies Prisma.shopping_mileagesOrderByWithRelationInput;
+        ? { source: value }
+        : {
+            direction: value,
+          }) satisfies Prisma.shopping_mileagesOrderByWithRelationInput;
 
   export const at = async (id: string): Promise<IShoppingMileage> => {
     const record =

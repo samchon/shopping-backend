@@ -14,7 +14,7 @@ export namespace ShoppingSaleSnapshotUnitOptionCandidateProvider {
       name: input.name,
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_sale_snapshot_unit_option_candidatesFindManyArgs);
+      ({}) satisfies Prisma.shopping_sale_snapshot_unit_option_candidatesFindManyArgs;
   }
 
   export const collect = (
@@ -25,5 +25,5 @@ export namespace ShoppingSaleSnapshotUnitOptionCandidateProvider {
       id: v4(),
       name: input.name,
       sequence,
-    } satisfies Prisma.shopping_sale_snapshot_unit_option_candidatesCreateWithoutOptionInput);
+    }) satisfies Prisma.shopping_sale_snapshot_unit_option_candidatesCreateWithoutOptionInput;
 }

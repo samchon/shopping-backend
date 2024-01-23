@@ -35,7 +35,7 @@ export namespace ShoppingSaleSnapshotUnitOptionProvider {
           candidates:
             ShoppingSaleSnapshotUnitOptionCandidateProvider.json.select(),
         },
-      } satisfies Prisma.shopping_sale_snapshot_unit_optionsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_unit_optionsFindManyArgs;
   }
 
   export const collect = (
@@ -56,5 +56,5 @@ export namespace ShoppingSaleSnapshotUnitOptionProvider {
             : [],
       },
       sequence,
-    } satisfies Prisma.shopping_sale_snapshot_unit_optionsCreateWithoutUnitInput);
+    }) satisfies Prisma.shopping_sale_snapshot_unit_optionsCreateWithoutUnitInput;
 }

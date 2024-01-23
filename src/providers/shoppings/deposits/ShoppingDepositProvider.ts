@@ -25,7 +25,7 @@ export namespace ShoppingDepositProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_depositsFindManyArgs);
+      ({}) satisfies Prisma.shopping_depositsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -87,10 +87,10 @@ export namespace ShoppingDepositProvider {
     (key === "deposit.code"
       ? { code: value }
       : key === "deposit.source"
-      ? { source: value }
-      : {
-          direction: value,
-        }) satisfies Prisma.shopping_depositsOrderByWithRelationInput;
+        ? { source: value }
+        : {
+            direction: value,
+          }) satisfies Prisma.shopping_depositsOrderByWithRelationInput;
 
   export const at = async (id: string): Promise<IShoppingDeposit> => {
     const record =

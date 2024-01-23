@@ -23,7 +23,7 @@ export namespace BbsArticleCommentProvider {
         include: {
           snapshots: BbsArticleCommentSnapshotProvider.json.select(),
         },
-      } satisfies Prisma.bbs_article_commentsFindManyArgs);
+      }) satisfies Prisma.bbs_article_commentsFindManyArgs;
   }
 
   export const search = (

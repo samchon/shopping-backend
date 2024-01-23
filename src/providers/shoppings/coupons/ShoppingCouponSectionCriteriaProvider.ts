@@ -28,7 +28,7 @@ export namespace ShoppingCouponSectionCriteriaProvider {
         include: {
           section: ShoppingSectionProvider.json.select(),
         },
-      } satisfies Prisma.shopping_coupon_section_criteriasFindManyArgs);
+      }) satisfies Prisma.shopping_coupon_section_criteriasFindManyArgs;
   }
 
   /* -----------------------------------------------------------

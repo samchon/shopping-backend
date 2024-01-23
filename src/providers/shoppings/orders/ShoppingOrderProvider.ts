@@ -64,7 +64,7 @@ export namespace ShoppingOrderProvider {
           publish: ShoppingOrderPublishProvider.json.select(actor),
           mv_price: true,
         },
-      } satisfies Prisma.shopping_ordersFindManyArgs);
+      }) satisfies Prisma.shopping_ordersFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -107,19 +107,19 @@ export namespace ShoppingOrderProvider {
           deleted_at: null,
         }
       : actor.type === "seller"
-      ? {
-          goods: {
-            some: {
-              shopping_seller_id: actor.id,
+        ? {
+            goods: {
+              some: {
+                shopping_seller_id: actor.id,
+              },
             },
-          },
-          publish: { isNot: null },
-          deleted_at: null,
-        }
-      : {
-          publish: { isNot: null },
-          deleted_at: null,
-        }) satisfies Prisma.shopping_ordersWhereInput;
+            publish: { isNot: null },
+            deleted_at: null,
+          }
+        : {
+            publish: { isNot: null },
+            deleted_at: null,
+          }) satisfies Prisma.shopping_ordersWhereInput;
 
   const search = async (input: IShoppingOrder.IRequest.ISearch | undefined) =>
     [
@@ -176,14 +176,14 @@ export namespace ShoppingOrderProvider {
     (key === "order.created_at"
       ? { created_at: value }
       : key === "order.publish.paid_at"
-      ? { publish: { paid_at: value } }
-      : key === "order.quantity"
-      ? {
-          mv_price: { quantity: value },
-        }
-      : {
-          mv_price: { real: value },
-        }) satisfies Prisma.shopping_ordersOrderByWithRelationInput;
+        ? { publish: { paid_at: value } }
+        : key === "order.quantity"
+          ? {
+              mv_price: { quantity: value },
+            }
+          : {
+              mv_price: { real: value },
+            }) satisfies Prisma.shopping_ordersOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS

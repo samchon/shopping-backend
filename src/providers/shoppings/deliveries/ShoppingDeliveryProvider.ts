@@ -57,7 +57,7 @@ export namespace ShoppingDeliveryProvider {
           pieces: ShoppingDeliveryPieceProvider.json.select(),
           mv_state: true,
         },
-      } satisfies Prisma.shopping_deliveriesFindManyArgs);
+      }) satisfies Prisma.shopping_deliveriesFindManyArgs;
   }
 
   export namespace jsonFromPublish {
@@ -89,7 +89,7 @@ export namespace ShoppingDeliveryProvider {
           journeys: ShoppingDeliveryJourneyProvider.json.select(),
           mv_state: true,
         },
-      } satisfies Prisma.shopping_deliveriesFindManyArgs);
+      }) satisfies Prisma.shopping_deliveriesFindManyArgs;
   }
 
   export namespace invert {
@@ -125,7 +125,7 @@ export namespace ShoppingDeliveryProvider {
           pieces: ShoppingDeliveryPieceProvider.invert.select(actor),
           mv_state: true,
         },
-      } satisfies Prisma.shopping_deliveriesFindManyArgs);
+      }) satisfies Prisma.shopping_deliveriesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -206,7 +206,7 @@ export namespace ShoppingDeliveryProvider {
   ) =>
     ({
       created_at: value,
-    } satisfies Prisma.shopping_deliveriesOrderByWithRelationInput);
+    }) satisfies Prisma.shopping_deliveriesOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS

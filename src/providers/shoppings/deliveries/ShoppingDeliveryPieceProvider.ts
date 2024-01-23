@@ -32,7 +32,7 @@ export namespace ShoppingDeliveryPieceProvider {
       quantity: input.quantity,
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_delivery_piecesFindManyArgs);
+      ({}) satisfies Prisma.shopping_delivery_piecesFindManyArgs;
   }
 
   export namespace jsonFromPublish {
@@ -68,7 +68,7 @@ export namespace ShoppingDeliveryPieceProvider {
         include: {
           delivery: ShoppingDeliveryProvider.jsonFromPublish.select(),
         },
-      } satisfies Prisma.shopping_delivery_piecesFindManyArgs);
+      }) satisfies Prisma.shopping_delivery_piecesFindManyArgs;
   }
 
   export namespace invert {
@@ -128,7 +128,7 @@ export namespace ShoppingDeliveryPieceProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_delivery_piecesFindManyArgs);
+      }) satisfies Prisma.shopping_delivery_piecesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -241,5 +241,5 @@ export namespace ShoppingDeliveryPieceProvider {
       stock: { connect: { id: input.stock_id } },
       quantity: input.quantity,
       sequence,
-    } satisfies Prisma.shopping_delivery_piecesCreateWithoutDeliveryInput);
+    }) satisfies Prisma.shopping_delivery_piecesCreateWithoutDeliveryInput;
 }

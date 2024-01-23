@@ -64,7 +64,7 @@ export namespace ShoppingSaleQuestionProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_questionsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_questionsFindManyArgs;
   }
 
   export namespace abridge {
@@ -113,7 +113,7 @@ export namespace ShoppingSaleQuestionProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_questionsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_questionsFindManyArgs;
   }
 
   export namespace json {
@@ -145,7 +145,7 @@ export namespace ShoppingSaleQuestionProvider {
             },
           },
         },
-      } satisfies Prisma.shopping_sale_snapshot_questionsFindManyArgs);
+      }) satisfies Prisma.shopping_sale_snapshot_questionsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -287,7 +287,7 @@ export namespace ShoppingSaleQuestionProvider {
   ) =>
     ({
       base: ShoppingSaleSnapshotInquiryProvider.orderBy(key, direction),
-    } satisfies Prisma.shopping_sale_snapshot_questionsOrderByWithRelationInput);
+    }) satisfies Prisma.shopping_sale_snapshot_questionsOrderByWithRelationInput;
 
   /* -----------------------------------------------------------
     WRITERS
@@ -358,5 +358,5 @@ export namespace ShoppingSaleQuestionProvider {
           },
         },
         secret: input.secret,
-      } satisfies Prisma.shopping_sale_snapshot_questionsCreateInput);
+      }) satisfies Prisma.shopping_sale_snapshot_questionsCreateInput;
 }

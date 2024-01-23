@@ -198,9 +198,8 @@ export namespace ShoppingOrderPriceProvider {
     (id: string) =>
     async (input: IShoppingOrderPrice.ICreate): Promise<IAsset> => {
       // FIND ORDER
-      const order: IShoppingOrder = await ShoppingOrderProvider.at(customer)(
-        id,
-      );
+      const order: IShoppingOrder =
+        await ShoppingOrderProvider.at(customer)(id);
       if (order.publish !== null)
         throw ErrorProvider.gone({
           accessor: "id",

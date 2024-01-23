@@ -37,7 +37,7 @@ export namespace ShoppingMileageHistoryProvider {
           citizen: ShoppingCitizenProvider.json.select(),
           mileage: ShoppingMileageProvider.json.select(),
         },
-      } satisfies Prisma.shopping_mileage_historiesFindManyArgs);
+      }) satisfies Prisma.shopping_mileage_historiesFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -122,10 +122,10 @@ export namespace ShoppingMileageHistoryProvider {
     (key === "history.created_at"
       ? { created_at: value }
       : key === "history.value"
-      ? { value: value }
-      : {
-          mileage: ShoppingMileageProvider.orderBy(key, value),
-        }) satisfies Prisma.shopping_mileage_historiesOrderByWithRelationInput;
+        ? { value: value }
+        : {
+            mileage: ShoppingMileageProvider.orderBy(key, value),
+          }) satisfies Prisma.shopping_mileage_historiesOrderByWithRelationInput;
 
   export const at =
     (citizen: IShoppingCitizen) =>
@@ -175,9 +175,8 @@ export namespace ShoppingMileageHistoryProvider {
       source: (entity: T) => IEntity;
       value: (value: number | null) => number;
     }): Promise<T> => {
-      const mileage: IShoppingMileage = await ShoppingMileageProvider.get(
-        mileageCode,
-      );
+      const mileage: IShoppingMileage =
+        await ShoppingMileageProvider.get(mileageCode);
       const previous =
         await ShoppingGlobal.prisma.shopping_mileage_histories.findFirst({
           where: {
@@ -256,9 +255,8 @@ export namespace ShoppingMileageHistoryProvider {
     (citizen: IEntity) =>
     (mileageCode: string) =>
     async (source: IEntity): Promise<void> => {
-      const mileage: IShoppingMileage = await ShoppingMileageProvider.get(
-        mileageCode,
-      );
+      const mileage: IShoppingMileage =
+        await ShoppingMileageProvider.get(mileageCode);
       const history =
         await ShoppingGlobal.prisma.shopping_mileage_histories.findFirstOrThrow(
           {

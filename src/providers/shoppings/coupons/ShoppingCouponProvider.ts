@@ -84,7 +84,7 @@ export namespace ShoppingCouponProvider {
                 }
               : undefined,
         },
-      } satisfies Prisma.shopping_couponsFindManyArgs);
+      }) satisfies Prisma.shopping_couponsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -168,17 +168,17 @@ export namespace ShoppingCouponProvider {
           actor_type: "administrator",
         }
       : actor.type === "seller"
-      ? {
-          customer: {
-            member: {
-              of_seller: {
-                id: actor.id,
+        ? {
+            customer: {
+              member: {
+                of_seller: {
+                  id: actor.id,
+                },
               },
             },
-          },
-          actor_type: "seller",
-        }
-      : {}) satisfies Prisma.shopping_couponsWhereInput;
+            actor_type: "seller",
+          }
+        : {}) satisfies Prisma.shopping_couponsWhereInput;
 
   export const wherePossible = () =>
     ({
@@ -202,7 +202,7 @@ export namespace ShoppingCouponProvider {
           ],
         },
       ],
-    } satisfies Prisma.shopping_couponsWhereInput);
+    }) satisfies Prisma.shopping_couponsWhereInput;
 
   const search = (input: IShoppingCoupon.IRequest.ISearch | undefined) =>
     [
@@ -224,10 +224,10 @@ export namespace ShoppingCouponProvider {
     key === "coupon.name"
       ? { name: direction }
       : key === "coupon.created_at"
-      ? { created_at: direction }
-      : key === "coupon.opened_at"
-      ? { opened_at: direction }
-      : { closed_at: direction };
+        ? { created_at: direction }
+        : key === "coupon.opened_at"
+          ? { opened_at: direction }
+          : { closed_at: direction };
 
   /* -----------------------------------------------------------
           WRITERS 
@@ -320,5 +320,5 @@ export namespace ShoppingCouponProvider {
             input.criterias,
           ),
         },
-      } satisfies Prisma.shopping_couponsCreateInput);
+      }) satisfies Prisma.shopping_couponsCreateInput;
 }

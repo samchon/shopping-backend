@@ -18,7 +18,7 @@ export namespace ShoppingCitizenProvider {
       created_at: input.created_at.toISOString(),
     });
     export const select = () =>
-      ({} satisfies Prisma.shopping_citizensFindManyArgs);
+      ({}) satisfies Prisma.shopping_citizensFindManyArgs;
   }
 
   export const create =

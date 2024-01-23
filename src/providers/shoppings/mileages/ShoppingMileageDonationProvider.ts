@@ -40,7 +40,7 @@ export namespace ShoppingMileageDonationProvider {
           adminCustomer: ShoppingAdministratorProvider.invert.select(),
           citizen: ShoppingCitizenProvider.json.select(),
         },
-      } satisfies Prisma.shopping_mileage_donationsFindManyArgs);
+      }) satisfies Prisma.shopping_mileage_donationsFindManyArgs;
   }
 
   /* -----------------------------------------------------------
@@ -150,5 +150,5 @@ export namespace ShoppingMileageDonationProvider {
         value: input.value,
         reason: input.reason,
         created_at: new Date(),
-      } satisfies Prisma.shopping_mileage_donationsCreateInput);
+      }) satisfies Prisma.shopping_mileage_donationsCreateInput;
 }
