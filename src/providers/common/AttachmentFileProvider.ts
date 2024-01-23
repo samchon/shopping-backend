@@ -2,7 +2,7 @@ import { v4 } from "uuid";
 
 import { IAttachmentFile } from "@samchon/shopping-api/lib/structures/common/IAttachmentFile";
 
-import { Prisma } from ".prisma/client";
+import { Prisma } from "@prisma/client";
 
 export namespace AttachmentFileProvider {
   export namespace json {
