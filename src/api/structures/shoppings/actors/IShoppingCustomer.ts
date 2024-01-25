@@ -90,14 +90,14 @@ export namespace IShoppingCustomer {
      *
      * Same with {@link window.location.href} of client.
      */
-    href: string & tags.Format<"url">;
+    href: string & tags.Format<"uri">;
 
     /**
      * Referrer address.
      *
      * Same with {@link window.document.referrer} of client.
      */
-    referrer: null | (string & tags.Format<"url">);
+    referrer: null | (string & tags.Format<"uri">);
 
     /**
      * Connection IP Address.
@@ -113,8 +113,8 @@ export namespace IShoppingCustomer {
   export interface ICreate {
     channel_code: string;
     external_user: null | IShoppingExternalUser.ICreate;
-    href: string & tags.Format<"url">;
-    referrer: null | (string & tags.Format<"url">);
+    href: string & tags.Format<"uri">;
+    referrer: null | (string & tags.Format<"uri">);
     ip?: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
   }
 
