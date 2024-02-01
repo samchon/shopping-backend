@@ -11,9 +11,10 @@ export const test_api_shopping_actor_customer_create = async (
   pool: ConnectionPool,
   connection?: ShoppingApi.IConnection,
 ): Promise<IShoppingCustomer.IAuthorized> => {
+  connection ??= pool.customer;
   const customer: IShoppingCustomer.IAuthorized =
     await ShoppingApi.functional.shoppings.customers.authenticate.create(
-      connection ?? pool.customer,
+      connection,
       {
         href: TestGlobal.HREF,
         referrer: TestGlobal.REFERRER,
@@ -21,8 +22,9 @@ export const test_api_shopping_actor_customer_create = async (
         external_user: null,
       },
     );
+    typia.assertEquals(customer);
   TestValidator.equals("citizen")(customer.citizen)(null);
   TestValidator.equals("external_user")(customer.external_user)(null);
   TestValidator.equals("member")(customer.member)(null);
-  return typia.assertEquals(customer);
+  return customer;
 };

@@ -4,11 +4,11 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import fs from "fs";
 import path from "path";
 
 import { ShoppingGlobal } from "./ShoppingGlobal";
+import { Prisma } from "@prisma/client";
 
 const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support").install();
@@ -26,7 +26,7 @@ export namespace ShoppingConfiguration {
   export const API_PORT = () => Number(ShoppingGlobal.env.SHOPPING_API_PORT);
 }
 
-ExceptionManager.insert(PrismaClientKnownRequestError, (exp) => {
+ExceptionManager.insert(Prisma.PrismaClientKnownRequestError, (exp) => {
   switch (exp.code) {
     case "P2025":
       return new NotFoundException(exp.message);
