@@ -2,10 +2,10 @@ import { INestiaConfig } from "@nestia/sdk";
 import { NestFactory } from "@nestjs/core";
 
 import { ShoppingModule } from "./src/ShoppingModule";
+import { FastifyAdapter } from "@nestjs/platform-fastify";
 
 export const NESTIA_CONFIG: INestiaConfig = {
-  simulate: true,
-  input: () => NestFactory.create(ShoppingModule),
+  input: () => NestFactory.create(ShoppingModule, new FastifyAdapter()),
   output: "src/api",
   swagger: {
     output: "packages/api/swagger.json",
@@ -22,6 +22,9 @@ export const NESTIA_CONFIG: INestiaConfig = {
         in: "header",
       },
     },
+    beautify: true,
   },
+  primitive: false,
+  simulate: true,
 };
 export default NESTIA_CONFIG;
