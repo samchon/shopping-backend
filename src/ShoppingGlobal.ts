@@ -43,8 +43,6 @@ export class ShoppingGlobal {
 interface IEnvironments {
   SHOPPING_MODE: "local" | "dev" | "real";
   SHOPPING_API_PORT: `${number}`;
-  SHOPPING_API_ENCRYPTION_KEY: string;
-  SHOPPING_API_ENCRYPTION_IV: string;
 
   SHOPPING_SYSTEM_PASSWORD: string;
   SHOPPING_JWT_SECRET_KEY: string;
