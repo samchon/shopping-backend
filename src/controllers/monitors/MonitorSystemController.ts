@@ -21,7 +21,7 @@ export class MonitorSystemController {
    *
    * @author Samchon
    */
-  @core.EncryptedRoute.Get()
+  @core.TypedRoute.Get()
   public async get(): Promise<ISystem> {
     return {
       uid: SystemProvider.uid,

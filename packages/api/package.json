@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-api",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "API for shopping",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -16,7 +16,7 @@
   "homepage": "https://github.com/samchon/shopping-backend#readme",
   "dependencies": {
     "@nestia/fetcher": "^2.5.8",
-    "typia": "^5.4.9"
+    "typia": "^5.4.11"
   },
   "include": [
     "lib",

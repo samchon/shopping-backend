@@ -44,9 +44,9 @@ async function handle_error(exp: any): Promise<void> {
   try {
     const date: Date = new Date();
     const fileName: string = `${date.getFullYear()}${cipher(
-      date.getMonth() + 1,
+      date.getMonth() + 1
     )}${cipher(date.getDate())}${cipher(date.getHours())}${cipher(
-      date.getMinutes(),
+      date.getMinutes()
     )}${cipher(date.getSeconds())}.${randint(0, Number.MAX_SAFE_INTEGER)}`;
     const content: string = JSON.stringify(ErrorUtil.toJSON(exp), null, 4);
 
@@ -54,7 +54,7 @@ async function handle_error(exp: any): Promise<void> {
     await fs.promises.writeFile(
       `${__dirname}/../../assets/logs/errors/${fileName}.log`,
       content,
-      "utf8",
+      "utf8"
     );
   } catch {}
 }
@@ -70,7 +70,7 @@ async function main(): Promise<void> {
 
   if (options.reset) {
     await StopWatch.trace("Reset DB")(() =>
-      ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
+      ShoppingSetupWizard.schema(ShoppingGlobal.prisma)
     );
     await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
   }
@@ -82,10 +82,6 @@ async function main(): Promise<void> {
   // DO TEST
   const connection: ShoppingApi.IConnection = {
     host: `http://127.0.0.1:${ShoppingConfiguration.API_PORT()}`,
-    encryption: {
-      key: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_KEY,
-      iv: ShoppingGlobal.env.SHOPPING_API_ENCRYPTION_IV,
-    },
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",
