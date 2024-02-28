@@ -38,7 +38,7 @@ updates:
       interval: "daily"
     open-pull-requests-limit: 25
     # versioning-strategy: increase
-    include:
+    allow:
       - dependency-name: "@nestia/fetcher"
       - dependency-name: "typia"
     groups:
