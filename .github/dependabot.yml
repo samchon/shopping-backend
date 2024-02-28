@@ -1,21 +1,49 @@
 version: 2
 updates:
-#######################################################
-  - package-ecosystem: 'npm'
-    directory: '/'
+  #######################################################
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'daily'
+      interval: "daily"
     open-pull-requests-limit: 25
+    # versioning-strategy: increase
     allow:
+      - dependency-name: "nestia"
       - dependency-name: "@nestia/*"
       - dependency-name: "@nestjs/*"
-      - dependency-name: "nestia"
+      - dependency-name: "@prisma/*"
+      - dependency-name: "prisma"
+      - dependency-name: "prisma-markdown"
       - dependency-name: "tstl"
       - dependency-name: "typia"
-#######################################################
-  - package-ecosystem: 'npm'
-    directory: '/packages/api'
+    groups:
+      Samchon:
+        patterns:
+          - "@nestia/*"
+          - "nestia"
+          - "tstl"
+          - "typia"
+          - "prisma-markdown"
+      NestJS:
+        patterns:
+          - "@nestjs/*"
+      Prisma:
+        patterns:
+          - "@prisma/*"
+          - "prisma"
+  #######################################################
+  - package-ecosystem: "npm"
+    directory: "/packages/api"
     schedule:
-      interval: 'daily'
+      interval: "daily"
     open-pull-requests-limit: 25
+    # versioning-strategy: increase
+    allow:
+      - dependency-name: "@nestia/fetcher"
+      - dependency-name: "typia"
+    groups:
+      Samchon:
+        patterns:
+          - "@nestia/fetcher"
+          - "typia"
 #######################################################
