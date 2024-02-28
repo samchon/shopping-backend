@@ -9,8 +9,8 @@ updates:
     # versioning-strategy: increase
     allow:
       - dependency-name: "nestia"
-      - dependency-name: "@nestjs/*"
       - dependency-name: "@nestia/*"
+      - dependency-name: "@nestjs/*"
       - dependency-name: "@prisma/*"
       - dependency-name: "prisma"
       - dependency-name: "prisma-markdown"
