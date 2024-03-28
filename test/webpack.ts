@@ -1,8 +1,7 @@
 import { DynamicExecutor, StopWatch } from "@nestia/e2e";
 import cp from "child_process";
 import fs from "fs";
-import { Singleton, randint } from "tstl";
-import { sleep_for } from "tstl/thread/global";
+import { Singleton, randint, sleep_for } from "tstl";
 
 import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../src/ShoppingGlobal";

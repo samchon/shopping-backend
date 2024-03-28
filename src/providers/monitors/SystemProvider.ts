@@ -1,12 +1,11 @@
 import fs from "fs";
 import git from "git-last-commit";
-import { randint } from "tstl/algorithm/random";
-import { Singleton } from "tstl/thread/Singleton";
 
 import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 
 import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { DateUtil } from "../../utils/DateUtil";
+import { randint, Singleton } from "tstl";
 
 export class SystemProvider {
   public static readonly uid: number = randint(0, Number.MAX_SAFE_INTEGER);
@@ -31,24 +30,24 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
             ...commit,
             authored_at: DateUtil.toString(
               new Date(Number(commit.authoredOn) * 1000),
-              true,
+              true
             ),
             commited_at: DateUtil.toString(
               new Date(Number(commit.committedOn) * 1000),
-              true,
+              true
             ),
           });
       });
-    }),
+    })
 );
 const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(
   async () => {
     const content: string = await fs.promises.readFile(
       `${ShoppingConfiguration.ROOT}/package.json`,
-      "utf8",
+      "utf8"
     );
     return JSON.parse(content);
-  },
+  }
 );
 
 commit_.get().catch(() => {});

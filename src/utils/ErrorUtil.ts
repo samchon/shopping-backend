@@ -1,11 +1,10 @@
 import fs from "fs";
-import { randint } from "tstl/algorithm/random";
-import { Singleton } from "tstl/thread/Singleton";
 
 import { ShoppingConfiguration } from "../ShoppingConfiguration";
 import { DirectoryUtil } from "./DirectoryUtil";
 
 import serializeError = require("serialize-error");
+import { randint, Singleton } from "tstl";
 
 export namespace ErrorUtil {
   export function toJSON(err: any): object {
@@ -16,16 +15,16 @@ export namespace ErrorUtil {
 
   export async function log(
     prefix: string,
-    data: string | object | Error,
+    data: string | object | Error
   ): Promise<void> {
     try {
       if (data instanceof Error) data = toJSON(data);
 
       const date: Date = new Date();
       const fileName: string = `${date.getFullYear()}${cipher(
-        date.getMonth() + 1,
+        date.getMonth() + 1
       )}${cipher(date.getDate())}${cipher(date.getHours())}${cipher(
-        date.getMinutes(),
+        date.getMinutes()
       )}${cipher(date.getSeconds())}.${randint(0, Number.MAX_SAFE_INTEGER)}`;
       const content: string = JSON.stringify(data, null, 4);
 
@@ -33,7 +32,7 @@ export namespace ErrorUtil {
       await fs.promises.writeFile(
         `${ShoppingConfiguration.ROOT}/logs/errors/${prefix}_${fileName}.log`,
         content,
-        "utf8",
+        "utf8"
       );
     } catch {}
   }
