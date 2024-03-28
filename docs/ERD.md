@@ -16,50 +16,50 @@
 ```mermaid
 erDiagram
 "attachment_files" {
-    String id PK
-    String name
-    String extension "nullable"
-    String url
-    DateTime created_at
+  String id PK
+  String name
+  String extension "nullable"
+  String url
+  DateTime created_at
 }
 "bbs_articles" {
-    String id PK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "bbs_article_snapshots" {
-    String id PK
-    String bbs_article_id FK
-    String format
-    String title
-    String body
-    DateTime created_at
+  String id PK
+  String bbs_article_id FK
+  String format
+  String title
+  String body
+  DateTime created_at
 }
 "bbs_article_snapshot_files" {
-    String id PK
-    String bbs_article_snapshot_id FK
-    String attachment_file_id FK
-    Int sequence
+  String id PK
+  String bbs_article_snapshot_id FK
+  String attachment_file_id FK
+  Int sequence
 }
 "bbs_article_comments" {
-    String id PK
-    String bbs_article_id FK
-    String parent_id FK "nullable"
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String bbs_article_id FK
+  String parent_id FK "nullable"
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "bbs_article_comment_snapshots" {
-    String id PK
-    String bbs_article_comment_id FK
-    String format
-    String body
-    DateTime created_at
+  String id PK
+  String bbs_article_comment_id FK
+  String format
+  String body
+  DateTime created_at
 }
 "bbs_article_comment_snapshot_files" {
-    String id PK
-    String bbs_article_comment_snapshot_id FK
-    String attachment_file_id FK
-    Int sequence
+  String id PK
+  String bbs_article_comment_snapshot_id FK
+  String attachment_file_id FK
+  Int sequence
 }
 "bbs_article_snapshots" }|--|| "bbs_articles" : article
 "bbs_article_snapshot_files" }o--|| "bbs_article_snapshots" : snapshot
@@ -235,56 +235,56 @@ relationship between [bbs_article_comment_snapshots](#bbs_article_comment_snapsh
 ```mermaid
 erDiagram
 "shopping_channels" {
-    String id PK
-    String code UK
-    String name UK
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String code UK
+  String name UK
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_channel_categories" {
-    String id PK
-    String shopping_channel_id FK
-    String parent_id FK "nullable"
-    String name
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_channel_id FK
+  String parent_id FK "nullable"
+  String name
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_sections" {
-    String id PK
-    String code UK
-    String name UK
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String code UK
+  String name UK
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_sales" {
-    String id PK
-    String shopping_section_id FK
-    String shopping_seller_customer_id FK
-    DateTime created_at
-    DateTime opened_at "nullable"
-    DateTime closed_at "nullable"
-    DateTime paused_at "nullable"
-    DateTime suspended_at "nullable"
+  String id PK
+  String shopping_section_id FK
+  String shopping_seller_customer_id FK
+  DateTime created_at
+  DateTime opened_at "nullable"
+  DateTime closed_at "nullable"
+  DateTime paused_at "nullable"
+  DateTime suspended_at "nullable"
 }
 "shopping_sale_snapshots" {
-    String id PK
-    String shopping_sale_id FK
-    DateTime created_at
+  String id PK
+  String shopping_sale_id FK
+  DateTime created_at
 }
 "shopping_sale_snapshot_channels" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String shopping_channel_id FK
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_id FK
+  String shopping_channel_id FK
+  Int sequence
 }
 "shopping_sale_snapshot_channel_categories" {
-    String id PK
-    String shopping_sale_snapshot_channel_id FK
-    String shopping_channel_category_id FK
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_channel_id FK
+  String shopping_channel_category_id FK
+  Int sequence
 }
 "shopping_channel_categories" }o--|| "shopping_channels" : channel
 "shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
@@ -384,82 +384,82 @@ just use only one. This concept is designed to be expandable in the future.
 ```mermaid
 erDiagram
 "shopping_customers" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_member_id FK "nullable"
-    String shopping_external_user_id FK "nullable"
-    String shopping_citizen_id FK "nullable"
-    String href
-    String referrer "nullable"
-    String ip
-    DateTime created_at
+  String id PK
+  String shopping_channel_id FK
+  String shopping_member_id FK "nullable"
+  String shopping_external_user_id FK "nullable"
+  String shopping_citizen_id FK "nullable"
+  String href
+  String referrer "nullable"
+  String ip
+  DateTime created_at
 }
 "shopping_external_users" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_citizen_id FK "nullable"
-    String application
-    String uid
-    String nickname
-    String data "nullable"
-    String password
-    DateTime created_at
+  String id PK
+  String shopping_channel_id FK
+  String shopping_citizen_id FK "nullable"
+  String application
+  String uid
+  String nickname
+  String data "nullable"
+  String password
+  DateTime created_at
 }
 "shopping_citizens" {
-    String id PK
-    String shopping_channel_id FK "nullable"
-    String mobile
-    String name
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_channel_id FK "nullable"
+  String mobile
+  String name
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_members" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_citizen_id FK "nullable"
-    String nickname
-    String password
-    DateTime created_at
-    DateTime updated_at
-    DateTime withdrawn_at "nullable"
+  String id PK
+  String shopping_channel_id FK
+  String shopping_citizen_id FK "nullable"
+  String nickname
+  String password
+  DateTime created_at
+  DateTime updated_at
+  DateTime withdrawn_at "nullable"
 }
 "shopping_member_emails" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_member_id FK
-    String value
-    DateTime created_at
+  String id PK
+  String shopping_channel_id FK
+  String shopping_member_id FK
+  String value
+  DateTime created_at
 }
 "shopping_sellers" {
-    String id PK
-    String shopping_member_id FK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_member_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_administrators" {
-    String id PK
-    String shopping_member_id FK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_member_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_addresses" {
-    String id PK
-    String mobile
-    String name
-    String country
-    String province
-    String city
-    String department
-    String possession
-    String zip_code
-    String special_note "nullable"
-    DateTime created_at
+  String id PK
+  String mobile
+  String name
+  String country
+  String province
+  String city
+  String department
+  String possession
+  String zip_code
+  String special_note "nullable"
+  DateTime created_at
 }
-"shopping_customers" }o--|| "shopping_members" : member
-"shopping_customers" }o--|| "shopping_external_users" : external_user
-"shopping_customers" }o--|| "shopping_citizens" : citizen
-"shopping_external_users" }o--|| "shopping_citizens" : citizen
-"shopping_members" }o--|| "shopping_citizens" : citizen
+"shopping_customers" }o--o| "shopping_members" : member
+"shopping_customers" }o--o| "shopping_external_users" : external_user
+"shopping_customers" }o--o| "shopping_citizens" : citizen
+"shopping_external_users" }o--o| "shopping_citizens" : citizen
+"shopping_members" }o--o| "shopping_citizens" : citizen
 "shopping_member_emails" }o--|| "shopping_members" : member
 "shopping_sellers" |o--|| "shopping_members" : member
 "shopping_administrators" |o--|| "shopping_members" : member
@@ -722,94 +722,94 @@ The address information.
 ```mermaid
 erDiagram
 "shopping_sales" {
-    String id PK
-    String shopping_section_id FK
-    String shopping_seller_customer_id FK
-    DateTime created_at
-    DateTime opened_at "nullable"
-    DateTime closed_at "nullable"
-    DateTime paused_at "nullable"
-    DateTime suspended_at "nullable"
+  String id PK
+  String shopping_section_id FK
+  String shopping_seller_customer_id FK
+  DateTime created_at
+  DateTime opened_at "nullable"
+  DateTime closed_at "nullable"
+  DateTime paused_at "nullable"
+  DateTime suspended_at "nullable"
 }
 "shopping_sale_snapshots" {
-    String id PK
-    String shopping_sale_id FK
-    DateTime created_at
+  String id PK
+  String shopping_sale_id FK
+  DateTime created_at
 }
 "shopping_sale_snapshot_units" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String name
-    Boolean primary
-    Boolean required
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_id FK
+  String name
+  Boolean primary
+  Boolean required
+  Int sequence
 }
 "shopping_sale_snapshot_unit_options" {
-    String id PK
-    String shopping_sale_snapshot_unit_id FK
-    String name
-    String type
-    Boolean variable
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_id FK
+  String name
+  String type
+  Boolean variable
+  Int sequence
 }
 "shopping_sale_snapshot_unit_option_candidates" {
-    String id PK
-    String shopping_sale_snapshot_unit_option_id FK
-    String name
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_option_id FK
+  String name
+  Int sequence
 }
 "shopping_sale_snapshot_unit_stocks" {
-    String id PK
-    String shopping_sale_snapshot_unit_id FK
-    String name
-    Float nominal_price
-    Float real_price
-    Int quantity
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_id FK
+  String name
+  Float nominal_price
+  Float real_price
+  Int quantity
+  Int sequence
 }
 "shopping_sale_snapshot_unit_stock_choices" {
-    String id PK
-    String shopping_sale_snapshot_unit_stock_id FK
-    String shopping_sale_snapshot_unit_option_id FK
-    String shopping_sale_snapshot_unit_option_candidate_id FK
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_stock_id FK
+  String shopping_sale_snapshot_unit_option_id FK
+  String shopping_sale_snapshot_unit_option_candidate_id FK
+  Int sequence
 }
 "shopping_sale_snapshot_channels" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String shopping_channel_id FK
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_id FK
+  String shopping_channel_id FK
+  Int sequence
 }
 "shopping_sale_snapshot_channel_categories" {
-    String id PK
-    String shopping_sale_snapshot_channel_id FK
-    String shopping_channel_category_id FK
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_channel_id FK
+  String shopping_channel_category_id FK
+  Int sequence
 }
 "shopping_channels" {
-    String id PK
-    String code UK
-    String name UK
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String code UK
+  String name UK
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_channel_categories" {
-    String id PK
-    String shopping_channel_id FK
-    String parent_id FK "nullable"
-    String name
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_channel_id FK
+  String parent_id FK "nullable"
+  String name
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_sections" {
-    String id PK
-    String code UK
-    String name UK
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String code UK
+  String name UK
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_sales" }o--|| "shopping_sections" : section
 "shopping_sale_snapshots" }o--|| "shopping_sales" : sale
@@ -1207,72 +1207,72 @@ Search tag of sale snapshot.
 ```mermaid
 erDiagram
 "shopping_carts" {
-    String id PK
-    String shopping_customer_id FK
-    String actor_type
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String actor_type
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_cart_commodities" {
-    String id PK
-    String shopping_cart_id FK
-    String shopping_sale_snapshot_id FK
-    Int volume
-    DateTime created_at
-    DateTime deleted_at "nullable"
-    Boolean published
+  String id PK
+  String shopping_cart_id FK
+  String shopping_sale_snapshot_id FK
+  Int volume
+  DateTime created_at
+  DateTime deleted_at "nullable"
+  Boolean published
 }
 "shopping_cart_commodity_stocks" {
-    String id PK
-    String shopping_cart_commodity_id FK
-    String shopping_sale_snapshot_unit_id FK
-    String shopping_sale_snapshot_unit_stock_id FK
-    Int quantity
-    Int sequence
+  String id PK
+  String shopping_cart_commodity_id FK
+  String shopping_sale_snapshot_unit_id FK
+  String shopping_sale_snapshot_unit_stock_id FK
+  Int quantity
+  Int sequence
 }
 "shopping_cart_commodity_stock_choices" {
-    String id PK
-    String shopping_cart_commodity_stock_id FK
-    String shopping_sale_snapshot_unit_option_id FK
-    String shopping_sale_snapshot_unit_option_candidate_id FK "nullable"
-    String value "nullable"
-    Int sequence
+  String id PK
+  String shopping_cart_commodity_stock_id FK
+  String shopping_sale_snapshot_unit_option_id FK
+  String shopping_sale_snapshot_unit_option_candidate_id FK "nullable"
+  String value "nullable"
+  Int sequence
 }
 "shopping_sale_snapshots" {
-    String id PK
-    String shopping_sale_id FK
-    DateTime created_at
+  String id PK
+  String shopping_sale_id FK
+  DateTime created_at
 }
 "shopping_sale_snapshot_units" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String name
-    Boolean primary
-    Boolean required
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_id FK
+  String name
+  Boolean primary
+  Boolean required
+  Int sequence
 }
 "shopping_sale_snapshot_unit_options" {
-    String id PK
-    String shopping_sale_snapshot_unit_id FK
-    String name
-    String type
-    Boolean variable
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_id FK
+  String name
+  String type
+  Boolean variable
+  Int sequence
 }
 "shopping_sale_snapshot_unit_option_candidates" {
-    String id PK
-    String shopping_sale_snapshot_unit_option_id FK
-    String name
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_option_id FK
+  String name
+  Int sequence
 }
 "shopping_sale_snapshot_unit_stocks" {
-    String id PK
-    String shopping_sale_snapshot_unit_id FK
-    String name
-    Float nominal_price
-    Float real_price
-    Int quantity
-    Int sequence
+  String id PK
+  String shopping_sale_snapshot_unit_id FK
+  String name
+  Float nominal_price
+  Float real_price
+  Int quantity
+  Int sequence
 }
 "shopping_cart_commodities" }o--|| "shopping_carts" : cart
 "shopping_cart_commodities" }o--|| "shopping_sale_snapshots" : snapshot
@@ -1281,7 +1281,7 @@ erDiagram
 "shopping_cart_commodity_stocks" }o--|| "shopping_sale_snapshot_unit_stocks" : stock
 "shopping_cart_commodity_stock_choices" }o--|| "shopping_cart_commodity_stocks" : stock
 "shopping_cart_commodity_stock_choices" }o--|| "shopping_sale_snapshot_unit_options" : option
-"shopping_cart_commodity_stock_choices" }o--|| "shopping_sale_snapshot_unit_option_candidates" : candidate
+"shopping_cart_commodity_stock_choices" }o--o| "shopping_sale_snapshot_unit_option_candidates" : candidate
 "shopping_sale_snapshot_units" }o--|| "shopping_sale_snapshots" : snapshot
 "shopping_sale_snapshot_unit_options" }o--|| "shopping_sale_snapshot_units" : unit
 "shopping_sale_snapshot_unit_option_candidates" }o--|| "shopping_sale_snapshot_unit_options" : option
@@ -1420,99 +1420,99 @@ written by the customer.
 ```mermaid
 erDiagram
 "shopping_orders" {
-    String id PK
-    String shopping_customer_id FK
-    String shopping_address_id FK "nullable"
-    Float cash
-    Float deposit
-    Float mileage
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String shopping_address_id FK "nullable"
+  Float cash
+  Float deposit
+  Float mileage
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_order_goods" {
-    String id PK
-    String shopping_order_id FK
-    String shopping_cart_commodity_id FK
-    String shopping_seller_id FK
-    Int volume
-    Int sequence
-    DateTime confirmed_at "nullable"
+  String id PK
+  String shopping_order_id FK
+  String shopping_cart_commodity_id FK
+  String shopping_seller_id FK
+  Int volume
+  Int sequence
+  DateTime confirmed_at "nullable"
 }
 "shopping_order_publishes" {
-    String id PK
-    String shopping_order_id FK
-    String shopping_address_id FK
-    String password "nullable"
-    DateTime created_at
-    DateTime paid_at "nullable"
-    DateTime cancelled_at "nullable"
+  String id PK
+  String shopping_order_id FK
+  String shopping_address_id FK
+  String password "nullable"
+  DateTime created_at
+  DateTime paid_at "nullable"
+  DateTime cancelled_at "nullable"
 }
 "shopping_deliveries" {
-    String id PK
-    String shopping_seller_customer_id FK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_seller_customer_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_delivery_pieces" {
-    String id PK
-    String shopping_delivery_id FK
-    String shopping_order_publish_id FK
-    String shopping_order_good_id FK
-    String shopping_sale_snapshot_unit_stock_id FK
-    Float quantity
-    Int sequence
+  String id PK
+  String shopping_delivery_id FK
+  String shopping_order_publish_id FK
+  String shopping_order_good_id FK
+  String shopping_sale_snapshot_unit_stock_id FK
+  Float quantity
+  Int sequence
 }
 "shopping_delivery_shippers" {
-    String id PK
-    String shopping_delivery_id FK
-    String mobile
-    String name
-    String company "nullable"
-    DateTime created_at
+  String id PK
+  String shopping_delivery_id FK
+  String mobile
+  String name
+  String company "nullable"
+  DateTime created_at
 }
 "shopping_delivery_journeys" {
-    String id PK
-    String shopping_delivery_id FK
-    String type
-    String title "nullable"
-    String description "nullable"
-    Int sequence
-    DateTime created_at
-    DateTime started_at "nullable"
-    DateTime completed_at "nullable"
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_delivery_id FK
+  String type
+  String title "nullable"
+  String description "nullable"
+  Int sequence
+  DateTime created_at
+  DateTime started_at "nullable"
+  DateTime completed_at "nullable"
+  DateTime deleted_at "nullable"
 }
 "shopping_addresses" {
-    String id PK
-    String mobile
-    String name
-    String country
-    String province
-    String city
-    String department
-    String possession
-    String zip_code
-    String special_note "nullable"
-    DateTime created_at
+  String id PK
+  String mobile
+  String name
+  String country
+  String province
+  String city
+  String department
+  String possession
+  String zip_code
+  String special_note "nullable"
+  DateTime created_at
 }
 "shopping_cart_commodities" {
-    String id PK
-    String shopping_cart_id FK
-    String shopping_sale_snapshot_id FK
-    Int volume
-    DateTime created_at
-    DateTime deleted_at "nullable"
-    Boolean published
+  String id PK
+  String shopping_cart_id FK
+  String shopping_sale_snapshot_id FK
+  Int volume
+  DateTime created_at
+  DateTime deleted_at "nullable"
+  Boolean published
 }
 "shopping_cart_commodity_stocks" {
-    String id PK
-    String shopping_cart_commodity_id FK
-    String shopping_sale_snapshot_unit_id FK
-    String shopping_sale_snapshot_unit_stock_id FK
-    Int quantity
-    Int sequence
+  String id PK
+  String shopping_cart_commodity_id FK
+  String shopping_sale_snapshot_unit_id FK
+  String shopping_sale_snapshot_unit_stock_id FK
+  Int quantity
+  Int sequence
 }
-"shopping_orders" }o--|| "shopping_addresses" : address
+"shopping_orders" }o--o| "shopping_addresses" : address
 "shopping_order_goods" }o--|| "shopping_orders" : order
 "shopping_order_goods" }o--|| "shopping_cart_commodities" : commodity
 "shopping_order_publishes" |o--|| "shopping_orders" : order
@@ -1755,79 +1755,79 @@ each step of the delivery process, such as preparing, shipping, and delivering
 ```mermaid
 erDiagram
 "shopping_coupons" {
-    String id PK
-    String shopping_customer_id FK
-    String actor_type
-    String name
-    String access
-    Boolean exclusive
-    String unit
-    Float value
-    Float threshold "nullable"
-    Int limit "nullable"
-    Boolean multiplicative
-    Int volume "nullable"
-    Int volume_per_citizen "nullable"
-    Int expired_in "nullable"
-    DateTime expired_at "nullable"
-    DateTime opened_at "nullable"
-    DateTime closed_at "nullable"
-    DateTime created_at
-    DateTime updated_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String actor_type
+  String name
+  String access
+  Boolean exclusive
+  String unit
+  Float value
+  Float threshold "nullable"
+  Int limit "nullable"
+  Boolean multiplicative
+  Int volume "nullable"
+  Int volume_per_citizen "nullable"
+  Int expired_in "nullable"
+  DateTime expired_at "nullable"
+  DateTime opened_at "nullable"
+  DateTime closed_at "nullable"
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
 }
 "shopping_coupon_criterias" {
-    String id PK
-    String shopping_coupon_id FK
-    String type
-    String direction
-    Int sequence
+  String id PK
+  String shopping_coupon_id FK
+  String type
+  String direction
+  Int sequence
 }
 "shopping_coupon_section_criterias" {
-    String id PK
-    String shopping_section_id FK
+  String id PK
+  String shopping_section_id FK
 }
 "shopping_coupon_channel_criterias" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_channel_category_id FK "nullable"
+  String id PK
+  String shopping_channel_id FK
+  String shopping_channel_category_id FK "nullable"
 }
 "shopping_coupon_seller_criterias" {
-    String id PK
-    String shopping_seller_id FK
+  String id PK
+  String shopping_seller_id FK
 }
 "shopping_coupon_sale_criterias" {
-    String id PK
-    String shopping_sale_id FK
+  String id PK
+  String shopping_sale_id FK
 }
 "shopping_coupon_funnel_criterias" {
-    String id PK
-    String kind
-    String key "nullable"
-    String value
+  String id PK
+  String kind
+  String key "nullable"
+  String value
 }
 "shopping_coupon_tickets" {
-    String id PK
-    String shopping_customer_id FK
-    String shopping_coupon_id FK
-    String shopping_coupon_disposable_id FK "nullable"
-    DateTime created_at
-    DateTime expired_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String shopping_coupon_id FK
+  String shopping_coupon_disposable_id FK "nullable"
+  DateTime created_at
+  DateTime expired_at "nullable"
 }
 "shopping_coupon_ticket_payments" {
-    String id PK
-    String shopping_coupon_ticket_id FK
-    String shopping_order_id FK
-    Int sequence
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_coupon_ticket_id FK
+  String shopping_order_id FK
+  Int sequence
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_coupon_disposables" {
-    String id PK
-    String shopping_coupon_id FK
-    String code UK
-    DateTime created_at
-    DateTime expired_at "nullable"
+  String id PK
+  String shopping_coupon_id FK
+  String code UK
+  DateTime created_at
+  DateTime expired_at "nullable"
 }
 "shopping_coupon_criterias" }o--|| "shopping_coupons" : coupon
 "shopping_coupon_section_criterias" |o--|| "shopping_coupon_criterias" : base
@@ -1836,7 +1836,7 @@ erDiagram
 "shopping_coupon_sale_criterias" |o--|| "shopping_coupon_criterias" : base
 "shopping_coupon_funnel_criterias" |o--|| "shopping_coupon_criterias" : base
 "shopping_coupon_tickets" }o--|| "shopping_coupons" : coupon
-"shopping_coupon_tickets" |o--|| "shopping_coupon_disposables" : disposable
+"shopping_coupon_tickets" |o--o| "shopping_coupon_disposables" : disposable
 "shopping_coupon_ticket_payments" |o--|| "shopping_coupon_tickets" : ticket
 "shopping_coupon_disposables" }o--|| "shopping_coupons" : coupon
 ```
@@ -2202,83 +2202,83 @@ issuing code must also be supported by the corresponding quantity.
 ```mermaid
 erDiagram
 "shopping_deposits" {
-    String id PK
-    String code UK
-    String source
-    Int direction
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String code UK
+  String source
+  Int direction
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_deposit_histories" {
-    String id PK
-    String shopping_deposit_id FK
-    String shopping_citizen_id FK
-    String source_id
-    Float value
-    Float balance
-    DateTime created_at
-    DateTime cancelled_at "nullable"
+  String id PK
+  String shopping_deposit_id FK
+  String shopping_citizen_id FK
+  String source_id
+  Float value
+  Float balance
+  DateTime created_at
+  DateTime cancelled_at "nullable"
 }
 "shopping_deposit_charges" {
-    String id PK
-    String shopping_customer_id FK
-    Float value
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  Float value
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_deposit_charge_publishes" {
-    String id PK
-    String shopping_deposit_charge_id FK
-    String password "nullable"
-    DateTime created_at
-    DateTime paid_at "nullable"
-    DateTime cancelled_at "nullable"
+  String id PK
+  String shopping_deposit_charge_id FK
+  String password "nullable"
+  DateTime created_at
+  DateTime paid_at "nullable"
+  DateTime cancelled_at "nullable"
 }
 "shopping_mileages" {
-    String id PK
-    String code UK
-    String source
-    Int direction
-    Float value "nullable"
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String code UK
+  String source
+  Int direction
+  Float value "nullable"
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_mileage_donations" {
-    String id PK
-    String shopping_admin_customer_id FK
-    String shopping_citizen_id FK
-    Float value
-    String reason
-    DateTime created_at
+  String id PK
+  String shopping_admin_customer_id FK
+  String shopping_citizen_id FK
+  Float value
+  String reason
+  DateTime created_at
 }
 "shopping_mileage_histories" {
-    String id PK
-    String shopping_mileage_id FK
-    String shopping_citizen_id FK
-    String source_id
-    Float value
-    Float balance
-    DateTime created_at
-    DateTime cancelled_at "nullable"
+  String id PK
+  String shopping_mileage_id FK
+  String shopping_citizen_id FK
+  String source_id
+  Float value
+  Float balance
+  DateTime created_at
+  DateTime cancelled_at "nullable"
 }
 "shopping_customers" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_member_id FK "nullable"
-    String shopping_external_user_id FK "nullable"
-    String shopping_citizen_id FK "nullable"
-    String href
-    String referrer "nullable"
-    String ip
-    DateTime created_at
+  String id PK
+  String shopping_channel_id FK
+  String shopping_member_id FK "nullable"
+  String shopping_external_user_id FK "nullable"
+  String shopping_citizen_id FK "nullable"
+  String href
+  String referrer "nullable"
+  String ip
+  DateTime created_at
 }
 "shopping_citizens" {
-    String id PK
-    String shopping_channel_id FK "nullable"
-    String mobile
-    String name
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_channel_id FK "nullable"
+  String mobile
+  String name
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_deposit_histories" }o--|| "shopping_deposits" : deposit
 "shopping_deposit_histories" }o--|| "shopping_citizens" : citizen
@@ -2288,7 +2288,7 @@ erDiagram
 "shopping_mileage_donations" }o--|| "shopping_citizens" : citizen
 "shopping_mileage_histories" }o--|| "shopping_mileages" : mileage
 "shopping_mileage_histories" }o--|| "shopping_citizens" : citizen
-"shopping_customers" }o--|| "shopping_citizens" : citizen
+"shopping_customers" }o--o| "shopping_citizens" : citizen
 ```
 
 ### `shopping_deposits`
@@ -2474,59 +2474,59 @@ outcome. The minus value must be expressed by multiplying the
 ```mermaid
 erDiagram
 "shopping_sale_snapshot_inquiries" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String shopping_customer_id FK
-    String type
-    DateTime created_at
-    DateTime read_by_seller_at "nullable"
+  String id PK
+  String shopping_sale_snapshot_id FK
+  String shopping_customer_id FK
+  String type
+  DateTime created_at
+  DateTime read_by_seller_at "nullable"
 }
 "shopping_sale_snapshot_questions" {
-    String id PK
-    Boolean secret
+  String id PK
+  Boolean secret
 }
 "shopping_sale_snapshot_reviews" {
-    String id PK
-    String shopping_order_good_id FK
+  String id PK
+  String shopping_order_good_id FK
 }
 "shopping_sale_snapshot_review_snapshots" {
-    String id PK
-    Float score
+  String id PK
+  Float score
 }
 "shopping_sale_snapshot_inquiry_answers" {
-    String id PK
-    String shopping_sale_snapshot_inquiry_id FK
-    String shopping_seller_customer_id FK
+  String id PK
+  String shopping_sale_snapshot_inquiry_id FK
+  String shopping_seller_customer_id FK
 }
 "shopping_sale_snapshot_inquiry_comments" {
-    String id PK
-    String shopping_customer_id FK
-    String actor_type
+  String id PK
+  String shopping_customer_id FK
+  String actor_type
 }
 "bbs_articles" {
-    String id PK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "bbs_article_snapshots" {
-    String id PK
-    String bbs_article_id FK
-    String format
-    String title
-    String body
-    DateTime created_at
+  String id PK
+  String bbs_article_id FK
+  String format
+  String title
+  String body
+  DateTime created_at
 }
 "bbs_article_comments" {
-    String id PK
-    String bbs_article_id FK
-    String parent_id FK "nullable"
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String bbs_article_id FK
+  String parent_id FK "nullable"
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_sale_snapshots" {
-    String id PK
-    String shopping_sale_id FK
-    DateTime created_at
+  String id PK
+  String shopping_sale_id FK
+  DateTime created_at
 }
 "shopping_sale_snapshot_inquiries" |o--|| "bbs_articles" : base
 "shopping_sale_snapshot_inquiries" }o--|| "shopping_sale_snapshots" : snapshot
@@ -2686,76 +2686,76 @@ not the person who wrote the inquiry.
 ```mermaid
 erDiagram
 "shopping_sale_favorites" {
-    String id PK
-    String shopping_customer_id FK
-    String shopping_sale_id FK
-    String shopping_sale_snapshot_id FK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String shopping_sale_id FK
+  String shopping_sale_snapshot_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_sale_snapshot_inquiry_favorites" {
-    String id PK
-    String shopping_customer_id FK
-    String shopping_sale_snapshot_inquiry_id FK
-    String bbs_article_snapshot_id FK
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String shopping_sale_snapshot_inquiry_id FK
+  String bbs_article_snapshot_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_address_favorites" {
-    String id PK
-    String shopping_customer_id FK
-    String shopping_address_id FK
-    String title
-    Boolean primary
-    DateTime created_at
-    DateTime deleted_at "nullable"
+  String id PK
+  String shopping_customer_id FK
+  String shopping_address_id FK
+  String title
+  Boolean primary
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "shopping_customers" {
-    String id PK
-    String shopping_channel_id FK
-    String shopping_member_id FK "nullable"
-    String shopping_external_user_id FK "nullable"
-    String shopping_citizen_id FK "nullable"
-    String href
-    String referrer "nullable"
-    String ip
-    DateTime created_at
+  String id PK
+  String shopping_channel_id FK
+  String shopping_member_id FK "nullable"
+  String shopping_external_user_id FK "nullable"
+  String shopping_citizen_id FK "nullable"
+  String href
+  String referrer "nullable"
+  String ip
+  DateTime created_at
 }
 "shopping_addresses" {
-    String id PK
-    String mobile
-    String name
-    String country
-    String province
-    String city
-    String department
-    String possession
-    String zip_code
-    String special_note "nullable"
-    DateTime created_at
+  String id PK
+  String mobile
+  String name
+  String country
+  String province
+  String city
+  String department
+  String possession
+  String zip_code
+  String special_note "nullable"
+  DateTime created_at
 }
 "shopping_sales" {
-    String id PK
-    String shopping_section_id FK
-    String shopping_seller_customer_id FK
-    DateTime created_at
-    DateTime opened_at "nullable"
-    DateTime closed_at "nullable"
-    DateTime paused_at "nullable"
-    DateTime suspended_at "nullable"
+  String id PK
+  String shopping_section_id FK
+  String shopping_seller_customer_id FK
+  DateTime created_at
+  DateTime opened_at "nullable"
+  DateTime closed_at "nullable"
+  DateTime paused_at "nullable"
+  DateTime suspended_at "nullable"
 }
 "shopping_sale_snapshots" {
-    String id PK
-    String shopping_sale_id FK
-    DateTime created_at
+  String id PK
+  String shopping_sale_id FK
+  DateTime created_at
 }
 "shopping_sale_snapshot_inquiries" {
-    String id PK
-    String shopping_sale_snapshot_id FK
-    String shopping_customer_id FK
-    String type
-    DateTime created_at
-    DateTime read_by_seller_at "nullable"
+  String id PK
+  String shopping_sale_snapshot_id FK
+  String shopping_customer_id FK
+  String type
+  DateTime created_at
+  DateTime read_by_seller_at "nullable"
 }
 "shopping_sale_favorites" }o--|| "shopping_customers" : customer
 "shopping_sale_favorites" }o--|| "shopping_sales" : sale

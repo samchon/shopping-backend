@@ -1,9 +1,8 @@
 import fs from "fs";
-import { randint } from "tstl/algorithm/random";
-import { Singleton } from "tstl/thread/Singleton";
 
 import { ShoppingBackend } from "../ShoppingBackend";
 import { ErrorUtil } from "../utils/ErrorUtil";
+import { Singleton, randint } from "tstl";
 
 const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support/register");
@@ -29,9 +28,9 @@ async function handle_error(exp: any): Promise<void> {
   try {
     const date: Date = new Date();
     const fileName: string = `${date.getFullYear()}${cipher(
-      date.getMonth() + 1,
+      date.getMonth() + 1
     )}${cipher(date.getDate())}${cipher(date.getHours())}${cipher(
-      date.getMinutes(),
+      date.getMinutes()
     )}${cipher(date.getSeconds())}.${randint(0, Number.MAX_SAFE_INTEGER)}`;
     const content: string = JSON.stringify(ErrorUtil.toJSON(exp), null, 4);
 
@@ -39,7 +38,7 @@ async function handle_error(exp: any): Promise<void> {
     await fs.promises.writeFile(
       `${__dirname}/../../assets/logs/errors/${fileName}.log`,
       content,
-      "utf8",
+      "utf8"
     );
   } catch {}
 }
