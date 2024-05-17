@@ -24,7 +24,7 @@ async function execute(
       try {
         await prisma.$queryRawUnsafe(query);
       } catch (e) {
-        await prisma.$disconnect();
+        break;
       }
     await prisma.$disconnect();
   } catch (err) {
