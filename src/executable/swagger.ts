@@ -12,7 +12,7 @@ const main = async (): Promise<void> => {
     try {
       execute("git pull");
     } catch {}
-    execute("npm install");
+    execute("pnpm install");
     execute("npm run build:swagger");
   }
   const docs = await import("../../packages/api/swagger.json" as any);
