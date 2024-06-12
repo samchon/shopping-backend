@@ -77,7 +77,7 @@
   "dependencies": {
     "@nestia/core": "^3.2.1",
     "@nestia/fetcher": "^3.2.1",
-    "@nestjs/common": "^10.3.3",
+    "@nestjs/common": "^10.3.9",
     "@nestjs/core": "^10.3.3",
     "@nestjs/platform-fastify": "^10.3.3",
     "@prisma/client": "^5.15.0",
