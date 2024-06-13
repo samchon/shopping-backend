@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@nestia/core':
     specifier: ^3.2.1
-    version: 3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.0.6)
+    version: 3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.1.0)
   '@nestia/fetcher':
     specifier: ^3.2.1
     version: 3.2.1(typescript@5.4.5)
@@ -60,8 +60,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0
   typia:
-    specifier: ^6.0.6
-    version: 6.0.6(typescript@5.4.5)
+    specifier: ^6.1.0
+    version: 6.1.0(typescript@5.4.5)
   uuid:
     specifier: ^9.0.1
     version: 9.0.1
@@ -72,7 +72,7 @@ devDependencies:
     version: 0.4.3
   '@nestia/sdk':
     specifier: ^3.2.1
-    version: 3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(ts-node@10.9.2)(typescript@5.4.5)(typia@6.0.6)
+    version: 3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(ts-node@10.9.2)(typescript@5.4.5)(typia@6.1.0)
   '@trivago/prettier-plugin-sort-imports':
     specifier: ^4.3.0
     version: 4.3.0(prettier@3.3.2)
@@ -469,7 +469,7 @@ packages:
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
 
-  /@nestia/core@3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.0.6):
+  /@nestia/core@3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.1.0):
     resolution: {integrity: sha512-Jbh8HKbmwuyqfI6zYOWtDfUblEvJa6WTsHnFzIH+IDhwc4/Fy4m5D7LEFJ+2Nxil85lrBUDBqxLLC5Ma9Ownnw==}
     peerDependencies:
       '@nestia/fetcher': '>=3.2.1'
@@ -492,7 +492,7 @@ packages:
       reflect-metadata: 0.2.2
       rxjs: 7.8.1
       tgrid: 1.0.0
-      typia: 6.0.6(typescript@5.4.5)
+      typia: 6.1.0(typescript@5.4.5)
       ws: 7.5.9
     transitivePeerDependencies:
       - bufferutil
@@ -518,7 +518,7 @@ packages:
     transitivePeerDependencies:
       - encoding
 
-  /@nestia/sdk@3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(ts-node@10.9.2)(typescript@5.4.5)(typia@6.0.6):
+  /@nestia/sdk@3.2.1(@nestia/fetcher@3.2.1)(@nestjs/common@10.3.9)(@nestjs/core@10.3.9)(reflect-metadata@0.2.2)(ts-node@10.9.2)(typescript@5.4.5)(typia@6.1.0):
     resolution: {integrity: sha512-9YaP9p824lQ3s9NxWEjPmKAvkiZuDF/G2hPgMqRrVVcvMa+slcp3fUpvsUXS7dMdJDVB2CSD0q67Iq5rQvLKTA==}
     hasBin: true
     peerDependencies:
@@ -543,7 +543,7 @@ packages:
       tsconfck: 2.1.2(typescript@5.4.5)
       tsconfig-paths: 4.2.0
       tstl: 3.0.0
-      typia: 6.0.6(typescript@5.4.5)
+      typia: 6.1.0(typescript@5.4.5)
     transitivePeerDependencies:
       - typescript
     dev: true
@@ -4444,8 +4444,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /typia@6.0.6(typescript@5.4.5):
-    resolution: {integrity: sha512-7SNGNmV7E/gEc5YZ32Hz1Tzd8mIGUOGcJyZlD34KUXX584RPvmcuHZzDRtxp8HgTvpqAMY9oAasH5QJM82jc3A==}
+  /typia@6.1.0(typescript@5.4.5):
+    resolution: {integrity: sha512-mMKMi1TCXK1lLR0rMl+8LPXdcHPVxrNzzyE/B/HJ0E5VOfmRhubIn0TdRmub2xisCsTmqyMxIssaGnLdJicKjA==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.8.0 <5.6.0'

@@ -93,7 +93,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
-    "typia": "^6.0.6",
+    "typia": "^6.1.0",
     "uuid": "^9.0.1"
   },
   "private": true
