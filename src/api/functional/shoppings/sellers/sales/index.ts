@@ -59,6 +59,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(),
         },
         input,
@@ -146,6 +147,7 @@ export async function update(
         },
         {
           ...update.METADATA,
+          template: update.METADATA.path,
           path: update.path(id),
         },
         input,
@@ -232,6 +234,7 @@ export async function open(
         },
         {
           ...open.METADATA,
+          template: open.METADATA.path,
           path: open.path(id),
         },
         input,
@@ -305,6 +308,7 @@ export async function replica(
     ? replica.simulate(connection, id)
     : PlainFetcher.fetch(connection, {
         ...replica.METADATA,
+        template: replica.METADATA.path,
         path: replica.path(id),
       });
 }
@@ -382,6 +386,7 @@ export async function pause(
     ? pause.simulate(connection, id)
     : PlainFetcher.fetch(connection, {
         ...pause.METADATA,
+        template: pause.METADATA.path,
         path: pause.path(id),
       });
 }
@@ -455,6 +460,7 @@ export async function suspend(
     ? suspend.simulate(connection, id)
     : PlainFetcher.fetch(connection, {
         ...suspend.METADATA,
+        template: suspend.METADATA.path,
         path: suspend.path(id),
       });
 }
@@ -522,6 +528,7 @@ export async function restore(
     ? restore.simulate(connection, id)
     : PlainFetcher.fetch(connection, {
         ...restore.METADATA,
+        template: restore.METADATA.path,
         path: restore.path(id),
       });
 }
@@ -605,6 +612,7 @@ export async function index(
         },
         {
           ...index.METADATA,
+          template: index.METADATA.path,
           path: index.path(),
         },
         input,
@@ -680,6 +688,7 @@ export async function at(
     ? at.simulate(connection, id)
     : PlainFetcher.fetch(connection, {
         ...at.METADATA,
+        template: at.METADATA.path,
         path: at.path(id),
       });
 }

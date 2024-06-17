@@ -63,6 +63,7 @@ export async function index(
         },
         {
           ...index.METADATA,
+          template: index.METADATA.path,
           path: index.path(cartId),
         },
         input,
@@ -148,6 +149,7 @@ export async function at(
     ? at.simulate(connection, cartId, id)
     : PlainFetcher.fetch(connection, {
         ...at.METADATA,
+        template: at.METADATA.path,
         path: at.path(cartId, id),
       });
 }
@@ -241,6 +243,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(cartId),
         },
         input,
@@ -333,6 +336,7 @@ export async function update(
         },
         {
           ...update.METADATA,
+          template: update.METADATA.path,
           path: update.path(cartId, id),
         },
         input,
@@ -419,6 +423,7 @@ export async function replica(
     ? replica.simulate(connection, cartId, id)
     : PlainFetcher.fetch(connection, {
         ...replica.METADATA,
+        template: replica.METADATA.path,
         path: replica.path(cartId, id),
       });
 }
@@ -496,6 +501,7 @@ export async function erase(
     ? erase.simulate(connection, cartId, id)
     : PlainFetcher.fetch(connection, {
         ...erase.METADATA,
+        template: erase.METADATA.path,
         path: erase.path(cartId, id),
       });
 }
@@ -584,6 +590,7 @@ export async function discountable(
         },
         {
           ...discountable.METADATA,
+          template: discountable.METADATA.path,
           path: discountable.path(cartId),
         },
         input,

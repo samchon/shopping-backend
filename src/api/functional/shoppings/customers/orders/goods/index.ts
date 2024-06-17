@@ -40,6 +40,7 @@ export async function confirm(
     ? confirm.simulate(connection, orderId, id)
     : PlainFetcher.fetch(connection, {
         ...confirm.METADATA,
+        template: confirm.METADATA.path,
         path: confirm.path(orderId, id),
       });
 }

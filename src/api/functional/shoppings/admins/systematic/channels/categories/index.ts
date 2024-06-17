@@ -47,6 +47,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(channelCode),
         },
         input,
@@ -131,6 +132,7 @@ export async function update(
         },
         {
           ...update.METADATA,
+          template: update.METADATA.path,
           path: update.path(channelCode, id),
         },
         input,
@@ -219,6 +221,7 @@ export async function merge(
         },
         {
           ...merge.METADATA,
+          template: merge.METADATA.path,
           path: merge.path(channelCode),
         },
         input,
@@ -295,6 +298,7 @@ export async function index(
     ? index.simulate(connection, channelCode)
     : PlainFetcher.fetch(connection, {
         ...index.METADATA,
+        template: index.METADATA.path,
         path: index.path(channelCode),
       });
 }
@@ -364,6 +368,7 @@ export async function at(
     ? at.simulate(connection, channelCode, id)
     : PlainFetcher.fetch(connection, {
         ...at.METADATA,
+        template: at.METADATA.path,
         path: at.path(channelCode, id),
       });
 }
@@ -434,6 +439,7 @@ export async function invert(
     ? invert.simulate(connection, channelCode, id)
     : PlainFetcher.fetch(connection, {
         ...invert.METADATA,
+        template: invert.METADATA.path,
         path: invert.path(channelCode, id),
       });
 }

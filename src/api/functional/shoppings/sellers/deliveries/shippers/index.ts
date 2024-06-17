@@ -50,6 +50,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(deliveryId),
         },
         input,

@@ -57,6 +57,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(saleId, questionId),
         },
         input,
@@ -160,6 +161,7 @@ export async function update(
         },
         {
           ...update.METADATA,
+          template: update.METADATA.path,
           path: update.path(saleId, questionId),
         },
         input,

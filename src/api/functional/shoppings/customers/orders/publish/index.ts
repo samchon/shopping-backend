@@ -40,6 +40,7 @@ export async function able(
     ? able.simulate(connection, orderId)
     : PlainFetcher.fetch(connection, {
         ...able.METADATA,
+        template: able.METADATA.path,
         path: able.path(orderId),
       });
 }
@@ -124,6 +125,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(orderId),
         },
         input,
@@ -199,6 +201,7 @@ export async function cancel(
     ? cancel.simulate(connection, orderId)
     : PlainFetcher.fetch(connection, {
         ...cancel.METADATA,
+        template: cancel.METADATA.path,
         path: cancel.path(orderId),
       });
 }

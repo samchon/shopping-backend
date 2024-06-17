@@ -37,6 +37,7 @@ export async function able(
     ? able.simulate(connection, chargeId)
     : PlainFetcher.fetch(connection, {
         ...able.METADATA,
+        template: able.METADATA.path,
         path: able.path(chargeId),
       });
 }
@@ -118,6 +119,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(chargeId),
         },
         input,
