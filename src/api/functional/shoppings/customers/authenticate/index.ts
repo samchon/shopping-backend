@@ -52,6 +52,7 @@ export async function refresh(
         },
         {
           ...refresh.METADATA,
+          template: refresh.METADATA.path,
           path: refresh.path(),
         },
         input,
@@ -121,6 +122,7 @@ export async function get(connection: IConnection): Promise<get.Output> {
     ? get.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...get.METADATA,
+        template: get.METADATA.path,
         path: get.path(),
       });
 }
@@ -202,6 +204,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(),
         },
         input,
@@ -295,6 +298,7 @@ export async function join(
         },
         {
           ...join.METADATA,
+          template: join.METADATA.path,
           path: join.path(),
         },
         input,
@@ -383,6 +387,7 @@ export async function login(
         },
         {
           ...login.METADATA,
+          template: login.METADATA.path,
           path: login.path(),
         },
         input,
@@ -469,6 +474,7 @@ export async function activate(
         },
         {
           ...activate.METADATA,
+          template: activate.METADATA.path,
           path: activate.path(),
         },
         input,
@@ -561,6 +567,7 @@ export async function external(
         },
         {
           ...external.METADATA,
+          template: external.METADATA.path,
           path: external.path(),
         },
         input,

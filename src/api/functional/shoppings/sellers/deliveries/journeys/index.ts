@@ -51,6 +51,7 @@ export async function create(
         },
         {
           ...create.METADATA,
+          template: create.METADATA.path,
           path: create.path(deliveryId),
         },
         input,
@@ -138,6 +139,7 @@ export async function complete(
         },
         {
           ...complete.METADATA,
+          template: complete.METADATA.path,
           path: complete.path(deliveryId, id),
         },
         input,
@@ -219,6 +221,7 @@ export async function erase(
     ? erase.simulate(connection, deliveryId, id)
     : PlainFetcher.fetch(connection, {
         ...erase.METADATA,
+        template: erase.METADATA.path,
         path: erase.path(deliveryId, id),
       });
 }

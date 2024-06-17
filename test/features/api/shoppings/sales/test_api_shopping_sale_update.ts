@@ -11,8 +11,8 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_sale } from "./internal/generate_random_sale";
 import { prepare_random_sale } from "./internal/prepare_random_sale";
 
-export const test_api_shopping_sale_create = async (
-  pool: ConnectionPool,
+export const test_api_shopping_sale_update = async (
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
@@ -25,8 +25,8 @@ export const test_api_shopping_sale_create = async (
       ShoppingApi.functional.shoppings.sellers.sales.update(
         pool.seller,
         sale.id,
-        await prepare_random_sale(pool),
-      ),
+        await prepare_random_sale(pool)
+      )
     )),
   ];
   typia.assertEquals(total);
@@ -36,8 +36,8 @@ export const test_api_shopping_sale_create = async (
     ShoppingApi.functional.shoppings.sellers.sales.snapshots.flip(
       pool.seller,
       sale.id,
-      s.snapshot_id,
-    ),
+      s.snapshot_id
+    )
   );
   typia.assertEquals(read);
   TestValidator.equals("snapshots")(total)(read);
@@ -45,7 +45,7 @@ export const test_api_shopping_sale_create = async (
   const readByCustomer: IShoppingSale =
     await ShoppingApi.functional.shoppings.customers.sales.at(
       pool.customer,
-      sale.id,
+      sale.id
     );
   typia.assertEquals(readByCustomer);
   TestValidator.equals("byCustomer")(total.at(-1))(readByCustomer);

@@ -34,6 +34,7 @@ export async function get(connection: IConnection): Promise<get.Output> {
     ? get.simulate(connection)
     : PlainFetcher.fetch(connection, {
         ...get.METADATA,
+        template: get.METADATA.path,
         path: get.path(),
       });
 }
@@ -100,6 +101,7 @@ export async function join(
         },
         {
           ...join.METADATA,
+          template: join.METADATA.path,
           path: join.path(),
         },
         input,
@@ -189,6 +191,7 @@ export async function login(
         },
         {
           ...login.METADATA,
+          template: login.METADATA.path,
           path: login.path(),
         },
         input,

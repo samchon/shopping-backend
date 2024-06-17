@@ -59,6 +59,7 @@ export async function index(
         },
         {
           ...index.METADATA,
+          template: index.METADATA.path,
           path: index.path(saleId),
         },
         input,
@@ -142,6 +143,7 @@ export async function at(
     ? at.simulate(connection, saleId, id)
     : PlainFetcher.fetch(connection, {
         ...at.METADATA,
+        template: at.METADATA.path,
         path: at.path(saleId, id),
       });
 }
@@ -221,6 +223,7 @@ export async function flip(
     ? flip.simulate(connection, saleId, id)
     : PlainFetcher.fetch(connection, {
         ...flip.METADATA,
+        template: flip.METADATA.path,
         path: flip.path(saleId, id),
       });
 }
