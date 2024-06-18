@@ -70,8 +70,8 @@ importers:
         version: 9.0.1
     devDependencies:
       '@nestia/e2e':
-        specifier: ^0.5.0
-        version: 0.5.0(typescript@5.4.5)
+        specifier: ^0.5.4
+        version: 0.5.4(typescript@5.4.5)
       '@nestia/sdk':
         specifier: ^3.2.2
         version: 3.2.2(@nestia/fetcher@3.2.2(typescript@5.4.5))(@nestjs/common@10.3.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.9(@nestjs/common@10.3.9(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.2)(typescript@5.4.5))(typescript@5.4.5)(typia@6.1.0(typescript@5.4.5))
@@ -84,6 +84,9 @@ importers:
       '@types/cli':
         specifier: ^0.11.19
         version: 0.11.25
+      '@types/cli-progress':
+        specifier: ^3.11.5
+        version: 3.11.5
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
@@ -120,6 +123,9 @@ importers:
       cli:
         specifier: ^1.0.1
         version: 1.0.1
+      cli-progress:
+        specifier: ^3.12.0
+        version: 3.12.0
       copy-webpack-plugin:
         specifier: ^12.0.2
         version: 12.0.2(webpack@5.92.0(webpack-cli@5.1.4))
@@ -336,8 +342,8 @@ packages:
       rxjs: '>=6.0.3'
       typia: '>=6.0.3 <7.0.0'
 
-  '@nestia/e2e@0.5.0':
-    resolution: {integrity: sha512-8ercBcONBZ7Q13stmJ/5PpiHW2PhhI0eaMXWq24Pt+CoZ96KcQgMeHB5R5GaaNrOBBBiOzKYZy+86d8sS5lKcA==}
+  '@nestia/e2e@0.5.4':
+    resolution: {integrity: sha512-gbZfx0AecCsEsG1uir9dYck2fSbl8E5NceJ/tVRxA8zoR6qrS7GHH9HXsFGa4ydfvhFqRtPZsYF7E8hJ1PIt+w==}
 
   '@nestia/fetcher@3.2.2':
     resolution: {integrity: sha512-RoXXAsZ/tzBoxrOtrFGQLYbRGR7hiDOuUOGwgBhNde3rLDeXt7Jd0mZhB1QJUPddOqDREl5BWcGJt3jZwCH6zA==}
@@ -478,6 +484,9 @@ packages:
 
   '@types/body-parser@1.19.5':
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
+
+  '@types/cli-progress@3.11.5':
+    resolution: {integrity: sha512-D4PbNRbviKyppS5ivBGyFO29POlySLmA2HyUFE4p5QGazAMM3CwkKWcvTl8gvElSuxRh6FPKL8XmidX873ou4g==}
 
   '@types/cli@0.11.25':
     resolution: {integrity: sha512-dO7U6Q+6f7IIDtPwFe3RGIC7QBKEq6zPmQ2UaNt6NskhrupafbrftJ+PzzfMnxCL+y1oGKMJb7vC6vvSGEIElg==}
@@ -919,6 +928,10 @@ packages:
   cli-cursor@3.1.0:
     resolution: {integrity: sha512-I/zHAwsKf9FqGoXM4WWRACob9+SNukZTd94DWF57E4toouRulbCxcUh6RKUEOQlYTHJnzkPMySvPNaaSLNfLZw==}
     engines: {node: '>=8'}
+
+  cli-progress@3.12.0:
+    resolution: {integrity: sha512-tRkV3HJ1ASwm19THiiLIXLO7Im7wlTuKnvkYaTkyoAPefqjNg7W7DHKUlGRxy9vxDvbyCYQkQozvptuMkGCg8A==}
+    engines: {node: '>=4'}
 
   cli-spinners@2.9.2:
     resolution: {integrity: sha512-ywqV+5MmyL4E7ybXgKys4DugZbX0FC6LnwrhjuykIjnK9k8OQacQ7axGKnjDXWNhns0xot3bZI5h55H8yo9cJg==}
@@ -2978,7 +2991,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/e2e@0.5.0(typescript@5.4.5)':
+  '@nestia/e2e@0.5.4(typescript@5.4.5)':
     dependencies:
       '@nestia/fetcher': 3.2.2(typescript@5.4.5)
       chalk: 4.1.2
@@ -3133,6 +3146,10 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
+      '@types/node': 20.14.2
+
+  '@types/cli-progress@3.11.5':
+    dependencies:
       '@types/node': 20.14.2
 
   '@types/cli@0.11.25':
@@ -3663,6 +3680,10 @@ snapshots:
   cli-cursor@3.1.0:
     dependencies:
       restore-cursor: 3.1.0
+
+  cli-progress@3.12.0:
+    dependencies:
+      string-width: 4.2.3
 
   cli-spinners@2.9.2: {}
 

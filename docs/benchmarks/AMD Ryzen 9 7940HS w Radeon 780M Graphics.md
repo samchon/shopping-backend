@@ -7,138 +7,130 @@
 >   - Count: 8,192
 >   - Threads: 4
 >   - Simultaneous: 32
-> - Total Elapsed Time: 147,939 ms
+> - Total Elapsed Time: 141,016 ms
 
 ### Total
 Type | Count | Success | Mean. | Stdev. | Minimum | Maximum
 ----|----|----|----|----|----|----
-Total | 9,195 | 9,126 | 482.75 | 1,631.13 | 6 | 33,650
+Total | 8,630 | 8,615 | 465.11 | 3,637.36 | 2 | 66,548
 
 ### Endpoints
 Type | Count | Success | Mean. | Stdev. | Minimum | Maximum
 ----|----|----|----|----|----|----
-PATCH /shoppings/customers/carts/:cartId/commodities/discountable | 25 | 25 | 22,239.24 | 3,579.58 | 17,787 | 33,650
-PATCH /shoppings/customers/orders/:id/discountable | 30 | 27 | 17,911.7 | 7,324.55 | 2,715 | 30,154
-PATCH /shoppings/customers/orders | 42 | 42 | 1,848.64 | 1,646.61 | 20 | 6,173
-PATCH /shoppings/customers/sales | 8 | 8 | 1,706.25 | 685.08 | 598 | 2,808
-PATCH /shoppings/customers/carts/:cartId/commodities | 139 | 139 | 1,412.84 | 1,649.02 | 29 | 6,105
-PATCH /shoppings/admins/coupons | 25 | 25 | 1,304.76 | 1,202.58 | 52 | 3,781
-DELETE /shoppings/admins/systematic/channels/:channelCode/categories/merge | 3 | 3 | 998.33 | 358.11 | 525 | 1,391
-DELETE /shoppings/admins/systematic/channels/merge | 3 | 3 | 831.33 | 407.21 | 349 | 1,345
-PUT /shoppings/customers/orders/:id/discount | 144 | 142 | 750.4 | 457.87 | 46 | 2,674
-PATCH /shoppings/sellers/orders | 16 | 16 | 651.62 | 230.04 | 336 | 1,322
-POST /shoppings/customers/orders | 410 | 404 | 570.73 | 373.64 | 43 | 2,355
-POST /shoppings/customers/authenticate/join | 733 | 733 | 553.75 | 272.11 | 157 | 1,797
-POST /shoppings/sellers/deliveries/:deliveryId/journeys | 57 | 57 | 544 | 190.82 | 174 | 1,110
-POST /shoppings/customers/carts/:cartId/commodities | 665 | 645 | 539.31 | 264.5 | 43 | 1,418
-DELETE /shoppings/sellers/deliveries/:deliveryId/journeys/:id | 3 | 3 | 539 | 84.92 | 436 | 644
-PUT /shoppings/sellers/sales/:id | 12 | 12 | 527.33 | 196.58 | 308 | 1,045
-POST /shoppings/customers/authenticate/external | 6 | 6 | 517.83 | 344.25 | 225 | 1,263
-POST /shoppings/customers/deposits/charges/:chargeId/publish | 54 | 54 | 506.2 | 305.34 | 56 | 1,294
-GET /shoppings/sellers/deliveries/:id | 3 | 3 | 481.33 | 76.84 | 410 | 588
-POST /shoppings/sellers/sales | 761 | 761 | 472.77 | 221.54 | 40 | 1,279
-POST /shoppings/customers/orders/:orderId/publish | 315 | 315 | 471.74 | 255.5 | 26 | 1,378
-GET /shoppings/customers/orders/:id | 89 | 89 | 456.55 | 196.33 | 92 | 926
-GET /shoppings/sellers/sales/:saleId/snapshots/:id/flip | 8 | 8 | 451.37 | 225.06 | 129 | 823
-PUT /shoppings/customers/authenticate/password/change | 16 | 16 | 449.12 | 121.12 | 260 | 710
-PUT /shoppings/sellers/deliveries/:deliveryId/journeys/:id/complete | 18 | 18 | 443.5 | 237.78 | 143 | 1,110
-POST /shoppings/sellers/coupons | 48 | 48 | 434.56 | 291.71 | 49 | 1,452
-POST /shoppings/admins/systematic/channels/:channelCode/categories | 88 | 88 | 401.82 | 218.75 | 93 | 1,230
-GET /shoppings/customers/carts/:cartId/commodities/:id/replica | 1 | 1 | 379 | 0 | 379 | 379
-POST /shoppings/sellers/deliveries | 143 | 143 | 370.22 | 208.22 | 27 | 1,179
-POST /shoppings/customers/sales/:saleId/reviews | 148 | 140 | 354.12 | 211.58 | 31 | 979
-PUT /shoppings/admins/authenticate/login | 194 | 192 | 328.34 | 197.25 | 123 | 1,141
-POST /shoppings/admins/mileages/donations | 89 | 89 | 316.15 | 209.03 | 17 | 1,014
-GET /shoppings/customers/carts/:cartId/commodities/:id | 2 | 2 | 305.5 | 101.5 | 204 | 407
-PATCH /shoppings/admins/sales | 15 | 15 | 294.53 | 100.23 | 99 | 561
-PUT /shoppings/sellers/authenticate/login | 36 | 29 | 291.75 | 102.11 | 137 | 606
-PUT /shoppings/customers/authenticate/login | 6 | 5 | 282.16 | 106.16 | 138 | 449
-PATCH /shoppings/sellers/systematic/channels/hierarchical | 773 | 773 | 276.61 | 161.95 | 10 | 1,183
-PATCH /shoppings/customers/coupons | 5 | 5 | 274 | 151.81 | 69 | 506
-GET /shoppings/admins/sales/:id | 18 | 18 | 269.77 | 145.68 | 97 | 758
-POST /shoppings/customers/authenticate | 1,046 | 1,046 | 268.72 | 172.65 | 31 | 1,260
-PUT /shoppings/admins/systematic/channels/:channelCode/categories/:id | 2 | 2 | 264 | 58 | 206 | 322
-POST /shoppings/admins/coupons | 625 | 625 | 263.67 | 188.18 | 20 | 1,341
-GET /shoppings/customers/sales/:id | 21 | 16 | 260.04 | 112.9 | 45 | 506
-PUT /shoppings/customers/orders/:orderId/goods/:id/confirm | 85 | 85 | 256.58 | 178.75 | 15 | 708
-GET /shoppings/sellers/sales/:id | 24 | 24 | 253.7 | 122.46 | 47 | 529
-GET /shoppings/sellers/orders/:id | 13 | 11 | 252.38 | 122.09 | 98 | 557
-POST /shoppings/customers/coupons/tickets | 9 | 7 | 244 | 160.11 | 98 | 587
-PUT /shoppings/admins/systematic/channels/:id | 3 | 3 | 234.66 | 132.84 | 47 | 336
-POST /shoppings/customers/sales/:saleId/reviews/:id | 20 | 20 | 232.2 | 148.85 | 45 | 658
-PUT /shoppings/admins/systematic/sections/:id | 3 | 3 | 220 | 109.44 | 88 | 356
-GET /shoppings/admins/orders/:id | 3 | 1 | 217.66 | 208.33 | 59 | 512
-PATCH /shoppings/sellers/systematic/channels | 3 | 3 | 215.33 | 97.79 | 135 | 353
-GET /shoppings/sellers/sales/:saleId/questions/:id | 2 | 2 | 212 | 44 | 168 | 256
-DELETE /shoppings/sellers/sales/:id/pause | 8 | 8 | 211.25 | 192.81 | 47 | 605
-PUT /shoppings/customers/sales/:saleId/questions/:inquiryId/comments/:id | 8 | 8 | 209.5 | 104 | 62 | 428
-PATCH /shoppings/sellers/sales/:saleId/questions | 2 | 2 | 209.5 | 54.5 | 155 | 264
-PATCH /shoppings/customers/sales/:saleId/questions | 33 | 33 | 207.21 | 127.15 | 59 | 606
-POST /shoppings/sellers/sales/:saleId/reviews/:inquiryId/comments | 12 | 12 | 206.33 | 77.76 | 147 | 341
-POST /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments | 16 | 16 | 206.06 | 91.92 | 51 | 333
-POST /shoppings/sellers/sales/:saleId/questions/:inquiryId/comments | 17 | 17 | 205.35 | 111.63 | 53 | 425
-POST /shoppings/customers/authenticate/activate | 12 | 12 | 205.08 | 119.8 | 71 | 569
-DELETE /shoppings/admins/systematic/sections/merge | 38 | 38 | 203.28 | 145.82 | 13 | 553
-POST /shoppings/customers/sales/:saleId/questions | 40 | 40 | 201.07 | 120.79 | 54 | 563
-PATCH /shoppings/admins/systematic/channels/:channelCode/categories | 5 | 5 | 196.8 | 149.36 | 82 | 483
-POST /shoppings/admins/sales/:saleId/questions/:inquiryId/comments | 17 | 17 | 195.64 | 132.29 | 53 | 473
-PATCH /shoppings/customers/sales/:saleId/questions/:inquiryId/comments | 14 | 14 | 195.28 | 127.13 | 60 | 526
-PATCH /shoppings/customers/sales/:saleId/reviews | 42 | 42 | 191.28 | 88.55 | 55 | 375
-GET /shoppings/customers/deposits/histories/balance | 9 | 9 | 189.33 | 127.73 | 42 | 490
-POST /shoppings/customers/sales/:saleId/questions/:inquiryId/comments | 19 | 19 | 185.63 | 112.18 | 57 | 413
-PATCH /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments | 10 | 10 | 184.4 | 99.89 | 56 | 347
-PUT /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments/:id | 16 | 16 | 181.18 | 113.3 | 47 | 425
-DELETE /shoppings/sellers/sales/:id/suspend | 7 | 7 | 180.42 | 97.06 | 67 | 390
-POST /shoppings/sellers/sales/:saleId/reviews/:reviewId/answer | 4 | 4 | 177.5 | 86.15 | 66 | 308
-POST /shoppings/admins/sales/:saleId/reviews/:inquiryId/comments | 12 | 12 | 163.75 | 91.19 | 58 | 339
-DELETE /shoppings/admins/coupons/:id | 3 | 3 | 159 | 84.96 | 53 | 261
-GET /shoppings/admins/systematic/channels/:id | 7 | 7 | 156.71 | 82.16 | 48 | 277
-PUT /shoppings/sellers/sales/:saleId/questions/:questionId/answer | 8 | 8 | 156.37 | 76.38 | 69 | 325
-PATCH /shoppings/customers/systematic/sections | 2 | 2 | 156 | 9 | 147 | 165
-POST /shoppings/sellers/sales/:saleId/questions/:questionId/answer | 6 | 6 | 145.66 | 22.11 | 116 | 171
-GET /shoppings/customers/sales/:saleId/reviews/:id | 13 | 13 | 144.46 | 113.47 | 39 | 441
-GET /shoppings/admins/systematic/sections/:id | 4 | 4 | 143.5 | 58.1 | 74 | 235
-PATCH /shoppings/admins/systematic/channels | 26 | 26 | 140.84 | 82.12 | 47 | 343
-GET /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments/:id | 4 | 4 | 138.75 | 76.17 | 32 | 247
-GET /shoppings/admins/coupons/:id | 4 | 4 | 137.75 | 68.43 | 59 | 240
-GET /shoppings/customers/coupons/tickets/:id | 3 | 3 | 132.33 | 59.45 | 52 | 194
-POST /shoppings/sellers/authenticate | 507 | 507 | 128.4 | 100.58 | 21 | 594
-POST /shoppings/admins/systematic/channels | 181 | 181 | 122.95 | 103.36 | 21 | 624
-PATCH /shoppings/admins/systematic/sections | 10 | 10 | 120.5 | 77.31 | 40 | 316
-GET /shoppings/customers/orders/:id/price | 312 | 312 | 119.94 | 87.87 | 10 | 460
-GET /shoppings/customers/sales/:saleId/questions/:id | 13 | 11 | 115.38 | 81.45 | 38 | 334
-GET /shoppings/customers/mileages/histories/balance | 9 | 9 | 112.66 | 63.55 | 21 | 234
-POST /shoppings/admins/systematic/sections | 107 | 107 | 108.14 | 89.75 | 20 | 494
-GET /shoppings/customers/coupons/:id | 7 | 0 | 107.28 | 40.76 | 51 | 157
-POST /shoppings/customers/deposits/charges | 57 | 57 | 105.68 | 84.89 | 15 | 347
-POST /shoppings/sellers/deliveries/:deliveryId/shippers | 16 | 16 | 105 | 59.84 | 37 | 230
-PATCH /shoppings/customers/mileages/histories | 87 | 87 | 104.98 | 108.5 | 9 | 466
-PATCH /shoppings/customers/authenticate/refresh | 3 | 3 | 103.33 | 95.39 | 29 | 238
-PATCH /shoppings/customers/deposits/histories | 56 | 56 | 100.32 | 97.93 | 11 | 421
-DELETE /shoppings/admins/coupons/:id/destroy | 243 | 243 | 97.17 | 93.77 | 6 | 496
-PATCH /shoppings/sellers/deliveries/incompletes | 131 | 131 | 95.44 | 83.79 | 8 | 509
-GET /shoppings/admins/mileages/:code/get | 14 | 14 | 87.92 | 67.81 | 22 | 220
-POST /shoppings/sellers/sales/:id/replica | 1 | 1 | 69 | 0 | 69 | 69
-GET /shoppings/admins/sales/:saleId/questions/:id | 2 | 2 | 67.5 | 12.5 | 55 | 80
-PATCH /shoppings/admins/sales/:saleId/questions | 2 | 2 | 54 | 3 | 51 | 57
-GET /shoppings/customers/sales/:saleId/questions/:inquiryId/comments/:id | 2 | 2 | 49.5 | 10.5 | 39 | 60
-GET /monitors/system | 1 | 1 | 19 | 0 | 19 | 19
-GET /monitors/health | 3 | 3 | 16.66 | 5.55 | 9 | 22
+PATCH /shoppings/customers/carts/:cartId/commodities/discountable | 23 | 22 | 44,741.78 | 20,667.29 | 3,980 | 66,548
+PATCH /shoppings/customers/orders/:id/discountable | 27 | 25 | 43,230.92 | 18,129.25 | 3,715 | 65,206
+PATCH /shoppings/customers/orders | 24 | 24 | 1,441.33 | 319.77 | 1,086 | 2,066
+PATCH /shoppings/customers/carts/:cartId/commodities | 64 | 64 | 1,135.85 | 713.1 | 66 | 2,426
+PATCH /shoppings/admins/coupons | 31 | 31 | 771.16 | 675.74 | 42 | 2,411
+DELETE /shoppings/admins/systematic/channels/merge | 3 | 3 | 746 | 198.07 | 474 | 940
+DELETE /shoppings/admins/systematic/channels/:channelCode/categories/merge | 2 | 2 | 712.5 | 92.5 | 620 | 805
+PUT /shoppings/customers/orders/:id/discount | 145 | 145 | 510.69 | 271.52 | 32 | 1,409
+PUT /shoppings/sellers/sales/:id | 7 | 7 | 428.28 | 262.03 | 162 | 864
+DELETE /shoppings/sellers/deliveries/:deliveryId/journeys/:id | 4 | 4 | 403 | 224.39 | 113 | 717
+POST /shoppings/customers/deposits/charges/:chargeId/publish | 67 | 67 | 382.59 | 265.18 | 110 | 1,749
+POST /shoppings/customers/authenticate/join | 654 | 654 | 350.77 | 308.79 | 107 | 1,796
+POST /shoppings/admins/systematic/channels/:channelCode/categories | 54 | 54 | 318.92 | 149.09 | 108 | 669
+PUT /shoppings/customers/authenticate/password/change | 14 | 14 | 311.71 | 93.66 | 184 | 476
+POST /shoppings/customers/carts/:cartId/commodities | 617 | 617 | 310.87 | 174.3 | 27 | 1,170
+POST /shoppings/customers/orders | 390 | 390 | 296.99 | 174.1 | 32 | 1,217
+PATCH /shoppings/sellers/orders | 4 | 4 | 290 | 44.43 | 234 | 347
+POST /shoppings/sellers/deliveries/:deliveryId/journeys | 6 | 6 | 280.5 | 164.14 | 102 | 496
+PATCH /shoppings/customers/sales | 78 | 78 | 279.56 | 211.48 | 26 | 916
+POST /shoppings/sellers/sales | 714 | 714 | 269.08 | 156.76 | 64 | 1,115
+PUT /shoppings/admins/systematic/sections/:id | 5 | 5 | 268.8 | 259.04 | 72 | 782
+POST /shoppings/customers/orders/:orderId/publish | 287 | 287 | 249.69 | 130.51 | 42 | 843
+POST /shoppings/sellers/deliveries | 111 | 111 | 242.43 | 116.06 | 90 | 582
+GET /shoppings/customers/carts/:cartId/commodities/:id/replica | 6 | 6 | 237.33 | 236.57 | 43 | 739
+PATCH /shoppings/customers/coupons | 4 | 4 | 230.5 | 215.09 | 64 | 600
+PATCH /shoppings/admins/sales | 16 | 16 | 229.81 | 107.9 | 67 | 445
+GET /shoppings/sellers/sales/:saleId/snapshots/:id/flip | 8 | 8 | 226.62 | 186.25 | 57 | 569
+PUT /shoppings/admins/authenticate/login | 190 | 189 | 218.33 | 174.97 | 82 | 920
+POST /shoppings/customers/sales/:saleId/reviews | 181 | 181 | 215.73 | 138.43 | 33 | 965
+PUT /shoppings/sellers/authenticate/login | 12 | 12 | 212.41 | 89.89 | 97 | 361
+POST /shoppings/admins/mileages/donations | 79 | 79 | 205.4 | 130.36 | 52 | 826
+POST /shoppings/sellers/coupons | 24 | 24 | 203.75 | 166.83 | 39 | 893
+PUT /shoppings/customers/orders/:orderId/goods/:id/confirm | 73 | 73 | 203.73 | 165.16 | 69 | 956
+PUT /shoppings/sellers/sales/:saleId/reviews/:reviewId/answer | 4 | 4 | 202 | 64.2 | 121 | 278
+GET /shoppings/customers/orders/:id | 8 | 8 | 200.87 | 143.03 | 40 | 474
+PATCH /shoppings/admins/systematic/channels/:channelCode/categories | 2 | 2 | 198 | 110 | 88 | 308
+GET /shoppings/sellers/orders/:id | 17 | 17 | 191.7 | 122.21 | 22 | 381
+GET /shoppings/customers/carts/:cartId/commodities/:id | 4 | 4 | 185.5 | 80.65 | 50 | 256
+POST /shoppings/customers/authenticate/activate | 11 | 11 | 181.27 | 260.95 | 41 | 977
+PUT /shoppings/customers/authenticate/login | 14 | 14 | 180.78 | 98.88 | 85 | 419
+GET /shoppings/admins/systematic/channels/:id | 2 | 2 | 180.5 | 103.5 | 77 | 284
+GET /shoppings/sellers/sales/:id | 28 | 28 | 174.6 | 84.35 | 37 | 347
+POST /shoppings/sellers/sales/:saleId/questions/:inquiryId/comments | 25 | 25 | 167.96 | 97.06 | 42 | 444
+PUT /shoppings/customers/sales/:saleId/questions/:inquiryId/comments/:id | 12 | 12 | 167.41 | 97.29 | 44 | 309
+POST /shoppings/customers/authenticate | 953 | 953 | 167.04 | 179.32 | 23 | 1,243
+GET /shoppings/admins/sales/:id | 18 | 18 | 166.94 | 87.91 | 51 | 373
+GET /shoppings/admins/coupons/:id | 3 | 3 | 166 | 100.91 | 36 | 282
+POST /shoppings/sellers/sales/:id/replica | 2 | 2 | 165.5 | 101.5 | 64 | 267
+PATCH /shoppings/sellers/systematic/channels/hierarchical | 721 | 721 | 165.36 | 145.47 | 29 | 996
+PUT /shoppings/sellers/sales/:saleId/questions/:questionId/answer | 8 | 8 | 163.5 | 70.19 | 53 | 269
+POST /shoppings/sellers/sales/:saleId/units/:unitId/stocks/:stockId/supplements | 8 | 8 | 163.5 | 66.14 | 57 | 247
+GET /shoppings/customers/sales/:id | 22 | 14 | 158.9 | 97.11 | 15 | 411
+POST /shoppings/sellers/sales/:saleId/questions/:questionId/answer | 2 | 2 | 153.5 | 111.5 | 42 | 265
+POST /shoppings/admins/coupons | 649 | 649 | 152.82 | 118.63 | 27 | 707
+POST /shoppings/customers/authenticate/external | 6 | 6 | 147 | 76.47 | 83 | 304
+GET /shoppings/sellers/deliveries/:id | 5 | 5 | 138.6 | 78.33 | 74 | 271
+POST /shoppings/sellers/deliveries/:deliveryId/shippers | 20 | 20 | 136.4 | 87.38 | 26 | 383
+POST /shoppings/customers/coupons/tickets | 17 | 16 | 136.29 | 74.86 | 50 | 343
+POST /shoppings/admins/sales/:saleId/questions/:inquiryId/comments | 25 | 25 | 134.96 | 114.65 | 37 | 602
+GET /shoppings/admins/orders/:id | 6 | 6 | 131.83 | 110.26 | 32 | 317
+PATCH /shoppings/sellers/sales/:saleId/questions | 4 | 4 | 131.5 | 121.8 | 35 | 336
+POST /shoppings/sellers/sales/:saleId/reviews/:reviewId/answer | 5 | 5 | 130.19 | 81.72 | 56 | 285
+PATCH /shoppings/admins/systematic/sections | 20 | 20 | 127.05 | 84.41 | 42 | 354
+PUT /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments/:id | 12 | 12 | 122.33 | 75.16 | 34 | 227
+GET /shoppings/customers/deposits/histories/balance | 13 | 13 | 120.76 | 153.37 | 26 | 583
+POST /shoppings/customers/sales/:saleId/questions/:inquiryId/comments | 28 | 28 | 115.53 | 88.8 | 39 | 482
+POST /shoppings/customers/sales/:saleId/reviews/:id | 8 | 8 | 110.87 | 83.23 | 39 | 250
+PUT /shoppings/sellers/deliveries/:deliveryId/journeys/:id/complete | 4 | 4 | 109.75 | 67.18 | 32 | 217
+POST /shoppings/admins/sales/:saleId/reviews/:inquiryId/comments | 27 | 27 | 108.07 | 63.46 | 29 | 298
+POST /shoppings/sellers/sales/:saleId/reviews/:inquiryId/comments | 27 | 27 | 105.96 | 70.93 | 38 | 289
+PATCH /shoppings/customers/sales/:saleId/questions/:inquiryId/comments | 21 | 21 | 105.61 | 57.59 | 37 | 253
+POST /shoppings/customers/sales/:saleId/questions | 42 | 42 | 100.5 | 50.51 | 35 | 209
+PUT /shoppings/admins/systematic/channels/:id | 1 | 1 | 99 | 0 | 99 | 99
+GET /shoppings/sellers/sales/:saleId/questions/:id | 4 | 4 | 98 | 106.84 | 32 | 283
+PATCH /shoppings/sellers/sales/:saleId/units/:unitId/stocks/:stockId/supplements | 2 | 2 | 95.5 | 47.5 | 48 | 143
+POST /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments | 30 | 30 | 95.36 | 64.89 | 29 | 276
+PATCH /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments | 24 | 24 | 94.12 | 55.48 | 39 | 235
+PATCH /shoppings/customers/sales/:saleId/reviews | 89 | 89 | 93.55 | 51.1 | 35 | 295
+DELETE /shoppings/sellers/sales/:id/pause | 10 | 10 | 93.5 | 64.68 | 29 | 243
+POST /shoppings/customers/deposits/charges | 72 | 72 | 92.94 | 97.93 | 25 | 593
+PATCH /shoppings/sellers/systematic/channels | 3 | 3 | 91.66 | 42.75 | 58 | 152
+PATCH /shoppings/admins/systematic/channels | 24 | 24 | 90.62 | 51.21 | 26 | 229
+GET /shoppings/admins/systematic/sections/:id | 8 | 8 | 90.37 | 72.09 | 26 | 244
+POST /shoppings/admins/systematic/sections | 181 | 181 | 83.08 | 79.94 | 15 | 489
+GET /shoppings/customers/sales/:saleId/reviews/:id | 11 | 11 | 82.09 | 54.52 | 29 | 224
+GET /shoppings/customers/sales/:saleId/questions/:inquiryId/comments/:id | 3 | 3 | 80.33 | 44.09 | 26 | 134
+GET /shoppings/customers/coupons/:id | 3 | 1 | 79.66 | 39.22 | 28 | 123
+PATCH /shoppings/customers/deposits/histories | 43 | 43 | 79.3 | 49.87 | 29 | 222
+PATCH /shoppings/customers/sales/:saleId/questions | 29 | 29 | 74.75 | 46.27 | 33 | 253
+POST /shoppings/sellers/authenticate | 424 | 424 | 73.51 | 71.99 | 16 | 535
+PATCH /shoppings/sellers/deliveries/incompletes | 114 | 114 | 72.04 | 59.66 | 21 | 335
+POST /shoppings/admins/systematic/channels | 147 | 147 | 66.92 | 68.86 | 16 | 611
+GET /shoppings/customers/orders/:id/price | 285 | 285 | 65.3 | 45.59 | 15 | 278
+GET /shoppings/customers/sales/:saleId/questions/:id | 12 | 12 | 63.25 | 41.75 | 25 | 163
+GET /shoppings/admins/mileages/:code/get | 7 | 7 | 62.71 | 27.82 | 27 | 97
+PATCH /shoppings/customers/mileages/histories | 65 | 65 | 62.3 | 55.88 | 19 | 339
+GET /shoppings/customers/sales/:saleId/reviews/:inquiryId/comments/:id | 3 | 3 | 60 | 36.24 | 30 | 111
+DELETE /shoppings/admins/systematic/sections/merge | 37 | 37 | 56.78 | 51.48 | 7 | 207
+PATCH /shoppings/admins/sales/:saleId/questions | 4 | 4 | 54.5 | 13.21 | 45 | 77
+GET /shoppings/admins/sales/:saleId/questions/:id | 4 | 4 | 53 | 25.41 | 27 | 91
+DELETE /shoppings/sellers/sales/:id/suspend | 4 | 4 | 53 | 26.18 | 33 | 98
+PATCH /shoppings/customers/systematic/sections | 1 | 1 | 46 | 0 | 46 | 46
+GET /shoppings/customers/mileages/histories/balance | 10 | 10 | 33.29 | 21.17 | 18 | 95
+DELETE /shoppings/admins/coupons/:id/destroy | 236 | 236 | 33.16 | 36.89 | 4 | 255
+PATCH /shoppings/customers/authenticate/refresh | 3 | 3 | 19.66 | 3.85 | 16 | 25
+GET /monitors/health | 7 | 7 | 11.85 | 4.79 | 2 | 17
+GET /monitors/system | 3 | 3 | 8.33 | 1.69 | 6 | 10
 
 ### Failures
 Method | Path | Count | Success
 -------|------|-------|--------
-POST | /shoppings/customers/carts/:cartId/commodities | 665 | 645
-POST | /shoppings/customers/orders | 410 | 404
-PUT | /shoppings/admins/authenticate/login | 194 | 192
-POST | /shoppings/customers/sales/:saleId/reviews | 148 | 140
-PUT | /shoppings/customers/orders/:id/discount | 144 | 142
-PUT | /shoppings/sellers/authenticate/login | 36 | 29
-PATCH | /shoppings/customers/orders/:id/discountable | 30 | 27
-GET | /shoppings/customers/sales/:id | 21 | 16
-GET | /shoppings/sellers/orders/:id | 13 | 11
-GET | /shoppings/customers/sales/:saleId/questions/:id | 13 | 11
-POST | /shoppings/customers/coupons/tickets | 9 | 7
-GET | /shoppings/customers/coupons/:id | 7 | 0
-PUT | /shoppings/customers/authenticate/login | 6 | 5
-GET | /shoppings/admins/orders/:id | 3 | 1
+PUT | /shoppings/admins/authenticate/login | 190 | 189
+PATCH | /shoppings/customers/orders/:id/discountable | 27 | 25
+PATCH | /shoppings/customers/carts/:cartId/commodities/discountable | 23 | 22
+GET | /shoppings/customers/sales/:id | 22 | 14
+POST | /shoppings/customers/coupons/tickets | 17 | 16
+GET | /shoppings/customers/coupons/:id | 3 | 1

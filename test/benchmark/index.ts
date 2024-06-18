@@ -1,4 +1,5 @@
 import { DynamicBenchmarker, StopWatch } from "@nestia/e2e";
+import cliProgress from "cli-progress";
 import fs from "fs";
 import os from "os";
 
@@ -7,6 +8,7 @@ import { ShoppingConfiguration } from "../../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../../src/ShoppingGlobal";
 import { ShoppingSetupWizard } from "../../src/setup/ShoppingSetupWizard";
 import { ArgumentParser } from "../../src/utils/ArgumentParser";
+import { IPointer } from "tstl";
 
 interface IOptions {
   reset: boolean;
@@ -70,6 +72,10 @@ const main = async (): Promise<void> => {
   await backend.open();
 
   // DO BENCHMARK
+  const prev: IPointer<number> = { value: 0 };
+  const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+  bar.start(options.count, 0);
+
   const report: DynamicBenchmarker.IReport = await DynamicBenchmarker.master({
     count: options.count,
     threads: options.threads,
@@ -79,8 +85,16 @@ const main = async (): Promise<void> => {
         (options.include ?? []).some((str) => func.includes(str))) &&
       (!options.exclude?.length ||
         (options.exclude ?? []).every((str) => !func.includes(str))),
+    progress: (value: number) => {
+      if (value >= 100 + prev.value) {
+        bar.update(value);
+        prev.value = value;
+      }
+    },
     servant: `${__dirname}/servant.js`,
   });
+  bar.update(options.count);
+  bar.stop();
 
   // DOCUMENTATION
   try {
