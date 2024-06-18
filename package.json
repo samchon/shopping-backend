@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
-    "@nestia/e2e": "^0.5.0",
+    "@nestia/e2e": "^0.5.3",
     "@nestia/sdk": "^3.2.2",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
