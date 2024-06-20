@@ -64,15 +64,15 @@ model shopping_customers {
   ///
   /// {@link window.location.href}
   ///
-  /// @format url
-  href String @db.VarChar /// @format url
+  /// @format uri
+  href String @db.VarChar(1024)
 
   /// Referrer URL.
   ///
   /// {@link window.document.referrer}
   ///
-  /// @format url
-  referrer String? @db.VarChar /// @format url
+  /// @format uri
+  referrer String? @db.VarChar(1024)
 
   /// IP address,
   ///
