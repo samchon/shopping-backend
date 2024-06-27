@@ -23,7 +23,7 @@ export * as publish from "./publish";
  *
  * Create a new {@link IShoppingOrder order application} from a
  * {@link IShoppingCartCommodity shopping cart} that has been composed by the
- * {@link IShoppingCustomer }. Of course, do not need to put every commodities
+ * {@link IShoppingCustomer}. Of course, do not need to put every commodities
  * to the order, but possible to select some of them by the customer.
  *
  * By the way, this function does not mean completion the order, but means
@@ -105,11 +105,11 @@ export namespace create {
  * Erase an order application.
  *
  * Erase an order application that has been applied by the
- * {@link IShoppingCustomer }.
+ * {@link IShoppingCustomer}.
  *
  * If the order has been {@link IShoppingOrderPublish published}, then it is
  * not possible to erase the order. In that case, you've to cancel the
- * payment by calling the {@link publish.cancel } function.
+ * payment by calling the {@link publish.cancel} function.
  *
  * @param id Target order's {@link IShoppingOrder.id}
  * @tag Order
@@ -238,9 +238,9 @@ export namespace price {
 /**
  * Get discountable info.
  *
- * Compute discountable features about the {@link IShoppingOrder }.
+ * Compute discountable features about the {@link IShoppingOrder}.
  *
- * Retured {@link IShoppingOrderDiscountable } contains including
+ * Retured {@link IShoppingOrderDiscountable} contains including
  * combinations of adjustable {@link IShoppingCoupon coupons},
  * withdrawable {@link IShoppingDepositHistory deposits}
  * and {@link IShoppingMileageHistory mileages}.
@@ -329,7 +329,7 @@ export namespace discountable {
 /**
  * Discount the order.
  *
- * Discount total price of the {@link IShoppingOrder } by adjusting
+ * Discount total price of the {@link IShoppingOrder} by adjusting
  * {@link IShoppingCoupon coupons}, {@link IShoppingDepositHistory deposits}
  * and {@link IShoppingMileageHistory mileages}. If amount of discount
  * features are equal to the total price of the order, it is possible to
@@ -337,7 +337,7 @@ export namespace discountable {
  *
  * By the way, the discounting features must be valid. If not, 428
  * unprocessable entity error would be thrown. To know which features are
- * adjustable or withdrawable, call the {@link discountable } function
+ * adjustable or withdrawable, call the {@link discountable} function
  * before.
  *
  * @param id Target order's {@link IShoppingOrder.id}

@@ -101,7 +101,7 @@ export namespace create {
  * Update a {@link IShoppingSection section}'s name.
  *
  * Note that, it is not possible to change the section's code. If you want to
- * to do it forcibly, then {@link create } new one and {@link merge } with it.
+ * to do it forcibly, then {@link create} new one and {@link merge} with it.
  *
  * @param id Target section's {@link IShoppingSection.code}
  * @param input Update info of the section
