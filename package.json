@@ -80,9 +80,9 @@
   "dependencies": {
     "@nestia/core": "^3.3.1",
     "@nestia/fetcher": "^3.3.1",
-    "@nestjs/common": "^10.3.9",
-    "@nestjs/core": "^10.3.9",
-    "@nestjs/platform-fastify": "^10.3.9",
+    "@nestjs/common": "^10.3.10",
+    "@nestjs/core": "^10.3.10",
+    "@nestjs/platform-fastify": "^10.3.10",
     "@prisma/client": "^5.16.1",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
