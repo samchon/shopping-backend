@@ -1,12 +1,12 @@
-import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
-import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
+import { IDiagnosis } from "../../../structures/common/IDiagnosis";
+import { IShoppingSale } from "../../../structures/shoppings/sales/IShoppingSale";
 
 import { ShoppingSaleSnapshotDiagnoser } from "./ShoppingSaleSnapshotDiagnoser";
 
 export namespace ShoppingSaleDiagnoser {
   export const validate = (
     sale: IShoppingSale.ICreate,
-    checkSnapshot: boolean = true,
+    checkSnapshot: boolean = true
   ): IDiagnosis[] => {
     const output: IDiagnosis[] = [];
 

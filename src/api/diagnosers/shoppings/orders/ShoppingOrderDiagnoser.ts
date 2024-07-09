@@ -1,6 +1,6 @@
-import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
-import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import { IDiagnosis } from "../../../structures/common/IDiagnosis";
+import { IShoppingCartCommodity } from "../../../structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingOrder } from "../../../structures/shoppings/orders/IShoppingOrder";
 
 import { ShoppingOrderGoodDiagnoser } from "./ShoppingOrderGoodDiagnoser";
 

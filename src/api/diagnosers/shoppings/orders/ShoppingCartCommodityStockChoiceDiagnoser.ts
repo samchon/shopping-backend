@@ -1,8 +1,8 @@
-import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
-import { IShoppingCartCommodityStockChoice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodityStockChoice";
-import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
-import { IShoppingSaleUnitOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitOption";
-import { IShoppingSaleUnitStockChoice } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStockChoice";
+import { IDiagnosis } from "../../../structures/common/IDiagnosis";
+import { IShoppingCartCommodityStockChoice } from "../../../structures/shoppings/orders/IShoppingCartCommodityStockChoice";
+import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
+import { IShoppingSaleUnitOption } from "../../../structures/shoppings/sales/IShoppingSaleUnitOption";
+import { IShoppingSaleUnitStockChoice } from "../../../structures/shoppings/sales/IShoppingSaleUnitStockChoice";
 
 import { IIndexedInput } from "../../common/IIndexedInput";
 
@@ -11,11 +11,11 @@ export namespace ShoppingCartCommodityStockChoiceDiagnoser {
     (unit: IShoppingSaleUnit) =>
     (stockIndex: number) =>
     (
-      input: IIndexedInput<IShoppingCartCommodityStockChoice.ICreate>,
+      input: IIndexedInput<IShoppingCartCommodityStockChoice.ICreate>
     ): IDiagnosis[] => {
       const output: IDiagnosis[] = [];
       const option: IShoppingSaleUnitOption | undefined = unit.options.find(
-        (o) => o.id === input.data.option_id,
+        (o) => o.id === input.data.option_id
       );
       if (option === undefined)
         output.push({
@@ -37,7 +37,7 @@ export namespace ShoppingCartCommodityStockChoiceDiagnoser {
             });
           else {
             const candidate = option.candidates.find(
-              (o) => o.id === input.data.candidate_id,
+              (o) => o.id === input.data.candidate_id
             );
             if (candidate === undefined)
               output.push({
@@ -83,7 +83,7 @@ export namespace ShoppingCartCommodityStockChoiceDiagnoser {
     };
 
   export const replica = (
-    choice: IShoppingSaleUnitStockChoice.IInvert,
+    choice: IShoppingSaleUnitStockChoice.IInvert
   ): IShoppingCartCommodityStockChoice.ICreate => ({
     option_id: choice.option.id,
     candidate_id: choice.candidate?.id ?? null,

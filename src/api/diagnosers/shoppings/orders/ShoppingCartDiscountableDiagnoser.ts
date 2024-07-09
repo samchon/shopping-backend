@@ -1,8 +1,8 @@
-import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
-import { IShoppingCouponTicket } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponTicket";
-import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartDiscountable";
+import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCoupon } from "../../../structures/shoppings/coupons/IShoppingCoupon";
+import { IShoppingCouponTicket } from "../../../structures/shoppings/coupons/IShoppingCouponTicket";
+import { IShoppingCartCommodity } from "../../../structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingCartDiscountable } from "../../../structures/shoppings/orders/IShoppingCartDiscountable";
 
 import { ShoppingDiscountableDiagnoser } from "../coupons/ShoppingDiscountableDiagnoser";
 
@@ -12,7 +12,7 @@ export namespace ShoppingCartDiscountableDiagnoser {
     (commodities: IShoppingCartCommodity[]) =>
     (coupon: IShoppingCoupon) =>
       ShoppingDiscountableDiagnoser.checkCoupon(accessor)(customer)(
-        commodities,
+        commodities
       )(coupon);
 
   export const filterCommodities =
@@ -20,21 +20,21 @@ export namespace ShoppingCartDiscountableDiagnoser {
     (coupon: IShoppingCoupon) =>
     (commodities: IShoppingCartCommodity[]) =>
       ShoppingDiscountableDiagnoser.filterItems(accessor)(customer)(coupon)(
-        commodities,
+        commodities
       );
 
   export const combinate =
     (customer: IShoppingCustomer) =>
     (coupons: IShoppingCoupon[], tickets: IShoppingCouponTicket[]) =>
     (
-      commodities: IShoppingCartCommodity[],
+      commodities: IShoppingCartCommodity[]
     ): IShoppingCartDiscountable.ICombination[] =>
       ShoppingDiscountableDiagnoser.combinate({
         className: "ShoppingCartDiscountableDiagnoser",
         accessor,
       })(customer)(
         coupons,
-        tickets,
+        tickets
       )(commodities).map((comb) => ({
         ...comb,
         entries: comb.entries.map((entry) => ({

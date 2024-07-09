@@ -1,8 +1,8 @@
-import { IShoppingCouponTicket } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponTicket";
+import { IShoppingCouponTicket } from "../../../structures/shoppings/coupons/IShoppingCouponTicket";
 
 export namespace ShoppingCouponTicketDiagnoser {
   export const unique = (
-    tickets: IShoppingCouponTicket[],
+    tickets: IShoppingCouponTicket[]
   ): IShoppingCouponTicket[] => [
     ...new Map(tickets.map((t) => [t.coupon.id, t])).values(),
   ];

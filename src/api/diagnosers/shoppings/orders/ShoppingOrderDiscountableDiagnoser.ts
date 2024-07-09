@@ -1,8 +1,8 @@
-import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
-import { IShoppingCouponTicket } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponTicket";
-import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
-import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
+import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCoupon } from "../../../structures/shoppings/coupons/IShoppingCoupon";
+import { IShoppingCouponTicket } from "../../../structures/shoppings/coupons/IShoppingCouponTicket";
+import { IShoppingOrderDiscountable } from "../../../structures/shoppings/orders/IShoppingOrderDiscountable";
+import { IShoppingOrderGood } from "../../../structures/shoppings/orders/IShoppingOrderGood";
 
 import { ShoppingDiscountableDiagnoser } from "../coupons/ShoppingDiscountableDiagnoser";
 
@@ -12,7 +12,7 @@ export namespace ShoppingOrderDiscountableDiagnoser {
     (goods: IShoppingOrderGood[]) =>
     (coupon: IShoppingCoupon): boolean =>
       ShoppingDiscountableDiagnoser.checkCoupon(accessor)(customer)(goods)(
-        coupon,
+        coupon
       );
 
   export const filterGoods =
@@ -20,7 +20,7 @@ export namespace ShoppingOrderDiscountableDiagnoser {
     (coupon: IShoppingCoupon) =>
     (goods: IShoppingOrderGood[]): IShoppingOrderGood[] =>
       ShoppingDiscountableDiagnoser.filterItems(accessor)(customer)(coupon)(
-        goods,
+        goods
       );
 
   export const combinate =
@@ -32,7 +32,7 @@ export namespace ShoppingOrderDiscountableDiagnoser {
         accessor,
       })(customer)(
         coupons,
-        tickets,
+        tickets
       )(goods).map((comb) => ({
         ...comb,
         entries: comb.entries.map((entry) => ({
@@ -46,7 +46,7 @@ export namespace ShoppingOrderDiscountableDiagnoser {
     (customer: IShoppingCustomer) =>
     (coupons: IShoppingCoupon[]) =>
     (
-      goods: IShoppingOrderGood[],
+      goods: IShoppingOrderGood[]
     ): ShoppingDiscountableDiagnoser.IDiscount<IShoppingOrderGood> =>
       ShoppingDiscountableDiagnoser.discount({
         className: "ShoppingOrderDiscountableDiagnoser",
