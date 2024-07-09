@@ -78,9 +78,12 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
     devDependencies:
+      '@nestia/benchmark':
+        specifier: ^0.1.0
+        version: 0.1.0(typescript@5.5.3)
       '@nestia/e2e':
-        specifier: ^0.6.0
-        version: 0.6.0(typescript@5.5.3)
+        specifier: ^0.7.0
+        version: 0.7.0
       '@nestia/sdk':
         specifier: ^3.5.0
         version: 3.5.0(@nestia/core@3.5.0(@nestia/fetcher@3.5.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.4.3(typescript@5.5.3)))(@nestia/fetcher@3.5.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.6)(typescript@5.5.3))(typescript@5.5.3)(typia@6.4.3(typescript@5.5.3))
@@ -345,6 +348,9 @@ packages:
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
 
+  '@nestia/benchmark@0.1.0':
+    resolution: {integrity: sha512-sAg2IyVfWOyEN9f76X3Ha4T8JiEKB2BtcHcf/eM2OJjGb8LYIiivW26GoQ33yvTCFsayXRr3FUwEKF/VetQ6zw==}
+
   '@nestia/core@3.5.0':
     resolution: {integrity: sha512-x/broXiKDLS+kc8Mmi++kek4fmNmskgrVXQD/DT5w1WGSEqds5P0QwJaVI/U9qL17hhj5n1BrFinoahDdHc19A==}
     peerDependencies:
@@ -355,8 +361,8 @@ packages:
       rxjs: '>=6.0.3'
       typia: '>=6.4.2 <7.0.0'
 
-  '@nestia/e2e@0.6.0':
-    resolution: {integrity: sha512-jRM95oCe0Kz5VAjbFRZpKyXaR2RHTq7bYxnaZ0H6Jg4PGDVg5++J4T8+l2Fm8GZYHbW1xS4BYYJQHG9NMmr+lw==}
+  '@nestia/e2e@0.7.0':
+    resolution: {integrity: sha512-h/uV6OhFlgmoLgmc82i12iGkWhaXdW9CCkWtpppmBrxOmmYo3FNI47iauy7je5/q1HKCiOlamiJGx/Q9ArVBNQ==}
 
   '@nestia/fetcher@3.5.0':
     resolution: {integrity: sha512-yUzQG3w7f+M6FjtyucfZ40BxgOmypvIzJsLKCdZZU5VFH0tbLRw1Ql9z1J88ikwkIIQSXP271RaMfvGX7VBRDw==}
@@ -2622,9 +2628,6 @@ packages:
   text-table@0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
 
-  tgrid@1.0.1:
-    resolution: {integrity: sha512-9hDjDmeSRcTltly7vaFOq1G1hB72CNnsZ5YjHwSpIMsdptdUZ3phFbuQdbvIqJpgqFcAqZvsjCB2kuI/TW4BKA==}
-
   tgrid@1.0.2:
     resolution: {integrity: sha512-L5JK48K2NNyDAZtn8rtJX9f4gCauKwaFmtjAo/8s91McmytpeHuFcUSNP3v7SK+wEydaCZPxxp5Nz9dE59c32A==}
 
@@ -3120,6 +3123,16 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
+  '@nestia/benchmark@0.1.0(typescript@5.5.3)':
+    dependencies:
+      '@nestia/fetcher': 3.5.0(typescript@5.5.3)
+      tgrid: 1.0.2
+      tstl: 3.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - typescript
+      - utf-8-validate
+
   '@nestia/core@3.5.0(@nestia/fetcher@3.5.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.4.3(typescript@5.5.3))':
     dependencies:
       '@nestia/fetcher': 3.5.0(typescript@5.5.3)
@@ -3141,17 +3154,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/e2e@0.6.0(typescript@5.5.3)':
-    dependencies:
-      '@nestia/fetcher': 3.5.0(typescript@5.5.3)
-      chalk: 4.1.2
-      cli: 1.0.1
-      tgrid: 1.0.1
-      tstl: 3.0.0
-    transitivePeerDependencies:
-      - bufferutil
-      - typescript
-      - utf-8-validate
+  '@nestia/e2e@0.7.0': {}
 
   '@nestia/fetcher@3.5.0(typescript@5.5.3)':
     dependencies:
@@ -5513,18 +5516,6 @@ snapshots:
       source-map-support: 0.5.21
 
   text-table@0.2.0: {}
-
-  tgrid@1.0.1:
-    dependencies:
-      '@types/node': 20.14.6
-      '@types/websocket': 1.0.10
-      '@types/ws': 7.4.7
-      import2: 1.0.3
-      tstl: 3.0.0
-      ws: 7.5.10
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
 
   tgrid@1.0.2:
     dependencies:

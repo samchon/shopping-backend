@@ -1,4 +1,5 @@
-import { DynamicExecutor, StopWatch } from "@nestia/e2e";
+import { DynamicExecutor } from "@nestia/e2e";
+import chalk from "chalk";
 import cp from "child_process";
 import fs from "fs";
 import { Singleton, randint, sleep_for } from "tstl";
@@ -10,6 +11,7 @@ import { ShoppingSetupWizard } from "../src/setup/ShoppingSetupWizard";
 import { ArgumentParser } from "../src/utils/ArgumentParser";
 import { ErrorUtil } from "../src/utils/ErrorUtil";
 import { ConnectionPool } from "./ConnectionPool";
+import { StopWatch } from "./internal/StopWatch";
 
 interface IOptions {
   reset: boolean;
@@ -86,6 +88,7 @@ async function main(): Promise<void> {
   };
   const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
     prefix: "test",
+    location: __dirname + "/features",
     parameters: () => [
       new ConnectionPool({
         host: connection.host,
@@ -97,7 +100,17 @@ async function main(): Promise<void> {
         (options.include ?? []).some((str) => func.includes(str))) &&
       (!options.exclude?.length ||
         (options.exclude ?? []).every((str) => !func.includes(str))),
-  })(__dirname + "/features");
+    onComplete: (exec) => {
+      if (exec.error === null) {
+        const elapsed: number =
+          new Date(exec.completed_at).getTime() -
+          new Date(exec.started_at).getTime();
+        console.log(
+          `  - ${exec.name}: ${chalk.green(elapsed.toLocaleString())} ms`
+        );
+      } else console.log(`  - ${exec.name}: ${chalk.red(exec.error.name)}`);
+    },
+  });
 
   // TERMINATE
   await sleep_for(2500); // WAIT FOR BACKGROUND EVENTS
