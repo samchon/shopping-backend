@@ -19,8 +19,8 @@ import type { IShoppingDeliveryShipper } from "../../../../../structures/shoppin
  * {@link IShoppingDelivery delivery}.
  *
  * This action does not affect to the related {@link IShoppingOrder orders} or
- * {@link IShoppingOrderGood goods} like {@link IShoppingDeliveryJourney}
- * or {@link IShoppingDeliveryPiece} case, but just informs to the
+ * {@link IShoppingOrderGood goods} like {@link IShoppingDeliveryJourney }
+ * or {@link IShoppingDeliveryPiece } case, but just informs to the
  * {@link IShoppingCustomer customer}.
  *
  * @param deliveryId Belonged delivery's {@link IShoppingDelivery.id }

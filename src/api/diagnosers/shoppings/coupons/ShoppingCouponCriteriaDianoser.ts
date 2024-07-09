@@ -1,9 +1,9 @@
-import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingCouponChannelCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponChannelCriteria";
-import { IShoppingCouponCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponCriteria";
-import { IShoppingSaleChannel } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleChannel";
-import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
-import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
+import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCouponChannelCriteria } from "../../../structures/shoppings/coupons/IShoppingCouponChannelCriteria";
+import { IShoppingCouponCriteria } from "../../../structures/shoppings/coupons/IShoppingCouponCriteria";
+import { IShoppingSaleChannel } from "../../../structures/shoppings/sales/IShoppingSaleChannel";
+import { IShoppingSaleSnapshot } from "../../../structures/shoppings/sales/IShoppingSaleSnapshot";
+import { IShoppingChannelCategory } from "../../../structures/shoppings/systematic/IShoppingChannelCategory";
 
 export namespace ShoppingCouponCriteriaDiagnoser {
   export const adjustable =
@@ -25,7 +25,7 @@ export namespace ShoppingCouponCriteriaDiagnoser {
         );
       else if (criteria.type === "section")
         return criteria.sections.some(
-          (section) => section.id === sale.section.id,
+          (section) => section.id === sale.section.id
         );
       else if (criteria.type === "seller")
         return criteria.sellers.some((seller) => seller.id === sale.seller.id);
@@ -45,7 +45,7 @@ export namespace ShoppingCouponCriteriaDiagnoser {
             if (question === -1) return false;
 
             const params: URLSearchParams = new URLSearchParams(
-              customer.href.substring(question + 1),
+              customer.href.substring(question + 1)
             );
             return params.get(funnel.key) === funnel.value;
           }
@@ -58,13 +58,13 @@ export namespace ShoppingCouponCriteriaDiagnoser {
     (sale: IShoppingSaleSnapshot.IInvert) =>
     (tuple: IShoppingCouponChannelCriteria.IChannelTo) => {
       const matched: IShoppingSaleChannel | undefined = sale.channels.find(
-        (ch) => ch.id === tuple.channel.id,
+        (ch) => ch.id === tuple.channel.id
       );
       if (matched === undefined) return false;
       else if (!tuple.categories?.length) return true;
 
       return tuple.categories.some((target) =>
-        matched.categories.some((current) => explore(target)(current)),
+        matched.categories.some((current) => explore(target)(current))
       );
     };
 

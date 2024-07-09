@@ -1,12 +1,12 @@
 import typia from "typia";
 
-import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
-import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
+import { IShoppingAdministrator } from "../../../structures/shoppings/actors/IShoppingAdministrator";
+import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingMember } from "../../../structures/shoppings/actors/IShoppingMember";
 
 export namespace ShoppingAdministratorDiagnoser {
   export const invert = (
-    customer: IShoppingCustomer,
+    customer: IShoppingCustomer
   ): IShoppingAdministrator.IInvert | null => {
     const citizen = customer.citizen;
     const member = customer.member;

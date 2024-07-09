@@ -24,7 +24,7 @@ import type { IShoppingCartDiscountable } from "../../../../../structures/shoppi
  * cart would be targetted. Also, you can limit the result by configuring
  * {@link IShoppingCartCommodity.IRequest.search search condition} in the
  * request body. Furthermore, it is possible to customize sequence order of
- * records by configuring {@link IShoppingCartCommodity.IRequest.sort}.
+ * records by configuring {@link IShoppingCartCommodity.IRequest.sort }.
  *
  * For reference, when some commodity be {@link IShoppingOrder ordered} and
  * {@link IShoppingOrderPublish published}, then it would not be appread in
@@ -127,8 +127,8 @@ export namespace index {
  * Also, if target {@link IShoppingSale sale} has been suspended or
  * {@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error
  * would be thrown. Therefore, even if you've created a commodity successfully
- * with the {@link create} method, it still can be failed when you access the
- * commodity with this {@link at} method.
+ * with the {@link create } method, it still can be failed when you access the
+ * commodity with this {@link at } method.
  *
  * @param cartId Belonged cart's ID
  * @param id Target commodity's {@link IShoppingCartCommodity.id}
@@ -202,7 +202,7 @@ export namespace at {
  * Create a new {@link IShoppingCartCommodity commodity} into a specific
  * shopping cart.
  *
- * If {@link IShoppingCartCommodity.ICreate.accumulate} has `true` value
+ * If {@link IShoppingCartCommodity.ICreate.accumulate } has `true` value
  * and there's some same commodity that composed with same
  * {@link IShoppingSaleUnitStock.IInvert stocks and quantities},
  * then new commodity would not be created but the volume would be accumulated.
@@ -392,7 +392,7 @@ export namespace update {
 /**
  * Get replica of a commodity.
  *
- * Get a {@link IShoppingCartCommodity.ICreate} typed info of the target
+ * Get a {@link IShoppingCartCommodity.ICreate } typed info of the target
  * commodity for replication.
  *
  * By the way, if the *cartId* is different with the belonged cart's ID,
@@ -552,14 +552,14 @@ export namespace erase {
  *  {@link IShoppingCartCommodity shopping cart} even including
  * non-carted {@link IShoppingSale sales}.
  *
- * Returned {@link IShoppingCartDiscountable} contains including
+ * Returned {@link IShoppingCartDiscountable } contains including
  * combinations of adjustable {@link IShoppingCoupon coupons},
  * withdrawable {@link IShoppingDepositHistory deposits} and
  * {@link IShoppingMileageHistory mileages}.
  *
  * Also, if you want to know the discountable info about some specific
  * sales that have not been carted yet, specify the sales
- * to the {@link IShoppingCartDiscountable.pseudos} property with composing
+ * to the {@link IShoppingCartDiscountable.pseudos } property with composing
  * {@link IShoppingCartCommodity.ICreate creation info of the commodities}.
  * Then, they would be included in the discountable info.
  *

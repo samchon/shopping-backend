@@ -1,9 +1,9 @@
-import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
-import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
-import { IShoppingCouponCombination } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponCombination";
-import { IShoppingCouponTicket } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponTicket";
-import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IEntity } from "../../../structures/common/IEntity";
+import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCoupon } from "../../../structures/shoppings/coupons/IShoppingCoupon";
+import { IShoppingCouponCombination } from "../../../structures/shoppings/coupons/IShoppingCouponCombination";
+import { IShoppingCouponTicket } from "../../../structures/shoppings/coupons/IShoppingCouponTicket";
+import { IShoppingCartCommodity } from "../../../structures/shoppings/orders/IShoppingCartCommodity";
 
 import { ShoppingCouponDiagnoser } from "./ShoppingCouponDiagnoser";
 
@@ -38,9 +38,9 @@ export namespace ShoppingDiscountableDiagnoser {
       _Filter_threshold(accessor)(coupon)(
         data.filter((elem) =>
           ShoppingCouponDiagnoser.adjustable(customer)(
-            accessor.item(elem).sale,
-          )(coupon),
-        ),
+            accessor.item(elem).sale
+          )(coupon)
+        )
       );
 
   const _Filter_threshold =
@@ -51,7 +51,7 @@ export namespace ShoppingDiscountableDiagnoser {
         return coupon.discount.unit === "amount" &&
           coupon.discount.multiplicative === true
           ? data.filter(
-              (elem) => accessor.item(elem).price.real >= coupon.discount.value,
+              (elem) => accessor.item(elem).price.real >= coupon.discount.value
             )
           : data;
       else if (
@@ -61,7 +61,7 @@ export namespace ShoppingDiscountableDiagnoser {
         return data.filter(
           (elem) =>
             accessor.item(elem).price.real >= coupon.discount.threshold! &&
-            accessor.item(elem).price.real >= coupon.discount.value,
+            accessor.item(elem).price.real >= coupon.discount.value
         );
       const sum: number = data
         .map((elem) => _Get_price(accessor)(elem))
@@ -115,7 +115,7 @@ export namespace ShoppingDiscountableDiagnoser {
       // CHECK POSSIBILITY
       if (false === ShoppingCouponDiagnoser.coexistable(couponList))
         throw new Error(
-          `Error on ${props.title}(): target coupons are not coexistable.`,
+          `Error on ${props.title}(): target coupons are not coexistable.`
         );
 
       // CONSTRUCT DISCOUNT DICTIONARY
@@ -127,7 +127,7 @@ export namespace ShoppingDiscountableDiagnoser {
       // DO DISCOUNT
       for (const coupon of couponList) {
         const filtered: T[] = _Filter_criterias(props.accessor)(customer)(
-          coupon,
+          coupon
         )(data);
         if (filtered.length !== 0)
           _Determine(props.accessor)(coupon)(data)(output);
@@ -142,7 +142,7 @@ export namespace ShoppingDiscountableDiagnoser {
     (output: IDiscount<T>) => {
       const adjust = (elem: T, value: number) => {
         take(output.coupon_to_elem_dict)(coupon.id)(
-          () => new Map<string, number>(),
+          () => new Map<string, number>()
         ).set(elem.id, value);
       };
       if (coupon.discount.unit === "percent")
@@ -190,15 +190,15 @@ export namespace ShoppingDiscountableDiagnoser {
     (data: T[]): ICombination[] => {
       // FILTER COUPONS
       const ticketMap: Map<string, IShoppingCouponTicket> = new Map(
-        tickets.map((t) => [t.coupon.id, t]),
+        tickets.map((t) => [t.coupon.id, t])
       );
       coupons = coupons.filter(
         (c) =>
           false === ticketMap.has(c.id) &&
-          checkCoupon(props.accessor)(customer)(data)(c),
+          checkCoupon(props.accessor)(customer)(data)(c)
       );
       tickets = [...ticketMap.values()].filter((elem) =>
-        checkCoupon(props.accessor)(customer)(data)(elem.coupon),
+        checkCoupon(props.accessor)(customer)(data)(elem.coupon)
       );
 
       // CONSTRUCT COUPON MATRIX
@@ -218,12 +218,12 @@ export namespace ShoppingDiscountableDiagnoser {
         _Discount({
           title: `${props.className}.combinate`,
           accessor: props.accessor,
-        })(customer)(coupons)(data),
+        })(customer)(coupons)(data)
       );
       return combinations.map((comb, i) => ({
         coupons: matrix[i].filter((x) => coupons.some((y) => x.id === y.id)),
         tickets: tickets.filter((t) =>
-          matrix[i].some((c) => c.id === t.coupon.id),
+          matrix[i].some((c) => c.id === t.coupon.id)
         ),
         entries: [...comb.coupon_to_elem_dict.entries()]
           .map(([coupon_id, elements]) =>
@@ -231,7 +231,7 @@ export namespace ShoppingDiscountableDiagnoser {
               coupon_id,
               item_id,
               amount,
-            })),
+            }))
           )
           .flat(),
         amount: comb.amount,

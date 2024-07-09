@@ -22,13 +22,13 @@ export * as units from "./units";
 /**
  * Create a sale.
  *
- * {@link IShoppingSeller Seller} creates a new {@link IShoppingSale} for
+ * {@link IShoppingSeller Seller} creates a new {@link IShoppingSale } for
  * operation.
  *
  * For reference, sale has complicate hierarchical structure that composing
  * with {@link IShoppingSaleUnit units}, {@link IShoppingSaleUnitOption options}
  * and {@link IShoppingSaleUnitStock stocks}. Therefore, I recommend you to
- * read the {@link IShoppingSale} and related DTOs' documents before creating
+ * read the {@link IShoppingSale } and related DTOs' documents before creating
  * a new sale.
  *
  * ERD (Entity Relationship Diagram) and its description document also would
@@ -285,7 +285,7 @@ export namespace open {
 /**
  * Get replica of a sale.
  *
- * Get a {@link IShoppingSale.ICreate} typed info of the target sale for
+ * Get a {@link IShoppingSale.ICreate } typed info of the target sale for
  * replication.
  *
  * It would be useful for creating a new replication
@@ -356,7 +356,7 @@ export namespace replica {
  * Pause a {@link IShoppingSale sale} from {@link open opened} state.
  * Therefore, the sale can not be operated again until it be
  * {@link restore restored}. By the way, {@link IShoppingCustomer customer}
- * still can sale from the {@link index} and {@link at} API endpints, but
+ * still can sale from the {@link index } and {@link at } API endpints, but
  * "paused" label would be attached.
  *
  * Also, customer no more can put into the shopping cart, either.
@@ -431,7 +431,7 @@ export namespace pause {
  * Suspend a {@link IShoppingSale sale} from {@link open opened} state.
  * Therefore, the sale can not be operated again until it be
  * {@link restore restored} and {@link IShoppingCustomer customer} cannot
- * see the sale from the {@link index} and {@link at} API.
+ * see the sale from the {@link index } and {@link at } API.
  *
  * Also, customer no more can put into the shopping cart, either.
  * Even the sale already had been put into the shopping cart, the
@@ -573,7 +573,7 @@ export namespace restore {
  * List up every {@link IShoppingSale.ISummary summarized sales}.
  *
  * As you can see, returned sales are summarized, not detailed. If you want
- * to get the detailed information of a sale, use {@link at} function for
+ * to get the detailed information of a sale, use {@link at } function for
  * each sale.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only

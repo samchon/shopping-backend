@@ -103,7 +103,7 @@ export namespace create {
  * Update a {@link IShoppingChannel channel}'s name.
  *
  * Note that, it is not possible to change the channel's code. If you want to
- * to do it forcibly, then {@link create} new one and {@link merge} with it.
+ * to do it forcibly, then {@link create } new one and {@link merge } with it.
  *
  * @param id Target channel's {@link IShoppingChannel.code}
  * @param input Update info of the channel

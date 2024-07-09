@@ -1,7 +1,7 @@
-import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
-import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
-import { IShoppingSaleUnitOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitOption";
-import { IShoppingSaleUnitOptionCandidate } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitOptionCandidate";
+import { IDiagnosis } from "../../../structures/common/IDiagnosis";
+import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
+import { IShoppingSaleUnitOption } from "../../../structures/shoppings/sales/IShoppingSaleUnitOption";
+import { IShoppingSaleUnitOptionCandidate } from "../../../structures/shoppings/sales/IShoppingSaleUnitOptionCandidate";
 
 import { IIndexedInput } from "../../common/IIndexedInput";
 import { UniqueDiagnoser } from "../../common/UniqueDiagnoser";
@@ -28,13 +28,13 @@ export namespace ShoppingSaleUnitOptionDiagnoser {
             accessor: `${accessor}.candidates[${i}]`,
             message: `Duplicated candidate name: "${c.name}"`,
           }),
-        })(option.data.candidates),
+        })(option.data.candidates)
       );
       return output;
     };
 
   export const replica = (
-    input: IShoppingSaleUnitOption,
+    input: IShoppingSaleUnitOption
   ): IShoppingSaleUnitOption.ICreate =>
     input.type === "select"
       ? {

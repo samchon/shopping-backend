@@ -178,14 +178,14 @@ export namespace at {
  *
  * Create a {@link IShoppingDelivery delivery} record targetting
  * {@link IShoppingOrder orders}, their {@link IShoppingOrderGood goods} and
- * {@link IShoppingSaleUnitStock stocks} ({@link IShoppingDeliveryPiece}) with
+ * {@link IShoppingSaleUnitStock stocks} ({@link IShoppingDeliveryPiece }) with
  * {@link IShoppingDeliveryJourney journeys} and
  * {@link IShoppingDeliveryShipper shippers} info.
  *
- * Note that, composition of the {@link IShoppingDeliveryPiece} must not over
+ * Note that, composition of the {@link IShoppingDeliveryPiece } must not over
  * the required. To identify which pieces are required, recommend to call
- * the {@link incompletes} function with target orders'
- * {@link IShoppingOrderPublish.id}s before calling this one.
+ * the {@link incompletes } function with target orders'
+ * {@link IShoppingOrderPublish.id }s before calling this one.
  *
  * @param input Creation info of delivery
  * @returns Newly created delivery
@@ -263,11 +263,11 @@ export namespace create {
  * Get list of incomplete pieces.
  *
  * Get list of {@link IShoppingDeliveryPiece incomplete pieces} of target
- * orders' {@link IShoppingOrderPublish.id}s.
+ * orders' {@link IShoppingOrderPublish.id }s.
  *
  * If you specify target orders' publish IDs, then this function returns
  * incompleted pieces of the orders with computation as an Array of
- * {@link IShoppingDeliveryPiece.ICreate} type.
+ * {@link IShoppingDeliveryPiece.ICreate } type.
  *
  * You can utillize the result to make a huge {@link IShoppingDelivery delivery}
  * for integrated delivering, and also possible to make multiple deliveries for

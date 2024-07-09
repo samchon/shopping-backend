@@ -1,6 +1,6 @@
-import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
-import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
+import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCoupon } from "../../../structures/shoppings/coupons/IShoppingCoupon";
+import { IShoppingSaleSnapshot } from "../../../structures/shoppings/sales/IShoppingSaleSnapshot";
 
 import { ShoppingCouponCriteriaDiagnoser } from "./ShoppingCouponCriteriaDianoser";
 
@@ -10,7 +10,7 @@ export namespace ShoppingCouponDiagnoser {
     (sale: IShoppingSaleSnapshot.IInvert) =>
     (coupon: IShoppingCoupon): boolean =>
       coupon.criterias.every(
-        ShoppingCouponCriteriaDiagnoser.adjustable(customer)(sale),
+        ShoppingCouponCriteriaDiagnoser.adjustable(customer)(sale)
       );
 
   export const coexistable = (coupons: IShoppingCoupon[]): boolean =>

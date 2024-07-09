@@ -215,11 +215,11 @@ export namespace update {
  * {@link IShoppingSale sale}.
  *
  * As you can see, returned reviews are summarized, not detailed. If you want
- * to get the detailed information of a review, use {@link adridges} function
- * or {@link at} function for each article.
+ * to get the detailed information of a review, use {@link adridges } function
+ * or {@link at } function for each article.
  *
- * Also, returned review has {@link IShoppingSaleReview.ISummary.answer}
- * property which means the formal answer from the {@link IShoppingSeller}.
+ * Also, returned review has {@link IShoppingSaleReview.ISummary.answer }
+ * property which means the formal answer from the {@link IShoppingSeller }.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
  * access to the your own {@link IShoppingSale sale}'s reviews. Otherwise,
@@ -315,11 +315,11 @@ export namespace index {
  * a {@link IShoppingSale sale}.
  *
  * As you can see, returned reviews are abridged, not detailed. If you want
- * to get the detailed information of a review, use {@link at} function
+ * to get the detailed information of a review, use {@link at } function
  * for each article.
  *
- * Also, returned review has {@link IShoppingSaleReview.IAridge.answer}
- * property which means the formal answer from the {@link IShoppingSeller}.
+ * Also, returned review has {@link IShoppingSaleReview.IAridge.answer }
+ * property which means the formal answer from the {@link IShoppingSeller }.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
  * access to the your own {@link IShoppingSale sale}'s reviews. Otherwise,

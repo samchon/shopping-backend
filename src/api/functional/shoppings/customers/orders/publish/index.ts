@@ -85,7 +85,7 @@ export namespace able {
  * Publish an order.
  *
  * {@link IShoppingOrderPublish Publish} an {@link IShoppingOrder order} that
- * has been applied by the {@link IShoppingCustomer} with
+ * has been applied by the {@link IShoppingCustomer } with
  * {@link IShoppingAddress address} to delivery and payment information gotten
  * from the payment vendor system.
  *
@@ -95,7 +95,7 @@ export namespace able {
  * Also, the payment time can be different with the publish time. For example,
  * if the payment method is manual bank account transfer, then the payment
  * would be delayed until the customer actually transfer the money. In that
- * case, {@link IShoppingOrderPublish.paid_at} would be `null` value, so
+ * case, {@link IShoppingOrderPublish.paid_at } would be `null` value, so
  * that you have to check it after calling this publish function.
  *
  * @param orderId Target order's {@link IShoppingOrder.id }

@@ -18,9 +18,9 @@ import type { IShoppingDeliveryJourney } from "../../../../../structures/shoppin
  * Create a new {@link IShoppingDeliveryJourney journey} of the
  * {@link IShoppingDelivery delivery}.
  *
- * This action may change the related {@link IShoppingOrderGood.state}.
+ * This action may change the related {@link IShoppingOrderGood.state }.
  * Also, if the target journey's type is "delivering", whether the property
- * {@link IShoppingDeliveryJourney.completed_at} is null or not affects to
+ * {@link IShoppingDeliveryJourney.completed_at } is null or not affects to
  * the related goods' states. If the property is not null, the state becomes
  * "arrived". Otherwise, the state becomes "delivering".
  *
@@ -106,7 +106,7 @@ export namespace create {
  *
  * Complete a {@link IShoppingDeliveryJourney journey} of the
  * {@link IShoppingDelivery delivery}. In other words, fills the
- * {@link IShoppingDeliveryJourney.completed_at} property with current time.
+ * {@link IShoppingDeliveryJourney.completed_at } property with current time.
  *
  * If the target journey's type is "delivering", this action may change
  * the related {@link IShoppingOrderGood.state goods' states} to be "arrived".
@@ -199,7 +199,7 @@ export namespace complete {
  * {@link IShoppingDelivery delivery}.
  *
  * If erasing journey is the last one of the belonged delivery, this action
- * may change the related {@link IShoppingOrderGood.state}. By erasing the last
+ * may change the related {@link IShoppingOrderGood.state }. By erasing the last
  * journey, the state rolls back to the previous.
  *
  * @param deliveryId Belonged delivery's {@link IShoppingDelivery.id }

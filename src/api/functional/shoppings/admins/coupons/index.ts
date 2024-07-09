@@ -74,8 +74,8 @@ export namespace destroy {
  * Create a new {@link IShoppingCoupon coupon} with given information.
  *
  * By the way, if you are a {@link IShoppingSeller seller}, you have to
- * add include direction's {@link IShoppingCouponSellerCriteria} or
- * {@link IShoppingCouponSaleCriteria} condition. This is because only
+ * add include direction's {@link IShoppingCouponSellerCriteria } or
+ * {@link IShoppingCouponSaleCriteria } condition. This is because only
  * {@link IShoppingAdministrator administrators} can create a coupon
  * which can be used throughout the market. Seller must limit the usage
  * range by his/her {@link IShoppingSale sale(s)}.
