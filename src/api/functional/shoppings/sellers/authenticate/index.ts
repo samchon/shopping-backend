@@ -153,15 +153,15 @@ export namespace join {
  * Login as an seller with {@link IShoppingSeller.ILogin login info}.
  *
  * This method has exactly same effect with
- * {@link ShoppingApi.functional.customers.authenticate.login } function, but
+ * {@link ShoppingApi.functional.customers.authenticate.login} function, but
  * returned type is a llttle different. The similar function returns
- * {@link IShoppingCustomer } type that starting from the customer information, so
+ * {@link IShoppingCustomer} type that starting from the customer information, so
  * that you have to access to the seller info through
  * `customer.member.seller`. In contrast with that, this method returns
- * {@link IShoppingSeller.IInvert } type that starting from the seller
+ * {@link IShoppingSeller.IInvert} type that starting from the seller
  * info, so that can access to the customer info through `seller.customer`.
  *
- * Of course, to use this function, you had to {@link join } as an seller
+ * Of course, to use this function, you had to {@link join} as an seller
  * before. If not, 403 forbidden exception would be thrown,
  *
  * @param input Login request info

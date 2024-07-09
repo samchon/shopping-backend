@@ -83,13 +83,13 @@ export namespace able {
  *
  * {@link IShoppingDepositChargePublish Publish} a
  * {@link IShoppingDepositCharge charge} that has been applied by the
- * {@link IShoppingCustomer } with payment information gotten from the
+ * {@link IShoppingCustomer} with payment information gotten from the
  * payment vendor system.
  *
  * Also, the payment time can be different with the publish time. For example,
  * if the payment method is manual bank account transfer, then the payment
  * would be delayed until the customer actually transfer the money. In that
- * case, {@link IShoppingDepositChargePublish.paid_at } would be `null` value,
+ * case, {@link IShoppingDepositChargePublish.paid_at} would be `null` value,
  * so that you have to check it after calling this publish function.
  *
  * @param chargeId Target charge's {@link IShoppingDepositCharge.id }

@@ -22,7 +22,7 @@ import type { IShoppingSaleUnitStockSupplement } from "../../../../../../../stru
  * If you want, you can limit the result by configuring
  * {@link IShoppingSaleUnitStockSupplement.IRequest.search search condition} in
  * the request body. Also, it is possible to customize sequence order of
- * records by configuring {@link IShoppingSaleUnitStockSupplement.IRequest.sort }
+ * records by configuring {@link IShoppingSaleUnitStockSupplement.IRequest.sort}
  * property.
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }

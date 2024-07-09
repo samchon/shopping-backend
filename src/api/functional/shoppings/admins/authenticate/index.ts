@@ -155,15 +155,15 @@ export namespace join {
  * Login as an administrator with {@link IShoppingAdministrator.ILogin login info}.
  *
  * This method has exactly same effect with
- * {@link ShoppingApi.functional.customers.authenticate.login } function, but
+ * {@link ShoppingApi.functional.customers.authenticate.login} function, but
  * returned type is a llttle different. The similar function returns
- * {@link IShoppingCustomer } type that starting from the customer information, so
+ * {@link IShoppingCustomer} type that starting from the customer information, so
  * that you have to access to the administrator info through
  * `customer.member.administrator`. In contrast with that, this method returns
- * {@link IShoppingAdministrator.IInvert } type that starting from the administrator
+ * {@link IShoppingAdministrator.IInvert} type that starting from the administrator
  * info, so that can access to the customer info through `administrator.customer`.
  *
- * Of course, to use this function, you had to {@link join } as an administrator
+ * Of course, to use this function, you had to {@link join} as an administrator
  * before. If not, 403 forbidden exception would be thrown,
  *
  * @param input Login request info

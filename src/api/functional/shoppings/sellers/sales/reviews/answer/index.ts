@@ -18,7 +18,7 @@ import type { IShoppingSaleInquiryAnswer } from "../../../../../../structures/sh
  *
  * Write a formal {@link IShoppingSaleInquiryAnswer answer article} to a
  * specific {@link IShoppingSaleInquiry review article} written by a
- * {@link IShoppingCustomer }.
+ * {@link IShoppingCustomer}.
  *
  * Note that, this is the formal answer that can be written only one per
  * a review article (but {@link update updatable}). Therefore, it needs to
@@ -117,7 +117,7 @@ export namespace create {
  *
  * Update a formal {@link IShoppingSaleInquiryAnswer answer article} to a
  * specific {@link IShoppingSaleInquiry review article} written by a
- * {@link IShoppingCustomer }.
+ * {@link IShoppingCustomer}.
  *
  * By the way, as is the general policy of this shopping mall regarding
  * articles, modifying a review articles does not actually change the

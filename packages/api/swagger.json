@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.4.0",
+    "version": "0.4.2",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -3796,7 +3796,14 @@
                   {
                     "$ref": "#/components/schemas/IShoppingOrderPublish.IZeroCreate"
                   }
-                ]
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "cash": "#/components/schemas/IShoppingOrderPublish.ICashCreate",
+                    "zero": "#/components/schemas/IShoppingOrderPublish.IZeroCreate"
+                  }
+                }
               }
             }
           },
@@ -8532,6 +8539,13 @@
                 "$ref": "#/components/schemas/IShoppingCouponDiscount.IPercent"
               }
             ],
+            "discriminator": {
+              "propertyName": "unit",
+              "mapping": {
+                "amount": "#/components/schemas/IShoppingCouponDiscount.IAmount",
+                "percent": "#/components/schemas/IShoppingCouponDiscount.IPercent"
+              }
+            },
             "title": "Discount information",
             "description": "Discount information."
           },
@@ -8559,7 +8573,17 @@
                 {
                   "$ref": "#/components/schemas/IShoppingCouponFunnelCriteria.ICreate"
                 }
-              ]
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "channel": "#/components/schemas/IShoppingCouponChannelCriteria.ICreate",
+                  "section": "#/components/schemas/IShoppingCouponSectionCriteria.ICreate",
+                  "seller": "#/components/schemas/IShoppingCouponSellerCriteria.ICreate",
+                  "sale": "#/components/schemas/IShoppingCouponSaleCriteria.ICreate",
+                  "funnel": "#/components/schemas/IShoppingCouponFunnelCriteria.ICreate"
+                }
+              }
             }
           },
           "disposable_codes": {
@@ -9247,6 +9271,16 @@
             "$ref": "#/components/schemas/IShoppingCouponFunnelCriteria"
           }
         ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "channel": "#/components/schemas/IShoppingCouponChannelCriteria",
+            "section": "#/components/schemas/IShoppingCouponSectionCriteria",
+            "seller": "#/components/schemas/IShoppingCouponSellerCriteria",
+            "sale": "#/components/schemas/IShoppingCouponSaleCriteria",
+            "funnel": "#/components/schemas/IShoppingCouponFunnelCriteria"
+          }
+        },
         "description": "Union type of the criteria.\n\n`IShoppingCouponCriteria` is an union typed structure that embodies the\nconditions for applying a {@link IShoppingCoupon discount coupon}. All\nof individual entities are imposing constraints on the reference unit of\na discount coupon were created by inheritig\n{@link IShoppingCouponCriteriaBase} type.\n\nAlso, individual entities can be specified by using the if condition on\nthe {@link type} property. For example, if the {@link type} value is\n`section`, {@link IShoppingCouponSectionCriteria} type would be specified,\nso that you can access to the target\n{@link IShoppingCouponSectionCriteria.section} directly. For reference,\nthis concept is called a descriminated union in TypeScript.\n\n```typescript\nconst union: IShoppingCouponCriteria;\nif (union.type === \"section\")\n    union.section; // IShoppingCouponSectionCriteria.section\n```\n\nIn addition, constraints on reference units can be specified through the\n{@link direction} property to proceed as an inclusion condition or,\nconversely, as an exclusion condition. If the direction value is \"include\",\nthe coupon is applicable only to the reference object. Conversely, if the\ndirection value is \"exclude\", it is a coupon that cannot be applied to the\nreference object."
       },
       "IShoppingCouponChannelCriteria": {
@@ -9956,6 +9990,13 @@
             "$ref": "#/components/schemas/IShoppingCouponDiscount.IPercent"
           }
         ],
+        "discriminator": {
+          "propertyName": "unit",
+          "mapping": {
+            "amount": "#/components/schemas/IShoppingCouponDiscount.IAmount",
+            "percent": "#/components/schemas/IShoppingCouponDiscount.IPercent"
+          }
+        },
         "description": "Discount information of the coupon.\n\n`IShoppingCouponDiscount` is a type representing the discount information\nof a {@link IShoppingCoupon}. Also, it is an union type that divided\nby the {@link unit} of the discount value, `amount` or `percent`."
       },
       "IShoppingCoupon.IRequest": {
@@ -12853,12 +12894,20 @@
             "$ref": "#/components/schemas/IShoppingAdministrator.IInvert"
           },
           {
-            "$ref": "#/components/schemas/IShoppingSeller.IInvert"
+            "$ref": "#/components/schemas/IShoppingCustomer"
           },
           {
-            "$ref": "#/components/schemas/IShoppingCustomer"
+            "$ref": "#/components/schemas/IShoppingSeller.IInvert"
           }
-        ]
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "administrator": "#/components/schemas/IShoppingAdministrator.IInvert",
+            "customer": "#/components/schemas/IShoppingCustomer",
+            "seller": "#/components/schemas/IShoppingSeller.IInvert"
+          }
+        }
       },
       "IBbsArticleComment.ISnapshot": {
         "type": "object",

@@ -22,13 +22,13 @@ export * as comments from "./comments";
  * {@link IShoppingSale sale}.
  *
  * As you can see, returned questions are summarized, not detailed. If you want
- * to get the detailed information of a question, use {@link adridges } function
- * or {@link at } function for each article.
+ * to get the detailed information of a question, use {@link adridges} function
+ * or {@link at} function for each article.
  *
- * Also, returned question has {@link IShoppingSaleQuestion.ISummary.answer }
- * property which means the formal answer from the {@link IShoppingSeller }.
+ * Also, returned question has {@link IShoppingSaleQuestion.ISummary.answer}
+ * property which means the formal answer from the {@link IShoppingSeller}.
  * Additionally, returned question has another special property
- * {@link IShoppingSaleQuestion.ISummary.secret } with masking to other
+ * {@link IShoppingSaleQuestion.ISummary.secret} with masking to other
  * princple properties, and it means only related actors can {@link at read}
  * the question.
  *
@@ -126,13 +126,13 @@ export namespace index {
  * a {@link IShoppingSale sale}.
  *
  * As you can see, returned questions are abridged, not detailed. If you want
- * to get the detailed information of a question, use {@link at } function
+ * to get the detailed information of a question, use {@link at} function
  * for each article.
  *
- * Also, returned question has {@link IShoppingSaleQuestion.IAridge.answer }
- * property which means the formal answer from the {@link IShoppingSeller }.
+ * Also, returned question has {@link IShoppingSaleQuestion.IAridge.answer}
+ * property which means the formal answer from the {@link IShoppingSeller}.
  * Additionally, returned question has another special property
- * {@link IShoppingSaleQuestion.IAridge.secret } with masking to other
+ * {@link IShoppingSaleQuestion.IAridge.secret} with masking to other
  * princple properties, and it means only related actors can {@link at read}
  * the question.
  *
@@ -232,7 +232,7 @@ export namespace abridges {
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
  * access to the your own {@link IShoppingSale sale}'s question. Otherwise
  * you are a {@link IShoppingCustomer customer}, you can access to every
- * questions of the sales except the {@link IShoppingSaleQuestion.secret }
+ * questions of the sales except the {@link IShoppingSaleQuestion.secret}
  * value is `false`.
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }

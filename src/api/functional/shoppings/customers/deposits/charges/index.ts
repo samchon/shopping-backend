@@ -245,7 +245,7 @@ export namespace create {
  * Update a deposit charge application.
  *
  * Update value of a {@link IShoppingDepositCharge deposit charge application}
- * that has been applied by the {@link IShoppingCustomer }.
+ * that has been applied by the {@link IShoppingCustomer}.
  *
  * If the charge has been {@link IShoppingDepositChargePublish published},
  * then it is not possible to update the deposit charge. Only 410 gone exception
@@ -329,11 +329,11 @@ export namespace update {
  * Erase a deposit charge application.
  *
  * Erase a {@link IShoppingDepositCharge deposit charge application} that has been
- * applied by the {@link IShoppingCustomer }.
+ * applied by the {@link IShoppingCustomer}.
  *
  * If the charge has been {@link IShoppingDepositChargePublish published}, then
  * it is not possible to erase the deposit charge. In that case, you've to cancel
- * the payment by calling the {@link publish.cancel } function.
+ * the payment by calling the {@link publish.cancel} function.
  *
  * @param id Target deposit charge's {@link IShoppingDepositCharge.id}
  * @tag Discount

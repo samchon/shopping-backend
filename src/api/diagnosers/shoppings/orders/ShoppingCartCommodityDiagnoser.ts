@@ -6,7 +6,7 @@ import { IShoppingSale } from "../../../structures/shoppings/sales/IShoppingSale
 import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
 import { IShoppingSaleUnitStock } from "../../../structures/shoppings/sales/IShoppingSaleUnitStock";
 
-import { MapUtil } from "../../../../utils/MapUtil";
+import { MapUtil } from "../../../utils/MapUtil";
 import { ShoppingSaleDiagnoser } from "../sales";
 import { ShoppingCartCommodityStockDiagnoser } from "./ShoppingCartCommodityStockDiagnoser";
 

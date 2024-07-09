@@ -23,7 +23,7 @@ export * as snapshots from "./snapshots";
  * List up every {@link IShoppingSale.ISummary summarized sales}.
  *
  * As you can see, returned sales are summarized, not detailed. If you want
- * to get the detailed information of a sale, use {@link at } function for
+ * to get the detailed information of a sale, use {@link at} function for
  * each sale.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only

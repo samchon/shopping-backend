@@ -6,7 +6,7 @@ import { IShoppingCouponChannelCriteria } from "@samchon/shopping-api/lib/struct
 import { IShoppingCouponCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponCriteria";
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
-import { MapUtil } from "../../../utils/MapUtil";
+import { MapUtil } from "../../../api/utils/MapUtil";
 import { ShoppingChannelCategoryProvider } from "../systematic/ShoppingChannelCategoryProvider";
 import { ShoppingChannelProvider } from "../systematic/ShoppingChannelProvider";
 
@@ -18,7 +18,7 @@ export namespace ShoppingCouponChannelCriterialProvider {
     export const transform = async (
       inputList: Prisma.shopping_coupon_channel_criteriasGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): Promise<IShoppingCouponChannelCriteria.IChannelTo[]> => {
       interface ITuple {
         channel: IShoppingChannel;
@@ -39,7 +39,7 @@ export namespace ShoppingCouponChannelCriterialProvider {
           tuple.category_ids.length === 0
             ? null
             : await ArrayUtil.asyncMap(tuple.category_ids)((id) =>
-                ShoppingChannelCategoryProvider.invert(tuple.channel)(id),
+                ShoppingChannelCategoryProvider.invert(tuple.channel)(id)
               ),
       }));
     };
@@ -75,7 +75,7 @@ export namespace ShoppingCouponChannelCriterialProvider {
               },
             ];
           await ArrayUtil.asyncMap(raw.category_ids)(
-            ShoppingChannelCategoryProvider.at(channel),
+            ShoppingChannelCategoryProvider.at(channel)
           );
           return raw.category_ids.map((cid) => ({
             ...base(),

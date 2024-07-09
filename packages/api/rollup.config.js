@@ -14,7 +14,6 @@ module.exports = {
       tsconfig: `${__dirname}/tsconfig.json`,
       module: "ESNext",
       target: "ESNext",
-      noEmitOnError: false,
     }),
     terser({
       format: {

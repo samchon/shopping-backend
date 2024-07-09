@@ -25,7 +25,7 @@ import type { IShoppingSaleSnapshot } from "../../../../../structures/shoppings/
  *
  * Also, as you can see from the return type, returned snapshots are
  * summarized, not detailed. If you want to get the detailed information
- * of a snapshot, use {@link at } or {@link flipo } function for each snapshot.
+ * of a snapshot, use {@link at} or {@link flipo} function for each snapshot.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
  * access to the your own {@link IShoppingSale sale}'s snapshots. Otherwise,
@@ -117,7 +117,7 @@ export namespace index {
  *
  * As you can see from the return type, returned snapshot does not contain
  * the {@link IShoppingSale sale} info. If you want to get the sale info,
- * use the {@link flip } function instead.
+ * use the {@link flip} function instead.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
  * access to the your own {@link IShoppingSale sale}'s snapshots. Otherwise,
