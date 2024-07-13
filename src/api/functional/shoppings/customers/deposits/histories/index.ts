@@ -102,7 +102,6 @@ export namespace index {
  *
  * Get a {@link IShoppingDepositHistory deposit history} information.
  *
- * @param id
  * @returns Deposit history info
  * @tag Discount
  * @author Samchon
