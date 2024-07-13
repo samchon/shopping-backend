@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.4.2",
+    "version": "0.4.3",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -236,8 +236,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target coupon's ",
-            "required": true
+            "required": true,
+            "description": " Target coupon's {@link IShoppingCoupon.id}"
           }
         ],
         "responses": {
@@ -259,8 +259,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target coupon's ",
-            "required": true
+            "required": true,
+            "description": " Target coupon's {@link IShoppingCoupon.id}"
           }
         ],
         "responses": {
@@ -356,8 +356,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target deposit's ",
-            "required": true
+            "required": true,
+            "description": " Target deposit's {@link IShoppingDeposit.id}"
           }
         ],
         "responses": {
@@ -387,8 +387,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target deposit's ",
-            "required": true
+            "required": true,
+            "description": " Target deposit's {@link IShoppingDeposit.id}"
           }
         ],
         "responses": {
@@ -412,7 +412,6 @@
             "schema": {
               "type": "string"
             },
-            "description": "",
             "required": true
           }
         ],
@@ -509,8 +508,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target mileage's ",
-            "required": true
+            "required": true,
+            "description": " Target mileage's {@link IShoppingMileage.id}"
           }
         ],
         "responses": {
@@ -540,8 +539,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target mileage's ",
-            "required": true
+            "required": true,
+            "description": " Target mileage's {@link IShoppingMileage.id}"
           }
         ],
         "responses": {
@@ -565,7 +564,6 @@
             "schema": {
               "type": "string"
             },
-            "description": "",
             "required": true
           }
         ],
@@ -662,8 +660,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target history's ",
-            "required": true
+            "required": true,
+            "description": " Target history's {@link IShoppingMileageDonation.id}"
           }
         ],
         "responses": {
@@ -728,8 +726,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "responses": {
@@ -794,8 +792,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -827,8 +825,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -837,8 +835,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -879,8 +877,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -889,8 +887,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -933,8 +931,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -943,8 +941,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -953,8 +951,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "responses": {
@@ -984,8 +982,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -994,8 +992,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -1004,8 +1002,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "requestBody": {
@@ -1048,8 +1046,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -1092,8 +1090,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -1136,8 +1134,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -1146,8 +1144,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target question's ",
-            "required": true
+            "required": true,
+            "description": " Target question's {@link IShoppingSaleQuestion.id}"
           }
         ],
         "responses": {
@@ -1179,8 +1177,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -1189,8 +1187,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -1231,8 +1229,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -1241,8 +1239,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -1285,8 +1283,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -1295,8 +1293,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -1305,8 +1303,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "responses": {
@@ -1336,8 +1334,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -1346,8 +1344,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -1356,8 +1354,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "requestBody": {
@@ -1400,8 +1398,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -1444,8 +1442,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -1488,8 +1486,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -1498,8 +1496,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target review's ",
-            "required": true
+            "required": true,
+            "description": " Target review's {@link IShoppingSaleReview.id}"
           }
         ],
         "responses": {
@@ -1531,8 +1529,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "requestBody": {
@@ -1575,8 +1573,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -1585,8 +1583,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id}"
           }
         ],
         "responses": {
@@ -1618,8 +1616,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -1628,8 +1626,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id}"
           }
         ],
         "responses": {
@@ -1660,8 +1658,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           }
         ],
         "requestBody": {
@@ -1701,8 +1699,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           }
         ],
         "responses": {
@@ -1736,8 +1734,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -1745,8 +1743,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "requestBody": {
@@ -1779,8 +1777,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -1789,8 +1787,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "responses": {
@@ -1821,8 +1819,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           }
         ],
         "requestBody": {
@@ -1857,8 +1855,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -1867,8 +1865,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "responses": {
@@ -1964,8 +1962,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.code}"
           }
         ],
         "requestBody": {
@@ -1999,8 +1997,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.id}"
           }
         ],
         "responses": {
@@ -2090,8 +2088,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.code}"
           }
         ],
         "responses": {
@@ -2187,8 +2185,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.code}"
           }
         ],
         "requestBody": {
@@ -2222,8 +2220,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.id}"
           }
         ],
         "responses": {
@@ -2280,8 +2278,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.code}"
           }
         ],
         "responses": {
@@ -2589,8 +2587,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target coupon's ",
-            "required": true
+            "required": true,
+            "description": " Target coupon's {@link IShoppingCoupon.id}"
           }
         ],
         "responses": {
@@ -2686,8 +2684,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target coupon ticket's ",
-            "required": true
+            "required": true,
+            "description": " Target coupon ticket's {@link IShoppingCouponTicket.id}"
           }
         ],
         "responses": {
@@ -2782,8 +2780,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target deposit charge's ",
-            "required": true
+            "required": true,
+            "description": " Target deposit charge's {@link IShoppingDepositCharge.id}"
           }
         ],
         "responses": {
@@ -2812,8 +2810,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target deposit charge's ",
-            "required": true
+            "required": true,
+            "description": " Target deposit charge's {@link IShoppingDepositCharge.id}"
           }
         ],
         "requestBody": {
@@ -2846,8 +2844,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target deposit charge's ",
-            "required": true
+            "required": true,
+            "description": " Target deposit charge's {@link IShoppingDepositCharge.id}"
           }
         ],
         "responses": {
@@ -2872,8 +2870,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target charge's ",
-            "required": true
+            "required": true,
+            "description": " Target charge's {@link IShoppingDepositCharge.id }"
           }
         ],
         "responses": {
@@ -2905,8 +2903,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target charge's ",
-            "required": true
+            "required": true,
+            "description": " Target charge's {@link IShoppingDepositCharge.id }"
           }
         ],
         "requestBody": {
@@ -2982,7 +2980,6 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "",
             "required": true
           }
         ],
@@ -3070,8 +3067,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target mileage history's ",
-            "required": true
+            "required": true,
+            "description": " Target mileage history's {@link IShoppingMileageHistory.id}"
           }
         ],
         "responses": {
@@ -3132,8 +3129,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           }
         ],
         "requestBody": {
@@ -3181,8 +3178,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           }
         ],
         "requestBody": {
@@ -3232,8 +3229,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           },
           {
             "name": "id",
@@ -3242,8 +3239,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target commodity's ",
-            "required": true
+            "required": true,
+            "description": " Target commodity's {@link IShoppingCartCommodity.id}"
           }
         ],
         "responses": {
@@ -3280,8 +3277,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           },
           {
             "name": "id",
@@ -3290,8 +3287,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target commodity's ",
-            "required": true
+            "required": true,
+            "description": " Target commodity's {@link IShoppingCartCommodity.id}"
           }
         ],
         "requestBody": {
@@ -3332,8 +3329,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           },
           {
             "name": "id",
@@ -3342,8 +3339,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target commodity's ",
-            "required": true
+            "required": true,
+            "description": " Target commodity's {@link IShoppingCartCommodity.id}"
           }
         ],
         "responses": {
@@ -3375,8 +3372,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           },
           {
             "name": "id",
@@ -3385,8 +3382,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target commodity's ",
-            "required": true
+            "required": true,
+            "description": " Target commodity's {@link IShoppingCartCommodity.id}"
           }
         ],
         "responses": {
@@ -3425,8 +3422,8 @@
                 }
               ]
             },
-            "description": "Belonged cart's ID",
-            "required": true
+            "required": true,
+            "description": " Belonged cart's ID"
           }
         ],
         "requestBody": {
@@ -3533,8 +3530,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "responses": {
@@ -3557,8 +3554,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "responses": {
@@ -3590,8 +3587,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "responses": {
@@ -3623,8 +3620,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "requestBody": {
@@ -3667,8 +3664,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "requestBody": {
@@ -3711,8 +3708,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged order's ",
-            "required": true
+            "required": true,
+            "description": " Belonged order's {@link IShoppingOrder.id }"
           },
           {
             "name": "id",
@@ -3721,8 +3718,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target good's ",
-            "required": true
+            "required": true,
+            "description": " Target good's {@link IShoppingOrderGood.id }"
           }
         ],
         "responses": {
@@ -3747,8 +3744,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id }"
           }
         ],
         "responses": {
@@ -3780,8 +3777,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id }"
           }
         ],
         "requestBody": {
@@ -3836,8 +3833,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id }"
           }
         ],
         "responses": {
@@ -3895,8 +3892,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -3928,8 +3925,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -3938,8 +3935,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -3980,8 +3977,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -3990,8 +3987,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -4034,8 +4031,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -4044,8 +4041,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -4054,8 +4051,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "responses": {
@@ -4085,8 +4082,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -4095,8 +4092,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -4105,8 +4102,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "requestBody": {
@@ -4149,8 +4146,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -4191,8 +4188,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -4235,8 +4232,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -4245,8 +4242,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target question's ",
-            "required": true
+            "required": true,
+            "description": " Target question's {@link IShoppingSaleQuestion.id}"
           }
         ],
         "requestBody": {
@@ -4287,8 +4284,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -4297,8 +4294,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target question's ",
-            "required": true
+            "required": true,
+            "description": " Target question's {@link IShoppingSaleQuestion.id}"
           }
         ],
         "responses": {
@@ -4330,8 +4327,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -4374,8 +4371,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -4384,8 +4381,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -4426,8 +4423,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -4436,8 +4433,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -4480,8 +4477,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -4490,8 +4487,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -4500,8 +4497,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "responses": {
@@ -4531,8 +4528,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -4541,8 +4538,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -4551,8 +4548,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "requestBody": {
@@ -4595,8 +4592,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -4637,8 +4634,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -4681,8 +4678,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -4691,8 +4688,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target review's ",
-            "required": true
+            "required": true,
+            "description": " Target review's {@link IShoppingSaleReview.id}"
           }
         ],
         "requestBody": {
@@ -4733,8 +4730,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -4743,8 +4740,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target review's ",
-            "required": true
+            "required": true,
+            "description": " Target review's {@link IShoppingSaleReview.id}"
           }
         ],
         "responses": {
@@ -4776,8 +4773,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -4820,8 +4817,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "requestBody": {
@@ -4864,8 +4861,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -4874,8 +4871,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id}"
           }
         ],
         "responses": {
@@ -4907,8 +4904,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -4917,8 +4914,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id}"
           }
         ],
         "responses": {
@@ -4949,8 +4946,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           }
         ],
         "responses": {
@@ -4984,8 +4981,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -4994,8 +4991,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "responses": {
@@ -5026,8 +5023,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -5036,8 +5033,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "responses": {
@@ -5135,8 +5132,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.id}"
           }
         ],
         "responses": {
@@ -5167,8 +5164,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.code}"
           }
         ],
         "responses": {
@@ -5233,8 +5230,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.id}"
           }
         ],
         "responses": {
@@ -5265,8 +5262,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.code}"
           }
         ],
         "responses": {
@@ -5448,8 +5445,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target delivery's ",
-            "required": true
+            "required": true,
+            "description": " Target delivery's {@link IShoppingDelivery.id}"
           }
         ],
         "responses": {
@@ -5517,8 +5514,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged delivery's ",
-            "required": true
+            "required": true,
+            "description": " Belonged delivery's {@link IShoppingDelivery.id }"
           }
         ],
         "requestBody": {
@@ -5561,8 +5558,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged delivery's ",
-            "required": true
+            "required": true,
+            "description": " Belonged delivery's {@link IShoppingDelivery.id }"
           },
           {
             "name": "id",
@@ -5571,8 +5568,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target journey's ",
-            "required": true
+            "required": true,
+            "description": " Target journey's {@link IShoppingDeliveryJourney.id}"
           }
         ],
         "requestBody": {
@@ -5608,8 +5605,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged delivery's ",
-            "required": true
+            "required": true,
+            "description": " Belonged delivery's {@link IShoppingDelivery.id }"
           },
           {
             "name": "id",
@@ -5618,8 +5615,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target journey's ",
-            "required": true
+            "required": true,
+            "description": " Target journey's {@link IShoppingDeliveryJourney.id}"
           }
         ],
         "responses": {
@@ -5644,8 +5641,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged delivery's ",
-            "required": true
+            "required": true,
+            "description": " Belonged delivery's {@link IShoppingDelivery.id }"
           }
         ],
         "requestBody": {
@@ -5751,8 +5748,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target coupon's ",
-            "required": true
+            "required": true,
+            "description": " Target coupon's {@link IShoppingCoupon.id}"
           }
         ],
         "responses": {
@@ -5774,8 +5771,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target coupon's ",
-            "required": true
+            "required": true,
+            "description": " Target coupon's {@link IShoppingCoupon.id}"
           }
         ],
         "responses": {
@@ -5840,8 +5837,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target order's ",
-            "required": true
+            "required": true,
+            "description": " Target order's {@link IShoppingOrder.id}"
           }
         ],
         "responses": {
@@ -5937,8 +5934,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "requestBody": {
@@ -5979,8 +5976,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -6012,8 +6009,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "requestBody": {
@@ -6049,8 +6046,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -6082,8 +6079,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -6108,8 +6105,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -6134,8 +6131,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "responses": {
@@ -6159,8 +6156,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "questionId",
@@ -6169,8 +6166,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target question's ",
-            "required": true
+            "required": true,
+            "description": " Target question's {@link IShoppingSaleQuestion.id }"
           }
         ],
         "requestBody": {
@@ -6211,8 +6208,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "questionId",
@@ -6221,8 +6218,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target question's ",
-            "required": true
+            "required": true,
+            "description": " Target question's {@link IShoppingSaleQuestion.id }"
           }
         ],
         "requestBody": {
@@ -6265,8 +6262,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6275,8 +6272,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -6317,8 +6314,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6327,8 +6324,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -6371,8 +6368,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6381,8 +6378,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -6391,8 +6388,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "responses": {
@@ -6422,8 +6419,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6432,8 +6429,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -6442,8 +6439,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "requestBody": {
@@ -6486,8 +6483,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -6530,8 +6527,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -6574,8 +6571,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -6584,8 +6581,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target question's ",
-            "required": true
+            "required": true,
+            "description": " Target question's {@link IShoppingSaleQuestion.id}"
           }
         ],
         "responses": {
@@ -6617,8 +6614,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "reviewId",
@@ -6627,8 +6624,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target review's ",
-            "required": true
+            "required": true,
+            "description": " Target review's {@link IShoppingSaleReview.id }"
           }
         ],
         "requestBody": {
@@ -6669,8 +6666,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "reviewId",
@@ -6679,8 +6676,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target review's ",
-            "required": true
+            "required": true,
+            "description": " Target review's {@link IShoppingSaleReview.id }"
           }
         ],
         "requestBody": {
@@ -6723,8 +6720,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6733,8 +6730,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -6775,8 +6772,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6785,8 +6782,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry's {@link IShoppingSaleInquiry.id }"
           }
         ],
         "requestBody": {
@@ -6829,8 +6826,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6839,8 +6836,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -6849,8 +6846,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "responses": {
@@ -6880,8 +6877,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "inquiryId",
@@ -6890,8 +6887,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged inquiry's ",
-            "required": true
+            "required": true,
+            "description": " Belonged inquiry's {@link IShoppingSaleInquiry.id }"
           },
           {
             "name": "id",
@@ -6900,8 +6897,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target inquiry comment's ",
-            "required": true
+            "required": true,
+            "description": " Target inquiry comment's {@link IShoppingSaleInquiryComment.id}"
           }
         ],
         "requestBody": {
@@ -6944,8 +6941,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -6988,8 +6985,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           }
         ],
         "requestBody": {
@@ -7032,8 +7029,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "id",
@@ -7042,8 +7039,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target review's ",
-            "required": true
+            "required": true,
+            "description": " Target review's {@link IShoppingSaleReview.id}"
           }
         ],
         "responses": {
@@ -7075,8 +7072,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -7085,8 +7082,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id }"
           }
         ],
         "responses": {
@@ -7118,8 +7115,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target sale's ",
-            "required": true
+            "required": true,
+            "description": " Target sale's {@link IShoppingSale.id}"
           }
         ],
         "requestBody": {
@@ -7162,8 +7159,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -7172,8 +7169,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id}"
           }
         ],
         "responses": {
@@ -7205,8 +7202,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id}"
           },
           {
             "name": "id",
@@ -7215,8 +7212,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target snapshot's ",
-            "required": true
+            "required": true,
+            "description": " Target snapshot's {@link IShoppingSaleSnapshot.id}"
           }
         ],
         "responses": {
@@ -7248,8 +7245,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "unitId",
@@ -7258,8 +7255,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged unit's ",
-            "required": true
+            "required": true,
+            "description": " Belonged unit's {@link IShoppingSaleUnit.id }"
           },
           {
             "name": "stockId",
@@ -7268,8 +7265,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target stock's ",
-            "required": true
+            "required": true,
+            "description": " Target stock's {@link IShoppingSaleUnitStock.id }"
           }
         ],
         "requestBody": {
@@ -7310,8 +7307,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "unitId",
@@ -7320,8 +7317,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged unit's ",
-            "required": true
+            "required": true,
+            "description": " Belonged unit's {@link IShoppingSaleUnit.id }"
           },
           {
             "name": "stockId",
@@ -7330,8 +7327,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target stock's ",
-            "required": true
+            "required": true,
+            "description": " Target stock's {@link IShoppingSaleUnitStock.id }"
           }
         ],
         "requestBody": {
@@ -7374,8 +7371,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "unitId",
@@ -7384,8 +7381,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged unit's ",
-            "required": true
+            "required": true,
+            "description": " Belonged unit's {@link IShoppingSaleUnit.id }"
           },
           {
             "name": "stockId",
@@ -7394,8 +7391,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target stock's ",
-            "required": true
+            "required": true,
+            "description": " Target stock's {@link IShoppingSaleUnitStock.id }"
           },
           {
             "name": "id",
@@ -7404,8 +7401,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target supplement's ",
-            "required": true
+            "required": true,
+            "description": " Target supplement's {@link IShoppingSaleUnitStockSupplement.id}"
           }
         ],
         "requestBody": {
@@ -7439,8 +7436,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged sale's ",
-            "required": true
+            "required": true,
+            "description": " Belonged sale's {@link IShoppingSale.id }"
           },
           {
             "name": "unitId",
@@ -7449,8 +7446,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Belonged unit's ",
-            "required": true
+            "required": true,
+            "description": " Belonged unit's {@link IShoppingSaleUnit.id }"
           },
           {
             "name": "stockId",
@@ -7459,8 +7456,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target stock's ",
-            "required": true
+            "required": true,
+            "description": " Target stock's {@link IShoppingSaleUnitStock.id }"
           },
           {
             "name": "id",
@@ -7469,8 +7466,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target supplement's ",
-            "required": true
+            "required": true,
+            "description": " Target supplement's {@link IShoppingSaleUnitStockSupplement.id}"
           }
         ],
         "responses": {
@@ -7494,8 +7491,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           }
         ],
         "responses": {
@@ -7529,8 +7526,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -7539,8 +7536,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "responses": {
@@ -7571,8 +7568,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Belonged channel's ",
-            "required": true
+            "required": true,
+            "description": " Belonged channel's {@link IShoppingChannel.code }"
           },
           {
             "name": "id",
@@ -7581,8 +7578,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target category's ",
-            "required": true
+            "required": true,
+            "description": " Target category's {@link IShoppingChannelCategory.id}"
           }
         ],
         "responses": {
@@ -7680,8 +7677,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.id}"
           }
         ],
         "responses": {
@@ -7712,8 +7709,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target channel's ",
-            "required": true
+            "required": true,
+            "description": " Target channel's {@link IShoppingChannel.code}"
           }
         ],
         "responses": {
@@ -7778,8 +7775,8 @@
               "type": "string",
               "format": "uuid"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.id}"
           }
         ],
         "responses": {
@@ -7810,8 +7807,8 @@
             "schema": {
               "type": "string"
             },
-            "description": "Target section's ",
-            "required": true
+            "required": true,
+            "description": " Target section's {@link IShoppingSection.code}"
           }
         ],
         "responses": {

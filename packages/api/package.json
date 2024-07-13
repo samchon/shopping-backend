@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-api",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "API for shopping",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
