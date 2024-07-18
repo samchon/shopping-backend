@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@nestia/core':
-        specifier: ^3.7.0
-        version: 3.7.0(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3))
+        specifier: ^3.7.1
+        version: 3.7.1(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3))
       '@nestia/fetcher':
-        specifier: ^3.7.0
-        version: 3.7.0(typescript@5.5.3)
+        specifier: ^3.7.1
+        version: 3.7.1(typescript@5.5.3)
       '@nestjs/common':
         specifier: ^10.3.10
         version: 10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1)
@@ -85,8 +85,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0
       '@nestia/sdk':
-        specifier: ^3.7.0
-        version: 3.7.0(@nestia/core@3.7.0(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3)))(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)(typia@6.5.1(typescript@5.5.3))
+        specifier: ^3.7.1
+        version: 3.7.1(@nestia/core@3.7.1(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3)))(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)(typia@6.5.1(typescript@5.5.3))
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
         version: 4.3.0(prettier@3.3.3)
@@ -344,10 +344,10 @@ packages:
   '@nestia/benchmark@0.1.2':
     resolution: {integrity: sha512-s/PF5nb7buUeSoCdjfNxNRPZKN8PE/+Znl2z50TyhaNDiQC5yA7y2fe7jVG/P/Zg6IpWqW5NGdPUwv6kuuD2tQ==}
 
-  '@nestia/core@3.7.0':
-    resolution: {integrity: sha512-1d8nn+U2GWUnIXvsEnpX0UCNyRhzcdNPp247lu4ll6awa5QfPujGfsS3H4u9Gpugnij8IYu0RB2ZMYKHxXTqaw==}
+  '@nestia/core@3.7.1':
+    resolution: {integrity: sha512-s/RvYF9U5/EPC+8E/fiRi6Sz4vJbELHnWCJFfDpkBj+S19Ce704bsxebWzGKXZWUSrv7fs9E2UgF78B3iGbblw==}
     peerDependencies:
-      '@nestia/fetcher': '>=3.7.0'
+      '@nestia/fetcher': '>=3.7.1'
       '@nestjs/common': '>=7.0.1'
       '@nestjs/core': '>=7.0.1'
       reflect-metadata: '>=0.1.12'
@@ -357,17 +357,17 @@ packages:
   '@nestia/e2e@0.7.0':
     resolution: {integrity: sha512-h/uV6OhFlgmoLgmc82i12iGkWhaXdW9CCkWtpppmBrxOmmYo3FNI47iauy7je5/q1HKCiOlamiJGx/Q9ArVBNQ==}
 
-  '@nestia/fetcher@3.7.0':
-    resolution: {integrity: sha512-zBAqXSkQaVKghDXH9yDrqSN0sckBRtk+nZOJsLyxA7FCVjH6xr7cN2cYb+hjk0frg/pdgmrqTzIhgzL6KEQ5jw==}
+  '@nestia/fetcher@3.7.1':
+    resolution: {integrity: sha512-zTE4oVJBlO+sfoceLWBiMvKAdUVdFGjtBgq3mrxXydy1va6HbtseGZcPbWVAu/+TQLVehmMyDCUKuRIeFkGOkQ==}
     peerDependencies:
       typescript: '>= 4.8.0'
 
-  '@nestia/sdk@3.7.0':
-    resolution: {integrity: sha512-K6KLIxzCRiYW+U9s0zzHfKyyxdEtbjSDoqSEMKUyW123RHnjcBuWF1kuQzDTfpv5JFDd5MsXlzpbKKeuJfKC7g==}
+  '@nestia/sdk@3.7.1':
+    resolution: {integrity: sha512-M9il1audB2TGyMxZqm79eZeSCo89zn7Ldi1whONS/6kztORcW7YVB9VmoYk8e9fIQVk3Vkepuwer6oe3W/LKWg==}
     hasBin: true
     peerDependencies:
-      '@nestia/core': '>=3.7.0'
-      '@nestia/fetcher': '>=3.7.0'
+      '@nestia/core': '>=3.7.1'
+      '@nestia/fetcher': '>=3.7.1'
       '@nestjs/common': '>=7.0.1'
       '@nestjs/core': '>=7.0.1'
       reflect-metadata: '>=0.1.12'
@@ -3074,7 +3074,7 @@ snapshots:
 
   '@nestia/benchmark@0.1.2(typescript@5.5.3)':
     dependencies:
-      '@nestia/fetcher': 3.7.0(typescript@5.5.3)
+      '@nestia/fetcher': 3.7.1(typescript@5.5.3)
       tgrid: 1.0.2
       tstl: 3.0.0
     transitivePeerDependencies:
@@ -3082,9 +3082,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@nestia/core@3.7.0(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3))':
+  '@nestia/core@3.7.1(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3))':
     dependencies:
-      '@nestia/fetcher': 3.7.0(typescript@5.5.3)
+      '@nestia/fetcher': 3.7.1(typescript@5.5.3)
       '@nestjs/common': 10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@samchon/openapi': 0.4.2
@@ -3105,15 +3105,15 @@ snapshots:
 
   '@nestia/e2e@0.7.0': {}
 
-  '@nestia/fetcher@3.7.0(typescript@5.5.3)':
+  '@nestia/fetcher@3.7.1(typescript@5.5.3)':
     dependencies:
       '@samchon/openapi': 0.4.2
       typescript: 5.5.3
 
-  '@nestia/sdk@3.7.0(@nestia/core@3.7.0(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3)))(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)(typia@6.5.1(typescript@5.5.3))':
+  '@nestia/sdk@3.7.1(@nestia/core@3.7.1(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3)))(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)(typia@6.5.1(typescript@5.5.3))':
     dependencies:
-      '@nestia/core': 3.7.0(@nestia/fetcher@3.7.0(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3))
-      '@nestia/fetcher': 3.7.0(typescript@5.5.3)
+      '@nestia/core': 3.7.1(@nestia/fetcher@3.7.1(typescript@5.5.3))(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@6.5.1(typescript@5.5.3))
+      '@nestia/fetcher': 3.7.1(typescript@5.5.3)
       '@nestjs/common': 10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.3.10(@nestjs/common@10.3.10(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@samchon/openapi': 0.4.2
