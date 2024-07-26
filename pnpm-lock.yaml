@@ -79,8 +79,8 @@ importers:
         version: 10.0.0
     devDependencies:
       '@nestia/benchmark':
-        specifier: ^0.2.1
-        version: 0.2.1(typescript@5.5.4)
+        specifier: ^0.2.3
+        version: 0.2.3(typescript@5.5.4)
       '@nestia/e2e':
         specifier: ^0.7.0
         version: 0.7.0
@@ -341,8 +341,8 @@ packages:
     resolution: {integrity: sha512-Z7C/xXCiGWsg0KuKsHTKJxbWhpI3Vs5GwLfOean7MGyVFGqdRgBbAjOCh6u4bbjPc/8MJ2pZmK/0DLdCbivLDA==}
     engines: {node: '>=8'}
 
-  '@nestia/benchmark@0.2.1':
-    resolution: {integrity: sha512-CJa1T1syWuSVjd9sW+mhQRnt4s30pGFCceUysTltb1ZV1kJIzVykNqavTiF9v5VqRDWvkdWCjtmNWVhOzXYEXw==}
+  '@nestia/benchmark@0.2.3':
+    resolution: {integrity: sha512-qTtcXRIgIO08XbDUIV/HwmP4yYP28teSs5O++hUPuhr6Zhhi3LH+EL6bx9ZV3a0eQyQRDYEiEjw0m7oz6SOS9A==}
 
   '@nestia/core@3.8.1':
     resolution: {integrity: sha512-MsHEYPTk3wticp6109YPuNDO9b1T27pcJEoB1VyTZfugPhJGoHrkfkw1fpq5zdkeT4Kz4J2Td5cT5JYmo4pOFA==}
@@ -3076,7 +3076,7 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
-  '@nestia/benchmark@0.2.1(typescript@5.5.4)':
+  '@nestia/benchmark@0.2.3(typescript@5.5.4)':
     dependencies:
       '@nestia/fetcher': 3.8.1(typescript@5.5.4)
       tgrid: 1.0.2
