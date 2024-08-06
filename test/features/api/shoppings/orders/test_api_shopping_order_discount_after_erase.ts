@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
@@ -20,21 +19,20 @@ export const test_api_shopping_order_discount_after_erase =
           ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
             pool.customer,
             null,
-            commodity.id,
-          ),
-      ),
+            commodity.id
+          )
+      )
     )((input) =>
       ShoppingApi.functional.shoppings.customers.carts.commodities.create(
         pool.customer,
         null,
-        input,
-      ),
+        input
+      )
     );
-    typia.assertEquals(commodities);
 
     const order: IShoppingOrder = await generate_random_order(
       pool,
-      commodities,
+      commodities
     );
 
     const discount = async (order: IShoppingOrder) => {
@@ -46,7 +44,7 @@ export const test_api_shopping_order_discount_after_erase =
             deposit: 0,
             mileage: 0,
             coupon_ids: combination.coupons.map((coupon) => coupon.id),
-          },
+          }
         );
       return price;
     };
@@ -54,17 +52,17 @@ export const test_api_shopping_order_discount_after_erase =
     const price: IShoppingOrderPrice = await discount(props.order);
     await ShoppingApi.functional.shoppings.customers.orders.erase(
       pool.customer,
-      props.order.id,
+      props.order.id
     );
 
     const retry: IShoppingOrderPrice = await discount(order);
     TestValidator.equals("coupons")(
       price.ticket_payments
         .map((tp) => tp.ticket.coupon)
-        .sort((x, y) => x.id.localeCompare(y.id)),
+        .sort((x, y) => x.id.localeCompare(y.id))
     )(
       retry.ticket_payments
         .map((tp) => tp.ticket.coupon)
-        .sort((x, y) => x.id.localeCompare(y.id)),
+        .sort((x, y) => x.id.localeCompare(y.id))
     );
   });

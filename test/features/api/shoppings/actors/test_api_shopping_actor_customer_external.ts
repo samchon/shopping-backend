@@ -11,7 +11,7 @@ import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
 export const test_api_shopping_actor_customer_external = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<IShoppingCustomer> => {
   // INITIALIZE CUSTOMER, A GUEST
   const issued: IShoppingCustomer.IAuthorized =
@@ -25,25 +25,24 @@ export const test_api_shopping_actor_customer_external = async (
 
   // IShoppingCustomer.external_user
   const input = {
-    external: typia.assert<IShoppingExternalUser.ICreate>({
+    external: {
       application: "test-application",
       uid: v4(),
       nickname: RandomGenerator.name(8),
       data: null,
       password: v4(),
       citizen: null,
-    } satisfies IShoppingExternalUser.ICreate),
-    citizen: typia.assert<IShoppingCitizen.ICreate>({
+    } satisfies IShoppingExternalUser.ICreate,
+    citizen: {
       name: RandomGenerator.name(8),
       mobile: RandomGenerator.mobile(),
-    }),
+    } satisfies IShoppingCitizen.ICreate,
   };
   const external: IShoppingCustomer =
     await ShoppingApi.functional.shoppings.customers.authenticate.external(
       pool.customer,
-      input.external,
+      input.external
     );
-  typia.assertEquals(external);
   validate("external")(external)({
     ...issued,
     external_user: {
@@ -57,9 +56,8 @@ export const test_api_shopping_actor_customer_external = async (
   const citizen: IShoppingCustomer =
     await ShoppingApi.functional.shoppings.customers.authenticate.activate(
       pool.customer,
-      input.citizen,
+      input.citizen
     );
-  typia.assertEquals(citizen);
 
   validate("citizen")(citizen)({
     ...issued,
@@ -78,15 +76,15 @@ export const test_api_shopping_actor_customer_external = async (
   await test_api_shopping_actor_customer_create(pool);
   await ShoppingApi.functional.shoppings.customers.authenticate.external(
     pool.customer,
-    input.external,
+    input.external
   );
   validate("again")(citizen)(
     await ShoppingApi.functional.shoppings.customers.authenticate.refresh(
       pool.customer,
       {
         value: issued.token.refresh,
-      },
-    ),
+      }
+    )
   );
   return citizen;
 };
@@ -94,5 +92,5 @@ export const test_api_shopping_actor_customer_external = async (
 const validate =
   (title: string) => (x: IShoppingCustomer) => (y: IShoppingCustomer) =>
     TestValidator.equals(title)(
-      typia.misc.clone<Omit<IShoppingCustomer, "created_at">>(x),
+      typia.misc.clone<Omit<IShoppingCustomer, "created_at">>(x)
     )(y);

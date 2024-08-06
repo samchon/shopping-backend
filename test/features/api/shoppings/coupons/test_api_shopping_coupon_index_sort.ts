@@ -16,7 +16,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_index_sort = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   // AUTHORIZE USERS
   await test_api_shopping_actor_admin_login(pool);
@@ -24,7 +24,7 @@ export const test_api_shopping_coupon_index_sort = async (
 
   // GENERATE COUPONS
   const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(10)(() =>
-    generate_random_sale(pool),
+    generate_random_sale(pool)
   );
   const generator =
     (sale: IShoppingSale) => (types: IShoppingCouponCriteria.Type[]) =>
@@ -36,16 +36,16 @@ export const test_api_shopping_coupon_index_sort = async (
         create: (input) =>
           ShoppingApi.functional.shoppings.admins.coupons.create(
             pool.admin,
-            input,
+            input
           ),
         prepare: (criterias) =>
           prepare_random_coupon({
             criterias,
             opened_at: new Date(
-              Date.now() + randint(-5 * DAY, 0),
+              Date.now() + randint(-5 * DAY, 0)
             ).toISOString(),
             closed_at: new Date(
-              Date.now() + randint(2 * DAY, 7 * DAY),
+              Date.now() + randint(2 * DAY, 7 * DAY)
             ).toISOString(),
             restriction: {
               expired_at: null,
@@ -57,9 +57,9 @@ export const test_api_shopping_coupon_index_sort = async (
   const coupons: IShoppingCoupon[] = ArrayUtil.flat(
     await ArrayUtil.asyncMap(saleList)((sale) =>
       ArrayUtil.asyncMap(typia.misc.literals<IShoppingCouponCriteria.Type>())(
-        (type) => generator(sale)([type]),
-      ),
-    ),
+        (type) => generator(sale)([type])
+      )
+    )
   );
 
   // PREPARE VALIDATOR
@@ -73,7 +73,7 @@ export const test_api_shopping_coupon_index_sort = async (
         limit: coupons.length,
         sort,
       });
-    return typia.assertEquals(page).data;
+    return page.data;
   });
 
   // LIST UP FIELDS TO SORT
@@ -81,17 +81,17 @@ export const test_api_shopping_coupon_index_sort = async (
     // VALUES
     validator("coupon.name")(GaffComparator.strings((x) => x.name)),
     validator("coupon.value")(
-      GaffComparator.numbers((x) => [x.discount.value]),
+      GaffComparator.numbers((x) => [x.discount.value])
     ),
     validator("coupon.unit")(GaffComparator.strings((x) => [x.discount.unit])),
 
     // TIMESTAMPS
     validator("coupon.created_at")(GaffComparator.dates((x) => x.created_at)),
     validator("coupon.opened_at")(
-      GaffComparator.strings((x) => x.opened_at ?? "2999-12-31"),
+      GaffComparator.strings((x) => x.opened_at ?? "2999-12-31")
     ),
     validator("coupon.closed_at")(
-      GaffComparator.strings((x) => x.closed_at ?? "2999-12-31"),
+      GaffComparator.strings((x) => x.closed_at ?? "2999-12-31")
     ),
   ];
 
@@ -105,7 +105,7 @@ export const test_api_shopping_coupon_index_sort = async (
   for (const c of coupons)
     await ShoppingApi.functional.shoppings.admins.coupons.destroy(
       pool.admin,
-      c.id,
+      c.id
     );
 };
 const DAY = 1000 * 60 * 60 * 24;

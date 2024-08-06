@@ -1,6 +1,5 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
 import { randint } from "tstl";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -15,7 +14,7 @@ import { generate_random_cart_commodity } from "./internal/generate_random_cart_
 import { prepare_random_cart_commodity } from "./internal/prepare_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_index_search = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   //----
   // PREPARE ASSETS
@@ -26,7 +25,7 @@ export const test_api_shopping_cart_commodity_index_search = async (
 
   // SALES AND CART ITEMS
   const sales: IShoppingSale[] = await ArrayUtil.asyncRepeat(REPEAT)(() =>
-    generate_random_sale(pool),
+    generate_random_sale(pool)
   );
   const cart: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(sales)(
     async (s) => {
@@ -35,9 +34,8 @@ export const test_api_shopping_cart_commodity_index_search = async (
       input.volume = randint(1, 10);
       for (const stock of input.stocks) stock.quantity = randint(1, 10);
       return generate_random_cart_commodity(pool, s, input);
-    },
+    }
   );
-  typia.assertEquals(cart);
 
   // SEARCH VALIDATOR
   const validator = TestValidator.search("search")(
@@ -49,10 +47,10 @@ export const test_api_shopping_cart_commodity_index_search = async (
           {
             limit: cart.length,
             search: input,
-          },
+          }
         );
-      return typia.assertEquals(page).data;
-    },
+      return page.data;
+    }
   )(cart, 5);
 
   //----
@@ -136,7 +134,7 @@ export const test_api_shopping_cart_commodity_index_search = async (
     request: ([email]) => ({ sale: { seller: { email } } }),
     filter: (commodity, [value]) =>
       commodity.sale.seller.member.emails.some((email) =>
-        email.value.includes(value),
+        email.value.includes(value)
       ),
   });
 

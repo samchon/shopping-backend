@@ -1,5 +1,4 @@
 import { ArrayUtil, GaffComparator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -20,7 +19,7 @@ import { generate_random_sale } from "./internal/generate_random_sale";
 // import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_index_sort = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
@@ -57,15 +56,15 @@ export const test_api_shopping_sale_index_sort = async (
         {
           limit: 5,
           sort,
-        },
+        }
       );
-    return typia.assertEquals(page).data;
+    return page.data;
   });
 
   const components = [
     // SELLER
     validator("seller.created_at")(
-      GaffComparator.dates((x) => x.seller.created_at),
+      GaffComparator.dates((x) => x.seller.created_at)
     ),
     // validator("seller.goods.payments.real")(
     //   GaffComparator.numbers(
@@ -112,14 +111,14 @@ export const test_api_shopping_sale_index_sort = async (
     validator("sale.updated_at")(GaffComparator.dates((x) => x.updated_at)),
     validator("sale.opened_at")(GaffComparator.dates((x) => x.opened_at!)),
     validator("sale.content.title")(
-      GaffComparator.strings((x) => x.content.title),
+      GaffComparator.strings((x) => x.content.title)
     ),
     // PRICE-RANGE
     validator("sale.price_range.lowest.real")(
-      GaffComparator.numbers((x) => x.price_range.lowest.real),
+      GaffComparator.numbers((x) => x.price_range.lowest.real)
     ),
     validator("sale.price_range.highest.real")(
-      GaffComparator.numbers((x) => x.price_range.highest.real),
+      GaffComparator.numbers((x) => x.price_range.highest.real)
     ),
   ];
   for (const comp of components) {

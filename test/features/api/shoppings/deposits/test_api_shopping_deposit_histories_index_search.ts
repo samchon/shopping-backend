@@ -1,6 +1,5 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
 import { randint } from "tstl";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -13,7 +12,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_deposit_histories } from "./internal/generate_random_deposit_histories";
 
 export const test_api_shopping_deposit_histories_index_search = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_join(pool);
@@ -23,7 +22,7 @@ export const test_api_shopping_deposit_histories_index_search = async (
     generate_random_deposit_histories(pool, {
       charge: randint(1_000, 9_000),
       discount: randint(100, 999),
-    }),
+    })
   );
 
   const entire: IPage<IShoppingDepositHistory> =
@@ -31,7 +30,7 @@ export const test_api_shopping_deposit_histories_index_search = async (
       pool.customer,
       {
         limit: 100,
-      },
+      }
     );
   const validator = TestValidator.search("search")(
     async (input: IShoppingDepositHistory.IRequest.ISearch) => {
@@ -41,10 +40,10 @@ export const test_api_shopping_deposit_histories_index_search = async (
           {
             limit: 100,
             search: input,
-          },
+          }
         );
-      return typia.assertEquals(page).data;
-    },
+      return page.data;
+    }
   )(entire.data, 5);
 
   await validator({

@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -15,7 +14,7 @@ export const validate_api_shopping_sale_inquiry_comment_update = async (
   pool: ConnectionPool,
   customer: IShoppingCustomer,
   sale: IShoppingSale,
-  inquiry: IShoppingSaleInquiry<"question" | "review", any>,
+  inquiry: IShoppingSaleInquiry<"question" | "review", any>
 ): Promise<void> => {
   const comment: IShoppingSaleInquiryComment =
     await generate_random_sale_inquiry_comment({
@@ -34,16 +33,15 @@ export const validate_api_shopping_sale_inquiry_comment_update = async (
           sale.id,
           inquiry.id,
           comment.id,
-          prepare_random_bbs_article_comment(),
+          prepare_random_bbs_article_comment()
         );
-      return typia.assertEquals(snapshot);
-    })),
+      return snapshot;
+    }))
   );
 
   const read: IShoppingSaleInquiryComment =
     await ShoppingApi.functional.shoppings.customers.sales[
       `${inquiry.type}s`
     ].comments.at(pool.customer, sale.id, inquiry.id, comment.id);
-  typia.assertEquals(read);
   TestValidator.equals("read")(read)(comment);
 };

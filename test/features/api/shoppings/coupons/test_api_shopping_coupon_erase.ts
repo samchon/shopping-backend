@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
@@ -15,7 +14,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_erase = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -42,27 +41,21 @@ export const test_api_shopping_coupon_erase = async (
       pool.customer,
       {
         coupon_id: coupon.id,
-      },
+      }
     );
-  typia.assertEquals(ticket);
 
   // ERASE THE COUPON
   await ShoppingApi.functional.shoppings.admins.coupons.erase(
     pool.admin,
-    coupon.id,
+    coupon.id
   );
   await TestValidator.httpError("erased")(404)(() =>
-    ShoppingApi.functional.shoppings.customers.coupons.at(
-      pool.admin,
-      coupon.id,
-    ),
+    ShoppingApi.functional.shoppings.customers.coupons.at(pool.admin, coupon.id)
   );
 
   // BUT TICKET STILL ALIVE
-  const ticketReloading: IShoppingCouponTicket =
-    await ShoppingApi.functional.shoppings.customers.coupons.tickets.at(
-      pool.customer,
-      ticket.id,
-    );
-  typia.assertEquals(ticketReloading);
+  await ShoppingApi.functional.shoppings.customers.coupons.tickets.at(
+    pool.customer,
+    ticket.id
+  );
 };

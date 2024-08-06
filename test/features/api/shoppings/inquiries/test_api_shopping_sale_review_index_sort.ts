@@ -1,5 +1,4 @@
 import { ArrayUtil, GaffComparator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -20,7 +19,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_review_index_sort = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
@@ -38,12 +37,12 @@ export const test_api_shopping_sale_review_index_sort = async (
         pool,
         customer,
         order,
-        true,
+        true
       );
 
       const good: IShoppingOrderGood = order.goods[0];
       return generate_random_sale_review(pool, sale, good);
-    },
+    }
   );
 
   const validator = TestValidator.sort("sort reviews")<
@@ -58,9 +57,9 @@ export const test_api_shopping_sale_review_index_sort = async (
         {
           sort: input,
           limit: total.length,
-        },
+        }
       );
-    return typia.assertEquals(page).data;
+    return page.data;
   });
 
   const components = [

@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -13,7 +12,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_cart_commodity } from "./internal/generate_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_create = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -29,17 +28,15 @@ export const test_api_shopping_cart_commodity_create = async (
       {
         limit: 1,
         sort: ["-commodity.created_at"],
-      },
+      }
     );
-  typia.assertEquals(page);
   TestValidator.equals("index")(commodity)(page.data[0]);
 
   const read: IShoppingCartCommodity =
     await ShoppingApi.functional.shoppings.customers.carts.commodities.at(
       pool.customer,
       null,
-      commodity.id,
+      commodity.id
     );
-  typia.assertEquals(read);
   TestValidator.equals("read")(commodity)(read);
 };

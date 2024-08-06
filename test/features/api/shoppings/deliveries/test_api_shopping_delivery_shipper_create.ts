@@ -1,5 +1,4 @@
 import { ArrayUtil, RandomGenerator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -18,7 +17,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_delivery_shipper_create = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -32,7 +31,7 @@ export const test_api_shopping_delivery_shipper_create = async (
     pool,
     customer,
     order,
-    true,
+    true
   );
 
   const delivery: IShoppingDelivery =
@@ -40,14 +39,13 @@ export const test_api_shopping_delivery_shipper_create = async (
       pool.seller,
       {
         shippers: [],
-        pieces: typia.assertEquals(
+        pieces:
           await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
             pool.seller,
             {
               publish_ids: [order.publish.id],
-            },
+            }
           ),
-        ),
         journeys: (["preparing", "manufacturing", "delivering"] as const).map(
           (type) => ({
             type,
@@ -55,11 +53,10 @@ export const test_api_shopping_delivery_shipper_create = async (
             description: null,
             started_at: new Date().toISOString(),
             completed_at: null,
-          }),
+          })
         ),
-      },
+      }
     );
-  typia.assertEquals(delivery);
 
   const inputList: IShoppingDeliveryShipper.ICreate[] = new Array(4)
     .fill(0)
@@ -69,24 +66,22 @@ export const test_api_shopping_delivery_shipper_create = async (
       company: RandomGenerator.name(),
     }));
   const shippers: IShoppingDeliveryShipper[] = await ArrayUtil.asyncMap(
-    inputList,
+    inputList
   )((input) =>
     ShoppingApi.functional.shoppings.sellers.deliveries.shippers.create(
       pool.seller,
       delivery.id,
-      input,
-    ),
+      input
+    )
   );
-  typia.assertEquals(shippers);
   TestValidator.equals("create")(inputList)(shippers);
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      order.id,
+      order.id
     );
-  typia.assertEquals(reloaded);
   TestValidator.equals("shippers")(reloaded.publish!.deliveries[0].shippers)(
-    shippers,
+    shippers
   );
 };

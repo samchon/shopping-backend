@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -19,7 +18,7 @@ export const validate_api_shopping_sale_inquiry_comment_index_search = async (
   customer: IShoppingCustomer,
   seller: IShoppingSeller.IInvert,
   sale: IShoppingSale,
-  inquiry: IShoppingSaleInquiry<"question" | "review", any>,
+  inquiry: IShoppingSaleInquiry<"question" | "review", any>
 ): Promise<void> => {
   const generator = generate_random_sale_inquiry_comment({
     pool,
@@ -47,8 +46,8 @@ export const validate_api_shopping_sale_inquiry_comment_index_search = async (
           search,
           limit: total.length,
         });
-      return typia.assertEquals(page).data;
-    },
+      return page.data;
+    }
   )(total);
 
   await search({

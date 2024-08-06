@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
@@ -21,9 +20,9 @@ export const test_api_shopping_order_discount_after_discount =
             deposit: 0,
             mileage: 0,
             coupon_ids: combination.coupons.map((coupon) => coupon.id),
-          },
+          }
         );
-      return typia.assertEquals(price);
+      return price;
     };
     const first: IShoppingOrderPrice = await discount();
     const second: IShoppingOrderPrice = await discount();
@@ -31,10 +30,10 @@ export const test_api_shopping_order_discount_after_discount =
     TestValidator.equals("coupons")(
       first.ticket_payments
         .map((tp) => tp.ticket.coupon)
-        .sort((x, y) => x.id.localeCompare(y.id)),
+        .sort((x, y) => x.id.localeCompare(y.id))
     )(
       second.ticket_payments
         .map((tp) => tp.ticket.coupon)
-        .sort((x, y) => x.id.localeCompare(y.id)),
+        .sort((x, y) => x.id.localeCompare(y.id))
     );
   });

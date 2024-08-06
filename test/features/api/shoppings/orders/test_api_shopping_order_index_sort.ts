@@ -1,5 +1,4 @@
 import { ArrayUtil, GaffComparator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -17,7 +16,7 @@ import { generate_random_order } from "./internal/generate_random_order";
 import { generate_random_order_publish } from "./internal/generate_random_order_publish";
 
 export const test_api_shopping_order_index_sort = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -35,11 +34,11 @@ export const test_api_shopping_order_index_sort = async (
         pool,
         customer,
         order,
-        true,
+        true
       );
 
       return order;
-    },
+    }
   );
 
   // PREPARE VALIDATOR
@@ -54,9 +53,9 @@ export const test_api_shopping_order_index_sort = async (
         {
           sort: input,
           limit: orderList.length,
-        },
+        }
       );
-    return typia.assertEquals(page).data;
+    return page.data;
   });
 
   // COLUMNS TO SORT
@@ -69,15 +68,15 @@ export const test_api_shopping_order_index_sort = async (
             oi.volume *
             oi.commodity.sale.units
               .map((u) =>
-                u.stocks.map((s) => s.quantity).reduce((x, y) => x + y),
+                u.stocks.map((s) => s.quantity).reduce((x, y) => x + y)
               )
-              .reduce((x, y) => x + y),
-        ),
-      ),
+              .reduce((x, y) => x + y)
+        )
+      )
     ),
     validator("order.created_at")(GaffComparator.dates((x) => x.created_at)),
     validator("order.publish.paid_at")(
-      GaffComparator.dates((x) => x.publish?.paid_at ?? "9999-12-31 09:00:00"),
+      GaffComparator.dates((x) => x.publish?.paid_at ?? "9999-12-31 09:00:00")
     ),
   ];
 

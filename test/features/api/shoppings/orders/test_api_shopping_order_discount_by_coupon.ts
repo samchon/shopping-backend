@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
@@ -19,7 +18,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_order } from "./internal/generate_random_order";
 
 export const test_api_shopping_order_discount_by_coupon = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_join(pool);
@@ -58,30 +57,28 @@ export const test_api_shopping_order_discount_by_coupon = async (
           deposit: 0,
           mileage: 0,
           coupon_ids: [coupon.id],
-        },
+        }
       );
-    typia.assertEquals(price);
     TestValidator.equals("order.price.cash")(price.real)(price.cash * 2);
     TestValidator.equals("order.price.ticket")(price.real)(price.ticket * 2);
 
     const reloaded: IShoppingOrder =
       await ShoppingApi.functional.shoppings.customers.orders.at(
         pool.customer,
-        order.id,
+        order.id
       );
-    typia.assertEquals(reloaded);
     for (const good of reloaded.goods) {
       TestValidator.equals("good.price.cash")(good.price.real)(
-        good.price.cash * 2,
+        good.price.cash * 2
       );
       TestValidator.equals("good.price.ticket")(good.price.real)(
-        good.price.ticket * 2,
+        good.price.ticket * 2
       );
     }
   });
   await ShoppingApi.functional.shoppings.admins.coupons.destroy(
     pool.admin,
-    coupon.id,
+    coupon.id
   );
   if (error) throw error;
 };

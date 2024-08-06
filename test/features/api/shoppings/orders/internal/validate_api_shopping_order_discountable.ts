@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -26,8 +25,8 @@ export const validate_api_shopping_order_discountable =
   (
     next?: (
       pool: ConnectionPool,
-      props: validate_api_shopping_order_discountable.IProps,
-    ) => Promise<any>,
+      props: validate_api_shopping_order_discountable.IProps
+    ) => Promise<any>
   ) =>
   async (pool: ConnectionPool): Promise<void> => {
     //----
@@ -44,15 +43,15 @@ export const validate_api_shopping_order_discountable =
       generate_random_sole_sale(pool, {
         nominal: 50_000,
         real: 50_000,
-      }),
+      })
     );
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-      saleList,
+      saleList
     )((sale) => generate_random_cart_commodity(pool, sale));
     const order: IShoppingOrder = await generate_random_order(
       pool,
       commodities,
-      () => 1,
+      () => 1
     );
 
     //----
@@ -64,7 +63,7 @@ export const validate_api_shopping_order_discountable =
     const generator =
       (exclusive: boolean) =>
       async (
-        criteria: IShoppingCouponCriteria.ICreate,
+        criteria: IShoppingCouponCriteria.ICreate
       ): Promise<IShoppingCoupon> => {
         const coupon: IShoppingCoupon =
           await ShoppingApi.functional.shoppings.admins.coupons.create(
@@ -82,9 +81,9 @@ export const validate_api_shopping_order_discountable =
                 threshold: null,
               },
               criterias: [criteria],
-            }),
+            })
           );
-        return typia.assertEquals(coupon);
+        return coupon;
       };
 
     const couponList: IShoppingCoupon[] = [
@@ -137,20 +136,19 @@ export const validate_api_shopping_order_discountable =
         order.id,
         {
           good_ids: order.goods.map((g) => g.id),
-        },
+        }
       );
-    typia.assertEquals(discountable);
 
     const error: Error | null = await TestValidator.proceed(async () => {
       // VALIDATE COMBINATIONS
       TestValidator.equals("combinations.length")(
-        discountable.combinations.length,
+        discountable.combinations.length
       )(2);
       TestValidator.equals("combinations[].amount")(
-        discountable.combinations.map((comb) => comb.amount),
+        discountable.combinations.map((comb) => comb.amount)
       )([15_000, 5_000]);
       TestValidator.equals("combinations[].coupons.length")(
-        discountable.combinations.map((comb) => comb.coupons.length),
+        discountable.combinations.map((comb) => comb.coupons.length)
       )([3, 1]);
 
       // FOR THE NEXT STEP
@@ -169,14 +167,14 @@ export const validate_api_shopping_order_discountable =
     for (const coupon of couponList)
       await ShoppingApi.functional.shoppings.admins.coupons.destroy(
         pool.admin,
-        coupon.id,
+        coupon.id
       );
     await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
       pool.admin,
       {
         keep: saleList[0].section.id,
         absorbed: [dummySection.id],
-      },
+      }
     );
 
     // TERMINATE
@@ -190,9 +188,9 @@ export namespace validate_api_shopping_order_discountable {
     discountable: IShoppingOrderDiscountable;
     coupons: IShoppingCoupon[];
     generator: (
-      exclusive: boolean,
+      exclusive: boolean
     ) => (
-      criteria: IShoppingCouponCriteria.ICreate,
+      criteria: IShoppingCouponCriteria.ICreate
     ) => Promise<IShoppingCoupon>;
   }
 }

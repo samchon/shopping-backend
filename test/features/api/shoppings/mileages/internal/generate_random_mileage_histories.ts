@@ -1,14 +1,9 @@
-import typia from "typia";
-
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingMileageDonation } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
-import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderGood } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderGood";
-import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleReview } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleReview";
 
@@ -23,7 +18,7 @@ import { generate_random_mileage_donation } from "./generate_random_mileage_dona
 
 export const generate_random_mileage_histories = async (
   pool: ConnectionPool,
-  customer: IShoppingCustomer,
+  customer: IShoppingCustomer
 ): Promise<generate_random_mileage_histories.IOutput> => {
   const sale: IShoppingSale = await generate_random_sale(pool);
   const commodity: IShoppingCartCommodity =
@@ -35,7 +30,7 @@ export const generate_random_mileage_histories = async (
       value: 1_000,
     });
 
-  order.price = typia.assertEquals<IShoppingOrderPrice>(
+  order.price =
     await ShoppingApi.functional.shoppings.customers.orders.discount(
       pool.customer,
       order.id,
@@ -43,47 +38,43 @@ export const generate_random_mileage_histories = async (
         mileage: donation.value,
         deposit: 0,
         coupon_ids: [],
-      },
-    ),
-  );
+      }
+    );
   order.publish = await generate_random_order_publish(
     pool,
     customer,
     order,
-    true,
+    true
   );
 
-  const delivery: IShoppingDelivery =
-    await ShoppingApi.functional.shoppings.sellers.deliveries.create(
-      pool.seller,
-      {
-        pieces: typia.assertEquals<IShoppingDeliveryPiece.ICreate[]>(
-          await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
-            pool.seller,
-            {
-              publish_ids: [order.publish.id],
-            },
-          ),
+  await ShoppingApi.functional.shoppings.sellers.deliveries.create(
+    pool.seller,
+    {
+      pieces:
+        await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
+          pool.seller,
+          {
+            publish_ids: [order.publish.id],
+          }
         ),
-        shippers: [],
-        journeys: (
-          ["preparing", "manufacturing", "shipping", "delivering"] as const
-        ).map((type) => ({
-          type,
-          title: null,
-          description: null,
-          started_at: new Date().toISOString(),
-          completed_at: new Date().toISOString(),
-        })),
-      },
-    );
-  typia.assertEquals(delivery);
+      shippers: [],
+      journeys: (
+        ["preparing", "manufacturing", "shipping", "delivering"] as const
+      ).map((type) => ({
+        type,
+        title: null,
+        description: null,
+        started_at: new Date().toISOString(),
+        completed_at: new Date().toISOString(),
+      })),
+    }
+  );
 
   const good: IShoppingOrderGood = order.goods[0];
   await ShoppingApi.functional.shoppings.customers.orders.goods.confirm(
     pool.customer,
     order.id,
-    good.id,
+    good.id
   );
 
   const review: IShoppingSaleReview = await generate_random_sale_review(
@@ -92,7 +83,7 @@ export const generate_random_mileage_histories = async (
     good,
     {
       files: [prepare_random_attachment_file({ extension: "jpg" })],
-    },
+    }
   );
 
   return {

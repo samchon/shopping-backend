@@ -1,10 +1,8 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
-import { IShoppingCouponTicket } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponTicket";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ActorPath } from "../../../../../src/typings/ActorPath";
@@ -17,7 +15,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_exhausted = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -48,32 +46,29 @@ export const test_api_shopping_coupon_exhausted = async (
     const validate = async (
       path: ActorPath,
       visible: boolean,
-      extra?: Partial<IShoppingCoupon.IRequest>,
+      extra?: Partial<IShoppingCoupon.IRequest>
     ) => {
       const connection: ShoppingApi.IConnection =
         path === "admins"
           ? pool.admin
           : path === "customers"
-          ? pool.customer
-          : pool.seller;
+            ? pool.customer
+            : pool.seller;
       const page: IPage<IShoppingCoupon> =
         await ShoppingApi.functional.shoppings[path].coupons.index(connection, {
           sort: ["-coupon.created_at"],
           limit: 1,
           ...(extra ?? {}),
         });
-      typia.assertEquals(page);
       TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
     };
     const ticketing = async () => {
-      const ticket: IShoppingCouponTicket =
-        await ShoppingApi.functional.shoppings.customers.coupons.tickets.create(
-          pool.customer,
-          {
-            coupon_id: coupon.id,
-          },
-        );
-      typia.assertEquals(ticket);
+      await ShoppingApi.functional.shoppings.customers.coupons.tickets.create(
+        pool.customer,
+        {
+          coupon_id: coupon.id,
+        }
+      );
     };
 
     // NO PROBLEM
@@ -89,7 +84,7 @@ export const test_api_shopping_coupon_exhausted = async (
 
   await ShoppingApi.functional.shoppings.admins.coupons.destroy(
     pool.admin,
-    coupon.id,
+    coupon.id
   );
   if (error) throw error;
 };

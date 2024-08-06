@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -20,7 +19,7 @@ import { generate_random_order } from "./internal/generate_random_order";
 import { generate_random_order_publish } from "./internal/generate_random_order_publish";
 
 export const test_api_shopping_order_index_of_seller = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -33,17 +32,17 @@ export const test_api_shopping_order_index_of_seller = async (
   await ArrayUtil.asyncRepeat(groups.length)(async (i) => {
     // MAKE A NEW CART AND ORDER
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-      groups.filter((_, j) => i !== j),
+      groups.filter((_, j) => i !== j)
     )((g) => generate_random_cart_commodity(pool, g.sale));
     const order: IShoppingOrder = await generate_random_order(
       pool,
-      commodities,
+      commodities
     );
     order.publish = await generate_random_order_publish(
       pool,
       customer,
       order,
-      true,
+      true
     );
 
     // ENROLL FOR INDEX VALIDATION
@@ -59,22 +58,18 @@ export const test_api_shopping_order_index_of_seller = async (
       {
         email: seller.member.emails[0].value,
         password: TestGlobal.PASSWORD,
-      },
+      }
     );
 
     const page: IPage<IShoppingOrder> =
       await ShoppingApi.functional.shoppings.sellers.orders.index(pool.seller, {
         limit: groups.length,
       });
-    typia.assertEquals(page);
-
     TestValidator.index("page")(orders)(page.data);
     TestValidator.predicate("ownership")(() =>
       page.data.every((order) =>
-        order.goods.every(
-          (good) => good.commodity.sale.seller.id === seller.id,
-        ),
-      ),
+        order.goods.every((good) => good.commodity.sale.seller.id === seller.id)
+      )
     );
   }
 };

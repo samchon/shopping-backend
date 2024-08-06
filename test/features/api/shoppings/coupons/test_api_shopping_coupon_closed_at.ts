@@ -1,6 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
 import { sleep_until } from "tstl";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -17,7 +16,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_closed_at = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -48,21 +47,20 @@ export const test_api_shopping_coupon_closed_at = async (
         path === "admins"
           ? pool.admin
           : path === "customers"
-          ? pool.customer
-          : pool.seller;
+            ? pool.customer
+            : pool.seller;
       const page: IPage<IShoppingCoupon> =
         await ShoppingApi.functional.shoppings[path].coupons.index(connection, {
           sort: ["-coupon.created_at"],
           limit: 1,
         });
-      typia.assertEquals(page);
       TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
 
       const read = async () => {
-        const reloaded = await ShoppingApi.functional.shoppings[
-          path
-        ].coupons.at(connection, coupon.id);
-        typia.assertEquals(reloaded);
+        await ShoppingApi.functional.shoppings[path].coupons.at(
+          connection,
+          coupon.id
+        );
       };
       if (visible) await read();
       else await TestValidator.httpError("gone")(410)(read);

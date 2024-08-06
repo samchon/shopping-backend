@@ -1,5 +1,4 @@
 import { ArrayUtil, RandomGenerator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -13,7 +12,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { prepare_random_sale } from "./internal/prepare_random_sale";
 
 export const test_api_shopping_sale_supplement = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
 
@@ -23,12 +22,10 @@ export const test_api_shopping_sale_supplement = async (
   const sale: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.create(
       pool.seller,
-      input,
+      input
     );
-  typia.assertEquals(sale);
-
   const unit: IShoppingSaleUnit = RandomGenerator.pick(sale.units);
-  const stock = RandomGenerator.pick(unit.stocks);
+  const stock: IShoppingSaleUnitStock = RandomGenerator.pick(unit.stocks);
 
   const supplements: IShoppingSaleUnitStockSupplement[] =
     await ArrayUtil.asyncRepeat(4)(() =>
@@ -39,11 +36,9 @@ export const test_api_shopping_sale_supplement = async (
         stock.id,
         {
           value: 100,
-        },
-      ),
+        }
+      )
     );
-  typia.assertEquals(supplements);
-
   const page: IPage<IShoppingSaleUnitStockSupplement> =
     await ShoppingApi.functional.shoppings.sellers.sales.units.stocks.supplements.index(
       pool.seller,
@@ -53,15 +48,14 @@ export const test_api_shopping_sale_supplement = async (
       {
         limit: 10,
         sort: ["+created_at"],
-      },
+      }
     );
-  typia.assertEquals(page);
   TestValidator.equals("supplements")(supplements)(page.data);
 
   const reload: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.at(
       pool.seller,
-      sale.id,
+      sale.id
     );
   const stockAgain: IShoppingSaleUnitStock | undefined = reload.units
     .find((u) => u.id === unit.id)

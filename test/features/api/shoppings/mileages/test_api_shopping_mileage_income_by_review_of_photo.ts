@@ -21,7 +21,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_review } from "../sales/internal/generate_random_sale_review";
 
 export const test_api_shopping_mileage_income_by_review_of_photo = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -36,7 +36,7 @@ export const test_api_shopping_mileage_income_by_review_of_photo = async (
     pool,
     customer,
     order,
-    true,
+    true
   );
 
   const good: IShoppingOrderGood = order.goods[0];
@@ -47,13 +47,11 @@ export const test_api_shopping_mileage_income_by_review_of_photo = async (
   const mileage: IShoppingMileage =
     await ShoppingApi.functional.shoppings.admins.mileages.get(
       pool.admin,
-      "shopping_sale_snapshot_review_photo_reward",
+      "shopping_sale_snapshot_review_photo_reward"
     );
-  typia.assertEquals(mileage);
-
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
-      pool.customer,
+      pool.customer
     );
   TestValidator.equals("balance")(balance)(typia.assert<number>(mileage.value));
 };

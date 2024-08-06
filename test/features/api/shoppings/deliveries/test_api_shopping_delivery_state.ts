@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -19,7 +18,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sole_sale } from "../sales/internal/generate_random_sole_sale";
 
 export const test_api_shopping_delivery_state = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -29,10 +28,10 @@ export const test_api_shopping_delivery_state = async (
     generate_random_sole_sale(pool, {
       nominal: 100_000,
       real: 50_000,
-    }),
+    })
   );
   const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-    saleList,
+    saleList
   )((sale) =>
     generate_random_cart_commodity(pool, sale, {
       volume: 2,
@@ -44,27 +43,26 @@ export const test_api_shopping_delivery_state = async (
           quantity: 2,
         },
       ],
-    }),
+    })
   );
   const order: IShoppingOrder = await generate_random_order(
     pool,
     commodities,
-    () => 2,
+    () => 2
   );
   order.publish = await generate_random_order_publish(
     pool,
     customer,
     order,
-    true,
+    true
   );
 
   const validate = async (states: IShoppingDelivery.State[]) => {
     const read: IShoppingOrder =
       await ShoppingApi.functional.shoppings.customers.orders.at(
         pool.customer,
-        order.id,
+        order.id
       );
-    typia.assertEquals(read);
     TestValidator.equals("states")([
       read.publish!.state,
       ...read.goods.map((g) => g.state!),
@@ -97,17 +95,15 @@ export const test_api_shopping_delivery_state = async (
                 quantity: 1,
               },
             ],
-          },
+          }
         );
-      typia.assertEquals(delivery);
-
       await validate([
         i === 7 ? "preparing" : "underway",
         i >= 3 ? "preparing" : "underway",
         i < 4 ? "none" : i === 7 ? "preparing" : "underway",
       ]);
       return delivery;
-    },
+    }
   );
 
   await ArrayUtil.asyncMap(TYPES)(async (current, i) => {
@@ -123,9 +119,9 @@ export const test_api_shopping_delivery_state = async (
             description: null,
             started_at: new Date().toISOString(),
             completed_at: null,
-          },
+          }
         );
-      delivery.journeys.push(typia.assertEquals(journey));
+      delivery.journeys.push(journey);
       await validate([
         j === 7 ? current : prev,
         j >= 3 ? current : prev,
@@ -142,7 +138,7 @@ export const test_api_shopping_delivery_state = async (
       last.id,
       {
         completed_at: new Date().toISOString(),
-      },
+      }
     );
     await validate([
       i === deliveries.length - 1 ? "arrived" : "delivering",
