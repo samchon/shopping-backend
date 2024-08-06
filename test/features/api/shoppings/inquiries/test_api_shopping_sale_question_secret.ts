@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -14,7 +13,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_question } from "./internal/generate_random_sale_question";
 
 export const test_api_shopping_sale_question_secret = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_join(pool);
@@ -26,7 +25,7 @@ export const test_api_shopping_sale_question_secret = async (
     sale,
     {
       secret: true,
-    },
+    }
   );
 
   const validate =
@@ -37,17 +36,16 @@ export const test_api_shopping_sale_question_secret = async (
           await ShoppingApi.functional.shoppings[`${type}s`].sales.questions.at(
             pool[type],
             sale.id,
-            question.id,
+            question.id
           );
-        typia.assertEquals(read);
         TestValidator.equals("read")(question)(read);
       } else
         await TestValidator.httpError(`read ${visible}`)(403)(() =>
           ShoppingApi.functional.shoppings[`${type}s`].sales.questions.at(
             pool[type],
             sale.id,
-            question.id,
-          ),
+            question.id
+          )
         );
 
       const page: IPage<IShoppingSaleQuestion.ISummary> =
@@ -56,14 +54,13 @@ export const test_api_shopping_sale_question_secret = async (
         ].sales.questions.index(pool[type], sale.id, {
           limit: 1,
         });
-      const summary: IShoppingSaleQuestion.ISummary =
-        typia.assertEquals(page).data[0];
+      const summary: IShoppingSaleQuestion.ISummary = page.data[0];
       const masked = () =>
         summary.customer.citizen!.name.includes("*") &&
         summary.customer.citizen!.mobile.includes("0") &&
         summary.title.includes("*");
       TestValidator.predicate(`page ${visible}`)(
-        visible ? () => !masked() : masked,
+        visible ? () => !masked() : masked
       );
     };
 

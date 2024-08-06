@@ -1,6 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
-
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleInquiry } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiry";
@@ -14,19 +12,19 @@ export const validate_api_shopping_sale_inquiry_answer_create =
     read: (
       connection: ShoppingApi.IConnection,
       saleId: string,
-      inquiryId: string,
+      inquiryId: string
     ) => Promise<Inquiry>;
     create: (
       connection: ShoppingApi.IConnection,
       saleId: string,
       inquiryId: string,
-      input: IShoppingSaleInquiryAnswer.ICreate,
+      input: IShoppingSaleInquiryAnswer.ICreate
     ) => Promise<IShoppingSaleInquiryAnswer>;
   }) =>
   async (
     pool: ConnectionPool,
     sale: IShoppingSale,
-    inquiry: Inquiry,
+    inquiry: Inquiry
   ): Promise<void> => {
     TestValidator.equals("not answered yet")(inquiry.answer)(null);
 
@@ -34,14 +32,14 @@ export const validate_api_shopping_sale_inquiry_answer_create =
       pool.seller,
       sale.id,
       inquiry.id,
-      prepare_random_bbs_article(),
+      prepare_random_bbs_article()
     );
-    inquiry.answer = typia.assertEquals(answer);
+    inquiry.answer = answer;
 
     const read: Inquiry = await accessor.read(
       pool.customer,
       sale.id,
-      inquiry.id,
+      inquiry.id
     );
     TestValidator.equals("read")(inquiry)(read);
   };

@@ -1,6 +1,5 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
 import { randint } from "tstl";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -21,7 +20,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_review_update = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
@@ -35,14 +34,14 @@ export const test_api_shopping_sale_review_update = async (
     pool,
     customer,
     order,
-    true,
+    true
   );
 
   const good: IShoppingOrderGood = order.goods[0];
   const review: IShoppingSaleReview = await generate_random_sale_review(
     pool,
     sale,
-    good,
+    good
   );
   review.snapshots.push(
     ...(await ArrayUtil.asyncRepeat(4)(async () => {
@@ -54,18 +53,17 @@ export const test_api_shopping_sale_review_update = async (
           {
             ...prepare_random_bbs_article(),
             score: randint(0, 10) * 10,
-          },
+          }
         );
-      return typia.assertEquals(snapshot);
-    })),
+      return snapshot;
+    }))
   );
 
   const read: IShoppingSaleReview =
     await ShoppingApi.functional.shoppings.customers.sales.reviews.at(
       pool.customer,
       sale.id,
-      review.id,
+      review.id
     );
-  typia.assertEquals(read);
   TestValidator.equals("read")(review)(read);
 };

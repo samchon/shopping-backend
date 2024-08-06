@@ -1,10 +1,7 @@
-import typia from "typia";
-
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingDepositCharge } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositCharge";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
-import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
@@ -16,18 +13,18 @@ import { generate_random_deposit_charge_publish } from "./generate_random_deposi
 
 export const generate_random_deposit_histories = async (
   pool: ConnectionPool,
-  props: generate_random_deposit_histories.IProps,
+  props: generate_random_deposit_histories.IProps
 ): Promise<void> => {
   const charge: IShoppingDepositCharge = await generate_random_deposit_charge(
     pool,
     {
       value: props.charge,
-    },
+    }
   );
   charge.publish = await generate_random_deposit_charge_publish(
     pool,
     charge,
-    true,
+    true
   );
 
   const sale: IShoppingSale = await generate_random_sole_sale(pool, {
@@ -37,7 +34,7 @@ export const generate_random_deposit_histories = async (
   const commodity: IShoppingCartCommodity =
     await generate_random_cart_commodity(pool, sale);
   const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
-  order.price = typia.assertEquals<IShoppingOrderPrice>(
+  order.price =
     await ShoppingApi.functional.shoppings.customers.orders.discount(
       pool.customer,
       order.id,
@@ -45,9 +42,8 @@ export const generate_random_deposit_histories = async (
         deposit: props.discount,
         mileage: 0,
         coupon_ids: [],
-      },
-    ),
-  );
+      }
+    );
 };
 export namespace generate_random_deposit_histories {
   export interface IProps {

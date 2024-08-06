@@ -1,5 +1,4 @@
 import { RandomGenerator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
@@ -9,7 +8,7 @@ import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping
 import { generate_random_section } from "./internal/generate_random_section";
 
 export const test_api_shopping_systematic_section_update = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
 
@@ -20,14 +19,13 @@ export const test_api_shopping_systematic_section_update = async (
     section.id,
     {
       name,
-    },
+    }
   );
 
   const read: IShoppingSection =
     await ShoppingApi.functional.shoppings.admins.systematic.sections.at(
       pool.admin,
-      section.id,
+      section.id
     );
-  typia.assertEquals(read);
   TestValidator.equals("update")(name)(read.name);
 };

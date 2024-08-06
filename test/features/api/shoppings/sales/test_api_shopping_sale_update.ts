@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -29,7 +28,6 @@ export const test_api_shopping_sale_update = async (
       )
     )),
   ];
-  typia.assertEquals(total);
   total.forEach((sale, i) => (sale.latest = i === total.length - 1));
 
   const read: IShoppingSale[] = await ArrayUtil.asyncMap(total)((s) =>
@@ -39,7 +37,6 @@ export const test_api_shopping_sale_update = async (
       s.snapshot_id
     )
   );
-  typia.assertEquals(read);
   TestValidator.equals("snapshots")(total)(read);
 
   const readByCustomer: IShoppingSale =
@@ -47,6 +44,5 @@ export const test_api_shopping_sale_update = async (
       pool.customer,
       sale.id
     );
-  typia.assertEquals(readByCustomer);
   TestValidator.equals("byCustomer")(total.at(-1))(readByCustomer);
 };

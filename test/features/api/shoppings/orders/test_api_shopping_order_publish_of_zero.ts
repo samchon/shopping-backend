@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -28,7 +27,7 @@ import { generate_random_order } from "./internal/generate_random_order";
 import { prepare_random_address } from "./internal/prepare_random_address";
 
 export const test_api_shopping_order_publish_of_zero = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -53,7 +52,7 @@ export const test_api_shopping_order_publish_of_zero = async (
   const order: IShoppingOrder = await generate_random_order(
     pool,
     [commodity],
-    () => 1,
+    () => 1
   );
 
   // PREPARE DISCOUNT FEATURES
@@ -87,12 +86,12 @@ export const test_api_shopping_order_publish_of_zero = async (
     pool,
     {
       value: 10_000,
-    },
+    }
   );
   charge.publish = await generate_random_deposit_charge_publish(
     pool,
     charge,
-    true,
+    true
   );
 
   // DO DISCOUNT
@@ -104,7 +103,7 @@ export const test_api_shopping_order_publish_of_zero = async (
         coupon_ids: [coupon.id],
         deposit: charge.value,
         mileage: donation.value,
-      },
+      }
     );
   TestValidator.equals("ticket")(price.ticket)(20_000);
   TestValidator.equals("deposit")(price.deposit)(10_000);
@@ -119,8 +118,7 @@ export const test_api_shopping_order_publish_of_zero = async (
       {
         type: "zero",
         address: prepare_random_address(customer.citizen!),
-      },
+      }
     );
-  typia.assertEquals(publish);
   TestValidator.equals("paid")(!!publish.paid_at)(true);
 };

@@ -1,5 +1,4 @@
 import { GaffComparator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -19,7 +18,7 @@ export const validate_api_shopping_sale_inquiry_comment_index_sort = async (
   customer: IShoppingCustomer,
   seller: IShoppingSeller.IInvert,
   sale: IShoppingSale,
-  inquiry: IShoppingSaleInquiry<"question" | "review", any>,
+  inquiry: IShoppingSaleInquiry<"question" | "review", any>
 ): Promise<void> => {
   const generator = generate_random_sale_inquiry_comment({
     pool,
@@ -42,20 +41,18 @@ export const validate_api_shopping_sale_inquiry_comment_index_sort = async (
     IShoppingSaleInquiryComment,
     IShoppingSaleInquiryComment.IRequest.SortableColumns,
     IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>
-  >(
-    async (
-      input: IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>,
-    ) => {
-      const page: IPage<IShoppingSaleInquiryComment> =
-        await ShoppingApi.functional.shoppings.customers.sales[
-          `${inquiry.type}s`
-        ].comments.index(pool.customer, sale.id, inquiry.id, {
-          sort: input,
-          limit: total.length,
-        });
-      return typia.assertEquals(page).data;
-    },
-  );
+  >(async (
+    input: IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>
+  ) => {
+    const page: IPage<IShoppingSaleInquiryComment> =
+      await ShoppingApi.functional.shoppings.customers.sales[
+        `${inquiry.type}s`
+      ].comments.index(pool.customer, sale.id, inquiry.id, {
+        sort: input,
+        limit: total.length,
+      });
+    return page.data;
+  });
 
   const components = [
     validator("created_at")(GaffComparator.dates((x) => x.created_at)),

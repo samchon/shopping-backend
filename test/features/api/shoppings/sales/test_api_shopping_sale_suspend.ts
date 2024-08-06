@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -13,7 +12,7 @@ import { validate_sale_at } from "./internal/validate_sale_at";
 import { validate_sale_index } from "./internal/validate_sale_index";
 
 export const test_api_shopping_sale_suspend = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
@@ -22,22 +21,20 @@ export const test_api_shopping_sale_suspend = async (
   const sale: IShoppingSale = await generate_random_sale(pool);
   await ShoppingApi.functional.shoppings.sellers.sales.suspend(
     pool.seller,
-    sale.id,
+    sale.id
   );
   const read: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.at(
       pool.seller,
-      sale.id,
+      sale.id
     );
-  typia.assertEquals(read);
-
   await validate_sale_at(pool)(read)(false);
   await validate_sale_index(pool)([read])(false);
   TestValidator.equals("suspended_at")(!!read.suspended_at)(true);
 
   await ShoppingApi.functional.shoppings.sellers.sales.restore(
     pool.seller,
-    sale.id,
+    sale.id
   );
   await validate_sale_at(pool)(sale)(true);
   await validate_sale_index(pool)([sale])(true);

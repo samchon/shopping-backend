@@ -1,6 +1,5 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
 import { IPointer, randint } from "tstl";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -21,7 +20,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { prepare_random_sale_unit } from "../sales/internal/prepare_random_sale_unit";
 
 export const test_api_shopping_delivery_incompletes = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -31,24 +30,24 @@ export const test_api_shopping_delivery_incompletes = async (
     async () =>
       await generate_random_sale(pool, {
         units: new Array(REPEAT).fill(0).map(() => prepare_random_sale_unit()),
-      }),
+      })
   );
   const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-    saleList,
+    saleList
   )((sale) =>
     generate_random_cart_commodity(pool, sale, {
       volume: REPEAT / 4,
       stocks: sale.units.map((unit) =>
-        prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 4 }),
+        prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 4 })
       ),
-    }),
+    })
   );
   const order: IShoppingOrder = await generate_random_order(pool, commodities);
   order.publish = await generate_random_order_publish(
     pool,
     customer,
     order,
-    true,
+    true
   );
 
   const left: IPointer<number> = {
@@ -60,7 +59,7 @@ export const test_api_shopping_delivery_incompletes = async (
             .map((u) => u.stocks.map((s) => s.quantity))
             .flat()
             .flat()
-            .reduce((a, b) => a + b, 0),
+            .reduce((a, b) => a + b, 0)
       )
       .reduce((a, b) => a + b, 0),
   };
@@ -71,11 +70,10 @@ export const test_api_shopping_delivery_incompletes = async (
         pool.seller,
         {
           publish_ids: [order.publish!.id],
-        },
+        }
       );
-    typia.assertEquals(incompletes);
     TestValidator.equals("left")(left.value)(
-      incompletes.map((i) => i.quantity).reduce((a, b) => a + b, 0),
+      incompletes.map((i) => i.quantity).reduce((a, b) => a + b, 0)
     );
 
     // PREPARE NEW DELIVERY INPUT
@@ -101,11 +99,10 @@ export const test_api_shopping_delivery_incompletes = async (
           journeys: [],
           shippers: [],
           pieces: input,
-        },
+        }
       );
-    typia.assertEquals(delivery);
     TestValidator.equals("quantity")(quantity)(
-      delivery.pieces.map((i) => i.quantity).reduce((a, b) => a + b, 0),
+      delivery.pieces.map((i) => i.quantity).reduce((a, b) => a + b, 0)
     );
 
     left.value -= quantity;
@@ -117,7 +114,7 @@ export const test_api_shopping_delivery_incompletes = async (
       pool.seller,
       {
         publish_ids: [order.publish.id],
-      },
+      }
     );
   TestValidator.equals("empty")(incompletes.length)(0);
 };

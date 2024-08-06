@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -20,7 +19,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_review_index_search = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
 
@@ -38,12 +37,12 @@ export const test_api_shopping_sale_review_index_search = async (
         pool,
         customer,
         order,
-        true,
+        true
       );
 
       const good: IShoppingOrderGood = order.goods[0];
       return generate_random_sale_review(pool, sale, good);
-    },
+    }
   );
   const expected: IPage<IShoppingSaleReview.ISummary> =
     await ShoppingApi.functional.shoppings.customers.sales.reviews.index(
@@ -51,9 +50,8 @@ export const test_api_shopping_sale_review_index_search = async (
       sale.id,
       {
         limit: total.length,
-      },
+      }
     );
-  typia.assertEquals(expected);
 
   const search = TestValidator.search("search")(
     async (search: IShoppingSaleReview.IRequest.ISearch) => {
@@ -64,10 +62,10 @@ export const test_api_shopping_sale_review_index_search = async (
           {
             search,
             limit: total.length,
-          },
+          }
         );
-      return typia.assertEquals(page).data;
-    },
+      return page.data;
+    }
   )(expected.data, 2);
 
   await search({

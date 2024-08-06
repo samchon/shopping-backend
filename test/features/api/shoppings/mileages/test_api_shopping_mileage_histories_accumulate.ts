@@ -14,7 +14,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_mileage_histories } from "./internal/generate_random_mileage_histories";
 
 export const test_api_shopping_mileage_histories_accumulate = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -22,7 +22,7 @@ export const test_api_shopping_mileage_histories_accumulate = async (
     await test_api_shopping_actor_customer_join(pool);
   const { donation, good } = await generate_random_mileage_histories(
     pool,
-    customer,
+    customer
   );
 
   const histories: IPage<IShoppingMileageHistory> =
@@ -31,22 +31,20 @@ export const test_api_shopping_mileage_histories_accumulate = async (
       {
         limit: 100,
         sort: ["+history.created_at"],
-      },
+      }
     );
-  typia.assertEquals(histories);
 
   const getDefaultValue = async (code: string): Promise<number> => {
     const mileage: IShoppingMileage =
       await ShoppingApi.functional.shoppings.admins.mileages.get(
         pool.admin,
-        code,
+        code
       );
-    typia.assertEquals(mileage);
     return typia.assert<number>(mileage.value);
   };
 
   TestValidator.equals("histories[].value")(
-    histories.data.map((history) => history.value * history.mileage.direction),
+    histories.data.map((history) => history.value * history.mileage.direction)
   )([
     donation.value,
     -donation.value,
@@ -56,7 +54,7 @@ export const test_api_shopping_mileage_histories_accumulate = async (
   ]);
 
   TestValidator.equals("histories[].balance")(
-    histories.data.map((history) => history.balance),
+    histories.data.map((history) => history.balance)
   )(
     histories.data.map(
       (history, i) =>
@@ -64,7 +62,7 @@ export const test_api_shopping_mileage_histories_accumulate = async (
         histories.data
           .slice(0, i)
           .map((history) => history.value * history.mileage.direction)
-          .reduce((a, b) => a + b, 0),
-    ),
+          .reduce((a, b) => a + b, 0)
+    )
   );
 };

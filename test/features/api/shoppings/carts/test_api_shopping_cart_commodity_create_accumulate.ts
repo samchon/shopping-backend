@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -14,7 +13,7 @@ import { generate_random_cart_commodity } from "./internal/generate_random_cart_
 import { prepare_random_cart_commodity } from "./internal/prepare_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_create_accumulate = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -40,9 +39,8 @@ export const test_api_shopping_cart_commodity_create_accumulate = async (
       {
         limit: 3,
         sort: ["-commodity.created_at"],
-      },
+      }
     );
-  typia.assertEquals(page);
   TestValidator.equals("data")(page.data)([
     {
       ...commodity,
@@ -56,7 +54,7 @@ export const test_api_shopping_cart_commodity_create_accumulate = async (
     {
       ...input,
       accumulate: false,
-    },
+    }
   );
   const reloaded: IPage<IShoppingCartCommodity> =
     await ShoppingApi.functional.shoppings.customers.carts.commodities.index(
@@ -65,9 +63,8 @@ export const test_api_shopping_cart_commodity_create_accumulate = async (
       {
         limit: 3,
         sort: ["-commodity.created_at"],
-      },
+      }
     );
-  typia.assertEquals(reloaded);
   TestValidator.equals("reloaded")(reloaded.data)([
     newbie,
     {

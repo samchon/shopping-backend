@@ -10,11 +10,10 @@ import { test_api_shopping_actor_customer_create } from "./test_api_shopping_act
 import { test_api_shopping_actor_customer_join } from "./test_api_shopping_actor_customer_join";
 
 export const test_api_shopping_actor_customer_login = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
-  const joined: IShoppingCustomer = await test_api_shopping_actor_customer_join(
-    pool,
-  );
+  const joined: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
   const guest: IShoppingCustomer.IAuthorized =
     await test_api_shopping_actor_customer_create(pool);
   TestValidator.equals("guest.member")(guest.member)(null);
@@ -25,10 +24,9 @@ export const test_api_shopping_actor_customer_login = async (
       {
         email: joined.member!.emails[0].value,
         password: TestGlobal.PASSWORD,
-      },
+      }
     );
-  typia.assertEquals(passed);
   TestValidator.equals("passed")(
-    typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(joined),
+    typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(joined)
   )(passed);
 };

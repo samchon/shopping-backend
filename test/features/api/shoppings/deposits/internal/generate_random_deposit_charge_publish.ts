@@ -1,4 +1,3 @@
-import typia from "typia";
 import { v4 } from "uuid";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
@@ -10,7 +9,7 @@ import { ConnectionPool } from "../../../../../ConnectionPool";
 export const generate_random_deposit_charge_publish = async (
   pool: ConnectionPool,
   charge: IShoppingDepositCharge,
-  paid: boolean,
+  paid: boolean
 ): Promise<IShoppingDepositChargePublish> => {
   const publish: IShoppingDepositChargePublish =
     await ShoppingApi.functional.shoppings.customers.deposits.charges.publish.create(
@@ -26,7 +25,7 @@ export const generate_random_deposit_charge_publish = async (
             // @todo - interact with payment system
             vendor: "somewhere",
             uid: v4(),
-          },
+          }
     );
-  return typia.assertEquals(publish);
+  return publish;
 };

@@ -1,5 +1,4 @@
 import { ArrayUtil, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
@@ -18,7 +17,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_delivery_journey_create = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -32,7 +31,7 @@ export const test_api_shopping_delivery_journey_create = async (
     pool,
     customer,
     order,
-    true,
+    true
   );
 
   const delivery: IShoppingDelivery =
@@ -41,17 +40,15 @@ export const test_api_shopping_delivery_journey_create = async (
       {
         shippers: [],
         journeys: [],
-        pieces: typia.assertEquals(
+        pieces:
           await ShoppingApi.functional.shoppings.sellers.deliveries.incompletes(
             pool.seller,
             {
               publish_ids: [order.publish.id],
-            },
+            }
           ),
-        ),
-      },
+      }
     );
-  typia.assertEquals(delivery);
 
   const inputList: IShoppingDeliveryJourney.ICreate[] = (
     ["preparing", "manufacturing", "delivering"] as const
@@ -63,24 +60,22 @@ export const test_api_shopping_delivery_journey_create = async (
     completed_at: null,
   }));
   const journeys: IShoppingDeliveryJourney[] = await ArrayUtil.asyncMap(
-    inputList,
+    inputList
   )((input) =>
     ShoppingApi.functional.shoppings.sellers.deliveries.journeys.create(
       pool.seller,
       delivery.id,
-      input,
-    ),
+      input
+    )
   );
-  typia.assertEquals(journeys);
   TestValidator.equals("create")(inputList)(journeys);
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      order.id,
+      order.id
     );
-  typia.assertEquals(reloaded);
   TestValidator.equals("journeys")(reloaded.publish!.deliveries[0].journeys)(
-    journeys,
+    journeys
   );
 };

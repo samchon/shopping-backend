@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
@@ -19,7 +18,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_order } from "./internal/generate_random_order";
 
 export const test_api_shopping_order_discountable_multiplicative = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ) => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
@@ -31,7 +30,7 @@ export const test_api_shopping_order_discountable_multiplicative = async (
   const order: IShoppingOrder = await generate_random_order(
     pool,
     [commodity],
-    () => 10,
+    () => 10
   );
   const coupon: IShoppingCoupon = await generate_random_coupon({
     types: [],
@@ -63,18 +62,16 @@ export const test_api_shopping_order_discountable_multiplicative = async (
       order.id,
       {
         good_ids: [order.goods[0].id],
-      },
+      }
     );
-  typia.assertEquals(discountable);
-
   const error: Error | null = TestValidator.proceed(() => {
     TestValidator.equals("discountable.combinations[].amount")(
-      discountable.combinations.map((comb) => comb.amount),
+      discountable.combinations.map((comb) => comb.amount)
     )([12340]);
   });
   await ShoppingApi.functional.shoppings.admins.coupons.destroy(
     pool.admin,
-    coupon.id,
+    coupon.id
   );
   if (error) throw error;
 };

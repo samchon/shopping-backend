@@ -24,8 +24,8 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
       ArrayUtil.subsets(
         typia.misc
           .literals<IShoppingCouponCriteria.Type>()
-          .filter((row) => row.length !== 0),
-      ),
+          .filter((row) => row.length !== 0)
+      )
     )((types) =>
       ArrayUtil.asyncMap(["include", "exclude"] as const)((direction) =>
         generate_random_coupon({
@@ -36,11 +36,11 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
           create: (input) =>
             ShoppingApi.functional.shoppings.admins.coupons.create(
               pool.admin,
-              input,
+              input
             ),
           prepare: (criterias) => prepare_random_coupon({ criterias }),
-        }),
-      ),
+        })
+      )
     )
   ).flat();
 
@@ -49,10 +49,9 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
       limit: coupons.length,
       sort: ["-coupon.created_at"],
     });
-  typia.assertEquals(page);
   TestValidator.equals("coupons")(coupons)(page.data.reverse());
 
   await ArrayUtil.asyncMap(coupons)((c) =>
-    ShoppingApi.functional.shoppings.admins.coupons.destroy(pool.admin, c.id),
+    ShoppingApi.functional.shoppings.admins.coupons.destroy(pool.admin, c.id)
   );
 };

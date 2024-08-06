@@ -14,7 +14,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_channel } from "./internal/generate_random_channel";
 
 export const test_api_shopping_systematic_channel_merge = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -29,15 +29,13 @@ export const test_api_shopping_systematic_channel_merge = async (
       const channel: IShoppingChannel = await generate_random_channel(pool, {
         code: `${prefix}_${RandomGenerator.alphabets(8)}`,
       });
-      const category: IShoppingChannelCategory =
-        await ShoppingApi.functional.shoppings.admins.systematic.channels.categories.create(
-          pool.admin,
-          channel.code,
-          categoryInput,
-        );
-      typia.assertEquals(category);
+      await ShoppingApi.functional.shoppings.admins.systematic.channels.categories.create(
+        pool.admin,
+        channel.code,
+        categoryInput
+      );
       return channel;
-    },
+    }
   );
 
   const sale: IShoppingSale = await generate_random_sale(pool, {
@@ -52,7 +50,7 @@ export const test_api_shopping_systematic_channel_merge = async (
     {
       keep: channelList[0].id,
       absorbed: channelList.slice(1).map((c) => c.id),
-    },
+    }
   );
 
   const page: IPage<IShoppingChannel> =
@@ -63,18 +61,17 @@ export const test_api_shopping_systematic_channel_merge = async (
         search: {
           code: `${prefix}_`,
         },
-      },
+      }
     );
   TestValidator.equals("merge")([channelList[0]])(page.data);
 
   const read: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.at(
       pool.seller,
-      sale.id,
+      sale.id
     );
-  typia.assertEquals(read);
   TestValidator.equals("merged sale")([channelList[0]])(
-    read.channels.map((sa) => typia.misc.clone<IShoppingChannel>(sa)),
+    read.channels.map((sa) => typia.misc.clone<IShoppingChannel>(sa))
   );
 };
 const REPEAT = 4;

@@ -1,11 +1,9 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingDepositCharge } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositCharge";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
-import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
@@ -18,7 +16,7 @@ import { generate_random_deposit_charge } from "./internal/generate_random_depos
 import { generate_random_deposit_charge_publish } from "./internal/generate_random_deposit_charge_publish";
 
 export const test_api_shopping_deposit_outcome_by_order = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   await test_api_shopping_actor_customer_join(pool);
@@ -27,12 +25,12 @@ export const test_api_shopping_deposit_outcome_by_order = async (
     pool,
     {
       value: 1_000,
-    },
+    }
   );
   charge.publish = await generate_random_deposit_charge_publish(
     pool,
     charge,
-    true,
+    true
   );
 
   const sale: IShoppingSale = await generate_random_sole_sale(pool, {
@@ -42,7 +40,7 @@ export const test_api_shopping_deposit_outcome_by_order = async (
   const commodity: IShoppingCartCommodity =
     await generate_random_cart_commodity(pool, sale);
   const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
-  order.price = typia.assertEquals<IShoppingOrderPrice>(
+  order.price =
     await ShoppingApi.functional.shoppings.customers.orders.discount(
       pool.customer,
       order.id,
@@ -50,13 +48,12 @@ export const test_api_shopping_deposit_outcome_by_order = async (
         deposit: charge.value,
         mileage: 0,
         coupon_ids: [],
-      },
-    ),
-  );
+      }
+    );
 
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.deposits.histories.balance(
-      pool.customer,
+      pool.customer
     );
   TestValidator.equals("balance")(balance)(0);
 };

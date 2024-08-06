@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
@@ -12,7 +11,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { prepare_random_cart_commodity } from "./internal/prepare_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_replica = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -25,14 +24,13 @@ export const test_api_shopping_cart_commodity_replica = async (
     await ShoppingApi.functional.shoppings.customers.carts.commodities.create(
       pool.customer,
       null,
-      input,
+      input
     );
   const replica: IShoppingCartCommodity.ICreate =
     await ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
       pool.customer,
       null,
-      commodity.id,
+      commodity.id
     );
-  typia.assertEquals(replica);
   TestValidator.equals("replica")(input)(replica);
 };

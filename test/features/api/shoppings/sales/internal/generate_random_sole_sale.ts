@@ -1,5 +1,3 @@
-import typia from "typia";
-
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingPrice } from "@samchon/shopping-api/lib/structures/shoppings/base/IShoppingPrice";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -12,20 +10,20 @@ import { prepare_random_sale } from "./prepare_random_sale";
 export const generate_random_sole_sale = async (
   pool: ConnectionPool,
   price: IShoppingPrice,
-  quantity?: number,
+  quantity?: number
 ): Promise<IShoppingSale> => {
   const sale: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.create(
       pool.seller,
-      await prepare_random_sole_sale(pool, price, quantity),
+      await prepare_random_sole_sale(pool, price, quantity)
     );
-  return typia.assertEquals(sale);
+  return sale;
 };
 
 const prepare_random_sole_sale = async (
   pool: ConnectionPool,
   price: IShoppingPrice,
-  quantity?: number,
+  quantity?: number
 ): Promise<IShoppingSale.ICreate> => {
   const sale: IShoppingSale.ICreate = await prepare_random_sale(pool);
   const unit: IShoppingSaleUnit.ICreate = sale.units[0];

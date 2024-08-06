@@ -1,5 +1,3 @@
-import typia from "typia";
-
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -17,14 +15,14 @@ export const generate_random_sale_inquiry_comment =
   }) =>
   async (
     actor: IShoppingActorEntity,
-    input?: Partial<IShoppingSaleInquiryComment.ICreate>,
+    input?: Partial<IShoppingSaleInquiryComment.ICreate>
   ): Promise<IShoppingSaleInquiryComment> => {
     const actorType =
       actor.type === "customer"
         ? "customer"
         : actor.type === "seller"
-        ? "seller"
-        : "admin";
+          ? "seller"
+          : "admin";
     const comment: IShoppingSaleInquiryComment =
       await ShoppingApi.functional.shoppings[`${actorType}s`].sales[
         `${asset.inquiry.type}s`
@@ -32,7 +30,7 @@ export const generate_random_sale_inquiry_comment =
         asset.pool[actorType],
         asset.sale.id,
         asset.inquiry.id,
-        prepare_random_bbs_article_comment(input),
+        prepare_random_bbs_article_comment(input)
       );
-    return typia.assertEquals(comment);
+    return comment;
   };

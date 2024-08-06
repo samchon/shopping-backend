@@ -4,7 +4,6 @@ import {
   RandomGenerator,
   TestValidator,
 } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -14,7 +13,7 @@ import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping_actor_admin_login";
 
 export const test_api_shopping_systematic_channel_index_sort = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await ArrayUtil.asyncRepeat(REPEAT)(async () => {
@@ -24,9 +23,9 @@ export const test_api_shopping_systematic_channel_index_sort = async (
         {
           code: RandomGenerator.alphabets(8),
           name: RandomGenerator.name(8),
-        },
+        }
       );
-    return typia.assertEquals(channel);
+    return channel;
   });
 
   const validator = TestValidator.sort("channels.index")<
@@ -40,15 +39,15 @@ export const test_api_shopping_systematic_channel_index_sort = async (
         {
           limit: REPEAT,
           sort: input,
-        },
+        }
       );
-    return typia.assertEquals(page).data;
+    return page.data;
   });
   const components = [
     validator("channel.code")(GaffComparator.strings((s) => s.code)),
     validator("channel.name")(GaffComparator.strings((s) => s.name)),
     validator("channel.created_at")(
-      GaffComparator.strings((s) => s.created_at),
+      GaffComparator.strings((s) => s.created_at)
     ),
   ];
   for (const comp of components) {

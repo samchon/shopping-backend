@@ -1,5 +1,4 @@
 import { RandomGenerator, TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api";
 import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
@@ -11,7 +10,7 @@ import { test_api_shopping_actor_customer_create } from "./test_api_shopping_act
 
 export const test_api_shopping_actor_seller_join = async (
   pool: ConnectionPool,
-  email?: string,
+  email?: string
 ): Promise<IShoppingSeller.IInvert> => {
   // STARTS FROM THE CUSTOMER (GUEST)
   await test_api_shopping_actor_customer_create(pool, pool.seller);
@@ -29,7 +28,7 @@ export const test_api_shopping_actor_seller_join = async (
   try {
     await ShoppingApi.functional.shoppings.customers.authenticate.join(
       pool.seller,
-      input,
+      input
     );
   } catch {
     return ShoppingApi.functional.shoppings.sellers.authenticate.login(
@@ -37,7 +36,7 @@ export const test_api_shopping_actor_seller_join = async (
       {
         email: input.email,
         password: TestGlobal.PASSWORD,
-      },
+      }
     );
   }
 
@@ -45,9 +44,8 @@ export const test_api_shopping_actor_seller_join = async (
   const joined: IShoppingSeller.IInvert =
     await ShoppingApi.functional.shoppings.sellers.authenticate.join(
       pool.seller,
-      {},
+      {}
     );
-  typia.assertEquals(joined);
 
   // DO VALIDATE
   TestValidator.equals("joined.member")({

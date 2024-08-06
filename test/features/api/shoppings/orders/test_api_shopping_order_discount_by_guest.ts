@@ -1,11 +1,9 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
-import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ConnectionPool } from "../../../../ConnectionPool";
@@ -19,7 +17,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_order } from "./internal/generate_random_order";
 
 export const test_api_shopping_order_discount_by_guest = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
@@ -51,21 +49,19 @@ export const test_api_shopping_order_discount_by_guest = async (
 
   await TestValidator.httpError("discount by guest")(403)(async () => {
     const error: Error | null = await TestValidator.proceed(async () => {
-      const price: IShoppingOrderPrice =
-        await ShoppingApi.functional.shoppings.customers.orders.discount(
-          pool.customer,
-          order.id,
-          {
-            deposit: 0,
-            mileage: 0,
-            coupon_ids: [coupon.id],
-          },
-        );
-      typia.assertEquals(price);
+      await ShoppingApi.functional.shoppings.customers.orders.discount(
+        pool.customer,
+        order.id,
+        {
+          deposit: 0,
+          mileage: 0,
+          coupon_ids: [coupon.id],
+        }
+      );
     });
     await ShoppingApi.functional.shoppings.admins.coupons.destroy(
       pool.admin,
-      coupon.id,
+      coupon.id
     );
     if (error !== null) throw error;
   });

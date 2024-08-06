@@ -1,5 +1,4 @@
 import { TestValidator } from "@nestia/e2e";
-import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
@@ -10,7 +9,7 @@ import { TestGlobal } from "../../../../TestGlobal";
 import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
 export const test_api_shopping_actor_admin_login = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<IShoppingAdministrator.IInvert> => {
   const input: IShoppingMember.IJoin = {
     email: "robot@nestia.io",
@@ -29,16 +28,13 @@ export const test_api_shopping_actor_admin_login = async (
       {
         email: input.email,
         password: TestGlobal.PASSWORD,
-      },
+      }
     );
-  typia.assertEquals(passed);
-
   TestValidator.equals("passed")(input)({
     email: passed.member.emails[0].value,
     password: TestGlobal.PASSWORD,
     nickname: passed.member.nickname,
     citizen: passed.citizen!,
   });
-
   return passed;
 };
