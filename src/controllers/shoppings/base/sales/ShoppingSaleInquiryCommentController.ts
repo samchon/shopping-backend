@@ -14,7 +14,7 @@ export function ShoppingSaleInquiryCommentController<
   Actor extends IShoppingActorEntity,
 >(type: "questions" | "reviews", props: IShoppingControllerProps) {
   @Controller(
-    `shoppings/${props.path}/sales/:saleId/${type}/:inquiryId/comments`,
+    `shoppings/${props.path}/sales/:saleId/${type}/:inquiryId/comments`
   )
   abstract class ShoppingSaleInquiryCommentController {
     /**
@@ -47,7 +47,7 @@ export function ShoppingSaleInquiryCommentController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedParam("inquiryId")
       inquiryId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleInquiryComment.IRequest,
+      @core.TypedBody() input: IShoppingSaleInquiryComment.IRequest
     ): Promise<IPage<IShoppingSaleInquiryComment>> {
       return ShoppingSaleSnapshotInquiryCommentProvider.index(actor)({
         sale: { id: saleId },
@@ -80,7 +80,7 @@ export function ShoppingSaleInquiryCommentController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedParam("inquiryId")
       inquiryId: string & tags.Format<"uuid">,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">,
+      @core.TypedParam("id") id: string & tags.Format<"uuid">
     ): Promise<IShoppingSaleInquiryComment> {
       return ShoppingSaleSnapshotInquiryCommentProvider.at(actor)({
         sale: { id: saleId },
@@ -112,7 +112,7 @@ export function ShoppingSaleInquiryCommentController<
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
       @core.TypedParam("inquiryId")
       inquiryId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleInquiryComment.ICreate,
+      @core.TypedBody() input: IShoppingSaleInquiryComment.ICreate
     ): Promise<IShoppingSaleInquiryComment> {
       return ShoppingSaleSnapshotInquiryCommentProvider.create(actor)({
         sale: { id: saleId },
@@ -152,7 +152,7 @@ export function ShoppingSaleInquiryCommentController<
       @core.TypedParam("inquiryId")
       inquiryId: string & tags.Format<"uuid">,
       @core.TypedParam("id") id: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleInquiryComment.IUpdate,
+      @core.TypedBody() input: IShoppingSaleInquiryComment.IUpdate
     ): Promise<IShoppingSaleInquiryComment.ISnapshot> {
       return ShoppingSaleSnapshotInquiryCommentProvider.update(actor)({
         sale: { id: saleId },

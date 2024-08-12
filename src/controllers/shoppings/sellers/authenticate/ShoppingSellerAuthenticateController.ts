@@ -28,7 +28,7 @@ export class ShoppingSellerAuthenticateController {
    */
   @core.TypedRoute.Get()
   public async get(
-    @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
+    @ShoppingSellerAuth() seller: IShoppingSeller.IInvert
   ): Promise<IShoppingSeller.IInvert> {
     return seller;
   }
@@ -52,7 +52,7 @@ export class ShoppingSellerAuthenticateController {
   @core.TypedRoute.Post()
   public async join(
     @ShoppingCustomerAuth("member") customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingSeller.IJoin,
+    @core.TypedBody() input: IShoppingSeller.IJoin
   ): Promise<IShoppingSeller.IInvert> {
     return ShoppingSellerProvider.join(customer)(input);
   }
@@ -83,7 +83,7 @@ export class ShoppingSellerAuthenticateController {
   @core.TypedRoute.Put("login")
   public async login(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingMember.ILogin,
+    @core.TypedBody() input: IShoppingMember.ILogin
   ): Promise<IShoppingSeller.IInvert> {
     return ShoppingSellerProvider.login(customer)(input);
   }

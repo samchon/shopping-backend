@@ -13,7 +13,7 @@ export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewCont
   {
     path: "customers",
     AuthGuard: ShoppingCustomerAuth,
-  },
+  }
 ) {
   /**
    * Write a review article.
@@ -39,7 +39,7 @@ export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewCont
   public async create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleReview.ICreate,
+    @core.TypedBody() input: IShoppingSaleReview.ICreate
   ): Promise<IShoppingSaleReview> {
     return ShoppingSaleReviewProvider.create(customer)({ id: saleId })(input);
   }
@@ -75,7 +75,7 @@ export class ShoppingCustomerSaleReviewController extends ShoppingSaleReviewCont
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleReview.IUpdate,
+    @core.TypedBody() input: IShoppingSaleReview.IUpdate
   ): Promise<IShoppingSaleReview.ISnapshot> {
     return ShoppingSaleReviewProvider.update(customer)({
       id: saleId,

@@ -48,7 +48,7 @@ export function ShoppingSaleReviewController<
     public async index(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleReview.IRequest,
+      @core.TypedBody() input: IShoppingSaleReview.IRequest
     ): Promise<IPage<IShoppingSaleReview.ISummary>> {
       return ShoppingSaleReviewProvider.index(actor)({ id: saleId })(input);
     }
@@ -86,7 +86,7 @@ export function ShoppingSaleReviewController<
     public async abridges(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleReview.IRequest,
+      @core.TypedBody() input: IShoppingSaleReview.IRequest
     ): Promise<IPage<IShoppingSaleReview.IAbridge>> {
       return ShoppingSaleReviewProvider.abridges(actor)({ id: saleId })(input);
     }
@@ -113,7 +113,7 @@ export function ShoppingSaleReviewController<
     public async at(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">,
+      @core.TypedParam("id") id: string & tags.Format<"uuid">
     ): Promise<IShoppingSaleReview> {
       return ShoppingSaleReviewProvider.at(actor)({ id: saleId })(id);
     }

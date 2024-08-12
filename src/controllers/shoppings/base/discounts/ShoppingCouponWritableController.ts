@@ -13,7 +13,7 @@ export function ShoppingCouponWritableController<
   Actor extends IShoppingSeller.IInvert | IShoppingAdministrator.IInvert,
 >(props: IShoppingControllerProps) {
   abstract class ShoppingCouponWritableController extends ShoppingCouponReadableController<Actor>(
-    props,
+    props
   ) {
     /**
      * Create a new coupon.
@@ -40,7 +40,7 @@ export function ShoppingCouponWritableController<
     @core.TypedRoute.Post()
     public async create(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingCoupon.ICreate,
+      @core.TypedBody() input: IShoppingCoupon.ICreate
     ): Promise<IShoppingCoupon> {
       return ShoppingCouponProvider.create(actor)(input);
     }
@@ -62,7 +62,7 @@ export function ShoppingCouponWritableController<
     @core.TypedRoute.Delete(":id")
     public async erase(
       @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string,
+      @core.TypedParam("id") id: string
     ): Promise<void> {
       return ShoppingCouponProvider.erase(actor)(id);
     }

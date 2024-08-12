@@ -28,7 +28,7 @@ export class ShoppingCustomerDepositChargePublishController {
   @core.TypedRoute.Get("able")
   public async able(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedParam("chargeId") chargeId: string & tags.Format<"uuid">,
+    @core.TypedParam("chargeId") chargeId: string & tags.Format<"uuid">
   ): Promise<boolean> {
     return ShoppingDepositChargePublishProvider.able(customer)({
       id: chargeId,
@@ -60,7 +60,7 @@ export class ShoppingCustomerDepositChargePublishController {
   public async create(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("chargeId") chargeId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingDepositChargePublish.ICreate,
+    @core.TypedBody() input: IShoppingDepositChargePublish.ICreate
   ): Promise<IShoppingDepositChargePublish> {
     return ShoppingDepositChargePublishProvider.create(customer)({
       id: chargeId,

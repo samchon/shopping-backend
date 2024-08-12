@@ -34,10 +34,10 @@ export class ShoppingSellerDeliveryJourneyController {
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingDeliveryJourney.ICreate,
+    @core.TypedBody() input: IShoppingDeliveryJourney.ICreate
   ): Promise<IShoppingDeliveryJourney> {
     return ShoppingDeliveryJourneyProvider.create(seller)({ id: deliveryId })(
-      input,
+      input
     );
   }
 
@@ -63,7 +63,7 @@ export class ShoppingSellerDeliveryJourneyController {
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingDeliveryJourney.IComplete,
+    @core.TypedBody() input: IShoppingDeliveryJourney.IComplete
   ): Promise<void> {
     return ShoppingDeliveryJourneyProvider.complete(seller)({
       id: deliveryId,
@@ -91,7 +91,7 @@ export class ShoppingSellerDeliveryJourneyController {
   public async erase(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
     return ShoppingDeliveryJourneyProvider.erase(seller)({
       id: deliveryId,

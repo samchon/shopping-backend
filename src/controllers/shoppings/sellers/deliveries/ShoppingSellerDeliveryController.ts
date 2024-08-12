@@ -38,7 +38,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingDelivery.IRequest,
+    @core.TypedBody() input: IShoppingDelivery.IRequest
   ): Promise<IPage<IShoppingDelivery.IInvert>> {
     return ShoppingDeliveryProvider.index(seller)(input);
   }
@@ -61,7 +61,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingDelivery.IInvert> {
     return ShoppingDeliveryProvider.at(seller)(id);
   }
@@ -89,7 +89,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingDelivery.ICreate,
+    @core.TypedBody() input: IShoppingDelivery.ICreate
   ): Promise<IShoppingDelivery> {
     return ShoppingDeliveryProvider.create(seller)(input);
   }
@@ -117,7 +117,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Patch("incompletes")
   public async incompletes(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingDeliveryPiece.IRequest,
+    @core.TypedBody() input: IShoppingDeliveryPiece.IRequest
   ): Promise<IShoppingDeliveryPiece.ICreate[]> {
     return ShoppingDeliveryPieceProvider.incompletes(seller)(input);
   }

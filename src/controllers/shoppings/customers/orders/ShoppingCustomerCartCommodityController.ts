@@ -47,10 +47,10 @@ export class ShoppingCustomerCartCommodityController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
-    @core.TypedBody() input: IShoppingCartCommodity.IRequest,
+    @core.TypedBody() input: IShoppingCartCommodity.IRequest
   ): Promise<IPage<IShoppingCartCommodity>> {
     return ShoppingCartCommodityProvider.index(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(input);
   }
 
@@ -82,10 +82,10 @@ export class ShoppingCustomerCartCommodityController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingCartCommodity> {
     return ShoppingCartCommodityProvider.at(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(id);
   }
 
@@ -121,10 +121,10 @@ export class ShoppingCustomerCartCommodityController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
-    @core.TypedBody() input: IShoppingCartCommodity.ICreate,
+    @core.TypedBody() input: IShoppingCartCommodity.ICreate
   ): Promise<IShoppingCartCommodity> {
     return ShoppingCartCommodityProvider.create(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(input);
   }
 
@@ -156,10 +156,10 @@ export class ShoppingCustomerCartCommodityController {
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingCartCommodity.IUpdate,
+    @core.TypedBody() input: IShoppingCartCommodity.IUpdate
   ): Promise<void> {
     return ShoppingCartCommodityProvider.update(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(id)(input);
   }
 
@@ -190,10 +190,10 @@ export class ShoppingCustomerCartCommodityController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingCartCommodity.ICreate> {
     return ShoppingCartCommodityProvider.replica(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(id);
   }
 
@@ -220,10 +220,10 @@ export class ShoppingCustomerCartCommodityController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
     return ShoppingCartCommodityProvider.erase(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(id);
   }
 
@@ -257,10 +257,10 @@ export class ShoppingCustomerCartCommodityController {
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("cartId")
     cartId: null | (string & tags.Format<"uuid">),
-    @core.TypedBody() input: IShoppingCartDiscountable.IRequest,
+    @core.TypedBody() input: IShoppingCartDiscountable.IRequest
   ): Promise<IShoppingCartDiscountable> {
     return ShoppingCartCommodityProvider.discountable(customer)(
-      cartId ? { id: cartId } : null,
+      cartId ? { id: cartId } : null
     )(input);
   }
 }
