@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.4.3",
+    "version": "0.5.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -121,7 +121,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Join as an administrator",
@@ -152,7 +157,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/authenticate/login": {
@@ -185,7 +195,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/coupons/{id}/destroy": {
@@ -208,7 +223,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/coupons": {
@@ -241,7 +261,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every coupons",
@@ -272,7 +297,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/coupons/{id}": {
@@ -299,7 +329,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a coupon info",
@@ -329,7 +364,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/deposits": {
@@ -362,7 +402,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a new deposit metadata",
@@ -393,7 +438,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/deposits/{id}": {
@@ -426,7 +476,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "delete": {
         "summary": "Erase a deposit metadata",
@@ -452,7 +507,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/deposits/{code}/get": {
@@ -483,7 +543,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/mileages": {
@@ -516,7 +581,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a new mileage metadata",
@@ -547,7 +617,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/mileages/{id}": {
@@ -580,7 +655,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "delete": {
         "summary": "Erase a mileage metadata",
@@ -606,7 +686,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/mileages/{code}/get": {
@@ -637,7 +722,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/mileages/donations": {
@@ -670,7 +760,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Donate a mileage to a citizen",
@@ -701,7 +796,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/mileages/donations/{id}": {
@@ -734,7 +834,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/orders": {
@@ -767,7 +872,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/orders/{id}": {
@@ -800,7 +910,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales": {
@@ -833,7 +948,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{id}": {
@@ -866,7 +986,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/{inquiryId}/comments": {
@@ -920,7 +1045,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -972,7 +1102,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/{inquiryId}/comments/{id}": {
@@ -1025,7 +1160,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -1087,7 +1227,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/questions": {
@@ -1131,7 +1276,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/abridges": {
@@ -1175,7 +1325,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/{id}": {
@@ -1218,7 +1373,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/{inquiryId}/comments": {
@@ -1272,7 +1432,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -1324,7 +1489,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/{inquiryId}/comments/{id}": {
@@ -1377,7 +1547,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -1439,7 +1614,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews": {
@@ -1483,7 +1663,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/abridges": {
@@ -1527,7 +1712,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/{id}": {
@@ -1570,7 +1760,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/snapshots": {
@@ -1614,7 +1809,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/snapshots/{id}": {
@@ -1657,7 +1857,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/sales/{saleId}/snapshots/{id}/flip": {
@@ -1700,7 +1905,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories": {
@@ -1743,7 +1953,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every categories with children records",
@@ -1776,7 +1991,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories/{id}": {
@@ -1823,7 +2043,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a category info",
@@ -1863,7 +2088,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories/merge": {
@@ -1901,7 +2131,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories/{id}/invert": {
@@ -1943,7 +2178,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels": {
@@ -1976,7 +2216,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every channels",
@@ -2007,7 +2252,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/{id}": {
@@ -2046,7 +2296,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a channel info",
@@ -2077,7 +2332,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/merge": {
@@ -2105,7 +2365,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/hierarchical": {
@@ -2138,7 +2403,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/channels/{code}/get": {
@@ -2170,7 +2440,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/sections": {
@@ -2203,7 +2478,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every sections",
@@ -2234,7 +2514,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/sections/{id}": {
@@ -2273,7 +2558,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a section info",
@@ -2304,7 +2594,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/sections/merge": {
@@ -2332,7 +2627,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/admins/systematic/sections/{code}/get": {
@@ -2364,7 +2664,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/authenticate/refresh": {
@@ -2419,7 +2724,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a new customer record",
@@ -2483,7 +2793,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/authenticate/login": {
@@ -2516,7 +2831,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/authenticate/activate": {
@@ -2549,7 +2869,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/authenticate/external": {
@@ -2582,7 +2907,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/authenticate/password/change": {
@@ -2610,7 +2940,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/coupons": {
@@ -2643,7 +2978,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/coupons/{id}": {
@@ -2675,7 +3015,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/coupons/tickets": {
@@ -2708,7 +3053,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a new coupon ticket",
@@ -2739,7 +3089,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/coupons/tickets/{id}": {
@@ -2772,7 +3127,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/charges": {
@@ -2805,7 +3165,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a new deposit charge application",
@@ -2836,7 +3201,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/charges/{id}": {
@@ -2868,7 +3238,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update a deposit charge application",
@@ -2904,7 +3279,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "delete": {
         "summary": "Erase a deposit charge application",
@@ -2929,7 +3309,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/charges/{chargeId}/publish/able": {
@@ -2962,7 +3347,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/charges/{chargeId}/publish": {
@@ -3006,7 +3396,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/histories": {
@@ -3039,7 +3434,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/histories/{id}": {
@@ -3071,7 +3471,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/deposits/histories/balance": {
@@ -3093,7 +3498,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/mileages/histories": {
@@ -3126,7 +3536,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/mileages/histories/{id}": {
@@ -3159,7 +3574,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/mileages/histories/balance": {
@@ -3181,7 +3601,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/carts/{cartId}/commodities": {
@@ -3232,7 +3657,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a new commodity",
@@ -3281,7 +3711,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/carts/{cartId}/commodities/{id}": {
@@ -3331,7 +3766,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update a commodity (volume)",
@@ -3385,7 +3825,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "delete": {
         "summary": "Erase a commodity",
@@ -3429,7 +3874,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/carts/{cartId}/commodities/{id}/replica": {
@@ -3479,7 +3929,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/carts/{cartId}/commodities/discountable": {
@@ -3530,7 +3985,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders": {
@@ -3563,7 +4023,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every orders",
@@ -3594,7 +4059,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{id}": {
@@ -3622,7 +4092,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get an order info",
@@ -3653,7 +4128,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{id}/price": {
@@ -3686,7 +4166,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{id}/discountable": {
@@ -3730,7 +4215,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{id}/discount": {
@@ -3774,7 +4264,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{orderId}/goods/{id}/confirm": {
@@ -3812,7 +4307,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{orderId}/publish/able": {
@@ -3845,7 +4345,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/orders/{orderId}/publish": {
@@ -3903,7 +4408,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "delete": {
         "summary": "Cancel the publish (payment)",
@@ -3929,7 +4439,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales": {
@@ -3962,7 +4477,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{id}": {
@@ -3995,7 +4515,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/{inquiryId}/comments": {
@@ -4049,7 +4574,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -4101,7 +4631,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/{inquiryId}/comments/{id}": {
@@ -4154,7 +4689,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -4216,7 +4756,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/questions": {
@@ -4260,7 +4805,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every summarized questions",
@@ -4302,7 +4852,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/{id}": {
@@ -4356,7 +4911,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a question info",
@@ -4397,7 +4957,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/abridges": {
@@ -4441,7 +5006,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/{inquiryId}/comments": {
@@ -4495,7 +5065,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -4547,7 +5122,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/{inquiryId}/comments/{id}": {
@@ -4600,7 +5180,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -4662,7 +5247,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews": {
@@ -4706,7 +5296,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every summarized reviews",
@@ -4748,7 +5343,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/{id}": {
@@ -4802,7 +5402,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a review info",
@@ -4843,7 +5448,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/abridges": {
@@ -4887,7 +5497,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/snapshots": {
@@ -4931,7 +5546,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/snapshots/{id}": {
@@ -4974,7 +5594,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/sales/{saleId}/snapshots/{id}/flip": {
@@ -5017,7 +5642,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels/{channelCode}/categories": {
@@ -5052,7 +5682,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels/{channelCode}/categories/{id}": {
@@ -5094,7 +5729,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels/{channelCode}/categories/{id}/invert": {
@@ -5136,7 +5776,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels": {
@@ -5169,7 +5814,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels/hierarchical": {
@@ -5202,7 +5852,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels/{id}": {
@@ -5235,7 +5890,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/channels/{code}/get": {
@@ -5267,7 +5927,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/sections": {
@@ -5300,7 +5965,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/sections/{id}": {
@@ -5333,7 +6003,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/customers/systematic/sections/{code}/get": {
@@ -5365,7 +6040,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/authenticate": {
@@ -5387,7 +6067,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Join as an seller",
@@ -5418,7 +6103,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/authenticate/login": {
@@ -5451,7 +6141,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries": {
@@ -5484,7 +6179,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a delivery",
@@ -5515,7 +6215,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries/{id}": {
@@ -5548,7 +6253,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries/incompletes": {
@@ -5584,7 +6294,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/journeys": {
@@ -5628,7 +6343,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/journeys/{id}/complete": {
@@ -5677,7 +6397,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/journeys/{id}": {
@@ -5716,7 +6441,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/shippers": {
@@ -5760,7 +6490,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/coupons": {
@@ -5793,7 +6528,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every coupons",
@@ -5824,7 +6564,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/coupons/{id}": {
@@ -5851,7 +6596,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a coupon info",
@@ -5881,7 +6631,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/orders": {
@@ -5914,7 +6669,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/orders/{id}": {
@@ -5947,7 +6707,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales": {
@@ -5980,7 +6745,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "patch": {
         "summary": "List up every summarized sales",
@@ -6011,7 +6781,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{id}": {
@@ -6055,7 +6830,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "get": {
         "summary": "Get a sale info",
@@ -6086,7 +6866,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{id}/open": {
@@ -6125,7 +6910,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{id}/replica": {
@@ -6158,7 +6948,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{id}/pause": {
@@ -6186,7 +6981,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{id}/suspend": {
@@ -6214,7 +7014,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{id}/restore": {
@@ -6241,7 +7046,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{questionId}/answer": {
@@ -6295,7 +7105,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an answer article",
@@ -6347,7 +7162,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{inquiryId}/comments": {
@@ -6401,7 +7221,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -6453,7 +7278,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{inquiryId}/comments/{id}": {
@@ -6506,7 +7336,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -6568,7 +7403,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions": {
@@ -6612,7 +7452,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/abridges": {
@@ -6656,7 +7501,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{id}": {
@@ -6699,7 +7549,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{reviewId}/answer": {
@@ -6753,7 +7608,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an answer article",
@@ -6805,7 +7665,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{inquiryId}/comments": {
@@ -6859,7 +7724,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -6911,7 +7781,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{inquiryId}/comments/{id}": {
@@ -6964,7 +7839,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -7026,7 +7906,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews": {
@@ -7070,7 +7955,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/abridges": {
@@ -7114,7 +8004,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{id}": {
@@ -7157,7 +8052,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots/{id}/replica": {
@@ -7200,7 +8100,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots": {
@@ -7244,7 +8149,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots/{id}": {
@@ -7287,7 +8197,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots/{id}/flip": {
@@ -7330,7 +8245,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/units/{unitId}/stocks/{stockId}/supplements": {
@@ -7394,7 +8314,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "post": {
         "summary": "Create a supplement",
@@ -7456,7 +8381,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/sales/{saleId}/units/{unitId}/stocks/{stockId}/supplements/{id}": {
@@ -7525,7 +8455,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       },
       "delete": {
         "summary": "Erase a supplement",
@@ -7581,7 +8516,12 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels/{channelCode}/categories": {
@@ -7616,7 +8556,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels/{channelCode}/categories/{id}": {
@@ -7658,7 +8603,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels/{channelCode}/categories/{id}/invert": {
@@ -7700,7 +8650,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels": {
@@ -7733,7 +8688,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels/hierarchical": {
@@ -7766,7 +8726,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels/{id}": {
@@ -7799,7 +8764,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/channels/{code}/get": {
@@ -7831,7 +8801,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/sections": {
@@ -7864,7 +8839,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/sections/{id}": {
@@ -7897,7 +8877,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     },
     "/shoppings/sellers/systematic/sections/{code}/get": {
@@ -7929,7 +8914,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
       }
     }
   },
