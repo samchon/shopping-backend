@@ -20,6 +20,8 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
       },
     },
   ],

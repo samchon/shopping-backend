@@ -7,7 +7,7 @@ import { SwaggerCustomizer } from "@nestia/core";
 export const ShoppingAdminAuth =
   (): ParameterDecorator =>
   (
-    target: Object,
+    target: object,
     propertyKey: string | symbol | undefined,
     parameterIndex: number
   ): void => {
