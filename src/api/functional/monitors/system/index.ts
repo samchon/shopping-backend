@@ -28,20 +28,11 @@ import type { ISystem } from "../../../structures/monitors/ISystem";
 export async function get(connection: IConnection): Promise<get.Output> {
   return !!connection.simulate
     ? get.simulate(connection)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...get.METADATA,
-          template: get.METADATA.path,
-          path: get.path(),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...get.METADATA,
+        template: get.METADATA.path,
+        path: get.path(),
+      });
 }
 export namespace get {
   export type Output = ISystem;
@@ -80,20 +71,11 @@ export async function internal_server_error(
 ): Promise<void> {
   return !!connection.simulate
     ? internal_server_error.simulate(connection)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...internal_server_error.METADATA,
-          template: internal_server_error.METADATA.path,
-          path: internal_server_error.path(),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...internal_server_error.METADATA,
+        template: internal_server_error.METADATA.path,
+        path: internal_server_error.path(),
+      });
 }
 export namespace internal_server_error {
   export const METADATA = {
@@ -130,20 +112,11 @@ export async function uncaught_exception(
 ): Promise<void> {
   return !!connection.simulate
     ? uncaught_exception.simulate(connection)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...uncaught_exception.METADATA,
-          template: uncaught_exception.METADATA.path,
-          path: uncaught_exception.path(),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...uncaught_exception.METADATA,
+        template: uncaught_exception.METADATA.path,
+        path: uncaught_exception.path(),
+      });
 }
 export namespace uncaught_exception {
   export const METADATA = {

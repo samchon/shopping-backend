@@ -296,20 +296,11 @@ export async function index(
 ): Promise<index.Output> {
   return !!connection.simulate
     ? index.simulate(connection, channelCode)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...index.METADATA,
-          template: index.METADATA.path,
-          path: index.path(channelCode),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...index.METADATA,
+        template: index.METADATA.path,
+        path: index.path(channelCode),
+      });
 }
 export namespace index {
   export type Output = Array<IShoppingChannelCategory.IHierarchical>;
@@ -375,20 +366,11 @@ export async function at(
 ): Promise<at.Output> {
   return !!connection.simulate
     ? at.simulate(connection, channelCode, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...at.METADATA,
-          template: at.METADATA.path,
-          path: at.path(channelCode, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...at.METADATA,
+        template: at.METADATA.path,
+        path: at.path(channelCode, id),
+      });
 }
 export namespace at {
   export type Output = IShoppingChannelCategory;
@@ -455,20 +437,11 @@ export async function invert(
 ): Promise<invert.Output> {
   return !!connection.simulate
     ? invert.simulate(connection, channelCode, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...invert.METADATA,
-          template: invert.METADATA.path,
-          path: invert.path(channelCode, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...invert.METADATA,
+        template: invert.METADATA.path,
+        path: invert.path(channelCode, id),
+      });
 }
 export namespace invert {
   export type Output = IShoppingChannelCategory.IInvert;

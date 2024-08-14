@@ -306,20 +306,11 @@ export async function replica(
 ): Promise<replica.Output> {
   return !!connection.simulate
     ? replica.simulate(connection, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...replica.METADATA,
-          template: replica.METADATA.path,
-          path: replica.path(id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...replica.METADATA,
+        template: replica.METADATA.path,
+        path: replica.path(id),
+      });
 }
 export namespace replica {
   export type Output = IShoppingSale.ICreate;
@@ -393,20 +384,11 @@ export async function pause(
 ): Promise<void> {
   return !!connection.simulate
     ? pause.simulate(connection, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...pause.METADATA,
-          template: pause.METADATA.path,
-          path: pause.path(id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...pause.METADATA,
+        template: pause.METADATA.path,
+        path: pause.path(id),
+      });
 }
 export namespace pause {
   export const METADATA = {
@@ -476,20 +458,11 @@ export async function suspend(
 ): Promise<void> {
   return !!connection.simulate
     ? suspend.simulate(connection, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...suspend.METADATA,
-          template: suspend.METADATA.path,
-          path: suspend.path(id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...suspend.METADATA,
+        template: suspend.METADATA.path,
+        path: suspend.path(id),
+      });
 }
 export namespace suspend {
   export const METADATA = {
@@ -553,20 +526,11 @@ export async function restore(
 ): Promise<void> {
   return !!connection.simulate
     ? restore.simulate(connection, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...restore.METADATA,
-          template: restore.METADATA.path,
-          path: restore.path(id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...restore.METADATA,
+        template: restore.METADATA.path,
+        path: restore.path(id),
+      });
 }
 export namespace restore {
   export const METADATA = {
@@ -722,20 +686,11 @@ export async function at(
 ): Promise<at.Output> {
   return !!connection.simulate
     ? at.simulate(connection, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...at.METADATA,
-          template: at.METADATA.path,
-          path: at.path(id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...at.METADATA,
+        template: at.METADATA.path,
+        path: at.path(id),
+      });
 }
 export namespace at {
   export type Output = IShoppingSale;

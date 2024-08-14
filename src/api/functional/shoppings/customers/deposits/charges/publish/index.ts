@@ -35,20 +35,11 @@ export async function able(
 ): Promise<able.Output> {
   return !!connection.simulate
     ? able.simulate(connection, chargeId)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...able.METADATA,
-          template: able.METADATA.path,
-          path: able.path(chargeId),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...able.METADATA,
+        template: able.METADATA.path,
+        path: able.path(chargeId),
+      });
 }
 export namespace able {
   export type Output = false | true;

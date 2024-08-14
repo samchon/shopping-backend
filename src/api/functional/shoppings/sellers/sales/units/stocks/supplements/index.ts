@@ -346,20 +346,11 @@ export async function erase(
 ): Promise<void> {
   return !!connection.simulate
     ? erase.simulate(connection, saleId, unitId, stockId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...erase.METADATA,
-          template: erase.METADATA.path,
-          path: erase.path(saleId, unitId, stockId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...erase.METADATA,
+        template: erase.METADATA.path,
+        path: erase.path(saleId, unitId, stockId, id),
+      });
 }
 export namespace erase {
   export const METADATA = {

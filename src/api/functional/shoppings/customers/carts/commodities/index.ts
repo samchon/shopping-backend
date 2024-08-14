@@ -147,20 +147,11 @@ export async function at(
 ): Promise<at.Output> {
   return !!connection.simulate
     ? at.simulate(connection, cartId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...at.METADATA,
-          template: at.METADATA.path,
-          path: at.path(cartId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...at.METADATA,
+        template: at.METADATA.path,
+        path: at.path(cartId, id),
+      });
 }
 export namespace at {
   export type Output = IShoppingCartCommodity;
@@ -430,20 +421,11 @@ export async function replica(
 ): Promise<replica.Output> {
   return !!connection.simulate
     ? replica.simulate(connection, cartId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...replica.METADATA,
-          template: replica.METADATA.path,
-          path: replica.path(cartId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...replica.METADATA,
+        template: replica.METADATA.path,
+        path: replica.path(cartId, id),
+      });
 }
 export namespace replica {
   export type Output = IShoppingCartCommodity.ICreate;
@@ -517,20 +499,11 @@ export async function erase(
 ): Promise<void> {
   return !!connection.simulate
     ? erase.simulate(connection, cartId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...erase.METADATA,
-          template: erase.METADATA.path,
-          path: erase.path(cartId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...erase.METADATA,
+        template: erase.METADATA.path,
+        path: erase.path(cartId, id),
+      });
 }
 export namespace erase {
   export const METADATA = {

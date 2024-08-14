@@ -38,20 +38,11 @@ export async function able(
 ): Promise<able.Output> {
   return !!connection.simulate
     ? able.simulate(connection, orderId)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...able.METADATA,
-          template: able.METADATA.path,
-          path: able.path(orderId),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...able.METADATA,
+        template: able.METADATA.path,
+        path: able.path(orderId),
+      });
 }
 export namespace able {
   export type Output = false | true;
@@ -208,20 +199,11 @@ export async function cancel(
 ): Promise<void> {
   return !!connection.simulate
     ? cancel.simulate(connection, orderId)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...cancel.METADATA,
-          template: cancel.METADATA.path,
-          path: cancel.path(orderId),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...cancel.METADATA,
+        template: cancel.METADATA.path,
+        path: cancel.path(orderId),
+      });
 }
 export namespace cancel {
   export const METADATA = {

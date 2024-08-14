@@ -38,20 +38,11 @@ export async function confirm(
 ): Promise<void> {
   return !!connection.simulate
     ? confirm.simulate(connection, orderId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...confirm.METADATA,
-          template: confirm.METADATA.path,
-          path: confirm.path(orderId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...confirm.METADATA,
+        template: confirm.METADATA.path,
+        path: confirm.path(orderId, id),
+      });
 }
 export namespace confirm {
   export const METADATA = {

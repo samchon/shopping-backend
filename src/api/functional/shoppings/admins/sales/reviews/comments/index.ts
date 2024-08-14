@@ -144,20 +144,11 @@ export async function at(
 ): Promise<at.Output> {
   return !!connection.simulate
     ? at.simulate(connection, saleId, inquiryId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...at.METADATA,
-          template: at.METADATA.path,
-          path: at.path(saleId, inquiryId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...at.METADATA,
+        template: at.METADATA.path,
+        path: at.path(saleId, inquiryId, id),
+      });
 }
 export namespace at {
   export type Output = IShoppingSaleInquiryComment;

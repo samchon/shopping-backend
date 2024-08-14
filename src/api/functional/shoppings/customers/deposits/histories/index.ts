@@ -116,20 +116,11 @@ export async function at(
 ): Promise<at.Output> {
   return !!connection.simulate
     ? at.simulate(connection, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...at.METADATA,
-          template: at.METADATA.path,
-          path: at.path(id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...at.METADATA,
+        template: at.METADATA.path,
+        path: at.path(id),
+      });
 }
 export namespace at {
   export type Output = IShoppingDepositHistory;
@@ -187,20 +178,11 @@ export async function balance(
 ): Promise<balance.Output> {
   return !!connection.simulate
     ? balance.simulate(connection)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...balance.METADATA,
-          template: balance.METADATA.path,
-          path: balance.path(),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...balance.METADATA,
+        template: balance.METADATA.path,
+        path: balance.path(),
+      });
 }
 export namespace balance {
   export type Output = number;

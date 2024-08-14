@@ -141,20 +141,11 @@ export async function at(
 ): Promise<at.Output> {
   return !!connection.simulate
     ? at.simulate(connection, saleId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...at.METADATA,
-          template: at.METADATA.path,
-          path: at.path(saleId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...at.METADATA,
+        template: at.METADATA.path,
+        path: at.path(saleId, id),
+      });
 }
 export namespace at {
   export type Output = IShoppingSaleSnapshot;
@@ -230,20 +221,11 @@ export async function flip(
 ): Promise<flip.Output> {
   return !!connection.simulate
     ? flip.simulate(connection, saleId, id)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...flip.METADATA,
-          template: flip.METADATA.path,
-          path: flip.path(saleId, id),
-        },
-      );
+    : PlainFetcher.fetch(connection, {
+        ...flip.METADATA,
+        template: flip.METADATA.path,
+        path: flip.path(saleId, id),
+      });
 }
 export namespace flip {
   export type Output = IShoppingSale;
