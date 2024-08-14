@@ -34,7 +34,7 @@ export function ShoppingSystematicChannelController<
     @core.TypedRoute.Patch()
     public index(
       @props.AuthGuard() _actor: Actor,
-      @core.TypedBody() input: IShoppingChannel.IRequest
+      @core.TypedBody() input: IShoppingChannel.IRequest,
     ): Promise<IPage<IShoppingChannel>> {
       return ShoppingChannelProvider.index(input);
     }
@@ -59,7 +59,7 @@ export function ShoppingSystematicChannelController<
     @core.TypedRoute.Patch("hierarchical")
     public async hierarchical(
       @props.AuthGuard() _actor: unknown,
-      @core.TypedBody() input: IShoppingChannel.IRequest
+      @core.TypedBody() input: IShoppingChannel.IRequest,
     ): Promise<IPage<IShoppingChannel.IHierarchical>> {
       return ShoppingChannelProvider.hierarchical(input);
     }
@@ -82,7 +82,7 @@ export function ShoppingSystematicChannelController<
     @core.TypedRoute.Get(":id")
     public at(
       @props.AuthGuard() _actor: Actor,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingChannel.IHierarchical> {
       return ShoppingChannelProvider.at(id);
     }
@@ -106,7 +106,7 @@ export function ShoppingSystematicChannelController<
     @core.TypedRoute.Get(":code/get")
     public get(
       @props.AuthGuard() _actor: Actor,
-      @core.TypedParam("code") code: string
+      @core.TypedParam("code") code: string,
     ): Promise<IShoppingChannel.IHierarchical> {
       return ShoppingChannelProvider.get(code);
     }

@@ -10,7 +10,7 @@ import { test_api_shopping_actor_customer_create } from "./test_api_shopping_act
 import { test_api_shopping_actor_seller_join } from "./test_api_shopping_actor_seller_join";
 
 export const test_api_shopping_actor_seller_login = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // JOIN AS A SELLER
   const joined: IShoppingSeller.IInvert =
@@ -24,7 +24,7 @@ export const test_api_shopping_actor_seller_login = async (
         {
           email: joined.member.emails[0].value,
           password,
-        }
+        },
       );
     return authorized;
   };
@@ -32,12 +32,12 @@ export const test_api_shopping_actor_seller_login = async (
   // LOGIN AGAIN
   const passed: IShoppingSeller.IInvert = await login(TestGlobal.PASSWORD);
   TestValidator.equals("passed")(
-    typia.misc.clone<Omit<IShoppingSeller.IInvert, "customer">>(joined)
+    typia.misc.clone<Omit<IShoppingSeller.IInvert, "customer">>(joined),
   )(passed);
 
   // TRY AGAIN WITH WRONG PASSWORD
   await TestValidator.httpError("wrong password")(403)(() =>
-    login(FAILED_PASSWORD)
+    login(FAILED_PASSWORD),
   );
 };
 

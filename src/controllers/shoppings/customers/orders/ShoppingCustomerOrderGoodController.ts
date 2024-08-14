@@ -32,7 +32,7 @@ export class ShoppingCustomerOrderGoodController {
   public async confirm(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingOrderGoodProvider.confirm(customer)({ id: orderId })(id);
   }

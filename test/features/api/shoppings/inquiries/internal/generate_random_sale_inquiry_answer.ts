@@ -10,14 +10,14 @@ export const generate_random_sale_inquiry_answer = async (
   pool: ConnectionPool,
   sale: IShoppingSale,
   question: IShoppingSaleInquiry<any, any>,
-  input?: Partial<IShoppingSaleInquiryAnswer.ICreate>
+  input?: Partial<IShoppingSaleInquiryAnswer.ICreate>,
 ): Promise<IShoppingSaleInquiryAnswer> => {
   const answer: IShoppingSaleInquiryAnswer =
     await ShoppingApi.functional.shoppings.sellers.sales.questions.answer.create(
       pool.seller,
       sale.id,
       question.id,
-      prepare_random_bbs_article(input)
+      prepare_random_bbs_article(input),
     );
   return answer;
 };

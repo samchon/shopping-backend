@@ -45,7 +45,7 @@ export function ShoppingSaleSnapshotController<
     public async index(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IPage.IRequest
+      @core.TypedBody() input: IPage.IRequest,
     ): Promise<IPage<IShoppingSaleSnapshot.ISummary>> {
       return ShoppingSaleSnapshotProvider.index(actor)({ id: saleId })(input);
     }
@@ -75,7 +75,7 @@ export function ShoppingSaleSnapshotController<
     public async at(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSaleSnapshot> {
       return ShoppingSaleSnapshotProvider.at(actor)({ id: saleId })(id);
     }
@@ -105,7 +105,7 @@ export function ShoppingSaleSnapshotController<
     public async flip(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSale> {
       return ShoppingSaleSnapshotProvider.flip(actor)({ id: saleId })(id);
     }

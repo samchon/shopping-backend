@@ -7,7 +7,7 @@ import { ConnectionPool } from "../../../../../ConnectionPool";
 
 export const generate_random_channel = async (
   pool: ConnectionPool,
-  input?: Partial<IShoppingChannel.ICreate>
+  input?: Partial<IShoppingChannel.ICreate>,
 ): Promise<IShoppingChannel> => {
   const channel: IShoppingChannel =
     await ShoppingApi.functional.shoppings.admins.systematic.channels.create(
@@ -16,7 +16,7 @@ export const generate_random_channel = async (
         code: RandomGenerator.alphabets(16),
         name: RandomGenerator.name(8),
         ...input,
-      }
+      },
     );
   return channel;
 };

@@ -6,7 +6,7 @@ import { IShoppingSeller } from "../../../structures/shoppings/actors/IShoppingS
 
 export namespace ShoppingSellerDiagnoser {
   export const invert = (
-    customer: IShoppingCustomer
+    customer: IShoppingCustomer,
   ): IShoppingSeller.IInvert | null => {
     const citizen = customer.citizen;
     const member = customer.member;

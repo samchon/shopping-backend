@@ -20,28 +20,28 @@ export const prepare_random_coupon_criteria = (
         ],
       }
     : props.type === "funnel"
-    ? {
-        type: props.type,
-        direction: props.direction,
-        funnels: funnels(props.customer ?? null),
-      }
-    : props.type === "sale"
-    ? {
-        type: props.type,
-        direction: props.direction,
-        sale_ids: [props.sale.id],
-      }
-    : props.type === "section"
-    ? {
-        type: props.type,
-        direction: props.direction,
-        section_codes: [props.sale.section.code],
-      }
-    : {
-        type: props.type,
-        direction: props.direction,
-        seller_ids: [props.sale.seller.id],
-      };
+      ? {
+          type: props.type,
+          direction: props.direction,
+          funnels: funnels(props.customer ?? null),
+        }
+      : props.type === "sale"
+        ? {
+            type: props.type,
+            direction: props.direction,
+            sale_ids: [props.sale.id],
+          }
+        : props.type === "section"
+          ? {
+              type: props.type,
+              direction: props.direction,
+              section_codes: [props.sale.section.code],
+            }
+          : {
+              type: props.type,
+              direction: props.direction,
+              seller_ids: [props.sale.seller.id],
+            };
 export namespace prepare_random_coupon_criteria {
   export interface IProps {
     customer: IShoppingCustomer | null;

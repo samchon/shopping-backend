@@ -8,7 +8,7 @@ import { prepare_random_bbs_article } from "../../../common/internal/prepare_ran
 export const generate_random_sale_question = async (
   pool: ConnectionPool,
   sale: IShoppingSale,
-  input?: Partial<IShoppingSaleQuestion.ICreate>
+  input?: Partial<IShoppingSaleQuestion.ICreate>,
 ): Promise<IShoppingSaleQuestion> => {
   const question: IShoppingSaleQuestion =
     await ShoppingApi.functional.shoppings.customers.sales.questions.create(
@@ -17,7 +17,7 @@ export const generate_random_sale_question = async (
       {
         ...prepare_random_bbs_article(input),
         secret: input?.secret ?? false,
-      }
+      },
     );
   return question;
 };

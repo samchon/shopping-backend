@@ -12,7 +12,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_cart_commodity } from "./internal/generate_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_create = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -28,7 +28,7 @@ export const test_api_shopping_cart_commodity_create = async (
       {
         limit: 1,
         sort: ["-commodity.created_at"],
-      }
+      },
     );
   TestValidator.equals("index")(commodity)(page.data[0]);
 
@@ -36,7 +36,7 @@ export const test_api_shopping_cart_commodity_create = async (
     await ShoppingApi.functional.shoppings.customers.carts.commodities.at(
       pool.customer,
       null,
-      commodity.id
+      commodity.id,
     );
   TestValidator.equals("read")(commodity)(read);
 };

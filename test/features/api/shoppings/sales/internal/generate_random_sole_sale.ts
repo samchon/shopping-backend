@@ -10,12 +10,12 @@ import { prepare_random_sale } from "./prepare_random_sale";
 export const generate_random_sole_sale = async (
   pool: ConnectionPool,
   price: IShoppingPrice,
-  quantity?: number
+  quantity?: number,
 ): Promise<IShoppingSale> => {
   const sale: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.create(
       pool.seller,
-      await prepare_random_sole_sale(pool, price, quantity)
+      await prepare_random_sole_sale(pool, price, quantity),
     );
   return sale;
 };
@@ -23,7 +23,7 @@ export const generate_random_sole_sale = async (
 const prepare_random_sole_sale = async (
   pool: ConnectionPool,
   price: IShoppingPrice,
-  quantity?: number
+  quantity?: number,
 ): Promise<IShoppingSale.ICreate> => {
   const sale: IShoppingSale.ICreate = await prepare_random_sale(pool);
   const unit: IShoppingSaleUnit.ICreate = sale.units[0];

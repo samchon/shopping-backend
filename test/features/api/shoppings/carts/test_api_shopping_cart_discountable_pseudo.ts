@@ -9,13 +9,13 @@ import { validate_api_shopping_cart_discountable } from "./internal/validate_api
 export const test_api_shopping_cart_discountable_pseudo =
   validate_api_shopping_cart_discountable(async (pool, props) => {
     const pseudos: IShoppingCartCommodity.ICreate[] = await ArrayUtil.asyncMap(
-      props.commodities
+      props.commodities,
     )((commodity) =>
       ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
         pool.customer,
         null,
-        commodity.id
-      )
+        commodity.id,
+      ),
     );
 
     const discountable: IShoppingCartDiscountable =
@@ -25,16 +25,16 @@ export const test_api_shopping_cart_discountable_pseudo =
         {
           commodity_ids: [],
           pseudos,
-        }
+        },
       );
 
     TestValidator.equals("combinations.length")(
-      discountable.combinations.length
+      discountable.combinations.length,
     )(2);
     TestValidator.equals("combinations[].amount")(
-      discountable.combinations.map((comb) => comb.amount)
+      discountable.combinations.map((comb) => comb.amount),
     )([15_000, 5_000]);
     TestValidator.equals("combinations[].coupons.length")(
-      discountable.combinations.map((comb) => comb.coupons.length)
+      discountable.combinations.map((comb) => comb.coupons.length),
     )([3, 1]);
   });

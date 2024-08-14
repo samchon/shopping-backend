@@ -12,7 +12,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_question } from "./internal/generate_random_sale_question";
 
 export const test_api_shopping_sale_question_index_search = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
 
@@ -21,7 +21,7 @@ export const test_api_shopping_sale_question_index_search = async (
     async () => {
       await test_api_shopping_actor_customer_join(pool);
       return generate_random_sale_question(pool, sale);
-    }
+    },
   );
   const expected: IPage<IShoppingSaleQuestion.ISummary> =
     await ShoppingApi.functional.shoppings.customers.sales.questions.index(
@@ -29,7 +29,7 @@ export const test_api_shopping_sale_question_index_search = async (
       sale.id,
       {
         limit: total.length,
-      }
+      },
     );
 
   const search = TestValidator.search("search")(
@@ -41,10 +41,10 @@ export const test_api_shopping_sale_question_index_search = async (
           {
             search,
             limit: total.length,
-          }
+          },
         );
       return page.data;
-    }
+    },
   )(expected.data, 2);
 
   await search({

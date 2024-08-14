@@ -16,7 +16,7 @@ import { generate_random_order } from "./internal/generate_random_order";
 import { generate_random_order_publish } from "./internal/generate_random_order_publish";
 
 export const test_api_shopping_order_index_search = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -34,11 +34,11 @@ export const test_api_shopping_order_index_search = async (
         pool,
         customer,
         order,
-        true
+        true,
       );
 
       return order;
-    }
+    },
   );
 
   // PREPARE VALIDATOR
@@ -51,10 +51,10 @@ export const test_api_shopping_order_index_search = async (
             search: input,
             sort: ["-order.created_at"],
             limit: orderList.length,
-          }
+          },
         );
       return page.data;
-    }
+    },
   )(orderList, 2);
 
   //----
@@ -93,7 +93,7 @@ export const test_api_shopping_order_index_search = async (
     values: (order) => [order.goods[0].commodity.sale.content.title],
     filter: (order, [title]) =>
       order.goods.some((good) =>
-        good.commodity.sale.content.title.includes(title)
+        good.commodity.sale.content.title.includes(title),
       ),
     request: ([title]) => ({
       sale: {
@@ -108,7 +108,7 @@ export const test_api_shopping_order_index_search = async (
     values: (order) => [order.goods[0].commodity.sale.seller.citizen.name],
     filter: (order, [name]) =>
       order.goods.some(
-        (good) => good.commodity.sale.seller.citizen.name === name
+        (good) => good.commodity.sale.seller.citizen.name === name,
       ),
     request: ([name]) => ({
       sale: {

@@ -11,7 +11,7 @@ import { prepare_random_sale } from "../sales/internal/prepare_random_sale";
 import { generate_random_cart_commodity } from "./internal/generate_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_create_snapshot = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -20,9 +20,9 @@ export const test_api_shopping_cart_commodity_create_snapshot = async (
   await ShoppingApi.functional.shoppings.sellers.sales.update(
     pool.seller,
     sale.id,
-    await prepare_random_sale(pool)
+    await prepare_random_sale(pool),
   );
   await TestValidator.httpError("snapshot")(422)(() =>
-    generate_random_cart_commodity(pool, sale)
+    generate_random_cart_commodity(pool, sale),
   );
 };

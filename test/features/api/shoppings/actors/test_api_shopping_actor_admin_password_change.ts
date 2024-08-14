@@ -10,7 +10,7 @@ import { TestGlobal } from "../../../../TestGlobal";
 import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
 export const test_api_shopping_actor_admin_password_change = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const input: IShoppingMember.IJoin = {
     email: "robot@nestia.io",
@@ -30,7 +30,7 @@ export const test_api_shopping_actor_admin_password_change = async (
         {
           email: input.email,
           password,
-        }
+        },
       );
     return authorized;
   };
@@ -38,7 +38,7 @@ export const test_api_shopping_actor_admin_password_change = async (
   const passed = await login(TestGlobal.PASSWORD);
 
   const first: IShoppingAdministrator.IInvert = await login(
-    TestGlobal.PASSWORD
+    TestGlobal.PASSWORD,
   );
   validate("login")(passed)(first);
 
@@ -47,7 +47,7 @@ export const test_api_shopping_actor_admin_password_change = async (
     {
       oldbie: TestGlobal.PASSWORD,
       newbie: NEW_PASSWORD,
-    }
+    },
   );
 
   const after: IShoppingAdministrator.IInvert = await login(NEW_PASSWORD);
@@ -58,10 +58,10 @@ export const test_api_shopping_actor_admin_password_change = async (
     {
       oldbie: NEW_PASSWORD,
       newbie: TestGlobal.PASSWORD,
-    }
+    },
   );
   const again: IShoppingAdministrator.IInvert = await login(
-    TestGlobal.PASSWORD
+    TestGlobal.PASSWORD,
   );
   validate("again")(passed)(again);
 };
@@ -71,7 +71,7 @@ const validate =
   (x: IShoppingAdministrator.IInvert) =>
   (y: IShoppingAdministrator.IInvert) =>
     TestValidator.equals(title)(
-      typia.misc.clone<Omit<IShoppingAdministrator, "customer">>(x)
+      typia.misc.clone<Omit<IShoppingAdministrator, "customer">>(x),
     )(y);
 
 const NEW_PASSWORD = "something";

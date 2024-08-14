@@ -11,7 +11,7 @@ import { ShoppingOrderProvider } from "../../../../providers/shoppings/orders/Sh
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingOrderController<Actor extends IShoppingActorEntity>(
-  props: IShoppingControllerProps
+  props: IShoppingControllerProps,
 ) {
   @Controller(`shoppings/${props.path}/orders`)
   abstract class ShoppingOrderController {
@@ -43,7 +43,7 @@ export function ShoppingOrderController<Actor extends IShoppingActorEntity>(
     @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingOrder.IRequest
+      @core.TypedBody() input: IShoppingOrder.IRequest,
     ): Promise<IPage<IShoppingOrder>> {
       return ShoppingOrderProvider.index(actor)(input);
     }
@@ -67,7 +67,7 @@ export function ShoppingOrderController<Actor extends IShoppingActorEntity>(
     @core.TypedRoute.Get(":id")
     public async at(
       @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingOrder> {
       return ShoppingOrderProvider.at(actor)(id);
     }

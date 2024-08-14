@@ -11,7 +11,7 @@ import { ShoppingSaleProvider } from "../../../../providers/shoppings/sales/Shop
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
-  props: IShoppingControllerProps
+  props: IShoppingControllerProps,
 ) {
   @Controller(`shoppings/${props.path}/sales`)
   abstract class ShoppingSaleController {
@@ -44,7 +44,7 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
     @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingSale.IRequest
+      @core.TypedBody() input: IShoppingSale.IRequest,
     ): Promise<IPage<IShoppingSale.ISummary>> {
       try {
         return await ShoppingSaleProvider.index(actor)(input);
@@ -74,7 +74,7 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
     @core.TypedRoute.Get(":id")
     public async at(
       @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSale> {
       return ShoppingSaleProvider.at(actor)(id);
     }

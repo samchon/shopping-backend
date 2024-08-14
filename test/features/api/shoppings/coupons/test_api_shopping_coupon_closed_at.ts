@@ -16,7 +16,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_closed_at = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -59,7 +59,7 @@ export const test_api_shopping_coupon_closed_at = async (
       const read = async () => {
         await ShoppingApi.functional.shoppings[path].coupons.at(
           connection,
-          coupon.id
+          coupon.id,
         );
       };
       if (visible) await read();

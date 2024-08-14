@@ -34,7 +34,7 @@ export function ShoppingSystematicSectionController<
     @core.TypedRoute.Patch()
     public index(
       @props.AuthGuard() _actor: Actor,
-      @core.TypedBody() input: IShoppingSection.IRequest
+      @core.TypedBody() input: IShoppingSection.IRequest,
     ): Promise<IPage<IShoppingSection>> {
       return ShoppingSectionProvider.index(input);
     }
@@ -53,7 +53,7 @@ export function ShoppingSystematicSectionController<
     @core.TypedRoute.Get(":id")
     public at(
       @props.AuthGuard() _actor: Actor,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSection> {
       return ShoppingSectionProvider.at(id);
     }
@@ -72,7 +72,7 @@ export function ShoppingSystematicSectionController<
     @core.TypedRoute.Get(":code/get")
     public get(
       @props.AuthGuard() _actor: Actor,
-      @core.TypedParam("code") code: string
+      @core.TypedParam("code") code: string,
     ): Promise<IShoppingSection> {
       return ShoppingSectionProvider.get(code);
     }

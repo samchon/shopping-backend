@@ -32,7 +32,7 @@ export class ShoppingCustomerDepositHistoryController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingDepositHistory.IRequest
+    @core.TypedBody() input: IShoppingDepositHistory.IRequest,
   ): Promise<IPage<IShoppingDepositHistory>> {
     return ShoppingDepositHistoryProvider.index(customer.citizen!)(input);
   }
@@ -51,7 +51,7 @@ export class ShoppingCustomerDepositHistoryController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingDepositHistory> {
     return ShoppingDepositHistoryProvider.at(customer.citizen!)(id);
   }
@@ -68,7 +68,7 @@ export class ShoppingCustomerDepositHistoryController {
    */
   @core.TypedRoute.Get("balance")
   public async balance(
-    @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer
+    @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
   ): Promise<number> {
     return ShoppingDepositHistoryProvider.getBalance(customer.citizen!);
   }

@@ -32,7 +32,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileage.IRequest
+    @core.TypedBody() input: IShoppingMileage.IRequest,
   ): Promise<IPage<IShoppingMileage>> {
     return ShoppingMileageProvider.index(input);
   }
@@ -51,7 +51,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingMileage> {
     return ShoppingMileageProvider.at(id);
   }
@@ -70,7 +70,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Get(":code/get")
   public async get(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("code") code: string
+    @core.TypedParam("code") code: string,
   ): Promise<IShoppingMileage> {
     return ShoppingMileageProvider.get(code);
   }
@@ -95,7 +95,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileage.ICreate
+    @core.TypedBody() input: IShoppingMileage.ICreate,
   ): Promise<IShoppingMileage> {
     return ShoppingMileageProvider.create(admin)(input);
   }
@@ -115,7 +115,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingMileageProvider.erase(admin)(id);
   }

@@ -11,7 +11,7 @@ export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotCo
   {
     path: "sellers",
     AuthGuard: ShoppingSellerAuth,
-  }
+  },
 ) {
   /**
    * Get replica of a snapshot.
@@ -33,7 +33,7 @@ export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotCo
   public async replica(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingSale.ICreate> {
     seller;
     saleId;

@@ -49,21 +49,21 @@ export namespace EntityUtil {
     (client: PrismaClient) =>
     <Table extends Prisma.ModelName>(table: Table) =>
     async <Key extends bigint | number | string>(
-      props: IMergeProps<Key>
+      props: IMergeProps<Key>,
     ): Promise<void> => {
       // FIND TARGET MODEL AND PRIMARY KEY
       const model: Prisma.DMMF.Model | undefined =
         Prisma.dmmf.datamodel.models.find((model) => model.name === table);
       if (model === undefined)
         throw new Error(
-          `Error on EntityUtil.unify(): table ${table} does not exist.`
+          `Error on EntityUtil.unify(): table ${table} does not exist.`,
         );
       const key: Prisma.DMMF.Field | undefined = model.fields.find(
-        (field) => field.isId === true
+        (field) => field.isId === true,
       );
       if (key === undefined)
         throw new Error(
-          `Error on EntityUtil.unify(): table ${table} does not have single columned primary key.`
+          `Error on EntityUtil.unify(): table ${table} does not have single columned primary key.`,
         );
 
       // LIST UP DEPENDENCIES
@@ -71,29 +71,29 @@ export namespace EntityUtil {
         (field) =>
           field.kind === "object" &&
           typia.is<Prisma.ModelName>(field.type) &&
-          !field.relationFromFields?.length
+          !field.relationFromFields?.length,
       );
       for (const dep of dependencies) {
         // GET TARGET TABLE MODEL AND FOREIGN COLUMN
         const target: Prisma.DMMF.Model = Prisma.dmmf.datamodel.models.find(
-          (model) => model.name === dep.type
+          (model) => model.name === dep.type,
         )!;
         const relation: Prisma.DMMF.Field = target.fields.find(
-          (field) => field.relationName === dep.relationName
+          (field) => field.relationName === dep.relationName,
         )!;
         if (relation.relationFromFields?.length !== 1)
           throw new Error(
             `Error on EntityUtil.unify(): table ${getName(
-              target
-            )} has multiple columned foreign key.`
+              target,
+            )} has multiple columned foreign key.`,
           );
         const foreign: Prisma.DMMF.Field = target.fields.find(
-          (f) => f.name === relation.relationFromFields![0]
+          (f) => f.name === relation.relationFromFields![0],
         )!;
 
         // CONSIDER UNIQUE CONSTRAINT -> CASCADE MERGING
         const uniqueMatrix: (readonly string[])[] = target.uniqueFields.filter(
-          (columns) => columns.includes(foreign.name)
+          (columns) => columns.includes(foreign.name),
         );
         if (uniqueMatrix.length)
           for (const unique of uniqueMatrix)
@@ -134,17 +134,17 @@ export namespace EntityUtil {
     }) => {
       // GET PRIMARY KEY AND OTHER UNIQUE COLUMNS
       const primary: Prisma.DMMF.Field = current.model.fields.find(
-        (column) => column.isId === true
+        (column) => column.isId === true,
       )!;
       const group: string[] = current.unique.filter(
-        (column) => column !== current.foreign.name
+        (column) => column !== current.foreign.name,
       );
 
       // COMPOSE GROUPS OF OTHER UNIQUE COLUMNS
       const dict: HashMap<any[], any[]> = new HashMap(
         (elements) => hash(...elements.map((e) => JSON.stringify(e))),
         (x, y) =>
-          ranges.equal(x, y, (a, b) => JSON.stringify(a) === JSON.stringify(b))
+          ranges.equal(x, y, (a, b) => JSON.stringify(a) === JSON.stringify(b)),
       );
       const recordList: any[] = await (client as any)[
         current.model.name
@@ -169,7 +169,7 @@ export namespace EntityUtil {
       // MERGE THEM
       for (const it of dict) {
         const index: number = it.second.findIndex(
-          (rec) => rec[current.foreign.name] === parent.keep
+          (rec) => rec[current.foreign.name] === parent.keep,
         );
         if (index === -1) continue;
 

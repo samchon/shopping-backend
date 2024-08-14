@@ -18,7 +18,7 @@ export const validate_api_shopping_sale_inquiry_comment_index_sort = async (
   customer: IShoppingCustomer,
   seller: IShoppingSeller.IInvert,
   sale: IShoppingSale,
-  inquiry: IShoppingSaleInquiry<"question" | "review", any>
+  inquiry: IShoppingSaleInquiry<"question" | "review", any>,
 ): Promise<void> => {
   const generator = generate_random_sale_inquiry_comment({
     pool,
@@ -42,7 +42,7 @@ export const validate_api_shopping_sale_inquiry_comment_index_sort = async (
     IShoppingSaleInquiryComment.IRequest.SortableColumns,
     IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>
   >(async (
-    input: IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>
+    input: IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>,
   ) => {
     const page: IPage<IShoppingSaleInquiryComment> =
       await ShoppingApi.functional.shoppings.customers.sales[

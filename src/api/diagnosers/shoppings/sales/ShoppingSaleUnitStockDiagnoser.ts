@@ -20,14 +20,14 @@ export namespace ShoppingSaleUnitStockDiagnoser {
             accessor: `input.units[${unit.index}].stocks[${stock.index}].choices[${i}]`,
             message: `Duplicated choice: (${c.option_index}, ${c.candidate_index})`,
           }),
-        })(stock.data.choices)
+        })(stock.data.choices),
       );
       stock.data.choices.forEach((choice, i) => {
         output.push(
           ...ShoppingSaleUnitStockChoiceDiagnoser.validate(unit)(stock)({
             data: choice,
             index: i,
-          })
+          }),
         );
       });
       if (stock.data.price.nominal < stock.data.price.real)
@@ -43,7 +43,7 @@ export namespace ShoppingSaleUnitStockDiagnoser {
     (input: IShoppingSaleUnitStock): IShoppingSaleUnitStock.ICreate => ({
       name: input.name,
       choices: input.choices.map(
-        ShoppingSaleUnitStockChoiceDiagnoser.replica(options)
+        ShoppingSaleUnitStockChoiceDiagnoser.replica(options),
       ),
       quantity: Math.max(0, input.inventory.income - input.inventory.outcome),
       price: {

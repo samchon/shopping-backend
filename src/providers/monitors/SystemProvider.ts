@@ -30,24 +30,24 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
             ...commit,
             authored_at: DateUtil.toString(
               new Date(Number(commit.authoredOn) * 1000),
-              true
+              true,
             ),
             commited_at: DateUtil.toString(
               new Date(Number(commit.committedOn) * 1000),
-              true
+              true,
             ),
           });
       });
-    })
+    }),
 );
 const package_: Singleton<Promise<ISystem.IPackage>> = new Singleton(
   async () => {
     const content: string = await fs.promises.readFile(
       `${ShoppingConfiguration.ROOT}/package.json`,
-      "utf8"
+      "utf8",
     );
     return JSON.parse(content);
-  }
+  },
 );
 
 commit_.get().catch(() => {});

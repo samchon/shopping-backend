@@ -17,7 +17,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_mileage_donation } from "./internal/generate_random_mileage_donation";
 
 export const test_api_shopping_mileage_outcome_by_order = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -42,18 +42,18 @@ export const test_api_shopping_mileage_outcome_by_order = async (
       mileage: donation.value,
       deposit: 0,
       coupon_ids: [],
-    }
+    },
   );
   await validateBalance(pool, 0);
 };
 
 const validateBalance = async (
   pool: ConnectionPool,
-  value: number
+  value: number,
 ): Promise<void> => {
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
-      pool.customer
+      pool.customer,
     );
   TestValidator.equals("balance")(balance)(value);
 };

@@ -16,7 +16,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_delivery_create = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -30,7 +30,7 @@ export const test_api_shopping_delivery_create = async (
     pool,
     customer,
     order,
-    true
+    true,
   );
 
   const input: IShoppingDelivery.ICreate = {
@@ -40,7 +40,7 @@ export const test_api_shopping_delivery_create = async (
         pool.seller,
         {
           publish_ids: [order.publish.id],
-        }
+        },
       ),
     journeys: (["preparing", "manufacturing", "delivering"] as const).map(
       (type) => ({
@@ -49,20 +49,20 @@ export const test_api_shopping_delivery_create = async (
         description: null,
         started_at: new Date().toISOString(),
         completed_at: null,
-      })
+      }),
     ),
   };
   const delivery: IShoppingDelivery =
     await ShoppingApi.functional.shoppings.sellers.deliveries.create(
       pool.seller,
-      input
+      input,
     );
   TestValidator.equals("create")(input)(delivery);
 
   const read: IShoppingDelivery.IInvert =
     await ShoppingApi.functional.shoppings.sellers.deliveries.at(
       pool.seller,
-      delivery.id
+      delivery.id,
     );
   TestValidator.equals("read")(delivery)(read);
 };

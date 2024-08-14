@@ -10,7 +10,7 @@ export namespace ShoppingCouponDiagnoser {
     (sale: IShoppingSaleSnapshot.IInvert) =>
     (coupon: IShoppingCoupon): boolean =>
       coupon.criterias.every(
-        ShoppingCouponCriteriaDiagnoser.adjustable(customer)(sale)
+        ShoppingCouponCriteriaDiagnoser.adjustable(customer)(sale),
       );
 
   export const coexistable = (coupons: IShoppingCoupon[]): boolean =>

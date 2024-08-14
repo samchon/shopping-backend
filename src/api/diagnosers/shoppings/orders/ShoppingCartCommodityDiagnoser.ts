@@ -23,7 +23,7 @@ export namespace ShoppingCartCommodityDiagnoser {
       // ABOUT STOCKS
       input.stocks.forEach((stock, i) => {
         const unit: IShoppingSaleUnit | undefined = sale.units.find(
-          (u) => u.id === stock.unit_id
+          (u) => u.id === stock.unit_id,
         );
         if (unit === undefined)
           output.push({
@@ -34,22 +34,22 @@ export namespace ShoppingCartCommodityDiagnoser {
           output.push(
             ...ShoppingCartCommodityStockDiagnoser.validatae(unit)(input)(
               stock,
-              i
-            )
+              i,
+            ),
           );
       });
       return output;
     };
 
   export const replica = (
-    commodity: IShoppingCartCommodity
+    commodity: IShoppingCartCommodity,
   ): IShoppingCartCommodity.ICreate => ({
     sale_id: commodity.sale.id,
     stocks: commodity.sale.units
       .map((unit) =>
         unit.stocks.map((stock) =>
-          ShoppingCartCommodityStockDiagnoser.replica({ unit, stock })
-        )
+          ShoppingCartCommodityStockDiagnoser.replica({ unit, stock }),
+        ),
       )
       .flat(),
     volume: commodity.volume,
@@ -63,11 +63,11 @@ export namespace ShoppingCartCommodityDiagnoser {
         IShoppingSaleUnitStock.IInvert,
       ][] = input.stocks.map((stockInput) => {
         const unit: IShoppingSaleUnit | undefined = sale.units.find(
-          (u) => u.id === stockInput.unit_id
+          (u) => u.id === stockInput.unit_id,
         );
         if (unit === undefined)
           throw new Error(
-            `Error on ShoppingCartItemDiagnoser.preview(): unable to find the matched unit by its id "${stockInput.unit_id}".`
+            `Error on ShoppingCartItemDiagnoser.preview(): unable to find the matched unit by its id "${stockInput.unit_id}".`,
           );
         return [
           {

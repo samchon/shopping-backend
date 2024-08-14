@@ -18,7 +18,7 @@ export const validate_api_shopping_sale_inquiry_comment_index_search = async (
   customer: IShoppingCustomer,
   seller: IShoppingSeller.IInvert,
   sale: IShoppingSale,
-  inquiry: IShoppingSaleInquiry<"question" | "review", any>
+  inquiry: IShoppingSaleInquiry<"question" | "review", any>,
 ): Promise<void> => {
   const generator = generate_random_sale_inquiry_comment({
     pool,
@@ -47,7 +47,7 @@ export const validate_api_shopping_sale_inquiry_comment_index_search = async (
           limit: total.length,
         });
       return page.data;
-    }
+    },
   )(total);
 
   await search({

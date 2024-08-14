@@ -13,7 +13,7 @@ import { test_api_shopping_actor_customer_create } from "./test_api_shopping_act
 export const test_api_shopping_actor_customer_join = async (
   pool: ConnectionPool,
   connection?: ShoppingApi.IConnection,
-  input?: Partial<IShoppingMember.IJoin>
+  input?: Partial<IShoppingMember.IJoin>,
 ): Promise<IShoppingCustomer.IAuthorized> => {
   // A CUSTOMER -> GUEST
   const issued: IShoppingCustomer.IAuthorized =
@@ -37,7 +37,7 @@ export const test_api_shopping_actor_customer_join = async (
       const joined: IShoppingCustomer =
         await ShoppingApi.functional.shoppings.customers.authenticate.join(
           connection ?? pool.customer,
-          emended
+          emended,
         );
       return [joined, true];
     } catch (exp) {
@@ -48,7 +48,7 @@ export const test_api_shopping_actor_customer_join = async (
             {
               email: input.email,
               password: TestGlobal.PASSWORD,
-            }
+            },
           ),
           false,
         ];
@@ -73,7 +73,7 @@ export const test_api_shopping_actor_customer_join = async (
         ...issued,
         member: joined.member,
         citizen: joined.citizen,
-      })
+      }),
     )(joined);
   }
   return {

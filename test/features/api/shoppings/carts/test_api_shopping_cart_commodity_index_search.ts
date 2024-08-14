@@ -14,7 +14,7 @@ import { generate_random_cart_commodity } from "./internal/generate_random_cart_
 import { prepare_random_cart_commodity } from "./internal/prepare_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_index_search = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   //----
   // PREPARE ASSETS
@@ -25,7 +25,7 @@ export const test_api_shopping_cart_commodity_index_search = async (
 
   // SALES AND CART ITEMS
   const sales: IShoppingSale[] = await ArrayUtil.asyncRepeat(REPEAT)(() =>
-    generate_random_sale(pool)
+    generate_random_sale(pool),
   );
   const cart: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(sales)(
     async (s) => {
@@ -34,7 +34,7 @@ export const test_api_shopping_cart_commodity_index_search = async (
       input.volume = randint(1, 10);
       for (const stock of input.stocks) stock.quantity = randint(1, 10);
       return generate_random_cart_commodity(pool, s, input);
-    }
+    },
   );
 
   // SEARCH VALIDATOR
@@ -47,10 +47,10 @@ export const test_api_shopping_cart_commodity_index_search = async (
           {
             limit: cart.length,
             search: input,
-          }
+          },
         );
       return page.data;
-    }
+    },
   )(cart, 5);
 
   //----
@@ -134,7 +134,7 @@ export const test_api_shopping_cart_commodity_index_search = async (
     request: ([email]) => ({ sale: { seller: { email } } }),
     filter: (commodity, [value]) =>
       commodity.sale.seller.member.emails.some((email) =>
-        email.value.includes(value)
+        email.value.includes(value),
       ),
   });
 

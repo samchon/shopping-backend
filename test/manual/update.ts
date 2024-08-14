@@ -36,7 +36,7 @@ async function main(): Promise<void> {
       ArrayUtil.repeat(600)(async (i) => {
         await sleep_for(i * 10);
         await ShoppingApi.functional.monitors.system.get(connection);
-      })
+      }),
     );
   } catch (exp) {
     throw exp;

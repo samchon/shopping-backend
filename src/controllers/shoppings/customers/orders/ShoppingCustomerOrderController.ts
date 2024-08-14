@@ -37,7 +37,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   @core.TypedRoute.Post()
   public async create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingOrder.ICreate
+    @core.TypedBody() input: IShoppingOrder.ICreate,
   ): Promise<IShoppingOrder> {
     return ShoppingOrderProvider.create(customer)(input);
   }
@@ -60,7 +60,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingOrderProvider.erase(customer)(id);
   }
@@ -84,7 +84,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   @core.TypedRoute.Get(":id/price")
   public async price(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingOrderPrice> {
     return ShoppingOrderPriceProvider.at(customer)({ id });
   }
@@ -114,7 +114,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   public async discountable(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingOrderDiscountable.IRequest
+    @core.TypedBody() input: IShoppingOrderDiscountable.IRequest,
   ): Promise<IShoppingOrderDiscountable> {
     return ShoppingOrderPriceProvider.discountable(customer)({ id })(input);
   }
@@ -144,7 +144,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   public async discount(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingOrderPrice.ICreate
+    @core.TypedBody() input: IShoppingOrderPrice.ICreate,
   ): Promise<IShoppingOrderPrice> {
     return ShoppingOrderPriceProvider.discount(customer)({ id })(input);
   }

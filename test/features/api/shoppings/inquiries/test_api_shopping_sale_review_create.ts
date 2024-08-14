@@ -19,7 +19,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_review_create = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
@@ -33,21 +33,21 @@ export const test_api_shopping_sale_review_create = async (
     pool,
     customer,
     order,
-    true
+    true,
   );
 
   const good: IShoppingOrderGood = order.goods[0];
   const review: IShoppingSaleReview = await generate_random_sale_review(
     pool,
     sale,
-    good
+    good,
   );
 
   const read: IShoppingSaleReview =
     await ShoppingApi.functional.shoppings.customers.sales.reviews.at(
       pool.customer,
       sale.id,
-      review.id
+      review.id,
     );
   TestValidator.equals("read")(review)(read);
 
@@ -57,7 +57,7 @@ export const test_api_shopping_sale_review_create = async (
       sale.id,
       {
         limit: 1,
-      }
+      },
     );
   TestValidator.equals("page")(review.id)(page.data[0].id);
 };

@@ -14,7 +14,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
     (commodity: IShoppingCartCommodity.ICreate) =>
     (
       input: IShoppingCartCommodityStock.ICreate,
-      sequence: number
+      sequence: number,
     ): IDiagnosis[] => {
       const output: IDiagnosis[] = [];
       input.choices.forEach((choice, i) => {
@@ -47,7 +47,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
     unit_id: props.unit.id,
     stock_id: props.stock.id,
     choices: props.stock.choices.map(
-      ShoppingCartCommodityStockChoiceDiagnoser.replica
+      ShoppingCartCommodityStockChoiceDiagnoser.replica,
     ),
     quantity: props.stock.quantity,
   });
@@ -55,7 +55,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
   export const find =
     (unit: IShoppingSaleUnit) =>
     (
-      input: IShoppingCartCommodityStock.ICreate
+      input: IShoppingCartCommodityStock.ICreate,
     ): IShoppingSaleUnitStock | undefined => {
       if (unit.stocks.length === 1 && unit.stocks[0].choices.length === 0)
         return unit.stocks[0];
@@ -68,8 +68,8 @@ export namespace ShoppingCartCommodityStockDiagnoser {
               (o) =>
                 o.id === choice.option_id &&
                 o.type === "select" &&
-                o.variable === true
-            ) !== undefined
+                o.variable === true,
+            ) !== undefined,
         );
       for (const stock of unit.stocks) {
         const matched: IShoppingSaleUnitStockChoice[] = stock.choices.filter(
@@ -78,8 +78,8 @@ export namespace ShoppingCartCommodityStockDiagnoser {
             choices.find(
               (choice) =>
                 choice.option_id === elem.option_id &&
-                choice.candidate_id === elem.candidate_id
-            ) !== undefined
+                choice.candidate_id === elem.candidate_id,
+            ) !== undefined,
         );
         if (choices.length === matched.length) return stock;
       }
@@ -89,7 +89,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
   export const preview =
     (unit: IShoppingSaleUnit) =>
     (
-      input: IShoppingCartCommodityStock.ICreate
+      input: IShoppingCartCommodityStock.ICreate,
     ): IShoppingSaleUnitStock.IInvert => {
       const stock: IShoppingSaleUnitStock | undefined = find(unit)(input);
       if (stock === undefined)
@@ -104,7 +104,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
           const choice = stock.choices.find(
             (c) =>
               c.option_id === raw.option_id &&
-              c.candidate_id === raw.candidate_id
+              c.candidate_id === raw.candidate_id,
           );
           if (choice === undefined)
             throw new Error("Unable to find the matched choice.");
@@ -116,8 +116,8 @@ export namespace ShoppingCartCommodityStockDiagnoser {
             option,
             candidate:
               option.type === "select" && raw.candidate_id !== null
-                ? option.candidates.find((c) => c.id === raw.candidate_id) ??
-                  null
+                ? (option.candidates.find((c) => c.id === raw.candidate_id) ??
+                  null)
                 : null,
             value: raw.value,
           };

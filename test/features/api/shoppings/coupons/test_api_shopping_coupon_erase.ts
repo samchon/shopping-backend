@@ -14,7 +14,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_erase = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -41,21 +41,24 @@ export const test_api_shopping_coupon_erase = async (
       pool.customer,
       {
         coupon_id: coupon.id,
-      }
+      },
     );
 
   // ERASE THE COUPON
   await ShoppingApi.functional.shoppings.admins.coupons.erase(
     pool.admin,
-    coupon.id
+    coupon.id,
   );
   await TestValidator.httpError("erased")(404)(() =>
-    ShoppingApi.functional.shoppings.customers.coupons.at(pool.admin, coupon.id)
+    ShoppingApi.functional.shoppings.customers.coupons.at(
+      pool.admin,
+      coupon.id,
+    ),
   );
 
   // BUT TICKET STILL ALIVE
   await ShoppingApi.functional.shoppings.customers.coupons.tickets.at(
     pool.customer,
-    ticket.id
+    ticket.id,
   );
 };

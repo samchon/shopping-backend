@@ -10,7 +10,7 @@ import { ShoppingSaleUnitStockDiagnoser } from "./ShoppingSaleUnitStockDiagnoser
 
 export namespace ShoppingSaleUnitDiagnoser {
   export const validate = (
-    unit: IIndexedInput<IShoppingSaleUnit.ICreate>
+    unit: IIndexedInput<IShoppingSaleUnit.ICreate>,
   ): IDiagnosis[] => {
     const accessor: string = `input.units[${unit.index}]`;
     const output: IDiagnosis[] = [];
@@ -23,15 +23,15 @@ export namespace ShoppingSaleUnitDiagnoser {
           accessor: `${accessor}.options[${i}]`,
           message: `Duplicated option name: "${o.name}"`,
         }),
-      })(unit.data.options)
+      })(unit.data.options),
     );
     unit.data.options.forEach((option, i) =>
       output.push(
         ...ShoppingSaleUnitOptionDiagnoser.validate(unit)({
           data: option,
           index: i,
-        })
-      )
+        }),
+      ),
     );
 
     // STOCKS
@@ -43,7 +43,7 @@ export namespace ShoppingSaleUnitDiagnoser {
     else {
       const count: number = unit.data.options
         .map((o) =>
-          o.type === "select" && o.variable ? o.candidates.length : 1
+          o.type === "select" && o.variable ? o.candidates.length : 1,
         )
         .reduce((a, b) => a * b, 1);
       if (unit.data.stocks.length > count)
@@ -59,21 +59,21 @@ export namespace ShoppingSaleUnitDiagnoser {
           accessor: `${accessor}.stocks[${i}]`,
           message: `Duplicated stock name: "${o.name}"`,
         }),
-      })(unit.data.stocks)
+      })(unit.data.stocks),
     );
 
     return output;
   };
 
   export const replica = (
-    unit: IShoppingSaleUnit
+    unit: IShoppingSaleUnit,
   ): IShoppingSaleUnit.ICreate => ({
     name: unit.name,
     primary: unit.primary,
     required: unit.required,
     options: unit.options.map(ShoppingSaleUnitOptionDiagnoser.replica),
     stocks: unit.stocks.map(
-      ShoppingSaleUnitStockDiagnoser.replica(unit.options)
+      ShoppingSaleUnitStockDiagnoser.replica(unit.options),
     ),
   });
 }

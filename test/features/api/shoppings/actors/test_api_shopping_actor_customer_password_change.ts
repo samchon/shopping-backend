@@ -10,7 +10,7 @@ import { test_api_shopping_actor_customer_create } from "./test_api_shopping_act
 import { test_api_shopping_actor_customer_join } from "./test_api_shopping_actor_customer_join";
 
 export const test_api_shopping_actor_customer_password_change = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // MEMBERSHIP JOINING
   const joined: IShoppingCustomer =
@@ -23,7 +23,7 @@ export const test_api_shopping_actor_customer_password_change = async (
         {
           email: joined.member!.emails[0].value,
           password,
-        }
+        },
       );
     return authorized;
   };
@@ -38,12 +38,12 @@ export const test_api_shopping_actor_customer_password_change = async (
     {
       oldbie: TestGlobal.PASSWORD,
       newbie: NEW_PASSWORD,
-    }
+    },
   );
 
   // TRY WITH PREVIOUS PASSWORD
   await TestValidator.httpError("previous")(403)(() =>
-    login(TestGlobal.PASSWORD)
+    login(TestGlobal.PASSWORD),
   );
 
   // TRY WITH NEW PASSWORD
@@ -56,7 +56,7 @@ export const test_api_shopping_actor_customer_password_change = async (
     {
       oldbie: NEW_PASSWORD,
       newbie: TestGlobal.PASSWORD,
-    }
+    },
   );
   const again: IShoppingCustomer = await login(TestGlobal.PASSWORD);
   validate("again")(joined)(again);
@@ -65,7 +65,7 @@ export const test_api_shopping_actor_customer_password_change = async (
 const validate =
   (title: string) => (x: IShoppingCustomer) => (y: IShoppingCustomer) =>
     TestValidator.equals(title)(
-      typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(x)
+      typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(x),
     )(y);
 
 const NEW_PASSWORD = "something";
