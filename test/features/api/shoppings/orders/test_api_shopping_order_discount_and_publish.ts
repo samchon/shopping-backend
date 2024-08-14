@@ -15,13 +15,13 @@ export const test_api_shopping_order_discount_and_publish =
         deposit: 0,
         mileage: 0,
         coupon_ids: combination.coupons.map((c) => c.id),
-      }
+      },
     );
 
     await generate_random_order_publish(
       pool,
       props.customer,
       props.order,
-      true
+      true,
     );
   });

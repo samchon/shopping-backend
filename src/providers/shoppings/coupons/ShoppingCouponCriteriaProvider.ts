@@ -28,10 +28,10 @@ export namespace ShoppingCouponCriterialProvider {
     export const transform = async (
       inputList: Prisma.shopping_coupon_criteriasGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): Promise<IShoppingCouponCriteria[]> => {
       const gather = async (
-        direction: "include" | "exclude"
+        direction: "include" | "exclude",
       ): Promise<IShoppingCouponCriteria[]> => {
         const dict: Map<
           IShoppingCouponCriteria.Type,
@@ -40,10 +40,10 @@ export namespace ShoppingCouponCriterialProvider {
           >[]
         > = new Map();
         for (const input of inputList.filter(
-          (input) => input.direction === direction
+          (input) => input.direction === direction,
         ))
           MapUtil.take(dict)(
-            typia.assert<IShoppingCouponCriteria.Type>(input.type)
+            typia.assert<IShoppingCouponCriteria.Type>(input.type),
           )(() => []).push(input);
         return ArrayUtil.asyncMap([...dict.entries()])(
           async ([type, inputList]) =>
@@ -53,7 +53,7 @@ export namespace ShoppingCouponCriterialProvider {
                   direction,
                   channels:
                     await ShoppingCouponChannelCriterialProvider.json.transform(
-                      inputList.map((i) => i.of_channel!)
+                      inputList.map((i) => i.of_channel!),
                     ),
                 }
               : type === "section"
@@ -62,7 +62,7 @@ export namespace ShoppingCouponCriterialProvider {
                     direction,
                     sections:
                       ShoppingCouponSectionCriteriaProvider.json.transform(
-                        inputList.map((i) => i.of_section!)
+                        inputList.map((i) => i.of_section!),
                       ),
                   }
                 : type === "sale"
@@ -71,7 +71,7 @@ export namespace ShoppingCouponCriterialProvider {
                       direction,
                       sales:
                         await ShoppingCouponSaleCriteriaProvider.json.transform(
-                          inputList.map((i) => i.of_sale!)
+                          inputList.map((i) => i.of_sale!),
                         ),
                     }
                   : type === "seller"
@@ -80,7 +80,7 @@ export namespace ShoppingCouponCriterialProvider {
                         direction,
                         sellers:
                           ShoppingCouponSellerCriteriaProvider.json.transform(
-                            inputList.map((i) => i.of_seller!)
+                            inputList.map((i) => i.of_seller!),
                           ),
                       }
                     : <IShoppingCouponFunnelCriteria>{
@@ -88,9 +88,9 @@ export namespace ShoppingCouponCriterialProvider {
                         direction,
                         funnels:
                           ShoppingCouponFunnelCriteriaProvider.json.transform(
-                            inputList.map((i) => i.of_funnel!)
+                            inputList.map((i) => i.of_funnel!),
                           ),
-                      }
+                      },
         );
       };
       const output = [
@@ -138,23 +138,23 @@ export namespace ShoppingCouponCriterialProvider {
         });
         if (input.type === "channel")
           return ShoppingCouponChannelCriterialProvider.collect(counter)(base)(
-            input
+            input,
           );
         else if (input.type === "section")
           return ShoppingCouponSectionCriteriaProvider.collect(counter)(base)(
-            input
+            input,
           );
         else if (input.type === "sale")
           return ShoppingCouponSaleCriteriaProvider.collect(actor)(counter)(
-            base
+            base,
           )(input);
         else if (input.type === "seller")
           return ShoppingCouponSellerCriteriaProvider.collect(actor)(counter)(
-            base
+            base,
           )(input);
         else
           return ShoppingCouponFunnelCriteriaProvider.collect(counter)(base)(
-            input
+            input,
           );
       });
       return (

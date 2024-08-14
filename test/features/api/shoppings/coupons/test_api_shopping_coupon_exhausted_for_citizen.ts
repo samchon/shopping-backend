@@ -13,7 +13,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_exhausted_for_citizen = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -44,7 +44,7 @@ export const test_api_shopping_coupon_exhausted_for_citizen = async (
       pool.customer,
       {
         coupon_id: coupon.id,
-      }
+      },
     );
   };
 

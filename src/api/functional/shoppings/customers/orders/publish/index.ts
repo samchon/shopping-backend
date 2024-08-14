@@ -55,11 +55,11 @@ export namespace able {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (orderId: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(orderId ?? "null")}/publish/able`;
+    `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/publish/able`;
   export const random = (g?: Partial<typia.IRandomGenerator>): false | true =>
     typia.random<false | true>(g);
   export const simulate = (
@@ -146,11 +146,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (orderId: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(orderId ?? "null")}/publish`;
+    `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/publish`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingOrderPublish => typia.random<IShoppingOrderPublish>(g);
@@ -214,11 +214,11 @@ export namespace cancel {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (orderId: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(orderId ?? "null")}/publish`;
+    `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/publish`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (

@@ -83,7 +83,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/sales";
@@ -121,7 +121,7 @@ export namespace index {
  * sales in the market. You can't access to the unopened, closed, or suspended
  * sales.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @returns Detailed sale information
  * @tag Sale
  * @author Samchon
@@ -153,11 +153,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/sales/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/sales/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingSale =>
     typia.random<IShoppingSale>(g);
   export const simulate = (

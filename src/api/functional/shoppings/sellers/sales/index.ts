@@ -80,7 +80,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/sellers/sales";
@@ -120,7 +120,7 @@ export namespace create {
  * to demonstrate operating performance by chaning price, content, and
  * composition of the product. This snapshot concept would be helpful for it.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @param input New information of the sale
  * @returns Updated sale with new snapshot
  * @tag Sale
@@ -168,11 +168,11 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingSale =>
     typia.random<IShoppingSale>(g);
   export const simulate = (
@@ -208,7 +208,7 @@ export namespace update {
  * Of course, if closing time is less than opening time or not,
  * 428 unprocessable entity error would be thrown.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @param input New opening and closing time
  * @tag Sale
  * @author Samchon
@@ -254,11 +254,11 @@ export namespace open {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}/open`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/open`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -291,7 +291,7 @@ export namespace open {
  * It would be useful for creating a new replication
  * {@link IShoppingSale sale} with similar innformatiopn.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @returns Creation info of the sale for replication
  * @tag Sale
  * @author Samchon
@@ -323,11 +323,11 @@ export namespace replica {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}/replica`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/replica`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSale.ICreate => typia.random<IShoppingSale.ICreate>(g);
@@ -370,7 +370,7 @@ export namespace replica {
  * {@link IShoppingSeller seller} must {@link IShoppingDelivery deliver} the
  * good to the customer.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @tag Sale
  * @author Samchon
  *
@@ -399,11 +399,11 @@ export namespace pause {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}/pause`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/pause`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -444,7 +444,7 @@ export namespace pause {
  * {@link IShoppingSeller seller} must {@link IShoppingDelivery deliver} the
  * good to the customer.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @tag Sale
  * @author Samchon
  *
@@ -473,11 +473,11 @@ export namespace suspend {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}/suspend`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/suspend`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -512,7 +512,7 @@ export namespace suspend {
  * {@link IShoppingCartCommodity commodity} will be listed again on the
  * shopping cart.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @tag Sale
  * @author Samchon
  *
@@ -541,11 +541,11 @@ export namespace restore {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}/restore`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/restore`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -633,7 +633,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/sellers/sales";
@@ -671,7 +671,7 @@ export namespace index {
  * sales in the market. You can't access to the unopened, closed, or suspended
  * sales.
  *
- * @param id Target sale's {@link IShoppingSale.id}
+ * @param id Target sale's {@link IShoppingSale.id }
  * @returns Detailed sale information
  * @tag Sale
  * @author Samchon
@@ -703,11 +703,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingSale =>
     typia.random<IShoppingSale>(g);
   export const simulate = (

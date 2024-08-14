@@ -20,7 +20,7 @@ export const test_api_shopping_order_discount_after_discount =
             deposit: 0,
             mileage: 0,
             coupon_ids: combination.coupons.map((coupon) => coupon.id),
-          }
+          },
         );
       return price;
     };
@@ -30,10 +30,10 @@ export const test_api_shopping_order_discount_after_discount =
     TestValidator.equals("coupons")(
       first.ticket_payments
         .map((tp) => tp.ticket.coupon)
-        .sort((x, y) => x.id.localeCompare(y.id))
+        .sort((x, y) => x.id.localeCompare(y.id)),
     )(
       second.ticket_payments
         .map((tp) => tp.ticket.coupon)
-        .sort((x, y) => x.id.localeCompare(y.id))
+        .sort((x, y) => x.id.localeCompare(y.id)),
     );
   });

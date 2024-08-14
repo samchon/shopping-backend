@@ -23,7 +23,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_criteria_include = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // PREPARE ASSETS
   await test_api_shopping_actor_admin_login(pool);
@@ -33,7 +33,7 @@ export const test_api_shopping_coupon_criteria_include = async (
   const erasure = (coupon: IShoppingCoupon) =>
     ShoppingApi.functional.shoppings.admins.coupons.destroy(
       pool.admin,
-      coupon.id
+      coupon.id,
     );
 
   // CREATE COUPONS FOR EACH CRITERIA AND VALIDATE THEM
@@ -46,7 +46,7 @@ export const test_api_shopping_coupon_criteria_include = async (
       create: (input) =>
         ShoppingApi.functional.shoppings.admins.coupons.create(
           pool.admin,
-          input
+          input,
         ),
       prepare: (criterias) => prepare_random_coupon({ criterias }),
     });
@@ -63,7 +63,7 @@ export const test_api_shopping_coupon_criteria_include = async (
 const validate = async (
   pool: ConnectionPool,
   { customer, sale }: IGroup,
-  possible: boolean
+  possible: boolean,
 ): Promise<void> => {
   // CUSTOMER CAME BACK
   Object.assign(pool.customer.headers!, customer.setHeaders);
@@ -71,7 +71,7 @@ const validate = async (
   try {
     sale = await ShoppingApi.functional.shoppings.customers.sales.at(
       pool.customer,
-      sale.id
+      sale.id,
     );
   } catch {
     return;
@@ -89,10 +89,10 @@ const validate = async (
       {
         commodity_ids: [commodity.id],
         pseudos: [],
-      }
+      },
     );
   TestValidator.equals("predicate on cart")(possible)(
-    !!preview.combinations.length
+    !!preview.combinations.length,
   );
 
   // PURCHASE THE SALE
@@ -105,16 +105,16 @@ const validate = async (
       order.id,
       {
         good_ids: null,
-      }
+      },
     );
   TestValidator.equals("predicate on order")(possible)(
-    !!discountable.combinations.length
+    !!discountable.combinations.length,
   );
 };
 
 const generate_group = async (
   pool: ConnectionPool,
-  i: number
+  i: number,
 ): Promise<IGroup> => {
   // CREATE NEW CHANNEL AND SECTION
   const channel: IShoppingChannel =
@@ -123,7 +123,7 @@ const generate_group = async (
       {
         name: RandomGenerator.name(),
         code: RandomGenerator.alphabets(16),
-      }
+      },
     );
   const section: IShoppingSection =
     await ShoppingApi.functional.shoppings.admins.systematic.sections.create(
@@ -131,7 +131,7 @@ const generate_group = async (
       {
         name: RandomGenerator.name(),
         code: RandomGenerator.alphabets(16),
-      }
+      },
     );
 
   // A NEW CUSTOMER
@@ -143,7 +143,7 @@ const generate_group = async (
         referrer: i === 0 ? "https://www.google.com" : "https://www.naver.com",
         channel_code: channel.code,
         external_user: null,
-      }
+      },
     );
 
   const activated: IShoppingCustomer =
@@ -152,7 +152,7 @@ const generate_group = async (
       {
         mobile: RandomGenerator.mobile(),
         name: RandomGenerator.name(),
-      }
+      },
     );
   customer.citizen = activated.citizen;
 

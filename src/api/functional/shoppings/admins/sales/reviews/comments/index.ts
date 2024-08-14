@@ -79,14 +79,14 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     inquiryId: string & Format<"uuid">,
   ) =>
-    `/shoppings/admins/sales/${encodeURIComponent(saleId ?? "null")}/reviews/${encodeURIComponent(inquiryId ?? "null")}/comments`;
+    `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleInquiryComment> =>
@@ -127,7 +127,7 @@ export namespace index {
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }
  * @param inquiryId Belonged inquiry's {@link IShoppingSaleInquiry.id }
- * @param id Target inquiry comment's {@link IShoppingSaleInquiryComment.id}
+ * @param id Target inquiry comment's {@link IShoppingSaleInquiryComment.id }
  * @returns Detailed inquiry comment info
  * @tag Sale
  * @author Samchon
@@ -161,7 +161,7 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
@@ -169,7 +169,7 @@ export namespace at {
     inquiryId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/admins/sales/${encodeURIComponent(saleId ?? "null")}/reviews/${encodeURIComponent(inquiryId ?? "null")}/comments/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleInquiryComment =>
@@ -257,14 +257,14 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     inquiryId: string & Format<"uuid">,
   ) =>
-    `/shoppings/admins/sales/${encodeURIComponent(saleId ?? "null")}/reviews/${encodeURIComponent(inquiryId ?? "null")}/comments`;
+    `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleInquiryComment =>
@@ -310,7 +310,7 @@ export namespace create {
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }
  * @param inquiryId Belonged inquiry's {@link IShoppingSaleInquiry.id }
- * @param id Target inquiry comment's {@link IShoppingSaleInquiryComment.id}
+ * @param id Target inquiry comment's {@link IShoppingSaleInquiryComment.id }
  * @param input Update info of the inquiry comment
  * @returns Newly created snapshot record of the inquiry comment
  * @tag Sale
@@ -360,7 +360,7 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
@@ -368,7 +368,7 @@ export namespace update {
     inquiryId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/admins/sales/${encodeURIComponent(saleId ?? "null")}/reviews/${encodeURIComponent(inquiryId ?? "null")}/comments/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleInquiryComment.ISnapshot =>

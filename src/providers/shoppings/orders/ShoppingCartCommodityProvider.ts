@@ -36,13 +36,13 @@ export namespace ShoppingCartCommodityProvider {
     export const transform = async (
       input: Prisma.shopping_cart_commoditiesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): Promise<IShoppingCartCommodity> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("No mv_price found");
       const snapshot: IShoppingSaleSnapshot.IInvert = {
         ...(await ShoppingSaleSnapshotProvider.invert.transform(
-          input.snapshot
+          input.snapshot,
         )),
         units: [],
       };
@@ -88,7 +88,7 @@ export namespace ShoppingCartCommodityProvider {
     (customer: IShoppingCustomer) =>
     (cart: IEntity | null) =>
     async (
-      input: IShoppingCartCommodity.IRequest
+      input: IShoppingCartCommodity.IRequest,
     ): Promise<IPage<IShoppingCartCommodity>> =>
       PaginationUtil.paginate({
         schema: ShoppingGlobal.prisma.shopping_cart_commodities,
@@ -145,7 +145,7 @@ export namespace ShoppingCartCommodityProvider {
     (customer: IShoppingCustomer) =>
     (cart: IEntity | null) =>
     async (
-      input: IShoppingCartDiscountable.IRequest
+      input: IShoppingCartDiscountable.IRequest,
     ): Promise<IShoppingCartDiscountable> => {
       const commodities =
         input.commodity_ids !== null
@@ -188,8 +188,8 @@ export namespace ShoppingCartCommodityProvider {
           ? []
           : await ArrayUtil.asyncMap(input.pseudos)(async (raw) =>
               ShoppingCartCommodityDiagnoser.preview(
-                await ShoppingSaleProvider.at(customer, true)(raw.sale_id)
-              )(raw)
+                await ShoppingSaleProvider.at(customer, true)(raw.sale_id),
+              )(raw),
             );
 
       return {
@@ -203,7 +203,7 @@ export namespace ShoppingCartCommodityProvider {
           await take(ShoppingCouponProvider.index(customer)),
           customer.citizen
             ? await take(ShoppingCouponTicketProvider.index(customer))
-            : []
+            : [],
         )([
           ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
           ...pseudos,
@@ -212,14 +212,14 @@ export namespace ShoppingCartCommodityProvider {
     };
 
   const search = async (
-    input: IShoppingCartCommodity.IRequest.ISearch | undefined
+    input: IShoppingCartCommodity.IRequest.ISearch | undefined,
   ) =>
     [
       ...(input?.sale !== undefined
         ? [
             ...(
               await ShoppingSaleSnapshotProvider.searchInvert(
-                "input.search.sale"
+                "input.search.sale",
               )(input.sale)
             ).map((snapshot) => ({
               snapshot,
@@ -274,7 +274,7 @@ export namespace ShoppingCartCommodityProvider {
 
   const orderBy = (
     key: IShoppingCartCommodity.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     key === "commodity.created_at"
       ? { created_at: value }
@@ -293,13 +293,13 @@ export namespace ShoppingCartCommodityProvider {
     (customer: IShoppingCustomer) =>
     (cart: IEntity | null) =>
     async (
-      input: IShoppingCartCommodity.ICreate
+      input: IShoppingCartCommodity.ICreate,
     ): Promise<IShoppingCartCommodity> => {
       // EMPLACE CART AND GET SALE INFO
       cart ??= await ShoppingCartProvider.emplace(customer);
       const sale: IShoppingSale = await ShoppingSaleProvider.at(
         customer,
-        false
+        false,
       )(input.sale_id);
 
       // VALIDATE INPUT VALUE
@@ -337,7 +337,7 @@ export namespace ShoppingCartCommodityProvider {
             },
             stocks: {
               create: input.stocks.map(
-                ShoppingCartCommodityStockProvider.collect
+                ShoppingCartCommodityStockProvider.collect,
               ),
             },
             mv_price: {
@@ -415,7 +415,7 @@ export namespace ShoppingCartCommodityProvider {
   const accumulate =
     (related: { cart: IEntity; sale: IShoppingSale }) =>
     async (
-      input: IShoppingCartCommodity.ICreate
+      input: IShoppingCartCommodity.ICreate,
     ): Promise<IShoppingCartCommodity | null> => {
       if (input.accumulate === false) return null;
 
@@ -441,7 +441,7 @@ export namespace ShoppingCartCommodityProvider {
       for (const elem of neighbor) {
         const similar: boolean = input.stocks.every((stock) => {
           const opposite = elem.stocks.find(
-            (s) => s.shopping_sale_snapshot_unit_stock_id === stock.stock_id
+            (s) => s.shopping_sale_snapshot_unit_stock_id === stock.stock_id,
           );
           return opposite !== undefined;
         });
@@ -473,7 +473,7 @@ export namespace ShoppingCartCommodityProvider {
 }
 
 const take = async <T extends object>(
-  closure: (input: IPage.IRequest) => Promise<IPage<T>>
+  closure: (input: IPage.IRequest) => Promise<IPage<T>>,
 ): Promise<T[]> => {
   const page: IPage<T> = await closure({ limit: 0 });
   return page.data;

@@ -72,7 +72,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/mileages";
@@ -103,7 +103,7 @@ export namespace index {
  *
  * Get a {@link IShoppingMileage mileage} metadata information with its ID.
  *
- * @param id Target mileage's {@link IShoppingMileage.id}
+ * @param id Target mileage's {@link IShoppingMileage.id }
  * @returns Mileage metadata
  * @tag Discount
  * @author Samchon
@@ -135,11 +135,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/mileages/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/mileages/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingMileage => typia.random<IShoppingMileage>(g);
@@ -198,11 +198,11 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (code: string) =>
-    `/shoppings/admins/mileages/${encodeURIComponent(code ?? "null")}/get`;
+    `/shoppings/admins/mileages/${encodeURIComponent(code?.toString() ?? "null")}/get`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingMileage => typia.random<IShoppingMileage>(g);
@@ -279,7 +279,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/admins/mileages";
@@ -312,7 +312,7 @@ export namespace create {
  * {@link IShoppingCustomer customer}'s balance does not be increased or
  * decreased by the mileage's reason why.
  *
- * @param id Target mileage's {@link IShoppingMileage.id}
+ * @param id Target mileage's {@link IShoppingMileage.id }
  * @tag Discount
  * @author Samchon
  *
@@ -341,11 +341,11 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/mileages/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/mileages/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (

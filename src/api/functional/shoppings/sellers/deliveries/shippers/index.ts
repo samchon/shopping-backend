@@ -71,11 +71,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (deliveryId: string & Format<"uuid">) =>
-    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId ?? "null")}/shippers`;
+    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/shippers`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDeliveryShipper => typia.random<IShoppingDeliveryShipper>(g);

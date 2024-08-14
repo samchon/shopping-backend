@@ -76,7 +76,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/orders";
@@ -111,7 +111,7 @@ export namespace create {
  * not possible to erase the order. In that case, you've to cancel the
  * payment by calling the {@link publish.cancel} function.
  *
- * @param id Target order's {@link IShoppingOrder.id}
+ * @param id Target order's {@link IShoppingOrder.id }
  * @tag Order
  * @author Samchon
  *
@@ -140,11 +140,11 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/orders/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -176,7 +176,7 @@ export namespace erase {
  * {@link IShoppingDepositHistory deposits} and
  * {@link IShoppingMileageHistory mileages}.
  *
- * @param id Target order's {@link IShoppingOrder.id}
+ * @param id Target order's {@link IShoppingOrder.id }
  * @returns Detailed price info with discount
  * @tag Order
  * @author Samchon
@@ -208,11 +208,11 @@ export namespace price {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(id ?? "null")}/price`;
+    `/shoppings/customers/orders/${encodeURIComponent(id?.toString() ?? "null")}/price`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingOrderPrice => typia.random<IShoppingOrderPrice>(g);
@@ -249,7 +249,7 @@ export namespace price {
  * been {@link IShoppingOrderPublish published} yet. If the order has
  * already been published, then no way to discount the price more.
  *
- * @param id Target order's {@link IShoppingOrder.id}
+ * @param id Target order's {@link IShoppingOrder.id }
  * @param input Request info for discountable
  * @returns Discountable info
  * @tag Order
@@ -297,11 +297,11 @@ export namespace discountable {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(id ?? "null")}/discountable`;
+    `/shoppings/customers/orders/${encodeURIComponent(id?.toString() ?? "null")}/discountable`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingOrderDiscountable => typia.random<IShoppingOrderDiscountable>(g);
@@ -340,7 +340,7 @@ export namespace discountable {
  * adjustable or withdrawable, call the {@link discountable} function
  * before.
  *
- * @param id Target order's {@link IShoppingOrder.id}
+ * @param id Target order's {@link IShoppingOrder.id }
  * @param input Discount info
  * @returns Detailed price info with discount
  * @tag Order
@@ -388,11 +388,11 @@ export namespace discount {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(id ?? "null")}/discount`;
+    `/shoppings/customers/orders/${encodeURIComponent(id?.toString() ?? "null")}/discount`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingOrderPrice => typia.random<IShoppingOrderPrice>(g);
@@ -482,7 +482,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/orders";
@@ -518,7 +518,7 @@ export namespace index {
  * {@link IShoppingOrderPublish.paid_at paid} yet. In that case,
  * 404 not found error would be thrown.
  *
- * @param id Target order's {@link IShoppingOrder.id}
+ * @param id Target order's {@link IShoppingOrder.id }
  * @returns Order info
  * @tag Order
  * @author Samchon
@@ -550,11 +550,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/orders/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/orders/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingOrder =>
     typia.random<IShoppingOrder>(g);
   export const simulate = (

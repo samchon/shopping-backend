@@ -13,31 +13,31 @@ export const validate_api_shopping_sale_inquiry_answer_update =
     read: (
       connection: ShoppingApi.IConnection,
       saleId: string,
-      inquiryId: string
+      inquiryId: string,
     ) => Promise<Inquiry>;
     create: (
       connection: ShoppingApi.IConnection,
       saleId: string,
       inquiryId: string,
-      input: IShoppingSaleInquiryAnswer.ICreate
+      input: IShoppingSaleInquiryAnswer.ICreate,
     ) => Promise<IShoppingSaleInquiryAnswer>;
     update: (
       connection: ShoppingApi.IConnection,
       saleId: string,
       inquiryId: string,
-      input: IShoppingSaleInquiryAnswer.IUpdate
+      input: IShoppingSaleInquiryAnswer.IUpdate,
     ) => Promise<IShoppingSaleInquiryAnswer.ISnapshot>;
   }) =>
   async (
     pool: ConnectionPool,
     sale: IShoppingSale,
-    inquiry: Inquiry
+    inquiry: Inquiry,
   ): Promise<void> => {
     const answer: IShoppingSaleInquiryAnswer = await accessor.create(
       pool.seller,
       sale.id,
       inquiry.id,
-      prepare_random_bbs_article()
+      prepare_random_bbs_article(),
     );
     inquiry.answer = answer;
 
@@ -47,15 +47,15 @@ export const validate_api_shopping_sale_inquiry_answer_update =
           pool.seller,
           sale.id,
           inquiry.id,
-          prepare_random_bbs_article()
-        )
-      ))
+          prepare_random_bbs_article(),
+        ),
+      )),
     );
 
     const read: Inquiry = await accessor.read(
       pool.customer,
       sale.id,
-      inquiry.id
+      inquiry.id,
     );
     TestValidator.equals("read")(inquiry)(read);
   };

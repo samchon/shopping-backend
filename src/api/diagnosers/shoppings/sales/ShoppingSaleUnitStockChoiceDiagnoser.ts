@@ -11,7 +11,7 @@ export namespace ShoppingSaleUnitStockChoiceDiagnoser {
     (unit: IIndexedInput<IShoppingSaleUnit.ICreate>) =>
     (stock: IIndexedInput<IShoppingSaleUnitStock.ICreate>) =>
     (
-      choice: IIndexedInput<IShoppingSaleUnitStockChoice.ICreate>
+      choice: IIndexedInput<IShoppingSaleUnitStockChoice.ICreate>,
     ): IDiagnosis[] => {
       const accessor: string = `input.units.[${unit.index}].stocks[${stock.index}].choices[${choice.index}]`;
       const output: IDiagnosis[] = [];
@@ -44,32 +44,32 @@ export namespace ShoppingSaleUnitStockChoiceDiagnoser {
   export const replica =
     (options: IShoppingSaleUnitOption[]) =>
     (
-      input: IShoppingSaleUnitStockChoice
+      input: IShoppingSaleUnitStockChoice,
     ): IShoppingSaleUnitStockChoice.ICreate => {
       const optionIndex: number = options.findIndex(
-        (o) => o.id === input.option_id
+        (o) => o.id === input.option_id,
       );
       if (optionIndex === -1)
         throw new Error(
-          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched option."
+          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched option.",
         );
 
       const option: IShoppingSaleUnitOption = options[optionIndex];
       if (option.type !== "select")
         throw new Error(
-          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option type must be 'select'."
+          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option type must be 'select'.",
         );
       else if (option.variable === false)
         throw new Error(
-          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option must be variable."
+          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option must be variable.",
         );
 
       const candidateIndex: number = option.candidates.findIndex(
-        (c) => c.id === input.candidate_id
+        (c) => c.id === input.candidate_id,
       );
       if (candidateIndex === -1)
         throw new Error(
-          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched candidate."
+          "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched candidate.",
         );
       return {
         option_index: optionIndex,

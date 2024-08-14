@@ -31,7 +31,7 @@ const getOptions = () =>
     command.option("--threads <number>", "number of threads to use");
     command.option(
       "--simultaneous <number>",
-      "number of simultaneous requests to make"
+      "number of simultaneous requests to make",
     );
     return action(async (options) => {
       if (typeof options.reset === "string")
@@ -40,17 +40,17 @@ const getOptions = () =>
       options.trace = options.trace !== ("false" as any);
       options.count = Number(
         options.count ??
-          (await prompt.number("count")("Number of requests to make"))
+          (await prompt.number("count")("Number of requests to make")),
       );
       options.threads = Number(
         options.threads ??
-          (await prompt.number("threads")("Number of threads to use"))
+          (await prompt.number("threads")("Number of threads to use")),
       );
       options.simultaneous = Number(
         options.simultaneous ??
           (await prompt.number("simultaneous")(
-            "Number of simultaneous requests to make"
-          ))
+            "Number of simultaneous requests to make",
+          )),
       );
       return options as IOptions;
     });
@@ -63,7 +63,7 @@ const main = async (): Promise<void> => {
 
   if (options.reset) {
     await StopWatch.trace("Reset DB")(() =>
-      ShoppingSetupWizard.schema(ShoppingGlobal.prisma)
+      ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
     );
     await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
   }
@@ -112,7 +112,7 @@ const main = async (): Promise<void> => {
       .split("/")
       .join("")}.md`,
     DynamicBenchmarker.markdown(report),
-    "utf8"
+    "utf8",
   );
 
   // CLOSE

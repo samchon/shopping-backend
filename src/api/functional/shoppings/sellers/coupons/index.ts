@@ -74,7 +74,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/sellers/coupons";
@@ -109,7 +109,7 @@ export namespace create {
  * which are already issued from the target coupon, they would not be affected.
  * Those tickets are still valid until their expration time.
  *
- * @param id Target coupon's {@link IShoppingCoupon.id}
+ * @param id Target coupon's {@link IShoppingCoupon.id }
  * @tag Discount
  * @author Samchon
  *
@@ -138,11 +138,11 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string) =>
-    `/shoppings/sellers/coupons/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/coupons/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (connection: IConnection, id: string): void => {
@@ -221,7 +221,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/sellers/coupons";
@@ -258,7 +258,7 @@ export namespace index {
  * {@link IShoppingSeller seller} or {@link IShoppingAdministrator administrator},
  * non-ticketable coupons are also accessible.
  *
- * @param id Target coupon's {@link IShoppingCoupon.id}
+ * @param id Target coupon's {@link IShoppingCoupon.id }
  * @returns Coupon info
  * @tag Discount
  * @author Samchon
@@ -290,11 +290,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string) =>
-    `/shoppings/sellers/coupons/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/coupons/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCoupon => typia.random<IShoppingCoupon>(g);

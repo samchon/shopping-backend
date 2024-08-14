@@ -32,7 +32,7 @@ import type { IShoppingSaleSnapshot } from "../../../../../structures/shoppings/
  * you can access to every snapshots of the sales even though the sale has
  * been closed or suspended.
  *
- * @param saleId Target sale's {@link IShoppingSale.id}
+ * @param saleId Target sale's {@link IShoppingSale.id }
  * @param input Requestion info of pagination
  * @returns Paginated snapshots with summarized information
  * @tag Sale
@@ -80,11 +80,11 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/snapshots`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleSnapshot.ISummary> =>
@@ -124,8 +124,8 @@ export namespace index {
  * you can access to every snapshots of the sales even though the sale has
  * been closed or suspended.
  *
- * @param saleId Belonged sale's {@link IShoppingSale.id}
- * @param id Target snapshot's {@link IShoppingSaleSnapshot.id}
+ * @param saleId Belonged sale's {@link IShoppingSale.id }
+ * @param id Target snapshot's {@link IShoppingSaleSnapshot.id }
  * @returns Detailed information of the snapshot
  * @tag Sale
  * @author Samchon
@@ -158,14 +158,14 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/snapshots/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleSnapshot => typia.random<IShoppingSaleSnapshot>(g);
@@ -204,8 +204,8 @@ export namespace at {
  * access to every snapshots of the sales even though the sale has been
  * closed or suspended.
  *
- * @param saleId Belonged sale's {@link IShoppingSale.id}
- * @param id Target snapshot's {@link IShoppingSaleSnapshot.id}
+ * @param saleId Belonged sale's {@link IShoppingSale.id }
+ * @param id Target snapshot's {@link IShoppingSaleSnapshot.id }
  * @returns Detailed sale information in the snapshot side
  * @tag Sale
  * @author Samchon
@@ -238,14 +238,14 @@ export namespace flip {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/snapshots/${encodeURIComponent(id ?? "null")}/flip`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots/${encodeURIComponent(id?.toString() ?? "null")}/flip`;
   export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingSale =>
     typia.random<IShoppingSale>(g);
   export const simulate = (

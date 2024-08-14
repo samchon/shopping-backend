@@ -16,8 +16,8 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend#readme",
   "dependencies": {
-    "@nestia/fetcher": "^3.8.0",
-    "typia": "^6.5.4",
+    "@nestia/fetcher": "^3.11.0",
+    "typia": "^6.8.0",
     "uuid": "^10.0.0"
   },
   "include": [

@@ -72,11 +72,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (deliveryId: string & Format<"uuid">) =>
-    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId ?? "null")}/journeys`;
+    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDeliveryJourney => typia.random<IShoppingDeliveryJourney>(g);
@@ -112,7 +112,7 @@ export namespace create {
  * the related {@link IShoppingOrderGood.state goods' states} to be "arrived".
  *
  * @param deliveryId Belonged delivery's {@link IShoppingDelivery.id }
- * @param id Target journey's {@link IShoppingDeliveryJourney.id}
+ * @param id Target journey's {@link IShoppingDeliveryJourney.id }
  * @param input Completion time of the journey
  * @tag Order
  * @author Samchon
@@ -159,14 +159,14 @@ export namespace complete {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     deliveryId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId ?? "null")}/journeys/${encodeURIComponent(id ?? "null")}/complete`;
+    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys/${encodeURIComponent(id?.toString() ?? "null")}/complete`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -203,7 +203,7 @@ export namespace complete {
  * journey, the state rolls back to the previous.
  *
  * @param deliveryId Belonged delivery's {@link IShoppingDelivery.id }
- * @param id Target journey's {@link IShoppingDeliveryJourney.id}
+ * @param id Target journey's {@link IShoppingDeliveryJourney.id }
  * @returns Newly created journey
  * @tag Order
  * @author Samchon
@@ -234,14 +234,14 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     deliveryId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId ?? "null")}/journeys/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (

@@ -11,7 +11,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_sale } from "./internal/generate_random_sale";
 
 export const test_api_shopping_sale_index_search = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
@@ -27,7 +27,7 @@ export const test_api_shopping_sale_index_search = async (
       {
         limit: REPEAT,
         sort: ["-sale.created_at"],
-      }
+      },
     );
 
   const search = TestValidator.search("sales.index")(
@@ -39,10 +39,10 @@ export const test_api_shopping_sale_index_search = async (
             limit: total.data.length,
             search: input,
             sort: ["-sale.created_at"],
-          }
+          },
         );
       return page.data;
-    }
+    },
   )(total.data, 4);
 
   //----
@@ -60,7 +60,7 @@ export const test_api_shopping_sale_index_search = async (
     total.data.every(
       (sale) =>
         sale.channels.length &&
-        sale.channels.every((c) => c.categories.length > 0)
+        sale.channels.every((c) => c.categories.length > 0),
     )
   )
     await search({

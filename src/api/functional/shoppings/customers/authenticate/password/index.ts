@@ -62,7 +62,7 @@ export namespace change {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/password/change";

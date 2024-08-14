@@ -28,13 +28,13 @@ export namespace ShoppingSaleUnitOptionDiagnoser {
             accessor: `${accessor}.candidates[${i}]`,
             message: `Duplicated candidate name: "${c.name}"`,
           }),
-        })(option.data.candidates)
+        })(option.data.candidates),
       );
       return output;
     };
 
   export const replica = (
-    input: IShoppingSaleUnitOption
+    input: IShoppingSaleUnitOption,
   ): IShoppingSaleUnitOption.ICreate =>
     input.type === "select"
       ? {

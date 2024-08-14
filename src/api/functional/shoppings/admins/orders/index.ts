@@ -78,7 +78,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/orders";
@@ -114,7 +114,7 @@ export namespace index {
  * {@link IShoppingOrderPublish.paid_at paid} yet. In that case,
  * 404 not found error would be thrown.
  *
- * @param id Target order's {@link IShoppingOrder.id}
+ * @param id Target order's {@link IShoppingOrder.id }
  * @returns Order info
  * @tag Order
  * @author Samchon
@@ -146,11 +146,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/orders/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/orders/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingOrder =>
     typia.random<IShoppingOrder>(g);
   export const simulate = (

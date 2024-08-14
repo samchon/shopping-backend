@@ -19,7 +19,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_mileage_income_by_order_good_confirm = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -34,7 +34,7 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
     pool,
     customer,
     order,
-    true
+    true,
   );
 
   await ShoppingApi.functional.shoppings.sellers.deliveries.create(
@@ -45,7 +45,7 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
           pool.seller,
           {
             publish_ids: [order.publish.id],
-          }
+          },
         ),
       shippers: [],
       journeys: (
@@ -57,26 +57,26 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
         started_at: new Date().toISOString(),
         completed_at: new Date().toISOString(),
       })),
-    }
+    },
   );
 
   const good: IShoppingOrderGood = order.goods[0];
   await ShoppingApi.functional.shoppings.customers.orders.goods.confirm(
     pool.customer,
     order.id,
-    good.id
+    good.id,
   );
 
   const mileage: IShoppingMileage =
     await ShoppingApi.functional.shoppings.admins.mileages.get(
       pool.admin,
-      "shopping_order_good_confirm_reward"
+      "shopping_order_good_confirm_reward",
     );
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
-      pool.customer
+      pool.customer,
     );
   TestValidator.equals("balance")(balance)(
-    good.price.real * typia.assert<number>(mileage.value)
+    good.price.real * typia.assert<number>(mileage.value),
   );
 };

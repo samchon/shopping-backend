@@ -6,7 +6,7 @@ import { ShoppingSaleSnapshotDiagnoser } from "./ShoppingSaleSnapshotDiagnoser";
 export namespace ShoppingSaleDiagnoser {
   export const validate = (
     sale: IShoppingSale.ICreate,
-    checkSnapshot: boolean = true
+    checkSnapshot: boolean = true,
   ): IDiagnosis[] => {
     const output: IDiagnosis[] = [];
 

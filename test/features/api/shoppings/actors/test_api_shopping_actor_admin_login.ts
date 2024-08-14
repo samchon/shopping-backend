@@ -9,7 +9,7 @@ import { TestGlobal } from "../../../../TestGlobal";
 import { test_api_shopping_actor_customer_create } from "./test_api_shopping_actor_customer_create";
 
 export const test_api_shopping_actor_admin_login = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<IShoppingAdministrator.IInvert> => {
   const input: IShoppingMember.IJoin = {
     email: "robot@nestia.io",
@@ -28,7 +28,7 @@ export const test_api_shopping_actor_admin_login = async (
       {
         email: input.email,
         password: TestGlobal.PASSWORD,
-      }
+      },
     );
   TestValidator.equals("passed")(input)({
     email: passed.member.emails[0].value,

@@ -70,7 +70,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/deposits/histories";
@@ -133,11 +133,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/deposits/histories/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/deposits/histories/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDepositHistory => typia.random<IShoppingDepositHistory>(g);
@@ -195,7 +195,7 @@ export namespace balance {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/deposits/histories/balance";

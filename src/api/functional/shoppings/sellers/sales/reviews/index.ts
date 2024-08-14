@@ -86,11 +86,11 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/reviews`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleReview.ISummary> =>
@@ -186,11 +186,11 @@ export namespace abridges {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/reviews/abridges`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/abridges`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleReview.IAbridge> =>
@@ -228,7 +228,7 @@ export namespace abridges {
  * reviews of the sales.
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }
- * @param id Target review's {@link IShoppingSaleReview.id}
+ * @param id Target review's {@link IShoppingSaleReview.id }
  * @returns Detailed review info
  * @tag Sale
  * @author Samchon
@@ -261,14 +261,14 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/reviews/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleReview => typia.random<IShoppingSaleReview>(g);

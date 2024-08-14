@@ -16,7 +16,7 @@ import { generate_random_deposit_charge } from "./internal/generate_random_depos
 import { generate_random_deposit_charge_publish } from "./internal/generate_random_deposit_charge_publish";
 
 export const test_api_shopping_deposit_outcome_by_order = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   await test_api_shopping_actor_customer_join(pool);
@@ -25,12 +25,12 @@ export const test_api_shopping_deposit_outcome_by_order = async (
     pool,
     {
       value: 1_000,
-    }
+    },
   );
   charge.publish = await generate_random_deposit_charge_publish(
     pool,
     charge,
-    true
+    true,
   );
 
   const sale: IShoppingSale = await generate_random_sole_sale(pool, {
@@ -48,12 +48,12 @@ export const test_api_shopping_deposit_outcome_by_order = async (
         deposit: charge.value,
         mileage: 0,
         coupon_ids: [],
-      }
+      },
     );
 
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.deposits.histories.balance(
-      pool.customer
+      pool.customer,
     );
   TestValidator.equals("balance")(balance)(0);
 };

@@ -12,7 +12,7 @@ export namespace ShoppingCartDiscountableDiagnoser {
     (commodities: IShoppingCartCommodity[]) =>
     (coupon: IShoppingCoupon) =>
       ShoppingDiscountableDiagnoser.checkCoupon(accessor)(customer)(
-        commodities
+        commodities,
       )(coupon);
 
   export const filterCommodities =
@@ -20,21 +20,21 @@ export namespace ShoppingCartDiscountableDiagnoser {
     (coupon: IShoppingCoupon) =>
     (commodities: IShoppingCartCommodity[]) =>
       ShoppingDiscountableDiagnoser.filterItems(accessor)(customer)(coupon)(
-        commodities
+        commodities,
       );
 
   export const combinate =
     (customer: IShoppingCustomer) =>
     (coupons: IShoppingCoupon[], tickets: IShoppingCouponTicket[]) =>
     (
-      commodities: IShoppingCartCommodity[]
+      commodities: IShoppingCartCommodity[],
     ): IShoppingCartDiscountable.ICombination[] =>
       ShoppingDiscountableDiagnoser.combinate({
         className: "ShoppingCartDiscountableDiagnoser",
         accessor,
       })(customer)(
         coupons,
-        tickets
+        tickets,
       )(commodities).map((comb) => ({
         ...comb,
         entries: comb.entries.map((entry) => ({

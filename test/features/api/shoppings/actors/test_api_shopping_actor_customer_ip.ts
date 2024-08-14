@@ -7,7 +7,7 @@ import { ConnectionPool } from "../../../../ConnectionPool";
 import { TestGlobal } from "../../../../TestGlobal";
 
 export const test_api_shopping_actor_customer_ip = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const automatic = await create(pool.customer, undefined);
   const manual = await create(pool.customer, PSEUDO);
@@ -26,7 +26,7 @@ const create = async (connection: ShoppingApi.IConnection, ip?: string) => {
         channel_code: TestGlobal.CHANNEL,
         external_user: null,
         ip,
-      }
+      },
     );
   return customer;
 };

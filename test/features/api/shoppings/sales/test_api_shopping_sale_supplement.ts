@@ -12,7 +12,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { prepare_random_sale } from "./internal/prepare_random_sale";
 
 export const test_api_shopping_sale_supplement = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
 
@@ -22,7 +22,7 @@ export const test_api_shopping_sale_supplement = async (
   const sale: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.create(
       pool.seller,
-      input
+      input,
     );
   const unit: IShoppingSaleUnit = RandomGenerator.pick(sale.units);
   const stock: IShoppingSaleUnitStock = RandomGenerator.pick(unit.stocks);
@@ -36,8 +36,8 @@ export const test_api_shopping_sale_supplement = async (
         stock.id,
         {
           value: 100,
-        }
-      )
+        },
+      ),
     );
   const page: IPage<IShoppingSaleUnitStockSupplement> =
     await ShoppingApi.functional.shoppings.sellers.sales.units.stocks.supplements.index(
@@ -48,14 +48,14 @@ export const test_api_shopping_sale_supplement = async (
       {
         limit: 10,
         sort: ["+created_at"],
-      }
+      },
     );
   TestValidator.equals("supplements")(supplements)(page.data);
 
   const reload: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.at(
       pool.seller,
-      sale.id
+      sale.id,
     );
   const stockAgain: IShoppingSaleUnitStock | undefined = reload.units
     .find((u) => u.id === unit.id)

@@ -11,7 +11,7 @@ export namespace Terminal {
         (error: Error | null, stdout: string, stderr: string) => {
           if (error) reject(error);
           else resolve(new Pair(stdout, stderr));
-        }
+        },
       );
     });
   }

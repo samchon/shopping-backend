@@ -28,8 +28,8 @@ export const prepare_random_cart_commodity_stock = (
             o.type === "boolean"
               ? RandomGenerator.pick([true, false])
               : o.type === "number"
-              ? randint(0, 100)
-              : "something",
+                ? randint(0, 100)
+                : "something",
           ),
         })),
     ],

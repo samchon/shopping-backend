@@ -45,7 +45,7 @@ async function main(): Promise<void> {
 
   if (options.reset) {
     await StopWatch.trace("Reset DB")(() =>
-      ShoppingSetupWizard.schema(ShoppingGlobal.prisma)
+      ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
     );
     await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
   }

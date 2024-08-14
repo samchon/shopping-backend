@@ -12,7 +12,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_mileage_histories } from "./internal/generate_random_mileage_histories";
 
 export const test_api_shopping_mileage_histories_index_search = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -20,7 +20,7 @@ export const test_api_shopping_mileage_histories_index_search = async (
     await test_api_shopping_actor_customer_join(pool);
 
   await ArrayUtil.asyncRepeat(10)(() =>
-    generate_random_mileage_histories(pool, customer)
+    generate_random_mileage_histories(pool, customer),
   );
 
   const entire: IPage<IShoppingMileageHistory> =
@@ -28,7 +28,7 @@ export const test_api_shopping_mileage_histories_index_search = async (
       pool.customer,
       {
         limit: 100,
-      }
+      },
     );
   const validator = TestValidator.search("search")(
     async (input: IShoppingMileageHistory.IRequest.ISearch) => {
@@ -38,10 +38,10 @@ export const test_api_shopping_mileage_histories_index_search = async (
           {
             limit: 100,
             search: input,
-          }
+          },
         );
       return page.data;
-    }
+    },
   )(entire.data, 5);
 
   await validator({

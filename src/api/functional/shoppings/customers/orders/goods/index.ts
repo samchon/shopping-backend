@@ -53,14 +53,14 @@ export namespace confirm {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     orderId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/orders/${encodeURIComponent(orderId ?? "null")}/goods/${encodeURIComponent(id ?? "null")}/confirm`;
+    `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/goods/${encodeURIComponent(id?.toString() ?? "null")}/confirm`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (

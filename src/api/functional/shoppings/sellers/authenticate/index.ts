@@ -49,7 +49,7 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/sellers/authenticate";
@@ -121,7 +121,7 @@ export namespace join {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/sellers/authenticate";
@@ -210,7 +210,7 @@ export namespace login {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/sellers/authenticate/login";

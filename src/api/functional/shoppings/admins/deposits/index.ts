@@ -70,7 +70,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/deposits";
@@ -101,7 +101,7 @@ export namespace index {
  *
  * Get a {@link IShoppingDeposit deposit} metadata information with its ID.
  *
- * @param id Target deposit's {@link IShoppingDeposit.id}
+ * @param id Target deposit's {@link IShoppingDeposit.id }
  * @returns Deposit metadata
  * @tag Discount
  * @author Samchon
@@ -133,11 +133,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/deposits/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/deposits/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDeposit => typia.random<IShoppingDeposit>(g);
@@ -196,11 +196,11 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (code: string) =>
-    `/shoppings/admins/deposits/${encodeURIComponent(code ?? "null")}/get`;
+    `/shoppings/admins/deposits/${encodeURIComponent(code?.toString() ?? "null")}/get`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDeposit => typia.random<IShoppingDeposit>(g);
@@ -277,7 +277,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/admins/deposits";
@@ -310,7 +310,7 @@ export namespace create {
  * {@link IShoppingCustomer customer}'s balance does not be increased or
  * decreased by the deposit's reason why.
  *
- * @param id Target deposit's {@link IShoppingDeposit.id}
+ * @param id Target deposit's {@link IShoppingDeposit.id }
  * @tag Discount
  * @author Samchon
  *
@@ -339,11 +339,11 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/deposits/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/deposits/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (

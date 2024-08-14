@@ -74,7 +74,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/coupons";
@@ -111,7 +111,7 @@ export namespace index {
  * {@link IShoppingSeller seller} or {@link IShoppingAdministrator administrator},
  * non-ticketable coupons are also accessible.
  *
- * @param id Target coupon's {@link IShoppingCoupon.id}
+ * @param id Target coupon's {@link IShoppingCoupon.id }
  * @returns Coupon info
  * @tag Discount
  * @author Samchon
@@ -143,11 +143,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string) =>
-    `/shoppings/customers/coupons/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/coupons/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCoupon => typia.random<IShoppingCoupon>(g);

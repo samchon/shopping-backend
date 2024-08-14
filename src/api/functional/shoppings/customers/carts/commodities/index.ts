@@ -84,11 +84,11 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (cartId: null | (string & Format<"uuid">)) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingCartCommodity> =>
@@ -131,7 +131,7 @@ export namespace index {
  * commodity with this {@link at} method.
  *
  * @param cartId Belonged cart's ID
- * @param id Target commodity's {@link IShoppingCartCommodity.id}
+ * @param id Target commodity's {@link IShoppingCartCommodity.id }
  * @returns Detailed commodity info
  * @tag Order
  * @author Samchon
@@ -164,14 +164,14 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     cartId: null | (string & Format<"uuid">),
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCartCommodity => typia.random<IShoppingCartCommodity>(g);
@@ -264,11 +264,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (cartId: null | (string & Format<"uuid">)) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCartCommodity => typia.random<IShoppingCartCommodity>(g);
@@ -309,7 +309,7 @@ export namespace create {
  * gone error would be thrown, either.
  *
  * @param cartId Belonged cart's ID
- * @param id Target commodity's {@link IShoppingCartCommodity.id}
+ * @param id Target commodity's {@link IShoppingCartCommodity.id }
  * @param input Update info of the commodity (volume)
  * @tag Order
  * @author Samchon
@@ -356,14 +356,14 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     cartId: null | (string & Format<"uuid">),
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -405,7 +405,7 @@ export namespace update {
  * then 410 gone error would be thrown, either.
  *
  * @param cartId Belonged cart's ID
- * @param id Target commodity's {@link IShoppingCartCommodity.id}
+ * @param id Target commodity's {@link IShoppingCartCommodity.id }
  * @returns Creation info of the commodity for replication
  * @tag Order
  * @author Samchon
@@ -438,14 +438,14 @@ export namespace replica {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     cartId: null | (string & Format<"uuid">),
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities/${encodeURIComponent(id ?? "null")}/replica`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities/${encodeURIComponent(id?.toString() ?? "null")}/replica`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCartCommodity.ICreate =>
@@ -483,7 +483,7 @@ export namespace replica {
  * erasinng the commodity, neither.
  *
  * @param cartId Belonged cart's ID
- * @param id Target commodity's {@link IShoppingCartCommodity.id}
+ * @param id Target commodity's {@link IShoppingCartCommodity.id }
  * @returns Newly created commodity
  * @tag Order
  * @author Samchon
@@ -514,14 +514,14 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     cartId: null | (string & Format<"uuid">),
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -611,11 +611,11 @@ export namespace discountable {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (cartId: null | (string & Format<"uuid">)) =>
-    `/shoppings/customers/carts/${encodeURIComponent(cartId ?? "null")}/commodities/discountable`;
+    `/shoppings/customers/carts/${encodeURIComponent(cartId?.toString() ?? "null")}/commodities/discountable`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCartDiscountable => typia.random<IShoppingCartDiscountable>(g);

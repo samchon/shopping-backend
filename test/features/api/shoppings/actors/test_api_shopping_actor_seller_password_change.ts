@@ -10,7 +10,7 @@ import { test_api_shopping_actor_customer_create } from "./test_api_shopping_act
 import { test_api_shopping_actor_seller_join } from "./test_api_shopping_actor_seller_join";
 
 export const test_api_shopping_actor_seller_password_change = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // JOIN AS A SELLER
   const joined: IShoppingSeller.IInvert =
@@ -24,7 +24,7 @@ export const test_api_shopping_actor_seller_password_change = async (
         {
           email: joined.member.emails[0].value,
           password,
-        }
+        },
       );
     return authorized;
   };
@@ -39,12 +39,12 @@ export const test_api_shopping_actor_seller_password_change = async (
     {
       oldbie: TestGlobal.PASSWORD,
       newbie: NEW_PASSWORD,
-    }
+    },
   );
 
   // TRY LOGIN WITH PREVIOUS PASSWORD -> FAIL
   await TestValidator.httpError("previous")(403)(() =>
-    login(TestGlobal.PASSWORD)
+    login(TestGlobal.PASSWORD),
   );
 
   // TRY LOGIN WITH NEW PASSWORD -> SUCCESS
@@ -57,7 +57,7 @@ export const test_api_shopping_actor_seller_password_change = async (
     {
       oldbie: NEW_PASSWORD,
       newbie: TestGlobal.PASSWORD,
-    }
+    },
   );
   const again: IShoppingSeller.IInvert = await login(TestGlobal.PASSWORD);
   validate("again")(joined)(again);
@@ -68,7 +68,7 @@ const validate =
   (x: IShoppingSeller.IInvert) =>
   (y: IShoppingSeller.IInvert) =>
     TestValidator.equals(title)(
-      typia.misc.clone<Omit<IShoppingSeller.IInvert, "customer">>(x)
+      typia.misc.clone<Omit<IShoppingSeller.IInvert, "customer">>(x),
     )(y);
 
 const NEW_PASSWORD = "something";

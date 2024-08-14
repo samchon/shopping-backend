@@ -40,7 +40,7 @@ export async function refresh(
   connection: IConnection,
   input: IShoppingCustomer.IRefresh,
 ): Promise<refresh.Output> {
-  const output: refresh.Output = !!connection.simulate
+  const output: IShoppingCustomer.IAuthorized = !!connection.simulate
     ? refresh.simulate(connection, input)
     : await PlainFetcher.fetch(
         {
@@ -76,7 +76,7 @@ export namespace refresh {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/refresh";
@@ -137,7 +137,7 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate";
@@ -192,7 +192,7 @@ export async function create(
   connection: IConnection,
   input: IShoppingCustomer.ICreate,
 ): Promise<create.Output> {
-  const output: create.Output = !!connection.simulate
+  const output: IShoppingCustomer.IAuthorized = !!connection.simulate
     ? create.simulate(connection, input)
     : await PlainFetcher.fetch(
         {
@@ -228,7 +228,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate";
@@ -319,7 +319,7 @@ export namespace join {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/join";
@@ -408,7 +408,7 @@ export namespace login {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/login";
@@ -495,7 +495,7 @@ export namespace activate {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/activate";
@@ -588,7 +588,7 @@ export namespace external {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/external";

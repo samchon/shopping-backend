@@ -78,7 +78,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/coupons/tickets";
@@ -115,7 +115,7 @@ export namespace index {
  * {@link IShoppingCouponTicketPayment pay} for the {@link IShoppingOrder order},
  * 410 gone exception would be thrown.
  *
- * @param id Target coupon ticket's {@link IShoppingCouponTicket.id}
+ * @param id Target coupon ticket's {@link IShoppingCouponTicket.id }
  * @returns Coupon ticket info
  * @tag Discount
  * @author Samchon
@@ -147,11 +147,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/coupons/tickets/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/coupons/tickets/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingCouponTicket => typia.random<IShoppingCouponTicket>(g);
@@ -237,7 +237,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/coupons/tickets";

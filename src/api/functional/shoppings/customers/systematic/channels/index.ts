@@ -71,7 +71,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/systematic/channels";
@@ -155,7 +155,7 @@ export namespace hierarchical {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () =>
@@ -192,7 +192,7 @@ export namespace hierarchical {
  * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
  * informations.
  *
- * @param id Target channel's {@link IShoppingChannel.id}
+ * @param id Target channel's {@link IShoppingChannel.id }
  * @returns Detailed channel info
  * @tag Systematic
  * @author Samchon
@@ -224,11 +224,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/customers/systematic/channels/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/systematic/channels/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannel.IHierarchical =>
@@ -262,7 +262,7 @@ export namespace at {
  * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
  * informations.
  *
- * @param code Target channel's {@link IShoppingChannel.code}
+ * @param code Target channel's {@link IShoppingChannel.code }
  * @returns Detailed channel info
  * @tag Systematic
  * @author Samchon
@@ -294,11 +294,11 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (code: string) =>
-    `/shoppings/customers/systematic/channels/${encodeURIComponent(code ?? "null")}/get`;
+    `/shoppings/customers/systematic/channels/${encodeURIComponent(code?.toString() ?? "null")}/get`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannel.IHierarchical =>

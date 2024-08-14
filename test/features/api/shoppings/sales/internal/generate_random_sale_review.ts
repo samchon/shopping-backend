@@ -12,7 +12,7 @@ export const generate_random_sale_review = async (
   pool: ConnectionPool,
   sale: IShoppingSale,
   good: IShoppingOrderGood,
-  input?: Partial<IShoppingSaleReview.ICreate>
+  input?: Partial<IShoppingSaleReview.ICreate>,
 ): Promise<IShoppingSaleReview> => {
   const review: IShoppingSaleReview =
     await ShoppingApi.functional.shoppings.customers.sales.reviews.create(
@@ -23,7 +23,7 @@ export const generate_random_sale_review = async (
         score: randint(0, 10) * 10,
         good_id: good.id,
         ...input,
-      }
+      },
     );
   return review;
 };

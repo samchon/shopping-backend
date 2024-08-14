@@ -78,7 +78,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/sellers/deliveries";
@@ -114,7 +114,7 @@ export namespace index {
  * {@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,
  * only related {@link IShoppingOrderGood goods} are contained in the orders.
  *
- * @param id Target delivery's {@link IShoppingDelivery.id}
+ * @param id Target delivery's {@link IShoppingDelivery.id }
  * @returns Delivery info with target orders
  * @tag Order
  * @author Samchon
@@ -146,11 +146,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/sellers/deliveries/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/deliveries/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDelivery.IInvert => typia.random<IShoppingDelivery.IInvert>(g);
@@ -233,7 +233,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/sellers/deliveries";
@@ -319,7 +319,7 @@ export namespace incompletes {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/sellers/deliveries/incompletes";

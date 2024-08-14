@@ -16,7 +16,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_delivery_journey_erase = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -30,7 +30,7 @@ export const test_api_shopping_delivery_journey_erase = async (
     pool,
     customer,
     order,
-    true
+    true,
   );
 
   const delivery: IShoppingDelivery =
@@ -43,7 +43,7 @@ export const test_api_shopping_delivery_journey_erase = async (
             pool.seller,
             {
               publish_ids: [order.publish.id],
-            }
+            },
           ),
         journeys: (["preparing", "manufacturing", "delivering"] as const).map(
           (type) => ({
@@ -52,23 +52,23 @@ export const test_api_shopping_delivery_journey_erase = async (
             description: null,
             started_at: new Date().toISOString(),
             completed_at: null,
-          })
+          }),
         ),
-      }
+      },
     );
   await ShoppingApi.functional.shoppings.sellers.deliveries.journeys.erase(
     pool.seller,
     delivery.id,
-    delivery.journeys.at(-1)!.id
+    delivery.journeys.at(-1)!.id,
   );
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      order.id
+      order.id,
     );
   TestValidator.equals("deleted_at")(
-    !!reloaded.publish!.deliveries[0].journeys.at(-1)!.deleted_at
+    !!reloaded.publish!.deliveries[0].journeys.at(-1)!.deleted_at,
   )(true);
   TestValidator.equals("state")(reloaded.publish!.state)("manufacturing");
 };

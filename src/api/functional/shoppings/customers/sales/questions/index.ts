@@ -78,11 +78,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/questions`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleQuestion => typia.random<IShoppingSaleQuestion>(g);
@@ -126,7 +126,7 @@ export namespace create {
  * disputes easily arise. That is, to preserve evidence.
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }
- * @param id Target question's {@link IShoppingSaleQuestion.id}
+ * @param id Target question's {@link IShoppingSaleQuestion.id }
  * @param input Update info of the question
  * @returns Newly created snapshot record of the question
  * @tag Sale
@@ -175,14 +175,14 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/questions/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IBbsArticle.ISnapshot => typia.random<IBbsArticle.ISnapshot>(g);
@@ -283,11 +283,11 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/questions`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleQuestion.ISummary> =>
@@ -387,11 +387,11 @@ export namespace abridges {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/questions/abridges`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/abridges`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleQuestion.IAbridge> =>
@@ -430,7 +430,7 @@ export namespace abridges {
  * value is `false`.
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }
- * @param id Target question's {@link IShoppingSaleQuestion.id}
+ * @param id Target question's {@link IShoppingSaleQuestion.id }
  * @returns Detailed question info
  * @tag Sale
  * @author Samchon
@@ -463,14 +463,14 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/customers/sales/${encodeURIComponent(saleId ?? "null")}/questions/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleQuestion => typia.random<IShoppingSaleQuestion>(g);

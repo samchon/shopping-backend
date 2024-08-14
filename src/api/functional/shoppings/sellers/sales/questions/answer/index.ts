@@ -78,14 +78,14 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     questionId: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/questions/${encodeURIComponent(questionId ?? "null")}/answer`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/${encodeURIComponent(questionId?.toString() ?? "null")}/answer`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleInquiryAnswer => typia.random<IShoppingSaleInquiryAnswer>(g);
@@ -182,14 +182,14 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     questionId: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/questions/${encodeURIComponent(questionId ?? "null")}/answer`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/${encodeURIComponent(questionId?.toString() ?? "null")}/answer`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleInquiryAnswer.ISnapshot =>

@@ -69,7 +69,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/admins/systematic/sections";
@@ -103,7 +103,7 @@ export namespace create {
  * Note that, it is not possible to change the section's code. If you want to
  * to do it forcibly, then {@link create} new one and {@link merge} with it.
  *
- * @param id Target section's {@link IShoppingSection.code}
+ * @param id Target section's {@link IShoppingSection.code }
  * @param input Update info of the section
  * @tag Systematic
  * @author Samchon
@@ -149,11 +149,11 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/systematic/sections/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/systematic/sections/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -233,7 +233,7 @@ export namespace merge {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/systematic/sections/merge";
@@ -314,7 +314,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/systematic/sections";
@@ -345,7 +345,7 @@ export namespace index {
  *
  * Get a detailed {@link IShoppingSection section} information.
  *
- * @param id Target section's {@link IShoppingSection.id}
+ * @param id Target section's {@link IShoppingSection.id }
  * @returns Detailed section info
  * @tag Section
  * @author Samchon
@@ -377,11 +377,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/systematic/sections/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/systematic/sections/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSection => typia.random<IShoppingSection>(g);
@@ -409,7 +409,7 @@ export namespace at {
  *
  * Get a detailed {@link IShoppingSection section} information by its code.
  *
- * @param code Target section's {@link IShoppingSection.code}
+ * @param code Target section's {@link IShoppingSection.code }
  * @returns Detailed section info
  * @tag Section
  * @author Samchon
@@ -441,11 +441,11 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (code: string) =>
-    `/shoppings/admins/systematic/sections/${encodeURIComponent(code ?? "null")}/get`;
+    `/shoppings/admins/systematic/sections/${encodeURIComponent(code?.toString() ?? "null")}/get`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSection => typia.random<IShoppingSection>(g);

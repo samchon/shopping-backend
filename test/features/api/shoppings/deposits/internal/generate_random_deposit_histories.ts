@@ -13,18 +13,18 @@ import { generate_random_deposit_charge_publish } from "./generate_random_deposi
 
 export const generate_random_deposit_histories = async (
   pool: ConnectionPool,
-  props: generate_random_deposit_histories.IProps
+  props: generate_random_deposit_histories.IProps,
 ): Promise<void> => {
   const charge: IShoppingDepositCharge = await generate_random_deposit_charge(
     pool,
     {
       value: props.charge,
-    }
+    },
   );
   charge.publish = await generate_random_deposit_charge_publish(
     pool,
     charge,
-    true
+    true,
   );
 
   const sale: IShoppingSale = await generate_random_sole_sale(pool, {
@@ -42,7 +42,7 @@ export const generate_random_deposit_histories = async (
         deposit: props.discount,
         mileage: 0,
         coupon_ids: [],
-      }
+      },
     );
 };
 export namespace generate_random_deposit_histories {

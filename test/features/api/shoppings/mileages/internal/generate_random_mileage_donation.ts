@@ -7,7 +7,7 @@ import { ConnectionPool } from "../../../../../ConnectionPool";
 export const generate_random_mileage_donation = async (
   pool: ConnectionPool,
   citizen: IShoppingCitizen,
-  input?: Partial<Omit<IShoppingMileageDonation.ICreate, "citizen_id">>
+  input?: Partial<Omit<IShoppingMileageDonation.ICreate, "citizen_id">>,
 ): Promise<IShoppingMileageDonation> => {
   const donation: IShoppingMileageDonation =
     await ShoppingApi.functional.shoppings.admins.mileages.donations.create(
@@ -17,7 +17,7 @@ export const generate_random_mileage_donation = async (
         reason: "test",
         citizen_id: citizen.id,
         ...input,
-      }
+      },
     );
   return donation;
 };

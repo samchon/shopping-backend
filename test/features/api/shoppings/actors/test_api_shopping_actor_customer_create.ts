@@ -8,7 +8,7 @@ import { TestGlobal } from "../../../../TestGlobal";
 
 export const test_api_shopping_actor_customer_create = async (
   pool: ConnectionPool,
-  connection?: ShoppingApi.IConnection
+  connection?: ShoppingApi.IConnection,
 ): Promise<IShoppingCustomer.IAuthorized> => {
   connection ??= pool.customer;
   const customer: IShoppingCustomer.IAuthorized =
@@ -19,7 +19,7 @@ export const test_api_shopping_actor_customer_create = async (
         referrer: TestGlobal.REFERRER,
         channel_code: TestGlobal.CHANNEL,
         external_user: null,
-      }
+      },
     );
   TestValidator.equals("citizen")(customer.citizen)(null);
   TestValidator.equals("external_user")(customer.external_user)(null);

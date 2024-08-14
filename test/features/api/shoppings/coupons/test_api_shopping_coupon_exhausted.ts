@@ -15,7 +15,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_exhausted = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   // AUTHORIZE ACTORS
   await test_api_shopping_actor_admin_login(pool);
@@ -46,7 +46,7 @@ export const test_api_shopping_coupon_exhausted = async (
     const validate = async (
       path: ActorPath,
       visible: boolean,
-      extra?: Partial<IShoppingCoupon.IRequest>
+      extra?: Partial<IShoppingCoupon.IRequest>,
     ) => {
       const connection: ShoppingApi.IConnection =
         path === "admins"
@@ -67,7 +67,7 @@ export const test_api_shopping_coupon_exhausted = async (
         pool.customer,
         {
           coupon_id: coupon.id,
-        }
+        },
       );
     };
 
@@ -84,7 +84,7 @@ export const test_api_shopping_coupon_exhausted = async (
 
   await ShoppingApi.functional.shoppings.admins.coupons.destroy(
     pool.admin,
-    coupon.id
+    coupon.id,
   );
   if (error) throw error;
 };

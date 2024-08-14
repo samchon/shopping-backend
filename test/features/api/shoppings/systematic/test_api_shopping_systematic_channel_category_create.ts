@@ -10,7 +10,7 @@ import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping
 import { generate_random_channel } from "./internal/generate_random_channel";
 
 export const test_api_shopping_systematic_channel_category_store = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
 
@@ -20,7 +20,7 @@ export const test_api_shopping_systematic_channel_category_store = async (
     pool,
     channel,
     null,
-    input
+    input,
   );
   TestValidator.equals("category")(input)(category);
 };
@@ -38,7 +38,7 @@ const generate = async (
   pool: ConnectionPool,
   channel: IShoppingChannel,
   parent_id: string | null,
-  input: Rough
+  input: Rough,
 ): Promise<IShoppingChannelCategory> => {
   const category: IShoppingChannelCategory =
     await ShoppingApi.functional.shoppings.admins.systematic.channels.categories.create(
@@ -47,10 +47,10 @@ const generate = async (
       {
         name: input.name,
         parent_id,
-      }
+      },
     );
   category.children = await ArrayUtil.asyncMap(input.children)((child) =>
-    generate(pool, channel, category.id, child)
+    generate(pool, channel, category.id, child),
   );
   return category;
 };

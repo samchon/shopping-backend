@@ -52,11 +52,11 @@ export namespace able {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (chargeId: string & Format<"uuid">) =>
-    `/shoppings/customers/deposits/charges/${encodeURIComponent(chargeId ?? "null")}/publish/able`;
+    `/shoppings/customers/deposits/charges/${encodeURIComponent(chargeId?.toString() ?? "null")}/publish/able`;
   export const random = (g?: Partial<typia.IRandomGenerator>): false | true =>
     typia.random<false | true>(g);
   export const simulate = (
@@ -140,11 +140,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (chargeId: string & Format<"uuid">) =>
-    `/shoppings/customers/deposits/charges/${encodeURIComponent(chargeId ?? "null")}/publish`;
+    `/shoppings/customers/deposits/charges/${encodeURIComponent(chargeId?.toString() ?? "null")}/publish`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDepositChargePublish =>

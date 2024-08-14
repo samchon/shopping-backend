@@ -5,14 +5,14 @@ export namespace ArgumentParser {
   export type Inquiry<T> = (
     command: commander.Command,
     prompt: (opt?: inquirer.StreamOptions) => inquirer.PromptModule,
-    action: (closure: (options: Partial<T>) => Promise<T>) => Promise<T>
+    action: (closure: (options: Partial<T>) => Promise<T>) => Promise<T>,
   ) => Promise<T>;
 
   export interface Prompt {
     select: (
-      name: string
+      name: string,
     ) => (
-      message: string
+      message: string,
     ) => <Choice extends string>(choices: Choice[]) => Promise<Choice>;
     boolean: (name: string) => (message: string) => Promise<boolean>;
     number: (name: string) => (message: string) => Promise<number>;
@@ -22,8 +22,8 @@ export namespace ArgumentParser {
     inquiry: (
       command: commander.Command,
       prompt: Prompt,
-      action: (closure: (options: Partial<T>) => Promise<T>) => Promise<T>
-    ) => Promise<T>
+      action: (closure: (options: Partial<T>) => Promise<T>) => Promise<T>,
+    ) => Promise<T>,
   ): Promise<T> => {
     // TAKE OPTIONS
     const action = (closure: (options: Partial<T>) => Promise<T>) =>
@@ -66,7 +66,7 @@ export namespace ArgumentParser {
             name,
             message,
           })
-        )[name]
+        )[name],
       );
 
     const output: T | Error = await (async () => {
@@ -74,7 +74,7 @@ export namespace ArgumentParser {
         return await inquiry(
           commander.program,
           { select, boolean, number },
-          action
+          action,
         );
       } catch (error) {
         return error as Error;

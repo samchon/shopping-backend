@@ -15,7 +15,7 @@ import { generate_random_coupon } from "./internal/generate_random_coupon";
 import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 
 export const test_api_shopping_coupon_create_by_seller = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
@@ -32,7 +32,7 @@ export const test_api_shopping_coupon_create_by_seller = async (
         create: (input) =>
           ShoppingApi.functional.shoppings.sellers.coupons.create(
             pool.seller,
-            input
+            input,
           ),
         prepare: (criterias) => prepare_random_coupon({ criterias }),
       });
@@ -41,18 +41,18 @@ export const test_api_shopping_coupon_create_by_seller = async (
   const subsets: IShoppingCouponCriteria.Type[][] = ArrayUtil.subsets(
     typia.misc
       .literals<IShoppingCouponCriteria.Type>()
-      .filter((row) => row.length !== 0)
+      .filter((row) => row.length !== 0),
   );
   const possible: IShoppingCouponCriteria.Type[][] = subsets.filter((row) =>
-    row.some((type) => type === "sale" || type === "seller")
+    row.some((type) => type === "sale" || type === "seller"),
   );
   const impossible: IShoppingCouponCriteria.Type[][] = subsets.filter((row) =>
-    row.every((type) => type !== "sale" && type !== "seller")
+    row.every((type) => type !== "sale" && type !== "seller"),
   );
 
   // TRY POSSIBLE
   const coupons: IShoppingCoupon[] = await ArrayUtil.asyncMap(possible)(
-    create("include")
+    create("include"),
   );
   const page: IPage<IShoppingCoupon> =
     await ShoppingApi.functional.shoppings.admins.coupons.index(pool.admin, {
@@ -61,18 +61,18 @@ export const test_api_shopping_coupon_create_by_seller = async (
     });
   TestValidator.equals("coupons")(coupons)(page.data.reverse());
   await ArrayUtil.asyncMap(coupons)((c) =>
-    ShoppingApi.functional.shoppings.admins.coupons.destroy(pool.admin, c.id)
+    ShoppingApi.functional.shoppings.admins.coupons.destroy(pool.admin, c.id),
   );
 
   // TRY IMPOSSIBLES
   await ArrayUtil.asyncMap(impossible)((types) =>
     TestValidator.httpError("include-but-omitted-essential")(403)(() =>
-      create("include")(types)
-    )
+      create("include")(types),
+    ),
   );
   await ArrayUtil.asyncMap(impossible)((types) =>
     TestValidator.httpError("exclude-every-essentials")(403)(() =>
-      create("exclude")(types)
-    )
+      create("exclude")(types),
+    ),
   );
 };

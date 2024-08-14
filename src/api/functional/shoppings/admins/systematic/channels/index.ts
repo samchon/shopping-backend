@@ -71,7 +71,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/admins/systematic/channels";
@@ -105,7 +105,7 @@ export namespace create {
  * Note that, it is not possible to change the channel's code. If you want to
  * to do it forcibly, then {@link create} new one and {@link merge} with it.
  *
- * @param id Target channel's {@link IShoppingChannel.code}
+ * @param id Target channel's {@link IShoppingChannel.code }
  * @param input Update info of the channel
  * @tag Systematic
  * @author Samchon
@@ -151,11 +151,11 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -235,7 +235,7 @@ export namespace merge {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/systematic/channels/merge";
@@ -316,7 +316,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/systematic/channels";
@@ -400,7 +400,7 @@ export namespace hierarchical {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () =>
@@ -437,7 +437,7 @@ export namespace hierarchical {
  * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
  * informations.
  *
- * @param id Target channel's {@link IShoppingChannel.id}
+ * @param id Target channel's {@link IShoppingChannel.id }
  * @returns Detailed channel info
  * @tag Systematic
  * @author Samchon
@@ -469,11 +469,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannel.IHierarchical =>
@@ -507,7 +507,7 @@ export namespace at {
  * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
  * informations.
  *
- * @param code Target channel's {@link IShoppingChannel.code}
+ * @param code Target channel's {@link IShoppingChannel.code }
  * @returns Detailed channel info
  * @tag Systematic
  * @author Samchon
@@ -539,11 +539,11 @@ export namespace get {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (code: string) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(code ?? "null")}/get`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(code?.toString() ?? "null")}/get`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannel.IHierarchical =>

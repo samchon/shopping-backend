@@ -16,7 +16,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_delivery_journey_complete = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -30,7 +30,7 @@ export const test_api_shopping_delivery_journey_complete = async (
     pool,
     customer,
     order,
-    true
+    true,
   );
 
   const delivery: IShoppingDelivery =
@@ -43,7 +43,7 @@ export const test_api_shopping_delivery_journey_complete = async (
             pool.seller,
             {
               publish_ids: [order.publish.id],
-            }
+            },
           ),
         journeys: (["preparing", "manufacturing", "delivering"] as const).map(
           (type) => ({
@@ -52,9 +52,9 @@ export const test_api_shopping_delivery_journey_complete = async (
             description: null,
             started_at: new Date().toISOString(),
             completed_at: null,
-          })
+          }),
         ),
-      }
+      },
     );
   TestValidator.equals("state")(delivery.state)("delivering");
 
@@ -64,13 +64,13 @@ export const test_api_shopping_delivery_journey_complete = async (
     delivery.journeys[0].id,
     {
       completed_at: new Date().toISOString(),
-    }
+    },
   );
 
   const read: IShoppingDelivery.IInvert =
     await ShoppingApi.functional.shoppings.sellers.deliveries.at(
       pool.seller,
-      delivery.id
+      delivery.id,
     );
   TestValidator.equals("completed")(!!read.journeys[0].completed_at)(true);
   TestValidator.equals("changed state")(read.state)("delivering");

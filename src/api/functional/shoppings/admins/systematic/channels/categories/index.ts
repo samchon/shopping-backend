@@ -68,11 +68,11 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (channelCode: string) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode ?? "null")}/categories`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannelCategory => typia.random<IShoppingChannelCategory>(g);
@@ -105,7 +105,7 @@ export namespace create {
  * from the parent category so that becoming the root category is also possible.
  *
  * @param channelCode Belonged channel's {@link IShoppingChannel.code }
- * @param id Target category's {@link IShoppingChannelCategory.id}
+ * @param id Target category's {@link IShoppingChannelCategory.id }
  * @param input Update info of the category
  * @tag Systematic
  * @author Samchon
@@ -152,11 +152,11 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (channelCode: string, id: string) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode ?? "null")}/categories/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -241,11 +241,11 @@ export namespace merge {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (channelCode: string) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode ?? "null")}/categories/merge`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/merge`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -313,11 +313,11 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (channelCode: string) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode ?? "null")}/categories`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): Array<IShoppingChannelCategory.IHierarchical> =>
@@ -350,7 +350,7 @@ export namespace index {
  * contains the recursive parent categories, too.
  *
  * @param channelCode Belonged channel's {@link IShoppingChannel.code }
- * @param id Target category's {@link IShoppingChannelCategory.id}
+ * @param id Target category's {@link IShoppingChannelCategory.id }
  * @returns Detailed category info
  * @tag Systematic
  * @author Samchon
@@ -383,11 +383,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (channelCode: string, id: string & Format<"uuid">) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode ?? "null")}/categories/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannelCategory => typia.random<IShoppingChannelCategory>(g);
@@ -421,7 +421,7 @@ export namespace at {
  * the hierarchical children categories.
  *
  * @param channelCode Belonged channel's {@link IShoppingChannel.code }
- * @param id Target category's {@link IShoppingChannelCategory.id}
+ * @param id Target category's {@link IShoppingChannelCategory.id }
  * @returns Detailed category info
  * @tag Systematic
  * @author Samchon
@@ -454,11 +454,11 @@ export namespace invert {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (channelCode: string, id: string & Format<"uuid">) =>
-    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode ?? "null")}/categories/${encodeURIComponent(id ?? "null")}/invert`;
+    `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}/invert`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingChannelCategory.IInvert =>

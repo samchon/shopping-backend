@@ -15,7 +15,7 @@ export const generate_random_sale_inquiry_comment =
   }) =>
   async (
     actor: IShoppingActorEntity,
-    input?: Partial<IShoppingSaleInquiryComment.ICreate>
+    input?: Partial<IShoppingSaleInquiryComment.ICreate>,
   ): Promise<IShoppingSaleInquiryComment> => {
     const actorType =
       actor.type === "customer"
@@ -30,7 +30,7 @@ export const generate_random_sale_inquiry_comment =
         asset.pool[actorType],
         asset.sale.id,
         asset.inquiry.id,
-        prepare_random_bbs_article_comment(input)
+        prepare_random_bbs_article_comment(input),
       );
     return comment;
   };

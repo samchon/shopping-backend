@@ -12,7 +12,7 @@ import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping
 import { generate_random_deposit_histories } from "./internal/generate_random_deposit_histories";
 
 export const test_api_shopping_deposit_histories_index_sort = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_join(pool);
@@ -22,7 +22,7 @@ export const test_api_shopping_deposit_histories_index_sort = async (
     generate_random_deposit_histories(pool, {
       charge: randint(1_000, 9_000),
       discount: randint(100, 999),
-    })
+    }),
   );
 
   const validator = TestValidator.sort("sort")<
@@ -36,7 +36,7 @@ export const test_api_shopping_deposit_histories_index_sort = async (
         {
           limit: 100,
           sort: input,
-        }
+        },
       );
     return page.data;
   });

@@ -70,7 +70,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/admins/mileages/donations";
@@ -102,7 +102,7 @@ export namespace index {
  *
  * Get a {@link IShoppingMileageDonation mileage donation history} with its ID.
  *
- * @param id Target history's {@link IShoppingMileageDonation.id}
+ * @param id Target history's {@link IShoppingMileageDonation.id }
  * @returns Mileage donation history
  * @tag Discount
  * @author Samchon
@@ -134,11 +134,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string & Format<"uuid">) =>
-    `/shoppings/admins/mileages/donations/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/admins/mileages/donations/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingMileageDonation => typia.random<IShoppingMileageDonation>(g);
@@ -218,7 +218,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/admins/mileages/donations";

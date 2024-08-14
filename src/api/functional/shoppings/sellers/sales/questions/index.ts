@@ -90,11 +90,11 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/questions`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleQuestion.ISummary> =>
@@ -194,11 +194,11 @@ export namespace abridges {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (saleId: string & Format<"uuid">) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/questions/abridges`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/abridges`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleQuestion.IAbridge> =>
@@ -237,7 +237,7 @@ export namespace abridges {
  * value is `false`.
  *
  * @param saleId Belonged sale's {@link IShoppingSale.id }
- * @param id Target question's {@link IShoppingSaleQuestion.id}
+ * @param id Target question's {@link IShoppingSaleQuestion.id }
  * @returns Detailed question info
  * @tag Sale
  * @author Samchon
@@ -270,14 +270,14 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
     saleId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/questions/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/questions/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleQuestion => typia.random<IShoppingSaleQuestion>(g);

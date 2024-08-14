@@ -71,7 +71,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = () => "/shoppings/customers/deposits/charges";
@@ -103,7 +103,7 @@ export namespace index {
  *
  * Get a {@link IShoppingDepositCharge deposit charge} information.
  *
- * @param id Target deposit charge's {@link IShoppingDepositCharge.id}
+ * @param id Target deposit charge's {@link IShoppingDepositCharge.id }
  * @returns Deposit charge info
  * @tag Discount
  * @author Samchon
@@ -135,11 +135,11 @@ export namespace at {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string) =>
-    `/shoppings/customers/deposits/charges/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/deposits/charges/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingDepositCharge => typia.random<IShoppingDepositCharge>(g);
@@ -215,7 +215,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = () => "/shoppings/customers/deposits/charges";
@@ -251,7 +251,7 @@ export namespace create {
  * then it is not possible to update the deposit charge. Only 410 gone exception
  * would be thrown.
  *
- * @param id Target deposit charge's {@link IShoppingDepositCharge.id}
+ * @param id Target deposit charge's {@link IShoppingDepositCharge.id }
  * @param input Value to change
  * @tag Discount
  * @author Samchon
@@ -297,11 +297,11 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string) =>
-    `/shoppings/customers/deposits/charges/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/deposits/charges/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -335,7 +335,7 @@ export namespace update {
  * it is not possible to erase the deposit charge. In that case, you've to cancel
  * the payment by calling the {@link publish.cancel} function.
  *
- * @param id Target deposit charge's {@link IShoppingDepositCharge.id}
+ * @param id Target deposit charge's {@link IShoppingDepositCharge.id }
  * @tag Discount
  * @author Samchon
  *
@@ -364,11 +364,11 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (id: string) =>
-    `/shoppings/customers/deposits/charges/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/customers/deposits/charges/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (connection: IConnection, id: string): void => {

@@ -17,7 +17,7 @@ import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_order } from "./internal/generate_random_order";
 
 export const test_api_shopping_order_discount_by_guest = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
@@ -56,12 +56,12 @@ export const test_api_shopping_order_discount_by_guest = async (
           deposit: 0,
           mileage: 0,
           coupon_ids: [coupon.id],
-        }
+        },
       );
     });
     await ShoppingApi.functional.shoppings.admins.coupons.destroy(
       pool.admin,
-      coupon.id
+      coupon.id,
     );
     if (error !== null) throw error;
   });

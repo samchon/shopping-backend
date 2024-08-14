@@ -4,7 +4,7 @@ import { AttachmentFileDiagnoser } from "../../common/AttachmentFileDiagnoser";
 
 export namespace ShoppingSaleContentDiagnoser {
   export const replica = (
-    input: IShoppingSaleContent
+    input: IShoppingSaleContent,
   ): IShoppingSaleContent.ICreate => ({
     title: input.title,
     body: input.body,

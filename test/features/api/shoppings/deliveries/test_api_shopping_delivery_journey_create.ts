@@ -17,7 +17,7 @@ import { generate_random_order_publish } from "../orders/internal/generate_rando
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_delivery_journey_create = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
@@ -31,7 +31,7 @@ export const test_api_shopping_delivery_journey_create = async (
     pool,
     customer,
     order,
-    true
+    true,
   );
 
   const delivery: IShoppingDelivery =
@@ -45,9 +45,9 @@ export const test_api_shopping_delivery_journey_create = async (
             pool.seller,
             {
               publish_ids: [order.publish.id],
-            }
+            },
           ),
-      }
+      },
     );
 
   const inputList: IShoppingDeliveryJourney.ICreate[] = (
@@ -60,22 +60,22 @@ export const test_api_shopping_delivery_journey_create = async (
     completed_at: null,
   }));
   const journeys: IShoppingDeliveryJourney[] = await ArrayUtil.asyncMap(
-    inputList
+    inputList,
   )((input) =>
     ShoppingApi.functional.shoppings.sellers.deliveries.journeys.create(
       pool.seller,
       delivery.id,
-      input
-    )
+      input,
+    ),
   );
   TestValidator.equals("create")(inputList)(journeys);
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
-      order.id
+      order.id,
     );
   TestValidator.equals("journeys")(reloaded.publish!.deliveries[0].journeys)(
-    journeys
+    journeys,
   );
 };

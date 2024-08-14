@@ -25,7 +25,7 @@ export namespace ShoppingCouponCriteriaDiagnoser {
         );
       else if (criteria.type === "section")
         return criteria.sections.some(
-          (section) => section.id === sale.section.id
+          (section) => section.id === sale.section.id,
         );
       else if (criteria.type === "seller")
         return criteria.sellers.some((seller) => seller.id === sale.seller.id);
@@ -45,7 +45,7 @@ export namespace ShoppingCouponCriteriaDiagnoser {
             if (question === -1) return false;
 
             const params: URLSearchParams = new URLSearchParams(
-              customer.href.substring(question + 1)
+              customer.href.substring(question + 1),
             );
             return params.get(funnel.key) === funnel.value;
           }
@@ -58,13 +58,13 @@ export namespace ShoppingCouponCriteriaDiagnoser {
     (sale: IShoppingSaleSnapshot.IInvert) =>
     (tuple: IShoppingCouponChannelCriteria.IChannelTo) => {
       const matched: IShoppingSaleChannel | undefined = sale.channels.find(
-        (ch) => ch.id === tuple.channel.id
+        (ch) => ch.id === tuple.channel.id,
       );
       if (matched === undefined) return false;
       else if (!tuple.categories?.length) return true;
 
       return tuple.categories.some((target) =>
-        matched.categories.some((current) => explore(target)(current))
+        matched.categories.some((current) => explore(target)(current)),
       );
     };
 

@@ -20,16 +20,16 @@ export const validate_sale_index =
       (input: IPage.IRequest) =>
         ShoppingApi.functional.shoppings[actor].sales.index(connection, input);
     await validate_in_viewer_level(fetcher(pool.admin))(saleList)("admins")(
-      true
+      true,
     );
     await validate_in_viewer_level(fetcher(pool.customer))(saleList)(
-      "customers"
+      "customers",
     )(visibleInCustomer);
     await validate_in_seller_level(pool.seller)(fetcher(pool.seller))(saleList);
   };
 
 type PageFetcher = (
-  actor: ActorPath
+  actor: ActorPath,
 ) => (input: IShoppingSale.IRequest) => Promise<IPage<IShoppingSale.ISummary>>;
 
 const validate_in_viewer_level =
@@ -42,10 +42,10 @@ const validate_in_viewer_level =
       sort: ["-sale.created_at"],
     });
     const filtered: IShoppingSale.ISummary[] = page.data.filter(
-      (summary) => saleList.find((s) => s.id === summary.id) !== undefined
+      (summary) => saleList.find((s) => s.id === summary.id) !== undefined,
     );
     TestValidator.predicate(`page API of ${actor}`)(() =>
-      visible === true ? !!filtered.length : !filtered.length
+      visible === true ? !!filtered.length : !filtered.length,
     );
   };
 
@@ -69,7 +69,7 @@ const validate_in_seller_level =
         {
           email: seller.member.emails[0].value,
           password: TestGlobal.PASSWORD,
-        }
+        },
       );
 
       const index: IPage<IShoppingSale.ISummary> = await fetcher("sellers")({
@@ -85,5 +85,5 @@ const create_entity_map = <Key extends { id: string }, Value>(): HashMap<
 > =>
   new HashMap(
     (entity) => hash(entity.id),
-    (x, y) => x.id === y.id
+    (x, y) => x.id === y.id,
   );

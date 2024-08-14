@@ -77,7 +77,7 @@ export namespace index {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
@@ -85,7 +85,7 @@ export namespace index {
     unitId: string & Format<"uuid">,
     stockId: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/units/${encodeURIComponent(unitId ?? "null")}/stocks/${encodeURIComponent(stockId ?? "null")}/supplements`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IPage<IShoppingSaleUnitStockSupplement> =>
@@ -177,7 +177,7 @@ export namespace create {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 201,
   } as const;
 
   export const path = (
@@ -185,7 +185,7 @@ export namespace create {
     unitId: string & Format<"uuid">,
     stockId: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/units/${encodeURIComponent(unitId ?? "null")}/stocks/${encodeURIComponent(stockId ?? "null")}/supplements`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements`;
   export const random = (
     g?: Partial<typia.IRandomGenerator>,
   ): IShoppingSaleUnitStockSupplement =>
@@ -228,7 +228,7 @@ export namespace create {
  * @param saleId Belonged sale's {@link IShoppingSale.id }
  * @param unitId Belonged unit's {@link IShoppingSaleUnit.id }
  * @param stockId Target stock's {@link IShoppingSaleUnitStock.id }
- * @param id Target supplement's {@link IShoppingSaleUnitStockSupplement.id}
+ * @param id Target supplement's {@link IShoppingSaleUnitStockSupplement.id }
  * @param input Update info (quantity) of the supplement
  * @tag Sale
  * @author Samchon
@@ -277,7 +277,7 @@ export namespace update {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
@@ -286,7 +286,7 @@ export namespace update {
     stockId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/units/${encodeURIComponent(unitId ?? "null")}/stocks/${encodeURIComponent(stockId ?? "null")}/supplements/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
@@ -329,7 +329,7 @@ export namespace update {
  * @param saleId Belonged sale's {@link IShoppingSale.id }
  * @param unitId Belonged unit's {@link IShoppingSaleUnit.id }
  * @param stockId Target stock's {@link IShoppingSaleUnitStock.id }
- * @param id Target supplement's {@link IShoppingSaleUnitStockSupplement.id}
+ * @param id Target supplement's {@link IShoppingSaleUnitStockSupplement.id }
  * @tag Sale
  * @author Samchon
  *
@@ -361,7 +361,7 @@ export namespace erase {
       type: "application/json",
       encrypted: false,
     },
-    status: null,
+    status: 200,
   } as const;
 
   export const path = (
@@ -370,7 +370,7 @@ export namespace erase {
     stockId: string & Format<"uuid">,
     id: string & Format<"uuid">,
   ) =>
-    `/shoppings/sellers/sales/${encodeURIComponent(saleId ?? "null")}/units/${encodeURIComponent(unitId ?? "null")}/stocks/${encodeURIComponent(stockId ?? "null")}/supplements/${encodeURIComponent(id ?? "null")}`;
+    `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements/${encodeURIComponent(id?.toString() ?? "null")}`;
   export const random = (g?: Partial<typia.IRandomGenerator>): void =>
     typia.random<void>(g);
   export const simulate = (
