@@ -145,8 +145,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.6
       nestia:
-        specifier: ^6.0.2
-        version: 6.0.2
+        specifier: ^6.1.0
+        version: 6.1.0
       prettier:
         specifier: ^3.3.2
         version: 3.3.3
@@ -2040,8 +2040,8 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nestia@6.0.2:
-    resolution: {integrity: sha512-CpAgpYvRg0AqAKiIo5Jxg2fv2ZG/R5ixE0VJsO//1TYR3gHvK3XXWN5NC8yC5U60QFwYEns5i6OG/NWJAev8pA==}
+  nestia@6.1.0:
+    resolution: {integrity: sha512-/OeF1s0EWpHm+rmqWvjDykW0XpXoQBV/p3drG/uwtsqxVte+J5jiH96kIOtD/wlgSFzhBEd4wUgl9PesKgRxkQ==}
     hasBin: true
 
   node-fetch@2.7.0:
@@ -4918,11 +4918,12 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nestia@6.0.2:
+  nestia@6.1.0:
     dependencies:
       commander: 10.0.1
       comment-json: 4.2.5
       inquirer: 8.2.6
+      package-manager-detector: 0.2.0
 
   node-fetch@2.7.0:
     dependencies:
