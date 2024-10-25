@@ -12,16 +12,19 @@ export class ShoppingAdminCouponController extends ShoppingCouponWritableControl
   {
     path: "admins",
     AuthGuard: ShoppingAdminAuth,
-  },
+  }
 ) {
   /**
    * @internal
    */
   @core.TypedRoute.Delete(":id/destroy")
-  public async destroy(
+  public destroy(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingCouponProvider.destroy(admin)(id);
+    return ShoppingCouponProvider.destroy({
+      admin,
+      id,
+    });
   }
 }

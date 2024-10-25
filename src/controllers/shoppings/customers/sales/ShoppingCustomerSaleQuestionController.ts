@@ -13,7 +13,7 @@ export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestion
   {
     path: "customers",
     AuthGuard: ShoppingCustomerAuth,
-  },
+  }
 ) {
   /**
    * Write a question article.
@@ -40,9 +40,13 @@ export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestion
   public async create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleQuestion.ICreate,
+    @core.TypedBody() input: IShoppingSaleQuestion.ICreate
   ): Promise<IShoppingSaleQuestion> {
-    return ShoppingSaleQuestionProvider.create(customer)({ id: saleId })(input);
+    return ShoppingSaleQuestionProvider.create({
+      customer,
+      sale: { id: saleId },
+      input,
+    });
   }
 
   /**
@@ -76,10 +80,13 @@ export class ShoppingCustomerSaleQuestionController extends ShoppingSaleQuestion
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleQuestion.IUpdate,
+    @core.TypedBody() input: IShoppingSaleQuestion.IUpdate
   ): Promise<IShoppingSaleQuestion.ISnapshot> {
-    return ShoppingSaleQuestionProvider.update(customer)({
-      id: saleId,
-    })(id)(input);
+    return ShoppingSaleQuestionProvider.update({
+      customer,
+      sale: { id: saleId },
+      id,
+      input,
+    });
   }
 }

@@ -4,7 +4,11 @@ import { ShoppingDepositProvider } from "../../providers/shoppings/deposits/Shop
 
 export namespace ShoppingDepositSeeder {
   export const seed = async (): Promise<void> => {
-    for (const input of DATA) await ShoppingDepositProvider.create(null)(input);
+    for (const input of DATA)
+      await ShoppingDepositProvider.create({
+        admin: null,
+        input,
+      });
   };
 }
 

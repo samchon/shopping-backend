@@ -20,15 +20,16 @@ export namespace ShoppingMileageDonationProvider {
     export const transform = (
       input: Prisma.shopping_mileage_donationsGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingMileageDonation => ({
       id: input.id,
       administrator: ShoppingAdministratorProvider.invert.transform(
+        input.adminCustomer,
         () =>
           new InternalServerErrorException(
-            "The donation has not been registered by administrator.",
-          ),
-      )(input.adminCustomer),
+            "The donation has not been registered by administrator."
+          )
+      ),
       citizen: ShoppingCitizenProvider.json.transform(input.citizen),
       value: input.value,
       reason: input.reason,
@@ -46,26 +47,25 @@ export namespace ShoppingMileageDonationProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const index =
-    (_admin: IShoppingAdministrator.IInvert) =>
-    (
-      input: IShoppingMileageDonation.IRequest,
-    ): Promise<IPage<IShoppingMileageDonation>> =>
-      PaginationUtil.paginate({
-        schema: ShoppingGlobal.prisma.shopping_mileage_donations,
-        payload: json.select(),
-        transform: json.transform,
-      })({
-        where: {
-          AND: where(input.search),
-        },
-        orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy)(input.sort)
-          : [{ created_at: "desc" }],
-      })(input);
+  export const index = async (props: {
+    admin: IShoppingAdministrator.IInvert;
+    input: IShoppingMileageDonation.IRequest;
+  }): Promise<IPage<IShoppingMileageDonation>> =>
+    PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_mileage_donations,
+      payload: json.select(),
+      transform: json.transform,
+    })({
+      where: {
+        AND: where(props.input.search),
+      },
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ created_at: "desc" }],
+    })(props.input);
 
   const where = (
-    input: IShoppingMileageDonation.IRequest.ISearch | undefined,
+    input: IShoppingMileageDonation.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.citizen !== undefined
@@ -87,7 +87,7 @@ export namespace ShoppingMileageDonationProvider {
 
   const orderBy = (
     key: IShoppingMileageDonation.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "donation.created_at"
       ? { created_at: value }
@@ -95,60 +95,63 @@ export namespace ShoppingMileageDonationProvider {
           value: value,
         }) satisfies Prisma.shopping_mileage_donationsOrderByWithRelationInput;
 
-  export const at =
-    (_admin: IShoppingAdministrator.IInvert) =>
-    async (id: string): Promise<IShoppingMileageDonation> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_mileage_donations.findFirstOrThrow(
-          {
-            where: { id },
-            ...json.select(),
-          },
-        );
-      return json.transform(record);
-    };
+  export const at = async (props: {
+    admin: IShoppingAdministrator.IInvert;
+    id: string;
+  }): Promise<IShoppingMileageDonation> => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_mileage_donations.findFirstOrThrow({
+        where: { id: props.id },
+        ...json.select(),
+      });
+    return json.transform(record);
+  };
 
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (admin: IShoppingAdministrator.IInvert) =>
-    async (input: IShoppingMileageDonation.ICreate) => {
-      const citizen =
-        await ShoppingGlobal.prisma.shopping_citizens.findFirstOrThrow({
-          where: { id: input.citizen_id },
-        });
-      const record = await ShoppingMileageHistoryProvider.process(citizen)(
-        "shopping_mileage_donation",
-      )({
-        task: () =>
-          ShoppingGlobal.prisma.shopping_mileage_donations.create({
-            data: collect(admin)(input),
-            ...json.select(),
-          }),
-        source: (entity) => entity,
-        value: () => input.value,
+  export const create = async (props: {
+    admin: IShoppingAdministrator.IInvert;
+    input: IShoppingMileageDonation.ICreate;
+  }) => {
+    const citizen =
+      await ShoppingGlobal.prisma.shopping_citizens.findFirstOrThrow({
+        where: { id: props.input.citizen_id },
       });
-      return json.transform(record);
-    };
+    const record = await ShoppingMileageHistoryProvider.process({
+      citizen,
+      mileage: {
+        code: "shopping_mileage_donation",
+      },
+      task: () =>
+        ShoppingGlobal.prisma.shopping_mileage_donations.create({
+          data: collect(props),
+          ...json.select(),
+        }),
+      source: (entity) => entity,
+      value: () => props.input.value,
+    });
+    return json.transform(record);
+  };
 
-  const collect =
-    (administrator: IShoppingAdministrator.IInvert) =>
-    (input: IShoppingMileageDonation.ICreate) =>
-      ({
-        id: v4(),
-        adminCustomer: {
-          connect: {
-            id: administrator.customer.id,
-          },
+  const collect = (props: {
+    admin: IShoppingAdministrator.IInvert;
+    input: IShoppingMileageDonation.ICreate;
+  }) =>
+    ({
+      id: v4(),
+      adminCustomer: {
+        connect: {
+          id: props.admin.customer.id,
         },
-        citizen: {
-          connect: {
-            id: input.citizen_id,
-          },
+      },
+      citizen: {
+        connect: {
+          id: props.input.citizen_id,
         },
-        value: input.value,
-        reason: input.reason,
-        created_at: new Date(),
-      }) satisfies Prisma.shopping_mileage_donationsCreateInput;
+      },
+      value: props.input.value,
+      reason: props.input.reason,
+      created_at: new Date(),
+    }) satisfies Prisma.shopping_mileage_donationsCreateInput;
 }

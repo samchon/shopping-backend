@@ -13,9 +13,7 @@ import { ShoppingCitizenProvider } from "./ShoppingCitizenProvider";
 export namespace ShoppingExternalUserProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_external_usersGetPayload<
-        ReturnType<typeof select>
-      >,
+      input: Prisma.shopping_external_usersGetPayload<ReturnType<typeof select>>
     ): IShoppingExternalUser => ({
       id: input.id,
       citizen:
@@ -42,7 +40,7 @@ export namespace ShoppingExternalUserProvider {
   export const create =
     (related: { channel: IEntity; customer: IEntity | null }) =>
     async (
-      input: IShoppingExternalUser.ICreate,
+      input: IShoppingExternalUser.ICreate
     ): Promise<IShoppingExternalUser> => {
       const oldbie =
         await ShoppingGlobal.prisma.shopping_external_users.findFirst({
@@ -69,7 +67,10 @@ export namespace ShoppingExternalUserProvider {
 
       const citizen =
         input.citizen !== null
-          ? await ShoppingCitizenProvider.create(related.channel)(input.citizen)
+          ? await ShoppingCitizenProvider.create({
+              channel: related.channel,
+              input: input.citizen,
+            })
           : null;
       const record = await ShoppingGlobal.prisma.shopping_external_users.create(
         {
@@ -94,7 +95,7 @@ export namespace ShoppingExternalUserProvider {
             created_at: new Date(),
           },
           ...json.select(),
-        },
+        }
       );
       if (related.customer !== null)
         await ShoppingGlobal.prisma.shopping_customers.update({

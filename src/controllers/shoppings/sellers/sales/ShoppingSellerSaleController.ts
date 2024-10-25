@@ -37,9 +37,12 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Post()
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingSale.ICreate,
+    @core.TypedBody() input: IShoppingSale.ICreate
   ): Promise<IShoppingSale> {
-    return ShoppingSaleProvider.create(seller)(input);
+    return ShoppingSaleProvider.create({
+      seller,
+      input,
+    });
   }
 
   /**
@@ -68,9 +71,13 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   public async update(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSale.IUpdate,
+    @core.TypedBody() input: IShoppingSale.IUpdate
   ): Promise<IShoppingSale> {
-    return ShoppingSaleProvider.update(seller)(id)(input);
+    return ShoppingSaleProvider.update({
+      seller,
+      id,
+      input,
+    });
   }
 
   /**
@@ -95,9 +102,13 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   public async open(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSale.IUpdateOpeningTime,
+    @core.TypedBody() input: IShoppingSale.IUpdateOpeningTime
   ): Promise<void> {
-    return ShoppingSaleProvider.updateOpeningTime(seller)(id)(input);
+    return ShoppingSaleProvider.updateOpeningTime({
+      seller,
+      id,
+      input,
+    });
   }
 
   /**
@@ -118,9 +129,12 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Post(":id/replica")
   public async replica(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingSale.ICreate> {
-    return ShoppingSaleProvider.replica(seller)(id);
+    return ShoppingSaleProvider.replica({
+      seller,
+      id,
+    });
   }
 
   /**
@@ -151,9 +165,12 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Delete(":id/pause")
   public async pause(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingSaleProvider.pause(seller)(id);
+    return ShoppingSaleProvider.pause({
+      seller,
+      id,
+    });
   }
 
   /**
@@ -183,9 +200,12 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Delete(":id/suspend")
   public async suspend(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingSaleProvider.suspend(seller)(id);
+    return ShoppingSaleProvider.suspend({
+      seller,
+      id,
+    });
   }
 
   /**
@@ -209,8 +229,11 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Put(":id/restore")
   public async restore(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingSaleProvider.restore(seller)(id);
+    return ShoppingSaleProvider.restore({
+      seller,
+      id,
+    });
   }
 }

@@ -10,22 +10,26 @@ import { ShoppingGlobal } from "../../ShoppingGlobal";
 export namespace ShoppingAdministratorSeeder {
   export const seed = async (): Promise<void> => {
     const customer: IShoppingCustomer = await ShoppingCustomerProvider.create({
-      ip: "127.0.0.1",
-    })({
-      external_user: null,
-      channel_code: "samchon",
-      href: "http://localhost/TestAutomation",
-      referrer: "http://localhost/NodeJS",
+      request: {
+        ip: "127.0.0.1",
+      },
+      input: {
+        external_user: null,
+        channel_code: "samchon",
+        href: "http://localhost/TestAutomation",
+        referrer: "http://localhost/NodeJS",
+      },
     });
-    const joined: IShoppingCustomer = await ShoppingMemberProvider.join(
+    const joined: IShoppingCustomer = await ShoppingMemberProvider.join({
       customer,
-    )({
-      email: "robot@nestia.io",
-      password: ShoppingGlobal.env.SHOPPING_SYSTEM_PASSWORD,
-      nickname: "Robot",
-      citizen: {
-        mobile: "01012345678",
-        name: "Robot",
+      input: {
+        email: "robot@nestia.io",
+        password: ShoppingGlobal.env.SHOPPING_SYSTEM_PASSWORD,
+        nickname: "Robot",
+        citizen: {
+          mobile: "01012345678",
+          name: "Robot",
+        },
       },
     });
     await ShoppingGlobal.prisma.shopping_administrators.create({

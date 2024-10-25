@@ -30,7 +30,7 @@ export namespace ShoppingOrderProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_ordersGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_ordersGetPayload<ReturnType<typeof select>>
     ): Promise<IShoppingOrder> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("mv_price is null");
@@ -38,7 +38,7 @@ export namespace ShoppingOrderProvider {
         id: input.id,
         customer: ShoppingCustomerProvider.json.transform(input.customer),
         goods: await ArrayUtil.asyncMap(input.goods)(
-          ShoppingOrderGoodProvider.json.transform,
+          ShoppingOrderGoodProvider.json.transform
         ),
         publish:
           input.publish !== null
@@ -70,35 +70,38 @@ export namespace ShoppingOrderProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const index =
-    (actor: IShoppingActorEntity) =>
-    async (input: IShoppingOrder.IRequest): Promise<IPage<IShoppingOrder>> =>
-      PaginationUtil.paginate({
-        schema: ShoppingGlobal.prisma.shopping_orders,
-        payload: json.select(actor),
-        transform: json.transform,
-      })({
-        where: {
-          AND: [where(actor), ...(await search(input.search))],
-        },
-        orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy)(input.sort)
-          : [{ created_at: "desc" }],
-      })(input);
+  export const index = async (props: {
+    actor: IShoppingActorEntity;
+    input: IShoppingOrder.IRequest;
+  }): Promise<IPage<IShoppingOrder>> =>
+    PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_orders,
+      payload: json.select(props.actor),
+      transform: json.transform,
+    })({
+      where: {
+        AND: [where(props.actor), ...(await search(props.input.search))],
+      },
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ created_at: "desc" }],
+    })(props.input);
 
-  export const at =
-    (actor: IShoppingActorEntity) =>
-    async (id: string): Promise<IShoppingOrder> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow({
-          where: {
-            id,
-            ...where(actor),
-          },
-          ...json.select(actor),
-        });
-      return json.transform(record);
-    };
+  export const at = async (props: {
+    actor: IShoppingActorEntity;
+    id: string;
+  }): Promise<IShoppingOrder> => {
+    const record = await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow(
+      {
+        where: {
+          id: props.id,
+          ...where(props.actor),
+        },
+        ...json.select(props.actor),
+      }
+    );
+    return json.transform(record);
+  };
 
   export const where = (actor: IShoppingActorEntity) =>
     (actor.type === "customer"
@@ -155,9 +158,10 @@ export namespace ShoppingOrderProvider {
           ]
         : []),
       ...(
-        await ShoppingSaleSnapshotProvider.searchInvert("input.search.sale")(
-          input?.sale,
-        )
+        await ShoppingSaleSnapshotProvider.searchInvert({
+          accessor: "input.search.sale",
+          input: input?.sale,
+        })
       ).map((snapshot) => ({
         goods: {
           some: {
@@ -171,7 +175,7 @@ export namespace ShoppingOrderProvider {
 
   const orderBy = (
     key: IShoppingOrder.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "order.created_at"
       ? { created_at: value }
@@ -188,133 +192,146 @@ export namespace ShoppingOrderProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (customer: IShoppingCustomer) =>
-    async (input: IShoppingOrder.ICreate): Promise<IShoppingOrder> => {
-      // FIND MATCHED COMMODITIES
-      const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-        await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+  export const create = async (props: {
+    customer: IShoppingCustomer;
+    input: IShoppingOrder.ICreate;
+  }): Promise<IShoppingOrder> => {
+    // FIND MATCHED COMMODITIES
+    const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
+      await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+        where: {
+          id: {
+            in: props.input.goods.map((good) => good.commodity_id),
+          },
+          cart: {
+            customer: ShoppingCustomerProvider.where(props.customer),
+          },
+        },
+        ...ShoppingCartCommodityProvider.json.select(),
+      })
+    )(ShoppingCartCommodityProvider.json.transform);
+
+    // VALIDATE
+    const diagnoses: IDiagnosis[] = ShoppingOrderDiagnoser.validate(
+      commodities
+    )(props.input);
+    if (diagnoses.length) throw ErrorProvider.unprocessable(diagnoses);
+
+    // COLLECT GOODS
+    const quantity: IPointer<number> = { value: 0 };
+    const goods = props.input.goods.map((raw, i) => {
+      const commodity: IShoppingCartCommodity = commodities.find(
+        (c) => c.id === raw.commodity_id
+      )!;
+      quantity.value +=
+        raw.volume *
+        commodity.sale.units
+          .map((u) => u.stocks.map((s) => s.quantity))
+          .flat()
+          .reduce((a, b) => a + b);
+      return ShoppingOrderGoodProvider.collect({
+        seller: {
+          id: commodity.sale.seller.id,
+        },
+        commodity,
+        input: raw,
+        sequence: i,
+      });
+    });
+
+    // DO ARCHIVE
+    const record = await ShoppingGlobal.prisma.shopping_orders.create({
+      data: {
+        id: v4(),
+        customer: {
+          connect: {
+            id: props.customer.id,
+          },
+        },
+        goods: {
+          create: goods,
+        },
+        cash: goods.map((g) => g.mv_price.create.cash).reduce((x, y) => x + y),
+        mileage: 0,
+        deposit: 0,
+        created_at: new Date(),
+        deleted_at: null,
+        mv_price: {
+          create: {
+            quantity: quantity.value,
+            nominal: goods
+              .map((g) => g.mv_price.create.nominal)
+              .reduce((x, y) => x + y),
+            real: goods
+              .map((g) => g.mv_price.create.real)
+              .reduce((x, y) => x + y),
+            ticket: 0,
+          },
+        },
+      },
+      ...json.select(props.customer),
+    });
+    return json.transform(record);
+  };
+
+  export const erase = async (props: {
+    customer: IShoppingCustomer;
+    id: string;
+  }): Promise<void> => {
+    const record = await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow(
+      {
+        where: {
+          id: props.id,
+          ...where(props.customer),
+        },
+        include: {
+          ...ShoppingOrderPriceProvider.json.select(props.customer).include,
+          publish: true,
+        },
+      }
+    );
+    if (record.publish !== null)
+      throw ErrorProvider.gone({
+        accessor: "id",
+        message: "Order has already been published.",
+      });
+
+    const price: IShoppingOrderPrice =
+      await ShoppingOrderPriceProvider.json.transform(record);
+
+    if (props.customer.citizen) {
+      if (price.deposit)
+        await ShoppingDepositHistoryProvider.cancel({
+          citizen: props.customer.citizen,
+          deposit: {
+            code: "shopping_order_payment",
+          },
+          source: record,
+        });
+      if (price.ticket)
+        await ShoppingMileageHistoryProvider.cancel({
+          citizen: props.customer.citizen,
+          mileage: {
+            code: "shopping_order_payment",
+          },
+          source: record,
+        });
+      if (price.ticket_payments.length)
+        await ShoppingGlobal.prisma.shopping_coupon_ticket_payments.deleteMany({
           where: {
             id: {
-              in: input.goods.map((good) => good.commodity_id),
+              in: price.ticket_payments.map((ctp) => ctp.id),
             },
-            cart: {
-              customer: ShoppingCustomerProvider.where(customer),
-            },
-          },
-          ...ShoppingCartCommodityProvider.json.select(),
-        }),
-      )(ShoppingCartCommodityProvider.json.transform);
-
-      // VALIDATE
-      const diagnoses: IDiagnosis[] =
-        ShoppingOrderDiagnoser.validate(commodities)(input);
-      if (diagnoses.length) throw ErrorProvider.unprocessable(diagnoses);
-
-      // COLLECT GOODS
-      const quantity: IPointer<number> = { value: 0 };
-      const goods = input.goods.map((raw, i) => {
-        const commodity: IShoppingCartCommodity = commodities.find(
-          (c) => c.id === raw.commodity_id,
-        )!;
-        quantity.value +=
-          raw.volume *
-          commodity.sale.units
-            .map((u) => u.stocks.map((s) => s.quantity))
-            .flat()
-            .reduce((a, b) => a + b);
-        return ShoppingOrderGoodProvider.collect({
-          id: commodity.sale.seller.id,
-        })(commodity)(raw, i);
-      });
-
-      // DO ARCHIVE
-      const record = await ShoppingGlobal.prisma.shopping_orders.create({
-        data: {
-          id: v4(),
-          customer: {
-            connect: {
-              id: customer.id,
-            },
-          },
-          goods: {
-            create: goods,
-          },
-          cash: goods
-            .map((g) => g.mv_price.create.cash)
-            .reduce((x, y) => x + y),
-          mileage: 0,
-          deposit: 0,
-          created_at: new Date(),
-          deleted_at: null,
-          mv_price: {
-            create: {
-              quantity: quantity.value,
-              nominal: goods
-                .map((g) => g.mv_price.create.nominal)
-                .reduce((x, y) => x + y),
-              real: goods
-                .map((g) => g.mv_price.create.real)
-                .reduce((x, y) => x + y),
-              ticket: 0,
-            },
-          },
-        },
-        ...json.select(customer),
-      });
-      return json.transform(record);
-    };
-
-  export const erase =
-    (customer: IShoppingCustomer) =>
-    async (id: string): Promise<void> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_orders.findFirstOrThrow({
-          where: {
-            id,
-            ...where(customer),
-          },
-          include: {
-            ...ShoppingOrderPriceProvider.json.select(customer).include,
-            publish: true,
           },
         });
-      if (record.publish !== null)
-        throw ErrorProvider.gone({
-          accessor: "id",
-          message: "Order has already been published.",
-        });
-
-      const price: IShoppingOrderPrice =
-        await ShoppingOrderPriceProvider.json.transform(record);
-
-      if (customer.citizen) {
-        if (price.deposit)
-          await ShoppingDepositHistoryProvider.cancel(customer.citizen)(
-            "shopping_order_payment",
-          )(record);
-        if (price.ticket)
-          await ShoppingMileageHistoryProvider.cancel(customer.citizen)(
-            "shopping_order_payment",
-          )(record);
-        if (price.ticket_payments.length)
-          await ShoppingGlobal.prisma.shopping_coupon_ticket_payments.deleteMany(
-            {
-              where: {
-                id: {
-                  in: price.ticket_payments.map((ctp) => ctp.id),
-                },
-              },
-            },
-          );
-      }
-      await ShoppingGlobal.prisma.shopping_orders.update({
-        where: {
-          id,
-        },
-        data: {
-          deleted_at: new Date(),
-        },
-      });
-    };
+    }
+    await ShoppingGlobal.prisma.shopping_orders.update({
+      where: {
+        id: props.id,
+      },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
+  };
 }

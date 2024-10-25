@@ -23,7 +23,7 @@ export namespace ShoppingDepositChargePublishProvider {
     export const transform = (
       input: Prisma.shopping_deposit_charge_publishesGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingDepositChargePublish => ({
       id: input.id,
       created_at: input.created_at.toISOString(),
@@ -37,18 +37,22 @@ export namespace ShoppingDepositChargePublishProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const able =
-    (customer: IShoppingCustomer) =>
-    async (charge: IEntity): Promise<boolean> => {
-      return (await knock(customer)(charge)) !== null;
-    };
+  export const able = async (props: {
+    customer: IShoppingCustomer;
+    charge: IEntity;
+  }): Promise<boolean> => {
+    return (await knock(props)) !== null;
+  };
 
-  const knock = (customer: IShoppingCustomer) => async (charge: IEntity) => {
+  const knock = async (props: {
+    customer: IShoppingCustomer;
+    charge: IEntity;
+  }) => {
     const record =
       await ShoppingGlobal.prisma.shopping_deposit_charges.findFirstOrThrow({
         where: {
-          id: charge.id,
-          customer: ShoppingCustomerProvider.where(customer),
+          id: props.charge.id,
+          customer: ShoppingCustomerProvider.where(props.customer),
         },
         include: {
           publish: true,
@@ -60,65 +64,78 @@ export namespace ShoppingDepositChargePublishProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (customer: IShoppingCustomer) =>
-    (charge: IEntity) =>
-    async (
-      input: IShoppingDepositChargePublish.ICreate,
-    ): Promise<IShoppingDepositChargePublish> => {
-      // PRELIMINARIES
-      if (customer.citizen === null)
-        throw ErrorProvider.forbidden({
-          accessor: "headers.Authorzation",
-          message: "You are not a citizen yet.",
-        });
-      const reference = await knock(customer)(charge);
-      if (reference === null)
-        throw ErrorProvider.gone({
-          accessor: "id",
-          message: "The order already has been published.",
-        });
-      const props = await PaymentService.enroll({
-        vendor: input.vendor,
-        uid: input.uid,
-        orderId: charge.id,
-        amount: reference.value,
+  export const create = async (props: {
+    customer: IShoppingCustomer;
+    charge: IEntity;
+    input: IShoppingDepositChargePublish.ICreate;
+  }): Promise<IShoppingDepositChargePublish> => {
+    // PRELIMINARIES
+    if (props.customer.citizen === null)
+      throw ErrorProvider.forbidden({
+        accessor: "headers.Authorzation",
+        message: "You are not a citizen yet.",
+      });
+    const reference = await knock(props);
+    if (reference === null)
+      throw ErrorProvider.gone({
+        accessor: "id",
+        message: "The order already has been published.",
+      });
+    const next = await PaymentService.enroll({
+      vendor: props.input.vendor,
+      uid: props.input.uid,
+      orderId: props.charge.id,
+      amount: reference.value,
+    });
+
+    // DO ARCHIVE
+    const publish =
+      await ShoppingGlobal.prisma.shopping_deposit_charge_publishes.create({
+        data: {
+          id: v4(),
+          charge: {
+            connect: { id: props.charge.id },
+          },
+          password: encrypt(RandomGenerator.alphaNumeric(16)),
+          created_at: next.created_at,
+          paid_at: next.paid_at,
+          cancelled_at: next.cancelled_at,
+        },
+        ...json.select(),
       });
 
-      // DO ARCHIVE
-      const publish =
-        await ShoppingGlobal.prisma.shopping_deposit_charge_publishes.create({
-          data: {
-            id: v4(),
-            charge: {
-              connect: { id: charge.id },
-            },
-            password: encrypt(RandomGenerator.alphaNumeric(16)),
-            created_at: props.created_at,
-            paid_at: props.paid_at,
-            cancelled_at: props.cancelled_at,
-          },
-          ...json.select(),
-        });
+    // POST-PROCESSING
+    if (publish.paid_at !== null && publish.cancelled_at === null)
+      await handlePayment({
+        citizen: props.customer.citizen,
+        charge: props.charge,
+        value: reference.value,
+      });
+    return json.transform(publish);
+  };
 
-      // POST-PROCESSING
-      if (publish.paid_at !== null && publish.cancelled_at === null)
-        await handlePayment(customer.citizen)(charge, reference.value);
-
-      return json.transform(publish);
-    };
-
-  const handlePayment =
-    (citizen: IShoppingCitizen) =>
-    async (charge: IEntity, value: number): Promise<void> => {
-      await ShoppingDepositHistoryProvider.emplace(citizen)(
-        "shopping_deposit_charge",
-      )(charge, value);
-
-      await ShoppingMileageHistoryProvider.emplace(citizen)(
-        "shopping_deposit_charge_reward",
-      )(charge, (ratio) => value * ratio!);
-    };
+  const handlePayment = async (props: {
+    citizen: IShoppingCitizen;
+    charge: IEntity;
+    value: number;
+  }): Promise<void> => {
+    await ShoppingDepositHistoryProvider.emplace({
+      citizen: props.citizen,
+      deposit: {
+        code: "shopping_deposit_charge",
+      },
+      source: props.charge,
+      value: props.value,
+    });
+    await ShoppingMileageHistoryProvider.emplace({
+      citizen: props.citizen,
+      mileage: {
+        code: "shopping_deposit_charge_reward",
+      },
+      source: props.charge,
+      value: (ratio) => props.value * ratio!,
+    });
+  };
 
   // const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
   const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);

@@ -32,9 +32,12 @@ export class ShoppingAdminMileageDonationController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileageDonation.IRequest,
+    @core.TypedBody() input: IShoppingMileageDonation.IRequest
   ): Promise<IPage<IShoppingMileageDonation>> {
-    return ShoppingMileageDonationProvider.index(admin)(input);
+    return ShoppingMileageDonationProvider.index({
+      admin,
+      input,
+    });
   }
 
   /**
@@ -51,9 +54,12 @@ export class ShoppingAdminMileageDonationController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingMileageDonation> {
-    return ShoppingMileageDonationProvider.at(admin)(id);
+    return ShoppingMileageDonationProvider.at({
+      admin,
+      id,
+    });
   }
 
   /**
@@ -76,8 +82,11 @@ export class ShoppingAdminMileageDonationController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileageDonation.ICreate,
+    @core.TypedBody() input: IShoppingMileageDonation.ICreate
   ): Promise<IShoppingMileageDonation> {
-    return ShoppingMileageDonationProvider.create(admin)(input);
+    return ShoppingMileageDonationProvider.create({
+      admin,
+      input,
+    });
   }
 }

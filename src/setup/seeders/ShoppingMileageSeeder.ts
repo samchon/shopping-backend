@@ -4,7 +4,11 @@ import { ShoppingMileageProvider } from "../../providers/shoppings/mileages/Shop
 
 export namespace ShoppingMileageSeeder {
   export const seed = async (): Promise<void> => {
-    for (const input of DATA) await ShoppingMileageProvider.create(null)(input);
+    for (const input of DATA)
+      await ShoppingMileageProvider.create({
+        admin: null,
+        input,
+      });
   };
 }
 

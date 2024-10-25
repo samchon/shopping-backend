@@ -32,9 +32,12 @@ export class ShoppingCustomerMileageHistoryController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingMileageHistory.IRequest,
+    @core.TypedBody() input: IShoppingMileageHistory.IRequest
   ): Promise<IPage<IShoppingMileageHistory>> {
-    return ShoppingMileageHistoryProvider.index(customer.citizen!)(input);
+    return ShoppingMileageHistoryProvider.index({
+      citizen: customer.citizen!,
+      input,
+    });
   }
 
   /**
@@ -51,9 +54,12 @@ export class ShoppingCustomerMileageHistoryController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingMileageHistory> {
-    return ShoppingMileageHistoryProvider.at(customer.citizen!)(id);
+    return ShoppingMileageHistoryProvider.at({
+      citizen: customer.citizen!,
+      id,
+    });
   }
 
   /**
@@ -68,7 +74,7 @@ export class ShoppingCustomerMileageHistoryController {
    */
   @core.TypedRoute.Get("balance")
   public async balance(
-    @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
+    @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer
   ): Promise<number> {
     return ShoppingMileageHistoryProvider.getBalance(customer.citizen!);
   }

@@ -15,7 +15,7 @@ export namespace ShoppingSectionProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_sectionsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_sectionsGetPayload<ReturnType<typeof select>>
     ): IShoppingSection => ({
       id: input.id,
       code: input.code,
@@ -30,7 +30,7 @@ export namespace ShoppingSectionProvider {
     READERS
   ----------------------------------------------------------- */
   export const index = (
-    input: IShoppingSection.IRequest,
+    input: IShoppingSection.IRequest
   ): Promise<IPage<IShoppingSection>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_sections,
@@ -46,7 +46,7 @@ export namespace ShoppingSectionProvider {
     })(input);
 
   export const search = (
-    input: IShoppingSection.IRequest.ISearch | undefined,
+    input: IShoppingSection.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.code?.length ? [{ code: { contains: input.code } }] : []),
@@ -64,7 +64,7 @@ export namespace ShoppingSectionProvider {
 
   export const orderBy = (
     key: IShoppingSection.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "section.code"
       ? { code: value }
@@ -94,7 +94,7 @@ export namespace ShoppingSectionProvider {
     WRITERS
   ----------------------------------------------------------- */
   export const create = async (
-    input: IShoppingSection.ICreate,
+    input: IShoppingSection.ICreate
   ): Promise<IShoppingSection> => {
     const record = await ShoppingGlobal.prisma.shopping_sections.create({
       data: collect(input),
@@ -103,23 +103,25 @@ export namespace ShoppingSectionProvider {
     return json.transform(record);
   };
 
-  export const update =
-    (id: string) => async (input: IShoppingSection.IUpdate) => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_sections.findFirstOrThrow({
-          where: { id },
-        });
-      await ShoppingGlobal.prisma.shopping_sections.update({
-        where: { id: record.id },
-        data: {
-          name: input.name,
-        },
+  export const update = async (props: {
+    id: string;
+    input: IShoppingSection.IUpdate;
+  }) => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_sections.findFirstOrThrow({
+        where: { id: props.id },
       });
-    };
+    await ShoppingGlobal.prisma.shopping_sections.update({
+      where: { id: record.id },
+      data: {
+        name: props.input.name,
+      },
+    });
+  };
 
   export const merge = (input: IRecordMerge) =>
     EntityMergeProvider.merge(
-      ShoppingGlobal.prisma.shopping_sections.fields.id.modelName,
+      ShoppingGlobal.prisma.shopping_sections.fields.id.modelName
     )(input);
 
   const collect = (input: IShoppingSection.ICreate) =>

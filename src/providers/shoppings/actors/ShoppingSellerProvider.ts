@@ -23,7 +23,7 @@ export namespace ShoppingSellerProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_sellersGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_sellersGetPayload<ReturnType<typeof select>>
     ): IShoppingSeller => ({
       id: input.id,
       created_at: input.created_at.toISOString(),
@@ -35,12 +35,10 @@ export namespace ShoppingSellerProvider {
     export const transform =
       (
         error: (message: string) => Error = () =>
-          ErrorProvider.internal("exepcted to seller, but it isn't."),
+          ErrorProvider.internal("exepcted to seller, but it isn't.")
       ) =>
       (
-        customer: Prisma.shopping_customersGetPayload<
-          ReturnType<typeof select>
-        >,
+        customer: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>
       ): IShoppingSeller.IInvert => {
         const member = customer.member;
         if (member === null) throw error("not a member.");
@@ -69,7 +67,7 @@ export namespace ShoppingSellerProvider {
             external_user:
               customer.external_user !== null
                 ? ShoppingExternalUserProvider.json.transform(
-                    customer.external_user,
+                    customer.external_user
                   )
                 : null,
             href: customer.href,
@@ -104,8 +102,10 @@ export namespace ShoppingSellerProvider {
       authorization?: string;
     };
   }): Promise<IShoppingSeller.IInvert> => {
-    const asset: JwtTokenManager.IAsset =
-      await JwtTokenService.authorize("shopping_customers")(request);
+    const asset: JwtTokenManager.IAsset = await JwtTokenService.authorize({
+      table: "shopping_customers",
+      request,
+    });
     const customer = await ShoppingGlobal.prisma.shopping_customers.findFirst({
       where: { id: asset.id },
       ...invert.select(),
@@ -116,12 +116,12 @@ export namespace ShoppingSellerProvider {
         message: "tempered token",
       });
     return invert.transform((msg) => new ForbiddenException(`You're ${msg}`))(
-      customer,
+      customer
     );
   };
 
   export const searchFromCustomer = (
-    input: IShoppingSeller.IRequest.ISearch | undefined,
+    input: IShoppingSeller.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.id?.length
@@ -138,7 +138,7 @@ export namespace ShoppingSellerProvider {
 
   export const orderBy = (
     key: IShoppingSeller.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "seller.created_at"
       ? { created_at: value }
@@ -187,15 +187,16 @@ export namespace ShoppingSellerProvider {
       })!;
     };
 
-  export const login =
-    (customer: IShoppingCustomer) =>
-    async (input: IShoppingMember.ILogin): Promise<IShoppingSeller.IInvert> => {
-      customer = await ShoppingMemberProvider.login(customer)(input);
-      if (!customer.member?.seller)
-        throw ErrorProvider.forbidden({
-          accessor: "headers.Authorization",
-          message: "You've not joined as a seller yet.",
-        });
-      return ShoppingSellerDiagnoser.invert(customer)!;
-    };
+  export const login = async (props: {
+    customer: IShoppingCustomer;
+    input: IShoppingMember.ILogin;
+  }): Promise<IShoppingSeller.IInvert> => {
+    props.customer = await ShoppingMemberProvider.login(props);
+    if (!props.customer.member?.seller)
+      throw ErrorProvider.forbidden({
+        accessor: "headers.Authorization",
+        message: "You've not joined as a seller yet.",
+      });
+    return ShoppingSellerDiagnoser.invert(props.customer)!;
+  };
 }

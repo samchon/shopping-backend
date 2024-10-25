@@ -22,7 +22,7 @@ export namespace ShoppingCustomerProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>
     ): IShoppingCustomer => ({
       id: input.id,
       type: "customer",
@@ -58,36 +58,39 @@ export namespace ShoppingCustomerProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const authorize =
-    (level: "guest" | "member" | "citizen") =>
-    async (request: {
+  export const authorize = async (props: {
+    level: "guest" | "member" | "citizen";
+    request: {
       headers: {
         authorization?: string;
       };
-    }): Promise<IShoppingCustomer> => {
-      const asset: JwtTokenManager.IAsset =
-        await JwtTokenService.authorize("shopping_customers")(request);
-      const record = await ShoppingGlobal.prisma.shopping_customers.findFirst({
-        ...json.select(),
-        where: { id: asset.id },
-      });
-      if (record === null)
-        throw ErrorProvider.forbidden({
-          accessor: "headers.authorization",
-          message: "tempered token",
-        });
-
-      const customer: IShoppingCustomer =
-        ShoppingCustomerProvider.json.transform(record);
-      if (level === "member" && customer.member === null)
-        throw ErrorProvider.forbidden("You're not a member");
-      if (level === "citizen" && customer.citizen === null)
-        throw ErrorProvider.forbidden("You're not a citizen");
-      return customer;
     };
+  }): Promise<IShoppingCustomer> => {
+    const asset: JwtTokenManager.IAsset = await JwtTokenService.authorize({
+      table: "shopping_customers",
+      request: props.request,
+    });
+    const record = await ShoppingGlobal.prisma.shopping_customers.findFirst({
+      ...json.select(),
+      where: { id: asset.id },
+    });
+    if (record === null)
+      throw ErrorProvider.forbidden({
+        accessor: "headers.authorization",
+        message: "tempered token",
+      });
+
+    const customer: IShoppingCustomer =
+      ShoppingCustomerProvider.json.transform(record);
+    if (props.level === "member" && customer.member === null)
+      throw ErrorProvider.forbidden("You're not a member");
+    if (props.level === "citizen" && customer.citizen === null)
+      throw ErrorProvider.forbidden("You're not a citizen");
+    return customer;
+  };
 
   export const refresh = async (
-    input?: string,
+    input?: string
   ): Promise<IShoppingCustomer.IAuthorized> => {
     if (!input)
       throw ErrorProvider.unauthorized({
@@ -124,7 +127,7 @@ export namespace ShoppingCustomerProvider {
 
   const tokenize = async (
     customer: IShoppingCustomer,
-    readonly: boolean = false,
+    readonly: boolean = false
   ): Promise<IShoppingCustomer.IAuthorized> => {
     const token: JwtTokenManager.IOutput = await JwtTokenManager.generate({
       table: "shopping_customers",
@@ -166,25 +169,29 @@ export namespace ShoppingCustomerProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (request: { ip: string }) =>
-    async (
-      input: IShoppingCustomer.ICreate,
-      readonly: boolean = false,
-    ): Promise<IShoppingCustomer.IAuthorized> => {
-      const channel = await ShoppingChannelProvider.get(input.channel_code);
-      const external_user = input.external_user
-        ? await ShoppingExternalUserProvider.create({
-            channel,
-            customer: null,
-          })(input.external_user)
-        : null;
-      const record = await ShoppingGlobal.prisma.shopping_customers.create({
-        data: await collect({ channel, external_user, request })(input),
-        ...json.select(),
-      });
-      return tokenize(json.transform(record), readonly);
-    };
+  export const create = async (props: {
+    request: { ip: string };
+    input: IShoppingCustomer.ICreate;
+    readonly?: boolean;
+  }): Promise<IShoppingCustomer.IAuthorized> => {
+    const channel = await ShoppingChannelProvider.get(props.input.channel_code);
+    const external_user = props.input.external_user
+      ? await ShoppingExternalUserProvider.create({
+          channel,
+          customer: null,
+        })(props.input.external_user)
+      : null;
+    const record = await ShoppingGlobal.prisma.shopping_customers.create({
+      data: await collect({
+        channel,
+        external_user,
+        request: props.request,
+        input: props.input,
+      }),
+      ...json.select(),
+    });
+    return tokenize(json.transform(record), props.readonly ?? false);
+  };
 
   export const activate =
     (customer: IShoppingCustomer) =>
@@ -203,9 +210,10 @@ export namespace ShoppingCustomerProvider {
       inspect("external user")(customer.external_user?.citizen);
 
       // EMPLACE CITIZEN
-      const citizen = await ShoppingCitizenProvider.create(customer.channel)(
+      const citizen = await ShoppingCitizenProvider.create({
+        channel: customer.channel,
         input,
-      );
+      });
       await ShoppingGlobal.prisma.shopping_customers.update({
         where: { id: customer.id },
         data: {
@@ -239,37 +247,36 @@ export namespace ShoppingCustomerProvider {
       };
     };
 
-  const collect =
-    (props: {
-      channel: IShoppingChannel;
-      external_user: IShoppingExternalUser | null;
-      request: { ip: string };
-    }) =>
-    (input: IShoppingCustomer.ICreate) =>
-      ({
-        id: v4(),
-        channel: { connect: { id: props.channel.id } },
-        external_user:
-          props.external_user !== null
-            ? { connect: { id: props.external_user.id } }
-            : undefined,
-        citizen: props.external_user?.citizen?.id
-          ? {
-              connect: { id: props.external_user.citizen.id },
-            }
+  const collect = (props: {
+    channel: IShoppingChannel;
+    external_user: IShoppingExternalUser | null;
+    request: { ip: string };
+    input: IShoppingCustomer.ICreate;
+  }) =>
+    ({
+      id: v4(),
+      channel: { connect: { id: props.channel.id } },
+      external_user:
+        props.external_user !== null
+          ? { connect: { id: props.external_user.id } }
           : undefined,
-        member: undefined,
-        href: input.href,
-        referrer: input.referrer,
-        ip: input.ip ?? props.request.ip,
-        created_at: new Date(),
-      }) satisfies Prisma.shopping_customersCreateInput;
+      citizen: props.external_user?.citizen?.id
+        ? {
+            connect: { id: props.external_user.citizen.id },
+          }
+        : undefined,
+      member: undefined,
+      href: props.input.href,
+      referrer: props.input.referrer,
+      ip: props.input.ip ?? props.request.ip,
+      created_at: new Date(),
+    }) satisfies Prisma.shopping_customersCreateInput;
 
   /* -----------------------------------------------------------
     PREDICATORS
   ----------------------------------------------------------- */
   export const anonymous = (
-    customer: IShoppingCustomer,
+    customer: IShoppingCustomer
   ): IShoppingCustomer => ({
     id: v4(),
     type: "customer",
@@ -288,12 +295,9 @@ export namespace ShoppingCustomerProvider {
     created_at: new Date().toISOString(),
   });
 
-  export const equals =
-    (x: IShoppingCustomer) =>
-    (y: IShoppingCustomer): boolean =>
-      x.id === y.id ||
-      (x.citizen !== null && x.citizen.id === y.citizen?.id) ||
-      (x.external_user !== null &&
-        x.external_user.id === y.external_user?.id) ||
-      (x.member !== null && x.member.id === y.member?.id);
+  export const equals = (x: IShoppingCustomer, y: IShoppingCustomer): boolean =>
+    x.id === y.id ||
+    (x.citizen !== null && x.citizen.id === y.citizen?.id) ||
+    (x.external_user !== null && x.external_user.id === y.external_user?.id) ||
+    (x.member !== null && x.member.id === y.member?.id);
 }

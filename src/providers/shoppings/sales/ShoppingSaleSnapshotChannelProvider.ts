@@ -15,14 +15,15 @@ export namespace ShoppingSaleSnapshotChannelProvider {
     export const transform = async (
       input: Prisma.shopping_sale_snapshot_channelsGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): Promise<IShoppingSaleChannel> => ({
       ...ShoppingChannelProvider.json.transform(input.channel),
       categories: await ArrayUtil.asyncMap(input.to_categories)(async (r) => {
         const category: IShoppingChannelCategory | null =
-          await ShoppingChannelCategoryProvider.at(input.channel)(
-            r.shopping_channel_category_id,
-          );
+          await ShoppingChannelCategoryProvider.at({
+            channel: input.channel,
+            id: r.shopping_channel_category_id,
+          });
         if (category === null)
           throw ErrorProvider.internal("Unable to find the matched category.");
         return category;
@@ -37,26 +38,28 @@ export namespace ShoppingSaleSnapshotChannelProvider {
       }) satisfies Prisma.shopping_sale_snapshot_channelsFindManyArgs;
   }
 
-  export const collect =
-    (channelDict: Map<string, IEntity>) =>
-    (input: IShoppingSaleChannel.ICreate, sequence: number) => {
-      const channel: IEntity | undefined = channelDict.get(input.code);
-      if (channel === undefined)
-        throw ErrorProvider.notFound({
-          accessor: `input.channels[${sequence}].code`,
-          message: `Unable to find the matched channel with code "${input.code}".`,
-        });
-      return {
-        id: v4(),
-        channel: { connect: { id: channel.id } },
-        to_categories: {
-          create: input.category_ids.map((id, i) => ({
-            id: v4(),
-            shopping_channel_category_id: id,
-            sequence: i,
-          })),
-        },
-        sequence,
-      } satisfies Prisma.shopping_sale_snapshot_channelsCreateWithoutSnapshotInput;
-    };
+  export const collect = (props: {
+    dictionary: Map<string, IEntity>;
+    input: IShoppingSaleChannel.ICreate;
+    sequence: number;
+  }) => {
+    const channel: IEntity | undefined = props.dictionary.get(props.input.code);
+    if (channel === undefined)
+      throw ErrorProvider.notFound({
+        accessor: `input.channels[${props.sequence}].code`,
+        message: `Unable to find the matched channel with code "${props.input.code}".`,
+      });
+    return {
+      id: v4(),
+      channel: { connect: { id: channel.id } },
+      to_categories: {
+        create: props.input.category_ids.map((id, i) => ({
+          id: v4(),
+          shopping_channel_category_id: id,
+          sequence: i,
+        })),
+      },
+      sequence: props.sequence,
+    } satisfies Prisma.shopping_sale_snapshot_channelsCreateWithoutSnapshotInput;
+  };
 }

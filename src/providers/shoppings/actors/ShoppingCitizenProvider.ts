@@ -10,7 +10,7 @@ import { ShoppingGlobal } from "../../../ShoppingGlobal";
 export namespace ShoppingCitizenProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_citizensGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_citizensGetPayload<ReturnType<typeof select>>
     ): IShoppingCitizen => ({
       id: input.id,
       mobile: decrypt(input.mobile),
@@ -21,40 +21,41 @@ export namespace ShoppingCitizenProvider {
       ({}) satisfies Prisma.shopping_citizensFindManyArgs;
   }
 
-  export const create =
-    (channel: IEntity) =>
-    async (input: IShoppingCitizen.ICreate): Promise<IShoppingCitizen> => {
-      const oldbie = await ShoppingGlobal.prisma.shopping_citizens.findFirst({
-        where: {
-          shopping_channel_id: channel.id,
-          mobile: encrypt(input.mobile),
-        },
-      });
-      if (oldbie !== null) return json.transform(oldbie);
+  export const create = async (props: {
+    channel: IEntity;
+    input: IShoppingCitizen.ICreate;
+  }): Promise<IShoppingCitizen> => {
+    const oldbie = await ShoppingGlobal.prisma.shopping_citizens.findFirst({
+      where: {
+        shopping_channel_id: props.channel.id,
+        mobile: encrypt(props.input.mobile),
+      },
+    });
+    if (oldbie !== null) return json.transform(oldbie);
 
-      const record = await ShoppingGlobal.prisma.shopping_citizens.upsert({
-        where: {
-          shopping_channel_id_mobile: {
-            shopping_channel_id: channel.id,
-            mobile: encrypt(input.mobile),
-          },
+    const record = await ShoppingGlobal.prisma.shopping_citizens.upsert({
+      where: {
+        shopping_channel_id_mobile: {
+          shopping_channel_id: props.channel.id,
+          mobile: encrypt(props.input.mobile),
         },
-        create: {
-          id: v4(),
-          channel: {
-            connect: { id: channel.id },
-          },
-          mobile: encrypt(input.mobile),
-          name: encrypt(input.name),
-          created_at: new Date(),
+      },
+      create: {
+        id: v4(),
+        channel: {
+          connect: { id: props.channel.id },
         },
-        update: {},
-      });
-      return json.transform(record);
-    };
+        mobile: encrypt(props.input.mobile),
+        name: encrypt(props.input.name),
+        created_at: new Date(),
+      },
+      update: {},
+    });
+    return json.transform(record);
+  };
 
   export const search = (
-    input: IShoppingCitizen.IRequest.ISearch | undefined,
+    input: IShoppingCitizen.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.mobile?.length ? [{ mobile: encrypt(input.mobile) }] : []),

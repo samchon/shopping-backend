@@ -23,7 +23,7 @@ export namespace ShoppingDeliveryPieceProvider {
     export const transform = (
       input: Prisma.shopping_delivery_piecesGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingDeliveryPiece => ({
       id: input.id,
       publish_id: input.shopping_order_publish_id,
@@ -39,10 +39,10 @@ export namespace ShoppingDeliveryPieceProvider {
     export const transform = (
       inputList: Prisma.shopping_delivery_piecesGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): IShoppingDelivery[] => {
       const deliveries = new Map(
-        inputList.map((input) => [input.delivery.id, input.delivery]),
+        inputList.map((input) => [input.delivery.id, input.delivery])
       );
       const resolved: Map<string, IShoppingDelivery> = new Map(
         [...deliveries].map(([id, di]) => [
@@ -51,7 +51,7 @@ export namespace ShoppingDeliveryPieceProvider {
             ...ShoppingDeliveryProvider.jsonFromPublish.transform(di),
             pieces: [],
           },
-        ]),
+        ])
       );
       for (const input of inputList)
         resolved.get(input.delivery.id)!.pieces.push({
@@ -75,7 +75,7 @@ export namespace ShoppingDeliveryPieceProvider {
     export const transform = async (
       inputList: Prisma.shopping_delivery_piecesGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): Promise<Pick<IShoppingDelivery.IInvert, "orders" | "pieces">> => {
       const tuples = new Map(
         inputList.map((input) => [
@@ -84,7 +84,7 @@ export namespace ShoppingDeliveryPieceProvider {
             order: input.publish.order,
             publish: input.publish,
           },
-        ]),
+        ])
       );
       const orders: IShoppingOrder.IInvertFromDelivery[] =
         await ArrayUtil.asyncMap([...tuples.values()])(
@@ -100,13 +100,13 @@ export namespace ShoppingDeliveryPieceProvider {
               paid_at: publish.paid_at?.toISOString() ?? null,
               cancelled_at: publish.cancelled_at?.toISOString() ?? null,
             },
-          }),
+          })
         );
       orders.forEach(
         (o) =>
           (o.goods = o.goods.filter((good) =>
-            inputList.some((p) => p.shopping_order_good_id === good.id),
-          )),
+            inputList.some((p) => p.shopping_order_good_id === good.id)
+          ))
       );
       return {
         orders,
@@ -134,105 +134,104 @@ export namespace ShoppingDeliveryPieceProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const incompletes =
-    (seller: IShoppingSeller.IInvert) =>
-    async (
-      input: IShoppingDeliveryPiece.IRequest,
-    ): Promise<IShoppingDeliveryPiece.ICreate[]> => {
-      const [publishes, pieces] = await getIncompletes(seller)(input);
+  export const incompletes = async (props: {
+    seller: IShoppingSeller.IInvert;
+    input: IShoppingDeliveryPiece.IRequest;
+  }): Promise<IShoppingDeliveryPiece.ICreate[]> => {
+    const [publishes, pieces] = await getIncompletes(props);
 
-      const notFounds: IDiagnosis[] = [];
-      const unprocessables: IDiagnosis[] = [];
+    const notFounds: IDiagnosis[] = [];
+    const unprocessables: IDiagnosis[] = [];
 
-      input.publish_ids.forEach((publish_id, i) => {
-        const publish = publishes.find((p) => p.id === publish_id);
-        if (publish === undefined)
-          notFounds.push({
-            accessor: `input.publish_ids[${i}]`,
-            message: `Unable to find the matched publish record.`,
-          });
-        else if (publish.paid_at === null)
-          unprocessables.push({
-            accessor: `input.publish_ids[${i}]`,
-            message: `Target publish has not been paid yet.`,
-          });
-        else if (publish.cancelled_at !== null)
-          unprocessables.push({
-            accessor: `input.publish_ids[${i}]`,
-            message: `Target publish has been cancelled.`,
-          });
-      });
-      if (notFounds.length > 0) throw ErrorProvider.notFound(notFounds);
-      else if (unprocessables.length > 0)
-        throw ErrorProvider.unprocessable(unprocessables);
+    props.input.publish_ids.forEach((publish_id, i) => {
+      const publish = publishes.find((p) => p.id === publish_id);
+      if (publish === undefined)
+        notFounds.push({
+          accessor: `input.publish_ids[${i}]`,
+          message: `Unable to find the matched publish record.`,
+        });
+      else if (publish.paid_at === null)
+        unprocessables.push({
+          accessor: `input.publish_ids[${i}]`,
+          message: `Target publish has not been paid yet.`,
+        });
+      else if (publish.cancelled_at !== null)
+        unprocessables.push({
+          accessor: `input.publish_ids[${i}]`,
+          message: `Target publish has been cancelled.`,
+        });
+    });
+    if (notFounds.length > 0) throw ErrorProvider.notFound(notFounds);
+    else if (unprocessables.length > 0)
+      throw ErrorProvider.unprocessable(unprocessables);
+    return pieces;
+  };
 
-      return pieces;
-    };
-
-  export const getIncompletes =
-    (seller: IShoppingSeller.IInvert) =>
-    async (input: IShoppingDeliveryPiece.IRequest) => {
-      const publishes =
-        await ShoppingGlobal.prisma.shopping_order_publishes.findMany({
-          include: {
-            order: {
-              include: {
-                goods: {
-                  where: {
-                    shopping_seller_id: seller.id,
-                  },
-                  include: {
-                    delivery_pieces: true,
-                    commodity: {
-                      include: {
-                        stocks: true,
-                      },
+  export const getIncompletes = async (props: {
+    seller: IShoppingSeller.IInvert;
+    input: IShoppingDeliveryPiece.IRequest;
+  }) => {
+    const publishes =
+      await ShoppingGlobal.prisma.shopping_order_publishes.findMany({
+        include: {
+          order: {
+            include: {
+              goods: {
+                where: {
+                  shopping_seller_id: props.seller.id,
+                },
+                include: {
+                  delivery_pieces: true,
+                  commodity: {
+                    include: {
+                      stocks: true,
                     },
                   },
                 },
               },
             },
           },
-          where: {
-            id: {
-              in: input.publish_ids,
-            },
+        },
+        where: {
+          id: {
+            in: props.input.publish_ids,
           },
-        });
-      return [
-        publishes,
-        publishes
-          .map((publish) =>
-            publish.order.goods.map((good) =>
-              good.commodity.stocks.map((stock) => ({
-                publish_id: publish.id,
-                good_id: good.id,
-                stock_id: stock.shopping_sale_snapshot_unit_stock_id,
-                quantity:
-                  good.volume * stock.quantity -
-                  good.delivery_pieces
-                    .filter(
-                      (p) =>
-                        p.shopping_sale_snapshot_unit_stock_id ===
-                        stock.shopping_sale_snapshot_unit_stock_id,
-                    )
-                    .map((p) => p.quantity)
-                    .reduce((x, y) => x + y, 0),
-              })),
-            ),
+        },
+      });
+    return [
+      publishes,
+      publishes
+        .map((publish) =>
+          publish.order.goods.map((good) =>
+            good.commodity.stocks.map((stock) => ({
+              publish_id: publish.id,
+              good_id: good.id,
+              stock_id: stock.shopping_sale_snapshot_unit_stock_id,
+              quantity:
+                good.volume * stock.quantity -
+                good.delivery_pieces
+                  .filter(
+                    (p) =>
+                      p.shopping_sale_snapshot_unit_stock_id ===
+                      stock.shopping_sale_snapshot_unit_stock_id
+                  )
+                  .map((p) => p.quantity)
+                  .reduce((x, y) => x + y, 0),
+            }))
           )
-          .flat()
-          .flat()
-          .filter((p) => p.quantity > 0),
-      ] as const;
-    };
+        )
+        .flat()
+        .flat()
+        .filter((p) => p.quantity > 0),
+    ] as const;
+  };
 
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
   export const collect = (
     input: IShoppingDeliveryPiece.ICreate,
-    sequence: number,
+    sequence: number
   ) =>
     ({
       id: v4(),

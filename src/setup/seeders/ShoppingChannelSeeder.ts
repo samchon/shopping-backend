@@ -26,16 +26,16 @@ export namespace ShoppingChannelSeeder {
     };
 
   const seedCategories = async (
-    dict: Map<string, IHierarchy>,
+    dict: Map<string, IHierarchy>
   ): Promise<void> => {
     const input: IRawCategory[] = await CsvUtil.parse(
       "channel",
-      "name",
+      "name"
     )(
       await fs.promises.readFile(
         `${ShoppingConfiguration.ROOT}/assets/raw/raw_shopping_channel_categories.csv`,
-        "utf8",
-      ),
+        "utf8"
+      )
     );
     await ArrayUtil.asyncMap(input)(async (raw, i) => {
       const [name, level] = getLevel(raw.name);
@@ -48,15 +48,18 @@ export namespace ShoppingChannelSeeder {
         const parent = dict.get(raw.channel)?.last[level - 1];
         if (parent === undefined)
           throw new Error(
-            `Unable to find the parent category at line: ${i + 1}.`,
+            `Unable to find the parent category at line: ${i + 1}.`
           );
         return parent;
       })();
 
       const category: IShoppingChannelCategory =
-        await ShoppingChannelCategoryProvider.create(hierarchy.channel)({
-          parent_id: parent?.id ?? null,
-          name,
+        await ShoppingChannelCategoryProvider.create({
+          channel: hierarchy.channel,
+          input: {
+            parent_id: parent?.id ?? null,
+            name,
+          },
         });
       hierarchy.last[level] = category;
     });

@@ -31,14 +31,16 @@ export class ShoppingSellerDeliveryJourneyController {
    * @author Samchon
    */
   @core.TypedRoute.Post()
-  public async create(
+  public create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingDeliveryJourney.ICreate,
+    @core.TypedBody() input: IShoppingDeliveryJourney.ICreate
   ): Promise<IShoppingDeliveryJourney> {
-    return ShoppingDeliveryJourneyProvider.create(seller)({ id: deliveryId })(
+    return ShoppingDeliveryJourneyProvider.create({
+      seller,
+      delivery: { id: deliveryId },
       input,
-    );
+    });
   }
 
   /**
@@ -59,15 +61,18 @@ export class ShoppingSellerDeliveryJourneyController {
    * @author Samchon
    */
   @core.TypedRoute.Put(":id/complete")
-  public async complete(
+  public complete(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingDeliveryJourney.IComplete,
+    @core.TypedBody() input: IShoppingDeliveryJourney.IComplete
   ): Promise<void> {
-    return ShoppingDeliveryJourneyProvider.complete(seller)({
-      id: deliveryId,
-    })(id)(input);
+    return ShoppingDeliveryJourneyProvider.complete({
+      seller,
+      delivery: { id: deliveryId },
+      id,
+      input,
+    });
   }
 
   /**
@@ -88,13 +93,15 @@ export class ShoppingSellerDeliveryJourneyController {
    * @author Samchon
    */
   @core.TypedRoute.Delete(":id")
-  public async erase(
+  public erase(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingDeliveryJourneyProvider.erase(seller)({
-      id: deliveryId,
-    })(id);
+    return ShoppingDeliveryJourneyProvider.erase({
+      seller,
+      delivery: { id: deliveryId },
+      id,
+    });
   }
 }

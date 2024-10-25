@@ -31,9 +31,12 @@ export class ShoppingCustomerOrderPublishController {
   @core.TypedRoute.Get("able")
   public async able(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">,
+    @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">
   ): Promise<boolean> {
-    return ShoppingOrderPublishProvider.able(customer)({ id: orderId });
+    return ShoppingOrderPublishProvider.able({
+      customer,
+      order: { id: orderId },
+    });
   }
 
   /**
@@ -64,11 +67,13 @@ export class ShoppingCustomerOrderPublishController {
   public async create(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingOrderPublish.ICreate,
+    @core.TypedBody() input: IShoppingOrderPublish.ICreate
   ): Promise<IShoppingOrderPublish> {
-    return ShoppingOrderPublishProvider.create(customer)({ id: orderId })(
+    return ShoppingOrderPublishProvider.create({
+      customer,
+      order: { id: orderId },
       input,
-    );
+    });
   }
 
   /**
@@ -89,8 +94,11 @@ export class ShoppingCustomerOrderPublishController {
   @core.TypedRoute.Delete()
   public async cancel(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
-    @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">,
+    @core.TypedParam("orderId") orderId: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingOrderPublishProvider.cancel(customer)({ id: orderId });
+    return ShoppingOrderPublishProvider.cancel({
+      customer,
+      order: { id: orderId },
+    });
   }
 }

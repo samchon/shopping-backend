@@ -39,12 +39,14 @@ export class ShoppingSellerSaleQuestionAnswerController {
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("questionId") questionId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleInquiryAnswer.ICreate,
+    @core.TypedBody() input: IShoppingSaleInquiryAnswer.ICreate
   ): Promise<IShoppingSaleInquiryAnswer> {
-    return ShoppingSaleSnapshotInquiryAnswerProvider.create(seller)({
+    return ShoppingSaleSnapshotInquiryAnswerProvider.create({
+      seller,
       sale: { id: saleId },
       inquiry: { id: questionId },
-    })(input);
+      input,
+    });
   }
 
   /**
@@ -80,11 +82,13 @@ export class ShoppingSellerSaleQuestionAnswerController {
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("questionId") questionId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleInquiryAnswer.IUpdate,
+    @core.TypedBody() input: IShoppingSaleInquiryAnswer.IUpdate
   ): Promise<IShoppingSaleInquiryAnswer.ISnapshot> {
-    return ShoppingSaleSnapshotInquiryAnswerProvider.update(seller)({
+    return ShoppingSaleSnapshotInquiryAnswerProvider.update({
+      seller,
       sale: { id: saleId },
       inquiry: { id: questionId },
-    })(input);
+      input,
+    });
   }
 }

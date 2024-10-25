@@ -16,7 +16,7 @@ export namespace ShoppingDepositProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_depositsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_depositsGetPayload<ReturnType<typeof select>>
     ): IShoppingDeposit => ({
       id: input.id,
       code: input.code,
@@ -32,7 +32,7 @@ export namespace ShoppingDepositProvider {
     READERS
   ----------------------------------------------------------- */
   export const index = (
-    input: IShoppingDeposit.IRequest,
+    input: IShoppingDeposit.IRequest
   ): Promise<IPage<IShoppingDeposit>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_deposits,
@@ -50,7 +50,7 @@ export namespace ShoppingDepositProvider {
     })(input);
 
   export const search = (
-    input: IShoppingDeposit.IRequest.ISearch | undefined,
+    input: IShoppingDeposit.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.source?.length
@@ -82,7 +82,7 @@ export namespace ShoppingDepositProvider {
 
   export const orderBy = (
     key: IShoppingDeposit.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "deposit.code"
       ? { code: value }
@@ -111,43 +111,44 @@ export namespace ShoppingDepositProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (_admin: null | IShoppingAdministrator.IInvert) =>
-    async (input: IShoppingDeposit.ICreate): Promise<IShoppingDeposit> => {
-      const record = await ShoppingGlobal.prisma.shopping_deposits.create({
-        data: {
-          id: v4(),
-          code: input.code,
-          source: input.source,
-          direction: input.direction,
-          created_at: new Date(),
+  export const create = async (props: {
+    admin: null | IShoppingAdministrator.IInvert;
+    input: IShoppingDeposit.ICreate;
+  }): Promise<IShoppingDeposit> => {
+    const record = await ShoppingGlobal.prisma.shopping_deposits.create({
+      data: {
+        id: v4(),
+        code: props.input.code,
+        source: props.input.source,
+        direction: props.input.direction,
+        created_at: new Date(),
+      },
+      ...json.select(),
+    });
+    return json.transform(record);
+  };
+
+  export const erase = async (props: {
+    admin: IShoppingAdministrator.IInvert;
+    id: string;
+  }): Promise<void> => {
+    await ShoppingGlobal.prisma.shopping_deposits.findFirstOrThrow({
+      where: { id: props.id },
+    });
+    const count: number =
+      await ShoppingGlobal.prisma.shopping_deposit_histories.count({
+        where: {
+          shopping_deposit_id: props.id,
         },
-        ...json.select(),
       });
-      return json.transform(record);
-    };
-
-  export const erase =
-    (_admin: IShoppingAdministrator.IInvert) =>
-    async (id: string): Promise<void> => {
-      await ShoppingGlobal.prisma.shopping_deposits.findFirstOrThrow({
-        where: { id },
+    if (count !== 0)
+      throw ErrorProvider.gone({
+        accessor: "id",
+        message:
+          "Cannot erase the deposit because it already has some histories.",
       });
-
-      const count: number =
-        await ShoppingGlobal.prisma.shopping_deposit_histories.count({
-          where: {
-            shopping_deposit_id: id,
-          },
-        });
-      if (count !== 0)
-        throw ErrorProvider.gone({
-          accessor: "id",
-          message:
-            "Cannot erase the deposit because it already has some histories.",
-        });
-      await ShoppingGlobal.prisma.shopping_deposits.delete({
-        where: { id },
-      });
-    };
+    await ShoppingGlobal.prisma.shopping_deposits.delete({
+      where: { id: props.id },
+    });
+  };
 }

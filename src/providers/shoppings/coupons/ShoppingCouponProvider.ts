@@ -18,16 +18,16 @@ import { ShoppingCouponCriterialProvider } from "./ShoppingCouponCriteriaProvide
 
 export namespace ShoppingCouponProvider {
   /* -----------------------------------------------------------
-          TRANSFORMERS
-        ----------------------------------------------------------- */
+    TRANSFORMERS
+  ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_couponsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_couponsGetPayload<ReturnType<typeof select>>
     ): Promise<IShoppingCoupon> => ({
       id: input.id,
       designer:
         input.actor_type === "administrator"
-          ? ShoppingAdministratorProvider.invert.transform()(input.customer)
+          ? ShoppingAdministratorProvider.invert.transform(input.customer)
           : ShoppingSellerProvider.invert.transform()(input.customer),
       discount:
         input.unit === "amount"
@@ -59,7 +59,7 @@ export namespace ShoppingCouponProvider {
           : input.volume_per_citizen,
       },
       criterias: await ShoppingCouponCriterialProvider.json.transform(
-        input.criterias.sort((a, b) => a.sequence - b.sequence),
+        input.criterias.sort((a, b) => a.sequence - b.sequence)
       ),
       name: input.name,
       created_at: input.created_at.toISOString(),
@@ -88,72 +88,77 @@ export namespace ShoppingCouponProvider {
   }
 
   /* -----------------------------------------------------------
-          READERS
-        ----------------------------------------------------------- */
-  export const index =
-    (actor: IShoppingActorEntity) =>
-    (input: IShoppingCoupon.IRequest): Promise<IPage<IShoppingCoupon>> =>
-      PaginationUtil.paginate({
-        schema: ShoppingGlobal.prisma.shopping_coupons,
-        payload: json.select(actor),
-        transform: json.transform,
-      })({
+    READERS
+  ----------------------------------------------------------- */
+  export const index = (props: {
+    actor: IShoppingActorEntity;
+    input: IShoppingCoupon.IRequest;
+  }): Promise<IPage<IShoppingCoupon>> =>
+    PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_coupons,
+      payload: json.select(props.actor),
+      transform: json.transform,
+    })({
+      where: {
+        AND: [
+          // SOFT REMOVE
+          { deleted_at: null },
+          // OWNERSHIP
+          ...(props.actor.type === "customer" ? [whereActor(props.actor)] : []),
+          // POSSIBLE
+          ...(props.actor.type === "customer" ? [wherePossible()] : []),
+          // SEARCH
+          ...search(props.input.search),
+        ],
+      } satisfies Prisma.shopping_couponsWhereInput,
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ created_at: "desc" }],
+    })(props.input);
+
+  export const at = async (props: {
+    actor: IShoppingActorEntity;
+    id: string;
+  }): Promise<IShoppingCoupon> => {
+    const record = await find({
+      payload: json.select(props.actor),
+      exception: (status, message) =>
+        ErrorProvider.http(status)({
+          accessor: "id",
+          message,
+        }),
+      actor: props.actor,
+      id: props.id,
+    });
+    return json.transform(record);
+  };
+
+  export const find = async <
+    Payload extends Prisma.shopping_couponsFindFirstArgs,
+  >(props: {
+    payload: Payload;
+    exception: (status: number, message: string) => HttpException;
+    actor: IShoppingActorEntity;
+    id: string;
+  }) => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_coupons.findFirstOrThrow({
         where: {
-          AND: [
-            // SOFT REMOVE
-            { deleted_at: null },
-            // OWNERSHIP
-            ...(actor.type === "customer" ? [whereActor(actor)] : []),
-            // POSSIBLE
-            ...(actor.type === "customer" ? [wherePossible()] : []),
-            // SEARCH
-            ...search(input.search),
-          ],
-        } satisfies Prisma.shopping_couponsWhereInput,
-        orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy)(input.sort)
-          : [{ created_at: "desc" }],
-      })(input);
-
-  export const at =
-    (actor: IShoppingActorEntity) =>
-    async (id: string): Promise<IShoppingCoupon> => {
-      const record = await find({
-        payload: json.select(actor),
-        exception: (status, message) =>
-          ErrorProvider.http(status)({
-            accessor: "id",
-            message,
-          }),
-      })(actor)(id);
-      return json.transform(record);
-    };
-
-  export const find =
-    <Payload extends Prisma.shopping_couponsFindFirstArgs>(props: {
-      payload: Payload;
-      exception: (status: number, message: string) => HttpException;
-    }) =>
-    (actor: IShoppingActorEntity) =>
-    async (id: string) => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_coupons.findFirstOrThrow({
-          where: {
-            id,
-            deleted_at: null,
-            ...whereActor(actor),
-          },
-          ...props.payload,
-        });
-      if (actor.type === "customer")
-        if (record.opened_at === null || record.opened_at > new Date())
-          throw props.exception(422, "The coupon has not been opened yet.");
-        else if (record.closed_at && record.closed_at <= new Date())
-          throw props.exception(410, "The coupon has been closed.");
-        else if (record.expired_at && record.expired_at <= new Date())
-          throw props.exception(410, "The coupon has been expired.");
-      return record as Prisma.shopping_couponsGetPayload<typeof props.payload>;
-    };
+          id: props.id,
+          deleted_at: null,
+          ...whereActor(props.actor),
+        },
+        ...props.payload,
+      });
+    if (props.actor.type === "customer")
+      if (record.opened_at === null || record.opened_at > new Date())
+        throw props.exception(422, "The coupon has not been opened yet.");
+      else if (record.closed_at && record.closed_at <= new Date())
+        throw props.exception(410, "The coupon has been closed.");
+      else if (record.expired_at && record.expired_at <= new Date())
+        throw props.exception(410, "The coupon has been expired.");
+    return record as Prisma.shopping_couponsGetPayload<typeof props.payload>;
+  };
 
   const whereActor = (actor: IShoppingActorEntity) =>
     (actor.type === "administrator"
@@ -219,7 +224,7 @@ export namespace ShoppingCouponProvider {
 
   const orderBy = (
     key: IShoppingCoupon.IRequest.SortableColumns,
-    direction: "asc" | "desc",
+    direction: "asc" | "desc"
   ): Prisma.shopping_couponsOrderByWithRelationInput =>
     key === "coupon.name"
       ? { name: direction }
@@ -232,93 +237,105 @@ export namespace ShoppingCouponProvider {
   /* -----------------------------------------------------------
           WRITERS 
         ----------------------------------------------------------- */
-  export const create =
-    (actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert) =>
-    async (input: IShoppingCoupon.ICreate): Promise<IShoppingCoupon> => {
-      const record = await ShoppingGlobal.prisma.shopping_coupons.create({
-        data: await collect(actor)(input),
-        ...json.select(actor),
-      });
-      return json.transform(record);
-    };
+  export const create = async (props: {
+    actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert;
+    input: IShoppingCoupon.ICreate;
+  }): Promise<IShoppingCoupon> => {
+    const record = await ShoppingGlobal.prisma.shopping_coupons.create({
+      data: await collect(props),
+      ...json.select(props.actor),
+    });
+    return json.transform(record);
+  };
 
-  export const erase =
-    (actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert) =>
-    async (id: string): Promise<void> => {
-      // const record =
-      await find({
-        payload: {},
-        exception: (status, message) =>
-          ErrorProvider.http(status)({ accessor: "id", message }),
-      })(actor)(id);
-      // if (record.opened_at !== null && record.opened_at.getTime() <= Date.now())
-      //   throw ErrorProvider.gone({
-      //     accessor: "id",
-      //     message: "The coupon has been already opened.",
-      //   });
-      await ShoppingGlobal.prisma.shopping_coupons.update({
-        where: {
-          id,
-        },
-        data: {
-          deleted_at: new Date(),
-        },
-      });
-    };
+  export const erase = async (props: {
+    actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert;
+    id: string;
+  }): Promise<void> => {
+    // const record =
+    await find({
+      payload: {},
+      exception: (status, message) =>
+        ErrorProvider.http(status)({ accessor: "id", message }),
+      actor: props.actor,
+      id: props.id,
+    });
+    // if (record.opened_at !== null && record.opened_at.getTime() <= Date.now())
+    //   throw ErrorProvider.gone({
+    //     accessor: "id",
+    //     message: "The coupon has been already opened.",
+    //   });
+    await ShoppingGlobal.prisma.shopping_coupons.update({
+      where: {
+        id: props.id,
+      },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
+  };
 
-  export const destroy =
-    (_admin: IShoppingAdministrator.IInvert) =>
-    async (id: string): Promise<void> => {
-      await ShoppingGlobal.prisma.shopping_coupons.delete({
-        where: {
-          id,
-        },
-      });
-    };
+  export const destroy = async (props: {
+    admin: IShoppingAdministrator.IInvert;
+    id: string;
+  }): Promise<void> => {
+    await ShoppingGlobal.prisma.shopping_coupons.delete({
+      where: {
+        id: props.id,
+      },
+    });
+  };
 
-  const collect =
-    (actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert) =>
-    async (input: IShoppingCoupon.ICreate) =>
-      ({
-        id: v4(),
-        customer: {
-          connect: {
-            id: actor.customer.id,
-          },
+  const collect = async (props: {
+    actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert;
+    input: IShoppingCoupon.ICreate;
+  }) =>
+    ({
+      id: v4(),
+      customer: {
+        connect: {
+          id: props.actor.customer.id,
         },
-        actor_type: actor.type,
-        name: input.name,
-        access: input.restriction.access,
-        exclusive: input.restriction.exclusive,
-        unit: input.discount.unit,
-        value: input.discount.value,
-        threshold:
-          input.discount.unit === "percent" ? input.discount.threshold : null,
-        limit: input.discount.unit === "percent" ? input.discount.limit : null,
-        multiplicative:
-          input.discount.unit === "amount"
-            ? input.discount.multiplicative
-            : false,
-        volume: input.restriction.volume,
-        volume_per_citizen: input.restriction.volume_per_citizen,
-        expired_in: input.restriction.expired_in,
-        expired_at: input.restriction.expired_at,
-        created_at: new Date(),
-        updated_at: new Date(),
-        opened_at: input.opened_at,
-        closed_at: input.closed_at,
-        deleted_at: null,
-        mv_inventory: input.restriction.volume
-          ? {
-              create: {
-                value: input.restriction.volume,
-              },
-            }
-          : undefined,
-        criterias: {
-          create: await ShoppingCouponCriterialProvider.collect(actor)(
-            input.criterias,
-          ),
-        },
-      }) satisfies Prisma.shopping_couponsCreateInput;
+      },
+      actor_type: props.actor.type,
+      name: props.input.name,
+      access: props.input.restriction.access,
+      exclusive: props.input.restriction.exclusive,
+      unit: props.input.discount.unit,
+      value: props.input.discount.value,
+      threshold:
+        props.input.discount.unit === "percent"
+          ? props.input.discount.threshold
+          : null,
+      limit:
+        props.input.discount.unit === "percent"
+          ? props.input.discount.limit
+          : null,
+      multiplicative:
+        props.input.discount.unit === "amount"
+          ? props.input.discount.multiplicative
+          : false,
+      volume: props.input.restriction.volume,
+      volume_per_citizen: props.input.restriction.volume_per_citizen,
+      expired_in: props.input.restriction.expired_in,
+      expired_at: props.input.restriction.expired_at,
+      created_at: new Date(),
+      updated_at: new Date(),
+      opened_at: props.input.opened_at,
+      closed_at: props.input.closed_at,
+      deleted_at: null,
+      mv_inventory: props.input.restriction.volume
+        ? {
+            create: {
+              value: props.input.restriction.volume,
+            },
+          }
+        : undefined,
+      criterias: {
+        create: await ShoppingCouponCriterialProvider.collect({
+          actor: props.actor,
+          inputs: props.input.criterias,
+        }),
+      },
+    }) satisfies Prisma.shopping_couponsCreateInput;
 }

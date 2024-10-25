@@ -18,14 +18,14 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_answersGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleInquiryAnswer.ISummary => ({
       ...BbsArticleProvider.summarize.transform(input.base),
       seller: ShoppingSellerProvider.invert.transform(
         () =>
           new InternalServerErrorException(
-            "The answer has not been registered by seller.",
-          ),
+            "The answer has not been registered by seller."
+          )
       )(input.sellerCustomer),
     });
     export const select = () =>
@@ -41,14 +41,14 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_answersGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleInquiryAnswer.IAbridge => ({
       ...BbsArticleProvider.abridge.transform(input.base),
       seller: ShoppingSellerProvider.invert.transform(
         () =>
           new InternalServerErrorException(
-            "The answer has not been registered by seller.",
-          ),
+            "The answer has not been registered by seller."
+          )
       )(input.sellerCustomer),
     });
     export const select = () =>
@@ -64,13 +64,13 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_answersGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleInquiryAnswer => {
       const seller = ShoppingSellerProvider.invert.transform(
         () =>
           new InternalServerErrorException(
-            "The answer has not been registered by seller.",
-          ),
+            "The answer has not been registered by seller."
+          )
       )(input.sellerCustomer);
       return {
         ...BbsArticleProvider.json.transform(input.base),
@@ -89,89 +89,90 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (seller: IShoppingSeller.IInvert) =>
-    (related: { sale: IEntity; inquiry: IEntity }) =>
-    async (
-      input: IShoppingSaleInquiryAnswer.ICreate,
-    ): Promise<IShoppingSaleInquiryAnswer> => {
-      await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiries.findFirstOrThrow(
-        {
-          where: {
-            id: related.inquiry.id,
-            snapshot: {
-              sale: {
-                id: related.sale.id,
-                sellerCustomer: {
-                  member: {
-                    of_seller: {
-                      id: seller.id,
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      );
-      const record =
-        await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiry_answers.create(
-          {
-            data: collect(seller)(related.inquiry)(input),
-            ...json.select(),
-          },
-        );
-      return json.transform(record);
-    };
-
-  export const update =
-    (seller: IShoppingSeller.IInvert) =>
-    (related: { sale: IEntity; inquiry: IEntity }) =>
-    async (
-      input: IShoppingSaleInquiryAnswer.IUpdate,
-    ): Promise<IShoppingSaleInquiryAnswer.ISnapshot> => {
-      const answer =
-        await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiry_answers.findFirstOrThrow(
-          {
-            where: {
-              inquiry: {
-                id: related.inquiry.id,
-                snapshot: {
-                  shopping_sale_id: related.sale.id,
-                },
-              },
+  export const create = async (props: {
+    seller: IShoppingSeller.IInvert;
+    sale: IEntity;
+    inquiry: IEntity;
+    input: IShoppingSaleInquiryAnswer.ICreate;
+  }): Promise<IShoppingSaleInquiryAnswer> => {
+    await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiries.findFirstOrThrow(
+      {
+        where: {
+          id: props.inquiry.id,
+          snapshot: {
+            sale: {
+              id: props.sale.id,
               sellerCustomer: {
                 member: {
                   of_seller: {
-                    id: seller.id,
+                    id: props.seller.id,
                   },
                 },
               },
             },
           },
-        );
-      return BbsArticleSnapshotProvider.create(answer)(input);
-    };
+        },
+      }
+    );
+    const record =
+      await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiry_answers.create(
+        {
+          data: collect(props),
+          ...json.select(),
+        }
+      );
+    return json.transform(record);
+  };
 
-  const collect =
-    (seller: IShoppingSeller.IInvert) =>
-    (inquiry: IEntity) =>
-    (input: IShoppingSaleInquiryAnswer.ICreate) =>
-      ({
-        base: {
-          create: BbsArticleProvider.collect(
-            BbsArticleSnapshotProvider.collect,
-          )(input),
-        },
-        inquiry: {
-          connect: {
-            id: inquiry.id,
+  export const update = async (props: {
+    seller: IShoppingSeller.IInvert;
+    sale: IEntity;
+    inquiry: IEntity;
+    input: IShoppingSaleInquiryAnswer.IUpdate;
+  }): Promise<IShoppingSaleInquiryAnswer.ISnapshot> => {
+    const answer =
+      await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiry_answers.findFirstOrThrow(
+        {
+          where: {
+            inquiry: {
+              id: props.inquiry.id,
+              snapshot: {
+                shopping_sale_id: props.sale.id,
+              },
+            },
+            sellerCustomer: {
+              member: {
+                of_seller: {
+                  id: props.seller.id,
+                },
+              },
+            },
           },
+        }
+      );
+    return BbsArticleSnapshotProvider.create(answer)(props.input);
+  };
+
+  const collect = (props: {
+    seller: IShoppingSeller.IInvert;
+    inquiry: IEntity;
+    input: IShoppingSaleInquiryAnswer.ICreate;
+  }) =>
+    ({
+      base: {
+        create: BbsArticleProvider.collect(BbsArticleSnapshotProvider.collect)(
+          props.input
+        ),
+      },
+      inquiry: {
+        connect: {
+          id: props.inquiry.id,
         },
-        sellerCustomer: {
-          connect: {
-            id: seller.customer.id,
-          },
+      },
+      sellerCustomer: {
+        connect: {
+          id: props.seller.customer.id,
         },
-      }) satisfies Prisma.shopping_sale_snapshot_inquiry_answersCreateInput;
+      },
+    }) satisfies Prisma.shopping_sale_snapshot_inquiry_answersCreateInput;
 }

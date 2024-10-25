@@ -24,132 +24,141 @@ export namespace ShoppingChannelCategoryProvider {
     export const entire = async (channel: IEntity) =>
       (await (await cache.get(channel.id)).hierarchical())[0];
 
-    export const at =
-      (channel: IEntity) =>
-      async (id: string): Promise<IShoppingChannelCategory.IHierarchical> => {
-        const record =
-          (await (await cache.get(channel.id)).hierarchical())[1].get(id) ??
-          null;
-        if (record === null)
-          throw ErrorProvider.notFound("Unable to find the matched category.");
-        return record;
-      };
+    export const at = async (props: {
+      channel: IEntity;
+      id: string;
+    }): Promise<IShoppingChannelCategory.IHierarchical> => {
+      const record =
+        (await (await cache.get(props.channel.id)).hierarchical())[1].get(
+          props.id
+        ) ?? null;
+      if (record === null)
+        throw ErrorProvider.notFound("Unable to find the matched category.");
+      return record;
+    };
   }
 
-  export const at =
-    (channel: IEntity) =>
-    async (id: string): Promise<IShoppingChannelCategory> => {
-      const record = await (await cache.get(channel.id)).at(id);
-      if (record === null)
-        throw ErrorProvider.notFound("Unable to find the matched category.");
-      return record;
-    };
+  export const at = async (props: {
+    channel: IEntity;
+    id: string;
+  }): Promise<IShoppingChannelCategory> => {
+    const record = await (await cache.get(props.channel.id)).at(props.id);
+    if (record === null)
+      throw ErrorProvider.notFound("Unable to find the matched category.");
+    return record;
+  };
 
-  export const invert =
-    (channel: IEntity) =>
-    async (id: string): Promise<IShoppingChannelCategory.IInvert> => {
-      const record =
-        (await (await cache.get(channel.id)).invert()).get(id) ?? null;
-      if (record === null)
-        throw ErrorProvider.notFound("Unable to find the matched category.");
-      return record;
-    };
+  export const invert = async (props: {
+    channel: IEntity;
+    id: string;
+  }): Promise<IShoppingChannelCategory.IInvert> => {
+    const record =
+      (await (await cache.get(props.channel.id)).invert()).get(props.id) ??
+      null;
+    if (record === null)
+      throw ErrorProvider.notFound("Unable to find the matched category.");
+    return record;
+  };
 
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (channel: IEntity) =>
-    async (
-      input: IShoppingChannelCategory.ICreate,
-    ): Promise<IShoppingChannelCategory> => {
-      if (input.parent_id !== null)
-        await ShoppingGlobal.prisma.shopping_channel_categories.findFirstOrThrow(
-          {
-            where: {
-              id: input.parent_id,
-              shopping_channel_id: channel.id,
-            },
-          },
-        );
-      const record =
-        await ShoppingGlobal.prisma.shopping_channel_categories.create({
-          data: collect(channel)(input),
-        });
-      await CacheProvider.emplace({
-        schema: "shoppings",
-        table: "shopping_channel_categories",
-        key: channel.id,
-      });
-      return await at(channel)(record.id);
-    };
-
-  export const update =
-    (channel: IEntity) =>
-    (id: string) =>
-    async (input: IShoppingChannelCategory.IUpdate): Promise<void> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_channel_categories.findFirstOrThrow(
-          {
-            where: {
-              shopping_channel_id: channel.id,
-              id,
-            },
-          },
-        );
-      if (input.parent_id?.length)
-        await ShoppingGlobal.prisma.shopping_channel_categories.findFirstOrThrow(
-          {
-            where: {
-              id: input.parent_id,
-              shopping_channel_id: channel.id,
-            },
-          },
-        );
-      await ShoppingGlobal.prisma.shopping_channel_categories.update({
-        where: { id: record.id },
-        data: {
-          name: input.name ?? record.name,
-          parent_id:
-            input.parent_id !== undefined ? input.parent_id : record.parent_id,
+  export const create = async (props: {
+    channel: IEntity;
+    input: IShoppingChannelCategory.ICreate;
+  }): Promise<IShoppingChannelCategory> => {
+    if (props.input.parent_id !== null)
+      await ShoppingGlobal.prisma.shopping_channel_categories.findFirstOrThrow({
+        where: {
+          id: props.input.parent_id,
+          shopping_channel_id: props.channel.id,
         },
       });
-    };
+    const record =
+      await ShoppingGlobal.prisma.shopping_channel_categories.create({
+        data: collect(props),
+      });
+    await CacheProvider.emplace({
+      schema: "shoppings",
+      table: "shopping_channel_categories",
+      key: props.channel.id,
+    });
+    return await at({
+      channel: props.channel,
+      id: record.id,
+    });
+  };
 
-  export const merge = (channel: IEntity) => async (input: IRecordMerge) => {
+  export const update = async (props: {
+    channel: IEntity;
+    id: string;
+    input: IShoppingChannelCategory.IUpdate;
+  }): Promise<void> => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_channel_categories.findFirstOrThrow({
+        where: {
+          shopping_channel_id: props.channel.id,
+          id: props.id,
+        },
+      });
+    if (props.input.parent_id?.length)
+      await ShoppingGlobal.prisma.shopping_channel_categories.findFirstOrThrow({
+        where: {
+          id: props.input.parent_id,
+          shopping_channel_id: props.channel.id,
+        },
+      });
+    await ShoppingGlobal.prisma.shopping_channel_categories.update({
+      where: { id: record.id },
+      data: {
+        name: props.input.name ?? record.name,
+        parent_id:
+          props.input.parent_id !== undefined
+            ? props.input.parent_id
+            : record.parent_id,
+      },
+    });
+  };
+
+  export const merge = async (props: {
+    channel: IEntity;
+    input: IRecordMerge;
+  }) => {
     const categories =
       await ShoppingGlobal.prisma.shopping_channel_categories.findMany({
         where: {
-          shopping_channel_id: channel.id,
+          shopping_channel_id: props.channel.id,
           id: {
-            in: [input.keep, ...input.absorbed],
+            in: [props.input.keep, ...props.input.absorbed],
           },
         },
       });
-    if (categories.length !== input.absorbed.length + 1)
+    if (categories.length !== props.input.absorbed.length + 1)
       throw ErrorProvider.notFound({
         accessor: "input.keep | input.absorbed",
         message: "Failed to find some categories.",
       });
     await EntityMergeProvider.merge(
-      ShoppingGlobal.prisma.shopping_channel_categories.fields.id.modelName,
-    )(input);
+      ShoppingGlobal.prisma.shopping_channel_categories.fields.id.modelName
+    )(props.input);
   };
 
-  const collect =
-    (channel: IEntity) => (input: IShoppingChannelCategory.ICreate) =>
-      ({
-        id: v4(),
-        channel: { connect: { id: channel.id } },
-        parent:
-          input.parent_id !== null
-            ? { connect: { id: input.parent_id } }
-            : undefined,
-        name: input.name,
-        created_at: new Date(),
-        updated_at: new Date(),
-        deleted_at: null,
-      }) satisfies Prisma.shopping_channel_categoriesCreateInput;
+  const collect = (props: {
+    channel: IEntity;
+    input: IShoppingChannelCategory.ICreate;
+  }) =>
+    ({
+      id: v4(),
+      channel: { connect: { id: props.channel.id } },
+      parent:
+        props.input.parent_id !== null
+          ? { connect: { id: props.input.parent_id } }
+          : undefined,
+      name: props.input.name,
+      created_at: new Date(),
+      updated_at: new Date(),
+      deleted_at: null,
+    }) satisfies Prisma.shopping_channel_categoriesCreateInput;
 }
 
 const cache = new VariadicSingleton((channel_id: string) => {
@@ -158,7 +167,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
       where: {
         shopping_channel_id: channel_id,
       },
-    }),
+    })
   );
   const invert = new MutableSingleton(async () => {
     // TRANSFORMATION
@@ -189,7 +198,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
         parent_id: p.parent_id,
         created_at: p.created_at.toISOString(),
         children: [],
-      }),
+      })
     );
 
     // JOINING
@@ -214,7 +223,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
         ...down,
         parent: up.parent,
       };
-    },
+    }
   );
 
   const time: IPointer<Date> = { value: new Date(0) };

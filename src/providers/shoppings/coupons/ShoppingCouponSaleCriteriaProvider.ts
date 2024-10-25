@@ -20,10 +20,10 @@ export namespace ShoppingCouponSaleCriteriaProvider {
     export const transform = (
       inputList: Prisma.shopping_coupon_sale_criteriasGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): Promise<IShoppingSale.ISummary[]> =>
       ArrayUtil.asyncMap(inputList)((input) =>
-        ShoppingSaleProvider.summary.transform(input.sale),
+        ShoppingSaleProvider.summary.transform(input.sale)
       );
     export const select = () =>
       ({
@@ -36,44 +36,45 @@ export namespace ShoppingCouponSaleCriteriaProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const collect =
-    (actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert) =>
-    (counter: IPointer<number>) =>
-    (base: () => IShoppingCouponCriteria.ICollectBase) =>
-    async (input: IShoppingCouponSaleCriteria.ICreate) => {
-      const saleList = await ShoppingGlobal.prisma.shopping_sales.findMany({
-        where: {
-          id: {
-            in: input.sale_ids,
-          },
-          sellerCustomer:
-            actor.type === "seller"
-              ? {
-                  member: {
-                    of_seller: {
-                      id: actor.id,
-                    },
+  export const collect = async (props: {
+    actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert;
+    counter: IPointer<number>;
+    base: () => IShoppingCouponCriteria.ICollectBase;
+    input: IShoppingCouponSaleCriteria.ICreate;
+  }) => {
+    const saleList = await ShoppingGlobal.prisma.shopping_sales.findMany({
+      where: {
+        id: {
+          in: props.input.sale_ids,
+        },
+        sellerCustomer:
+          props.actor.type === "seller"
+            ? {
+                member: {
+                  of_seller: {
+                    id: props.actor.id,
                   },
-                }
-              : {},
-        },
-        select: {
-          id: true,
-        },
+                },
+              }
+            : {},
+      },
+      select: {
+        id: true,
+      },
+    });
+    if (saleList.length !== props.input.sale_ids.length)
+      throw ErrorProvider.badRequest({
+        accessor: "input.criterias[].sale_ids",
+        message: "Some sales are not found.",
       });
-      if (saleList.length !== input.sale_ids.length)
-        throw ErrorProvider.badRequest({
-          accessor: "input.criterias[].sale_ids",
-          message: "Some sales are not found.",
-        });
-      return input.sale_ids.map((sid) => ({
-        ...base(),
-        sequence: counter.value++,
-        of_sale: {
-          create: {
-            shopping_sale_id: sid,
-          },
+    return props.input.sale_ids.map((sid) => ({
+      ...props.base(),
+      sequence: props.counter.value++,
+      of_sale: {
+        create: {
+          shopping_sale_id: sid,
         },
-      })) satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[];
-    };
+      },
+    })) satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[];
+  };
 }
