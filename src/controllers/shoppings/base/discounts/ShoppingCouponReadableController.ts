@@ -35,11 +35,14 @@ export function ShoppingCouponReadableController<
      * @author Samchon
      */
     @core.TypedRoute.Patch()
-    public async index(
+    public index(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingCoupon.IRequest,
+      @core.TypedBody() input: IShoppingCoupon.IRequest
     ): Promise<IPage<IShoppingCoupon>> {
-      return ShoppingCouponProvider.index(actor)(input);
+      return ShoppingCouponProvider.index({
+        actor,
+        input,
+      });
     }
 
     /**
@@ -60,11 +63,14 @@ export function ShoppingCouponReadableController<
      * @author Samchon
      */
     @core.TypedRoute.Get(":id")
-    public async at(
+    public at(
       @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string,
+      @core.TypedParam("id") id: string
     ): Promise<IShoppingCoupon> {
-      return ShoppingCouponProvider.at(actor)(id);
+      return ShoppingCouponProvider.at({
+        actor,
+        id,
+      });
     }
   }
   return ShoppingCouponReadableController;

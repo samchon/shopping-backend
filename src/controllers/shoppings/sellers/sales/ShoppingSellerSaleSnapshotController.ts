@@ -37,11 +37,11 @@ export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotCo
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingSale.ICreate> {
-    const snapshot: IShoppingSale = await ShoppingSaleSnapshotProvider.flip(
-      seller
-    )({
-      id: saleId,
-    })(id);
+    const snapshot: IShoppingSale = await ShoppingSaleSnapshotProvider.flip({
+      actor: seller,
+      sale: { id: saleId },
+      id,
+    });
     return ShoppingSaleDiagnoser.replica(snapshot);
   }
 }

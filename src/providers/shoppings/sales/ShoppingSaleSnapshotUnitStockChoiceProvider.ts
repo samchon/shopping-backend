@@ -10,7 +10,7 @@ export namespace ShoppingSaleSnapshotUnitStockChoiceProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unit_stock_choicesGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleUnitStockChoice => ({
       id: input.id,
       option_id: input.shopping_sale_snapshot_unit_option_id,
@@ -20,20 +20,20 @@ export namespace ShoppingSaleSnapshotUnitStockChoiceProvider {
       ({}) satisfies Prisma.shopping_sale_snapshot_unit_stock_choicesFindManyArgs;
   }
 
-  export const collect =
-    (
-      optionList: ReturnType<
-        typeof ShoppingSaleSnapshotUnitOptionProvider.collect
-      >[],
-    ) =>
-    (input: IShoppingSaleUnitStockChoice.ICreate, sequence: number) => {
-      const option = optionList[input.option_index];
-      const candidate = option.candidates.create[input.candidate_index];
-      return {
-        id: v4(),
-        option: { connect: { id: option.id } },
-        candidate: { connect: { id: candidate.id } },
-        sequence,
-      } satisfies Prisma.shopping_sale_snapshot_unit_stock_choicesCreateWithoutStockInput;
-    };
+  export const collect = (props: {
+    options: ReturnType<
+      typeof ShoppingSaleSnapshotUnitOptionProvider.collect
+    >[];
+    input: IShoppingSaleUnitStockChoice.ICreate;
+    sequence: number;
+  }) => {
+    const option = props.options[props.input.option_index];
+    const candidate = option.candidates.create[props.input.candidate_index];
+    return {
+      id: v4(),
+      option: { connect: { id: option.id } },
+      candidate: { connect: { id: candidate.id } },
+      sequence: props.sequence,
+    } satisfies Prisma.shopping_sale_snapshot_unit_stock_choicesCreateWithoutStockInput;
+  };
 }

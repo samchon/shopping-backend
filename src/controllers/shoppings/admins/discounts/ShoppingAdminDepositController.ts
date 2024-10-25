@@ -32,7 +32,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingDeposit.IRequest,
+    @core.TypedBody() input: IShoppingDeposit.IRequest
   ): Promise<IPage<IShoppingDeposit>> {
     return ShoppingDepositProvider.index(input);
   }
@@ -51,7 +51,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingDeposit> {
     return ShoppingDepositProvider.at(id);
   }
@@ -70,7 +70,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Get(":code/get")
   public async get(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("code") code: string,
+    @core.TypedParam("code") code: string
   ): Promise<IShoppingDeposit> {
     return ShoppingDepositProvider.get(code);
   }
@@ -95,9 +95,12 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingDeposit.ICreate,
+    @core.TypedBody() input: IShoppingDeposit.ICreate
   ): Promise<IShoppingDeposit> {
-    return ShoppingDepositProvider.create(admin)(input);
+    return ShoppingDepositProvider.create({
+      admin,
+      input,
+    });
   }
 
   /**
@@ -115,8 +118,11 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
-    return ShoppingDepositProvider.erase(admin)(id);
+    return ShoppingDepositProvider.erase({
+      admin,
+      id,
+    });
   }
 }

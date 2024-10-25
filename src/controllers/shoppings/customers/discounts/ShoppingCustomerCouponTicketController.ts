@@ -40,9 +40,12 @@ export class ShoppingCustomerCouponTicketController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingCouponTicket.IRequest,
+    @core.TypedBody() input: IShoppingCouponTicket.IRequest
   ): Promise<IPage<IShoppingCouponTicket>> {
-    return ShoppingCouponTicketProvider.index(customer)(input);
+    return ShoppingCouponTicketProvider.index({
+      customer,
+      input,
+    });
   }
 
   /**
@@ -64,9 +67,12 @@ export class ShoppingCustomerCouponTicketController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingCouponTicket> {
-    return ShoppingCouponTicketProvider.at(customer)(id);
+    return ShoppingCouponTicketProvider.at({
+      customer,
+      id,
+    });
   }
 
   /**
@@ -93,11 +99,14 @@ export class ShoppingCustomerCouponTicketController {
    * @author Samchon
    */
   @core.TypedRoute.Post()
-  public async create(
+  public create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingCouponTicket.ICreate,
+    @core.TypedBody() input: IShoppingCouponTicket.ICreate
   ): Promise<IShoppingCouponTicket> {
-    return ShoppingCouponTicketProvider.create(customer)(input);
+    return ShoppingCouponTicketProvider.create({
+      customer,
+      input,
+    });
   }
 
   // @core.TypedRoute.Post("take")

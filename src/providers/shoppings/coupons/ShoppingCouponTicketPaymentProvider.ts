@@ -17,7 +17,7 @@ export namespace ShoppingCouponTicketPaymentProvider {
     export const transform = async (
       input: Prisma.shopping_coupon_ticket_paymentsGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): Promise<IShoppingCouponTicketPayment> => ({
       id: input.id,
       ticket: await ShoppingCouponTicketProvider.json.transform(input.ticket),
@@ -34,30 +34,29 @@ export namespace ShoppingCouponTicketPaymentProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (order: IShoppingOrder) =>
-    async (
-      ticket: IShoppingCouponTicket,
-      sequence: number,
-    ): Promise<IShoppingCouponTicketPayment> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_coupon_ticket_payments.create({
-          data: {
-            id: v4(),
-            order: {
-              connect: { id: order.id },
-            },
-            ticket: {
-              connect: { id: ticket.id },
-            },
-            sequence,
-            created_at: new Date(ticket.created_at),
+  export const create = async (props: {
+    order: IShoppingOrder;
+    ticket: IShoppingCouponTicket;
+    sequence: number;
+  }): Promise<IShoppingCouponTicketPayment> => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_coupon_ticket_payments.create({
+        data: {
+          id: v4(),
+          order: {
+            connect: { id: props.order.id },
           },
-        });
-      return {
-        id: record.id,
-        ticket,
-        created_at: record.created_at.toISOString(),
-      };
+          ticket: {
+            connect: { id: props.ticket.id },
+          },
+          sequence: props.sequence,
+          created_at: new Date(props.ticket.created_at),
+        },
+      });
+    return {
+      id: record.id,
+      ticket: props.ticket,
+      created_at: record.created_at.toISOString(),
     };
+  };
 }

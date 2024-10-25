@@ -52,9 +52,13 @@ export function ShoppingSaleQuestionController<
     public async index(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleQuestion.IRequest,
+      @core.TypedBody() input: IShoppingSaleQuestion.IRequest
     ): Promise<IPage<IShoppingSaleQuestion.ISummary>> {
-      return ShoppingSaleQuestionProvider.index(actor)({ id: saleId })(input);
+      return ShoppingSaleQuestionProvider.index({
+        actor,
+        sale: { id: saleId },
+        input,
+      });
     }
 
     /**
@@ -94,11 +98,13 @@ export function ShoppingSaleQuestionController<
     public async abridges(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleQuestion.IRequest,
+      @core.TypedBody() input: IShoppingSaleQuestion.IRequest
     ): Promise<IPage<IShoppingSaleQuestion.IAbridge>> {
-      return ShoppingSaleQuestionProvider.abridges(actor)({ id: saleId })(
+      return ShoppingSaleQuestionProvider.abridges({
+        actor,
+        sale: { id: saleId },
         input,
-      );
+      });
     }
 
     /**
@@ -124,9 +130,13 @@ export function ShoppingSaleQuestionController<
     public async at(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">,
+      @core.TypedParam("id") id: string & tags.Format<"uuid">
     ): Promise<IShoppingSaleQuestion> {
-      return ShoppingSaleQuestionProvider.at(actor)({ id: saleId })(id);
+      return ShoppingSaleQuestionProvider.at({
+        actor,
+        sale: { id: saleId },
+        id,
+      });
     }
   }
   return ShoppingSaleQuestionController;

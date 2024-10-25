@@ -14,7 +14,7 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",
-  },
+  }
 ) {
   /**
    * Create a new category.
@@ -34,11 +34,12 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
   public async create(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("channelCode") channelCode: string,
-    @core.TypedBody() input: IShoppingChannelCategory.ICreate,
+    @core.TypedBody() input: IShoppingChannelCategory.ICreate
   ): Promise<IShoppingChannelCategory> {
-    return ShoppingChannelCategoryProvider.create(
-      await ShoppingChannelProvider.get(channelCode),
-    )(input);
+    return ShoppingChannelCategoryProvider.create({
+      channel: await ShoppingChannelProvider.get(channelCode),
+      input,
+    });
   }
 
   /**
@@ -60,11 +61,13 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("channelCode") channelCode: string,
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: IShoppingChannelCategory.IUpdate,
+    @core.TypedBody() input: IShoppingChannelCategory.IUpdate
   ): Promise<void> {
-    return ShoppingChannelCategoryProvider.update(
-      await ShoppingChannelProvider.get(channelCode),
-    )(id)(input);
+    return ShoppingChannelCategoryProvider.update({
+      channel: await ShoppingChannelProvider.get(channelCode),
+      id,
+      input,
+    });
   }
 
   /**
@@ -90,10 +93,11 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
   public async merge(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("channelCode") channelCode: string,
-    @core.TypedBody() input: IRecordMerge,
+    @core.TypedBody() input: IRecordMerge
   ): Promise<void> {
-    return ShoppingChannelCategoryProvider.merge(
-      await ShoppingChannelProvider.get(channelCode),
-    )(input);
+    return ShoppingChannelCategoryProvider.merge({
+      channel: await ShoppingChannelProvider.get(channelCode),
+      input,
+    });
   }
 }

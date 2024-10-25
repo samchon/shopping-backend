@@ -12,7 +12,7 @@ export namespace ShoppingCouponFunnelCriteriaProvider {
     export const transform = (
       inputList: Prisma.shopping_coupon_funnel_criteriasGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): IShoppingCouponFunnelCriteria.IFunnel[] =>
       inputList.map((input) =>
         input.kind === "variable"
@@ -24,7 +24,7 @@ export namespace ShoppingCouponFunnelCriteriaProvider {
           : {
               kind: input.kind as "url" | "referrer",
               value: input.value,
-            },
+            }
       );
     export const select = () =>
       ({}) satisfies Prisma.shopping_coupon_funnel_criteriasFindManyArgs;
@@ -33,19 +33,20 @@ export namespace ShoppingCouponFunnelCriteriaProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const collect =
-    (counter: IPointer<number>) =>
-    (base: () => IShoppingCouponCriteria.ICollectBase) =>
-    (input: IShoppingCouponFunnelCriteria.ICreate) =>
-      input.funnels.map((funnel) => ({
-        ...base(),
-        sequence: counter.value++,
-        of_funnel: {
-          create: {
-            kind: funnel.kind,
-            value: funnel.value,
-            key: funnel.kind === "variable" ? funnel.key : null,
-          },
+  export const collect = (props: {
+    counter: IPointer<number>;
+    base: () => IShoppingCouponCriteria.ICollectBase;
+    input: IShoppingCouponFunnelCriteria.ICreate;
+  }) =>
+    props.input.funnels.map((funnel) => ({
+      ...props.base(),
+      sequence: props.counter.value++,
+      of_funnel: {
+        create: {
+          kind: funnel.kind,
+          value: funnel.value,
+          key: funnel.kind === "variable" ? funnel.key : null,
         },
-      })) satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[];
+      },
+    })) satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[];
 }

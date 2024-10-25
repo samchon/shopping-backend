@@ -25,9 +25,12 @@ export class ShoppingCustomerAuthenticatePasswordController {
   @core.TypedRoute.Put("change")
   public async change(
     @ShoppingCustomerAuth("member") customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingMember.IPasswordChange,
+    @core.TypedBody() input: IShoppingMember.IPasswordChange
   ): Promise<void> {
-    return ShoppingMemberPasswordProvider.change(customer)(input);
+    return ShoppingMemberPasswordProvider.change({
+      customer,
+      input,
+    });
   }
 
   // @core.TypedRoute.Delete("reset")

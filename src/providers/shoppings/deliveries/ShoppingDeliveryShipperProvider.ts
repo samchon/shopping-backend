@@ -13,7 +13,7 @@ export namespace ShoppingDeliveryShipperProvider {
     export const transform = (
       input: Prisma.shopping_delivery_shippersGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingDeliveryShipper => ({
       id: input.id,
       company: input.company,
@@ -25,34 +25,33 @@ export namespace ShoppingDeliveryShipperProvider {
       ({}) satisfies Prisma.shopping_delivery_shippersFindManyArgs;
   }
 
-  export const create =
-    (seller: IShoppingSeller.IInvert) =>
-    (delivery: IEntity) =>
-    async (
-      input: IShoppingDeliveryShipper.ICreate,
-    ): Promise<IShoppingDeliveryShipper> => {
-      await ShoppingGlobal.prisma.shopping_deliveries.findFirstOrThrow({
-        where: {
-          id: delivery.id,
-          sellerCustomer: {
-            member: {
-              of_seller: {
-                id: seller.id,
-              },
+  export const create = async (props: {
+    seller: IShoppingSeller.IInvert;
+    delivery: IEntity;
+    input: IShoppingDeliveryShipper.ICreate;
+  }): Promise<IShoppingDeliveryShipper> => {
+    await ShoppingGlobal.prisma.shopping_deliveries.findFirstOrThrow({
+      where: {
+        id: props.delivery.id,
+        sellerCustomer: {
+          member: {
+            of_seller: {
+              id: props.seller.id,
             },
           },
         },
+      },
+    });
+    const record =
+      await ShoppingGlobal.prisma.shopping_delivery_shippers.create({
+        data: {
+          ...collect(props.input),
+          shopping_delivery_id: props.delivery.id,
+        },
+        ...json.select(),
       });
-      const record =
-        await ShoppingGlobal.prisma.shopping_delivery_shippers.create({
-          data: {
-            ...collect(input),
-            shopping_delivery_id: delivery.id,
-          },
-          ...json.select(),
-        });
-      return json.transform(record);
-    };
+    return json.transform(record);
+  };
 
   export const collect = (input: IShoppingDeliveryShipper.ICreate) =>
     ({

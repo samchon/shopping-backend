@@ -28,10 +28,10 @@ export namespace ShoppingCouponCriterialProvider {
     export const transform = async (
       inputList: Prisma.shopping_coupon_criteriasGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): Promise<IShoppingCouponCriteria[]> => {
       const gather = async (
-        direction: "include" | "exclude",
+        direction: "include" | "exclude"
       ): Promise<IShoppingCouponCriteria[]> => {
         const dict: Map<
           IShoppingCouponCriteria.Type,
@@ -40,10 +40,10 @@ export namespace ShoppingCouponCriterialProvider {
           >[]
         > = new Map();
         for (const input of inputList.filter(
-          (input) => input.direction === direction,
+          (input) => input.direction === direction
         ))
           MapUtil.take(dict)(
-            typia.assert<IShoppingCouponCriteria.Type>(input.type),
+            typia.assert<IShoppingCouponCriteria.Type>(input.type)
           )(() => []).push(input);
         return ArrayUtil.asyncMap([...dict.entries()])(
           async ([type, inputList]) =>
@@ -53,7 +53,7 @@ export namespace ShoppingCouponCriterialProvider {
                   direction,
                   channels:
                     await ShoppingCouponChannelCriterialProvider.json.transform(
-                      inputList.map((i) => i.of_channel!),
+                      inputList.map((i) => i.of_channel!)
                     ),
                 }
               : type === "section"
@@ -62,7 +62,7 @@ export namespace ShoppingCouponCriterialProvider {
                     direction,
                     sections:
                       ShoppingCouponSectionCriteriaProvider.json.transform(
-                        inputList.map((i) => i.of_section!),
+                        inputList.map((i) => i.of_section!)
                       ),
                   }
                 : type === "sale"
@@ -71,7 +71,7 @@ export namespace ShoppingCouponCriterialProvider {
                       direction,
                       sales:
                         await ShoppingCouponSaleCriteriaProvider.json.transform(
-                          inputList.map((i) => i.of_sale!),
+                          inputList.map((i) => i.of_sale!)
                         ),
                     }
                   : type === "seller"
@@ -80,7 +80,7 @@ export namespace ShoppingCouponCriterialProvider {
                         direction,
                         sellers:
                           ShoppingCouponSellerCriteriaProvider.json.transform(
-                            inputList.map((i) => i.of_seller!),
+                            inputList.map((i) => i.of_seller!)
                           ),
                       }
                     : <IShoppingCouponFunnelCriteria>{
@@ -88,9 +88,9 @@ export namespace ShoppingCouponCriterialProvider {
                         direction,
                         funnels:
                           ShoppingCouponFunnelCriteriaProvider.json.transform(
-                            inputList.map((i) => i.of_funnel!),
+                            inputList.map((i) => i.of_funnel!)
                           ),
-                      },
+                      }
         );
       };
       const output = [
@@ -114,51 +114,64 @@ export namespace ShoppingCouponCriterialProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const collect =
-    (actor: IShoppingSeller.IInvert | IShoppingAdministrator.IInvert) =>
-    async (inputList: IShoppingCouponCriteria.ICreate[]) => {
-      if (
-        actor.type === "seller" &&
-        inputList
-          .filter((i) => i.direction === "include")
-          .every((i) => i.type !== "sale" && i.type !== "seller")
-      )
-        throw ErrorProvider.forbidden({
-          accessor: "input.criterias[].type",
-          message:
-            "Seller must contain at least one sale or seller criteria of include direction.",
-        });
-
-      const counter: IPointer<number> = { value: 0 };
-      const matrix = await ArrayUtil.asyncMap(inputList)(async (input) => {
-        const base = (): IShoppingCouponCriteria.ICollectBase => ({
-          id: v4(),
-          direction: input.direction,
-          type: input.type,
-        });
-        if (input.type === "channel")
-          return ShoppingCouponChannelCriterialProvider.collect(counter)(base)(
-            input,
-          );
-        else if (input.type === "section")
-          return ShoppingCouponSectionCriteriaProvider.collect(counter)(base)(
-            input,
-          );
-        else if (input.type === "sale")
-          return ShoppingCouponSaleCriteriaProvider.collect(actor)(counter)(
-            base,
-          )(input);
-        else if (input.type === "seller")
-          return ShoppingCouponSellerCriteriaProvider.collect(actor)(counter)(
-            base,
-          )(input);
-        else
-          return ShoppingCouponFunnelCriteriaProvider.collect(counter)(base)(
-            input,
-          );
+  export const collect = async (props: {
+    actor: IShoppingSeller.IInvert | IShoppingAdministrator.IInvert;
+    inputs: IShoppingCouponCriteria.ICreate[];
+  }) => {
+    if (
+      props.actor.type === "seller" &&
+      props.inputs
+        .filter((i) => i.direction === "include")
+        .every((i) => i.type !== "sale" && i.type !== "seller")
+    )
+      throw ErrorProvider.forbidden({
+        accessor: "input.criterias[].type",
+        message:
+          "Seller must contain at least one sale or seller criteria of include direction.",
       });
-      return (
-        matrix satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[][]
-      ).flat();
-    };
+
+    const counter: IPointer<number> = { value: 0 };
+    const matrix = await ArrayUtil.asyncMap(props.inputs)(async (input) => {
+      const base = (): IShoppingCouponCriteria.ICollectBase => ({
+        id: v4(),
+        direction: input.direction,
+        type: input.type,
+      });
+      if (input.type === "channel")
+        return ShoppingCouponChannelCriterialProvider.collect({
+          counter,
+          base,
+          input,
+        });
+      else if (input.type === "section")
+        return ShoppingCouponSectionCriteriaProvider.collect({
+          counter,
+          base,
+          input,
+        });
+      else if (input.type === "sale")
+        return ShoppingCouponSaleCriteriaProvider.collect({
+          actor: props.actor,
+          counter,
+          base,
+          input,
+        });
+      else if (input.type === "seller")
+        return ShoppingCouponSellerCriteriaProvider.collect({
+          actor: props.actor,
+          counter,
+          base,
+          input,
+        });
+      else
+        return ShoppingCouponFunnelCriteriaProvider.collect({
+          counter,
+          base,
+          input,
+        });
+    });
+    return (
+      matrix satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[][]
+    ).flat();
+  };
 }

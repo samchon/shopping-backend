@@ -33,10 +33,12 @@ export class ShoppingSellerDeliveryShipperController {
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("deliveryId") deliveryId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingDeliveryShipper.ICreate,
+    @core.TypedBody() input: IShoppingDeliveryShipper.ICreate
   ): Promise<IShoppingDeliveryShipper> {
-    return ShoppingDeliveryShipperProvider.create(seller)({ id: deliveryId })(
+    return ShoppingDeliveryShipperProvider.create({
+      seller,
+      delivery: { id: deliveryId },
       input,
-    );
+    });
   }
 }

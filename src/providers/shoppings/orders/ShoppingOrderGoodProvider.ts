@@ -18,14 +18,14 @@ export namespace ShoppingOrderGoodProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_order_goodsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_order_goodsGetPayload<ReturnType<typeof select>>
     ): Promise<IShoppingOrderGood> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("mv_price is null");
       return {
         id: input.id,
         commodity: await ShoppingCartCommodityProvider.json.transform(
-          input.commodity,
+          input.commodity
         ),
         volume: input.volume,
         price: {
@@ -54,86 +54,100 @@ export namespace ShoppingOrderGoodProvider {
       }) satisfies Prisma.shopping_order_goodsFindManyArgs;
   }
 
-  export const collect =
-    (seller: IEntity) =>
-    (commodity: IShoppingCartCommodity) =>
-    (input: IShoppingOrderGood.ICreate, sequence: number) =>
-      ({
-        id: v4(),
-        commodity: {
-          connect: { id: commodity.id },
+  /* -----------------------------------------------------------
+    WRTIERS
+  ----------------------------------------------------------- */
+  export const collect = (props: {
+    seller: IEntity;
+    commodity: IShoppingCartCommodity;
+    input: IShoppingOrderGood.ICreate;
+    sequence: number;
+  }) =>
+    ({
+      id: v4(),
+      commodity: {
+        connect: { id: props.commodity.id },
+      },
+      seller: {
+        connect: { id: props.seller.id },
+      },
+      volume: props.input.volume,
+      mv_price: {
+        create: {
+          nominal: props.commodity.price.nominal * props.input.volume,
+          real: props.commodity.price.real * props.input.volume,
+          cash: props.commodity.price.real * props.input.volume,
+          deposit: 0,
+          mileage: 0,
+          ticket: 0,
         },
-        seller: {
-          connect: { id: seller.id },
-        },
-        volume: input.volume,
-        mv_price: {
-          create: {
-            nominal: commodity.price.nominal * input.volume,
-            real: commodity.price.real * input.volume,
-            cash: commodity.price.real * input.volume,
-            deposit: 0,
-            mileage: 0,
-            ticket: 0,
-          },
-        },
-        sequence,
-      }) satisfies Prisma.shopping_order_goodsCreateWithoutOrderInput;
+      },
+      sequence: props.sequence,
+    }) satisfies Prisma.shopping_order_goodsCreateWithoutOrderInput;
 
-  export const confirm =
-    (customer: IShoppingCustomer) =>
-    (order: IEntity) =>
-    async (id: string): Promise<void> => {
-      const good =
-        await ShoppingGlobal.prisma.shopping_order_goods.findFirstOrThrow({
-          where: { id, shopping_order_id: order.id },
-          include: {
-            mv_price: true,
-            mv_state: true,
-            order: {
-              include: {
-                publish: true,
-              },
+  export const confirm = async (props: {
+    customer: IShoppingCustomer;
+    order: IEntity;
+    id: string;
+  }): Promise<void> => {
+    const good =
+      await ShoppingGlobal.prisma.shopping_order_goods.findFirstOrThrow({
+        where: {
+          id: props.id,
+          shopping_order_id: props.order.id,
+        },
+        include: {
+          mv_price: true,
+          mv_state: true,
+          order: {
+            include: {
+              publish: true,
             },
           },
-        });
-      if (good.confirmed_at !== null)
-        throw ErrorProvider.gone({
-          accessor: "id",
-          message: "Already confirmed.",
-        });
-      if (good.order.publish === null)
-        throw ErrorProvider.unprocessable({
-          accessor: "orderId",
-          message: "Order has not been published yet.",
-        });
-      else if (good.order.publish.paid_at === null)
-        throw ErrorProvider.unprocessable({
-          accessor: "orderId",
-          message: "Order has not been paid yet.",
-        });
-      else if (good.order.publish.cancelled_at !== null)
-        throw ErrorProvider.gone({
-          accessor: "orderId",
-          message: "Order has been cancelled.",
-        });
-      else if (good.mv_price === null)
-        throw ErrorProvider.internal("mv_price is null");
-      else if (good.mv_state?.value !== "arrived")
-        throw ErrorProvider.unprocessable({
-          accessor: "id",
-          message: "The good has not been arrived yet.",
-        });
-
-      await ShoppingGlobal.prisma.shopping_order_goods.update({
-        where: { id },
-        data: {
-          confirmed_at: new Date(),
         },
       });
+    if (good.confirmed_at !== null)
+      throw ErrorProvider.gone({
+        accessor: "id",
+        message: "Already confirmed.",
+      });
+    if (good.order.publish === null)
+      throw ErrorProvider.unprocessable({
+        accessor: "orderId",
+        message: "Order has not been published yet.",
+      });
+    else if (good.order.publish.paid_at === null)
+      throw ErrorProvider.unprocessable({
+        accessor: "orderId",
+        message: "Order has not been paid yet.",
+      });
+    else if (good.order.publish.cancelled_at !== null)
+      throw ErrorProvider.gone({
+        accessor: "orderId",
+        message: "Order has been cancelled.",
+      });
+    else if (good.mv_price === null)
+      throw ErrorProvider.internal("mv_price is null");
+    else if (good.mv_state?.value !== "arrived")
+      throw ErrorProvider.unprocessable({
+        accessor: "id",
+        message: "The good has not been arrived yet.",
+      });
 
-      await ShoppingMileageHistoryProvider.emplace(customer.citizen!)(
-        "shopping_order_good_confirm_reward",
-      )(good, (ratio) => good.mv_price!.real * ratio!);
-    };
+    await ShoppingGlobal.prisma.shopping_order_goods.update({
+      where: { id: props.id },
+      data: {
+        confirmed_at: new Date(),
+      },
+    });
+
+    await ShoppingMileageHistoryProvider.emplace({
+      citizen: props.customer.citizen!,
+      mileage: {
+        code: "shopping_order_good_confirm_reward",
+      },
+      source: good,
+      value: (ratio) => good.mv_price!.real * ratio!,
+    });
+  };
 }

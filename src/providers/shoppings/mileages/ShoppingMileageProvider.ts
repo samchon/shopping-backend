@@ -16,7 +16,7 @@ export namespace ShoppingMileageProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_mileagesGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_mileagesGetPayload<ReturnType<typeof select>>
     ): IShoppingMileage => ({
       id: input.id,
       code: input.code,
@@ -33,7 +33,7 @@ export namespace ShoppingMileageProvider {
     READERS
   ----------------------------------------------------------- */
   export const index = (
-    input: IShoppingMileage.IRequest,
+    input: IShoppingMileage.IRequest
   ): Promise<IPage<IShoppingMileage>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_mileages,
@@ -51,7 +51,7 @@ export namespace ShoppingMileageProvider {
     })(input);
 
   export const search = (
-    input: IShoppingMileage.IRequest.ISearch | undefined,
+    input: IShoppingMileage.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.source?.length
@@ -83,7 +83,7 @@ export namespace ShoppingMileageProvider {
 
   export const orderBy = (
     key: IShoppingMileage.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "mileage.code"
       ? { code: value }
@@ -112,44 +112,46 @@ export namespace ShoppingMileageProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (_admin: null | IShoppingAdministrator.IInvert) =>
-    async (input: IShoppingMileage.ICreate): Promise<IShoppingMileage> => {
-      const record = await ShoppingGlobal.prisma.shopping_mileages.create({
-        data: {
-          id: v4(),
-          code: input.code,
-          source: input.source,
-          value: input.value,
-          direction: input.direction,
-          created_at: new Date(),
+  export const create = async (props: {
+    admin: null | IShoppingAdministrator.IInvert;
+    input: IShoppingMileage.ICreate;
+  }): Promise<IShoppingMileage> => {
+    const record = await ShoppingGlobal.prisma.shopping_mileages.create({
+      data: {
+        id: v4(),
+        code: props.input.code,
+        source: props.input.source,
+        value: props.input.value,
+        direction: props.input.direction,
+        created_at: new Date(),
+      },
+      ...json.select(),
+    });
+    return json.transform(record);
+  };
+
+  export const erase = async (props: {
+    admin: IShoppingAdministrator.IInvert;
+    id: string;
+  }): Promise<void> => {
+    await ShoppingGlobal.prisma.shopping_mileages.findFirstOrThrow({
+      where: { id: props.id },
+    });
+
+    const count: number =
+      await ShoppingGlobal.prisma.shopping_mileage_histories.count({
+        where: {
+          shopping_mileage_id: props.id,
         },
-        ...json.select(),
       });
-      return json.transform(record);
-    };
-
-  export const erase =
-    (_admin: IShoppingAdministrator.IInvert) =>
-    async (id: string): Promise<void> => {
-      await ShoppingGlobal.prisma.shopping_mileages.findFirstOrThrow({
-        where: { id },
+    if (count !== 0)
+      throw ErrorProvider.gone({
+        accessor: "id",
+        message:
+          "Cannot erase the mileage because it already has some histories.",
       });
-
-      const count: number =
-        await ShoppingGlobal.prisma.shopping_mileage_histories.count({
-          where: {
-            shopping_mileage_id: id,
-          },
-        });
-      if (count !== 0)
-        throw ErrorProvider.gone({
-          accessor: "id",
-          message:
-            "Cannot erase the mileage because it already has some histories.",
-        });
-      await ShoppingGlobal.prisma.shopping_mileages.delete({
-        where: { id },
-      });
-    };
+    await ShoppingGlobal.prisma.shopping_mileages.delete({
+      where: { id: props.id },
+    });
+  };
 }

@@ -10,7 +10,7 @@ import { BbsArticleSnapshotProvider } from "../../../common/BbsArticleSnapshotPr
 export namespace ShoppingSaleReviewSnapshotProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.bbs_article_snapshotsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.bbs_article_snapshotsGetPayload<ReturnType<typeof select>>
     ): IShoppingSaleReview.ISnapshot => {
       const rs = input.of_review;
       if (rs === null)
@@ -29,20 +29,19 @@ export namespace ShoppingSaleReviewSnapshotProvider {
       }) satisfies Prisma.bbs_article_snapshotsFindManyArgs;
   }
 
-  export const create =
-    (review: IEntity) =>
-    async (
-      input: IShoppingSaleReview.IUpdate,
-    ): Promise<IShoppingSaleReview.ISnapshot> => {
-      const record = await ShoppingGlobal.prisma.bbs_article_snapshots.create({
-        data: {
-          ...collect(input),
-          article: { connect: { id: review.id } },
-        },
-        ...json.select(),
-      });
-      return json.transform(record);
-    };
+  export const create = async (props: {
+    review: IEntity;
+    input: IShoppingSaleReview.IUpdate;
+  }): Promise<IShoppingSaleReview.ISnapshot> => {
+    const record = await ShoppingGlobal.prisma.bbs_article_snapshots.create({
+      data: {
+        ...collect(props.input),
+        article: { connect: { id: props.review.id } },
+      },
+      ...json.select(),
+    });
+    return json.transform(record);
+  };
 
   export const collect = (input: IShoppingSaleReview.IUpdate) =>
     ({

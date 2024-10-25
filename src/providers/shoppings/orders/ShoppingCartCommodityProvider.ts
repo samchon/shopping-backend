@@ -36,13 +36,13 @@ export namespace ShoppingCartCommodityProvider {
     export const transform = async (
       input: Prisma.shopping_cart_commoditiesGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): Promise<IShoppingCartCommodity> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("No mv_price found");
       const snapshot: IShoppingSaleSnapshot.IInvert = {
         ...(await ShoppingSaleSnapshotProvider.invert.transform(
-          input.snapshot,
+          input.snapshot
         )),
         units: [],
       };
@@ -84,143 +84,162 @@ export namespace ShoppingCartCommodityProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const index =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    async (
-      input: IShoppingCartCommodity.IRequest,
-    ): Promise<IPage<IShoppingCartCommodity>> =>
-      PaginationUtil.paginate({
-        schema: ShoppingGlobal.prisma.shopping_cart_commodities,
-        payload: json.select(),
-        transform: json.transform,
-      })({
-        where: {
-          AND: [
-            {
-              cart: {
-                id: cart !== null ? cart.id : undefined,
-                customer: ShoppingCustomerProvider.where(customer),
-              },
-              published: false,
-              deleted_at: null,
-            },
-            ...(await search(input.search)),
-          ],
-        },
-        orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy)(input.sort)
-          : [{ created_at: "desc" }],
-      })(input);
-
-  export const at =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    async (id: string): Promise<IShoppingCartCommodity> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_cart_commodities.findFirstOrThrow({
-          where: {
-            id,
+  export const index = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    input: IShoppingCartCommodity.IRequest;
+  }): Promise<IPage<IShoppingCartCommodity>> =>
+    PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_cart_commodities,
+      payload: json.select(),
+      transform: json.transform,
+    })({
+      where: {
+        AND: [
+          {
             cart: {
-              id: cart !== null ? cart.id : undefined,
-              customer: ShoppingCustomerProvider.where(customer),
+              id: props.cart?.id ?? undefined,
+              customer: ShoppingCustomerProvider.where(props.customer),
             },
             published: false,
             deleted_at: null,
           },
-          ...json.select(),
-        });
-      return json.transform(record);
-    };
+          ...(await search(props.input.search)),
+        ],
+      },
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ created_at: "desc" }],
+    })(props.input);
 
-  export const replica =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    async (id: string): Promise<IShoppingCartCommodity.ICreate> => {
-      const commodity: IShoppingCartCommodity = await at(customer)(cart)(id);
-      return ShoppingCartCommodityDiagnoser.replica(commodity);
-    };
+  export const at = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    id: string;
+  }): Promise<IShoppingCartCommodity> => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_cart_commodities.findFirstOrThrow({
+        where: {
+          id: props.id,
+          cart: {
+            id: props.cart?.id ?? undefined,
+            customer: ShoppingCustomerProvider.where(props.customer),
+          },
+          published: false,
+          deleted_at: null,
+        },
+        ...json.select(),
+      });
+    return json.transform(record);
+  };
 
-  export const discountable =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    async (
-      input: IShoppingCartDiscountable.IRequest,
-    ): Promise<IShoppingCartDiscountable> => {
-      const commodities =
-        input.commodity_ids !== null
-          ? await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
-              where: {
-                id: {
-                  in: input.commodity_ids,
-                },
-                cart: {
-                  customer: ShoppingCustomerProvider.where(customer),
-                  actor_type: "customer",
-                  id: cart ? cart.id : undefined,
-                },
-                published: false,
-                deleted_at: null,
+  export const replica = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    id: string;
+  }): Promise<IShoppingCartCommodity.ICreate> => {
+    const commodity: IShoppingCartCommodity = await at(props);
+    return ShoppingCartCommodityDiagnoser.replica(commodity);
+  };
+
+  export const discountable = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    input: IShoppingCartDiscountable.IRequest;
+  }): Promise<IShoppingCartDiscountable> => {
+    const commodities =
+      props.input.commodity_ids !== null
+        ? await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+            where: {
+              id: {
+                in: props.input.commodity_ids,
               },
-              ...json.select(),
-            })
-          : await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
-              where: {
-                cart: {
-                  customer: ShoppingCustomerProvider.where(customer),
-                  actor_type: "customer",
-                },
-                published: false,
-                deleted_at: null,
+              cart: {
+                customer: ShoppingCustomerProvider.where(props.customer),
+                actor_type: "customer",
+                id: props.cart?.id ?? undefined,
               },
-              ...json.select(),
-            });
-      if (
-        input.commodity_ids !== null &&
-        commodities.length !== input.commodity_ids.length
-      )
-        throw ErrorProvider.notFound({
-          accessor: "input.commodity_ids",
-          message: "Some commodities are not found.",
-        });
-      const pseudos: IShoppingCartCommodity[] =
-        input.pseudos.length === 0
-          ? []
-          : await ArrayUtil.asyncMap(input.pseudos)(async (raw) =>
-              ShoppingCartCommodityDiagnoser.preview(
-                await ShoppingSaleProvider.at(customer, true)(raw.sale_id),
-              )(raw),
-            );
+              published: false,
+              deleted_at: null,
+            },
+            ...json.select(),
+          })
+        : await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+            where: {
+              cart: {
+                customer: ShoppingCustomerProvider.where(props.customer),
+                actor_type: "customer",
+              },
+              published: false,
+              deleted_at: null,
+            },
+            ...json.select(),
+          });
+    if (
+      props.input.commodity_ids !== null &&
+      commodities.length !== props.input.commodity_ids.length
+    )
+      throw ErrorProvider.notFound({
+        accessor: "input.commodity_ids",
+        message: "Some commodities are not found.",
+      });
+    const pseudos: IShoppingCartCommodity[] =
+      props.input.pseudos.length === 0
+        ? []
+        : await ArrayUtil.asyncMap(props.input.pseudos)(async (raw) =>
+            ShoppingCartCommodityDiagnoser.preview(
+              await ShoppingSaleProvider.at({
+                actor: props.customer,
+                id: raw.sale_id,
+                strict: true,
+              })
+            )(raw)
+          );
 
-      return {
-        deposit: customer.citizen
-          ? await ShoppingDepositHistoryProvider.getBalance(customer.citizen)
-          : 0,
-        mileage: customer.citizen
-          ? await ShoppingMileageHistoryProvider.getBalance(customer.citizen)
-          : 0,
-        combinations: ShoppingCartDiscountableDiagnoser.combinate(customer)(
-          await take(ShoppingCouponProvider.index(customer)),
-          customer.citizen
-            ? await take(ShoppingCouponTicketProvider.index(customer))
-            : [],
-        )([
-          ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
-          ...pseudos,
-        ]),
-      };
+    return {
+      deposit: props.customer.citizen
+        ? await ShoppingDepositHistoryProvider.getBalance(
+            props.customer.citizen
+          )
+        : 0,
+      mileage: props.customer.citizen
+        ? await ShoppingMileageHistoryProvider.getBalance(
+            props.customer.citizen
+          )
+        : 0,
+      combinations: ShoppingCartDiscountableDiagnoser.combinate(props.customer)(
+        await take((input) =>
+          ShoppingCouponProvider.index({
+            actor: props.customer,
+            input,
+          })
+        ),
+        props.customer.citizen
+          ? await take((input) =>
+              ShoppingCouponTicketProvider.index({
+                customer: props.customer,
+                input,
+              })
+            )
+          : []
+      )([
+        ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
+        ...pseudos,
+      ]),
     };
+  };
 
   const search = async (
-    input: IShoppingCartCommodity.IRequest.ISearch | undefined,
+    input: IShoppingCartCommodity.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.sale !== undefined
         ? [
             ...(
-              await ShoppingSaleSnapshotProvider.searchInvert(
-                "input.search.sale",
-              )(input.sale)
+              await ShoppingSaleSnapshotProvider.searchInvert({
+                accessor: "input.search.sale",
+                input: input.sale,
+              })
             ).map((snapshot) => ({
               snapshot,
             })),
@@ -274,7 +293,7 @@ export namespace ShoppingCartCommodityProvider {
 
   const orderBy = (
     key: IShoppingCartCommodity.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     key === "commodity.created_at"
       ? { created_at: value }
@@ -289,191 +308,197 @@ export namespace ShoppingCartCommodityProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    async (
-      input: IShoppingCartCommodity.ICreate,
-    ): Promise<IShoppingCartCommodity> => {
-      // EMPLACE CART AND GET SALE INFO
-      cart ??= await ShoppingCartProvider.emplace(customer);
-      const sale: IShoppingSale = await ShoppingSaleProvider.at(
-        customer,
-        false,
-      )(input.sale_id);
+  export const create = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    input: IShoppingCartCommodity.ICreate;
+  }): Promise<IShoppingCartCommodity> => {
+    // EMPLACE CART AND GET SALE INFO
+    props.cart ??= await ShoppingCartProvider.emplace(props.customer);
+    const sale: IShoppingSale = await ShoppingSaleProvider.at({
+      actor: props.customer,
+      id: props.input.sale_id,
+      strict: false,
+    });
 
-      // VALIDATE INPUT VALUE
-      const diagnoses: IDiagnosis[] =
-        ShoppingCartCommodityDiagnoser.validate(sale)(input);
-      if (diagnoses.length > 0) throw ErrorProvider.unprocessable(diagnoses);
+    // VALIDATE INPUT VALUE
+    const diagnoses: IDiagnosis[] = ShoppingCartCommodityDiagnoser.validate(
+      sale
+    )(props.input);
+    if (diagnoses.length > 0) throw ErrorProvider.unprocessable(diagnoses);
 
-      // CHECK ACCUMULATE
-      const neighbor: IShoppingCartCommodity | null = await accumulate({
-        sale,
-        cart,
-      })(input);
-      if (neighbor !== null) return neighbor;
+    // CHECK ACCUMULATE
+    const neighbor: IShoppingCartCommodity | null = await accumulate({
+      sale,
+      cart: props.cart,
+      input: props.input,
+    });
+    if (neighbor !== null) return neighbor;
 
-      // DO CREATE
-      const price = {
-        nominal: 0,
-        real: 0,
-      };
-      for (const si of input.stocks) {
-        const unit = sale.units.find((u) => u.id === si.unit_id)!;
-        const stock = unit.stocks.find((s) => s.id === si.stock_id)!;
-        price.nominal += stock.price.nominal * si.quantity;
-        price.real += stock.price.real * si.quantity;
-      }
-      const record =
-        await ShoppingGlobal.prisma.shopping_cart_commodities.create({
-          data: {
-            id: v4(),
-            cart: {
-              connect: { id: cart.id },
-            },
-            snapshot: {
-              connect: { id: sale.snapshot_id },
-            },
-            stocks: {
-              create: input.stocks.map(
-                ShoppingCartCommodityStockProvider.collect,
-              ),
-            },
-            mv_price: {
-              create: {
-                nominal: price.nominal,
-                real: price.real,
-                volumed_price: price.real * input.volume,
-              },
-            },
-            created_at: new Date(),
-            volume: input.volume,
-            deleted_at: null,
-            published: false,
-          },
-          ...json.select(),
-        });
-      return json.transform(record);
+    // DO CREATE
+    const price = {
+      nominal: 0,
+      real: 0,
     };
-
-  export const update =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    (id: string) =>
-    async (input: IShoppingCartCommodity.IUpdate): Promise<void> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_cart_commodities.findFirstOrThrow({
-          where: {
-            id,
-            cart: {
-              id: cart !== null ? cart.id : undefined,
-              customer: ShoppingCustomerProvider.where(customer),
-            },
-            published: false,
-            deleted_at: null,
-          },
-          include: {
-            mv_price: true,
-          },
-        });
-      if (record.mv_price === null)
-        throw ErrorProvider.internal("No mv_price found");
-      await ShoppingGlobal.prisma.mv_shopping_cart_commodity_prices.update({
-        where: {
-          shopping_cart_commodity_id: id,
-        },
+    for (const si of props.input.stocks) {
+      const unit = sale.units.find((u) => u.id === si.unit_id)!;
+      const stock = unit.stocks.find((s) => s.id === si.stock_id)!;
+      price.nominal += stock.price.nominal * si.quantity;
+      price.real += stock.price.real * si.quantity;
+    }
+    const record = await ShoppingGlobal.prisma.shopping_cart_commodities.create(
+      {
         data: {
-          volumed_price: record.mv_price.real * input.volume,
+          id: v4(),
+          cart: {
+            connect: { id: props.cart.id },
+          },
+          snapshot: {
+            connect: { id: sale.snapshot_id },
+          },
+          stocks: {
+            create: props.input.stocks.map(
+              ShoppingCartCommodityStockProvider.collect
+            ),
+          },
+          mv_price: {
+            create: {
+              nominal: price.nominal,
+              real: price.real,
+              volumed_price: price.real * props.input.volume,
+            },
+          },
+          created_at: new Date(),
+          volume: props.input.volume,
+          deleted_at: null,
+          published: false,
         },
-      });
-    };
+        ...json.select(),
+      }
+    );
+    return json.transform(record);
+  };
 
-  export const erase =
-    (customer: IShoppingCustomer) =>
-    (cart: IEntity | null) =>
-    async (id: string): Promise<void> => {
+  export const update = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    id: string;
+    input: IShoppingCartCommodity.IUpdate;
+  }): Promise<void> => {
+    const record =
       await ShoppingGlobal.prisma.shopping_cart_commodities.findFirstOrThrow({
         where: {
-          id,
+          id: props.id,
           cart: {
-            id: cart !== null ? cart.id : undefined,
-            customer: ShoppingCustomerProvider.where(customer),
+            id: props.cart?.id ?? undefined,
+            customer: ShoppingCustomerProvider.where(props.customer),
           },
           published: false,
           deleted_at: null,
         },
-      });
-      await ShoppingGlobal.prisma.shopping_cart_commodities.update({
-        where: { id },
-        data: {
-          deleted_at: new Date(),
+        include: {
+          mv_price: true,
         },
       });
-    };
+    if (record.mv_price === null)
+      throw ErrorProvider.internal("No mv_price found");
+    await ShoppingGlobal.prisma.mv_shopping_cart_commodity_prices.update({
+      where: {
+        shopping_cart_commodity_id: props.id,
+      },
+      data: {
+        volumed_price: record.mv_price.real * props.input.volume,
+      },
+    });
+  };
 
-  const accumulate =
-    (related: { cart: IEntity; sale: IShoppingSale }) =>
-    async (
-      input: IShoppingCartCommodity.ICreate,
-    ): Promise<IShoppingCartCommodity | null> => {
-      if (input.accumulate === false) return null;
+  export const erase = async (props: {
+    customer: IShoppingCustomer;
+    cart: IEntity | null;
+    id: string;
+  }): Promise<void> => {
+    await ShoppingGlobal.prisma.shopping_cart_commodities.findFirstOrThrow({
+      where: {
+        id: props.id,
+        cart: {
+          id: props.cart?.id ?? undefined,
+          customer: ShoppingCustomerProvider.where(props.customer),
+        },
+        published: false,
+        deleted_at: null,
+      },
+    });
+    await ShoppingGlobal.prisma.shopping_cart_commodities.update({
+      where: { id: props.id },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
+  };
 
-      const neighbor =
-        await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
-          where: {
-            cart: {
-              id: related.cart.id,
-            },
-            snapshot: {
-              id: related.sale.snapshot_id,
-            },
-            published: false,
-            deleted_at: null,
+  const accumulate = async (props: {
+    cart: IEntity;
+    sale: IShoppingSale;
+    input: IShoppingCartCommodity.ICreate;
+  }): Promise<IShoppingCartCommodity | null> => {
+    if (props.input.accumulate === false) return null;
+
+    const neighbor =
+      await ShoppingGlobal.prisma.shopping_cart_commodities.findMany({
+        where: {
+          cart: {
+            id: props.cart.id,
           },
-          include: {
-            stocks: true,
-            mv_price: true,
+          snapshot: {
+            id: props.sale.snapshot_id,
           },
-        });
-      if (neighbor === null) return null;
+          published: false,
+          deleted_at: null,
+        },
+        include: {
+          stocks: true,
+          mv_price: true,
+        },
+      });
+    if (neighbor === null) return null;
 
-      for (const elem of neighbor) {
-        const similar: boolean = input.stocks.every((stock) => {
-          const opposite = elem.stocks.find(
-            (s) => s.shopping_sale_snapshot_unit_stock_id === stock.stock_id,
-          );
-          return opposite !== undefined;
-        });
-        if (similar === false) break;
-        else if (elem.mv_price === null)
-          throw ErrorProvider.internal("No mv_price found");
+    for (const elem of neighbor) {
+      const similar: boolean = props.input.stocks.every((stock) => {
+        const opposite = elem.stocks.find(
+          (s) => s.shopping_sale_snapshot_unit_stock_id === stock.stock_id
+        );
+        return opposite !== undefined;
+      });
+      if (similar === false) break;
+      else if (elem.mv_price === null)
+        throw ErrorProvider.internal("No mv_price found");
 
-        await ShoppingGlobal.prisma.mv_shopping_cart_commodity_prices.update({
-          where: {
-            shopping_cart_commodity_id: elem.id,
-          },
+      await ShoppingGlobal.prisma.mv_shopping_cart_commodity_prices.update({
+        where: {
+          shopping_cart_commodity_id: elem.id,
+        },
+        data: {
+          volumed_price:
+            elem.mv_price!.real * (elem.volume + props.input.volume),
+        },
+      });
+
+      const record =
+        await ShoppingGlobal.prisma.shopping_cart_commodities.update({
+          where: { id: elem.id },
           data: {
-            volumed_price: elem.mv_price!.real * (elem.volume + input.volume),
+            volume: elem.volume + props.input.volume,
           },
+          ...json.select(),
         });
-
-        const record =
-          await ShoppingGlobal.prisma.shopping_cart_commodities.update({
-            where: { id: elem.id },
-            data: {
-              volume: elem.volume + input.volume,
-            },
-            ...json.select(),
-          });
-        return json.transform(record);
-      }
-      return null;
-    };
+      return json.transform(record);
+    }
+    return null;
+  };
 }
 
 const take = async <T extends object>(
-  closure: (input: IPage.IRequest) => Promise<IPage<T>>,
+  closure: (input: IPage.IRequest) => Promise<IPage<T>>
 ): Promise<T[]> => {
   const page: IPage<T> = await closure({ limit: 0 });
   return page.data;

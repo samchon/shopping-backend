@@ -12,7 +12,7 @@ export namespace ShoppingSaleSnapshotUnitStockProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unit_stocksGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleUnitStock => {
       if (input.mv_inventory === null)
         throw ErrorProvider.internal("No inventory status exists.");
@@ -41,30 +41,34 @@ export namespace ShoppingSaleSnapshotUnitStockProvider {
       }) satisfies Prisma.shopping_sale_snapshot_unit_stocksFindManyArgs;
   }
 
-  export const collect =
-    (
-      optionList: ReturnType<
-        typeof ShoppingSaleSnapshotUnitOptionProvider.collect
-      >[],
-    ) =>
-    (input: IShoppingSaleUnitStock.ICreate, sequence: number) =>
-      ({
-        id: v4(),
-        name: input.name,
-        sequence,
-        choices: {
-          create: input.choices.map(
-            ShoppingSaleSnapshotUnitStockChoiceProvider.collect(optionList),
-          ),
+  export const collect = (props: {
+    options: ReturnType<
+      typeof ShoppingSaleSnapshotUnitOptionProvider.collect
+    >[];
+    input: IShoppingSaleUnitStock.ICreate;
+    sequence: number;
+  }) =>
+    ({
+      id: v4(),
+      name: props.input.name,
+      sequence: props.sequence,
+      choices: {
+        create: props.input.choices.map((value, i) =>
+          ShoppingSaleSnapshotUnitStockChoiceProvider.collect({
+            options: props.options,
+            input: value,
+            sequence: i,
+          })
+        ),
+      },
+      real_price: props.input.price.real,
+      nominal_price: props.input.price.nominal,
+      quantity: props.input.quantity,
+      mv_inventory: {
+        create: {
+          income: props.input.quantity,
+          outcome: 0,
         },
-        real_price: input.price.real,
-        nominal_price: input.price.nominal,
-        quantity: input.quantity,
-        mv_inventory: {
-          create: {
-            income: input.quantity,
-            outcome: 0,
-          },
-        },
-      }) satisfies Prisma.shopping_sale_snapshot_unit_stocksCreateWithoutUnitInput;
+      },
+    }) satisfies Prisma.shopping_sale_snapshot_unit_stocksCreateWithoutUnitInput;
 }

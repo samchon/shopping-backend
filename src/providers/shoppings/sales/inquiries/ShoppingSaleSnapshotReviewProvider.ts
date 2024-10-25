@@ -25,7 +25,7 @@ export namespace ShoppingSaleReviewProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_reviewsGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleReview.ISummary => ({
       id: input.base.base.id,
       customer: ShoppingCustomerProvider.json.transform(input.base.customer),
@@ -37,7 +37,7 @@ export namespace ShoppingSaleReviewProvider {
       answer:
         input.base.answer !== null
           ? ShoppingSaleSnapshotInquiryAnswerProvider.summarize.transform(
-              input.base.answer,
+              input.base.answer
             )
           : null,
     });
@@ -73,7 +73,7 @@ export namespace ShoppingSaleReviewProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_reviewsGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleReview.IAbridge => ({
       ...BbsArticleProvider.abridge.transform(input.base.base),
       customer: ShoppingCustomerProvider.json.transform(input.base.customer),
@@ -82,7 +82,7 @@ export namespace ShoppingSaleReviewProvider {
       answer:
         input.base.answer !== null
           ? ShoppingSaleSnapshotInquiryAnswerProvider.abridge.transform(
-              input.base.answer,
+              input.base.answer
             )
           : null,
     });
@@ -118,7 +118,7 @@ export namespace ShoppingSaleReviewProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_reviewsGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleReview => {
       const base = BbsArticleProvider.json.transform(input.base.base);
       return {
@@ -138,7 +138,7 @@ export namespace ShoppingSaleReviewProvider {
         answer:
           input.base.answer !== null
             ? ShoppingSaleSnapshotInquiryAnswerProvider.json.transform(
-                input.base.answer,
+                input.base.answer
               )
             : null,
         read_by_seller: input.base.read_by_seller_at !== null,
@@ -166,118 +166,117 @@ export namespace ShoppingSaleReviewProvider {
   /* -----------------------------------------------------------
     READERS
   ----------------------------------------------------------- */
-  export const index =
-    (actor: IShoppingActorEntity) =>
-    (sale: IEntity) =>
-    async (
-      input: IShoppingSaleReview.IRequest,
-    ): Promise<IPage<IShoppingSaleReview.ISummary>> => {
-      if (actor.type === "seller")
-        await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
-          where: {
-            id: sale.id,
-            sellerCustomer: {
-              member: {
-                of_seller: {
-                  id: actor.id,
-                },
-              },
-            },
-          },
-        });
-      return PaginationUtil.paginate({
-        schema: ShoppingGlobal.prisma.shopping_sale_snapshot_reviews,
-        payload: summarize.select(),
-        transform: summarize.transform,
-      })({
+  export const index = async (props: {
+    actor: IShoppingActorEntity;
+    sale: IEntity;
+    input: IShoppingSaleReview.IRequest;
+  }): Promise<IPage<IShoppingSaleReview.ISummary>> => {
+    if (props.actor.type === "seller")
+      await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
         where: {
-          AND: [
-            {
-              base: {
-                snapshot: {
-                  shopping_sale_id: sale.id,
-                },
-              },
-            },
-            ...search(input.search),
-          ],
-        },
-        orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy)(input.sort)
-          : [{ base: { base: { created_at: "desc" } } }],
-      })(input);
-    };
-
-  export const abridges =
-    (actor: IShoppingActorEntity) =>
-    (sale: IEntity) =>
-    async (
-      input: IShoppingSaleReview.IRequest,
-    ): Promise<IPage<IShoppingSaleReview.IAbridge>> => {
-      if (actor.type === "seller")
-        await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
-          where: {
-            id: sale.id,
-            sellerCustomer: {
-              member: {
-                of_seller: {
-                  id: actor.id,
-                },
+          id: props.sale.id,
+          sellerCustomer: {
+            member: {
+              of_seller: {
+                id: props.actor.id,
               },
             },
           },
-        });
-      return PaginationUtil.paginate({
-        schema: ShoppingGlobal.prisma.shopping_sale_snapshot_reviews,
-        payload: abridge.select(),
-        transform: abridge.transform,
-      })({
-        where: {
-          AND: [
-            {
-              base: {
-                snapshot: {
-                  shopping_sale_id: sale.id,
-                },
-              },
-            },
-            ...search(input.search),
-          ],
         },
-        orderBy: input.sort?.length
-          ? PaginationUtil.orderBy(orderBy)(input.sort)
-          : [{ base: { base: { created_at: "desc" } } }],
-      })(input);
-    };
-
-  export const at =
-    (actor: IShoppingActorEntity) =>
-    (sale: IEntity) =>
-    async (id: string): Promise<IShoppingSaleReview> => {
-      if (actor.type === "seller")
-        await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
-          where: {
-            id: sale.id,
-            sellerCustomer: {
-              member: {
-                of_seller: {
-                  id: actor.id,
-                },
-              },
-            },
-          },
-        });
-      const record =
-        await ShoppingGlobal.prisma.shopping_sale_snapshot_reviews.findFirstOrThrow(
+      });
+    return PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_sale_snapshot_reviews,
+      payload: summarize.select(),
+      transform: summarize.transform,
+    })({
+      where: {
+        AND: [
           {
-            where: {
-              id,
+            base: {
+              snapshot: {
+                shopping_sale_id: props.sale.id,
+              },
             },
-            ...json.select(),
           },
-        );
-      return json.transform(record);
-    };
+          ...search(props.input.search),
+        ],
+      },
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ base: { base: { created_at: "desc" } } }],
+    })(props.input);
+  };
+
+  export const abridges = async (props: {
+    actor: IShoppingActorEntity;
+    sale: IEntity;
+    input: IShoppingSaleReview.IRequest;
+  }): Promise<IPage<IShoppingSaleReview.IAbridge>> => {
+    if (props.actor.type === "seller")
+      await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
+        where: {
+          id: props.sale.id,
+          sellerCustomer: {
+            member: {
+              of_seller: {
+                id: props.actor.id,
+              },
+            },
+          },
+        },
+      });
+    return PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_sale_snapshot_reviews,
+      payload: abridge.select(),
+      transform: abridge.transform,
+    })({
+      where: {
+        AND: [
+          {
+            base: {
+              snapshot: {
+                shopping_sale_id: props.sale.id,
+              },
+            },
+          },
+          ...search(props.input.search),
+        ],
+      },
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ base: { base: { created_at: "desc" } } }],
+    })(props.input);
+  };
+
+  export const at = async (props: {
+    actor: IShoppingActorEntity;
+    sale: IEntity;
+    id: string;
+  }): Promise<IShoppingSaleReview> => {
+    if (props.actor.type === "seller")
+      await ShoppingGlobal.prisma.shopping_sales.findFirstOrThrow({
+        where: {
+          id: props.sale.id,
+          sellerCustomer: {
+            member: {
+              of_seller: {
+                id: props.actor.id,
+              },
+            },
+          },
+        },
+      });
+    const record =
+      await ShoppingGlobal.prisma.shopping_sale_snapshot_reviews.findFirstOrThrow(
+        {
+          where: {
+            id: props.id,
+          },
+          ...json.select(),
+        }
+      );
+    return json.transform(record);
+  };
 
   const search = (input: IShoppingSaleReview.IRequest.ISearch | undefined) =>
     [
@@ -322,7 +321,7 @@ export namespace ShoppingSaleReviewProvider {
 
   const orderBy = (
     key: IShoppingSaleReview.IRequest.SortableColumns,
-    direction: "asc" | "desc",
+    direction: "asc" | "desc"
   ) =>
     (key === "score"
       ? {
@@ -345,121 +344,136 @@ export namespace ShoppingSaleReviewProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const create =
-    (customer: IShoppingCustomer) =>
-    (sale: IEntity) =>
-    async (
-      input: IShoppingSaleReview.ICreate,
-    ): Promise<IShoppingSaleReview> => {
-      const good =
-        await ShoppingGlobal.prisma.shopping_order_goods.findFirstOrThrow({
-          where: {
-            id: input.good_id,
-            commodity: {
-              snapshot: {
-                shopping_sale_id: sale.id,
-              },
-            },
-          },
-          include: {
-            order: {
-              include: {
-                customer: ShoppingCustomerProvider.json.select(),
-                publish: true,
-              },
-            },
-            commodity: {
-              include: {
-                snapshot: true,
-              },
-            },
-          },
-        });
-      if (
-        false ===
-        ShoppingCustomerProvider.equals(customer)(
-          ShoppingCustomerProvider.json.transform(good.order.customer),
-        )
-      )
-        throw ErrorProvider.forbidden({
-          accessor: "input.good_id",
-          message: "You are not allowed to review the good.",
-        });
-      else if (good.order.publish === null)
-        throw ErrorProvider.unprocessable({
-          accessor: "input.good_id",
-          message: "The order is not published yet.",
-        });
-      else if (good.order.publish.paid_at === null)
-        throw ErrorProvider.unprocessable({
-          accessor: "input.good_id",
-          message: "The order is not paid yet.",
-        });
-      else if (good.order.publish.cancelled_at !== null)
-        throw ErrorProvider.unprocessable({
-          accessor: "input.good_id",
-          message: "The order is cancelled.",
-        });
-
-      const record =
-        await ShoppingGlobal.prisma.shopping_sale_snapshot_reviews.create({
-          data: collect(customer)({
+  export const create = async (props: {
+    customer: IShoppingCustomer;
+    sale: IEntity;
+    input: IShoppingSaleReview.ICreate;
+  }): Promise<IShoppingSaleReview> => {
+    const good =
+      await ShoppingGlobal.prisma.shopping_order_goods.findFirstOrThrow({
+        where: {
+          id: props.input.good_id,
+          commodity: {
             snapshot: {
-              id: good.commodity.snapshot.id,
+              shopping_sale_id: props.sale.id,
             },
-            good,
-          })(input),
-          ...json.select(),
-        });
-      await ShoppingMileageHistoryProvider.emplace(customer.citizen!)(
-        input.files.length
+          },
+        },
+        include: {
+          order: {
+            include: {
+              customer: ShoppingCustomerProvider.json.select(),
+              publish: true,
+            },
+          },
+          commodity: {
+            include: {
+              snapshot: true,
+            },
+          },
+        },
+      });
+    if (
+      false ===
+      ShoppingCustomerProvider.equals(
+        props.customer,
+        ShoppingCustomerProvider.json.transform(good.order.customer)
+      )
+    )
+      throw ErrorProvider.forbidden({
+        accessor: "input.good_id",
+        message: "You are not allowed to review the good.",
+      });
+    else if (good.order.publish === null)
+      throw ErrorProvider.unprocessable({
+        accessor: "input.good_id",
+        message: "The order is not published yet.",
+      });
+    else if (good.order.publish.paid_at === null)
+      throw ErrorProvider.unprocessable({
+        accessor: "input.good_id",
+        message: "The order is not paid yet.",
+      });
+    else if (good.order.publish.cancelled_at !== null)
+      throw ErrorProvider.unprocessable({
+        accessor: "input.good_id",
+        message: "The order is cancelled.",
+      });
+
+    const record =
+      await ShoppingGlobal.prisma.shopping_sale_snapshot_reviews.create({
+        data: collect({
+          customer: props.customer,
+          snapshot: {
+            id: good.commodity.snapshot.id,
+          },
+          good,
+          input: props.input,
+        }),
+        ...json.select(),
+      });
+    await ShoppingMileageHistoryProvider.emplace({
+      citizen: props.customer.citizen!,
+      mileage: {
+        code: props.input.files.length
           ? "shopping_sale_snapshot_review_photo_reward"
           : "shopping_sale_snapshot_review_text_reward",
-      )(record, (v) => v!);
-      return json.transform(record);
-    };
+      },
+      source: record,
+      value: (v) => v!,
+    });
+    return json.transform(record);
+  };
 
-  export const update =
-    (customer: IShoppingCustomer) =>
-    (sale: IEntity) =>
-    (id: string) =>
-    async (
-      input: IShoppingSaleReview.IUpdate,
-    ): Promise<IShoppingSaleReview.ISnapshot> => {
-      const review = await at(customer)(sale)(id);
-      if (review.customer.id !== customer.id)
-        throw ErrorProvider.forbidden({
-          accessor: "id",
-          message: "This review is not yours.",
-        });
-      return ShoppingSaleReviewSnapshotProvider.create(review)(input);
-    };
+  export const update = async (props: {
+    customer: IShoppingCustomer;
+    sale: IEntity;
+    id: string;
+    input: IShoppingSaleReview.IUpdate;
+  }): Promise<IShoppingSaleReview.ISnapshot> => {
+    const review = await at({
+      actor: props.customer,
+      sale: props.sale,
+      id: props.id,
+    });
+    if (review.customer.id !== props.customer.id)
+      throw ErrorProvider.forbidden({
+        accessor: "id",
+        message: "This review is not yours.",
+      });
+    return ShoppingSaleReviewSnapshotProvider.create({
+      review,
+      input: props.input,
+    });
+  };
 
-  const collect =
-    (customer: IShoppingCustomer) =>
-    (related: { snapshot: IEntity; good: IEntity }) =>
-    (input: IShoppingSaleReview.ICreate) =>
-      ({
-        base: {
-          create: {
-            type: "review",
-            base: {
-              create: BbsArticleProvider.collect(
-                ShoppingSaleReviewSnapshotProvider.collect,
-              )(input),
-            },
-            customer: {
-              connect: { id: customer.id },
-            },
-            snapshot: {
-              connect: { id: related.snapshot.id },
-            },
-            read_by_seller_at: null,
-            created_at: new Date(),
+  const collect = (props: {
+    customer: IShoppingCustomer;
+    snapshot: IEntity;
+    good: IEntity;
+    input: IShoppingSaleReview.ICreate;
+  }) =>
+    ({
+      base: {
+        create: {
+          type: "review",
+          base: {
+            create: BbsArticleProvider.collect(
+              ShoppingSaleReviewSnapshotProvider.collect
+            )(props.input),
           },
+          customer: {
+            connect: { id: props.customer.id },
+          },
+          snapshot: {
+            connect: { id: props.snapshot.id },
+          },
+          read_by_seller_at: null,
+          created_at: new Date(),
         },
-        good: {
-          connect: { id: related.good.id },
-        },
-      }) satisfies Prisma.shopping_sale_snapshot_reviewsCreateInput;
+      },
+      good: {
+        connect: { id: props.good.id },
+      },
+    }) satisfies Prisma.shopping_sale_snapshot_reviewsCreateInput;
 }

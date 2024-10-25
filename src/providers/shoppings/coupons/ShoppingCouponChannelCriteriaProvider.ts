@@ -18,7 +18,7 @@ export namespace ShoppingCouponChannelCriterialProvider {
     export const transform = async (
       inputList: Prisma.shopping_coupon_channel_criteriasGetPayload<
         ReturnType<typeof select>
-      >[],
+      >[]
     ): Promise<IShoppingCouponChannelCriteria.IChannelTo[]> => {
       interface ITuple {
         channel: IShoppingChannel;
@@ -39,7 +39,10 @@ export namespace ShoppingCouponChannelCriterialProvider {
           tuple.category_ids.length === 0
             ? null
             : await ArrayUtil.asyncMap(tuple.category_ids)((id) =>
-                ShoppingChannelCategoryProvider.invert(tuple.channel)(id),
+                ShoppingChannelCategoryProvider.invert({
+                  channel: tuple.channel,
+                  id,
+                })
               ),
       }));
     };
@@ -54,39 +57,43 @@ export namespace ShoppingCouponChannelCriterialProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const collect =
-    (counter: IPointer<number>) =>
-    (base: () => IShoppingCouponCriteria.ICollectBase) =>
-    async (input: IShoppingCouponChannelCriteria.ICreate) =>
-      (
-        (await ArrayUtil.asyncMap(input.channels)(async (raw) => {
-          const channel = await ShoppingChannelProvider.get(raw.channel_code);
-          if (raw.category_ids === null)
-            return [
-              {
-                ...base(),
-                sequence: counter.value++,
-                of_channel: {
-                  create: {
-                    shopping_channel_id: channel.id,
-                    shopping_channel_category_id: null,
-                  },
+  export const collect = async (props: {
+    base: () => IShoppingCouponCriteria.ICollectBase;
+    counter: IPointer<number>;
+    input: IShoppingCouponChannelCriteria.ICreate;
+  }) =>
+    (
+      (await ArrayUtil.asyncMap(props.input.channels)(async (raw) => {
+        const channel = await ShoppingChannelProvider.get(raw.channel_code);
+        if (raw.category_ids === null)
+          return [
+            {
+              ...props.base(),
+              sequence: props.counter.value++,
+              of_channel: {
+                create: {
+                  shopping_channel_id: channel.id,
+                  shopping_channel_category_id: null,
                 },
               },
-            ];
-          await ArrayUtil.asyncMap(raw.category_ids)(
-            ShoppingChannelCategoryProvider.at(channel),
-          );
-          return raw.category_ids.map((cid) => ({
-            ...base(),
-            sequence: counter.value++,
-            of_channel: {
-              create: {
-                shopping_channel_id: channel.id,
-                shopping_channel_category_id: cid,
-              },
             },
-          }));
-        })) satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[][]
-      ).flat();
+          ];
+        await ArrayUtil.asyncMap(raw.category_ids)((id) =>
+          ShoppingChannelCategoryProvider.at({
+            channel,
+            id,
+          })
+        );
+        return raw.category_ids.map((cid) => ({
+          ...props.base(),
+          sequence: props.counter.value++,
+          of_channel: {
+            create: {
+              shopping_channel_id: channel.id,
+              shopping_channel_category_id: cid,
+            },
+          },
+        }));
+      })) satisfies Prisma.shopping_coupon_criteriasCreateWithoutCouponInput[][]
+    ).flat();
 }

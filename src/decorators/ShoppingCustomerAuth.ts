@@ -24,6 +24,9 @@ const singleton = new VariadicSingleton(
   (level: "guest" | "member" | "citizen") =>
     createParamDecorator(async (_0: any, ctx: ExecutionContext) => {
       const request = ctx.switchToHttp().getRequest();
-      return ShoppingCustomerProvider.authorize(level)(request);
+      return ShoppingCustomerProvider.authorize({
+        level,
+        request,
+      });
     })()
 );

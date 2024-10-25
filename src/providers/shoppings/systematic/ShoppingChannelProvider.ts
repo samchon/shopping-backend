@@ -17,7 +17,7 @@ export namespace ShoppingChannelProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_channelsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_channelsGetPayload<ReturnType<typeof select>>
     ): IShoppingChannel => ({
       id: input.id,
       code: input.code,
@@ -29,7 +29,7 @@ export namespace ShoppingChannelProvider {
   }
 
   export const hierarchical = async (
-    input: IShoppingChannel.IRequest,
+    input: IShoppingChannel.IRequest
   ): Promise<IPage<IShoppingChannel.IHierarchical>> => {
     const page = await index(input);
     return {
@@ -46,7 +46,7 @@ export namespace ShoppingChannelProvider {
     READERS
   ----------------------------------------------------------- */
   export const index = (
-    input: IShoppingChannel.IRequest,
+    input: IShoppingChannel.IRequest
   ): Promise<IPage<IShoppingChannel>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_channels,
@@ -62,7 +62,7 @@ export namespace ShoppingChannelProvider {
     })(input);
 
   export const search = (
-    input: IShoppingChannel.IRequest.ISearch | undefined,
+    input: IShoppingChannel.IRequest.ISearch | undefined
   ) =>
     [
       ...(input?.code?.length
@@ -88,7 +88,7 @@ export namespace ShoppingChannelProvider {
 
   export const orderBy = (
     key: IShoppingChannel.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ) =>
     (key === "channel.code"
       ? { code: value }
@@ -99,7 +99,7 @@ export namespace ShoppingChannelProvider {
           }) satisfies Prisma.shopping_channelsOrderByWithRelationInput;
 
   export const at = async (
-    id: string,
+    id: string
   ): Promise<IShoppingChannel.IHierarchical> => {
     const record =
       await ShoppingGlobal.prisma.shopping_channels.findFirstOrThrow({
@@ -113,7 +113,7 @@ export namespace ShoppingChannelProvider {
   };
 
   export const get = async (
-    code: string,
+    code: string
   ): Promise<IShoppingChannel.IHierarchical> => {
     const record =
       await ShoppingGlobal.prisma.shopping_channels.findFirstOrThrow({
@@ -130,7 +130,7 @@ export namespace ShoppingChannelProvider {
     WRITERS
   ----------------------------------------------------------- */
   export const create = async (
-    input: IShoppingChannel.ICreate,
+    input: IShoppingChannel.ICreate
   ): Promise<IShoppingChannel> => {
     const record = await ShoppingGlobal.prisma.shopping_channels.create({
       data: collect(input),
@@ -139,24 +139,25 @@ export namespace ShoppingChannelProvider {
     return json.transform(record);
   };
 
-  export const update =
-    (id: string) =>
-    async (input: IShoppingChannel.IUpdate): Promise<void> => {
-      const record =
-        await ShoppingGlobal.prisma.shopping_channels.findFirstOrThrow({
-          where: { id },
-        });
-      await ShoppingGlobal.prisma.shopping_channels.update({
-        where: { id: record.id },
-        data: {
-          name: input.name ?? record.name,
-        },
+  export const update = async (props: {
+    id: string;
+    input: IShoppingChannel.IUpdate;
+  }): Promise<void> => {
+    const record =
+      await ShoppingGlobal.prisma.shopping_channels.findFirstOrThrow({
+        where: { id: props.id },
       });
-    };
+    await ShoppingGlobal.prisma.shopping_channels.update({
+      where: { id: record.id },
+      data: {
+        name: props.input.name ?? record.name,
+      },
+    });
+  };
 
   export const merge = (input: IRecordMerge) =>
     EntityMergeProvider.merge(
-      ShoppingGlobal.prisma.shopping_channels.fields.id.modelName,
+      ShoppingGlobal.prisma.shopping_channels.fields.id.modelName
     )(input);
 
   const collect = (input: IShoppingChannel.ICreate) =>
