@@ -212,9 +212,10 @@ export namespace ShoppingOrderProvider {
     )(ShoppingCartCommodityProvider.json.transform);
 
     // VALIDATE
-    const diagnoses: IDiagnosis[] = ShoppingOrderDiagnoser.validate(
-      commodities
-    )(props.input);
+    const diagnoses: IDiagnosis[] = ShoppingOrderDiagnoser.validate({
+      commodities,
+      input: props.input,
+    });
     if (diagnoses.length) throw ErrorProvider.unprocessable(diagnoses);
 
     // COLLECT GOODS

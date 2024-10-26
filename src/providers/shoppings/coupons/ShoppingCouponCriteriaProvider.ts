@@ -42,9 +42,11 @@ export namespace ShoppingCouponCriterialProvider {
         for (const input of inputList.filter(
           (input) => input.direction === direction
         ))
-          MapUtil.take(dict)(
-            typia.assert<IShoppingCouponCriteria.Type>(input.type)
-          )(() => []).push(input);
+          MapUtil.take(
+            dict,
+            typia.assert<IShoppingCouponCriteria.Type>(input.type),
+            () => []
+          ).push(input);
         return ArrayUtil.asyncMap([...dict.entries()])(
           async ([type, inputList]) =>
             type === "channel"

@@ -50,7 +50,7 @@ export namespace ShoppingCartCommodityProvider {
         .sort((a, b) => a.sequence - b.sequence)
         .map(ShoppingCartCommodityStockProvider.json.transform);
       const dict: Map<string, IShoppingSaleUnit.IInvert[]> = new Map();
-      for (const u of units) MapUtil.take(dict)(u.id)(() => []).push(u);
+      for (const u of units) MapUtil.take(dict, u.id, () => []).push(u);
 
       return {
         id: input.id,
@@ -187,13 +187,14 @@ export namespace ShoppingCartCommodityProvider {
       props.input.pseudos.length === 0
         ? []
         : await ArrayUtil.asyncMap(props.input.pseudos)(async (raw) =>
-            ShoppingCartCommodityDiagnoser.preview(
-              await ShoppingSaleProvider.at({
+            ShoppingCartCommodityDiagnoser.preview({
+              sale: await ShoppingSaleProvider.at({
                 actor: props.customer,
                 id: raw.sale_id,
                 strict: true,
-              })
-            )(raw)
+              }),
+              input: raw,
+            })
           );
 
     return {
@@ -207,25 +208,27 @@ export namespace ShoppingCartCommodityProvider {
             props.customer.citizen
           )
         : 0,
-      combinations: ShoppingCartDiscountableDiagnoser.combinate(props.customer)(
-        await take((input) =>
+      combinations: ShoppingCartDiscountableDiagnoser.combinate({
+        customer: props.customer,
+        coupons: await take((input) =>
           ShoppingCouponProvider.index({
             actor: props.customer,
             input,
           })
         ),
-        props.customer.citizen
+        tickets: props.customer.citizen
           ? await take((input) =>
               ShoppingCouponTicketProvider.index({
                 customer: props.customer,
                 input,
               })
             )
-          : []
-      )([
-        ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
-        ...pseudos,
-      ]),
+          : [],
+        commodities: [
+          ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
+          ...pseudos,
+        ],
+      }),
     };
   };
 
@@ -322,9 +325,10 @@ export namespace ShoppingCartCommodityProvider {
     });
 
     // VALIDATE INPUT VALUE
-    const diagnoses: IDiagnosis[] = ShoppingCartCommodityDiagnoser.validate(
-      sale
-    )(props.input);
+    const diagnoses: IDiagnosis[] = ShoppingCartCommodityDiagnoser.validate({
+      sale,
+      input: props.input,
+    });
     if (diagnoses.length > 0) throw ErrorProvider.unprocessable(diagnoses);
 
     // CHECK ACCUMULATE

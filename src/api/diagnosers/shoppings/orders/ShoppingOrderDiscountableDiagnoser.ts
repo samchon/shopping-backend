@@ -7,51 +7,64 @@ import { IShoppingOrderGood } from "../../../structures/shoppings/orders/IShoppi
 import { ShoppingDiscountableDiagnoser } from "../coupons/ShoppingDiscountableDiagnoser";
 
 export namespace ShoppingOrderDiscountableDiagnoser {
-  export const checkCoupon =
-    (customer: IShoppingCustomer) =>
-    (goods: IShoppingOrderGood[]) =>
-    (coupon: IShoppingCoupon): boolean =>
-      ShoppingDiscountableDiagnoser.checkCoupon(accessor)(customer)(goods)(
-        coupon,
-      );
+  export const checkCoupon = (props: {
+    customer: IShoppingCustomer;
+    goods: IShoppingOrderGood[];
+    coupon: IShoppingCoupon;
+  }): boolean =>
+    ShoppingDiscountableDiagnoser.checkCoupon({
+      accessor,
+      customer: props.customer,
+      coupon: props.coupon,
+      data: props.goods,
+    });
 
-  export const filterGoods =
-    (customer: IShoppingCustomer) =>
-    (coupon: IShoppingCoupon) =>
-    (goods: IShoppingOrderGood[]): IShoppingOrderGood[] =>
-      ShoppingDiscountableDiagnoser.filterItems(accessor)(customer)(coupon)(
-        goods,
-      );
+  export const filterGoods = (props: {
+    customer: IShoppingCustomer;
+    coupon: IShoppingCoupon;
+    goods: IShoppingOrderGood[];
+  }): IShoppingOrderGood[] =>
+    ShoppingDiscountableDiagnoser.filterItems({
+      accessor,
+      customer: props.customer,
+      coupon: props.coupon,
+      data: props.goods,
+    });
 
-  export const combinate =
-    (customer: IShoppingCustomer) =>
-    (coupons: IShoppingCoupon[], tickets: IShoppingCouponTicket[]) =>
-    (goods: IShoppingOrderGood[]): IShoppingOrderDiscountable.ICombination[] =>
-      ShoppingDiscountableDiagnoser.combinate({
-        className: "ShoppingOrderDiscountableDiagnoser",
-        accessor,
-      })(customer)(
-        coupons,
-        tickets,
-      )(goods).map((comb) => ({
-        ...comb,
-        entries: comb.entries.map((entry) => ({
-          coupon_id: entry.coupon_id,
-          good_id: entry.item_id,
-          amount: entry.amount,
-        })),
-      }));
+  export const combinate = (props: {
+    customer: IShoppingCustomer;
+    coupons: IShoppingCoupon[];
+    tickets: IShoppingCouponTicket[];
+    goods: IShoppingOrderGood[];
+  }): IShoppingOrderDiscountable.ICombination[] =>
+    ShoppingDiscountableDiagnoser.combinate<any>({
+      className: "ShoppingOrderDiscountableDiagnoser",
+      accessor,
+      customer: props.customer,
+      coupons: props.coupons,
+      tickets: props.tickets,
+      data: props.goods,
+    }).map((comb) => ({
+      ...comb,
+      entries: comb.entries.map((entry) => ({
+        coupon_id: entry.coupon_id,
+        good_id: entry.item_id,
+        amount: entry.amount,
+      })),
+    }));
 
-  export const discount =
-    (customer: IShoppingCustomer) =>
-    (coupons: IShoppingCoupon[]) =>
-    (
-      goods: IShoppingOrderGood[],
-    ): ShoppingDiscountableDiagnoser.IDiscount<IShoppingOrderGood> =>
-      ShoppingDiscountableDiagnoser.discount({
-        className: "ShoppingOrderDiscountableDiagnoser",
-        accessor,
-      })(customer)(coupons)(goods);
+  export const discount = (props: {
+    customer: IShoppingCustomer;
+    coupons: IShoppingCoupon[];
+    goods: IShoppingOrderGood[];
+  }): ShoppingDiscountableDiagnoser.IDiscount<IShoppingOrderGood> =>
+    ShoppingDiscountableDiagnoser.discount({
+      className: "ShoppingOrderDiscountableDiagnoser",
+      accessor,
+      customer: props.customer,
+      coupons: props.coupons,
+      data: props.goods,
+    });
 }
 
 const accessor: ShoppingDiscountableDiagnoser.IAccessor<IShoppingOrderGood> = {

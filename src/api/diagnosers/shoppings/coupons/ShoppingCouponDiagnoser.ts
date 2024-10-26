@@ -5,13 +5,18 @@ import { IShoppingSaleSnapshot } from "../../../structures/shoppings/sales/IShop
 import { ShoppingCouponCriteriaDiagnoser } from "./ShoppingCouponCriteriaDianoser";
 
 export namespace ShoppingCouponDiagnoser {
-  export const adjustable =
-    (customer: IShoppingCustomer) =>
-    (sale: IShoppingSaleSnapshot.IInvert) =>
-    (coupon: IShoppingCoupon): boolean =>
-      coupon.criterias.every(
-        ShoppingCouponCriteriaDiagnoser.adjustable(customer)(sale),
-      );
+  export const adjustable = (props: {
+    customer: IShoppingCustomer;
+    sale: IShoppingSaleSnapshot.IInvert;
+    coupon: IShoppingCoupon;
+  }): boolean =>
+    props.coupon.criterias.every((criteria) =>
+      ShoppingCouponCriteriaDiagnoser.adjustable({
+        customer: props.customer,
+        sale: props.sale,
+        criteria,
+      })
+    );
 
   export const coexistable = (coupons: IShoppingCoupon[]): boolean =>
     coupons.length <= 1 ||

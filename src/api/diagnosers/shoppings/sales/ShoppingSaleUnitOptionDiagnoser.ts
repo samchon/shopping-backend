@@ -3,38 +3,41 @@ import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShopping
 import { IShoppingSaleUnitOption } from "../../../structures/shoppings/sales/IShoppingSaleUnitOption";
 import { IShoppingSaleUnitOptionCandidate } from "../../../structures/shoppings/sales/IShoppingSaleUnitOptionCandidate";
 
-import { IIndexedInput } from "../../common/IIndexedInput";
 import { UniqueDiagnoser } from "../../common/UniqueDiagnoser";
 
 export namespace ShoppingSaleUnitOptionDiagnoser {
-  export const validate =
-    (unit: IIndexedInput<IShoppingSaleUnit.ICreate>) =>
-    (option: IIndexedInput<IShoppingSaleUnitOption.ICreate>): IDiagnosis[] => {
-      if (option.data.type !== "select") return [];
+  export const validate = (props: {
+    unit: IShoppingSaleUnit.ICreate;
+    unitIndex: number;
+    option: IShoppingSaleUnitOption.ICreate;
+    index: number;
+  }): IDiagnosis[] => {
+    if (props.option.type !== "select") return [];
 
-      const accessor: string = `input.units[${unit.index}].options[${option.index}]`;
-      const output: IDiagnosis[] = [];
+    const accessor: string = `input.units[${props.unitIndex}].options[${props.index}]`;
+    const output: IDiagnosis[] = [];
 
-      if (option.data.candidates.length === 0)
-        output.push({
-          accessor: `${accessor}.candidates`,
-          message:
-            'Candidates must not be empty when type of the option is "select".',
-        });
-      output.push(
-        ...UniqueDiagnoser.validate<IShoppingSaleUnitOptionCandidate.ICreate>({
-          key: (c) => c.name,
-          message: (c, i) => ({
-            accessor: `${accessor}.candidates[${i}]`,
-            message: `Duplicated candidate name: "${c.name}"`,
-          }),
-        })(option.data.candidates),
-      );
-      return output;
-    };
+    if (props.option.candidates.length === 0)
+      output.push({
+        accessor: `${accessor}.candidates`,
+        message:
+          'Candidates must not be empty when type of the option is "select".',
+      });
+    output.push(
+      ...UniqueDiagnoser.validate<IShoppingSaleUnitOptionCandidate.ICreate>({
+        key: (c) => c.name,
+        message: (c, i) => ({
+          accessor: `${accessor}.candidates[${i}]`,
+          message: `Duplicated candidate name: "${c.name}"`,
+        }),
+        items: props.option.candidates,
+      })
+    );
+    return output;
+  };
 
   export const replica = (
-    input: IShoppingSaleUnitOption,
+    input: IShoppingSaleUnitOption
   ): IShoppingSaleUnitOption.ICreate =>
     input.type === "select"
       ? {
