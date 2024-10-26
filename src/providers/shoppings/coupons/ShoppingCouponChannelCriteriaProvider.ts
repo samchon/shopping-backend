@@ -26,7 +26,7 @@ export namespace ShoppingCouponChannelCriterialProvider {
       }
       const tupleMap: Map<string, ITuple> = new Map();
       for (const input of inputList) {
-        const row = MapUtil.take(tupleMap)(input.shopping_channel_id)(() => ({
+        const row = MapUtil.take(tupleMap, input.shopping_channel_id, () => ({
           channel: ShoppingChannelProvider.json.transform(input.channel),
           category_ids: [],
         }));

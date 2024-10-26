@@ -10,8 +10,7 @@ import { ShoppingSaleUnitDiagnoser } from "./ShoppingSaleUnitDiagnoser";
 
 export namespace ShoppingSaleSnapshotDiagnoser {
   export const validate = (
-    sale: IShoppingSaleSnapshot.ICreate,
-    checkUnits: boolean = true,
+    sale: IShoppingSaleSnapshot.ICreate
   ): IDiagnosis[] => {
     const output: IDiagnosis[] = [];
 
@@ -23,44 +22,42 @@ export namespace ShoppingSaleSnapshotDiagnoser {
           accessor: `input.channels[${i}]`,
           message: `Duplicated channel code: "${c.code}"`,
         }),
-      })(sale.channels),
+        items: sale.channels,
+      })
     );
-    sale.channels.forEach((channel, i) =>
-      output.push(
-        ...ShoppingSaleChannelDiagnoser.validate({
-          data: channel,
-          index: i,
-        }),
-      ),
+    sale.channels.forEach((channel) =>
+      output.push(...ShoppingSaleChannelDiagnoser.validate(channel))
     );
 
     // UNITS
-    if (checkUnits === true) {
-      if (sale.units.length === 0)
-        output.push({
-          accessor: "input.units",
-          message: "No unit",
-        });
-      else if (sale.units.every((u) => u.required === false))
-        output.push({
-          accessor: "input.units[].required",
-          message: "No required unit",
-        });
+    if (sale.units.length === 0)
+      output.push({
+        accessor: "input.units",
+        message: "No unit",
+      });
+    else if (sale.units.every((u) => u.required === false))
+      output.push({
+        accessor: "input.units[].required",
+        message: "No required unit",
+      });
+    output.push(
+      ...UniqueDiagnoser.validate<IShoppingSaleUnit.ICreate>({
+        key: (u) => u.name,
+        message: (u, i) => ({
+          accessor: `input.units[${i}]`,
+          message: `Duplicated unit name: "${u.name}"`,
+        }),
+        items: sale.units,
+      })
+    );
+    sale.units.forEach((unit, i) =>
       output.push(
-        ...UniqueDiagnoser.validate<IShoppingSaleUnit.ICreate>({
-          key: (u) => u.name,
-          message: (u, i) => ({
-            accessor: `input.units[${i}]`,
-            message: `Duplicated unit name: "${u.name}"`,
-          }),
-        })(sale.units),
-      );
-      sale.units.forEach((unit, i) =>
-        output.push(
-          ...ShoppingSaleUnitDiagnoser.validate({ data: unit, index: i }),
-        ),
-      );
-    }
+        ...ShoppingSaleUnitDiagnoser.validate({
+          unit: unit,
+          index: i,
+        })
+      )
+    );
 
     // PROPERTIES
     output.push(
@@ -70,13 +67,14 @@ export namespace ShoppingSaleSnapshotDiagnoser {
           accessor: `input.tags[${i}]`,
           message: `Duplicated tags: "${str}"`,
         }),
-      })(sale.tags),
+        items: sale.tags,
+      })
     );
     return output;
   };
 
   export const replica = (
-    snapshot: IShoppingSaleSnapshot,
+    snapshot: IShoppingSaleSnapshot
   ): IShoppingSaleSnapshot.ICreate => ({
     channels: snapshot.channels.map(ShoppingSaleChannelDiagnoser.replica),
     content: ShoppingSaleContentDiagnoser.replica(snapshot.content),

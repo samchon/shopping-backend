@@ -161,7 +161,8 @@ export namespace ShoppingSaleProvider {
       const diagnoses: IDiagnosis[] = ShoppingSaleDiagnoser.readable({
         accessor: "id",
         checkPause: false,
-      })(sale);
+        sale,
+      });
       if (diagnoses.length) throw ErrorProvider.unprocessable(diagnoses);
     }
     return sale;

@@ -113,16 +113,15 @@ export namespace ShoppingOrderPriceProvider {
             props.customer.citizen
           )) + price.deposit
         : 0,
-      combinations: ShoppingOrderDiscountableDiagnoser.combinate(
-        props.customer
-      )(
-        await take((input) =>
+      combinations: ShoppingOrderDiscountableDiagnoser.combinate({
+        customer: props.customer,
+        coupons: await take((input) =>
           ShoppingCouponProvider.index({
             actor: props.customer,
             input,
           })
         ),
-        props.customer.citizen
+        tickets: props.customer.citizen
           ? [
               ...(await take((input) =>
                 ShoppingCouponTicketProvider.index({
@@ -132,8 +131,9 @@ export namespace ShoppingOrderPriceProvider {
               )),
               ...price.ticket_payments.map((tp) => tp.ticket),
             ]
-          : []
-      )(goods),
+          : [],
+        goods,
+      }),
     };
   };
 
@@ -316,10 +316,12 @@ export namespace ShoppingOrderPriceProvider {
       ...coupons,
     ];
     const adjustable: boolean =
-      (entire.every(
-        ShoppingOrderDiscountableDiagnoser.checkCoupon(props.customer)(
-          order.goods
-        )
+      (entire.every((c) =>
+        ShoppingOrderDiscountableDiagnoser.checkCoupon({
+          customer: props.customer,
+          goods: order.goods,
+          coupon: c,
+        })
       ) &&
         entire.length === 1) ||
       entire.every((c) => false === c.restriction.exclusive);
@@ -352,12 +354,12 @@ export namespace ShoppingOrderPriceProvider {
     );
 
     // RETURNS
-    const [combination] = ShoppingOrderDiscountableDiagnoser.combinate(
-      props.customer
-    )(
-      [],
-      tickets
-    )(order.goods);
+    const [combination] = ShoppingOrderDiscountableDiagnoser.combinate({
+      customer: props.customer,
+      coupons: [],
+      tickets,
+      goods: order.goods,
+    });
     return {
       order,
       combination,

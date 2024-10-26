@@ -6,65 +6,70 @@ import { IShoppingSaleSnapshot } from "../../../structures/shoppings/sales/IShop
 import { IShoppingChannelCategory } from "../../../structures/shoppings/systematic/IShoppingChannelCategory";
 
 export namespace ShoppingCouponCriteriaDiagnoser {
-  export const adjustable =
-    (customer: IShoppingCustomer) =>
-    (sale: IShoppingSaleSnapshot.IInvert) =>
-    (criteria: IShoppingCouponCriteria) => {
-      const res: boolean = include(customer)(sale)(criteria);
-      return criteria.direction === "include" ? res : !res;
-    };
+  export const adjustable = (props: {
+    customer: IShoppingCustomer;
+    sale: IShoppingSaleSnapshot.IInvert;
+    criteria: IShoppingCouponCriteria;
+  }) => {
+    const res: boolean = include(props);
+    return props.criteria.direction === "include" ? res : !res;
+  };
 
-  const include =
-    (customer: IShoppingCustomer) =>
-    (sale: IShoppingSaleSnapshot.IInvert) =>
-    (criteria: IShoppingCouponCriteria) => {
-      if (criteria.type === "channel")
-        return (
-          criteria.channels.some((t) => t.channel.id === customer.channel.id) &&
-          criteria.channels.some((tuple) => belongs(sale)(tuple))
-        );
-      else if (criteria.type === "section")
-        return criteria.sections.some(
-          (section) => section.id === sale.section.id,
-        );
-      else if (criteria.type === "seller")
-        return criteria.sellers.some((seller) => seller.id === sale.seller.id);
-      else if (criteria.type === "sale")
-        return criteria.sales.some((s) => s.id === sale.id);
-      else if (criteria.type === "funnel")
-        return criteria.funnels.some((funnel) => {
-          if (funnel.kind === "url")
-            return customer.href.startsWith(funnel.value);
-          else if (funnel.kind === "referrer")
-            return (
-              customer.referrer !== null &&
-              customer.referrer.startsWith(funnel.value)
-            );
-          else if (funnel.kind === "variable") {
-            const question: number = customer.href.lastIndexOf("?");
-            if (question === -1) return false;
+  const include = (props: {
+    customer: IShoppingCustomer;
+    sale: IShoppingSaleSnapshot.IInvert;
+    criteria: IShoppingCouponCriteria;
+  }): boolean => {
+    if (props.criteria.type === "channel")
+      return (
+        props.criteria.channels.some(
+          (t) => t.channel.id === props.customer.channel.id
+        ) && props.criteria.channels.some(belongs(props.sale))
+      );
+    else if (props.criteria.type === "section")
+      return props.criteria.sections.some(
+        (section) => section.id === props.sale.section.id
+      );
+    else if (props.criteria.type === "seller")
+      return props.criteria.sellers.some(
+        (seller) => seller.id === props.sale.seller.id
+      );
+    else if (props.criteria.type === "sale")
+      return props.criteria.sales.some((s) => s.id === props.sale.id);
+    else if (props.criteria.type === "funnel")
+      return props.criteria.funnels.some((funnel) => {
+        if (funnel.kind === "url")
+          return props.customer.href.startsWith(funnel.value);
+        else if (funnel.kind === "referrer")
+          return (
+            props.customer.referrer !== null &&
+            props.customer.referrer.startsWith(funnel.value)
+          );
+        else if (funnel.kind === "variable") {
+          const question: number = props.customer.href.lastIndexOf("?");
+          if (question === -1) return false;
 
-            const params: URLSearchParams = new URLSearchParams(
-              customer.href.substring(question + 1),
-            );
-            return params.get(funnel.key) === funnel.value;
-          }
-          return false;
-        });
-      return false;
-    };
+          const params: URLSearchParams = new URLSearchParams(
+            props.customer.href.substring(question + 1)
+          );
+          return params.get(funnel.key) === funnel.value;
+        }
+        return false;
+      });
+    return false;
+  };
 
   const belongs =
     (sale: IShoppingSaleSnapshot.IInvert) =>
     (tuple: IShoppingCouponChannelCriteria.IChannelTo) => {
       const matched: IShoppingSaleChannel | undefined = sale.channels.find(
-        (ch) => ch.id === tuple.channel.id,
+        (ch) => ch.id === tuple.channel.id
       );
       if (matched === undefined) return false;
       else if (!tuple.categories?.length) return true;
 
       return tuple.categories.some((target) =>
-        matched.categories.some((current) => explore(target)(current)),
+        matched.categories.some(explore(target))
       );
     };
 

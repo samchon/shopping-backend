@@ -16,58 +16,67 @@ export namespace ShoppingDiscountableDiagnoser {
   /* -----------------------------------------------------------
     FILTERS
   ----------------------------------------------------------- */
-  export const checkCoupon =
-    <T extends IEntity>(accessor: IAccessor<T>) =>
-    (customer: IShoppingCustomer) =>
-    (data: T[]) =>
-    (coupon: IShoppingCoupon): boolean =>
-      filterItems(accessor)(customer)(coupon)(data).length !== 0;
+  export const checkCoupon = <T extends IEntity>(props: {
+    accessor: IAccessor<T>;
+    customer: IShoppingCustomer;
+    coupon: IShoppingCoupon;
+    data: T[];
+  }): boolean => filterItems(props).length !== 0;
 
-  export const filterItems =
-    <T extends IEntity>(accessor: IAccessor<T>) =>
-    (customer: IShoppingCustomer) =>
-    (coupon: IShoppingCoupon) =>
-    (data: T[]) =>
-      _Filter_criterias(accessor)(customer)(coupon)(data);
+  export const filterItems = <T extends IEntity>(props: {
+    accessor: IAccessor<T>;
+    customer: IShoppingCustomer;
+    coupon: IShoppingCoupon;
+    data: T[];
+  }): T[] => _Filter_criterias(props);
 
-  const _Filter_criterias =
-    <T extends IEntity>(accessor: IAccessor<T>) =>
-    (customer: IShoppingCustomer) =>
-    (coupon: IShoppingCoupon) =>
-    (data: T[]) =>
-      _Filter_threshold(accessor)(coupon)(
-        data.filter((elem) =>
-          ShoppingCouponDiagnoser.adjustable(customer)(
-            accessor.item(elem).sale,
-          )(coupon),
-        ),
+  const _Filter_criterias = <T extends IEntity>(props: {
+    accessor: IAccessor<T>;
+    customer: IShoppingCustomer;
+    coupon: IShoppingCoupon;
+    data: T[];
+  }): T[] =>
+    _Filter_threshold({
+      accessor: props.accessor,
+      coupon: props.coupon,
+      data: props.data.filter((elem) =>
+        ShoppingCouponDiagnoser.adjustable({
+          customer: props.customer,
+          sale: props.accessor.item(elem).sale,
+          coupon: props.coupon,
+        })
+      ),
+    });
+
+  const _Filter_threshold = <T extends IEntity>(props: {
+    accessor: IAccessor<T>;
+    coupon: IShoppingCoupon;
+    data: T[];
+  }): T[] => {
+    if (props.coupon.discount.threshold === null)
+      return props.coupon.discount.unit === "amount" &&
+        props.coupon.discount.multiplicative === true
+        ? props.data.filter(
+            (elem) =>
+              props.accessor.item(elem).price.real >=
+              props.coupon.discount.value
+          )
+        : props.data;
+    else if (
+      props.coupon.discount.unit === "amount" &&
+      props.coupon.discount.multiplicative === true
+    )
+      return props.data.filter(
+        (elem) =>
+          props.accessor.item(elem).price.real >=
+            props.coupon.discount.threshold! &&
+          props.accessor.item(elem).price.real >= props.coupon.discount.value
       );
-
-  const _Filter_threshold =
-    <T extends IEntity>(accessor: IAccessor<T>) =>
-    (coupon: IShoppingCoupon) =>
-    (data: T[]): T[] => {
-      if (coupon.discount.threshold === null)
-        return coupon.discount.unit === "amount" &&
-          coupon.discount.multiplicative === true
-          ? data.filter(
-              (elem) => accessor.item(elem).price.real >= coupon.discount.value,
-            )
-          : data;
-      else if (
-        coupon.discount.unit === "amount" &&
-        coupon.discount.multiplicative === true
-      )
-        return data.filter(
-          (elem) =>
-            accessor.item(elem).price.real >= coupon.discount.threshold! &&
-            accessor.item(elem).price.real >= coupon.discount.value,
-        );
-      const sum: number = data
-        .map((elem) => _Get_price(accessor)(elem))
-        .reduce((x, y) => x + y, 0);
-      return sum >= coupon.discount.threshold ? data : [];
-    };
+    const sum: number = props.data
+      .map((elem) => _Get_price(props.accessor)(elem))
+      .reduce((x, y) => x + y, 0);
+    return sum >= props.coupon.discount.threshold ? props.data : [];
+  };
 
   const _Get_price =
     <T extends IEntity>(accessor: IAccessor<T>) =>
@@ -94,86 +103,104 @@ export namespace ShoppingDiscountableDiagnoser {
     }
   }
 
-  export const discount =
-    <T extends IEntity>(props: { className: string; accessor: IAccessor<T> }) =>
-    (customer: IShoppingCustomer) =>
-    (coupons: IShoppingCoupon[]) =>
-    (data: T[]): IDiscount<T> =>
-      _Discount({
-        title: `${props.className}.discount`,
+  export const discount = <T extends IEntity>(props: {
+    className: string;
+    accessor: IAccessor<T>;
+    customer: IShoppingCustomer;
+    coupons: IShoppingCoupon[];
+    data: T[];
+  }): IDiscount<T> =>
+    _Discount({
+      ...props,
+      title: `${props.className}.discount`,
+    });
+
+  const _Discount = <T extends IEntity, Coupon extends IShoppingCoupon>(props: {
+    title: string;
+    accessor: IAccessor<T>;
+    customer: IShoppingCustomer;
+    coupons: Coupon[];
+    data: T[];
+  }): IDiscount<T> => {
+    // SORT COUPONS
+    ShoppingCouponDiagnoser.sort(props.coupons);
+
+    // CHECK POSSIBILITY
+    if (false === ShoppingCouponDiagnoser.coexistable(props.coupons))
+      throw new Error(
+        `Error on ${props.title}(): target coupons are not coexistable.`
+      );
+
+    // CONSTRUCT DISCOUNT DICTIONARY
+    const output: IDiscount<T> = {
+      amount: 0,
+      coupon_to_elem_dict: new Map(),
+    };
+
+    // DO DISCOUNT
+    for (const coupon of props.coupons) {
+      const filtered: T[] = _Filter_criterias({
         accessor: props.accessor,
-      })(customer)(coupons)(data);
-
-  const _Discount =
-    <T extends IEntity>(props: { title: string; accessor: IAccessor<T> }) =>
-    (customer: IShoppingCustomer) =>
-    <Coupon extends IShoppingCoupon>(couponList: Coupon[]) =>
-    (data: T[]): IDiscount<T> => {
-      // SORT COUPONS
-      ShoppingCouponDiagnoser.sort(couponList);
-
-      // CHECK POSSIBILITY
-      if (false === ShoppingCouponDiagnoser.coexistable(couponList))
-        throw new Error(
-          `Error on ${props.title}(): target coupons are not coexistable.`,
-        );
-
-      // CONSTRUCT DISCOUNT DICTIONARY
-      const output: IDiscount<T> = {
-        amount: 0,
-        coupon_to_elem_dict: new Map(),
-      };
-
-      // DO DISCOUNT
-      for (const coupon of couponList) {
-        const filtered: T[] = _Filter_criterias(props.accessor)(customer)(
+        customer: props.customer,
+        data: props.data,
+        coupon,
+      });
+      if (filtered.length !== 0)
+        _Determine({
+          accessor: props.accessor,
           coupon,
-        )(data);
-        if (filtered.length !== 0)
-          _Determine(props.accessor)(coupon)(data)(output);
-      }
-      return output;
-    };
+          data: props.data,
+          output,
+        });
+    }
+    return output;
+  };
 
-  const _Determine =
-    <T extends IEntity>(accessor: IAccessor<T>) =>
-    (coupon: IShoppingCoupon) =>
-    (data: T[]) =>
-    (output: IDiscount<T>) => {
-      const adjust = (elem: T, value: number) => {
-        take(output.coupon_to_elem_dict)(coupon.id)(
-          () => new Map<string, number>(),
-        ).set(elem.id, value);
-      };
-      if (coupon.discount.unit === "percent")
-        for (const elem of data) {
-          // DISCOUNTED VALUE
-          const value: number =
-            (coupon.discount.value / 100) * _Get_price(accessor)(elem);
-
-          // ADJUST
-          output.amount += value;
-          adjust(elem, value);
-        }
-      else if (coupon.discount.multiplicative === true)
-        for (const elem of data) {
-          const value: number = coupon.discount.value * accessor.volume(elem);
-          adjust(elem, value);
-          output.amount += value;
-        }
-      else {
-        const denominator: number = data
-          .map((elem) => _Get_price(accessor)(elem))
-          .reduce((x, y) => x + y, 0);
-        for (const elem of data) {
-          const value: number =
-            ((coupon.discount.value / 100) * _Get_price(accessor)(elem)) /
-            denominator;
-          adjust(elem, value);
-        }
-        output.amount += coupon.discount.value;
-      }
+  const _Determine = <T extends IEntity>(props: {
+    accessor: IAccessor<T>;
+    coupon: IShoppingCoupon;
+    data: T[];
+    output: IDiscount<T>;
+  }) => {
+    const adjust = (elem: T, value: number) => {
+      take(
+        props.output.coupon_to_elem_dict,
+        props.coupon.id,
+        () => new Map<string, number>()
+      ).set(elem.id, value);
     };
+    if (props.coupon.discount.unit === "percent")
+      for (const elem of props.data) {
+        // DISCOUNTED VALUE
+        const value: number =
+          (props.coupon.discount.value / 100) *
+          _Get_price(props.accessor)(elem);
+
+        // ADJUST
+        props.output.amount += value;
+        adjust(elem, value);
+      }
+    else if (props.coupon.discount.multiplicative === true)
+      for (const elem of props.data) {
+        const value: number =
+          props.coupon.discount.value * props.accessor.volume(elem);
+        adjust(elem, value);
+        props.output.amount += value;
+      }
+    else {
+      const denominator: number = props.data
+        .map((elem) => _Get_price(props.accessor)(elem))
+        .reduce((x, y) => x + y, 0);
+      for (const elem of props.data) {
+        const value: number =
+          ((props.coupon.discount.value / 100) *
+            _Get_price(props.accessor)(elem)) /
+          denominator;
+        adjust(elem, value);
+      }
+      props.output.amount += props.coupon.discount.value;
+    }
+  };
 
   /* -----------------------------------------------------------
     COMBINATOR
@@ -183,70 +210,81 @@ export namespace ShoppingDiscountableDiagnoser {
     item_id: string;
   }
 
-  export const combinate =
-    <T extends IEntity>(props: { className: string; accessor: IAccessor<T> }) =>
-    (customer: IShoppingCustomer) =>
-    (coupons: IShoppingCoupon[], tickets: IShoppingCouponTicket[]) =>
-    (data: T[]): ICombination[] => {
-      // FILTER COUPONS
-      const ticketMap: Map<string, IShoppingCouponTicket> = new Map(
-        tickets.map((t) => [t.coupon.id, t]),
-      );
-      coupons = coupons.filter(
-        (c) =>
-          false === ticketMap.has(c.id) &&
-          checkCoupon(props.accessor)(customer)(data)(c),
-      );
-      tickets = [...ticketMap.values()].filter((elem) =>
-        checkCoupon(props.accessor)(customer)(data)(elem.coupon),
-      );
-
-      // CONSTRUCT COUPON MATRIX
-      const entire: IShoppingCoupon[] = [
-        ...coupons,
-        ...tickets.map((t) => t.coupon),
-      ];
-      const matrix: IShoppingCoupon[][] = [
-        entire.filter((c) => c.restriction.exclusive === false),
-        ...entire
-          .filter((c) => c.restriction.exclusive === true)
-          .map((c) => [c]),
-      ].filter((row) => row.length !== 0);
-
-      // COMPUTE COMBINATIONS
-      const combinations: IDiscount<T>[] = matrix.map((coupons) =>
-        _Discount({
-          title: `${props.className}.combinate`,
+  export const combinate = <T extends IEntity>(props: {
+    className: string;
+    accessor: IAccessor<T>;
+    customer: IShoppingCustomer;
+    coupons: IShoppingCoupon[];
+    tickets: IShoppingCouponTicket[];
+    data: T[];
+  }): ICombination[] => {
+    // FILTER COUPONS
+    const ticketMap: Map<string, IShoppingCouponTicket> = new Map(
+      props.tickets.map((t) => [t.coupon.id, t])
+    );
+    const coupons = props.coupons.filter(
+      (c) =>
+        false === ticketMap.has(c.id) &&
+        checkCoupon({
           accessor: props.accessor,
-        })(customer)(coupons)(data),
-      );
-      return combinations.map((comb, i) => ({
-        coupons: matrix[i].filter((x) => coupons.some((y) => x.id === y.id)),
-        tickets: tickets.filter((t) =>
-          matrix[i].some((c) => c.id === t.coupon.id),
-        ),
-        entries: [...comb.coupon_to_elem_dict.entries()]
-          .map(([coupon_id, elements]) =>
-            [...elements.entries()].map(([item_id, amount]) => ({
-              coupon_id,
-              item_id,
-              amount,
-            })),
-          )
-          .flat(),
-        amount: comb.amount,
-      }));
-    };
+          customer: props.customer,
+          data: props.data,
+          coupon: c,
+        })
+    );
+    const tickets = [...ticketMap.values()].filter((elem) =>
+      checkCoupon({
+        accessor: props.accessor,
+        customer: props.customer,
+        data: props.data,
+        coupon: elem.coupon,
+      })
+    );
+
+    // CONSTRUCT COUPON MATRIX
+    const entire: IShoppingCoupon[] = [
+      ...coupons,
+      ...tickets.map((t) => t.coupon),
+    ];
+    const matrix: IShoppingCoupon[][] = [
+      entire.filter((c) => c.restriction.exclusive === false),
+      ...entire.filter((c) => c.restriction.exclusive === true).map((c) => [c]),
+    ].filter((row) => row.length !== 0);
+
+    // COMPUTE COMBINATIONS
+    const combinations: IDiscount<T>[] = matrix.map((coupons) =>
+      _Discount({
+        title: `${props.className}.combinate`,
+        accessor: props.accessor,
+        customer: props.customer,
+        data: props.data,
+        coupons,
+      })
+    );
+    return combinations.map((comb, i) => ({
+      coupons: matrix[i].filter((x) => coupons.some((y) => x.id === y.id)),
+      tickets: tickets.filter((t) =>
+        matrix[i].some((c) => c.id === t.coupon.id)
+      ),
+      entries: [...comb.coupon_to_elem_dict.entries()]
+        .map(([coupon_id, elements]) =>
+          [...elements.entries()].map(([item_id, amount]) => ({
+            coupon_id,
+            item_id,
+            amount,
+          }))
+        )
+        .flat(),
+      amount: comb.amount,
+    }));
+  };
 }
 
-const take =
-  <Key, T>(dict: Map<Key, T>) =>
-  (key: Key) =>
-  (generator: () => T): T => {
-    const oldbie: T | undefined = dict.get(key);
-    if (oldbie) return oldbie;
+const take = <Key, T>(dict: Map<Key, T>, key: Key, generator: () => T): T => {
+  const oldbie: T | undefined = dict.get(key);
+  if (oldbie) return oldbie;
 
-    const value: T = generator();
-    dict.set(key, value);
-    return value;
-  };
+  const value: T = generator();
+  dict.set(key, value);
+  return value;
+};

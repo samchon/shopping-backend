@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.5.0",
+    "version": "0.6.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -25,6 +25,7 @@
         "parameters": [],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -82,6 +83,7 @@
         "parameters": [],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -95,6 +97,7 @@
         "parameters": [],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -219,6 +222,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -325,6 +329,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -503,6 +508,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -682,6 +688,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2039,6 +2046,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2127,6 +2135,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2292,6 +2301,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2361,6 +2371,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2554,6 +2565,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2623,6 +2635,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -2936,6 +2949,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -3275,6 +3289,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -3305,6 +3320,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -3821,6 +3837,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -4088,6 +4105,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -4303,6 +4321,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -4435,6 +4454,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -6393,6 +6413,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -6592,6 +6613,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -6906,6 +6928,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -6977,6 +7000,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -7010,6 +7034,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -7042,6 +7067,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -8451,6 +8477,7 @@
         },
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }
@@ -8512,6 +8539,7 @@
         ],
         "responses": {
           "200": {
+            "description": "",
             "content": {
               "application/json": {}
             }

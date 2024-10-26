@@ -9,9 +9,9 @@ import { IDiagnosis } from "../../structures/common/IDiagnosis";
  */
 export namespace UniqueDiagnoser {
   /**
-   * Configuration info.
+   * Properties of unique diagnoser.
    */
-  export interface IConfig<Element> {
+  export interface IProps<Element> {
     /**
      * Key getter function.
      */
@@ -28,6 +28,11 @@ export namespace UniqueDiagnoser {
      * @default undefined Accept every elements
      */
     filter?(elem: Element): boolean;
+
+    /**
+     * Target elements to validate.
+     */
+    items: Element[];
   }
 
   /**
@@ -36,26 +41,20 @@ export namespace UniqueDiagnoser {
    * Diagnose duplicated elements through {@link HashSet} and returns
    * {@link IDiagnosis} objects describing about the duplicated elements.
    *
-   * @param config Configuration info for diagnosing
-   * @returns Diagnoser function for specific elements
+   * @param props Properties of the unique diagnoser
+   * @returns List of diagnoses messages about duplicated elements
    */
-  export const validate =
-    <Element>(config: IConfig<Element>) =>
-    /**
-     * @param elements Target elements to validate.
-     * @returns List of diagnoses messages about duplicated elements
-     */
-    (elements: Element[]) => {
-      const output: IDiagnosis[] = [];
-      const set: Set<string> = new Set();
+  export const validate = <Element>(props: IProps<Element>) => {
+    const output: IDiagnosis[] = [];
+    const set: Set<string> = new Set();
 
-      elements.forEach((elem, index) => {
-        if (config.filter && config.filter(elem) === false) return;
+    props.items.forEach((elem, index) => {
+      if (props.filter && props.filter(elem) === false) return;
 
-        const key: string = config.key(elem);
-        if (set.has(key) === true) output.push(config.message(elem, index));
-        else set.add(key);
-      });
-      return output;
-    };
+      const key: string = props.key(elem);
+      if (set.has(key) === true) output.push(props.message(elem, index));
+      else set.add(key);
+    });
+    return output;
+  };
 }
