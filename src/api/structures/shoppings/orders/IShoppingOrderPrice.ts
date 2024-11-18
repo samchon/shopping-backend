@@ -22,7 +22,11 @@ export namespace IShoppingOrderPrice {
     /**
      * Amount of the cash payment.
      */
-    cash: number & tags.Minimum<0>;
+    cash: number &
+      tags.Minimum<0> &
+      tags.JsonSchemaPlugin<{
+        "x-wrtn-payment-price": true;
+      }>;
 
     /**
      * Amount of the deposit payment.

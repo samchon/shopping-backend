@@ -16,34 +16,36 @@ export const generate_random_order_publish = async (
   customer: IShoppingCustomer,
   order: IShoppingOrder,
   paid: boolean,
-  address?: IShoppingAddress.ICreate,
+  address?: IShoppingAddress.ICreate
 ): Promise<IShoppingOrderPublish> => {
   const price: IShoppingOrderPrice =
     await ShoppingApi.functional.shoppings.customers.orders.price(
       pool.customer,
-      order.id,
+      order.id
     );
   address ??= prepare_random_address(customer.citizen!, address);
 
   const input: IShoppingOrderPublish.ICreate =
     price.cash === 0
       ? {
-          type: "zero",
+          vendor: null,
           address,
         }
       : paid
         ? {
             // @todo - interact with payment system
-            type: "cash",
-            vendor: "somewhere",
-            uid: v4(),
+            vendor: {
+              code: "somewhere",
+              uid: v4(),
+            },
             address,
           }
         : {
             // @todo - interact with payment system
-            type: "cash",
-            vendor: "somewhere",
-            uid: `vbank::${v4()}`,
+            vendor: {
+              code: "somewhere",
+              uid: `vbank::${v4()}`,
+            },
             address,
           };
 
@@ -51,7 +53,7 @@ export const generate_random_order_publish = async (
     await ShoppingApi.functional.shoppings.customers.orders.publish.create(
       pool.customer,
       order.id,
-      input,
+      input
     );
   TestValidator.equals("paid_at")(!!publish.paid_at)(paid);
   return publish;
