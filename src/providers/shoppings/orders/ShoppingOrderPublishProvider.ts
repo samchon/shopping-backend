@@ -104,7 +104,7 @@ export namespace ShoppingOrderPublishProvider {
       paid_at: null | Date;
       cancelled_at: null | Date;
     } = await (async () => {
-      if (props.input.type === "zero") {
+      if (props.input.vendor === null) {
         if (reference.cash !== 0)
           throw ErrorProvider.unprocessable({
             accessor: "input.type",
@@ -117,8 +117,8 @@ export namespace ShoppingOrderPublishProvider {
         };
       }
       return PaymentService.enroll({
-        vendor: props.input.vendor,
-        uid: props.input.uid,
+        vendor: props.input.vendor.code,
+        uid: props.input.vendor.uid,
         orderId: props.order.id,
         amount: reference.cash,
       });
@@ -136,7 +136,7 @@ export namespace ShoppingOrderPublishProvider {
             create: ShoppingAddressProvider.collect(props.input.address),
           },
           password:
-            props.input.type === "zero"
+            props.input.vendor === null
               ? null
               : encrypt(RandomGenerator.alphabets(16)),
           created_at: next.created_at,

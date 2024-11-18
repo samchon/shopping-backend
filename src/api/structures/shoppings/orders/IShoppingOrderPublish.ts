@@ -72,15 +72,43 @@ export namespace IShoppingOrderPublish {
     address: IShoppingAddress;
   }
 
-  export type ICreate = ICashCreate | IZeroCreate;
-  export interface ICashCreate {
-    type: "cash";
+  /**
+   * Creation info of the publish.
+   */
+  export interface ICreate {
+    /**
+     * Address to receive.
+     */
     address: IShoppingAddress.ICreate;
-    vendor: string;
-    uid: string;
+
+    /**
+     * Payment identifier from the payment vendor service.
+     *
+     * If the order has been discounted for entire order price, then no need
+     * to send payment vendor info. Instead, you just configure the `null`
+     * value to this property.
+     */
+    vendor: IPaymentIdentifier | null;
   }
-  export interface IZeroCreate {
-    type: "zero";
-    address: IShoppingAddress.ICreate;
+
+  /**
+   * Payment identifier from the payment vendor service.
+   */
+  export interface IPaymentIdentifier {
+    /**
+     * The vendor code who will receive the payment.
+     */
+    code: string &
+      tags.JsonSchemaPlugin<{
+        "x-wrtn-payment-vendor": true;
+      }>;
+
+    /**
+     * The payment uid.
+     */
+    uid: string &
+      tags.JsonSchemaPlugin<{
+        "x-wrtn-payment-uid": true;
+      }>;
   }
 }

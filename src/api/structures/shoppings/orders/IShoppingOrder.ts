@@ -29,7 +29,11 @@ export interface IShoppingOrder {
   /**
    * Primary Key.
    */
-  id: string & tags.Format<"uuid">;
+  id: string &
+    tags.Format<"uuid"> &
+    tags.JsonSchemaPlugin<{
+      "x-wrtn-payment-order-id": true;
+    }>;
 
   /**
    * Customer who've applied for the order.

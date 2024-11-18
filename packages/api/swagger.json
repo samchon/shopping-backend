@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.6.0",
+    "version": "0.7.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -72,34 +72,6 @@
                   "$ref": "#/components/schemas/ISystem"
                 }
               }
-            }
-          }
-        }
-      }
-    },
-    "/monitors/system/internal_server_error": {
-      "get": {
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/monitors/system/uncaught_exception": {
-      "get": {
-        "tags": [],
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
             }
           }
         }
@@ -196,35 +168,6 @@
                   "$ref": "#/components/schemas/IShoppingAdministrator.IInvert"
                 }
               }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ]
-      }
-    },
-    "/shoppings/admins/coupons/{id}/destroy": {
-      "delete": {
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
             }
           }
         },
@@ -4396,21 +4339,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/IShoppingOrderPublish.ICashCreate"
-                  },
-                  {
-                    "$ref": "#/components/schemas/IShoppingOrderPublish.IZeroCreate"
-                  }
-                ],
-                "discriminator": {
-                  "propertyName": "type",
-                  "mapping": {
-                    "cash": "#/components/schemas/IShoppingOrderPublish.ICashCreate",
-                    "zero": "#/components/schemas/IShoppingOrderPublish.IZeroCreate"
-                  }
-                }
+                "$ref": "#/components/schemas/IShoppingOrderPublish.ICreate"
               }
             }
           },
@@ -11739,6 +11668,7 @@
           "id": {
             "type": "string",
             "format": "uuid",
+            "x-wrtn-payment-order-id": true,
             "title": "Primary Key",
             "description": "Primary Key."
           },
@@ -12518,6 +12448,7 @@
           "cash": {
             "type": "number",
             "minimum": 0,
+            "x-wrtn-payment-price": true,
             "title": "Amount of the cash payment",
             "description": "Amount of the cash payment."
           },
@@ -12576,6 +12507,7 @@
           "cash": {
             "type": "number",
             "minimum": 0,
+            "x-wrtn-payment-price": true,
             "title": "Amount of the cash payment",
             "description": "Amount of the cash payment."
           },
@@ -17388,28 +17320,32 @@
           "coupon_ids"
         ]
       },
-      "IShoppingOrderPublish.ICashCreate": {
+      "IShoppingOrderPublish.ICreate": {
         "type": "object",
         "properties": {
-          "type": {
-            "const": "cash"
-          },
           "address": {
-            "$ref": "#/components/schemas/IShoppingAddress.ICreate"
+            "$ref": "#/components/schemas/IShoppingAddress.ICreate",
+            "title": "Address to receive",
+            "description": "Address to receive."
           },
           "vendor": {
-            "type": "string"
-          },
-          "uid": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingOrderPublish.IPaymentIdentifier"
+              }
+            ],
+            "title": "Payment identifier from the payment vendor service",
+            "description": "Payment identifier from the payment vendor service.\n\nIf the order has been discounted for entire order price, then no need\nto send payment vendor info. Instead, you just configure the `null`\nvalue to this property."
           }
         },
         "required": [
-          "type",
           "address",
-          "vendor",
-          "uid"
-        ]
+          "vendor"
+        ],
+        "description": "Creation info of the publish."
       },
       "IShoppingAddress.ICreate": {
         "type": "object",
@@ -17480,20 +17416,27 @@
           "special_note"
         ]
       },
-      "IShoppingOrderPublish.IZeroCreate": {
+      "IShoppingOrderPublish.IPaymentIdentifier": {
         "type": "object",
         "properties": {
-          "type": {
-            "const": "zero"
+          "code": {
+            "type": "string",
+            "x-wrtn-payment-vendor": true,
+            "title": "The vendor code who will receive the payment",
+            "description": "The vendor code who will receive the payment."
           },
-          "address": {
-            "$ref": "#/components/schemas/IShoppingAddress.ICreate"
+          "uid": {
+            "type": "string",
+            "x-wrtn-payment-uid": true,
+            "title": "The payment uid",
+            "description": "The payment uid."
           }
         },
         "required": [
-          "type",
-          "address"
-        ]
+          "code",
+          "uid"
+        ],
+        "description": "Payment identifier from the payment vendor service."
       },
       "IShoppingSaleQuestion.ICreate": {
         "type": "object",
