@@ -245,7 +245,7 @@ export namespace ShoppingSaleSnapshotProvider {
 
   export const searchInvert = async (props: {
     accessor: string;
-    input: IShoppingSale.IRequest.ISearch | undefined;
+    input: IShoppingSale.IRequest.ISearch | null | undefined;
   }) =>
     [
       ...(await search(props)),
@@ -267,11 +267,12 @@ export namespace ShoppingSaleSnapshotProvider {
 
   export const search = async (props: {
     accessor: string;
-    input: IShoppingSale.IRequest.ISearch | undefined;
+    input: IShoppingSale.IRequest.ISearch | null | undefined;
   }) =>
     [
       // PRICE
-      ...(props.input?.price?.minimum !== undefined
+      ...(props.input?.price?.minimum !== undefined &&
+      props.input?.price?.minimum !== null
         ? [
             {
               mv_price_range: {
@@ -282,7 +283,8 @@ export namespace ShoppingSaleSnapshotProvider {
             },
           ]
         : []),
-      ...(props.input?.price?.maximum !== undefined
+      ...(props.input?.price?.maximum !== undefined &&
+      props.input?.price?.maximum !== null
         ? [
             {
               mv_price_range: {

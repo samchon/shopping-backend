@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.7.0",
+    "version": "0.8.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -9533,11 +9533,13 @@
           "mobile": {
             "type": "string",
             "pattern": "^[0-9]*$",
+            "x-wrtn-payment-order-mobile": true,
             "title": "Mobile number",
             "description": "Mobile number."
           },
           "name": {
             "type": "string",
+            "x-wrtn-payment-order-citizen": true,
             "title": "Real name, or equivalent nickname",
             "description": "Real name, or equivalent nickname."
           }
@@ -11099,58 +11101,86 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingCoupon.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingCoupon.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-coupon.name"
-                },
-                {
-                  "const": "-coupon.unit"
-                },
-                {
-                  "const": "-coupon.value"
-                },
-                {
-                  "const": "-coupon.created_at"
-                },
-                {
-                  "const": "-coupon.opened_at"
-                },
-                {
-                  "const": "-coupon.closed_at"
-                },
-                {
-                  "const": "+coupon.name"
-                },
-                {
-                  "const": "+coupon.unit"
-                },
-                {
-                  "const": "+coupon.value"
-                },
-                {
-                  "const": "+coupon.created_at"
-                },
-                {
-                  "const": "+coupon.opened_at"
-                },
-                {
-                  "const": "+coupon.closed_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-coupon.name"
+                    },
+                    {
+                      "const": "-coupon.unit"
+                    },
+                    {
+                      "const": "-coupon.value"
+                    },
+                    {
+                      "const": "-coupon.created_at"
+                    },
+                    {
+                      "const": "-coupon.opened_at"
+                    },
+                    {
+                      "const": "-coupon.closed_at"
+                    },
+                    {
+                      "const": "+coupon.name"
+                    },
+                    {
+                      "const": "+coupon.unit"
+                    },
+                    {
+                      "const": "+coupon.value"
+                    },
+                    {
+                      "const": "+coupon.created_at"
+                    },
+                    {
+                      "const": "+coupon.opened_at"
+                    },
+                    {
+                      "const": "+coupon.closed_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -11160,7 +11190,14 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -11227,40 +11264,68 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingDeposit.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingDeposit.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-deposit.source"
-                },
-                {
-                  "const": "-deposit.code"
-                },
-                {
-                  "const": "-deposit.direction"
-                },
-                {
-                  "const": "+deposit.source"
-                },
-                {
-                  "const": "+deposit.code"
-                },
-                {
-                  "const": "+deposit.direction"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-deposit.source"
+                    },
+                    {
+                      "const": "-deposit.code"
+                    },
+                    {
+                      "const": "-deposit.direction"
+                    },
+                    {
+                      "const": "+deposit.source"
+                    },
+                    {
+                      "const": "+deposit.code"
+                    },
+                    {
+                      "const": "+deposit.direction"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -11270,13 +11335,30 @@
         "type": "object",
         "properties": {
           "source": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "code": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "direction": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": -1
               },
@@ -11387,40 +11469,68 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingMileage.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingMileage.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-mileage.source"
-                },
-                {
-                  "const": "-mileage.code"
-                },
-                {
-                  "const": "-mileage.direction"
-                },
-                {
-                  "const": "+mileage.source"
-                },
-                {
-                  "const": "+mileage.code"
-                },
-                {
-                  "const": "+mileage.direction"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-mileage.source"
+                    },
+                    {
+                      "const": "-mileage.code"
+                    },
+                    {
+                      "const": "-mileage.direction"
+                    },
+                    {
+                      "const": "+mileage.source"
+                    },
+                    {
+                      "const": "+mileage.code"
+                    },
+                    {
+                      "const": "+mileage.direction"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -11430,13 +11540,30 @@
         "type": "object",
         "properties": {
           "source": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "code": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "direction": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": -1
               },
@@ -11544,40 +11671,68 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingMileageDonation.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingMileageDonation.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-donation.created_at"
-                },
-                {
-                  "const": "-donation.value"
-                },
-                {
-                  "const": "-donation.reason"
-                },
-                {
-                  "const": "+donation.created_at"
-                },
-                {
-                  "const": "+donation.value"
-                },
-                {
-                  "const": "+donation.reason"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-donation.created_at"
+                    },
+                    {
+                      "const": "-donation.value"
+                    },
+                    {
+                      "const": "-donation.reason"
+                    },
+                    {
+                      "const": "+donation.created_at"
+                    },
+                    {
+                      "const": "+donation.value"
+                    },
+                    {
+                      "const": "+donation.reason"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -11587,23 +11742,58 @@
         "type": "object",
         "properties": {
           "citizen": {
-            "$ref": "#/components/schemas/IShoppingCitizen.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingCitizen.IRequest.ISearch"
+              }
+            ]
           },
           "minimum": {
-            "type": "number",
-            "minimum": 0
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           },
           "maximum": {
-            "type": "number",
-            "minimum": 0
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           },
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         }
       },
@@ -11611,11 +11801,25 @@
         "type": "object",
         "properties": {
           "mobile": {
-            "type": "string",
-            "pattern": "^[0-9]*$"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^[0-9]*$"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -11672,6 +11876,12 @@
             "title": "Primary Key",
             "description": "Primary Key."
           },
+          "name": {
+            "type": "string",
+            "x-wrtn-payment-order-name": true,
+            "title": "Representative name of the order",
+            "description": "Representative name of the order."
+          },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
             "title": "Customer who've applied for the order",
@@ -11712,6 +11922,7 @@
         },
         "required": [
           "id",
+          "name",
           "customer",
           "goods",
           "price",
@@ -13082,46 +13293,74 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingOrder.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingOrder.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-order.price"
-                },
-                {
-                  "const": "-order.quantity"
-                },
-                {
-                  "const": "-order.created_at"
-                },
-                {
-                  "const": "-order.publish.paid_at"
-                },
-                {
-                  "const": "+order.price"
-                },
-                {
-                  "const": "+order.quantity"
-                },
-                {
-                  "const": "+order.created_at"
-                },
-                {
-                  "const": "+order.publish.paid_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-order.price"
+                    },
+                    {
+                      "const": "-order.quantity"
+                    },
+                    {
+                      "const": "-order.created_at"
+                    },
+                    {
+                      "const": "-order.publish.paid_at"
+                    },
+                    {
+                      "const": "+order.price"
+                    },
+                    {
+                      "const": "+order.quantity"
+                    },
+                    {
+                      "const": "+order.created_at"
+                    },
+                    {
+                      "const": "+order.publish.paid_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -13132,10 +13371,24 @@
         "type": "object",
         "properties": {
           "min_price": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "max_price": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "paid": {
             "oneOf": [
@@ -13148,7 +13401,14 @@
             ]
           },
           "sale": {
-            "$ref": "#/components/schemas/IShoppingSale.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSale.IRequest.ISearch"
+              }
+            ]
           }
         }
       },
@@ -13156,10 +13416,20 @@
         "type": "object",
         "properties": {
           "show_paused": {
-            "type": "boolean"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
           },
           "show_suspended": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": "only"
               },
@@ -13169,46 +13439,116 @@
             ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "content": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "title_or_content": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "price": {
-            "$ref": "#/components/schemas/IShoppingPrice.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingPrice.ISearch"
+              }
+            ]
           },
           "review": {
-            "$ref": "#/components/schemas/IShoppingSaleReview.IInvertSearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSaleReview.IInvertSearch"
+              }
+            ]
           },
           "section_codes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "channel_codes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "channel_category_ids": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "tags": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
           },
           "seller": {
-            "$ref": "#/components/schemas/IShoppingSeller.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSeller.IRequest.ISearch"
+              }
+            ]
           }
         }
       },
@@ -13216,10 +13556,24 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "maximum": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           }
         }
       },
@@ -13227,10 +13581,24 @@
         "type": "object",
         "properties": {
           "score": {
-            "$ref": "#/components/schemas/IShoppingSaleReview.IInvertSearch.IScoreRange"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSaleReview.IInvertSearch.IScoreRange"
+              }
+            ]
           },
           "count": {
-            "$ref": "#/components/schemas/IShoppingSaleReview.IInvertSearch.ICountRange"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSaleReview.IInvertSearch.ICountRange"
+              }
+            ]
           }
         }
       },
@@ -13238,14 +13606,28 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            ]
           },
           "maximum": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            ]
           }
         }
       },
@@ -13253,10 +13635,24 @@
         "type": "object",
         "properties": {
           "minimum": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           },
           "maximum": {
-            "type": "integer"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ]
           }
         }
       },
@@ -13264,22 +13660,57 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "format": "uuid"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ]
           },
           "mobile": {
-            "type": "string",
-            "pattern": "^[0-9]*$"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^[0-9]*$"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "email": {
-            "type": "string",
-            "format": "email"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "email"
+              }
+            ]
           },
           "nickname": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -13310,122 +13741,150 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingSale.IRequest.ISearch",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSale.IRequest.ISearch"
+              }
+            ],
             "title": "Search conditions",
             "description": "Search conditions."
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-seller.created_at"
-                },
-                {
-                  "const": "-seller.goods.payments.real"
-                },
-                {
-                  "const": "-seller.goods.publish_count"
-                },
-                {
-                  "const": "-seller.reviews.average"
-                },
-                {
-                  "const": "-seller.reviews.count"
-                },
-                {
-                  "const": "-goods.publish_count"
-                },
-                {
-                  "const": "-goods.payments.real"
-                },
-                {
-                  "const": "-reviews.average"
-                },
-                {
-                  "const": "-reviews.count"
-                },
-                {
-                  "const": "-sale.created_at"
-                },
-                {
-                  "const": "-sale.updated_at"
-                },
-                {
-                  "const": "-sale.opened_at"
-                },
-                {
-                  "const": "-sale.closed_at"
-                },
-                {
-                  "const": "-sale.content.title"
-                },
-                {
-                  "const": "-sale.price_range.lowest.real"
-                },
-                {
-                  "const": "-sale.price_range.highest.real"
-                },
-                {
-                  "const": "+seller.created_at"
-                },
-                {
-                  "const": "+seller.goods.payments.real"
-                },
-                {
-                  "const": "+seller.goods.publish_count"
-                },
-                {
-                  "const": "+seller.reviews.average"
-                },
-                {
-                  "const": "+seller.reviews.count"
-                },
-                {
-                  "const": "+goods.publish_count"
-                },
-                {
-                  "const": "+goods.payments.real"
-                },
-                {
-                  "const": "+reviews.average"
-                },
-                {
-                  "const": "+reviews.count"
-                },
-                {
-                  "const": "+sale.created_at"
-                },
-                {
-                  "const": "+sale.updated_at"
-                },
-                {
-                  "const": "+sale.opened_at"
-                },
-                {
-                  "const": "+sale.closed_at"
-                },
-                {
-                  "const": "+sale.content.title"
-                },
-                {
-                  "const": "+sale.price_range.lowest.real"
-                },
-                {
-                  "const": "+sale.price_range.highest.real"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-seller.created_at"
+                    },
+                    {
+                      "const": "-seller.goods.payments.real"
+                    },
+                    {
+                      "const": "-seller.goods.publish_count"
+                    },
+                    {
+                      "const": "-seller.reviews.average"
+                    },
+                    {
+                      "const": "-seller.reviews.count"
+                    },
+                    {
+                      "const": "-goods.publish_count"
+                    },
+                    {
+                      "const": "-goods.payments.real"
+                    },
+                    {
+                      "const": "-reviews.average"
+                    },
+                    {
+                      "const": "-reviews.count"
+                    },
+                    {
+                      "const": "-sale.created_at"
+                    },
+                    {
+                      "const": "-sale.updated_at"
+                    },
+                    {
+                      "const": "-sale.opened_at"
+                    },
+                    {
+                      "const": "-sale.closed_at"
+                    },
+                    {
+                      "const": "-sale.content.title"
+                    },
+                    {
+                      "const": "-sale.price_range.lowest.real"
+                    },
+                    {
+                      "const": "-sale.price_range.highest.real"
+                    },
+                    {
+                      "const": "+seller.created_at"
+                    },
+                    {
+                      "const": "+seller.goods.payments.real"
+                    },
+                    {
+                      "const": "+seller.goods.publish_count"
+                    },
+                    {
+                      "const": "+seller.reviews.average"
+                    },
+                    {
+                      "const": "+seller.reviews.count"
+                    },
+                    {
+                      "const": "+goods.publish_count"
+                    },
+                    {
+                      "const": "+goods.payments.real"
+                    },
+                    {
+                      "const": "+reviews.average"
+                    },
+                    {
+                      "const": "+reviews.count"
+                    },
+                    {
+                      "const": "+sale.created_at"
+                    },
+                    {
+                      "const": "+sale.updated_at"
+                    },
+                    {
+                      "const": "+sale.opened_at"
+                    },
+                    {
+                      "const": "+sale.closed_at"
+                    },
+                    {
+                      "const": "+sale.content.title"
+                    },
+                    {
+                      "const": "+sale.price_range.lowest.real"
+                    },
+                    {
+                      "const": "+sale.price_range.highest.real"
+                    }
+                  ]
                 }
-              ]
-            },
+              }
+            ],
             "title": "Sorting conditions",
             "description": "Sorting conditions."
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -13995,28 +14454,56 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingSaleInquiryComment.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSaleInquiryComment.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "+created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-created_at"
+                    },
+                    {
+                      "const": "+created_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -14027,13 +14514,34 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "nickname": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "body": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -14260,56 +14768,84 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingSaleInquiry.IRequest.ISearch",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSaleInquiry.IRequest.ISearch"
+              }
+            ],
             "title": "Search conditions",
             "description": "Search conditions."
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-nickname"
-                },
-                {
-                  "const": "-answered_at"
-                },
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "-updated_at"
-                },
-                {
-                  "const": "-title"
-                },
-                {
-                  "const": "+nickname"
-                },
-                {
-                  "const": "+answered_at"
-                },
-                {
-                  "const": "+created_at"
-                },
-                {
-                  "const": "+updated_at"
-                },
-                {
-                  "const": "+title"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-nickname"
+                    },
+                    {
+                      "const": "-answered_at"
+                    },
+                    {
+                      "const": "-created_at"
+                    },
+                    {
+                      "const": "-updated_at"
+                    },
+                    {
+                      "const": "-title"
+                    },
+                    {
+                      "const": "+nickname"
+                    },
+                    {
+                      "const": "+answered_at"
+                    },
+                    {
+                      "const": "+created_at"
+                    },
+                    {
+                      "const": "+updated_at"
+                    },
+                    {
+                      "const": "+title"
+                    }
+                  ]
                 }
-              ]
-            },
+              }
+            ],
             "title": "Sorting conditions",
             "description": "Sorting conditions."
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -14320,10 +14856,24 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "nickname": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "answered": {
             "oneOf": [
@@ -14336,21 +14886,56 @@
             ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "body": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "title_or_body": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           }
         }
       },
@@ -14801,62 +15386,90 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingSaleReview.IRequest.ISearch",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSaleReview.IRequest.ISearch"
+              }
+            ],
             "title": "Search conditions",
             "description": "Search conditions."
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-nickname"
-                },
-                {
-                  "const": "-answered_at"
-                },
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "-updated_at"
-                },
-                {
-                  "const": "-title"
-                },
-                {
-                  "const": "-score"
-                },
-                {
-                  "const": "+nickname"
-                },
-                {
-                  "const": "+answered_at"
-                },
-                {
-                  "const": "+created_at"
-                },
-                {
-                  "const": "+updated_at"
-                },
-                {
-                  "const": "+title"
-                },
-                {
-                  "const": "+score"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-nickname"
+                    },
+                    {
+                      "const": "-answered_at"
+                    },
+                    {
+                      "const": "-created_at"
+                    },
+                    {
+                      "const": "-updated_at"
+                    },
+                    {
+                      "const": "-title"
+                    },
+                    {
+                      "const": "-score"
+                    },
+                    {
+                      "const": "+nickname"
+                    },
+                    {
+                      "const": "+answered_at"
+                    },
+                    {
+                      "const": "+created_at"
+                    },
+                    {
+                      "const": "+updated_at"
+                    },
+                    {
+                      "const": "+title"
+                    },
+                    {
+                      "const": "+score"
+                    }
+                  ]
                 }
-              ]
-            },
+              }
+            ],
             "title": "Sorting conditions",
             "description": "Sorting conditions."
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -14867,10 +15480,24 @@
         "type": "object",
         "properties": {
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "nickname": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "answered": {
             "oneOf": [
@@ -14883,31 +15510,80 @@
             ]
           },
           "title": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "body": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "title_or_body": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "minimum": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            ]
           },
           "maximum": {
-            "type": "number",
-            "minimum": 0,
-            "maximum": 100
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            ]
           }
         }
       },
@@ -15258,12 +15934,26 @@
         "type": "object",
         "properties": {
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -15562,40 +16252,68 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingChannel.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingChannel.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-channel.code"
-                },
-                {
-                  "const": "-channel.name"
-                },
-                {
-                  "const": "-channel.created_at"
-                },
-                {
-                  "const": "+channel.code"
-                },
-                {
-                  "const": "+channel.name"
-                },
-                {
-                  "const": "+channel.created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-channel.code"
+                    },
+                    {
+                      "const": "-channel.name"
+                    },
+                    {
+                      "const": "-channel.created_at"
+                    },
+                    {
+                      "const": "+channel.code"
+                    },
+                    {
+                      "const": "+channel.name"
+                    },
+                    {
+                      "const": "+channel.created_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -15606,10 +16324,24 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -15740,40 +16472,68 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingSection.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingSection.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-section.code"
-                },
-                {
-                  "const": "-section.name"
-                },
-                {
-                  "const": "-section.created_at"
-                },
-                {
-                  "const": "+section.code"
-                },
-                {
-                  "const": "+section.name"
-                },
-                {
-                  "const": "+section.created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-section.code"
+                    },
+                    {
+                      "const": "-section.name"
+                    },
+                    {
+                      "const": "-section.created_at"
+                    },
+                    {
+                      "const": "+section.code"
+                    },
+                    {
+                      "const": "+section.name"
+                    },
+                    {
+                      "const": "+section.created_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -15784,10 +16544,24 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           },
           "name": {
-            "type": "string"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ]
           }
         }
       },
@@ -15985,6 +16759,9 @@
           "ip": {
             "oneOf": [
               {
+                "type": "null"
+              },
+              {
                 "type": "string",
                 "format": "ipv4"
               },
@@ -16057,11 +16834,13 @@
           "mobile": {
             "type": "string",
             "pattern": "^[0-9]*$",
+            "x-wrtn-payment-order-mobile": true,
             "title": "Mobile number",
             "description": "Mobile number."
           },
           "name": {
             "type": "string",
+            "x-wrtn-payment-order-citizen": true,
             "title": "Real name, or equivalent nickname",
             "description": "Real name, or equivalent nickname."
           }
@@ -16159,31 +16938,52 @@
         "type": "object",
         "properties": {
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-ticket.created_at"
-                },
-                {
-                  "const": "-ticket.expired_at"
-                },
-                {
-                  "const": "+ticket.created_at"
-                },
-                {
-                  "const": "+ticket.expired_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-ticket.created_at"
+                    },
+                    {
+                      "const": "-ticket.expired_at"
+                    },
+                    {
+                      "const": "+ticket.created_at"
+                    },
+                    {
+                      "const": "+ticket.expired_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -16305,46 +17105,74 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingDepositCharge.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingDepositCharge.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "+created_at"
-                },
-                {
-                  "const": "-value"
-                },
-                {
-                  "const": "-publish.created_at"
-                },
-                {
-                  "const": "-publish.paid_at"
-                },
-                {
-                  "const": "+value"
-                },
-                {
-                  "const": "+publish.created_at"
-                },
-                {
-                  "const": "+publish.paid_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-created_at"
+                    },
+                    {
+                      "const": "+created_at"
+                    },
+                    {
+                      "const": "-value"
+                    },
+                    {
+                      "const": "-publish.created_at"
+                    },
+                    {
+                      "const": "-publish.paid_at"
+                    },
+                    {
+                      "const": "+value"
+                    },
+                    {
+                      "const": "+publish.created_at"
+                    },
+                    {
+                      "const": "+publish.paid_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -16354,21 +17182,52 @@
         "type": "object",
         "properties": {
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "minimum": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "maximum": {
-            "type": "number"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ]
           },
           "state": {
             "oneOf": [
+              {
+                "type": "null"
+              },
               {
                 "const": "published"
               },
@@ -16384,30 +17243,72 @@
             ]
           },
           "publish": {
-            "type": "object",
-            "properties": {
-              "from": {
-                "type": "string",
-                "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "to": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "payment": {
+              {
                 "type": "object",
                 "properties": {
                   "from": {
-                    "type": "string",
-                    "format": "date-time"
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    ]
                   },
                   "to": {
-                    "type": "string",
-                    "format": "date-time"
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    ]
+                  },
+                  "payment": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "from": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            ]
+                          },
+                          "to": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "string",
+                                "format": "date-time"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }
-            }
+            ]
           }
         },
         "required": [
@@ -16505,52 +17406,80 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingDepositHistory.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingDepositHistory.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-deposit.source"
-                },
-                {
-                  "const": "-deposit.code"
-                },
-                {
-                  "const": "-deposit.direction"
-                },
-                {
-                  "const": "+deposit.source"
-                },
-                {
-                  "const": "+deposit.code"
-                },
-                {
-                  "const": "+deposit.direction"
-                },
-                {
-                  "const": "-history.value"
-                },
-                {
-                  "const": "-history.created_at"
-                },
-                {
-                  "const": "+history.value"
-                },
-                {
-                  "const": "+history.created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-deposit.source"
+                    },
+                    {
+                      "const": "-deposit.code"
+                    },
+                    {
+                      "const": "-deposit.direction"
+                    },
+                    {
+                      "const": "+deposit.source"
+                    },
+                    {
+                      "const": "+deposit.code"
+                    },
+                    {
+                      "const": "+deposit.direction"
+                    },
+                    {
+                      "const": "-history.value"
+                    },
+                    {
+                      "const": "-history.created_at"
+                    },
+                    {
+                      "const": "+history.value"
+                    },
+                    {
+                      "const": "+history.created_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -16560,27 +17489,69 @@
         "type": "object",
         "properties": {
           "deposit": {
-            "$ref": "#/components/schemas/IShoppingDeposit.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingDeposit.IRequest.ISearch"
+              }
+            ]
           },
           "citizen_id": {
-            "type": "string",
-            "format": "uuid"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ]
           },
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "minimum": {
-            "type": "number",
-            "minimum": 0
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           },
           "maximum": {
-            "type": "number",
-            "minimum": 0
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           }
         }
       },
@@ -16649,52 +17620,80 @@
         "type": "object",
         "properties": {
           "search": {
-            "$ref": "#/components/schemas/IShoppingMileageHistory.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingMileageHistory.IRequest.ISearch"
+              }
+            ]
           },
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-mileage.source"
-                },
-                {
-                  "const": "-mileage.code"
-                },
-                {
-                  "const": "-mileage.direction"
-                },
-                {
-                  "const": "+mileage.source"
-                },
-                {
-                  "const": "+mileage.code"
-                },
-                {
-                  "const": "+mileage.direction"
-                },
-                {
-                  "const": "-history.value"
-                },
-                {
-                  "const": "-history.created_at"
-                },
-                {
-                  "const": "+history.value"
-                },
-                {
-                  "const": "+history.created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-mileage.source"
+                    },
+                    {
+                      "const": "-mileage.code"
+                    },
+                    {
+                      "const": "-mileage.direction"
+                    },
+                    {
+                      "const": "+mileage.source"
+                    },
+                    {
+                      "const": "+mileage.code"
+                    },
+                    {
+                      "const": "+mileage.direction"
+                    },
+                    {
+                      "const": "-history.value"
+                    },
+                    {
+                      "const": "-history.created_at"
+                    },
+                    {
+                      "const": "+history.value"
+                    },
+                    {
+                      "const": "+history.created_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -16704,27 +17703,69 @@
         "type": "object",
         "properties": {
           "mileage": {
-            "$ref": "#/components/schemas/IShoppingMileage.IRequest.ISearch"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IShoppingMileage.IRequest.ISearch"
+              }
+            ]
           },
           "citizen_id": {
-            "type": "string",
-            "format": "uuid"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ]
           },
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ]
           },
           "minimum": {
-            "type": "number",
-            "minimum": 0
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           },
           "maximum": {
-            "type": "number",
-            "minimum": 0
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0
+              }
+            ]
           }
         }
       },
@@ -16885,12 +17926,26 @@
             }
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -16941,7 +17996,14 @@
             "description": "Volume of the commodity to purchase.\n\nA value indicating how many sets would be multiplied to the children\n{@link IShoppingSaleUnitStock.IInvert.quantity} values."
           },
           "accumulate": {
-            "type": "boolean",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
             "title": "Whether to accumulate the volume or not",
             "description": "Whether to accumulate the volume or not.\n\nIf this attribute is not `false` and there's same commodity that\ncomposed with same stocks and options, then the volume will be\naccumulated to the existed one.\n\nOtherwise, duplicated commodity would be newly created."
           }
@@ -17172,6 +18234,18 @@
             },
             "title": "List of goods in the order",
             "description": "List of goods in the order."
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Representative name of the order",
+            "description": "Representative name of the order.\n\nIf omit, the name will be generated automatically."
           }
         },
         "required": [
@@ -17885,25 +18959,46 @@
         "type": "object",
         "properties": {
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-delivery.created_at"
-                },
-                {
-                  "const": "+delivery.created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-delivery.created_at"
+                    },
+                    {
+                      "const": "+delivery.created_at"
+                    }
+                  ]
                 }
-              ]
-            }
+              }
+            ]
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
@@ -18643,27 +19738,48 @@
         "type": "object",
         "properties": {
           "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "+created_at"
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-created_at"
+                    },
+                    {
+                      "const": "+created_at"
+                    }
+                  ]
                 }
-              ]
-            },
+              }
+            ],
             "title": "Sortable columns",
             "description": "Sortable columns."
           },
           "page": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Page number",
             "description": "Page number."
           },
           "limit": {
-            "type": "integer",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }

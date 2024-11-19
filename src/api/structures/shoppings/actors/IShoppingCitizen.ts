@@ -36,18 +36,23 @@ export namespace IShoppingCitizen {
     /**
      * Mobile number.
      */
-    mobile: string & tags.Pattern<"^[0-9]*$">;
+    mobile: string &
+      tags.Pattern<"^[0-9]*$"> &
+      tags.JsonSchemaPlugin<{
+        "x-wrtn-payment-order-mobile": true;
+      }>;
 
     /**
      * Real name, or equivalent nickname.
      */
-    name: string;
+    name: string &
+      tags.JsonSchemaPlugin<{ "x-wrtn-payment-order-citizen": true }>;
   }
 
   export namespace IRequest {
     export interface ISearch {
-      mobile?: string & tags.Pattern<"^[0-9]*$">;
-      name?: string;
+      mobile?: null | (string & tags.Pattern<"^[0-9]*$">);
+      name?: null | string;
     }
   }
 }

@@ -99,12 +99,12 @@ export interface IShoppingCoupon {
 }
 export namespace IShoppingCoupon {
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      name?: string;
+      name?: null | string;
     }
     export type SortableColumns =
       | "coupon.name"

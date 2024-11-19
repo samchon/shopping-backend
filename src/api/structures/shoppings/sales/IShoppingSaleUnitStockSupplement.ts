@@ -43,7 +43,7 @@ export namespace IShoppingSaleUnitStockSupplement {
     /**
      * Sortable columns.
      */
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export type SortableColumns = "created_at";

@@ -61,18 +61,20 @@ export namespace ShoppingDepositChargeProvider {
         : [{ created_at: "desc" }],
     })(props.input);
 
-  const search = (input: IShoppingDepositCharge.IRequest.ISearch | undefined) =>
+  const search = (
+    input: IShoppingDepositCharge.IRequest.ISearch | null | undefined
+  ) =>
     [
-      ...(input?.minimum !== undefined
+      ...(input?.minimum !== undefined && input?.minimum !== null
         ? [{ value: { gte: input.minimum } }]
         : []),
-      ...(input?.maximum !== undefined
+      ...(input?.maximum !== undefined && input?.maximum !== null
         ? [{ value: { lte: input.maximum } }]
         : []),
-      ...(input?.from !== undefined
+      ...(input?.from !== undefined && input?.from !== null
         ? [{ created_at: { gte: new Date(input.from) } }]
         : []),
-      ...(input?.to !== undefined
+      ...(input?.to !== undefined && input?.to !== null
         ? [{ created_at: { lte: new Date(input.to) } }]
         : []),
       ...(input?.state === "pending" ? [{ publish: { is: null } }] : []),

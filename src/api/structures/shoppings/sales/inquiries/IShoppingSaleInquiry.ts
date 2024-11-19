@@ -63,9 +63,9 @@ export namespace IShoppingSaleInquiry {
   > extends IBbsArticle.IRequest<Search, Sortable> {}
   export namespace IRequest {
     export interface ISearch extends IBbsArticle.IRequest.ISearch {
-      name?: string;
-      nickname?: string;
-      answered?: boolean | null;
+      name?: null | string;
+      nickname?: null | string;
+      answered?: null | boolean;
     }
     export type SortableColumns =
       | "nickname"

@@ -51,7 +51,7 @@ export namespace ShoppingMileageProvider {
     })(input);
 
   export const search = (
-    input: IShoppingMileage.IRequest.ISearch | undefined
+    input: IShoppingMileage.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.source?.length
@@ -72,7 +72,7 @@ export namespace ShoppingMileageProvider {
             },
           ]
         : []),
-      ...(input?.direction !== undefined
+      ...(input?.direction !== undefined && input?.direction !== null
         ? [
             {
               direction: input.direction,

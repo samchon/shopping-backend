@@ -9,7 +9,7 @@ import { BbsArticleCommentSnapshotProvider } from "./BbsArticleCommentSnapshotPr
 export namespace BbsArticleCommentProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.bbs_article_commentsGetPayload<ReturnType<typeof select>>,
+      input: Prisma.bbs_article_commentsGetPayload<ReturnType<typeof select>>
     ): IBbsArticleComment => ({
       id: input.id,
       parent_id: input.parent_id,
@@ -27,7 +27,7 @@ export namespace BbsArticleCommentProvider {
   }
 
   export const search = (
-    input: IBbsArticleComment.IRequest.ISearch | undefined,
+    input: IBbsArticleComment.IRequest.ISearch | null | undefined
   ) =>
     (input?.body?.length
       ? [
@@ -46,15 +46,15 @@ export namespace BbsArticleCommentProvider {
 
   export const orderBy = (
     key: IBbsArticleComment.IRequest.SortableColumns,
-    value: "asc" | "desc",
+    value: "asc" | "desc"
   ): Prisma.bbs_article_commentsOrderByWithRelationInput | null =>
     key === "created_at" ? { created_at: value } : null;
 
   export const collect =
     <Input extends IBbsArticleComment.ICreate>(
       factory: (
-        input: Input,
-      ) => Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment">,
+        input: Input
+      ) => Omit<Prisma.bbs_article_comment_snapshotsCreateInput, "comment">
     ) =>
     (article: IEntity) =>
     (input: Input): Prisma.bbs_article_commentsCreateInput => ({

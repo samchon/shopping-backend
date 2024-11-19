@@ -65,24 +65,26 @@ export namespace ShoppingMileageDonationProvider {
     })(props.input);
 
   const where = (
-    input: IShoppingMileageDonation.IRequest.ISearch | undefined
+    input: IShoppingMileageDonation.IRequest.ISearch | null | undefined
   ) =>
     [
-      ...(input?.citizen !== undefined
+      ...(input?.citizen !== undefined && input?.citizen !== null
         ? ShoppingCitizenProvider.search(input.citizen).map((citizen) => ({
             citizen,
           }))
         : []),
-      ...(input?.minimum !== undefined
+      ...(input?.minimum !== undefined && input?.minimum !== null
         ? [{ value: { gte: input.minimum } }]
         : []),
-      ...(input?.maximum !== undefined
+      ...(input?.maximum !== undefined && input?.maximum !== null
         ? [{ value: { lte: input.maximum } }]
         : []),
-      ...(input?.from !== undefined
+      ...(input?.from !== undefined && input?.from !== null
         ? [{ created_at: { gte: input.from } }]
         : []),
-      ...(input?.to !== undefined ? [{ created_at: { lte: input.to } }] : []),
+      ...(input?.to !== undefined && input?.to !== null
+        ? [{ created_at: { lte: input.to } }]
+        : []),
     ] satisfies Prisma.shopping_mileage_donationsWhereInput["AND"];
 
   const orderBy = (

@@ -55,7 +55,7 @@ export namespace ShoppingCitizenProvider {
   };
 
   export const search = (
-    input: IShoppingCitizen.IRequest.ISearch | undefined
+    input: IShoppingCitizen.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.mobile?.length ? [{ mobile: encrypt(input.mobile) }] : []),

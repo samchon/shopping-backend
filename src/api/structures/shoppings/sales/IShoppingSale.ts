@@ -106,27 +106,27 @@ export namespace IShoppingSale {
     /**
      * Search conditions.
      */
-    search?: IRequest.ISearch;
+    search?: null | IRequest.ISearch;
 
     /**
      * Sorting conditions.
      */
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      show_paused?: boolean;
-      show_suspended?: boolean | "only";
-      title?: string;
-      content?: string;
-      title_or_content?: string;
-      price?: IShoppingPrice.ISearch;
-      review?: IShoppingSaleReview.IInvertSearch;
-      section_codes?: string[];
-      channel_codes?: string[];
-      channel_category_ids?: string[];
-      tags?: string[];
-      seller?: IShoppingSeller.IRequest.ISearch;
+      show_paused?: null | boolean;
+      show_suspended?: null | boolean | "only";
+      title?: null | string;
+      content?: null | string;
+      title_or_content?: null | string;
+      price?: null | IShoppingPrice.ISearch;
+      review?: null | IShoppingSaleReview.IInvertSearch;
+      section_codes?: null | string[];
+      channel_codes?: null | string[];
+      channel_category_ids?: null | string[];
+      tags?: null | string[];
+      seller?: null | IShoppingSeller.IRequest.ISearch;
     }
 
     export type SortableColumns =

@@ -15,17 +15,17 @@ export interface IShoppingDepositHistory {
 }
 export namespace IShoppingDepositHistory {
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      deposit?: IShoppingDeposit.IRequest.ISearch;
-      citizen_id?: string & tags.Format<"uuid">;
-      from?: string & tags.Format<"date-time">;
-      to?: string & tags.Format<"date-time">;
-      minimum?: number & tags.Minimum<0>;
-      maximum?: number & tags.Minimum<0>;
+      deposit?: null | IShoppingDeposit.IRequest.ISearch;
+      citizen_id?: null | (string & tags.Format<"uuid">);
+      from?: null | (string & tags.Format<"date-time">);
+      to?: null | (string & tags.Format<"date-time">);
+      minimum?: null | (number & tags.Minimum<0>);
+      maximum?: null | (number & tags.Minimum<0>);
     }
     export type SortableColumns =
       | "history.value"

@@ -278,12 +278,14 @@ export namespace ShoppingSaleReviewProvider {
     return json.transform(record);
   };
 
-  const search = (input: IShoppingSaleReview.IRequest.ISearch | undefined) =>
+  const search = (
+    input: IShoppingSaleReview.IRequest.ISearch | null | undefined
+  ) =>
     [
       ...ShoppingSaleSnapshotInquiryProvider.search(input).map((base) => ({
         base,
       })),
-      ...(input?.minimum !== undefined
+      ...(input?.minimum !== undefined && input?.minimum !== null
         ? [
             {
               base: {
@@ -300,7 +302,7 @@ export namespace ShoppingSaleReviewProvider {
             },
           ]
         : []),
-      ...(input?.maximum !== undefined
+      ...(input?.maximum !== undefined && input?.maximum !== null
         ? [
             {
               base: {

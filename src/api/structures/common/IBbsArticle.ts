@@ -84,31 +84,31 @@ export namespace IBbsArticle {
     /**
      * Search conditions.
      */
-    search?: Search;
+    search?: null | Search;
 
     /**
      * Sorting conditions.
      */
-    sort?: IPage.Sort<Sortable>;
+    sort?: null | IPage.Sort<Sortable>;
   }
   export namespace IRequest {
     /**
      * 검색 정보.
      */
     export interface ISearch {
-      title?: string;
-      body?: string;
-      title_or_body?: string;
+      title?: null | string;
+      body?: null | string;
+      title_or_body?: null | string;
 
       /**
        * @format date-time
        */
-      from?: string;
+      from?: null | string;
 
       /**
        * @format date-time
        */
-      to?: string;
+      to?: null | string;
     }
 
     /**

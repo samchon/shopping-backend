@@ -37,6 +37,7 @@ export namespace ShoppingOrderProvider {
       return {
         id: input.id,
         customer: ShoppingCustomerProvider.json.transform(input.customer),
+        name: input.name,
         goods: await ArrayUtil.asyncMap(input.goods)(
           ShoppingOrderGoodProvider.json.transform
         ),
@@ -124,9 +125,11 @@ export namespace ShoppingOrderProvider {
             deleted_at: null,
           }) satisfies Prisma.shopping_ordersWhereInput;
 
-  const search = async (input: IShoppingOrder.IRequest.ISearch | undefined) =>
+  const search = async (
+    input: IShoppingOrder.IRequest.ISearch | null | undefined
+  ) =>
     [
-      ...(input?.min_price !== undefined
+      ...(input?.min_price !== undefined && input?.min_price !== null
         ? [
             {
               mv_price: {
@@ -137,7 +140,7 @@ export namespace ShoppingOrderProvider {
             },
           ]
         : []),
-      ...(input?.max_price !== undefined
+      ...(input?.max_price !== undefined && input?.max_price !== null
         ? [
             {
               mv_price: {
@@ -252,6 +255,7 @@ export namespace ShoppingOrderProvider {
         goods: {
           create: goods,
         },
+        name: props.input.name ?? getDefaultName(commodities),
         cash: goods.map((g) => g.mv_price.create.cash).reduce((x, y) => x + y),
         mileage: 0,
         deposit: 0,
@@ -336,3 +340,10 @@ export namespace ShoppingOrderProvider {
     });
   };
 }
+
+const getDefaultName = (commodities: IShoppingCartCommodity[]): string => {
+  if (commodities.length === 0) return "nothing";
+  const first: string = commodities[0].sale.content.title.substring(0, 30);
+  if (commodities.length === 1) return first;
+  return `${first} and ${commodities.length - 1} more goods`;
+};

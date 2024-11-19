@@ -7,7 +7,7 @@ import { ShoppingCitizenProvider } from "../../actors/ShoppingCitizenProvider";
 
 export namespace ShoppingSaleSnapshotInquiryProvider {
   export const search = (
-    input: IShoppingSaleInquiry.IRequest.ISearch | undefined,
+    input: IShoppingSaleInquiry.IRequest.ISearch | null | undefined
   ) =>
     [
       // BASIC ARTICLE
@@ -44,7 +44,7 @@ export namespace ShoppingSaleSnapshotInquiryProvider {
 
   export const orderBy = (
     key: IShoppingSaleInquiry.IRequest.SortableColumns,
-    direction: "asc" | "desc",
+    direction: "asc" | "desc"
   ) =>
     (key === "nickname"
       ? {

@@ -86,7 +86,7 @@ export namespace IShoppingDelivery {
     | "arrived";
 
   export interface IRequest extends IPage.IRequest {
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export type SortableColumns = "delivery.created_at";
