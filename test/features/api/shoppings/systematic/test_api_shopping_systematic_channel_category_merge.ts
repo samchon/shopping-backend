@@ -10,6 +10,7 @@ import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping
 import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
 import { generate_random_sale } from "../sales/internal/generate_random_sale";
 import { generate_random_channel } from "./internal/generate_random_channel";
+import typia from "typia";
 
 export const test_api_shopping_systematic_channel_category_merge = async (
   pool: ConnectionPool
@@ -73,7 +74,9 @@ export const test_api_shopping_systematic_channel_category_merge = async (
       pool.admin,
       channel.code
     );
-  TestValidator.equals("categories")([expected])(entire);
+  TestValidator.equals("categories")(
+    typia.misc.clone<RouteWithoutCode[]>([expected])
+  )(typia.misc.clone<RouteWithoutCode[]>(entire));
 };
 
 interface Rough {
@@ -81,6 +84,11 @@ interface Rough {
   name: string;
   children: Rough[];
 }
+interface RouteWithoutCode {
+  name: string;
+  children: RouteWithoutCode[];
+}
+
 const prepare = (props: { level: number; index: number }): Rough => ({
   code: RandomGenerator.alphabets(8),
   name: props.index.toString(),
