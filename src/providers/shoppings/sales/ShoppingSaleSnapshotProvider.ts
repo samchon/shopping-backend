@@ -511,45 +511,33 @@ export namespace ShoppingSaleSnapshotProvider {
         message: "Unable to find some channels with matched code.",
       });
 
-    // VALIDATE CATEGORIES
-    const dictionary: Map<string, IEntity> = new Map(
-      channels.map((c) => [c.code, c])
-    );
-    const categoryInputs = input.channels
-      .map((c) => c.category_ids.map((id) => [c.code, id] as const))
-      .flat();
-    if (categoryInputs.length) {
-      const categories =
-        await ShoppingGlobal.prisma.shopping_channel_categories.findMany({
-          where: {
-            id: {
-              in: categoryInputs.map(([, id]) => id),
+    // VALIDATE CATEGOREIS
+    const categories = await ArrayUtil.asyncMap(input.channels)(
+      async (raw, i) => {
+        const records =
+          await ShoppingGlobal.prisma.shopping_channel_categories.findMany({
+            where: {
+              shopping_channel_id: channels[i].id,
+              code: {
+                in: raw.category_codes,
+              },
             },
-          },
-        });
-      if (categories.length !== categoryInputs.length)
-        throw ErrorProvider.notFound({
-          accessor: "input.channels[].category_ids",
-          message: "Unable to find some categories with matched id.",
-        });
-      for (const [code, id] of categoryInputs)
-        if (
-          categories.find((c) => c.id === id)!.shopping_channel_id !==
-          dictionary.get(code)!.id
-        )
-          throw ErrorProvider.conflict({
-            accessor: "input.channels[].category_ids",
-            message:
-              "Some categories are belonged to diffrent channels than expected.",
           });
-    }
-
+        if (records.length !== raw.category_codes.length)
+          throw ErrorProvider.notFound({
+            accessor: `input.channels[${i}].category_codes`,
+            message: "Unable to find some categories with matched code.",
+          });
+        return new Map(records.map((c) => [c.code, c]));
+      }
+    );
     return {
       id: v4(),
       to_channels: {
         create: input.channels.map((v, i) =>
           ShoppingSaleSnapshotChannelProvider.collect({
-            dictionary,
+            channel: channels[i],
+            dict: categories[i],
             input: v,
             sequence: i,
           })

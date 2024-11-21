@@ -30,7 +30,8 @@ export namespace ShoppingChannelSeeder {
   ): Promise<void> => {
     const input: IRawCategory[] = await CsvUtil.parse(
       "channel",
-      "name"
+      "name",
+      "code"
     )(
       await fs.promises.readFile(
         `${ShoppingConfiguration.ROOT}/assets/raw/raw_shopping_channel_categories.csv`,
@@ -58,6 +59,7 @@ export namespace ShoppingChannelSeeder {
           channel: hierarchy.channel,
           input: {
             parent_id: parent?.id ?? null,
+            code: raw.code,
             name,
           },
         });
@@ -87,5 +89,6 @@ interface IHierarchy {
 
 interface IRawCategory {
   channel: string;
+  code: string;
   name: string;
 }

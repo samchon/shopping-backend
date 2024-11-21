@@ -9,13 +9,13 @@ import { test_api_shopping_actor_admin_login } from "../actors/test_api_shopping
 import { generate_random_channel } from "./internal/generate_random_channel";
 
 export const test_api_shopping_systematic_channel_category_update = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
 
   const channel: IShoppingChannel = await generate_random_channel(pool);
   const generate = async (
-    parent: IShoppingChannelCategory | null,
+    parent: IShoppingChannelCategory | null
   ): Promise<IShoppingChannelCategory> => {
     const child: IShoppingChannelCategory =
       await ShoppingApi.functional.shoppings.admins.systematic.channels.categories.create(
@@ -24,7 +24,8 @@ export const test_api_shopping_systematic_channel_category_update = async (
         {
           parent_id: parent?.id ?? null,
           name: RandomGenerator.name(8),
-        },
+          code: RandomGenerator.alphabets(8),
+        }
       );
     return child;
   };
@@ -39,7 +40,8 @@ export const test_api_shopping_systematic_channel_category_update = async (
     {
       parent_id: right.id,
       name: child.name,
-    },
+      code: child.code,
+    }
   );
 
   const expected: Rough[] = [
@@ -60,7 +62,7 @@ export const test_api_shopping_systematic_channel_category_update = async (
   const entire: IShoppingChannelCategory.IHierarchical[] =
     await ShoppingApi.functional.shoppings.admins.systematic.channels.categories.index(
       pool.admin,
-      channel.code,
+      channel.code
     );
   TestValidator.equals("update")(expected)(entire);
 };

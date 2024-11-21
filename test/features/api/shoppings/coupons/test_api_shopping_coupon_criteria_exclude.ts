@@ -23,7 +23,7 @@ import { prepare_random_coupon } from "./internal/prepare_random_coupon";
 import { prepare_random_coupon_criteria } from "./internal/prepare_random_coupon_criteria";
 
 export async function test_api_shopping_coupon_criteria_exclude(
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> {
   // PREPARE ASSETS
   await test_api_shopping_actor_admin_login(pool);
@@ -32,19 +32,19 @@ export async function test_api_shopping_coupon_criteria_exclude(
   const inside: IGroup = await generate_group(pool, 1);
 
   const generator = async (
-    criterias: IShoppingCouponCriteria.ICreate[],
+    criterias: IShoppingCouponCriteria.ICreate[]
   ): Promise<IShoppingCoupon> => {
     const coupon: IShoppingCoupon =
       await ShoppingApi.functional.shoppings.admins.coupons.create(
         pool.admin,
-        prepare_random_coupon({ criterias }),
+        prepare_random_coupon({ criterias })
       );
     return coupon;
   };
   const erasure = (coupon: IShoppingCoupon) =>
     ShoppingApi.functional.shoppings.admins.coupons.destroy(
       pool.admin,
-      coupon.id,
+      coupon.id
     );
 
   for (const x of typia.misc.literals<IShoppingCouponCriteria.Type>()) {
@@ -75,8 +75,8 @@ export async function test_api_shopping_coupon_criteria_exclude(
             sale: inside.sale,
             direction: "include",
             type: y,
-          }),
-        ),
+          })
+        )
     );
     const error: Error | null = await TestValidator.proceed(async () => {
       await validate(pool, inside, true);
@@ -90,7 +90,7 @@ export async function test_api_shopping_coupon_criteria_exclude(
 async function validate(
   pool: ConnectionPool,
   { customer, sale }: IGroup,
-  possible: boolean,
+  possible: boolean
 ): Promise<void> {
   // CUSTOMER CAME BACK
   Object.assign(pool.customer.headers!, customer.setHeaders);
@@ -98,7 +98,7 @@ async function validate(
   try {
     sale = await ShoppingApi.functional.shoppings.customers.sales.at(
       pool.customer,
-      sale.id,
+      sale.id
     );
   } catch {
     return;
@@ -116,10 +116,10 @@ async function validate(
       {
         commodity_ids: [commodity.id],
         pseudos: [],
-      },
+      }
     );
   TestValidator.equals("predicate on cart")(possible)(
-    !!preview.combinations.length,
+    !!preview.combinations.length
   );
 
   // PURCHASE THE SALE
@@ -130,16 +130,16 @@ async function validate(
     await ShoppingApi.functional.shoppings.customers.orders.discountable(
       pool.customer,
       order.id,
-      { good_ids: null },
+      { good_ids: null }
     );
   TestValidator.equals("predicate on order")(possible)(
-    !!discountable.combinations.length,
+    !!discountable.combinations.length
   );
 }
 
 async function generate_group(
   pool: ConnectionPool,
-  i: number,
+  i: number
 ): Promise<IGroup> {
   // CREATE NEW CHANNEL AND SECTION
   const channel: IShoppingChannel =
@@ -148,7 +148,7 @@ async function generate_group(
       {
         name: RandomGenerator.name(),
         code: RandomGenerator.alphabets(16),
-      },
+      }
     );
   const section: IShoppingSection =
     await ShoppingApi.functional.shoppings.admins.systematic.sections.create(
@@ -156,7 +156,7 @@ async function generate_group(
       {
         name: RandomGenerator.name(),
         code: RandomGenerator.alphabets(16),
-      },
+      }
     );
 
   // A NEW CUSTOMER
@@ -168,7 +168,7 @@ async function generate_group(
         referrer: i === 0 ? "https://www.google.com" : "https://www.naver.com",
         channel_code: channel.code,
         external_user: null,
-      },
+      }
     );
 
   const activated: IShoppingCustomer =
@@ -177,7 +177,7 @@ async function generate_group(
       {
         mobile: RandomGenerator.mobile(),
         name: RandomGenerator.name(),
-      },
+      }
     );
   customer.citizen = activated.citizen;
 
@@ -188,7 +188,7 @@ async function generate_group(
     channels: [
       {
         code: channel.code,
-        category_ids: [],
+        category_codes: [],
       },
     ],
   });

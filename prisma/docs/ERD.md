@@ -246,6 +246,7 @@ erDiagram
   String id PK
   String shopping_channel_id FK
   String parent_id FK "nullable"
+  String code
   String name
   DateTime created_at
   DateTime updated_at
@@ -351,6 +352,7 @@ themselves, so there is no burden to edit the category at any time.
     > Parent category's [shopping_channel_categories.id](#shopping_channel_categories).
     > 
     > Only when the category is a subcategory of another one.
+  - `code`: Identifier code.
   - `name`: Name of category.
   - `created_at`: Creation time of record.
   - `updated_at`: Updadte time of record.
@@ -798,6 +800,7 @@ erDiagram
   String id PK
   String shopping_channel_id FK
   String parent_id FK "nullable"
+  String code
   String name
   DateTime created_at
   DateTime updated_at

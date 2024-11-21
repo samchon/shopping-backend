@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.8.0",
+    "version": "0.9.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -9880,6 +9880,11 @@
             "title": "Primary Key",
             "description": "Primary Key."
           },
+          "code": {
+            "type": "string",
+            "title": "Identifier code of the category",
+            "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
+          },
           "parent_id": {
             "oneOf": [
               {
@@ -9908,6 +9913,7 @@
         "required": [
           "parent",
           "id",
+          "code",
           "parent_id",
           "name",
           "created_at"
@@ -16052,6 +16058,11 @@
             "title": "Primary Key",
             "description": "Primary Key."
           },
+          "code": {
+            "type": "string",
+            "title": "Identifier code of the category",
+            "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
+          },
           "parent_id": {
             "oneOf": [
               {
@@ -16081,6 +16092,7 @@
           "parent",
           "children",
           "id",
+          "code",
           "parent_id",
           "name",
           "created_at"
@@ -16103,6 +16115,11 @@
             "format": "uuid",
             "title": "Primary Key",
             "description": "Primary Key."
+          },
+          "code": {
+            "type": "string",
+            "title": "Identifier code of the category",
+            "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
           },
           "parent_id": {
             "oneOf": [
@@ -16132,6 +16149,7 @@
         "required": [
           "children",
           "id",
+          "code",
           "parent_id",
           "name",
           "created_at"
@@ -16154,6 +16172,11 @@
             "title": "Parent category's ID",
             "description": "Parent category's ID."
           },
+          "code": {
+            "type": "string",
+            "title": "Identifier code of the category",
+            "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
+          },
           "name": {
             "type": "string",
             "title": "Representative name of the category",
@@ -16162,6 +16185,7 @@
         },
         "required": [
           "parent_id",
+          "code",
           "name"
         ],
         "description": "Creation information of the category."
@@ -19354,19 +19378,18 @@
             "title": "Target channel's {@link IShoppingChannel.code}",
             "description": "Target channel's {@link IShoppingChannel.code}."
           },
-          "category_ids": {
+          "category_codes": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             },
-            "title": "List of target categories' {@link IShoppingChannelCategory.id}s",
-            "description": "List of target categories' {@link IShoppingChannelCategory.id}s.\n\nIf empty, it means all categories of the channel is listing the sale."
+            "title": "List of target categories' {@link IShoppingChannelCategory.code}s",
+            "description": "List of target categories' {@link IShoppingChannelCategory.code}s.\n\nIf empty, it means all categories of the channel is listing the sale."
           }
         },
         "required": [
           "code",
-          "category_ids"
+          "category_codes"
         ],
         "description": "Creation information of the target channel (and categories) of sale to sell."
       },

@@ -71,6 +71,13 @@ export namespace IShoppingChannelCategory {
     id: string & tags.Format<"uuid">;
 
     /**
+     * Identifier code of the category.
+     *
+     * The code must be unique in the channel.
+     */
+    code: string;
+
+    /**
      * Parent category's ID.
      */
     parent_id: null | (string & tags.Format<"uuid">);
@@ -98,6 +105,13 @@ export namespace IShoppingChannelCategory {
      * Parent category's ID.
      */
     parent_id: null | (string & tags.Format<"uuid">);
+
+    /**
+     * Identifier code of the category.
+     *
+     * The code must be unique in the channel.
+     */
+    code: string;
 
     /**
      * Representative name of the category.
