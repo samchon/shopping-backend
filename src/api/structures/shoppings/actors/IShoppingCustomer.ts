@@ -115,7 +115,7 @@ export namespace IShoppingCustomer {
     external_user: null | IShoppingExternalUser.ICreate;
     href: string & tags.Format<"uri">;
     referrer: null | (string & tags.Format<"uri">);
-    ip?: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
+    ip?: null | (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">));
   }
 
   export interface IAuthorized extends IShoppingCustomer {

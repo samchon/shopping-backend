@@ -121,7 +121,7 @@ export namespace ShoppingSellerProvider {
   };
 
   export const searchFromCustomer = (
-    input: IShoppingSeller.IRequest.ISearch | undefined
+    input: IShoppingSeller.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.id?.length

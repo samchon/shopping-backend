@@ -14,16 +14,16 @@ export interface IShoppingMileageDonation {
 }
 export namespace IShoppingMileageDonation {
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      citizen?: IShoppingCitizen.IRequest.ISearch;
-      minimum?: number & tags.Minimum<0>;
-      maximum?: number & tags.Minimum<0>;
-      from?: string & tags.Format<"date-time">;
-      to?: string & tags.Format<"date-time">;
+      citizen?: null | IShoppingCitizen.IRequest.ISearch;
+      minimum?: null | (number & tags.Minimum<0>);
+      maximum?: null | (number & tags.Minimum<0>);
+      from?: null | (string & tags.Format<"date-time">);
+      to?: null | (string & tags.Format<"date-time">);
     }
     export type SortableColumns =
       | "donation.created_at"

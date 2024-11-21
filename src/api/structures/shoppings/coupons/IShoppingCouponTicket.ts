@@ -46,7 +46,7 @@ export interface IShoppingCouponTicket {
 }
 export namespace IShoppingCouponTicket {
   export interface IRequest extends IPage.IRequest {
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export type SortableColumns = "ticket.created_at" | "ticket.expired_at";

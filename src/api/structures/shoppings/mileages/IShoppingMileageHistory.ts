@@ -15,17 +15,17 @@ export interface IShoppingMileageHistory {
 }
 export namespace IShoppingMileageHistory {
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      mileage?: IShoppingMileage.IRequest.ISearch;
-      citizen_id?: string & tags.Format<"uuid">;
-      from?: string & tags.Format<"date-time">;
-      to?: string & tags.Format<"date-time">;
-      minimum?: number & tags.Minimum<0>;
-      maximum?: number & tags.Minimum<0>;
+      mileage?: null | IShoppingMileage.IRequest.ISearch;
+      citizen_id?: null | (string & tags.Format<"uuid">);
+      from?: null | (string & tags.Format<"date-time">);
+      to?: null | (string & tags.Format<"date-time">);
+      minimum?: null | (number & tags.Minimum<0>);
+      maximum?: null | (number & tags.Minimum<0>);
     }
     export type SortableColumns =
       | "history.value"

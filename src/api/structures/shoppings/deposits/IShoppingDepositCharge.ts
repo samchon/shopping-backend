@@ -12,22 +12,22 @@ export interface IShoppingDepositCharge extends IShoppingDepositCharge.ICreate {
 }
 export namespace IShoppingDepositCharge {
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      from?: string & tags.Format<"date-time">;
-      to?: string & tags.Format<"date-time">;
-      minimum?: number;
-      maximum?: number;
-      state: "pending" | "published" | "payed" | "cancelled";
-      publish?: {
-        from?: string & tags.Format<"date-time">;
-        to?: string & tags.Format<"date-time">;
-        payment?: {
-          from?: string & tags.Format<"date-time">;
-          to?: string & tags.Format<"date-time">;
+      from?: null | (string & tags.Format<"date-time">);
+      to?: null | (string & tags.Format<"date-time">);
+      minimum?: null | number;
+      maximum?: null | number;
+      state: null | "pending" | "published" | "payed" | "cancelled";
+      publish?: null | {
+        from?: null | (string & tags.Format<"date-time">);
+        to?: null | (string & tags.Format<"date-time">);
+        payment?: null | {
+          from?: null | (string & tags.Format<"date-time">);
+          to?: null | (string & tags.Format<"date-time">);
         };
       };
     }

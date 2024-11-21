@@ -42,6 +42,9 @@ model shopping_orders {
   /// @format uuid
   shopping_address_id String? @db.Uuid
 
+  /// Representative name of the order.
+  name String @db.VarChar
+
   /// Amount of cash payment.
   ///
   /// @minimum 0

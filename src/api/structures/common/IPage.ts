@@ -56,14 +56,14 @@ export namespace IPage {
     /**
      * Page number.
      */
-    page?: number & tags.Type<"uint32">;
+    page?: null | (number & tags.Type<"uint32">);
 
     /**
      * Limitation of records per a page.
      *
      * @default 100
      */
-    limit?: number & tags.Type<"uint32">;
+    limit?: null | (number & tags.Type<"uint32">);
   }
 
   /**

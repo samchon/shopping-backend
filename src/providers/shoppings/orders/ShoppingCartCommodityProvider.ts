@@ -233,7 +233,7 @@ export namespace ShoppingCartCommodityProvider {
   };
 
   const search = async (
-    input: IShoppingCartCommodity.IRequest.ISearch | undefined
+    input: IShoppingCartCommodity.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.sale !== undefined

@@ -207,7 +207,7 @@ export namespace ShoppingSaleProvider {
 
   const search = async (props: {
     actor: IShoppingActorEntity;
-    input: IShoppingSale.IRequest.ISearch | undefined;
+    input: IShoppingSale.IRequest.ISearch | null | undefined;
   }) =>
     [
       // SALE

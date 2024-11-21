@@ -10,14 +10,14 @@ export namespace IShoppingDeposit {
   export type Direction = 1 | -1;
 
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      source?: string;
-      code?: string;
-      direction?: Direction;
+      source?: null | string;
+      code?: null | string;
+      direction?: null | Direction;
     }
     export type SortableColumns =
       | "deposit.source"

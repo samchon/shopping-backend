@@ -279,7 +279,9 @@ export namespace ShoppingSaleQuestionProvider {
     return output;
   };
 
-  const search = (input: IShoppingSaleQuestion.IRequest.ISearch | undefined) =>
+  const search = (
+    input: IShoppingSaleQuestion.IRequest.ISearch | null | undefined
+  ) =>
     ShoppingSaleSnapshotInquiryProvider.search(input).map((base) => ({
       base,
     })) satisfies Prisma.shopping_sale_snapshot_questionsWhereInput["AND"];

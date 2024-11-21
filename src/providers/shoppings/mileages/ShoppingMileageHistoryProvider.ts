@@ -65,7 +65,7 @@ export namespace ShoppingMileageHistoryProvider {
     })(props.input);
 
   const search = (
-    input: IShoppingMileageHistory.IRequest.ISearch | undefined
+    input: IShoppingMileageHistory.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.mileage !== undefined
@@ -98,7 +98,7 @@ export namespace ShoppingMileageHistoryProvider {
             },
           ]
         : []),
-      ...(input?.minimum !== undefined
+      ...(input?.minimum !== undefined && input?.minimum !== null
         ? [
             {
               value: {
@@ -107,7 +107,7 @@ export namespace ShoppingMileageHistoryProvider {
             },
           ]
         : []),
-      ...(input?.maximum !== undefined
+      ...(input?.maximum !== undefined && input?.maximum !== null
         ? [
             {
               value: {

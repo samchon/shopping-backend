@@ -41,13 +41,13 @@ export namespace IShoppingChannel {
    * Request of the channels with pagination and searching/sorting options.
    */
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      code?: string;
-      name?: string;
+      code?: null | string;
+      name?: null | string;
     }
     export type SortableColumns =
       | "channel.code"

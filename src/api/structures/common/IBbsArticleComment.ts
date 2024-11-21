@@ -51,12 +51,12 @@ export namespace IBbsArticleComment {
     Search extends IRequest.ISearch = IRequest.ISearch,
     Sortable extends string = IRequest.SortableColumns,
   > extends IPage.IRequest {
-    search?: Search;
-    sort?: IPage.Sort<Sortable>;
+    search?: null | Search;
+    sort?: null | IPage.Sort<Sortable>;
   }
   export namespace IRequest {
     export interface ISearch {
-      body?: string;
+      body?: null | string;
     }
     export type SortableColumns = "created_at";
   }

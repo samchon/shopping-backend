@@ -36,6 +36,14 @@ export interface IShoppingOrder {
     }>;
 
   /**
+   * Representative name of the order.
+   */
+  name: string &
+    tags.JsonSchemaPlugin<{
+      "x-wrtn-payment-order-name": true;
+    }>;
+
+  /**
    * Customer who've applied for the order.
    */
   customer: IShoppingCustomer;
@@ -70,16 +78,16 @@ export namespace IShoppingOrder {
    * Request of orders with pagination and searching/sorting conditions.
    */
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
 
   export namespace IRequest {
     export interface ISearch {
-      min_price?: number;
-      max_price?: number;
+      min_price?: null | number;
+      max_price?: null | number;
       paid?: null | boolean;
-      sale?: IShoppingSale.IRequest.ISearch;
+      sale?: null | IShoppingSale.IRequest.ISearch;
     }
     export type SortableColumns =
       | "order.price"
@@ -131,5 +139,12 @@ export namespace IShoppingOrder {
      * List of goods in the order.
      */
     goods: IShoppingOrderGood.ICreate[];
+
+    /**
+     * Representative name of the order.
+     *
+     * If omit, the name will be generated automatically.
+     */
+    name?: string | null | undefined;
   }
 }

@@ -65,10 +65,10 @@ export namespace ShoppingDepositHistoryProvider {
     })(props.input);
 
   const search = (
-    input: IShoppingDepositHistory.IRequest.ISearch | undefined
+    input: IShoppingDepositHistory.IRequest.ISearch | null | undefined
   ) =>
     [
-      ...(input?.deposit !== undefined
+      ...(input?.deposit !== undefined && input?.deposit !== null
         ? ShoppingDepositProvider.search(input.deposit).map((deposit) => ({
             deposit,
           }))
@@ -98,7 +98,7 @@ export namespace ShoppingDepositHistoryProvider {
             },
           ]
         : []),
-      ...(input?.minimum !== undefined
+      ...(input?.minimum !== undefined && input?.minimum !== null
         ? [
             {
               value: {
@@ -107,7 +107,7 @@ export namespace ShoppingDepositHistoryProvider {
             },
           ]
         : []),
-      ...(input?.maximum !== undefined
+      ...(input?.maximum !== undefined && input?.maximum !== null
         ? [
             {
               value: {

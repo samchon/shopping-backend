@@ -71,18 +71,18 @@ export namespace IShoppingSaleReview {
   }
 
   export interface IInvertSearch {
-    score?: IInvertSearch.IScoreRange;
-    count?: IInvertSearch.ICountRange;
+    score?: null | IInvertSearch.IScoreRange;
+    count?: null | IInvertSearch.ICountRange;
   }
 
   export namespace IInvertSearch {
     export interface IScoreRange {
-      minimum?: number & tags.Minimum<0> & tags.Maximum<100>;
-      maximum?: number & tags.Minimum<0> & tags.Maximum<100>;
+      minimum?: null | (number & tags.Minimum<0> & tags.Maximum<100>);
+      maximum?: null | (number & tags.Minimum<0> & tags.Maximum<100>);
     }
     export interface ICountRange {
-      minimum?: number & tags.Type<"uint32">;
-      maximum?: number & tags.Type<"uint32">;
+      minimum?: null | (number & tags.Type<"uint32">);
+      maximum?: null | (number & tags.Type<"uint32">);
     }
   }
 

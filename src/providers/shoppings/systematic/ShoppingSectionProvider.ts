@@ -46,7 +46,7 @@ export namespace ShoppingSectionProvider {
     })(input);
 
   export const search = (
-    input: IShoppingSection.IRequest.ISearch | undefined
+    input: IShoppingSection.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.code?.length ? [{ code: { contains: input.code } }] : []),

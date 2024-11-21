@@ -209,7 +209,7 @@ export namespace ShoppingCouponProvider {
       ],
     }) satisfies Prisma.shopping_couponsWhereInput;
 
-  const search = (input: IShoppingCoupon.IRequest.ISearch | undefined) =>
+  const search = (input: IShoppingCoupon.IRequest.ISearch | null | undefined) =>
     [
       ...(input?.name?.length
         ? [

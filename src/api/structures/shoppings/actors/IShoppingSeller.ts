@@ -71,16 +71,16 @@ export namespace IShoppingSeller {
   }
 
   export interface IRequest extends IPage.IRequest {
-    search?: IRequest.ISearch;
-    sort?: IPage.Sort<IRequest.SortableColumns>;
+    search?: null | IRequest.ISearch;
+    sort?: null | IPage.Sort<IRequest.SortableColumns>;
   }
   export namespace IRequest {
     export interface ISearch {
-      id?: string & tags.Format<"uuid">;
-      mobile?: string & tags.Pattern<"^[0-9]*$">;
-      name?: string;
-      email?: string & tags.Format<"email">;
-      nickname?: string;
+      id?: null | (string & tags.Format<"uuid">);
+      mobile?: null | (string & tags.Pattern<"^[0-9]*$">);
+      name?: null | string;
+      email?: null | (string & tags.Format<"email">);
+      nickname?: null | string;
     }
     export type SortableColumns =
       | "seller.created_at"

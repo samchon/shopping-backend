@@ -140,7 +140,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
   };
 
   const search = (
-    input: undefined | IShoppingSaleInquiryComment.IRequest.ISearch
+    input: IShoppingSaleInquiryComment.IRequest.ISearch | null | undefined
   ) =>
     [
       ...BbsArticleCommentProvider.search(input).map((base) => ({

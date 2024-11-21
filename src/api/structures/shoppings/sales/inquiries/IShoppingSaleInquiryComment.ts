@@ -43,8 +43,8 @@ export namespace IShoppingSaleInquiryComment {
     > {}
   export namespace IRequest {
     export interface ISearch extends IBbsArticleComment.IRequest.ISearch {
-      name?: string;
-      nickname?: string;
+      name?: null | string;
+      nickname?: null | string;
     }
     export type SortableColumns = IBbsArticleComment.IRequest.SortableColumns;
   }

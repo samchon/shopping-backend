@@ -22,7 +22,7 @@ export interface IShoppingPrice {
 }
 export namespace IShoppingPrice {
   export interface ISearch {
-    minimum?: number;
-    maximum?: number;
+    minimum?: null | number;
+    maximum?: null | number;
   }
 }

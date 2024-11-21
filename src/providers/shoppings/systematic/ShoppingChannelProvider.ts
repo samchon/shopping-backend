@@ -62,7 +62,7 @@ export namespace ShoppingChannelProvider {
     })(input);
 
   export const search = (
-    input: IShoppingChannel.IRequest.ISearch | undefined
+    input: IShoppingChannel.IRequest.ISearch | null | undefined
   ) =>
     [
       ...(input?.code?.length

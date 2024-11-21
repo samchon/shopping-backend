@@ -132,7 +132,7 @@ export namespace IShoppingCartCommodity {
      *
      * @default true
      */
-    accumulate?: boolean;
+    accumulate?: null | boolean;
   }
 
   /**

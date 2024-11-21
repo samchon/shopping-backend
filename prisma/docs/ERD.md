@@ -1423,6 +1423,7 @@ erDiagram
   String id PK
   String shopping_customer_id FK
   String shopping_address_id FK "nullable"
+  String name
   Float cash
   Float deposit
   Float mileage
@@ -1553,6 +1554,7 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
   - `id`: Primary Key.
   - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
   - `shopping_address_id`: Target address' [shopping_addresses.id](#shopping_addresses)
+  - `name`: Representative name of the order.
   - `cash`: Amount of cash payment.
   - `deposit`: Amount of deposit payment instead of cash.
   - `mileage`: Amount of mileage payment instead of cash.
