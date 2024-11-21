@@ -13,13 +13,13 @@ export namespace ShoppingSaleChannelDiagnoser {
         accessor: `input.channels[${i}]`,
         message: `Duplicated category id: "${str}"`,
       }),
-      items: channel.category_ids,
+      items: channel.category_codes,
     });
 
   export const replica = (
     input: IShoppingSaleChannel
   ): IShoppingSaleChannel.ICreate => ({
     code: input.code,
-    category_ids: input.categories.map((c) => c.id),
+    category_codes: input.categories.map((c) => c.code),
   });
 }

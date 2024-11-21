@@ -104,6 +104,9 @@ model shopping_channel_categories {
   /// @format uuid
   parent_id String? @db.Uuid
 
+  /// Identifier code.
+  code String @db.VarChar
+
   /// Name of category.
   name String @db.VarChar
 
@@ -125,6 +128,7 @@ model shopping_channel_categories {
   shopping_sale_snapshot_channel_categories shopping_sale_snapshot_channel_categories[]
   shopping_coupon_channel_criterias         shopping_coupon_channel_criterias[]
 
+  @@unique([shopping_channel_id, code])
   @@unique([shopping_channel_id, parent_id, name])
   @@index([parent_id])
 }

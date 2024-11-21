@@ -154,6 +154,7 @@ export namespace ShoppingChannelCategoryProvider {
         props.input.parent_id !== null
           ? { connect: { id: props.input.parent_id } }
           : undefined,
+      code: props.input.code,
       name: props.input.name,
       created_at: new Date(),
       updated_at: new Date(),
@@ -194,6 +195,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
     const elements: IShoppingChannelCategory.IHierarchical[] = primitive.map(
       (p) => ({
         id: p.id,
+        code: p.code,
         name: p.name,
         parent_id: p.parent_id,
         created_at: p.created_at.toISOString(),

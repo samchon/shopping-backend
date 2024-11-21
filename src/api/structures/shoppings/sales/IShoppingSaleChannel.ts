@@ -1,5 +1,3 @@
-import { tags } from "typia";
-
 import { IShoppingChannel } from "../systematic/IShoppingChannel";
 import { IShoppingChannelCategory } from "../systematic/IShoppingChannelCategory";
 
@@ -35,10 +33,10 @@ export namespace IShoppingSaleChannel {
     code: string;
 
     /**
-     * List of target categories' {@link IShoppingChannelCategory.id}s.
+     * List of target categories' {@link IShoppingChannelCategory.code}s.
      *
      * If empty, it means all categories of the channel is listing the sale.
      */
-    category_ids: Array<string & tags.Format<"uuid">>;
+    category_codes: Array<string>;
   }
 }

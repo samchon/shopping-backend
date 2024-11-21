@@ -41,5 +41,14 @@ export namespace ShoppingAdministratorSeeder {
         created_at: new Date(),
       },
     });
+    await ShoppingGlobal.prisma.shopping_sellers.create({
+      data: {
+        id: v4(),
+        member: {
+          connect: { id: joined.member!.id },
+        },
+        created_at: new Date(),
+      },
+    });
   };
 }

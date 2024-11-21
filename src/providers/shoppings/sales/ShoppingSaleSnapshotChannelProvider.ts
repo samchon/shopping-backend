@@ -39,23 +39,18 @@ export namespace ShoppingSaleSnapshotChannelProvider {
   }
 
   export const collect = (props: {
-    dictionary: Map<string, IEntity>;
+    channel: IEntity;
     input: IShoppingSaleChannel.ICreate;
+    dict: Map<string, IEntity>;
     sequence: number;
   }) => {
-    const channel: IEntity | undefined = props.dictionary.get(props.input.code);
-    if (channel === undefined)
-      throw ErrorProvider.notFound({
-        accessor: `input.channels[${props.sequence}].code`,
-        message: `Unable to find the matched channel with code "${props.input.code}".`,
-      });
     return {
       id: v4(),
-      channel: { connect: { id: channel.id } },
+      channel: { connect: { id: props.channel.id } },
       to_categories: {
-        create: props.input.category_ids.map((id, i) => ({
+        create: props.input.category_codes.map((code, i) => ({
           id: v4(),
-          shopping_channel_category_id: id,
+          shopping_channel_category_id: props.dict.get(code)!.id,
           sequence: i,
         })),
       },
