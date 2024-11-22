@@ -11,7 +11,7 @@ import { ShoppingCartCommodityProvider } from "../../../../providers/shoppings/o
 
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
-@Controller(`shoppings/customers/carts/:cartId/commodities`)
+@Controller(`shoppings/customers/carts/commodities`)
 export class ShoppingCustomerCartCommodityController {
   /**
    * List of every commodities.
@@ -19,8 +19,7 @@ export class ShoppingCustomerCartCommodityController {
    * List up every {@link IShoppingCartCommodity commodities} in the
    * shopping cart with {@link IPage pagination}.
    *
-   * If the *cartId* is not specified but `null` value assigned, then every
-   * cart would be targetted. Also, you can limit the result by configuring
+   * You can limit the result by configuring
    * {@link IShoppingCartCommodity.IRequest.search search condition} in the
    * request body. Furthermore, it is possible to customize sequence order of
    * records by configuring {@link IShoppingCartCommodity.IRequest.sort}.
@@ -35,7 +34,6 @@ export class ShoppingCustomerCartCommodityController {
    * {@link IShoppingSaleUnitStockInventory out of stock}, then it would not be
    * appread in the shopping cart more, either.
    *
-   * @param cartId Belonged cart's ID
    * @param input Request info of pagination, searching and sorting
    * @returns Paginated commodities
    * @tag Order
@@ -45,13 +43,11 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedBody() input: IShoppingCartCommodity.IRequest
   ): Promise<IPage<IShoppingCartCommodity>> {
     return ShoppingCartCommodityProvider.index({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       input,
     });
   }
@@ -61,18 +57,12 @@ export class ShoppingCustomerCartCommodityController {
    *
    * Get a {@link IShoppingCartCommodity commodity} record of the shopping cart.
    *
-   * If the *cartId* is different with the belonged cart's ID, then 404 not
-   * found exception would be thrown. Otherwise, the *cartId* has `null` value,
-   * such dependency checking would be skipped, but still ownership would be
-   * validated.
-   *
-   * Also, if target {@link IShoppingSale sale} has been suspended or
+   * If target {@link IShoppingSale sale} has been suspended or
    * {@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error
    * would be thrown. Therefore, even if you've created a commodity successfully
    * with the {@link create} method, it still can be failed when you access the
    * commodity with this {@link at} method.
    *
-   * @param cartId Belonged cart's ID
    * @param id Target commodity's {@link IShoppingCartCommodity.id}
    * @returns Detailed commodity info
    * @tag Order
@@ -82,13 +72,11 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingCartCommodity> {
     return ShoppingCartCommodityProvider.at({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       id,
     });
   }
@@ -104,16 +92,11 @@ export class ShoppingCustomerCartCommodityController {
    * {@link IShoppingSaleUnitStock.IInvert stocks and quantities},
    * then new commodity would not be created but the volume would be accumulated.
    *
-   * Also, if the *cartId* is not specified but `null` value assigned, then
-   * ordinary cart would be utilized or create new one considering the
-   * existence of the previous cart.
-   *
    * By the way, if the target {@link IShoppingSale sale} has been suspended or
    * {@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error
    * would be thrown. Therefore, it would better to check the target sale and
    * {@link IShoppingSaleUnitStock stock}'s status before.
    *
-   * @param cartId Belonged cart's ID
    * @param input Creation info of the commodity
    * @returns Newly created commodity
    * @tag Order
@@ -123,13 +106,11 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedBody() input: IShoppingCartCommodity.ICreate
   ): Promise<IShoppingCartCommodity> {
     return ShoppingCartCommodityProvider.create({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       input,
     });
   }
@@ -140,16 +121,10 @@ export class ShoppingCustomerCartCommodityController {
    * Update a {@link IShoppingCartCommodity commodity}'s volume in the
    * shopping cart.
    *
-   * If the *cartId* is different with the belonged cart's ID, then 404 not
-   * found exception would be thrown. Otherwise, the *cartId* has `null` value,
-   * such dependency checking would be skipped, but still ownership would be
-   * validated.
-   *
-   * Also, if target {@link IShoppingSale sale} has been suspended or
+   * If target {@link IShoppingSale sale} has been suspended or
    * {@link IShoppingSaleUnitStockInventory out of stock} suddenly, then 410
    * gone error would be thrown, either.
    *
-   * @param cartId Belonged cart's ID
    * @param id Target commodity's {@link IShoppingCartCommodity.id}
    * @param input Update info of the commodity (volume)
    * @tag Order
@@ -159,14 +134,12 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Put(":id")
   public async update(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
     @core.TypedBody() input: IShoppingCartCommodity.IUpdate
   ): Promise<void> {
     return ShoppingCartCommodityProvider.update({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       id,
       input,
     });
@@ -178,16 +151,10 @@ export class ShoppingCustomerCartCommodityController {
    * Get a {@link IShoppingCartCommodity.ICreate} typed info of the target
    * commodity for replication.
    *
-   * By the way, if the *cartId* is different with the belonged cart's ID,
-   * then 404 not found exception would be thrown. Otherwise, the *cartId*
-   * has `null` value, such dependency checking would be skipped, but still
-   * ownership would be validated.
-   *
-   * Also, if target {@link IShoppingSale sale} has been suspended or
+   * If target {@link IShoppingSale sale} has been suspended or
    * {@link IShoppingSaleUnitStockInventory out of stock} suddenly,
    * then 410 gone error would be thrown, either.
    *
-   * @param cartId Belonged cart's ID
    * @param id Target commodity's {@link IShoppingCartCommodity.id}
    * @returns Creation info of the commodity for replication
    * @tag Order
@@ -197,13 +164,11 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Get(":id/replica")
   public async replica(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<IShoppingCartCommodity.ICreate> {
     return ShoppingCartCommodityProvider.replica({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       id,
     });
   }
@@ -219,7 +184,6 @@ export class ShoppingCustomerCartCommodityController {
    * the shopping cart more. If the order be erased, then you also can continue
    * erasinng the commodity, neither.
    *
-   * @param cartId Belonged cart's ID
    * @param id Target commodity's {@link IShoppingCartCommodity.id}
    * @returns Newly created commodity
    * @tag Order
@@ -229,13 +193,11 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedParam("id") id: string & tags.Format<"uuid">
   ): Promise<void> {
     return ShoppingCartCommodityProvider.erase({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       id,
     });
   }
@@ -252,13 +214,12 @@ export class ShoppingCustomerCartCommodityController {
    * withdrawable {@link IShoppingDepositHistory deposits} and
    * {@link IShoppingMileageHistory mileages}.
    *
-   * Also, if you want to know the discountable info about some specific
-   * sales that have not been carted yet, specify the sales
-   * to the {@link IShoppingCartDiscountable.pseudos} property with composing
+   * If you want to know the discountable info about some specific sales
+   * that have not been carted yet, specify the sales to the
+   * {@link IShoppingCartDiscountable.pseudos} property with composing
    * {@link IShoppingCartCommodity.ICreate creation info of the commodities}.
    * Then, they would be included in the discountable info.
    *
-   * @param cartId Belonged cart's ID
    * @param input Request info for discountable
    * @returns Discountable info
    * @tag Order
@@ -268,13 +229,11 @@ export class ShoppingCustomerCartCommodityController {
   @core.TypedRoute.Patch("discountable")
   public async discountable(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("cartId")
-    cartId: null | (string & tags.Format<"uuid">),
     @core.TypedBody() input: IShoppingCartDiscountable.IRequest
   ): Promise<IShoppingCartDiscountable> {
     return ShoppingCartCommodityProvider.discountable({
       customer,
-      cart: cartId ? { id: cartId } : null,
+      cart: null,
       input,
     });
   }

@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.9.0",
+    "version": "0.10.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -3568,32 +3568,14 @@
         ]
       }
     },
-    "/shoppings/customers/carts/{cartId}/commodities": {
+    "/shoppings/customers/carts/commodities": {
       "patch": {
         "summary": "List of every commodities",
-        "description": "List of every commodities.\n\nList up every {@link IShoppingCartCommodity commodities} in the\nshopping cart with {@link IPage pagination}.\n\nIf the *cartId* is not specified but `null` value assigned, then every\ncart would be targetted. Also, you can limit the result by configuring\n{@link IShoppingCartCommodity.IRequest.search search condition} in the\nrequest body. Furthermore, it is possible to customize sequence order of\nrecords by configuring {@link IShoppingCartCommodity.IRequest.sort}.\n\nFor reference, when some commodity be {@link IShoppingOrder ordered} and\n{@link IShoppingOrderPublish published}, then it would not be appread in\nthe shopping cart more. Otherwise, the order has not been published yet,\nit would be appread in the shopping cart and still enable to create a new\n{@link IShoppingOrder order application} with the same commodity.\n\nOf course, if the target {@link IShoppingSale sale} has been suspended, or\n{@link IShoppingSaleUnitStockInventory out of stock}, then it would not be\nappread in the shopping cart more, either.",
+        "description": "List of every commodities.\n\nList up every {@link IShoppingCartCommodity commodities} in the\nshopping cart with {@link IPage pagination}.\n\nYou can limit the result by configuring\n{@link IShoppingCartCommodity.IRequest.search search condition} in the\nrequest body. Furthermore, it is possible to customize sequence order of\nrecords by configuring {@link IShoppingCartCommodity.IRequest.sort}.\n\nFor reference, when some commodity be {@link IShoppingOrder ordered} and\n{@link IShoppingOrderPublish published}, then it would not be appread in\nthe shopping cart more. Otherwise, the order has not been published yet,\nit would be appread in the shopping cart and still enable to create a new\n{@link IShoppingOrder order application} with the same commodity.\n\nOf course, if the target {@link IShoppingSale sale} has been suspended, or\n{@link IShoppingSaleUnitStockInventory out of stock}, then it would not be\nappread in the shopping cart more, either.",
         "tags": [
           "Order"
         ],
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Request info of pagination, searching and sorting",
           "content": {
@@ -3625,29 +3607,11 @@
       },
       "post": {
         "summary": "Create a new commodity",
-        "description": "Create a new commodity.\n\nCreate a new {@link IShoppingCartCommodity commodity} into a specific\nshopping cart.\n\nIf {@link IShoppingCartCommodity.ICreate.accumulate} has `true` value\nand there's some same commodity that composed with same\n{@link IShoppingSaleUnitStock.IInvert stocks and quantities},\nthen new commodity would not be created but the volume would be accumulated.\n\nAlso, if the *cartId* is not specified but `null` value assigned, then\nordinary cart would be utilized or create new one considering the\nexistence of the previous cart.\n\nBy the way, if the target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error\nwould be thrown. Therefore, it would better to check the target sale and\n{@link IShoppingSaleUnitStock stock}'s status before.",
+        "description": "Create a new commodity.\n\nCreate a new {@link IShoppingCartCommodity commodity} into a specific\nshopping cart.\n\nIf {@link IShoppingCartCommodity.ICreate.accumulate} has `true` value\nand there's some same commodity that composed with same\n{@link IShoppingSaleUnitStock.IInvert stocks and quantities},\nthen new commodity would not be created but the volume would be accumulated.\n\nBy the way, if the target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error\nwould be thrown. Therefore, it would better to check the target sale and\n{@link IShoppingSaleUnitStock stock}'s status before.",
         "tags": [
           "Order"
         ],
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Creation info of the commodity",
           "content": {
@@ -3678,31 +3642,14 @@
         ]
       }
     },
-    "/shoppings/customers/carts/{cartId}/commodities/{id}": {
+    "/shoppings/customers/carts/commodities/{id}": {
       "get": {
         "summary": "Get a commodity",
-        "description": "Get a commodity.\n\nGet a {@link IShoppingCartCommodity commodity} record of the shopping cart.\n\nIf the *cartId* is different with the belonged cart's ID, then 404 not\nfound exception would be thrown. Otherwise, the *cartId* has `null` value,\nsuch dependency checking would be skipped, but still ownership would be\nvalidated.\n\nAlso, if target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error\nwould be thrown. Therefore, even if you've created a commodity successfully\nwith the {@link create} method, it still can be failed when you access the\ncommodity with this {@link at} method.",
+        "description": "Get a commodity.\n\nGet a {@link IShoppingCartCommodity commodity} record of the shopping cart.\n\nIf target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock}, then 410 gone error\nwould be thrown. Therefore, even if you've created a commodity successfully\nwith the {@link create} method, it still can be failed when you access the\ncommodity with this {@link at} method.",
         "tags": [
           "Order"
         ],
         "parameters": [
-          {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          },
           {
             "name": "id",
             "in": "path",
@@ -3734,28 +3681,11 @@
       },
       "put": {
         "summary": "Update a commodity (volume)",
-        "description": "Update a commodity (volume).\n\nUpdate a {@link IShoppingCartCommodity commodity}'s volume in the\nshopping cart.\n\nIf the *cartId* is different with the belonged cart's ID, then 404 not\nfound exception would be thrown. Otherwise, the *cartId* has `null` value,\nsuch dependency checking would be skipped, but still ownership would be\nvalidated.\n\nAlso, if target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock} suddenly, then 410\ngone error would be thrown, either.",
+        "description": "Update a commodity (volume).\n\nUpdate a {@link IShoppingCartCommodity commodity}'s volume in the\nshopping cart.\n\nIf target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock} suddenly, then 410\ngone error would be thrown, either.",
         "tags": [
           "Order"
         ],
         "parameters": [
-          {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          },
           {
             "name": "id",
             "in": "path",
@@ -3800,23 +3730,6 @@
         ],
         "parameters": [
           {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          },
-          {
             "name": "id",
             "in": "path",
             "schema": {
@@ -3842,31 +3755,14 @@
         ]
       }
     },
-    "/shoppings/customers/carts/{cartId}/commodities/{id}/replica": {
+    "/shoppings/customers/carts/commodities/{id}/replica": {
       "get": {
         "summary": "Get replica of a commodity",
-        "description": "Get replica of a commodity.\n\nGet a {@link IShoppingCartCommodity.ICreate} typed info of the target\ncommodity for replication.\n\nBy the way, if the *cartId* is different with the belonged cart's ID,\nthen 404 not found exception would be thrown. Otherwise, the *cartId*\nhas `null` value, such dependency checking would be skipped, but still\nownership would be validated.\n\nAlso, if target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock} suddenly,\nthen 410 gone error would be thrown, either.",
+        "description": "Get replica of a commodity.\n\nGet a {@link IShoppingCartCommodity.ICreate} typed info of the target\ncommodity for replication.\n\nIf target {@link IShoppingSale sale} has been suspended or\n{@link IShoppingSaleUnitStockInventory out of stock} suddenly,\nthen 410 gone error would be thrown, either.",
         "tags": [
           "Order"
         ],
         "parameters": [
-          {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          },
           {
             "name": "id",
             "in": "path",
@@ -3897,32 +3793,14 @@
         ]
       }
     },
-    "/shoppings/customers/carts/{cartId}/commodities/discountable": {
+    "/shoppings/customers/carts/commodities/discountable": {
       "patch": {
         "summary": "Get discountable info",
-        "description": "Get discountable info.\n\nCompute discountable features about the\n {@link IShoppingCartCommodity shopping cart} even including\nnon-carted {@link IShoppingSale sales}.\n\nReturned {@link IShoppingCartDiscountable} contains including\ncombinations of adjustable {@link IShoppingCoupon coupons},\nwithdrawable {@link IShoppingDepositHistory deposits} and\n{@link IShoppingMileageHistory mileages}.\n\nAlso, if you want to know the discountable info about some specific\nsales that have not been carted yet, specify the sales\nto the {@link IShoppingCartDiscountable.pseudos} property with composing\n{@link IShoppingCartCommodity.ICreate creation info of the commodities}.\nThen, they would be included in the discountable info.",
+        "description": "Get discountable info.\n\nCompute discountable features about the\n {@link IShoppingCartCommodity shopping cart} even including\nnon-carted {@link IShoppingSale sales}.\n\nReturned {@link IShoppingCartDiscountable} contains including\ncombinations of adjustable {@link IShoppingCoupon coupons},\nwithdrawable {@link IShoppingDepositHistory deposits} and\n{@link IShoppingMileageHistory mileages}.\n\nIf you want to know the discountable info about some specific sales\nthat have not been carted yet, specify the sales to the\n{@link IShoppingCartDiscountable.pseudos} property with composing\n{@link IShoppingCartCommodity.ICreate creation info of the commodities}.\nThen, they would be included in the discountable info.",
         "tags": [
           "Order"
         ],
-        "parameters": [
-          {
-            "name": "cartId",
-            "in": "path",
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              ]
-            },
-            "required": true,
-            "description": " Belonged cart's ID"
-          }
-        ],
+        "parameters": [],
         "requestBody": {
           "description": "Request info for discountable",
           "content": {
@@ -9387,6 +9265,10 @@
               {
                 "type": "string",
                 "format": "uri"
+              },
+              {
+                "type": "string",
+                "maxLength": 0
               }
             ],
             "title": "Referrer address",
@@ -12006,6 +11888,10 @@
               {
                 "type": "string",
                 "format": "uri"
+              },
+              {
+                "type": "string",
+                "maxLength": 0
               }
             ],
             "title": "Referrer address",
@@ -16672,6 +16558,10 @@
               {
                 "type": "string",
                 "format": "uri"
+              },
+              {
+                "type": "string",
+                "maxLength": 0
               }
             ],
             "title": "Referrer address",
@@ -16753,7 +16643,9 @@
         "type": "object",
         "properties": {
           "channel_code": {
-            "type": "string"
+            "type": "string",
+            "title": "Belonged channel's {@link IShoppingChannel.code}",
+            "description": "Belonged channel's {@link IShoppingChannel.code}."
           },
           "external_user": {
             "oneOf": [
@@ -16763,11 +16655,15 @@
               {
                 "$ref": "#/components/schemas/IShoppingExternalUser.ICreate"
               }
-            ]
+            ],
+            "title": "External user information",
+            "description": "External user information.\n\nWhen the customer has come frome an external service."
           },
           "href": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "title": "Connection address",
+            "description": "Connection address.\n\nSame with {@link window.location.href} of client."
           },
           "referrer": {
             "oneOf": [
@@ -16777,8 +16673,14 @@
               {
                 "type": "string",
                 "format": "uri"
+              },
+              {
+                "type": "string",
+                "maxLength": 0
               }
-            ]
+            ],
+            "title": "Referrer address",
+            "description": "Referrer address.\n\nSame with {@link window.document.referrer} of client."
           },
           "ip": {
             "oneOf": [
@@ -16793,7 +16695,9 @@
                 "type": "string",
                 "format": "ipv6"
               }
-            ]
+            ],
+            "title": "Connection IP Address",
+            "description": "Connection IP Address."
           }
         },
         "required": [

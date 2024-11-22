@@ -14,7 +14,7 @@ import { generate_random_cart_commodity } from "./internal/generate_random_cart_
 import { prepare_random_cart_commodity } from "./internal/prepare_random_cart_commodity";
 
 export const test_api_shopping_cart_commodity_index_sort = async (
-  pool: ConnectionPool,
+  pool: ConnectionPool
 ): Promise<void> => {
   //----
   // PREPARE ASSETS
@@ -25,7 +25,7 @@ export const test_api_shopping_cart_commodity_index_sort = async (
 
   // SALES AND CART ITEMS
   const sales: IShoppingSale[] = await ArrayUtil.asyncRepeat(REPEAT)(() =>
-    generate_random_sale(pool),
+    generate_random_sale(pool)
   );
   const cart: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(sales)(
     async (s) => {
@@ -34,7 +34,7 @@ export const test_api_shopping_cart_commodity_index_sort = async (
       input.volume = randint(1, 10);
       for (const stock of input.stocks) stock.quantity = randint(1, 10);
       return generate_random_cart_commodity(pool, s, input);
-    },
+    }
   );
 
   // SORT VALIDATOR
@@ -46,11 +46,10 @@ export const test_api_shopping_cart_commodity_index_sort = async (
     const page: IPage<IShoppingCartCommodity> =
       await api.functional.shoppings.customers.carts.commodities.index(
         pool.customer,
-        null,
         {
           limit: cart.length,
           sort: input,
-        },
+        }
       );
     return page.data;
   });
@@ -63,15 +62,15 @@ export const test_api_shopping_cart_commodity_index_sort = async (
     validator("commodity.price")(GaffComparator.numbers((x) => x.price.real)),
     validator("commodity.volume")(GaffComparator.numbers((x) => x.volume)),
     validator("commodity.volumed_price")(
-      GaffComparator.numbers((x) => x.price.real * x.volume),
+      GaffComparator.numbers((x) => x.price.real * x.volume)
     ),
     validator("commodity.created_at")(
-      GaffComparator.dates((x) => x.created_at),
+      GaffComparator.dates((x) => x.created_at)
     ),
 
     // SELLER
     validator("seller.created_at")(
-      GaffComparator.dates((x) => x.sale.seller.created_at),
+      GaffComparator.dates((x) => x.sale.seller.created_at)
     ),
     // validator("seller.goods.payments.real")(
     //   GaffComparator.numbers(
@@ -117,14 +116,14 @@ export const test_api_shopping_cart_commodity_index_sort = async (
     //   (x) => x.sale.aggregate.inquiry.review.statistics !== null,
     // ),
     validator("sale.created_at")(
-      GaffComparator.dates((x) => x.sale.created_at),
+      GaffComparator.dates((x) => x.sale.created_at)
     ),
     validator("sale.updated_at")(
-      GaffComparator.dates((x) => x.sale.updated_at),
+      GaffComparator.dates((x) => x.sale.updated_at)
     ),
     validator("sale.opened_at")(GaffComparator.dates((x) => x.sale.opened_at!)),
     validator("sale.content.title")(
-      GaffComparator.strings((x) => x.sale.content.title),
+      GaffComparator.strings((x) => x.sale.content.title)
     ),
   ];
   for (const comp of components) {

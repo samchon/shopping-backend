@@ -16,26 +16,24 @@ export const test_api_shopping_order_discountable_after_erase =
         (commodity) =>
           ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
             pool.customer,
-            null,
-            commodity.id,
-          ),
-      ),
+            commodity.id
+          )
+      )
     )((input) =>
       ShoppingApi.functional.shoppings.customers.carts.commodities.create(
         pool.customer,
-        null,
-        input,
-      ),
+        input
+      )
     );
     const order: IShoppingOrder = await generate_random_order(
       pool,
-      commodities,
+      commodities
     );
 
     // REMOVE ORDINARY ORDER
     await ShoppingApi.functional.shoppings.customers.orders.erase(
       pool.customer,
-      props.order.id,
+      props.order.id
     );
 
     // GET DISCOUNTABLE INFO
@@ -45,18 +43,18 @@ export const test_api_shopping_order_discountable_after_erase =
         order.id,
         {
           good_ids: order.goods.map((good) => good.id),
-        },
+        }
       );
     TestValidator.equals("discountable.combinations[].amount")(
-      props.discountable.combinations[0].amount,
+      props.discountable.combinations[0].amount
     )(discountable.combinations[0].amount);
     TestValidator.equals("discountable.combinations[].coupons[]")(
       props.discountable.combinations.map((comb) =>
-        comb.coupons.sort((a, b) => a.id.localeCompare(b.id)),
-      ),
+        comb.coupons.sort((a, b) => a.id.localeCompare(b.id))
+      )
     )(
       discountable.combinations.map((comb) =>
-        comb.coupons.sort((a, b) => a.id.localeCompare(b.id)),
-      ),
+        comb.coupons.sort((a, b) => a.id.localeCompare(b.id))
+      )
     );
   });
