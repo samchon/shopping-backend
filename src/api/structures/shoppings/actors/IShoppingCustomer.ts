@@ -97,7 +97,7 @@ export namespace IShoppingCustomer {
      *
      * Same with {@link window.document.referrer} of client.
      */
-    referrer: null | (string & tags.Format<"uri">);
+    referrer: null | (string & (tags.Format<"uri"> | tags.MaxLength<0>));
 
     /**
      * Connection IP Address.
@@ -111,10 +111,35 @@ export namespace IShoppingCustomer {
   }
 
   export interface ICreate {
+    /**
+     * Belonged channel's {@link IShoppingChannel.code}.
+     */
     channel_code: string;
+
+    /**
+     * External user information.
+     *
+     * When the customer has come frome an external service.
+     */
     external_user: null | IShoppingExternalUser.ICreate;
+
+    /**
+     * Connection address.
+     *
+     * Same with {@link window.location.href} of client.
+     */
     href: string & tags.Format<"uri">;
-    referrer: null | (string & tags.Format<"uri">);
+
+    /**
+     * Referrer address.
+     *
+     * Same with {@link window.document.referrer} of client.
+     */
+    referrer: null | (string & (tags.Format<"uri"> | tags.MaxLength<0>));
+
+    /**
+     * Connection IP Address.
+     */
     ip?: null | (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">));
   }
 

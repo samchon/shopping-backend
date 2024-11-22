@@ -12,27 +12,26 @@ export const test_api_shopping_cart_discountable_ticket =
         pool.customer,
         {
           coupon_id: coupon.id,
-        },
-      ),
+        }
+      )
     );
 
     const discountable: IShoppingCartDiscountable =
       await ShoppingApi.functional.shoppings.customers.carts.commodities.discountable(
         pool.customer,
-        null,
         {
           commodity_ids: props.commodities.map((commodity) => commodity.id),
           pseudos: [],
-        },
+        }
       );
 
     TestValidator.equals("combinations[].amount")(
-      discountable.combinations.map((c) => c.amount),
+      discountable.combinations.map((c) => c.amount)
     )(props.discountable.combinations.map((c) => c.amount));
     TestValidator.equals("combinations[].coupons.length")(
-      discountable.combinations.map((comb) => comb.coupons.length),
+      discountable.combinations.map((comb) => comb.coupons.length)
     )([0, 0]);
     TestValidator.equals("combinations[].tickets.length")(
-      discountable.combinations.map((comb) => comb.tickets.length),
+      discountable.combinations.map((comb) => comb.tickets.length)
     )([3, 1]);
   });

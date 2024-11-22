@@ -85,7 +85,6 @@ const validate = async (
   const preview: IShoppingCartDiscountable =
     await ShoppingApi.functional.shoppings.customers.carts.commodities.discountable(
       pool.customer,
-      null,
       {
         commodity_ids: [commodity.id],
         pseudos: [],
