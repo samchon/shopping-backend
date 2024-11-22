@@ -18,13 +18,6 @@ export const test_api_shopping_systematic_channel_category_merge = async (
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  ShoppingApi.functional.shoppings.customers.sales.index(pool.customer, {
-    limit: 50,
-    page: 1,
-    search: { show_paused: false, show_suspended: false },
-    sort: ["+sale.created_at"],
-  });
-
   const channel: IShoppingChannel = await generate_random_channel(pool);
   const rough: Rough = prepare({ level: 0, index: 0 });
   const top: IShoppingChannelCategory.IHierarchical = await generate(
