@@ -220,9 +220,7 @@ export namespace ShoppingSaleProvider {
         ? [{ section: { code: { in: props.input.section_codes } } }]
         : []),
       // STATUS
-      ...(props.input?.show_paused === false
-        ? [{ paused_at: { not: null } }]
-        : []),
+      ...(props.input?.show_paused === false ? [{ paused_at: null }] : []),
       ...(props.input?.show_suspended !== undefined
         ? props.input.show_suspended === false
           ? [{ suspended_at: null }]
