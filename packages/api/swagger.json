@@ -10242,6 +10242,7 @@
           "url": {
             "type": "string",
             "format": "uri",
+            "contentMediaType": "image/*",
             "title": "URL path of the real file",
             "description": "URL path of the real file."
           }
@@ -14332,6 +14333,7 @@
           "url": {
             "type": "string",
             "format": "uri",
+            "contentMediaType": "image/*",
             "title": "URL path of the real file",
             "description": "URL path of the real file."
           }
