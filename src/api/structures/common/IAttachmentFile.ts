@@ -40,6 +40,6 @@ export namespace IAttachmentFile {
     /**
      * URL path of the real file.
      */
-    url: string & tags.Format<"uri">;
+    url: string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">;
   }
 }
