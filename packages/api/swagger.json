@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.10.0",
+    "version": "0.11.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -9108,6 +9108,7 @@
       "Recordstringstring": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "type": "string"
@@ -9437,6 +9438,7 @@
       "IShoppingAdministrator.IJoin": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Joining request info."
       },
       "IShoppingMember.ILogin": {
@@ -11073,7 +11075,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingCoupon.IRequest.ISearch": {
         "type": "object",
@@ -11088,7 +11091,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingDeposit": {
         "type": "object",
@@ -11218,7 +11222,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingDeposit.IRequest.ISearch": {
         "type": "object",
@@ -11256,7 +11261,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingDeposit.ICreate": {
         "type": "object",
@@ -11423,7 +11429,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingMileage.IRequest.ISearch": {
         "type": "object",
@@ -11461,7 +11468,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingMileage.ICreate": {
         "type": "object",
@@ -11625,7 +11633,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingMileageDonation.IRequest.ISearch": {
         "type": "object",
@@ -11684,7 +11693,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingCitizen.IRequest.ISearch": {
         "type": "object",
@@ -11710,7 +11720,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingMileageDonation.ICreate": {
         "type": "object",
@@ -13258,6 +13269,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of orders with pagination and searching/sorting conditions."
       },
       "IShoppingOrder.IRequest.ISearch": {
@@ -13303,7 +13315,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingSale.IRequest.ISearch": {
         "type": "object",
@@ -13443,7 +13456,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingPrice.ISearch": {
         "type": "object",
@@ -13468,7 +13482,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingSaleReview.IInvertSearch": {
         "type": "object",
@@ -13493,7 +13508,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingSaleReview.IInvertSearch.IScoreRange": {
         "type": "object",
@@ -13522,7 +13538,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingSaleReview.IInvertSearch.ICountRange": {
         "type": "object",
@@ -13547,7 +13564,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingSeller.IRequest.ISearch": {
         "type": "object",
@@ -13605,7 +13623,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingSale.ISummary": {
         "type": "object",
@@ -13782,6 +13801,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of summarized sales with pagination and searching/sorting options."
       },
       "IShoppingSale": {
@@ -14402,6 +14422,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of the comments with pagination and searching/sorting options."
       },
       "IShoppingSaleInquiryComment.IRequest.ISearch": {
@@ -14437,7 +14458,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingSaleInquiryComment.ICreate": {
         "type": "object",
@@ -14744,6 +14766,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of summarized informations with pagination searching/sorting options."
       },
       "IShoppingSaleInquiry.IRequest.ISearch": {
@@ -14831,7 +14854,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingSaleQuestion.IAbridge": {
         "type": "object",
@@ -15368,6 +15392,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of summarized informations with pagination searching/sorting options."
       },
       "IShoppingSaleReview.IRequest.ISearch": {
@@ -15479,7 +15504,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingSaleReview.IAbridge": {
         "type": "object",
@@ -15852,6 +15878,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Page request data"
       },
       "IShoppingSaleSnapshot": {
@@ -16230,6 +16257,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of the channels with pagination and searching/sorting options."
       },
       "IShoppingChannel.IRequest.ISearch": {
@@ -16255,7 +16283,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingChannel.IHierarchical": {
         "type": "object",
@@ -16450,6 +16479,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request of the sections with pagination and searching/sorting options."
       },
       "IShoppingSection.IRequest.ISearch": {
@@ -16475,7 +16505,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IShoppingCustomer.IAuthorized": {
         "type": "object",
@@ -16917,7 +16948,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingCouponTicket.ICreate": {
         "type": "object",
@@ -17106,7 +17138,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingDepositCharge.IRequest.ISearch": {
         "type": "object",
@@ -17232,11 +17265,13 @@
                               }
                             ]
                           }
-                        }
+                        },
+                        "required": []
                       }
                     ]
                   }
-                }
+                },
+                "required": []
               }
             ]
           }
@@ -17413,7 +17448,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingDepositHistory.IRequest.ISearch": {
         "type": "object",
@@ -17483,7 +17519,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingMileageHistory": {
         "type": "object",
@@ -17627,7 +17664,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingMileageHistory.IRequest.ISearch": {
         "type": "object",
@@ -17697,7 +17735,8 @@
               }
             ]
           }
-        }
+        },
+        "required": []
       },
       "IPageIShoppingCartCommodity": {
         "type": "object",
@@ -17879,7 +17918,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingCartCommodity.IRequest.ISearch": {
         "type": "object",
@@ -17899,7 +17939,8 @@
           "sale": {
             "$ref": "#/components/schemas/IShoppingSale.IRequest.ISearch"
           }
-        }
+        },
+        "required": []
       },
       "IShoppingCartCommodity.ICreate": {
         "type": "object",
@@ -18653,7 +18694,8 @@
       },
       "IShoppingSeller.IJoin": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "required": []
       },
       "IPageIShoppingDelivery.IInvert": {
         "type": "object",
@@ -18932,7 +18974,8 @@
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
-        }
+        },
+        "required": []
       },
       "IShoppingDelivery.ICreate": {
         "type": "object",
@@ -19713,6 +19756,7 @@
             "description": "Limitation of records per a page."
           }
         },
+        "required": [],
         "description": "Request information of the stock supplement list."
       },
       "IShoppingSaleUnitStockSupplement.ICreate": {
