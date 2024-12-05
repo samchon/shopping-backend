@@ -10,10 +10,10 @@ importers:
     dependencies:
       '@nestia/core':
         specifier: ^4.0.4
-        version: 4.0.4(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3))
+        version: 4.0.4(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2))
       '@nestia/fetcher':
         specifier: ^4.0.4
-        version: 4.0.4(typescript@5.6.3)
+        version: 4.0.4(typescript@5.7.2)
       '@nestjs/common':
         specifier: ^10.4.13
         version: 10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1)
@@ -31,7 +31,7 @@ importers:
         version: 0.4.4(rollup@4.19.0)
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
-        version: 11.1.6(rollup@4.19.0)(tslib@2.8.1)(typescript@5.6.3)
+        version: 11.1.6(rollup@4.19.0)(tslib@2.8.1)(typescript@5.7.2)
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -73,20 +73,20 @@ importers:
         version: 3.0.0
       typia:
         specifier: ^7.0.2
-        version: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3)
+        version: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2)
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
     devDependencies:
       '@nestia/benchmark':
         specifier: ^0.3.0
-        version: 0.3.0(typescript@5.6.3)
+        version: 0.3.0(typescript@5.7.2)
       '@nestia/e2e':
         specifier: ^0.7.0
         version: 0.7.0
       '@nestia/sdk':
         specifier: ^4.0.4
-        version: 4.0.4(@nestia/core@4.0.4(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3)))(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.6.3))(typescript@5.6.3)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3))
+        version: 4.0.4(@nestia/core@4.0.4(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2)))(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.7.2))(typescript@5.7.2)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2))
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
         version: 4.3.0(prettier@3.3.3)
@@ -119,10 +119,10 @@ importers:
         version: 10.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.1.0
-        version: 8.1.0(@typescript-eslint/parser@8.1.0(eslint@8.57.0)(typescript@5.6.3))(eslint@8.57.0)(typescript@5.6.3)
+        version: 8.1.0(@typescript-eslint/parser@8.1.0(eslint@8.57.0)(typescript@5.7.2))(eslint@8.57.0)(typescript@5.7.2)
       '@typescript-eslint/parser':
         specifier: ^8.1.0
-        version: 8.1.0(eslint@8.57.0)(typescript@5.6.3)
+        version: 8.1.0(eslint@8.57.0)(typescript@5.7.2)
       cagen:
         specifier: ^1.0.1
         version: 1.0.1
@@ -140,7 +140,7 @@ importers:
         version: 12.0.2(webpack@5.93.0(webpack-cli@5.1.4))
       eslint-plugin-deprecation:
         specifier: ^3.0.0
-        version: 3.0.0(eslint@8.57.0)(typescript@5.6.3)
+        version: 3.0.0(eslint@8.57.0)(typescript@5.7.2)
       inquirer:
         specifier: ^8.2.5
         version: 8.2.6
@@ -167,19 +167,19 @@ importers:
         version: 5.0.1(express@4.19.2)
       ts-loader:
         specifier: ^9.5.1
-        version: 9.5.1(typescript@5.6.3)(webpack@5.93.0(webpack-cli@5.1.4))
+        version: 9.5.1(typescript@5.7.2)(webpack@5.93.0(webpack-cli@5.1.4))
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@20.14.12)(typescript@5.6.3)
+        version: 10.9.2(@types/node@20.14.12)(typescript@5.7.2)
       ts-patch:
-        specifier: ^3.2.1
-        version: 3.2.1
+        specifier: ^3.3.0
+        version: 3.3.0
       typescript:
-        specifier: ~5.6.3
-        version: 5.6.3
+        specifier: ~5.7.2
+        version: 5.7.2
       typescript-transform-paths:
         specifier: ^3.5.2
-        version: 3.5.2(typescript@5.6.3)
+        version: 3.5.2(typescript@5.7.2)
       webpack:
         specifier: ^5.90.3
         version: 5.93.0(webpack-cli@5.1.4)
@@ -1602,9 +1602,9 @@ packages:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     deprecated: Glob versions prior to v9 are no longer supported
 
-  global-prefix@3.0.0:
-    resolution: {integrity: sha512-awConJSVCHVGND6x3tmMaKcQvwXLhjdkmomy2W+Goaui8YPgYgXJZewhg3fWC+DlfqqQuWg8AwqjGTD2nAPVWg==}
-    engines: {node: '>=6'}
+  global-prefix@4.0.0:
+    resolution: {integrity: sha512-w0Uf9Y9/nyHinEk5vMJKRie+wa4kR5hmDbEhGGds/kG1PwGLLHKRoNMeJOyCQjjBkANlnScqgzcFwGHgmgLkVA==}
+    engines: {node: '>=16'}
 
   globals@11.12.0:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
@@ -1720,8 +1720,9 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  ini@1.3.8:
-    resolution: {integrity: sha512-JV/yugV2uzW5iMRSiZAyDtQd+nxtUnjeLt0acNdw98kKLrvuRVyB80tsREOE7yvGVgalhZ6RNXCmEHkUKBKxew==}
+  ini@4.1.3:
+    resolution: {integrity: sha512-X7rqawQBvfdjS10YU1y1YVreA3SsLrW9dX2CewP2EbBJM4ypVNLDkO5y04gejPwKIY9lR+7r9gn3rFPt/kmWFg==}
+    engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
   inquirer@8.2.6:
     resolution: {integrity: sha512-M1WuAmb7pn9zdFRtQYk26ZBoY043Sse0wVDdk4Bppr+JOXyQYybdtvK+l9wUibhtjdjvtoiNy8tk+EgsYIUqKg==}
@@ -1742,8 +1743,8 @@ packages:
   is-buffer@1.1.6:
     resolution: {integrity: sha512-NcdALwpXkTm5Zvvbk7owOUSvVvBKDgKP5/ewfXEznmQFfs4ZRmanOeKBTjRVjka3QFoN6XJ+9F3USqfHqTaU5w==}
 
-  is-core-module@2.15.0:
-    resolution: {integrity: sha512-Dd+Lb2/zvk9SKy1TGCt1wFJFo/MWBPMX5x7KcvLajWTGuomczdQX61PvY5yK6SVACwpoexWo81IfFyoKY2QnTA==}
+  is-core-module@2.15.1:
+    resolution: {integrity: sha512-z0vtXSwucUJtANQWldhbtbt7BnL0vxiFjIdDLAatwhDYty2bad6s+rijD6Ri4YuYJubLzIJLUidCh09e1djEVQ==}
     engines: {node: '>= 0.4'}
 
   is-data-descriptor@1.0.1:
@@ -1811,6 +1812,10 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  isexe@3.1.1:
+    resolution: {integrity: sha512-LpB/54B+/2J5hqQ7imZHfdU31OlgQqx7ZicVlkm9kzg9/w8GKLEcFfJl/t7DCEDueOyBAD6zCCwTO6Fzs0NoEQ==}
+    engines: {node: '>=16'}
 
   isobject@2.1.0:
     resolution: {integrity: sha512-+OUdGJlgjOBZDfxnDjYYG6zp487z0JGNQq3cYQYg5f5hKR+syHMsaztzGeml/4kGG55CSpKSpWTY+jYGgsHLgA==}
@@ -2695,8 +2700,8 @@ packages:
       '@swc/wasm':
         optional: true
 
-  ts-patch@3.2.1:
-    resolution: {integrity: sha512-hlR43v+GUIUy8/ZGFP1DquEqPh7PFKQdDMTAmYt671kCCA6AkDQMoeFaFmZ7ObPLYOmpMgyKUqL1C+coFMf30w==}
+  ts-patch@3.3.0:
+    resolution: {integrity: sha512-zAOzDnd5qsfEnjd9IGy1IRuvA7ygyyxxdxesbhMdutt8AHFjD8Vw8hU2rMF89HX1BKRWFYqKHrO8Q6lw0NeUZg==}
     hasBin: true
 
   tsconfck@2.1.2:
@@ -2753,8 +2758,8 @@ packages:
     peerDependencies:
       typescript: '>=3.6.5'
 
-  typescript@5.6.3:
-    resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
+  typescript@5.7.2:
+    resolution: {integrity: sha512-i5t66RHxDvVN40HfDd1PsEThGNnlMCMT3jMUuoh9/0TaqWevNontacunWyN02LA9/fIbEWlcHZcgTKb9QoaLfg==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -2871,13 +2876,14 @@ packages:
   whatwg-url@5.0.0:
     resolution: {integrity: sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==}
 
-  which@1.3.1:
-    resolution: {integrity: sha512-HxJdYWq1MTIQbJ3nw0cqssHoTNU267KlrDuGZ1WYlxDStUtKUhOaJmh112/TZmHxxUfuJqPXSOm7tDyas0OSIQ==}
-    hasBin: true
-
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
     engines: {node: '>= 8'}
+    hasBin: true
+
+  which@4.0.0:
+    resolution: {integrity: sha512-GlaYyEb07DPxYCKhKzplCWBJtvxZcZMrL+4UkrTSJHHPyZU4mYYTv3qaOe77H7EODLSSopAUFAc6W8U4yqvscg==}
+    engines: {node: ^16.13.0 || >=18.0.0}
     hasBin: true
 
   wildcard@2.0.1:
@@ -3115,9 +3121,9 @@ snapshots:
 
   '@lukeed/csprng@1.1.0': {}
 
-  '@nestia/benchmark@0.3.0(typescript@5.6.3)':
+  '@nestia/benchmark@0.3.0(typescript@5.7.2)':
     dependencies:
-      '@nestia/fetcher': 4.0.4(typescript@5.6.3)
+      '@nestia/fetcher': 4.0.4(typescript@5.7.2)
       tgrid: 1.0.3
       tstl: 3.0.0
     transitivePeerDependencies:
@@ -3125,9 +3131,9 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@nestia/core@4.0.4(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3))':
+  '@nestia/core@4.0.4(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2))':
     dependencies:
-      '@nestia/fetcher': 4.0.4(typescript@5.6.3)
+      '@nestia/fetcher': 4.0.4(typescript@5.7.2)
       '@nestjs/common': 10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@samchon/openapi': 2.0.1
@@ -3139,7 +3145,7 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.1
       tgrid: 1.1.0
-      typia: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3)
+      typia: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2)
       ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
@@ -3147,16 +3153,16 @@ snapshots:
 
   '@nestia/e2e@0.7.0': {}
 
-  '@nestia/fetcher@4.0.4(typescript@5.6.3)':
+  '@nestia/fetcher@4.0.4(typescript@5.7.2)':
     dependencies:
       '@samchon/openapi': 2.0.1
-      typescript: 5.6.3
-      typia: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3)
+      typescript: 5.7.2
+      typia: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2)
 
-  '@nestia/sdk@4.0.4(@nestia/core@4.0.4(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3)))(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.6.3))(typescript@5.6.3)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3))':
+  '@nestia/sdk@4.0.4(@nestia/core@4.0.4(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2)))(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.7.2))(typescript@5.7.2)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2))':
     dependencies:
-      '@nestia/core': 4.0.4(@nestia/fetcher@4.0.4(typescript@5.6.3))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3))
-      '@nestia/fetcher': 4.0.4(typescript@5.6.3)
+      '@nestia/core': 4.0.4(@nestia/fetcher@4.0.4(typescript@5.7.2))(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(@nestjs/core@10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)(typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2))
+      '@nestia/fetcher': 4.0.4(typescript@5.7.2)
       '@nestjs/common': 10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@nestjs/core': 10.4.13(@nestjs/common@10.4.13(reflect-metadata@0.2.2)(rxjs@7.8.1))(reflect-metadata@0.2.2)(rxjs@7.8.1)
       '@samchon/openapi': 2.0.1
@@ -3166,11 +3172,11 @@ snapshots:
       path-to-regexp: 6.3.0
       prettier: 3.3.3
       reflect-metadata: 0.2.2
-      ts-node: 10.9.2(@types/node@20.14.12)(typescript@5.6.3)
-      tsconfck: 2.1.2(typescript@5.6.3)
+      ts-node: 10.9.2(@types/node@20.14.12)(typescript@5.7.2)
+      tsconfck: 2.1.2(typescript@5.7.2)
       tsconfig-paths: 4.2.0
       tstl: 3.0.0
-      typia: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3)
+      typia: 7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2)
     transitivePeerDependencies:
       - typescript
 
@@ -3269,11 +3275,11 @@ snapshots:
     optionalDependencies:
       rollup: 4.19.0
 
-  '@rollup/plugin-typescript@11.1.6(rollup@4.19.0)(tslib@2.8.1)(typescript@5.6.3)':
+  '@rollup/plugin-typescript@11.1.6(rollup@4.19.0)(tslib@2.8.1)(typescript@5.7.2)':
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@4.19.0)
       resolve: 1.22.8
-      typescript: 5.6.3
+      typescript: 5.7.2
     optionalDependencies:
       rollup: 4.19.0
       tslib: 2.8.1
@@ -3456,34 +3462,34 @@ snapshots:
     dependencies:
       '@types/node': 20.14.12
 
-  '@typescript-eslint/eslint-plugin@8.1.0(@typescript-eslint/parser@8.1.0(eslint@8.57.0)(typescript@5.6.3))(eslint@8.57.0)(typescript@5.6.3)':
+  '@typescript-eslint/eslint-plugin@8.1.0(@typescript-eslint/parser@8.1.0(eslint@8.57.0)(typescript@5.7.2))(eslint@8.57.0)(typescript@5.7.2)':
     dependencies:
       '@eslint-community/regexpp': 4.11.0
-      '@typescript-eslint/parser': 8.1.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/parser': 8.1.0(eslint@8.57.0)(typescript@5.7.2)
       '@typescript-eslint/scope-manager': 8.1.0
-      '@typescript-eslint/type-utils': 8.1.0(eslint@8.57.0)(typescript@5.6.3)
-      '@typescript-eslint/utils': 8.1.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/type-utils': 8.1.0(eslint@8.57.0)(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.1.0(eslint@8.57.0)(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 8.1.0
       eslint: 8.57.0
       graphemer: 1.4.0
       ignore: 5.3.2
       natural-compare: 1.4.0
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.2)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.1.0(eslint@8.57.0)(typescript@5.6.3)':
+  '@typescript-eslint/parser@8.1.0(eslint@8.57.0)(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.1.0
       '@typescript-eslint/types': 8.1.0
-      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.7.2)
       '@typescript-eslint/visitor-keys': 8.1.0
       debug: 4.3.6
       eslint: 8.57.0
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -3497,14 +3503,14 @@ snapshots:
       '@typescript-eslint/types': 8.1.0
       '@typescript-eslint/visitor-keys': 8.1.0
 
-  '@typescript-eslint/type-utils@8.1.0(eslint@8.57.0)(typescript@5.6.3)':
+  '@typescript-eslint/type-utils@8.1.0(eslint@8.57.0)(typescript@5.7.2)':
     dependencies:
-      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.6.3)
-      '@typescript-eslint/utils': 8.1.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.7.2)
+      '@typescript-eslint/utils': 8.1.0(eslint@8.57.0)(typescript@5.7.2)
       debug: 4.3.6
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.2)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -3513,7 +3519,7 @@ snapshots:
 
   '@typescript-eslint/types@8.1.0': {}
 
-  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.6.3)':
+  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
@@ -3522,13 +3528,13 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.2)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@8.1.0(typescript@5.6.3)':
+  '@typescript-eslint/typescript-estree@8.1.0(typescript@5.7.2)':
     dependencies:
       '@typescript-eslint/types': 8.1.0
       '@typescript-eslint/visitor-keys': 8.1.0
@@ -3537,29 +3543,29 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.6.3
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.2)
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@7.18.0(eslint@8.57.0)(typescript@5.6.3)':
+  '@typescript-eslint/utils@7.18.0(eslint@8.57.0)(typescript@5.7.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/types': 7.18.0
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.7.2)
       eslint: 8.57.0
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  '@typescript-eslint/utils@8.1.0(eslint@8.57.0)(typescript@5.6.3)':
+  '@typescript-eslint/utils@8.1.0(eslint@8.57.0)(typescript@5.7.2)':
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.0)
       '@typescript-eslint/scope-manager': 8.1.0
       '@typescript-eslint/types': 8.1.0
-      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.6.3)
+      '@typescript-eslint/typescript-estree': 8.1.0(typescript@5.7.2)
       eslint: 8.57.0
     transitivePeerDependencies:
       - supports-color
@@ -4131,13 +4137,13 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-deprecation@3.0.0(eslint@8.57.0)(typescript@5.6.3):
+  eslint-plugin-deprecation@3.0.0(eslint@8.57.0)(typescript@5.7.2):
     dependencies:
-      '@typescript-eslint/utils': 7.18.0(eslint@8.57.0)(typescript@5.6.3)
+      '@typescript-eslint/utils': 7.18.0(eslint@8.57.0)(typescript@5.7.2)
       eslint: 8.57.0
-      ts-api-utils: 1.3.0(typescript@5.6.3)
+      ts-api-utils: 1.3.0(typescript@5.7.2)
       tslib: 2.6.3
-      typescript: 5.6.3
+      typescript: 5.7.2
     transitivePeerDependencies:
       - supports-color
 
@@ -4482,11 +4488,11 @@ snapshots:
       once: 1.4.0
       path-is-absolute: 1.0.1
 
-  global-prefix@3.0.0:
+  global-prefix@4.0.0:
     dependencies:
-      ini: 1.3.8
+      ini: 4.1.3
       kind-of: 6.0.3
-      which: 1.3.1
+      which: 4.0.0
 
   globals@11.12.0: {}
 
@@ -4598,7 +4604,7 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  ini@1.3.8: {}
+  ini@4.1.3: {}
 
   inquirer@8.2.6:
     dependencies:
@@ -4628,7 +4634,7 @@ snapshots:
 
   is-buffer@1.1.6: {}
 
-  is-core-module@2.15.0:
+  is-core-module@2.15.1:
     dependencies:
       hasown: 2.0.2
 
@@ -4681,6 +4687,8 @@ snapshots:
   isarray@1.0.0: {}
 
   isexe@2.0.0: {}
+
+  isexe@3.1.1: {}
 
   isobject@2.1.0:
     dependencies:
@@ -5193,7 +5201,7 @@ snapshots:
 
   resolve@1.22.8:
     dependencies:
-      is-core-module: 2.15.0
+      is-core-module: 2.15.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
@@ -5560,21 +5568,21 @@ snapshots:
 
   tr46@0.0.3: {}
 
-  ts-api-utils@1.3.0(typescript@5.6.3):
+  ts-api-utils@1.3.0(typescript@5.7.2):
     dependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
 
-  ts-loader@9.5.1(typescript@5.6.3)(webpack@5.93.0(webpack-cli@5.1.4)):
+  ts-loader@9.5.1(typescript@5.7.2)(webpack@5.93.0(webpack-cli@5.1.4)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.17.1
       micromatch: 4.0.7
       semver: 7.6.3
       source-map: 0.7.4
-      typescript: 5.6.3
+      typescript: 5.7.2
       webpack: 5.93.0(webpack-cli@5.1.4)
 
-  ts-node@10.9.2(@types/node@20.14.12)(typescript@5.6.3):
+  ts-node@10.9.2(@types/node@20.14.12)(typescript@5.7.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -5588,22 +5596,22 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.6.3
+      typescript: 5.7.2
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
-  ts-patch@3.2.1:
+  ts-patch@3.3.0:
     dependencies:
       chalk: 4.1.2
-      global-prefix: 3.0.0
+      global-prefix: 4.0.0
       minimist: 1.2.8
       resolve: 1.22.8
       semver: 7.6.3
       strip-ansi: 6.0.1
 
-  tsconfck@2.1.2(typescript@5.6.3):
+  tsconfck@2.1.2(typescript@5.7.2):
     optionalDependencies:
-      typescript: 5.6.3
+      typescript: 5.7.2
 
   tsconfig-paths@4.2.0:
     dependencies:
@@ -5636,14 +5644,14 @@ snapshots:
       media-typer: 0.3.0
       mime-types: 2.1.35
 
-  typescript-transform-paths@3.5.2(typescript@5.6.3):
+  typescript-transform-paths@3.5.2(typescript@5.7.2):
     dependencies:
       minimatch: 9.0.5
-      typescript: 5.6.3
+      typescript: 5.7.2
 
-  typescript@5.6.3: {}
+  typescript@5.7.2: {}
 
-  typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.6.3):
+  typia@7.0.2(@samchon/openapi@2.0.1)(typescript@5.7.2):
     dependencies:
       '@samchon/openapi': 2.0.1
       commander: 10.0.1
@@ -5651,7 +5659,7 @@ snapshots:
       inquirer: 8.2.6
       package-manager-detector: 0.2.7
       randexp: 0.5.3
-      typescript: 5.6.3
+      typescript: 5.7.2
 
   uid@2.0.2:
     dependencies:
@@ -5773,13 +5781,13 @@ snapshots:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
 
-  which@1.3.1:
-    dependencies:
-      isexe: 2.0.0
-
   which@2.0.2:
     dependencies:
       isexe: 2.0.0
+
+  which@4.0.0:
+    dependencies:
+      isexe: 3.1.1
 
   wildcard@2.0.1: {}
 
