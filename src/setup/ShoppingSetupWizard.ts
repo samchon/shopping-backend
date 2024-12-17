@@ -17,7 +17,7 @@ export namespace ShoppingSetupWizard {
       );
     const execute = (type: string) => (argv: string) =>
       cp.execSync(`npx prisma migrate ${type} --schema=prisma/schema ${argv}`, {
-        stdio: "ignore",
+        stdio: "inherit",
       });
     execute("reset")("--force");
     execute("dev")("--name init");
