@@ -4,8 +4,6 @@ import { FastifyAdapter } from "@nestjs/platform-fastify";
 
 import { ShoppingModule } from "./src/ShoppingModule";
 
-// const { ShoppingModule } = require("./lib/ShoppingModule");
-
 export const NESTIA_CONFIG: INestiaConfig = {
   input: () => NestFactory.create(ShoppingModule, new FastifyAdapter()),
   output: "src/api",

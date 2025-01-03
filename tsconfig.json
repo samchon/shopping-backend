@@ -73,7 +73,7 @@
          *   - "is": Use typia.is() function
          *   - "validate": Use typia.validate() function
          */
-        "validate": "assert",
+        "validate": "validate",
         /**
          * Validate JSON typed response body.
          * 

@@ -30,7 +30,13 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "monitors",
+          "health",
+          "get"
+        ],
+        "x-samchon-controller": "MonitorHealthController"
       }
     },
     "/monitors/performance": {
@@ -52,7 +58,13 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "monitors",
+          "performance",
+          "get"
+        ],
+        "x-samchon-controller": "MonitorPerformanceController"
       }
     },
     "/monitors/system": {
@@ -74,7 +86,13 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "monitors",
+          "system",
+          "get"
+        ],
+        "x-samchon-controller": "MonitorSystemController"
       }
     },
     "/shoppings/admins/authenticate": {
@@ -101,7 +119,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "authenticate",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingAdminAuthenticateController"
       },
       "post": {
         "summary": "Join as an administrator",
@@ -137,7 +162,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "authenticate",
+          "join"
+        ],
+        "x-samchon-controller": "ShoppingAdminAuthenticateController"
       }
     },
     "/shoppings/admins/authenticate/login": {
@@ -175,7 +207,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "authenticate",
+          "login"
+        ],
+        "x-samchon-controller": "ShoppingAdminAuthenticateController"
       }
     },
     "/shoppings/admins/coupons": {
@@ -213,7 +252,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "coupons",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminCouponController"
       },
       "patch": {
         "summary": "List up every coupons",
@@ -249,7 +295,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "coupons",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminCouponController"
       }
     },
     "/shoppings/admins/coupons/{id}": {
@@ -282,7 +335,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "coupons",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingAdminCouponController"
       },
       "get": {
         "summary": "Get a coupon info",
@@ -317,7 +377,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "coupons",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminCouponController"
       }
     },
     "/shoppings/admins/deposits": {
@@ -355,7 +422,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "deposits",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminDepositController"
       },
       "post": {
         "summary": "Create a new deposit metadata",
@@ -391,7 +465,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "deposits",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminDepositController"
       }
     },
     "/shoppings/admins/deposits/{id}": {
@@ -429,7 +510,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "deposits",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminDepositController"
       },
       "delete": {
         "summary": "Erase a deposit metadata",
@@ -461,7 +549,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "deposits",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingAdminDepositController"
       }
     },
     "/shoppings/admins/deposits/{code}/get": {
@@ -497,7 +592,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "deposits",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingAdminDepositController"
       }
     },
     "/shoppings/admins/mileages": {
@@ -535,7 +637,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageController"
       },
       "post": {
         "summary": "Create a new mileage metadata",
@@ -571,7 +680,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageController"
       }
     },
     "/shoppings/admins/mileages/{id}": {
@@ -609,7 +725,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageController"
       },
       "delete": {
         "summary": "Erase a mileage metadata",
@@ -641,7 +764,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageController"
       }
     },
     "/shoppings/admins/mileages/{code}/get": {
@@ -677,7 +807,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageController"
       }
     },
     "/shoppings/admins/mileages/donations": {
@@ -715,7 +852,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "donations",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageDonationController"
       },
       "post": {
         "summary": "Donate a mileage to a citizen",
@@ -751,7 +896,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "donations",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageDonationController"
       }
     },
     "/shoppings/admins/mileages/donations/{id}": {
@@ -789,7 +942,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "mileages",
+          "donations",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminMileageDonationController"
       }
     },
     "/shoppings/admins/orders": {
@@ -827,7 +988,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "orders",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminOrderController"
       }
     },
     "/shoppings/admins/orders/{id}": {
@@ -865,7 +1033,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "orders",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminOrderController"
       }
     },
     "/shoppings/admins/sales": {
@@ -903,7 +1078,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleController"
       }
     },
     "/shoppings/admins/sales/{id}": {
@@ -941,7 +1123,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleController"
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/{inquiryId}/comments": {
@@ -1000,7 +1189,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "comments",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionCommentController"
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -1057,7 +1255,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "comments",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionCommentController"
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/{inquiryId}/comments/{id}": {
@@ -1115,7 +1322,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "comments",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionCommentController"
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -1182,7 +1398,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "comments",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionCommentController"
       }
     },
     "/shoppings/admins/sales/{saleId}/questions": {
@@ -1231,7 +1456,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionController"
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/abridges": {
@@ -1280,7 +1513,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "abridges"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionController"
       }
     },
     "/shoppings/admins/sales/{saleId}/questions/{id}": {
@@ -1328,7 +1569,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "questions",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleQuestionController"
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/{inquiryId}/comments": {
@@ -1387,7 +1636,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "comments",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewCommentController"
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -1444,7 +1702,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "comments",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewCommentController"
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/{inquiryId}/comments/{id}": {
@@ -1502,7 +1769,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "comments",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewCommentController"
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -1569,7 +1845,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "comments",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewCommentController"
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews": {
@@ -1618,7 +1903,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewController"
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/abridges": {
@@ -1667,7 +1960,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "abridges"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewController"
       }
     },
     "/shoppings/admins/sales/{saleId}/reviews/{id}": {
@@ -1715,7 +2016,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "reviews",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleReviewController"
       }
     },
     "/shoppings/admins/sales/{saleId}/snapshots": {
@@ -1764,7 +2073,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "snapshots",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleSnapshotController"
       }
     },
     "/shoppings/admins/sales/{saleId}/snapshots/{id}": {
@@ -1812,7 +2129,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "snapshots",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleSnapshotController"
       }
     },
     "/shoppings/admins/sales/{saleId}/snapshots/{id}/flip": {
@@ -1860,7 +2185,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "snapshots",
+          "flip"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleSnapshotController"
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories": {
@@ -1908,7 +2241,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "categories",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelCategoryController"
       },
       "patch": {
         "summary": "List up every categories with children records",
@@ -1946,7 +2288,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "categories",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelCategoryController"
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories/{id}": {
@@ -1999,7 +2350,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "categories",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelCategoryController"
       },
       "get": {
         "summary": "Get a category info",
@@ -2044,7 +2404,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "categories",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelCategoryController"
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories/merge": {
@@ -2088,7 +2457,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "categories",
+          "merge"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelCategoryController"
       }
     },
     "/shoppings/admins/systematic/channels/{channelCode}/categories/{id}/invert": {
@@ -2135,7 +2513,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "categories",
+          "invert"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelCategoryController"
       }
     },
     "/shoppings/admins/systematic/channels": {
@@ -2173,7 +2560,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       },
       "patch": {
         "summary": "List up every channels",
@@ -2209,7 +2604,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       }
     },
     "/shoppings/admins/systematic/channels/{id}": {
@@ -2254,7 +2657,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       },
       "get": {
         "summary": "Get a channel info",
@@ -2290,7 +2701,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       }
     },
     "/shoppings/admins/systematic/channels/merge": {
@@ -2324,7 +2743,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "merge"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       }
     },
     "/shoppings/admins/systematic/channels/hierarchical": {
@@ -2362,7 +2789,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "hierarchical"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       }
     },
     "/shoppings/admins/systematic/channels/{code}/get": {
@@ -2399,7 +2834,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "channels",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicChannelController"
       }
     },
     "/shoppings/admins/systematic/sections": {
@@ -2437,7 +2880,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "sections",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicSectionController"
       },
       "patch": {
         "summary": "List up every sections",
@@ -2473,7 +2924,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "sections",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicSectionController"
       }
     },
     "/shoppings/admins/systematic/sections/{id}": {
@@ -2518,7 +2977,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "sections",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicSectionController"
       },
       "get": {
         "summary": "Get a section info",
@@ -2554,7 +3021,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "sections",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicSectionController"
       }
     },
     "/shoppings/admins/systematic/sections/merge": {
@@ -2588,7 +3063,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "sections",
+          "merge"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicSectionController"
       }
     },
     "/shoppings/admins/systematic/sections/{code}/get": {
@@ -2625,7 +3108,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "systematic",
+          "sections",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingAdminSystematicSectionController"
       }
     },
     "/shoppings/customers/authenticate/refresh": {
@@ -2658,7 +3149,14 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "refresh"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       }
     },
     "/shoppings/customers/authenticate": {
@@ -2685,7 +3183,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       },
       "post": {
         "summary": "Create a new customer record",
@@ -2716,7 +3221,14 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       }
     },
     "/shoppings/customers/authenticate/join": {
@@ -2754,7 +3266,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "join"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       }
     },
     "/shoppings/customers/authenticate/login": {
@@ -2792,7 +3311,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "login"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       }
     },
     "/shoppings/customers/authenticate/activate": {
@@ -2830,7 +3356,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "activate"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       }
     },
     "/shoppings/customers/authenticate/external": {
@@ -2868,7 +3401,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "external"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticateController"
       }
     },
     "/shoppings/customers/authenticate/password/change": {
@@ -2902,7 +3442,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "authenticate",
+          "password",
+          "change"
+        ],
+        "x-samchon-controller": "ShoppingCustomerAuthenticatePasswordController"
       }
     },
     "/shoppings/customers/coupons": {
@@ -2940,7 +3488,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "coupons",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCouponController"
       }
     },
     "/shoppings/customers/coupons/{id}": {
@@ -2977,7 +3532,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "coupons",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCouponController"
       }
     },
     "/shoppings/customers/coupons/tickets": {
@@ -3015,7 +3577,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "coupons",
+          "tickets",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCouponTicketController"
       },
       "post": {
         "summary": "Create a new coupon ticket",
@@ -3051,7 +3621,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "coupons",
+          "tickets",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCouponTicketController"
       }
     },
     "/shoppings/customers/coupons/tickets/{id}": {
@@ -3089,7 +3667,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "coupons",
+          "tickets",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCouponTicketController"
       }
     },
     "/shoppings/customers/deposits/charges": {
@@ -3127,7 +3713,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargeController"
       },
       "post": {
         "summary": "Create a new deposit charge application",
@@ -3163,7 +3757,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargeController"
       }
     },
     "/shoppings/customers/deposits/charges/{id}": {
@@ -3200,7 +3802,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargeController"
       },
       "put": {
         "summary": "Update a deposit charge application",
@@ -3242,7 +3852,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargeController"
       },
       "delete": {
         "summary": "Erase a deposit charge application",
@@ -3273,7 +3891,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargeController"
       }
     },
     "/shoppings/customers/deposits/charges/{chargeId}/publish/able": {
@@ -3311,7 +3937,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "publish",
+          "able"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargePublishController"
       }
     },
     "/shoppings/customers/deposits/charges/{chargeId}/publish": {
@@ -3360,7 +3995,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "charges",
+          "publish",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositChargePublishController"
       }
     },
     "/shoppings/customers/deposits/histories": {
@@ -3398,7 +4042,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "histories",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositHistoryController"
       }
     },
     "/shoppings/customers/deposits/histories/{id}": {
@@ -3435,7 +4087,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "histories",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositHistoryController"
       }
     },
     "/shoppings/customers/deposits/histories/balance": {
@@ -3462,7 +4122,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "deposits",
+          "histories",
+          "balance"
+        ],
+        "x-samchon-controller": "ShoppingCustomerDepositHistoryController"
       }
     },
     "/shoppings/customers/mileages/histories": {
@@ -3500,7 +4168,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "mileages",
+          "histories",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerMileageHistoryController"
       }
     },
     "/shoppings/customers/mileages/histories/{id}": {
@@ -3538,7 +4214,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "mileages",
+          "histories",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerMileageHistoryController"
       }
     },
     "/shoppings/customers/mileages/histories/balance": {
@@ -3565,7 +4249,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "mileages",
+          "histories",
+          "balance"
+        ],
+        "x-samchon-controller": "ShoppingCustomerMileageHistoryController"
       }
     },
     "/shoppings/customers/carts/commodities": {
@@ -3603,7 +4295,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       },
       "post": {
         "summary": "Create a new commodity",
@@ -3639,7 +4339,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       }
     },
     "/shoppings/customers/carts/commodities/{id}": {
@@ -3677,7 +4385,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       },
       "put": {
         "summary": "Update a commodity (volume)",
@@ -3720,7 +4436,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       },
       "delete": {
         "summary": "Erase a commodity",
@@ -3752,7 +4476,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       }
     },
     "/shoppings/customers/carts/commodities/{id}/replica": {
@@ -3790,7 +4522,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "replica"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       }
     },
     "/shoppings/customers/carts/commodities/discountable": {
@@ -3828,7 +4568,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "carts",
+          "commodities",
+          "discountable"
+        ],
+        "x-samchon-controller": "ShoppingCustomerCartCommodityController"
       }
     },
     "/shoppings/customers/orders": {
@@ -3866,7 +4614,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       },
       "patch": {
         "summary": "List up every orders",
@@ -3902,7 +4657,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       }
     },
     "/shoppings/customers/orders/{id}": {
@@ -3936,7 +4698,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       },
       "get": {
         "summary": "Get an order info",
@@ -3972,7 +4741,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       }
     },
     "/shoppings/customers/orders/{id}/price": {
@@ -4010,7 +4786,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "price"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       }
     },
     "/shoppings/customers/orders/{id}/discountable": {
@@ -4059,7 +4842,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "discountable"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       }
     },
     "/shoppings/customers/orders/{id}/discount": {
@@ -4108,7 +4898,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "discount"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
       }
     },
     "/shoppings/customers/orders/{orderId}/goods/{id}/confirm": {
@@ -4152,7 +4949,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "goods",
+          "confirm"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderGoodController"
       }
     },
     "/shoppings/customers/orders/{orderId}/publish/able": {
@@ -4190,7 +4995,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "publish",
+          "able"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderPublishController"
       }
     },
     "/shoppings/customers/orders/{orderId}/publish": {
@@ -4239,7 +5052,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "publish",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderPublishController"
       },
       "delete": {
         "summary": "Cancel the publish (payment)",
@@ -4271,7 +5092,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "publish",
+          "cancel"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderPublishController"
       }
     },
     "/shoppings/customers/sales": {
@@ -4309,7 +5138,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleController"
       }
     },
     "/shoppings/customers/sales/{id}": {
@@ -4347,7 +5183,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleController"
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/{inquiryId}/comments": {
@@ -4406,7 +5249,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "comments",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionCommentController"
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -4463,7 +5315,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "comments",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionCommentController"
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/{inquiryId}/comments/{id}": {
@@ -4521,7 +5382,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "comments",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionCommentController"
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -4588,7 +5458,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "comments",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionCommentController"
       }
     },
     "/shoppings/customers/sales/{saleId}/questions": {
@@ -4637,7 +5516,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionController"
       },
       "patch": {
         "summary": "List up every summarized questions",
@@ -4684,7 +5571,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionController"
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/{id}": {
@@ -4743,7 +5638,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionController"
       },
       "get": {
         "summary": "Get a question info",
@@ -4789,7 +5692,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionController"
       }
     },
     "/shoppings/customers/sales/{saleId}/questions/abridges": {
@@ -4838,7 +5749,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "questions",
+          "abridges"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleQuestionController"
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/{inquiryId}/comments": {
@@ -4897,7 +5816,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "comments",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewCommentController"
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -4954,7 +5882,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "comments",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewCommentController"
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/{inquiryId}/comments/{id}": {
@@ -5012,7 +5949,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "comments",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewCommentController"
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -5079,7 +6025,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "comments",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewCommentController"
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews": {
@@ -5128,7 +6083,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewController"
       },
       "patch": {
         "summary": "List up every summarized reviews",
@@ -5175,7 +6138,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewController"
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/{id}": {
@@ -5234,7 +6205,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewController"
       },
       "get": {
         "summary": "Get a review info",
@@ -5280,7 +6259,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewController"
       }
     },
     "/shoppings/customers/sales/{saleId}/reviews/abridges": {
@@ -5329,7 +6316,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "reviews",
+          "abridges"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleReviewController"
       }
     },
     "/shoppings/customers/sales/{saleId}/snapshots": {
@@ -5378,7 +6373,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "snapshots",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleSnapshotController"
       }
     },
     "/shoppings/customers/sales/{saleId}/snapshots/{id}": {
@@ -5426,7 +6429,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "snapshots",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleSnapshotController"
       }
     },
     "/shoppings/customers/sales/{saleId}/snapshots/{id}/flip": {
@@ -5474,7 +6485,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "snapshots",
+          "flip"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleSnapshotController"
       }
     },
     "/shoppings/customers/systematic/channels/{channelCode}/categories": {
@@ -5514,7 +6533,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "categories",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelCategoryController"
       }
     },
     "/shoppings/customers/systematic/channels/{channelCode}/categories/{id}": {
@@ -5561,7 +6589,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "categories",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelCategoryController"
       }
     },
     "/shoppings/customers/systematic/channels/{channelCode}/categories/{id}/invert": {
@@ -5608,7 +6645,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "categories",
+          "invert"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelCategoryController"
       }
     },
     "/shoppings/customers/systematic/channels": {
@@ -5646,7 +6692,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelController"
       }
     },
     "/shoppings/customers/systematic/channels/hierarchical": {
@@ -5684,7 +6738,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "hierarchical"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelController"
       }
     },
     "/shoppings/customers/systematic/channels/{id}": {
@@ -5722,7 +6784,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelController"
       }
     },
     "/shoppings/customers/systematic/channels/{code}/get": {
@@ -5759,7 +6829,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "channels",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicChannelController"
       }
     },
     "/shoppings/customers/systematic/sections": {
@@ -5797,7 +6875,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "sections",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicSectionController"
       }
     },
     "/shoppings/customers/systematic/sections/{id}": {
@@ -5835,7 +6921,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "sections",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicSectionController"
       }
     },
     "/shoppings/customers/systematic/sections/{code}/get": {
@@ -5872,7 +6966,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "systematic",
+          "sections",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSystematicSectionController"
       }
     },
     "/shoppings/sellers/authenticate": {
@@ -5899,7 +7001,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "authenticate",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingSellerAuthenticateController"
       },
       "post": {
         "summary": "Join as an seller",
@@ -5935,7 +7044,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "authenticate",
+          "join"
+        ],
+        "x-samchon-controller": "ShoppingSellerAuthenticateController"
       }
     },
     "/shoppings/sellers/authenticate/login": {
@@ -5973,7 +7089,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "authenticate",
+          "login"
+        ],
+        "x-samchon-controller": "ShoppingSellerAuthenticateController"
       }
     },
     "/shoppings/sellers/deliveries": {
@@ -6011,7 +7134,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryController"
       },
       "post": {
         "summary": "Create a delivery",
@@ -6047,7 +7177,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryController"
       }
     },
     "/shoppings/sellers/deliveries/{id}": {
@@ -6085,7 +7222,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryController"
       }
     },
     "/shoppings/sellers/deliveries/incompletes": {
@@ -6126,7 +7270,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "incompletes"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryController"
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/journeys": {
@@ -6175,7 +7326,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "journeys",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryJourneyController"
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/journeys/{id}/complete": {
@@ -6230,7 +7389,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "journeys",
+          "complete"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryJourneyController"
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/journeys/{id}": {
@@ -6274,7 +7441,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "journeys",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryJourneyController"
       }
     },
     "/shoppings/sellers/deliveries/{deliveryId}/shippers": {
@@ -6323,7 +7498,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "deliveries",
+          "shippers",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerDeliveryShipperController"
       }
     },
     "/shoppings/sellers/coupons": {
@@ -6361,7 +7544,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "coupons",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerCouponController"
       },
       "patch": {
         "summary": "List up every coupons",
@@ -6397,7 +7587,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "coupons",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerCouponController"
       }
     },
     "/shoppings/sellers/coupons/{id}": {
@@ -6430,7 +7627,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "coupons",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingSellerCouponController"
       },
       "get": {
         "summary": "Get a coupon info",
@@ -6465,7 +7669,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "coupons",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerCouponController"
       }
     },
     "/shoppings/sellers/orders": {
@@ -6503,7 +7714,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "orders",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerOrderController"
       }
     },
     "/shoppings/sellers/orders/{id}": {
@@ -6541,7 +7759,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "orders",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerOrderController"
       }
     },
     "/shoppings/sellers/sales": {
@@ -6579,7 +7804,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       },
       "patch": {
         "summary": "List up every summarized sales",
@@ -6615,7 +7847,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}": {
@@ -6664,7 +7903,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       },
       "get": {
         "summary": "Get a sale info",
@@ -6700,7 +7946,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}/open": {
@@ -6745,7 +7998,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "open"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}/replica": {
@@ -6783,7 +8043,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "replica"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}/pause": {
@@ -6817,7 +8084,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "pause"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}/suspend": {
@@ -6851,7 +8125,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "suspend"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}/restore": {
@@ -6884,7 +8165,14 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "restore"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{questionId}/answer": {
@@ -6943,7 +8231,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "answer",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionAnswerController"
       },
       "put": {
         "summary": "Update an answer article",
@@ -7000,7 +8297,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "answer",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionAnswerController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{inquiryId}/comments": {
@@ -7059,7 +8365,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "comments",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionCommentController"
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -7116,7 +8431,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "comments",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionCommentController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{inquiryId}/comments/{id}": {
@@ -7174,7 +8498,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "comments",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionCommentController"
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -7241,7 +8574,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "comments",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionCommentController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions": {
@@ -7290,7 +8632,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/abridges": {
@@ -7339,7 +8689,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "abridges"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{id}": {
@@ -7387,7 +8745,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "questions",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleQuestionController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{reviewId}/answer": {
@@ -7446,7 +8812,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "answer",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewAnswerController"
       },
       "put": {
         "summary": "Update an answer article",
@@ -7503,7 +8878,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "answer",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewAnswerController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{inquiryId}/comments": {
@@ -7562,7 +8946,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "comments",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewCommentController"
       },
       "post": {
         "summary": "Create an inquiry comment",
@@ -7619,7 +9012,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "comments",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewCommentController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{inquiryId}/comments/{id}": {
@@ -7677,7 +9079,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "comments",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewCommentController"
       },
       "put": {
         "summary": "Update an inquiry comment",
@@ -7744,7 +9155,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "comments",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewCommentController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews": {
@@ -7793,7 +9213,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/abridges": {
@@ -7842,7 +9270,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "abridges"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/reviews/{id}": {
@@ -7890,7 +9326,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "reviews",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleReviewController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots/{id}/replica": {
@@ -7938,7 +9382,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "snapshots",
+          "replica"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleSnapshotController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots": {
@@ -7987,7 +9439,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "snapshots",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleSnapshotController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots/{id}": {
@@ -8035,7 +9495,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "snapshots",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleSnapshotController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/snapshots/{id}/flip": {
@@ -8083,7 +9551,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "snapshots",
+          "flip"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleSnapshotController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/units/{unitId}/stocks/{stockId}/supplements": {
@@ -8152,7 +9628,17 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "units",
+          "stocks",
+          "supplements",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleUnitStockSupplementController"
       },
       "post": {
         "summary": "Create a supplement",
@@ -8219,7 +9705,17 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "units",
+          "stocks",
+          "supplements",
+          "create"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleUnitStockSupplementController"
       }
     },
     "/shoppings/sellers/sales/{saleId}/units/{unitId}/stocks/{stockId}/supplements/{id}": {
@@ -8294,7 +9790,17 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "units",
+          "stocks",
+          "supplements",
+          "update"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleUnitStockSupplementController"
       },
       "delete": {
         "summary": "Erase a supplement",
@@ -8356,7 +9862,17 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "units",
+          "stocks",
+          "supplements",
+          "erase"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleUnitStockSupplementController"
       }
     },
     "/shoppings/sellers/systematic/channels/{channelCode}/categories": {
@@ -8396,7 +9912,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "categories",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelCategoryController"
       }
     },
     "/shoppings/sellers/systematic/channels/{channelCode}/categories/{id}": {
@@ -8443,7 +9968,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "categories",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelCategoryController"
       }
     },
     "/shoppings/sellers/systematic/channels/{channelCode}/categories/{id}/invert": {
@@ -8490,7 +10024,16 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "categories",
+          "invert"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelCategoryController"
       }
     },
     "/shoppings/sellers/systematic/channels": {
@@ -8528,7 +10071,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelController"
       }
     },
     "/shoppings/sellers/systematic/channels/hierarchical": {
@@ -8566,7 +10117,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "hierarchical"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelController"
       }
     },
     "/shoppings/sellers/systematic/channels/{id}": {
@@ -8604,7 +10163,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelController"
       }
     },
     "/shoppings/sellers/systematic/channels/{code}/get": {
@@ -8641,7 +10208,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "channels",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicChannelController"
       }
     },
     "/shoppings/sellers/systematic/sections": {
@@ -8679,7 +10254,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "sections",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicSectionController"
       }
     },
     "/shoppings/sellers/systematic/sections/{id}": {
@@ -8717,7 +10300,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "sections",
+          "at"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicSectionController"
       }
     },
     "/shoppings/sellers/systematic/sections/{code}/get": {
@@ -8754,7 +10345,15 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "systematic",
+          "sections",
+          "get"
+        ],
+        "x-samchon-controller": "ShoppingSellerSystematicSectionController"
       }
     }
   },
