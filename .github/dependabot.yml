@@ -8,10 +8,11 @@ updates:
     open-pull-requests-limit: 25
     versioning-strategy: increase
     allow:
-      - dependency-name: "nestia"
       - dependency-name: "@nestia/*"
       - dependency-name: "@nestjs/*"
       - dependency-name: "@prisma/*"
+      - dependency-name: "@samchon/openapi"
+      - dependency-name: "nestia"
       - dependency-name: "prisma"
       - dependency-name: "prisma-markdown"
       - dependency-name: "tstl"
@@ -23,6 +24,7 @@ updates:
       Samchon:
         patterns:
           - "@nestia/*"
+          - "@samchon/openapi"
           - "nestia"
           - "tstl"
           - "typia"
