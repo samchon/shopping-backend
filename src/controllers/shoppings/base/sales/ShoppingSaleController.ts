@@ -27,8 +27,8 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      * For reference, if you're a {@link IShoppingSeller seller}, you can only
      * access to the your own {@link IShoppingSale sale}s. Otherwise you're a
      * {@link IShoppingCustomer customer}, you can see only the operating
-     * sales in the market. You can't see the unopened, closed, or suspended
-     * sales.
+     * sales in the market. Instead, you can't see the unopened, closed, or
+     * suspended sales.
      *
      * By the way, if you want, you can limit the result by configuring
      * {@link IShoppingSale.IRequest.search search condition} in the request
@@ -41,12 +41,49 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      *
      * @author Samchon
      */
+    @core.HumanRoute()
     @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingSale.IRequest
     ): Promise<IPage<IShoppingSale.ISummary>> {
       return ShoppingSaleProvider.index({
+        actor,
+        input,
+      });
+    }
+
+    /**
+     * List up every sales.
+     *
+     * List up every {@link IShoppingSale sales} with detailed informations.
+     *
+     * As you can see, returned sales are detailed, not summarized. If you want
+     * to get the summarized information of sale for a brief, use {@link index}
+     * function instead.
+     *
+     * For reference, if you're a {@link IShoppingSeller seller}, you can only
+     * acess to the your own {@link IShoppingSale sale}s. Otherwise you're a
+     * {@link IShoppingCustomer customer}, you can see only the operating sales
+     * in the market. Instead, you can't see the unopened, closed, or suspended
+     * sales.
+     *
+     * By the way, if you want, you can limit the result by configuring
+     * {@link IShoppingSale.IRequest.search search condition} in the request
+     * body. Also, it is possible to customize sequence order of records by
+     * configuring {@link IShoppingSale.IRequest.sort sort condition}.
+     *
+     * @param input Request info of pagination, searching and sorting
+     * @returns Paginated sales with detailed information
+     * @tag Sale
+     *
+     * @author Samchon
+     */
+    public async details(
+      @props.AuthGuard() actor: Actor,
+      @core.TypedBody() input: IShoppingSale.IRequest
+    ): Promise<IPage<IShoppingSale>> {
+      return ShoppingSaleProvider.details({
         actor,
         input,
       });

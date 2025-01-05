@@ -15,6 +15,7 @@ import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingSellerProvider } from "../actors/ShoppingSellerProvider";
 import { ShoppingSectionProvider } from "../systematic/ShoppingSectionProvider";
 import { ShoppingSaleSnapshotProvider } from "./ShoppingSaleSnapshotProvider";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 
 export namespace ShoppingSaleProvider {
   /* -----------------------------------------------------------
@@ -121,11 +122,34 @@ export namespace ShoppingSaleProvider {
   export const index = async (props: {
     actor: IShoppingActorEntity;
     input: IShoppingSale.IRequest;
-  }) =>
+  }): Promise<IPage<IShoppingSale.ISummary>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_sales,
       payload: summary.select(),
       transform: summary.transform,
+    })({
+      where: {
+        AND: [
+          ...where(props.actor, true),
+          ...(await search({
+            actor: props.actor,
+            input: props.input.search,
+          })),
+        ],
+      },
+      orderBy: props.input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(props.input.sort)
+        : [{ created_at: "desc" }],
+    } satisfies Prisma.shopping_salesFindManyArgs)(props.input);
+
+  export const details = async (props: {
+    actor: IShoppingActorEntity;
+    input: IShoppingSale.IRequest;
+  }): Promise<IPage<IShoppingSale>> =>
+    PaginationUtil.paginate({
+      schema: ShoppingGlobal.prisma.shopping_sales,
+      payload: json.select(),
+      transform: json.transform,
     })({
       where: {
         AND: [
