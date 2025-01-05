@@ -79,6 +79,7 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      *
      * @author Samchon
      */
+    @core.TypedRoute.Patch("details")
     public async details(
       @props.AuthGuard() actor: Actor,
       @core.TypedBody() input: IShoppingSale.IRequest

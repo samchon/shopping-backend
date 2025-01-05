@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.12.0",
+    "version": "0.12.1",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -1087,6 +1087,51 @@
         ],
         "x-samchon-controller": "ShoppingAdminSaleController",
         "x-samchon-human": true
+      }
+    },
+    "/shoppings/admins/sales/details": {
+      "patch": {
+        "summary": "List up every sales",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "tags": [
+          "Sale"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request info of pagination, searching and sorting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IShoppingSale.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated sales with detailed information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPageIShoppingSale"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "details"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleController"
       }
     },
     "/shoppings/admins/sales/{id}": {
@@ -5150,6 +5195,51 @@
         "x-samchon-human": true
       }
     },
+    "/shoppings/customers/sales/details": {
+      "patch": {
+        "summary": "List up every sales",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "tags": [
+          "Sale"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request info of pagination, searching and sorting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IShoppingSale.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated sales with detailed information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPageIShoppingSale"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "sales",
+          "details"
+        ],
+        "x-samchon-controller": "ShoppingCustomerSaleController"
+      }
+    },
     "/shoppings/customers/sales/{id}": {
       "get": {
         "summary": "Get a sale info",
@@ -8174,6 +8264,51 @@
           "sellers",
           "sales",
           "restore"
+        ],
+        "x-samchon-controller": "ShoppingSellerSaleController"
+      }
+    },
+    "/shoppings/sellers/sales/details": {
+      "patch": {
+        "summary": "List up every sales",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "tags": [
+          "Sale"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request info of pagination, searching and sorting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IShoppingSale.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated sales with detailed information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPageIShoppingSale"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "sellers",
+          "sales",
+          "details"
         ],
         "x-samchon-controller": "ShoppingSellerSaleController"
       }
@@ -15405,6 +15540,29 @@
         },
         "required": [],
         "description": "Request of summarized sales with pagination and searching/sorting options."
+      },
+      "IPageIShoppingSale": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/IPage.IPagination",
+            "title": "Page information",
+            "description": "Page information."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IShoppingSale"
+            },
+            "title": "List of records",
+            "description": "List of records."
+          }
+        },
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "description": "A page.\n\nCollection of records with pagination indformation."
       },
       "IShoppingSale": {
         "type": "object",
