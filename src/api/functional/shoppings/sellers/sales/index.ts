@@ -579,8 +579,8 @@ export namespace restore {
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
  * access to the your own {@link IShoppingSale sale}s. Otherwise you're a
  * {@link IShoppingCustomer customer}, you can see only the operating
- * sales in the market. You can't see the unopened, closed, or suspended
- * sales.
+ * sales in the market. Instead, you can't see the unopened, closed, or
+ * suspended sales.
  *
  * By the way, if you want, you can limit the result by configuring
  * {@link IShoppingSale.IRequest.search search condition} in the request

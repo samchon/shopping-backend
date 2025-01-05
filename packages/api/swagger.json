@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.11.0",
+    "version": "0.12.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -1046,7 +1046,7 @@
     "/shoppings/admins/sales": {
       "patch": {
         "summary": "List up every summarized sales",
-        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. You can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. Instead, you can't see the unopened, closed, or\nsuspended sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
         "tags": [
           "Sale"
         ],
@@ -1085,7 +1085,8 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingAdminSaleController"
+        "x-samchon-controller": "ShoppingAdminSaleController",
+        "x-samchon-human": true
       }
     },
     "/shoppings/admins/sales/{id}": {
@@ -5106,7 +5107,7 @@
     "/shoppings/customers/sales": {
       "patch": {
         "summary": "List up every summarized sales",
-        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. You can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. Instead, you can't see the unopened, closed, or\nsuspended sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
         "tags": [
           "Sale"
         ],
@@ -5145,7 +5146,8 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingCustomerSaleController"
+        "x-samchon-controller": "ShoppingCustomerSaleController",
+        "x-samchon-human": true
       }
     },
     "/shoppings/customers/sales/{id}": {
@@ -7815,7 +7817,7 @@
       },
       "patch": {
         "summary": "List up every summarized sales",
-        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. You can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. Instead, you can't see the unopened, closed, or\nsuspended sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
         "tags": [
           "Sale"
         ],
@@ -7854,7 +7856,8 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingSellerSaleController"
+        "x-samchon-controller": "ShoppingSellerSaleController",
+        "x-samchon-human": true
       }
     },
     "/shoppings/sellers/sales/{id}": {
