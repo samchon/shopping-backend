@@ -1,7 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
-import { IShoppingCartCommodityStockChoice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodityStockChoice";
 import { IShoppingSaleUnitOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitOption";
 import { IShoppingSaleUnitStockChoice } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStockChoice";
 
@@ -15,7 +14,7 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
     export const transform = (
       input: Prisma.shopping_cart_commodity_stock_choicesGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleUnitStockChoice.IInvert => {
       const option: IShoppingSaleUnitOption.IInvert =
         input.option.type === "select"
@@ -48,7 +47,7 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
         candidate:
           input.candidate !== null
             ? ShoppingSaleSnapshotUnitOptionCandidateProvider.json.transform(
-                input.candidate,
+                input.candidate
               )
             : null,
         value:
@@ -74,19 +73,19 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
     WRITERS
   ----------------------------------------------------------- */
   export const collect = (
-    input: IShoppingCartCommodityStockChoice.ICreate,
-    sequence: number,
+    option_id: string,
+    candidate_id: string | null,
+    value: any,
+    sequence: number
   ) =>
     ({
       id: v4(),
       option: {
-        connect: { id: input.option_id },
+        connect: { id: option_id },
       },
       candidate:
-        input.candidate_id !== null
-          ? { connect: { id: input.candidate_id } }
-          : undefined,
-      value: input.value !== null ? String(input.value) : null,
+        candidate_id !== null ? { connect: { id: candidate_id } } : undefined,
+      value: value !== null ? String(value) : null,
       sequence,
     }) satisfies Prisma.shopping_cart_commodity_stock_choicesCreateWithoutStockInput;
 }
