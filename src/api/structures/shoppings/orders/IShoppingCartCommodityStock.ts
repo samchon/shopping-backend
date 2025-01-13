@@ -45,7 +45,7 @@ export namespace IShoppingCartCommodityStock {
     stock_id: string & tags.Format<"uuid">;
 
     /**
-     * Creation information of the choices for each option.
+     * Creation information of the choices for each descriptive option.
      */
     choices: IShoppingCartCommodityStockChoice.ICreate[];
 

@@ -19766,8 +19766,8 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingCartCommodityStockChoice.ICreate"
             },
-            "title": "Creation information of the choices for each option",
-            "description": "Creation information of the choices for each option."
+            "title": "Creation information of the choices for each descriptive option",
+            "description": "Creation information of the choices for each descriptive option."
           },
           "quantity": {
             "type": "integer",
