@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-backend",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "description": "Backend for shopping",
   "scripts": {
     "test": "rimraf prisma/migrations && node bin/test",

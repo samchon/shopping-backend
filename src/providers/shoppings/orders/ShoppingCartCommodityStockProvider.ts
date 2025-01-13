@@ -7,6 +7,7 @@ import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shopping
 import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { ShoppingSaleSnapshotUnitProvider } from "../sales/ShoppingSaleSnapshotUnitProvider";
 import { ShoppingCartCommodityStockChoiceProvider } from "./ShoppingCartCommodityStockChoiceProvider";
+import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStock";
 
 export namespace ShoppingCartCommodityStockProvider {
   /* -----------------------------------------------------------
@@ -16,7 +17,7 @@ export namespace ShoppingCartCommodityStockProvider {
     export const transform = (
       input: Prisma.shopping_cart_commodity_stocksGetPayload<
         ReturnType<typeof select>
-      >,
+      >
     ): IShoppingSaleUnit.IInvert => {
       if (input.stock.mv_inventory === null)
         throw ErrorProvider.internal("No inventory status exists.");
@@ -60,15 +61,31 @@ export namespace ShoppingCartCommodityStockProvider {
     WRITERS
   ----------------------------------------------------------- */
   export const collect = (
+    stock: IShoppingSaleUnitStock,
     input: IShoppingCartCommodityStock.ICreate,
-    sequence: number,
+    sequence: number
   ) =>
     ({
       id: v4(),
       choices: {
-        create: input.choices.map(
-          ShoppingCartCommodityStockChoiceProvider.collect,
-        ),
+        create: [
+          ...stock.choices.map((choice, i) =>
+            ShoppingCartCommodityStockChoiceProvider.collect(
+              choice.option_id,
+              choice.candidate_id,
+              null,
+              i
+            )
+          ),
+          ...input.choices.map((choice, i) =>
+            ShoppingCartCommodityStockChoiceProvider.collect(
+              choice.option_id,
+              null,
+              choice.value,
+              stock.choices.length + i
+            )
+          ),
+        ],
       },
       unit: {
         connect: { id: input.unit_id },

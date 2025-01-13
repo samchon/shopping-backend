@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.12.1",
+    "version": "0.13.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -4628,7 +4628,7 @@
     "/shoppings/customers/orders": {
       "post": {
         "summary": "Create a new order application",
-        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.",
+        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot and user wants to directly purchase a\n> product (of sale stock), then call the commodity creation function first.\n> Its endpoint is `POST /shoppings/customers/carts/commodities`.\n> And call this function with the newly created commodity.",
         "tags": [
           "Order"
         ],
@@ -19766,8 +19766,8 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingCartCommodityStockChoice.ICreate"
             },
-            "title": "Creation information of the choices for each option",
-            "description": "Creation information of the choices for each option."
+            "title": "Creation information of the choices for each descriptive option",
+            "description": "Creation information of the choices for each descriptive option."
           },
           "quantity": {
             "type": "integer",
@@ -19793,19 +19793,6 @@
             "title": "Target option's {@link IShoppingSaleUnitOption.id}",
             "description": "Target option's {@link IShoppingSaleUnitOption.id}."
           },
-          "candidate_id": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "uuid"
-              }
-            ],
-            "title": "Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}",
-            "description": "Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}.\n\nWhen target option's type is `select`, then this attribute is not\n`null` but has a value."
-          },
           "value": {
             "oneOf": [
               {
@@ -19822,15 +19809,14 @@
               }
             ],
             "title": "Written value about the option",
-            "description": "Written value about the option.\n\nWhen target option's type is not `select`, but an atomic type value\nlike `boolean`, `number` or `string`, then this attribute is not\n`null` but has the matched atomic value."
+            "description": "Written value about the option.\n\nWhen target option's type is 'descriptive', then you have to\nfill this property with the written value by the customer."
           }
         },
         "required": [
           "option_id",
-          "candidate_id",
           "value"
         ],
-        "description": "Creation information of the choice for each option.\n\nWhen record being created, its corresponding structure would be\n{@link IShoppingSaleUnitStockChoice.IInvert}."
+        "description": "Creation information of the choice for each option (of descriptive).\n\nWhen target option is {@link IShoppingSaleUnitDescriptiveOption}\ntype, then you have to compose this choice structure with\n{@link value} specification.\n\nOtherwise when target option is {@link IShoppingSaleUnitSelectableOption}\ntype, you don't need to compose this choice structure. Just fill only\nthe {@link IShoppingCartCommodityStock.ICreate.stock_id} property."
       },
       "IShoppingCartCommodity.IUpdate": {
         "type": "object",

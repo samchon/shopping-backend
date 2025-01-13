@@ -361,8 +361,14 @@ export namespace ShoppingCartCommodityProvider {
             connect: { id: sale.snapshot_id },
           },
           stocks: {
-            create: props.input.stocks.map(
-              ShoppingCartCommodityStockProvider.collect
+            create: props.input.stocks.map((si, i) =>
+              ShoppingCartCommodityStockProvider.collect(
+                sale.units
+                  .find((u) => u.id === si.unit_id)!
+                  .stocks.find((s) => s.id === si.stock_id)!,
+                si,
+                i
+              )
             ),
           },
           mv_price: {

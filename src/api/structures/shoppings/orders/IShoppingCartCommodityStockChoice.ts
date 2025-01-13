@@ -21,10 +21,15 @@ import { tags } from "typia";
  */
 export namespace IShoppingCartCommodityStockChoice {
   /**
-   * Creation information of the choice for each option.
+   * Creation information of the choice for each option (of descriptive).
    *
-   * When record being created, its corresponding structure would be
-   * {@link IShoppingSaleUnitStockChoice.IInvert}.
+   * When target option is {@link IShoppingSaleUnitDescriptiveOption}
+   * type, then you have to compose this choice structure with
+   * {@link value} specification.
+   *
+   * Otherwise when target option is {@link IShoppingSaleUnitSelectableOption}
+   * type, you don't need to compose this choice structure. Just fill only
+   * the {@link IShoppingCartCommodityStock.ICreate.stock_id} property.
    */
   export interface ICreate {
     /**
@@ -33,19 +38,10 @@ export namespace IShoppingCartCommodityStockChoice {
     option_id: string & tags.Format<"uuid">;
 
     /**
-     * Target candidate's {@link IShoppingSaleUnitOptionCandidate.id}.
-     *
-     * When target option's type is `select`, then this attribute is not
-     * `null` but has a value.
-     */
-    candidate_id: null | (string & tags.Format<"uuid">);
-
-    /**
      * Written value about the option.
      *
-     * When target option's type is not `select`, but an atomic type value
-     * like `boolean`, `number` or `string`, then this attribute is not
-     * `null` but has the matched atomic value.
+     * When target option's type is 'descriptive', then you have to
+     * fill this property with the written value by the customer.
      */
     value: null | boolean | number | string;
   }

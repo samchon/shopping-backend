@@ -28,6 +28,11 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
    * just customer is appling the order. The order be completed only when customer
    * {@link IShoppingOrderPublish.paid_at pays} the order.
    *
+   * > If you are an A.I. chatbot and user wants to directly purchase a
+   * > product (of sale stock), then call the commodity creation function first.
+   * > Its endpoint is `POST /shoppings/customers/carts/commodities`.
+   * > And call this function with the newly created commodity.
+   *
    * @param input Creation info of the order
    * @returns Newly created order
    * @tag Order
