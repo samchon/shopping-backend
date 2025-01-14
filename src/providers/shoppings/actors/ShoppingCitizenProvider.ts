@@ -66,12 +66,12 @@ export namespace ShoppingCitizenProvider {
     AesPkcs5.decrypt(
       str,
       ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_IV
     );
   const encrypt = (str: string): string =>
     AesPkcs5.encrypt(
       str,
       ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_IV
     );
 }
