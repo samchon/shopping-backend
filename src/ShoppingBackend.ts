@@ -20,7 +20,7 @@ export class ShoppingBackend {
 
     // DO OPEN
     this.application_.enableCors();
-    await this.application_.listen(ShoppingConfiguration.API_PORT());
+    await this.application_.listen(ShoppingConfiguration.API_PORT(), "0.0.0.0");
   }
 
   public async close(): Promise<void> {
