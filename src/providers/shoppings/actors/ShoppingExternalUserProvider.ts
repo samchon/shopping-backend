@@ -25,7 +25,13 @@ export namespace ShoppingExternalUserProvider {
       nickname: input.nickname,
       data:
         input.data !== null
-          ? JSON.parse(AesPkcs5.decrypt(input.data, KEY, IV))
+          ? JSON.parse(
+              AesPkcs5.decrypt(
+                input.data,
+                ShoppingGlobal.env.SHOPPING_EXTERNAL_USER_SECRET_KEY,
+                ShoppingGlobal.env.SHOPPING_EXTERNAL_USER_SECRET_IV
+              )
+            )
           : null,
       created_at: input.created_at.toISOString(),
     });
@@ -90,7 +96,11 @@ export namespace ShoppingExternalUserProvider {
             nickname: input.nickname,
             password: await BcryptUtil.hash(input.password),
             data: input.data
-              ? AesPkcs5.encrypt(JSON.stringify(input.data), KEY, IV)
+              ? AesPkcs5.encrypt(
+                  JSON.stringify(input.data),
+                  ShoppingGlobal.env.SHOPPING_EXTERNAL_USER_SECRET_KEY,
+                  ShoppingGlobal.env.SHOPPING_EXTERNAL_USER_SECRET_IV
+                )
               : null,
             created_at: new Date(),
           },
@@ -108,6 +118,3 @@ export namespace ShoppingExternalUserProvider {
       return json.transform(record);
     };
 }
-
-const KEY = "h6l3plt1b3akp17yig697zaqo7s5srg3";
-const IV = "hklkbzwtsxy97l25;";

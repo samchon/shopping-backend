@@ -62,9 +62,16 @@ export namespace ShoppingCitizenProvider {
       ...(input?.name?.length ? [{ name: encrypt(input.name) }] : []),
     ] satisfies Prisma.shopping_citizensWhereInput["AND"];
 
-  const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
-  const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
+  const decrypt = (str: string): string =>
+    AesPkcs5.decrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY
+    );
+  const encrypt = (str: string): string =>
+    AesPkcs5.encrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY
+    );
 }
-
-const KEY = "6zukxuief9fpt64vwg6uh5u6nx8eo715";
-const IV = "ox4mjamqd1bkmjm8";

@@ -3,11 +3,12 @@ import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
 import { IShoppingAddress } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAddress";
+import { ShoppingGlobal } from "../../../ShoppingGlobal";
 
 export namespace ShoppingAddressProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_addressesGetPayload<ReturnType<typeof select>>,
+      input: Prisma.shopping_addressesGetPayload<ReturnType<typeof select>>
     ): IShoppingAddress => ({
       id: input.id,
       name: decrypt(input.name),
@@ -40,9 +41,16 @@ export namespace ShoppingAddressProvider {
       created_at: new Date(),
     }) satisfies Prisma.shopping_addressesCreateInput;
 
-  const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
-  const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
+  const decrypt = (str: string): string =>
+    AesPkcs5.decrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_IV
+    );
+  const encrypt = (str: string): string =>
+    AesPkcs5.encrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_IV
+    );
 }
-
-const KEY = "4e8ftgkdhht90488a28qlkoxaw9ufspc";
-const IV = "ha1utbzec2mto79l";
