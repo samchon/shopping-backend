@@ -41,7 +41,7 @@
   "devDependencies": {
     "@nestia/benchmark": "^0.3.0",
     "@nestia/e2e": "^0.7.0",
-    "@nestia/sdk": "^4.5.2",
+    "@nestia/sdk": "^4.6.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cli": "^0.11.19",
@@ -78,15 +78,15 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "^4.5.2",
-    "@nestia/fetcher": "^4.5.2",
+    "@nestia/core": "^4.6.0",
+    "@nestia/fetcher": "^4.6.0",
     "@nestjs/common": "^10.4.15",
     "@nestjs/core": "^10.4.15",
     "@nestjs/platform-fastify": "^10.4.15",
     "@prisma/client": "^6.2.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@samchon/openapi": "^2.3.4",
+    "@samchon/openapi": "^2.4.0",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
     "csv-parse": "^5.5.3",
@@ -100,7 +100,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
-    "typia": "^7.5.1",
+    "typia": "^7.6.0",
     "uuid": "^10.0.0"
   },
   "private": true,
