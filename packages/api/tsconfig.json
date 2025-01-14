@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "removeComments": false,
     "target": "ES5",
     "declaration": true,
     "outDir": "lib",
