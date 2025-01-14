@@ -62,9 +62,16 @@ export namespace ShoppingDeliveryShipperProvider {
       created_at: new Date(),
     }) satisfies Prisma.shopping_delivery_shippersCreateWithoutDeliveryInput;
 
-  const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
-  const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
+  const decrypt = (str: string): string =>
+    AesPkcs5.decrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_IV
+    );
+  const encrypt = (str: string): string =>
+    AesPkcs5.encrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_IV
+    );
 }
-
-const KEY = "iiedyie2ron8kxfdk46b05imuxlo4p0n";
-const IV = "suhqmdijfewg89zb";

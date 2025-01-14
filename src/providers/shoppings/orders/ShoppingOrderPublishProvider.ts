@@ -307,12 +307,13 @@ export namespace ShoppingOrderPublishProvider {
       .flat();
   };
 
-  // const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
-  const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
+  const encrypt = (str: string): string =>
+    AesPkcs5.encrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_ORDER_PUBLISH_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_ORDER_PUBLISH_SECRET_IV
+    );
 }
-
-const KEY = "1ejeh9i3v2tlxbj5ueuyhn85kc3woqwv";
-const IV = "cuks39ovlcu4htzw";
 
 interface IStockQuantity {
   stock_id: string;

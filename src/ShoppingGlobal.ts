@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia from "typia";
+import fs from "fs";
+import { ShoppingConfiguration } from "./ShoppingConfiguration";
 
 /**
  * Global variables of the shopping server.
@@ -55,6 +57,20 @@ interface IEnvironments {
   SHOPPING_POSTGRES_USERNAME: string;
   SHOPPING_POSTGRES_USERNAME_READONLY: string;
   SHOPPING_POSTGRES_PASSWORD: string;
+
+  SHOPPING_ADDRESS_SECRET_KEY: string;
+  SHOPPING_CITIZEN_SECRET_KEY: string;
+  SHOPPING_DELIVERY_SHIPPER_SECRET_KEY: string;
+  SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_KEY: string;
+  SHOPPING_EXTERNAL_USER_SECRET_KEY: string;
+  SHOPPING_ORDER_PUBLISH_SECRET_KEY: string;
+
+  SHOPPING_ADDRESS_SECRET_IV: string;
+  SHOPPING_CITIZEN_SECRET_IV: string;
+  SHOPPING_DELIVERY_SHIPPER_SECRET_IV: string;
+  SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_IV: string;
+  SHOPPING_EXTERNAL_USER_SECRET_IV: string;
+  SHOPPING_ORDER_PUBLISH_SECRET_IV: string;
 }
 
 interface IMode {
@@ -64,6 +80,11 @@ interface IMode {
 const modeWrapper: IMode = {};
 
 const environments = new Singleton(() => {
+  if (fs.existsSync(`${ShoppingConfiguration.ROOT}/.env`) === false)
+    fs.copyFileSync(
+      `${ShoppingConfiguration.ROOT}/.env.local`,
+      `${ShoppingConfiguration.ROOT}/.env`
+    );
   const env = dotenv.config();
   dotenvExpand.expand(env);
   return typia.assert<IEnvironments>(process.env);

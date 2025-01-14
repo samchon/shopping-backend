@@ -137,9 +137,10 @@ export namespace ShoppingDepositChargePublishProvider {
     });
   };
 
-  // const decrypt = (str: string): string => AesPkcs5.decrypt(str, KEY, IV);
-  const encrypt = (str: string): string => AesPkcs5.encrypt(str, KEY, IV);
+  const encrypt = (str: string): string =>
+    AesPkcs5.encrypt(
+      str,
+      ShoppingGlobal.env.SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_KEY,
+      ShoppingGlobal.env.SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_IV
+    );
 }
-
-const KEY = "jehh59g54bx95wy9p9bnov8t17bdsi6g";
-const IV = "1om3tzrjgcgzemm0";
