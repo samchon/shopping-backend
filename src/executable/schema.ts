@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 
 import { ShoppingGlobal } from "../ShoppingGlobal";
+import { ShoppingSetupWizard } from "../setup/ShoppingSetupWizard";
 
 async function execute(
   database: string,
@@ -77,6 +78,23 @@ async function main(): Promise<void> {
         GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
     `
   );
+
+  console.log("------------------------------------------");
+  console.log(" DATABASE SEEDNG");
+  console.log("------------------------------------------");
+  console.log("CREATE TABLES");
+  await ShoppingSetupWizard.schema(
+    new PrismaClient({
+      datasources: {
+        db: {
+          url: `postgresql://${config.username}:${config.password}@${ShoppingGlobal.env.SHOPPING_POSTGRES_HOST}:${ShoppingGlobal.env.SHOPPING_POSTGRES_PORT}/${config.database}`,
+        },
+      },
+    })
+  );
+
+  console.log("INITIAL DATA");
+  await ShoppingSetupWizard.seed();
 }
 main().catch((exp) => {
   console.log(exp);
