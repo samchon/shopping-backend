@@ -80,20 +80,14 @@ async function main(): Promise<void> {
   );
 
   console.log("------------------------------------------");
-  console.log(" DATABASE SEEDNG");
-  console.log("------------------------------------------");
   console.log("CREATE TABLES");
-  await ShoppingSetupWizard.schema(
-    new PrismaClient({
-      datasources: {
-        db: {
-          url: `postgresql://${config.username}:${config.password}@${ShoppingGlobal.env.SHOPPING_POSTGRES_HOST}:${ShoppingGlobal.env.SHOPPING_POSTGRES_PORT}/${config.database}`,
-        },
-      },
-    })
-  );
+  console.log("------------------------------------------");
+  ShoppingGlobal.testing = true;
+  await ShoppingSetupWizard.schema(new PrismaClient());
 
+  console.log("------------------------------------------");
   console.log("INITIAL DATA");
+  console.log("------------------------------------------");
   await ShoppingSetupWizard.seed();
 }
 main().catch((exp) => {
