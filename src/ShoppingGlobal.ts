@@ -80,7 +80,10 @@ interface IMode {
 const modeWrapper: IMode = {};
 
 const environments = new Singleton(() => {
-  if (fs.existsSync(`${ShoppingConfiguration.ROOT}/.env`) === false)
+  if (
+    fs.existsSync(`${ShoppingConfiguration.ROOT}/.env`) === false &&
+    fs.existsSync(`${ShoppingConfiguration.ROOT}/.env.local`) === true
+  )
     fs.copyFileSync(
       `${ShoppingConfiguration.ROOT}/.env.local`,
       `${ShoppingConfiguration.ROOT}/.env`
