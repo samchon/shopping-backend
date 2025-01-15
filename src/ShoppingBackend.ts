@@ -25,8 +25,12 @@ export class ShoppingBackend {
       openapi: "3.1",
       servers: [
         {
+          url: "https://shopping-be.wrtn.ai",
+          description: "Production, the real server",
+        },
+        {
           url: "http://localhost:37001",
-          description: "Localhost",
+          description: "Local Server",
         },
       ],
     });
