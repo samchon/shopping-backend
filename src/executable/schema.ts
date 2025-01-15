@@ -41,7 +41,7 @@ async function main(): Promise<void> {
     password: ShoppingGlobal.env.SHOPPING_POSTGRES_PASSWORD,
   };
   const root = {
-    account: process.argv[2] ?? "wrtn_prod",
+    account: process.argv[2] ?? "postgres",
     password: process.argv[3] ?? "root",
   };
 
