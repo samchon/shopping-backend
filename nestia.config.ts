@@ -11,6 +11,10 @@ export const NESTIA_CONFIG: INestiaConfig = {
     output: "packages/api/swagger.json",
     servers: [
       {
+        url: "https://shopping-be.wrtn.ai",
+        description: "Production, the real server",
+      },
+      {
         url: "http://localhost:37001",
         description: "Local Server",
       },

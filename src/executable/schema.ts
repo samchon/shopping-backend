@@ -1,12 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 
 import { ShoppingGlobal } from "../ShoppingGlobal";
+import { ShoppingSetupWizard } from "../setup/ShoppingSetupWizard";
 
 async function execute(
   database: string,
   username: string,
   password: string,
-  script: string,
+  script: string
 ): Promise<void> {
   try {
     const prisma = new PrismaClient({
@@ -24,7 +25,7 @@ async function execute(
       try {
         await prisma.$queryRawUnsafe(query);
       } catch (e) {
-        break;
+        console.log(e);
       }
     await prisma.$disconnect();
   } catch (err) {
@@ -53,7 +54,7 @@ async function main(): Promise<void> {
         CREATE USER ${config.username} WITH ENCRYPTED PASSWORD '${config.password}';
         ALTER ROLE ${config.username} WITH CREATEDB
         CREATE DATABASE ${config.database} OWNER ${config.username};
-    `,
+    `
   );
 
   await execute(
@@ -62,7 +63,7 @@ async function main(): Promise<void> {
     root.password,
     `
         CREATE SCHEMA ${config.schema} AUTHORIZATION ${config.username};
-    `,
+    `
   );
 
   await execute(
@@ -75,8 +76,19 @@ async function main(): Promise<void> {
         CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD '${config.password}';
         GRANT USAGE ON SCHEMA ${config.schema} TO ${config.readonlyUsername};
         GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
-    `,
+    `
   );
+
+  console.log("------------------------------------------");
+  console.log("CREATE TABLES");
+  console.log("------------------------------------------");
+  ShoppingGlobal.testing = true;
+  await ShoppingSetupWizard.schema(new PrismaClient());
+
+  console.log("------------------------------------------");
+  console.log("INITIAL DATA");
+  console.log("------------------------------------------");
+  await ShoppingSetupWizard.seed();
 }
 main().catch((exp) => {
   console.log(exp);
