@@ -3,8 +3,6 @@ import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia from "typia";
-import fs from "fs";
-import { ShoppingConfiguration } from "./ShoppingConfiguration";
 
 /**
  * Global variables of the shopping server.
@@ -71,6 +69,8 @@ interface IEnvironments {
   SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_IV: string;
   SHOPPING_EXTERNAL_USER_SECRET_IV: string;
   SHOPPING_ORDER_PUBLISH_SECRET_IV: string;
+
+  OPENAI_API_KEY?: string | undefined;
 }
 
 interface IMode {
@@ -80,14 +80,6 @@ interface IMode {
 const modeWrapper: IMode = {};
 
 const environments = new Singleton(() => {
-  if (
-    fs.existsSync(`${ShoppingConfiguration.ROOT}/.env`) === false &&
-    fs.existsSync(`${ShoppingConfiguration.ROOT}/.env.local`) === true
-  )
-    fs.copyFileSync(
-      `${ShoppingConfiguration.ROOT}/.env.local`,
-      `${ShoppingConfiguration.ROOT}/.env`
-    );
   const env = dotenv.config();
   dotenvExpand.expand(env);
   return typia.assert<IEnvironments>(process.env);

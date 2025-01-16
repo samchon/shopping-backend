@@ -4,7 +4,8 @@
   "description": "Backend for shopping",
   "scripts": {
     "test": "rimraf prisma/migrations && node bin/test",
-    "benchmark": "rimraf prisma/migrations && node bin/test/benchmark",
+    "benchmark:performance": "node bin/test/benchmark/performance",
+    "benchmark:call": "node bin/test/benchmark/call",
     "------------------------BUILDS------------------------": "",
     "build": "npm run build:prisma && npm run build:sdk && npm run build:main && npm run build:test",
     "build:api": "npm run build:sdk && tsc -p packages/api/tsconfig.json && rollup -c packages/api/rollup.config.js",
@@ -78,6 +79,7 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
+    "@nestia/agent": "^0.3.6",
     "@nestia/core": "^4.6.0",
     "@nestia/editor": "^4.6.0",
     "@nestia/fetcher": "^4.6.0",
@@ -97,6 +99,7 @@
     "fastify": "^4.25.2",
     "git-last-commit": "^1.0.0",
     "jsonwebtoken": "^9.0.2",
+    "openai": "^4.78.1",
     "prisma": "^6.2.1",
     "rollup": "^4.18.1",
     "serialize-error": "^4.1.0",
