@@ -4,6 +4,8 @@ lib/
 node_modules/
 prisma/migrations/
 
+docs/benchmarks/call
+
 .env
 .npmrc
 package-lock.json
