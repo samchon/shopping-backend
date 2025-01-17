@@ -3,20 +3,11 @@ import { ShoppingCustomerOrderController } from "../../../../src/controllers/sho
 import { ShoppingCustomerOrderPublishController } from "../../../../src/controllers/shoppings/customers/orders/ShoppingCustomerOrderPublishController";
 import { ShoppingCustomerSaleController } from "../../../../src/controllers/shoppings/customers/sales/ShoppingCustomerSaleController";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
+import { ScenarioPromptCollection } from "./ScenarioPromptCollection";
 
 export const scenario_delivery_status = (): IFunctionCallBenchmarkScenario => ({
   title: "Delivery Status",
-  prompt: `
-  Would you find "Surface Pro 9" in the market?
-  
-  And then show me the detailed information of it, 
-  and put the most expensive stock to the shopping cart.
-  
-  At last, order it. I'll pay it with my cash, and my address is 
-  "1234 Main Street, New York, NY, 10001".
-
-  Bh the way, would you check current delivery status of my order?
-  `,
+  prompt: ScenarioPromptCollection.SP9.join("\n\n"),
   expected: {
     type: "array",
     items: [

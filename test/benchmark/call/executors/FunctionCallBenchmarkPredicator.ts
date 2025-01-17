@@ -107,7 +107,7 @@ export namespace FunctionCallBenchmarkPredicator {
             return false;
           }
         }
-        return true;
+        return !!targeted.done;
     }
   };
 
