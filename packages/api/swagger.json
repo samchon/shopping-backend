@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "servers": [
     {
-      "url": "http://localhost:37001",
-      "description": "Local Server"
+      "url": "https://shopping-be.wrtn.ai",
+      "description": "Production, the real server"
     }
   ],
   "info": {
