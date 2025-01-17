@@ -68,10 +68,12 @@ export namespace FunctionCallBenchmarkExecutor {
       responses.push(r);
     });
 
+    let count: number = 0;
     try {
       await agent.conversate(props.scenario.prompt);
       while (
         (Date.now() - started_at.getTime()) / 1000 < props.options.timeout &&
+        count++ < 3 &&
         FunctionCallBenchmarkPredicator.success({
           application: props.application,
           operations: props.operations,
