@@ -21,9 +21,11 @@ import typia from "typia";
 import { ShoppingBackend } from "../../../src/ShoppingBackend";
 import { ShoppingConfiguration } from "../../../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../../../src/ShoppingGlobal";
+import { ShoppingSetupWizard } from "../../../src/setup/ShoppingSetupWizard";
 import { ArgumentParser } from "../../../src/utils/ArgumentParser";
 import { ConnectionPool } from "../../ConnectionPool";
 import { test_api_shopping_actor_customer_join } from "../../features/api/shoppings/actors/test_api_shopping_actor_customer_join";
+import { StopWatch } from "../../internal/StopWatch";
 import { FunctionCallBenchmarkExecutor } from "./executors/FunctionCallBenchmarkExecutor";
 import { FunctionCallBenchmarkReporter } from "./executors/FunctionCallBenchmarkReporter";
 import { IFunctionCallBenchmarkExpected } from "./structures/IFunctionCallBenchmarkExpected";
@@ -36,6 +38,7 @@ const SCENARIO_LOCATION = path.resolve(
 );
 
 interface IOptions extends IFunctionCallBenchmarkOptions {
+  reset: boolean;
   semaphore: number;
 }
 
@@ -45,6 +48,7 @@ interface IScenario extends IFunctionCallBenchmarkScenario {
 
 const getOptions = () =>
   ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
+    command.option("--reset <boolean>", "reset database before benchmarking");
     command.option("--model <string>", "target model");
     command.option("--count <number>", "count of executions per scenario");
     command.option("--capacity <number>", "dividing count");
@@ -54,6 +58,11 @@ const getOptions = () =>
     command.option("--exclude <string...>", "exclude feature files");
 
     return action(async (options) => {
+      // RESET DB
+      if (typeof options.reset === "string")
+        options.reset = options.reset === "true";
+      options.reset ??= await prompt.boolean("reset")("Reset local DB");
+
       // TARGET MODEL
       options.model ??= (await prompt.select("model")("Select model")([
         "gpt-4o",
@@ -232,6 +241,12 @@ const main = async (): Promise<void> => {
   ShoppingGlobal.testing = true;
 
   // BACKEND SERVER
+  if (options.reset) {
+    await StopWatch.trace("Reset DB")(() =>
+      ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
+    );
+    await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
+  }
   const backend: ShoppingBackend = new ShoppingBackend();
   await backend.open();
 
