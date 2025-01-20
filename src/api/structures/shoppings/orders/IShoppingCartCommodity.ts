@@ -31,6 +31,8 @@ import { IShoppingCartCommodityStock } from "./IShoppingCartCommodityStock";
 export interface IShoppingCartCommodity {
   /**
    * Primary Key.
+   *
+   * If you want to continue to the order the commodity, then use this ID to order.
    */
   id: string & tags.Format<"uuid">;
 

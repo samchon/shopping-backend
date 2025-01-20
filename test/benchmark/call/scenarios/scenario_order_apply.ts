@@ -6,7 +6,7 @@ import { ScenarioPromptCollection } from "./ScenarioPromptCollection";
 
 export const scenario_order_apply = (): IFunctionCallBenchmarkScenario => ({
   title: "Order Apply",
-  prompt: ScenarioPromptCollection.SP9.slice(0, 3).join("\n\n"),
+  prompt: ScenarioPromptCollection.SP9.slice(0, 2).join("\n\n"),
   expected: {
     type: "array",
     items: [
@@ -15,12 +15,27 @@ export const scenario_order_apply = (): IFunctionCallBenchmarkScenario => ({
         function: ShoppingCustomerSaleController.prototype.details,
       },
       {
-        type: "standalone",
-        function: ShoppingCustomerCartCommodityController.prototype.create,
-      },
-      {
-        type: "standalone",
-        function: ShoppingCustomerOrderController.prototype.create,
+        type: "anyOf",
+        anyOf: [
+          {
+            type: "array",
+            items: [
+              {
+                type: "standalone",
+                function:
+                  ShoppingCustomerCartCommodityController.prototype.create,
+              },
+              {
+                type: "standalone",
+                function: ShoppingCustomerOrderController.prototype.create,
+              },
+            ],
+          },
+          {
+            type: "standalone",
+            function: ShoppingCustomerOrderController.prototype.direct,
+          },
+        ],
       },
     ],
   },

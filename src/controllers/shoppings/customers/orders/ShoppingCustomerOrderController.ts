@@ -2,14 +2,14 @@ import core from "@nestia/core";
 import { tags } from "typia";
 
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
+import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
 import { IShoppingOrderPrice } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPrice";
 
+import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 import { ShoppingOrderPriceProvider } from "../../../../providers/shoppings/orders/ShoppingOrderPriceProvider";
 import { ShoppingOrderProvider } from "../../../../providers/shoppings/orders/ShoppingOrderProvider";
-
-import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 import { ShoppingOrderController } from "../../base/orders/ShoppingOrderController";
 
 export class ShoppingCustomerOrderController extends ShoppingOrderController({
@@ -28,10 +28,11 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
    * just customer is appling the order. The order be completed only when customer
    * {@link IShoppingOrderPublish.paid_at pays} the order.
    *
-   * > If you are an A.I. chatbot and user wants to directly purchase a
-   * > product (of sale stock), then call the commodity creation function first.
-   * > Its endpoint is `POST /shoppings/customers/carts/commodities`.
-   * > And call this function with the newly created commodity.
+   * > If you are an A.I. chatbot, don't take a mistake that writing
+   * > the `commodity_id` with the user selected stock ID. The
+   * > `commodity_id` is the ID of the shopping cart commodity, not the
+   * > stock ID. The stock ID is already included in the shopping cart
+   * > commodity.
    *
    * @param input Creation info of the order
    * @returns Newly created order
@@ -42,9 +43,38 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   @core.TypedRoute.Post()
   public async create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingOrder.ICreate
+    @core.TypedBody() input: IShoppingOrder.ICreate,
   ): Promise<IShoppingOrder> {
     return ShoppingOrderProvider.create({
+      customer,
+      input,
+    });
+  }
+
+  /**
+   * Create a new order application without a shopping cart.
+   *
+   * Carete a new {@link IShoppingOrder order application} without a
+   * {@link IShoppingCartCommodity shopping cart commodity} composition.
+   * If you're an A.I. chatbot and user wants to directly purchase a product,
+   * then select and call this function.
+   *
+   * By the way, this function does not mean completion the order, but means
+   * just customer is appling the order. The order be completed only when customer
+   * {@link IShoppingOrderPublish.paid_at pays} the order.
+   *
+   * @param input Creation info of the order without a shopping cart composition
+   * @returns Newly created order
+   * @tag Order
+   *
+   * @author Samchon
+   */
+  @core.TypedRoute.Post("direct")
+  public async direct(
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
+    @core.TypedBody() input: IShoppingCartCommodity.ICreate,
+  ): Promise<IShoppingOrder> {
+    return ShoppingOrderProvider.direct({
       customer,
       input,
     });
@@ -68,7 +98,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingOrderProvider.erase({
       customer,
@@ -95,7 +125,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   @core.TypedRoute.Get(":id/price")
   public async price(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingOrderPrice> {
     return ShoppingOrderPriceProvider.at({
       customer,
@@ -128,7 +158,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   public async discountable(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingOrderDiscountable.IRequest
+    @core.TypedBody() input: IShoppingOrderDiscountable.IRequest,
   ): Promise<IShoppingOrderDiscountable> {
     return ShoppingOrderPriceProvider.discountable({
       customer,
@@ -162,7 +192,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
   public async discount(
     @ShoppingCustomerAuth("citizen") customer: IShoppingCustomer,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingOrderPrice.ICreate
+    @core.TypedBody() input: IShoppingOrderPrice.ICreate,
   ): Promise<IShoppingOrderPrice> {
     return ShoppingOrderPriceProvider.discount({
       customer,
