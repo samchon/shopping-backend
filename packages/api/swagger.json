@@ -1092,7 +1092,7 @@
     "/shoppings/admins/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
         "tags": [
           "Sale"
         ],
@@ -1131,7 +1131,8 @@
           "sales",
           "details"
         ],
-        "x-samchon-controller": "ShoppingAdminSaleController"
+        "x-samchon-controller": "ShoppingAdminSaleController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
       }
     },
     "/shoppings/admins/sales/{id}": {
@@ -5243,7 +5244,7 @@
     "/shoppings/customers/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
         "tags": [
           "Sale"
         ],
@@ -5282,7 +5283,8 @@
           "sales",
           "details"
         ],
-        "x-samchon-controller": "ShoppingCustomerSaleController"
+        "x-samchon-controller": "ShoppingCustomerSaleController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
       }
     },
     "/shoppings/customers/sales/{id}": {
@@ -8316,7 +8318,7 @@
     "/shoppings/sellers/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
         "tags": [
           "Sale"
         ],
@@ -8355,7 +8357,8 @@
           "sales",
           "details"
         ],
-        "x-samchon-controller": "ShoppingSellerSaleController"
+        "x-samchon-controller": "ShoppingSellerSaleController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{questionId}/answer": {
@@ -20022,7 +20025,7 @@
             "type": "string",
             "format": "uuid",
             "title": "Target shopping cart commodity's {@link IShoppingCartCommodity.id}",
-            "description": "Target shopping cart commodity's {@link IShoppingCartCommodity.id}.\n\n`commodity_id` is the primary key of the {@link IShoppingCartCommodity}\nentity, which is the basis of the good to be created. In other words,\nit is the primary key of the shopping cart commodity that the customer\nhas selected and applied for the order.\n\n> You A.I. assistant, this is not the primary key of the\n{@link IShoppingSaleUnitStock.id} record which is the stock of\nthe user selected when creating a shopping cart commodity.\n>\n> This is the primary key of the {@link IShoppingCartCommodity}\n> record that the user created into the shopping cart. Don't take\n> a mistake that confuses the two."
+            "description": "Target shopping cart commodity's {@link IShoppingCartCommodity.id}.\n\n`commodity_id` is the primary key of the {@link IShoppingCartCommodity}\nentity, which is the basis of the good to be created. In other words,\nit is the primary key of the shopping cart commodity that the customer\nhas selected and applied for the order."
           },
           "volume": {
             "type": "integer",
