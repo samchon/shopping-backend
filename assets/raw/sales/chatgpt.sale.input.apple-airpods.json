@@ -1,0 +1,104 @@
+{
+  "section_code": "general",
+  "opened_at": null,
+  "closed_at": null,
+  "content": {
+    "title": "Apple AirPods",
+    "format": "md",
+    "body": "Experience the magic of wireless audio with Apple AirPods. Effortlessly switch between devices and enjoy high-quality sound.",
+    "files": [],
+    "thumbnails": [
+      {
+        "name": "airpods",
+        "extension": "jpg",
+        "url": "https://example.com/images/airpods-thumbnail.jpg"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "code": "samchon",
+      "category_codes": [
+        "electronics",
+        "smart_phones",
+        "accessories"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "name": "Apple AirPods",
+      "required": true,
+      "primary": true,
+      "options": [
+        {
+          "type": "select",
+          "name": "Model",
+          "variable": true,
+          "candidates": [
+            {
+              "name": "AirPods 2nd generation"
+            },
+            {
+              "name": "AirPods 3rd generation"
+            },
+            {
+              "name": "AirPods Pro"
+            }
+          ]
+        }
+      ],
+      "stocks": [
+        {
+          "name": "AirPods 2nd Generation",
+          "price": {
+            "nominal": 150,
+            "real": 120
+          },
+          "quantity": 50,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "AirPods 3rd Generation",
+          "price": {
+            "nominal": 180,
+            "real": 160
+          },
+          "quantity": 50,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "AirPods Pro",
+          "price": {
+            "nominal": 250,
+            "real": 220
+          },
+          "quantity": 50,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "Apple",
+    "AirPods",
+    "Wireless",
+    "Earbuds",
+    "Audio"
+  ]
+}

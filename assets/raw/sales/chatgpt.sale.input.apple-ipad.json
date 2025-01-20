@@ -1,0 +1,182 @@
+{
+  "section_code": "general",
+  "opened_at": null,
+  "closed_at": null,
+  "content": {
+    "title": "Apple iPad",
+    "format": "txt",
+    "body": "The Apple iPad is a versatile and popular tablet, known for its sleek design, powerful performance, and user-friendly interface. It is perfect for entertainment, productivity, and education, offering a wide range of apps and features that cater to various needs. Whether you are looking for a device to watch movies, work on documents, or learn new skills, the iPad is an excellent choice.",
+    "files": [],
+    "thumbnails": [
+      {
+        "name": "ipad_thumbnail",
+        "extension": "jpg",
+        "url": "https://example.com/thumbnails/ipad_thumbnail.jpg"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "code": "samchon",
+      "category_codes": [
+        "electronics",
+        "tablets",
+        "ipads"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "options": [
+        {
+          "type": "select",
+          "name": "Storage",
+          "variable": true,
+          "candidates": [
+            {
+              "name": "64GB"
+            },
+            {
+              "name": "256GB"
+            },
+            {
+              "name": "512GB"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "name": "Color",
+          "variable": false,
+          "candidates": [
+            {
+              "name": "Space Gray"
+            },
+            {
+              "name": "Silver"
+            }
+          ]
+        }
+      ],
+      "stocks": [
+        {
+          "name": "iPad 64GB Space Gray",
+          "price": {
+            "nominal": 499,
+            "real": 499
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "iPad 64GB Silver",
+          "price": {
+            "nominal": 499,
+            "real": 499
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "iPad 256GB Space Gray",
+          "price": {
+            "nominal": 599,
+            "real": 599
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "iPad 256GB Silver",
+          "price": {
+            "nominal": 599,
+            "real": 599
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "iPad 512GB Space Gray",
+          "price": {
+            "nominal": 699,
+            "real": 699
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "iPad 512GB Silver",
+          "price": {
+            "nominal": 699,
+            "real": 699
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 1
+            }
+          ]
+        }
+      ],
+      "name": "Apple iPad Pro",
+      "required": true,
+      "primary": true
+    }
+  ],
+  "tags": [
+    "tablet",
+    "apple",
+    "ipad",
+    "electronics"
+  ]
+}
