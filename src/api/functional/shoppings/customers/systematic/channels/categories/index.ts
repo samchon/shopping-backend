@@ -5,9 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import typia from "typia";
 import type { Format } from "typia/lib/tags/Format";
 
 import type { IShoppingChannelCategory } from "../../../../../../structures/shoppings/systematic/IShoppingChannelCategory";
@@ -37,13 +35,11 @@ export async function index(
   connection: IConnection,
   channelCode: string,
 ): Promise<index.Output> {
-  return !!connection.simulate
-    ? index.simulate(connection, channelCode)
-    : PlainFetcher.fetch(connection, {
-        ...index.METADATA,
-        template: index.METADATA.path,
-        path: index.path(channelCode),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...index.METADATA,
+    template: index.METADATA.path,
+    path: index.path(channelCode),
+  });
 }
 export namespace index {
   export type Output = Array<IShoppingChannelCategory.IHierarchical>;
@@ -61,27 +57,6 @@ export namespace index {
 
   export const path = (channelCode: string) =>
     `/shoppings/customers/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): Array<IShoppingChannelCategory.IHierarchical> =>
-    typia.random<Array<IShoppingChannelCategory.IHierarchical>>(g);
-  export const simulate = (
-    connection: IConnection,
-    channelCode: string,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(channelCode),
-      contentType: "application/json",
-    });
-    assert.param("channelCode")(() => typia.assert(channelCode));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -107,13 +82,11 @@ export async function at(
   channelCode: string,
   id: string & Format<"uuid">,
 ): Promise<at.Output> {
-  return !!connection.simulate
-    ? at.simulate(connection, channelCode, id)
-    : PlainFetcher.fetch(connection, {
-        ...at.METADATA,
-        template: at.METADATA.path,
-        path: at.path(channelCode, id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...at.METADATA,
+    template: at.METADATA.path,
+    path: at.path(channelCode, id),
+  });
 }
 export namespace at {
   export type Output = IShoppingChannelCategory;
@@ -131,28 +104,6 @@ export namespace at {
 
   export const path = (channelCode: string, id: string & Format<"uuid">) =>
     `/shoppings/customers/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingChannelCategory => typia.random<IShoppingChannelCategory>(g);
-  export const simulate = (
-    connection: IConnection,
-    channelCode: string,
-    id: string & Format<"uuid">,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(channelCode, id),
-      contentType: "application/json",
-    });
-    assert.param("channelCode")(() => typia.assert(channelCode));
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -178,13 +129,11 @@ export async function invert(
   channelCode: string,
   id: string & Format<"uuid">,
 ): Promise<invert.Output> {
-  return !!connection.simulate
-    ? invert.simulate(connection, channelCode, id)
-    : PlainFetcher.fetch(connection, {
-        ...invert.METADATA,
-        template: invert.METADATA.path,
-        path: invert.path(channelCode, id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...invert.METADATA,
+    template: invert.METADATA.path,
+    path: invert.path(channelCode, id),
+  });
 }
 export namespace invert {
   export type Output = IShoppingChannelCategory.IInvert;
@@ -202,27 +151,4 @@ export namespace invert {
 
   export const path = (channelCode: string, id: string & Format<"uuid">) =>
     `/shoppings/customers/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}/invert`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingChannelCategory.IInvert =>
-    typia.random<IShoppingChannelCategory.IInvert>(g);
-  export const simulate = (
-    connection: IConnection,
-    channelCode: string,
-    id: string & Format<"uuid">,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(channelCode, id),
-      contentType: "application/json",
-    });
-    assert.param("channelCode")(() => typia.assert(channelCode));
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }

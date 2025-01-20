@@ -106,12 +106,19 @@ export namespace IShoppingSale {
     /**
      * Search conditions.
      */
-    // search?: null | IRequest.ISearch;
+    search?: null | IRequest.ISearch;
 
     /**
      * Sorting conditions.
      */
     sort?: null | IPage.Sort<IRequest.SortableColumns>;
+
+    /**
+     * Search conditions.
+     *
+     * @hidden
+     */
+    input?: null | IRequest.ISearch;
   }
   export namespace IRequest {
     export interface ISearch {

@@ -5,9 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import typia from "typia";
 
 import type { IShoppingMember } from "../../../../../structures/shoppings/actors/IShoppingMember";
 
@@ -30,23 +28,21 @@ export async function change(
   connection: IConnection,
   input: IShoppingMember.IPasswordChange,
 ): Promise<void> {
-  return !!connection.simulate
-    ? change.simulate(connection, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...change.METADATA,
-          template: change.METADATA.path,
-          path: change.path(),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...change.METADATA,
+      template: change.METADATA.path,
+      path: change.path(),
+    },
+    input,
+  );
 }
 export namespace change {
   export type Input = IShoppingMember.IPasswordChange;
@@ -66,23 +62,4 @@ export namespace change {
   } as const;
 
   export const path = () => "/shoppings/customers/authenticate/password/change";
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    input: IShoppingMember.IPasswordChange,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(),
-      contentType: "application/json",
-    });
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }

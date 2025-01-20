@@ -5,9 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import typia from "typia";
 import type { Format } from "typia/lib/tags/Format";
 
 import type { IShoppingDeliveryJourney } from "../../../../../structures/shoppings/orders/IShoppingDeliveryJourney";
@@ -39,23 +37,21 @@ export async function create(
   deliveryId: string & Format<"uuid">,
   input: IShoppingDeliveryJourney.ICreate,
 ): Promise<create.Output> {
-  return !!connection.simulate
-    ? create.simulate(connection, deliveryId, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...create.METADATA,
-          template: create.METADATA.path,
-          path: create.path(deliveryId),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...create.METADATA,
+      template: create.METADATA.path,
+      path: create.path(deliveryId),
+    },
+    input,
+  );
 }
 export namespace create {
   export type Input = IShoppingDeliveryJourney.ICreate;
@@ -77,28 +73,6 @@ export namespace create {
 
   export const path = (deliveryId: string & Format<"uuid">) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingDeliveryJourney => typia.random<IShoppingDeliveryJourney>(g);
-  export const simulate = (
-    connection: IConnection,
-    deliveryId: string & Format<"uuid">,
-    input: IShoppingDeliveryJourney.ICreate,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(deliveryId),
-      contentType: "application/json",
-    });
-    assert.param("deliveryId")(() => typia.assert(deliveryId));
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -127,23 +101,21 @@ export async function complete(
   id: string & Format<"uuid">,
   input: IShoppingDeliveryJourney.IComplete,
 ): Promise<void> {
-  return !!connection.simulate
-    ? complete.simulate(connection, deliveryId, id, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...complete.METADATA,
-          template: complete.METADATA.path,
-          path: complete.path(deliveryId, id),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...complete.METADATA,
+      template: complete.METADATA.path,
+      path: complete.path(deliveryId, id),
+    },
+    input,
+  );
 }
 export namespace complete {
   export type Input = IShoppingDeliveryJourney.IComplete;
@@ -167,29 +139,6 @@ export namespace complete {
     id: string & Format<"uuid">,
   ) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys/${encodeURIComponent(id?.toString() ?? "null")}/complete`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    deliveryId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
-    input: IShoppingDeliveryJourney.IComplete,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(deliveryId, id),
-      contentType: "application/json",
-    });
-    assert.param("deliveryId")(() => typia.assert(deliveryId));
-    assert.param("id")(() => typia.assert(id));
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -217,13 +166,11 @@ export async function erase(
   deliveryId: string & Format<"uuid">,
   id: string & Format<"uuid">,
 ): Promise<void> {
-  return !!connection.simulate
-    ? erase.simulate(connection, deliveryId, id)
-    : PlainFetcher.fetch(connection, {
-        ...erase.METADATA,
-        template: erase.METADATA.path,
-        path: erase.path(deliveryId, id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...erase.METADATA,
+    template: erase.METADATA.path,
+    path: erase.path(deliveryId, id),
+  });
 }
 export namespace erase {
   export const METADATA = {
@@ -242,25 +189,4 @@ export namespace erase {
     id: string & Format<"uuid">,
   ) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    deliveryId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(deliveryId, id),
-      contentType: "application/json",
-    });
-    assert.param("deliveryId")(() => typia.assert(deliveryId));
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }

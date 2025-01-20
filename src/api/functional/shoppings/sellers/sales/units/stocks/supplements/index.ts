@@ -5,9 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import typia from "typia";
 import type { Format } from "typia/lib/tags/Format";
 
 import type { IPage } from "../../../../../../../structures/common/IPage";
@@ -44,23 +42,21 @@ export async function index(
   stockId: string & Format<"uuid">,
   input: IShoppingSaleUnitStockSupplement.IRequest,
 ): Promise<index.Output> {
-  return !!connection.simulate
-    ? index.simulate(connection, saleId, unitId, stockId, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...index.METADATA,
-          template: index.METADATA.path,
-          path: index.path(saleId, unitId, stockId),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...index.METADATA,
+      template: index.METADATA.path,
+      path: index.path(saleId, unitId, stockId),
+    },
+    input,
+  );
 }
 export namespace index {
   export type Input = IShoppingSaleUnitStockSupplement.IRequest;
@@ -86,33 +82,6 @@ export namespace index {
     stockId: string & Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IPage<IShoppingSaleUnitStockSupplement> =>
-    typia.random<IPage<IShoppingSaleUnitStockSupplement>>(g);
-  export const simulate = (
-    connection: IConnection,
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
-    input: IShoppingSaleUnitStockSupplement.IRequest,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(saleId, unitId, stockId),
-      contentType: "application/json",
-    });
-    assert.param("saleId")(() => typia.assert(saleId));
-    assert.param("unitId")(() => typia.assert(unitId));
-    assert.param("stockId")(() => typia.assert(stockId));
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -144,23 +113,21 @@ export async function create(
   stockId: string & Format<"uuid">,
   input: IShoppingSaleUnitStockSupplement.ICreate,
 ): Promise<create.Output> {
-  return !!connection.simulate
-    ? create.simulate(connection, saleId, unitId, stockId, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...create.METADATA,
-          template: create.METADATA.path,
-          path: create.path(saleId, unitId, stockId),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...create.METADATA,
+      template: create.METADATA.path,
+      path: create.path(saleId, unitId, stockId),
+    },
+    input,
+  );
 }
 export namespace create {
   export type Input = IShoppingSaleUnitStockSupplement.ICreate;
@@ -186,33 +153,6 @@ export namespace create {
     stockId: string & Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingSaleUnitStockSupplement =>
-    typia.random<IShoppingSaleUnitStockSupplement>(g);
-  export const simulate = (
-    connection: IConnection,
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
-    input: IShoppingSaleUnitStockSupplement.ICreate,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(saleId, unitId, stockId),
-      contentType: "application/json",
-    });
-    assert.param("saleId")(() => typia.assert(saleId));
-    assert.param("unitId")(() => typia.assert(unitId));
-    assert.param("stockId")(() => typia.assert(stockId));
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -245,23 +185,21 @@ export async function update(
   id: string & Format<"uuid">,
   input: IShoppingSaleUnitStockSupplement.ICreate,
 ): Promise<void> {
-  return !!connection.simulate
-    ? update.simulate(connection, saleId, unitId, stockId, id, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...update.METADATA,
-          template: update.METADATA.path,
-          path: update.path(saleId, unitId, stockId, id),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...update.METADATA,
+      template: update.METADATA.path,
+      path: update.path(saleId, unitId, stockId, id),
+    },
+    input,
+  );
 }
 export namespace update {
   export type Input = IShoppingSaleUnitStockSupplement.ICreate;
@@ -287,33 +225,6 @@ export namespace update {
     id: string & Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
-    input: IShoppingSaleUnitStockSupplement.ICreate,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(saleId, unitId, stockId, id),
-      contentType: "application/json",
-    });
-    assert.param("saleId")(() => typia.assert(saleId));
-    assert.param("unitId")(() => typia.assert(unitId));
-    assert.param("stockId")(() => typia.assert(stockId));
-    assert.param("id")(() => typia.assert(id));
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -344,13 +255,11 @@ export async function erase(
   stockId: string & Format<"uuid">,
   id: string & Format<"uuid">,
 ): Promise<void> {
-  return !!connection.simulate
-    ? erase.simulate(connection, saleId, unitId, stockId, id)
-    : PlainFetcher.fetch(connection, {
-        ...erase.METADATA,
-        template: erase.METADATA.path,
-        path: erase.path(saleId, unitId, stockId, id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...erase.METADATA,
+    template: erase.METADATA.path,
+    path: erase.path(saleId, unitId, stockId, id),
+  });
 }
 export namespace erase {
   export const METADATA = {
@@ -371,29 +280,4 @@ export namespace erase {
     id: string & Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(saleId, unitId, stockId, id),
-      contentType: "application/json",
-    });
-    assert.param("saleId")(() => typia.assert(saleId));
-    assert.param("unitId")(() => typia.assert(unitId));
-    assert.param("stockId")(() => typia.assert(stockId));
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }

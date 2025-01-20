@@ -5,9 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import typia from "typia";
 import type { Format } from "typia/lib/tags/Format";
 
 import type { IPage } from "../../../../structures/common/IPage";
@@ -50,23 +48,21 @@ export async function index(
   connection: IConnection,
   input: IShoppingSale.IRequest,
 ): Promise<index.Output> {
-  return !!connection.simulate
-    ? index.simulate(connection, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...index.METADATA,
-          template: index.METADATA.path,
-          path: index.path(),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...index.METADATA,
+      template: index.METADATA.path,
+      path: index.path(),
+    },
+    input,
+  );
 }
 export namespace index {
   export type Input = IShoppingSale.IRequest;
@@ -87,27 +83,6 @@ export namespace index {
   } as const;
 
   export const path = () => "/shoppings/admins/sales";
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IPage<IShoppingSale.ISummary> =>
-    typia.random<IPage<IShoppingSale.ISummary>>(g);
-  export const simulate = (
-    connection: IConnection,
-    input: IShoppingSale.IRequest,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(),
-      contentType: "application/json",
-    });
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -125,10 +100,9 @@ export namespace index {
  * in the market. Instead, you can't see the unopened, closed, or suspended
  * sales.
  *
- * By the way, if you want, you can limit the result by configuring
- * {@link IShoppingSale.IRequest.search search condition} in the request
- * body. Also, it is possible to customize sequence order of records by
- * configuring {@link IShoppingSale.IRequest.sort sort condition}.
+ * > If you're an A.I. chatbot, please don't summarize the
+ * > {@link IShoppingSaleUnitStock stock informations}. Just list up the
+ * > every stocks in the sale with detailed informations.
  *
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated sales with detailed information
@@ -143,23 +117,21 @@ export async function details(
   connection: IConnection,
   input: IShoppingSale.IRequest,
 ): Promise<details.Output> {
-  return !!connection.simulate
-    ? details.simulate(connection, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...details.METADATA,
-          template: details.METADATA.path,
-          path: details.path(),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...details.METADATA,
+      template: details.METADATA.path,
+      path: details.path(),
+    },
+    input,
+  );
 }
 export namespace details {
   export type Input = IShoppingSale.IRequest;
@@ -180,26 +152,6 @@ export namespace details {
   } as const;
 
   export const path = () => "/shoppings/admins/sales/details";
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IPage<IShoppingSale> => typia.random<IPage<IShoppingSale>>(g);
-  export const simulate = (
-    connection: IConnection,
-    input: IShoppingSale.IRequest,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(),
-      contentType: "application/json",
-    });
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -226,13 +178,11 @@ export async function at(
   connection: IConnection,
   id: string & Format<"uuid">,
 ): Promise<at.Output> {
-  return !!connection.simulate
-    ? at.simulate(connection, id)
-    : PlainFetcher.fetch(connection, {
-        ...at.METADATA,
-        template: at.METADATA.path,
-        path: at.path(id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...at.METADATA,
+    template: at.METADATA.path,
+    path: at.path(id),
+  });
 }
 export namespace at {
   export type Output = IShoppingSale;
@@ -250,23 +200,4 @@ export namespace at {
 
   export const path = (id: string & Format<"uuid">) =>
     `/shoppings/admins/sales/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): IShoppingSale =>
-    typia.random<IShoppingSale>(g);
-  export const simulate = (
-    connection: IConnection,
-    id: string & Format<"uuid">,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(id),
-      contentType: "application/json",
-    });
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
