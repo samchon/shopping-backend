@@ -1,0 +1,104 @@
+{
+  "section_code": "general",
+  "opened_at": null,
+  "closed_at": null,
+  "content": {
+    "title": "Apple AirPods",
+    "format": "md",
+    "body": "Experience the magic of wireless audio with Apple AirPods. Effortlessly switch between devices and enjoy high-quality sound.",
+    "files": [],
+    "thumbnails": [
+      {
+        "name": "airpods",
+        "extension": "jpg",
+        "url": "https://www.apple.com/v/airpods/x/images/overview/pro_endframe__e2wscfy18pme_medium_2x.jpg"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "code": "samchon",
+      "category_codes": [
+        "electronics",
+        "smart_phones",
+        "accessories"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "name": "Apple AirPods",
+      "required": true,
+      "primary": true,
+      "options": [
+        {
+          "type": "select",
+          "name": "Model",
+          "variable": true,
+          "candidates": [
+            {
+              "name": "AirPods 4nd Generation"
+            },
+            {
+              "name": "AirPods 4rd Generation (active noise Cancellation model)"
+            },
+            {
+              "name": "AirPods Pro 2"
+            }
+          ]
+        }
+      ],
+      "stocks": [
+        {
+          "name": "AirPods 4nd Generation",
+          "price": {
+            "nominal": 199000,
+            "real": 199000
+          },
+          "quantity": 50,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "AirPods 4rd Generation (active noise Cancellation model)",
+          "price": {
+            "nominal": 269000,
+            "real": 269000
+          },
+          "quantity": 50,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "AirPods Pro 2",
+          "price": {
+            "nominal": 349000,
+            "real": 349000
+          },
+          "quantity": 50,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "tags": [
+    "Apple",
+    "AirPods",
+    "Wireless",
+    "Earbuds",
+    "Audio"
+  ]
+}
