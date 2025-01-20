@@ -11,7 +11,7 @@
       {
         "name": "airpods",
         "extension": "jpg",
-        "url": "https://example.com/images/airpods-thumbnail.jpg"
+        "url": "https://www.apple.com/v/airpods/x/images/overview/pro_endframe__e2wscfy18pme_medium_2x.jpg"
       }
     ]
   },
@@ -37,23 +37,23 @@
           "variable": true,
           "candidates": [
             {
-              "name": "AirPods 2nd generation"
+              "name": "AirPods 4nd Generation"
             },
             {
-              "name": "AirPods 3rd generation"
+              "name": "AirPods 4rd Generation (active noise Cancellation model)"
             },
             {
-              "name": "AirPods Pro"
+              "name": "AirPods Pro 2"
             }
           ]
         }
       ],
       "stocks": [
         {
-          "name": "AirPods 2nd Generation",
+          "name": "AirPods 4nd Generation",
           "price": {
-            "nominal": 150,
-            "real": 120
+            "nominal": 199000,
+            "real": 199000
           },
           "quantity": 50,
           "choices": [
@@ -64,10 +64,10 @@
           ]
         },
         {
-          "name": "AirPods 3rd Generation",
+          "name": "AirPods 4rd Generation (active noise Cancellation model)",
           "price": {
-            "nominal": 180,
-            "real": 160
+            "nominal": 269000,
+            "real": 269000
           },
           "quantity": 50,
           "choices": [
@@ -78,10 +78,10 @@
           ]
         },
         {
-          "name": "AirPods Pro",
+          "name": "AirPods Pro 2",
           "price": {
-            "nominal": 250,
-            "real": 220
+            "nominal": 349000,
+            "real": 349000
           },
           "quantity": 50,
           "choices": [

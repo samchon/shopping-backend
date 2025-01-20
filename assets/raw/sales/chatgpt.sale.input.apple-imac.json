@@ -18,15 +18,45 @@
       {
         "name": "imac_overview",
         "extension": "jpg",
-        "url": "https://example.com/imac_overview.jpg"
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-blue-selection-hero-202410?wid=904&hei=840&fmt=jpeg"
       }
     ],
     "thumbnails": [
       {
         "name": "imac_thumbnail",
         "extension": "jpg",
-        "url": "https://example.com/imac_thumbnail.jpg"
-      }
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-blue-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515462"
+      },
+      {
+        "name": "imac_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-purple-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515490"
+      },
+      {
+        "name": "imac_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-pink-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515485"
+      },
+      {
+        "name": "imac_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-orange-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515570"
+      },
+      {
+        "name": "imac_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-yellow-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515670"
+      },
+      {
+        "name": "imac_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-green-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515507"
+      },
+      {
+        "name": "imac_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/imac-silver-selection-hero-202410?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1730232515641"
+      }      
     ]
   },
   "tags": [
@@ -48,10 +78,10 @@
           "variable": true,
           "candidates": [
             {
-              "name": "Apple M1"
+              "name": "Apple M4"
             },
             {
-              "name": "Apple M1 Pro"
+              "name": "Apple M4 Pro"
             }
           ]
         },
@@ -61,10 +91,10 @@
           "variable": true,
           "candidates": [
             {
-              "name": "8GB"
+              "name": "16GB"
             },
             {
-              "name": "16GB"
+              "name": "24GB"
             }
           ]
         },
@@ -84,10 +114,10 @@
       ],
       "stocks": [
         {
-          "name": "M1 / 8GB / 256GB SSD",
+          "name": "M4 / 16GB / 256GB SSD",
           "price": {
-            "nominal": 1299,
-            "real": 1299
+            "nominal": 1999000,
+            "real": 1999000
           },
           "quantity": 50,
           "choices": [
@@ -106,10 +136,10 @@
           ]
         },
         {
-          "name": "M1 / 8GB / 512GB SSD",
+          "name": "M4 / 16GB / 512GB SSD",
           "price": {
-            "nominal": 1499,
-            "real": 1499
+            "nominal": 2290000,
+            "real": 2290000
           },
           "quantity": 50,
           "choices": [
@@ -128,10 +158,10 @@
           ]
         },
         {
-          "name": "M1 / 16GB / 256GB SSD",
+          "name": "M4 / 24GB / 256GB SSD",
           "price": {
-            "nominal": 1499,
-            "real": 1499
+            "nominal": 2290000,
+            "real": 2290000
           },
           "quantity": 30,
           "choices": [
@@ -150,104 +180,16 @@
           ]
         },
         {
-          "name": "M1 / 16GB / 512GB SSD",
+          "name": "M4 / 24GB / 512GB SSD",
           "price": {
-            "nominal": 1699,
-            "real": 1699
+            "nominal": 2590000,
+            "real": 2590000
           },
           "quantity": 30,
           "choices": [
             {
               "option_index": 0,
               "candidate_index": 0
-            },
-            {
-              "option_index": 1,
-              "candidate_index": 1
-            },
-            {
-              "option_index": 2,
-              "candidate_index": 1
-            }
-          ]
-        },
-        {
-          "name": "M1 Pro / 8GB / 256GB SSD",
-          "price": {
-            "nominal": 1599,
-            "real": 1599
-          },
-          "quantity": 20,
-          "choices": [
-            {
-              "option_index": 0,
-              "candidate_index": 1
-            },
-            {
-              "option_index": 1,
-              "candidate_index": 0
-            },
-            {
-              "option_index": 2,
-              "candidate_index": 0
-            }
-          ]
-        },
-        {
-          "name": "M1 Pro / 8GB / 512GB SSD",
-          "price": {
-            "nominal": 1799,
-            "real": 1799
-          },
-          "quantity": 20,
-          "choices": [
-            {
-              "option_index": 0,
-              "candidate_index": 1
-            },
-            {
-              "option_index": 1,
-              "candidate_index": 0
-            },
-            {
-              "option_index": 2,
-              "candidate_index": 1
-            }
-          ]
-        },
-        {
-          "name": "M1 Pro / 16GB / 256GB SSD",
-          "price": {
-            "nominal": 1799,
-            "real": 1799
-          },
-          "quantity": 10,
-          "choices": [
-            {
-              "option_index": 0,
-              "candidate_index": 1
-            },
-            {
-              "option_index": 1,
-              "candidate_index": 1
-            },
-            {
-              "option_index": 2,
-              "candidate_index": 0
-            }
-          ]
-        },
-        {
-          "name": "M1 Pro / 16GB / 512GB SSD",
-          "price": {
-            "nominal": 1999,
-            "real": 1999
-          },
-          "quantity": 10,
-          "choices": [
-            {
-              "option_index": 0,
-              "candidate_index": 1
             },
             {
               "option_index": 1,

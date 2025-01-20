@@ -17,7 +17,7 @@
       {
         "name": "Apple_Magic_Keyboard_thumbnail",
         "extension": "jpg",
-        "url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MK2A3_FV2?wid=400&hei=400&fmt=jpeg&qlt=90&.v=1613672894000"
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MXK83KH?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1729879573002"
       }
     ]
   },
@@ -42,10 +42,10 @@
               "name": "English"
             },
             {
-              "name": "Spanish"
+              "name": "Korean"
             },
             {
-              "name": "French"
+              "name": "Japanese"
             }
           ]
         }
@@ -54,8 +54,8 @@
         {
           "name": "Apple Magic Keyboard - English",
           "price": {
-            "nominal": 99,
-            "real": 99
+            "nominal": 279000,
+            "real": 279000
           },
           "quantity": 100,
           "choices": [
@@ -66,10 +66,10 @@
           ]
         },
         {
-          "name": "Apple Magic Keyboard - Spanish",
+          "name": "Apple Magic Keyboard - Korean",
           "price": {
-            "nominal": 99,
-            "real": 99
+            "nominal": 279000,
+            "real": 279000
           },
           "quantity": 100,
           "choices": [
@@ -80,10 +80,10 @@
           ]
         },
         {
-          "name": "Apple Magic Keyboard - French",
+          "name": "Apple Magic Keyboard - Japanese",
           "price": {
-            "nominal": 99,
-            "real": 99
+            "nominal": 279000,
+            "real": 279000
           },
           "quantity": 100,
           "choices": [

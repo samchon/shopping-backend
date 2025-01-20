@@ -3,15 +3,20 @@
   "opened_at": null,
   "closed_at": null,
   "content": {
-    "title": "Apple iPad",
+    "title": "Apple iPad Pro",
     "format": "txt",
-    "body": "The Apple iPad is a versatile and popular tablet, known for its sleek design, powerful performance, and user-friendly interface. It is perfect for entertainment, productivity, and education, offering a wide range of apps and features that cater to various needs. Whether you are looking for a device to watch movies, work on documents, or learn new skills, the iPad is an excellent choice.",
+    "body": "The Apple iPad Pro is a versatile and popular tablet, known for its sleek design, powerful performance, and user-friendly interface. It is perfect for entertainment, productivity, and education, offering a wide range of apps and features that cater to various needs. Whether you are looking for a device to watch movies, work on documents, or learn new skills, the iPad Pro is an excellent choice.",
     "files": [],
     "thumbnails": [
       {
         "name": "ipad_thumbnail",
         "extension": "jpg",
-        "url": "https://example.com/thumbnails/ipad_thumbnail.jpg"
+        "url": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/ipad-pro-model-select-gallery-1-202405?wid=5120&hei=2880&fmt=webp&qlt=70&.v=cXN0QTVTNDBtbGIzcy91THBPRThnNE5sSFgwakNWNmlhZ2d5NGpHdllWY09WV3R2ZHdZMXRzTjZIcWdMTlg4eUJQYkhSV3V1dC9oa0s5K3lqMGtUaFMvR01EVDlzK0hIS1J2bTdpY0pVeTF1Yy9kL1dQa3EzdWh4Nzk1ZnZTYWY&traceId=1"
+      },
+      {
+        "name": "ipad_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/ipad-pro-model-select-gallery-2-202405?wid=5120&hei=2880&fmt=webp&qlt=70&.v=cXN0QTVTNDBtbGIzcy91THBPRThnMkpvMjZnN3E5aGRZVXJIWmhFMitJSU9WV3R2ZHdZMXRzTjZIcWdMTlg4eUJQYkhSV3V1dC9oa0s5K3lqMGtUaFMvR01EVDlzK0hIS1J2bTdpY0pVeTBWNTFabEhVdlFNSjJrWGh4dTRLbEk&traceId=1"
       }
     ]
   },
@@ -34,13 +39,13 @@
           "variable": true,
           "candidates": [
             {
-              "name": "64GB"
-            },
-            {
               "name": "256GB"
             },
             {
               "name": "512GB"
+            },
+            {
+              "name": "1TB"
             }
           ]
         },
@@ -50,7 +55,7 @@
           "variable": false,
           "candidates": [
             {
-              "name": "Space Gray"
+              "name": "Space Black"
             },
             {
               "name": "Silver"
@@ -60,10 +65,10 @@
       ],
       "stocks": [
         {
-          "name": "iPad 64GB Space Gray",
+          "name": "iPad Pro 256GB Space Black",
           "price": {
-            "nominal": 499,
-            "real": 499
+            "nominal": 1350000,
+            "real": 1350000
           },
           "quantity": 100,
           "choices": [
@@ -78,10 +83,10 @@
           ]
         },
         {
-          "name": "iPad 64GB Silver",
+          "name": "iPad Pro 256GB Silver",
           "price": {
-            "nominal": 499,
-            "real": 499
+            "nominal": 1350000,
+            "real": 1350000
           },
           "quantity": 100,
           "choices": [
@@ -96,10 +101,10 @@
           ]
         },
         {
-          "name": "iPad 256GB Space Gray",
+          "name": "iPad Pro 512GB Space Black",
           "price": {
-            "nominal": 599,
-            "real": 599
+            "nominal": 1650000,
+            "real": 1650000
           },
           "quantity": 100,
           "choices": [
@@ -114,10 +119,10 @@
           ]
         },
         {
-          "name": "iPad 256GB Silver",
+          "name": "iPad Pro 512GB Silver",
           "price": {
-            "nominal": 599,
-            "real": 599
+            "nominal": 1650000,
+            "real": 1650000
           },
           "quantity": 100,
           "choices": [
@@ -132,10 +137,10 @@
           ]
         },
         {
-          "name": "iPad 512GB Space Gray",
+          "name": "iPad Pro 1TB Space Black",
           "price": {
-            "nominal": 699,
-            "real": 699
+            "nominal": 2250000,
+            "real": 2250000
           },
           "quantity": 100,
           "choices": [
@@ -150,10 +155,10 @@
           ]
         },
         {
-          "name": "iPad 512GB Silver",
+          "name": "iPad Pro 1TB Silver",
           "price": {
-            "nominal": 699,
-            "real": 699
+            "nominal": 2250000,
+            "real": 2250000
           },
           "quantity": 100,
           "choices": [

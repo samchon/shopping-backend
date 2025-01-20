@@ -6,18 +6,17 @@
     "title": "Apple Magic Mouse",
     "format": "txt",
     "body": "The Apple Magic Mouse is Apple's multi-touch, wireless mouse with a sleek and innovative design. It supports a range of gestures for easy navigation and connectivity via Bluetooth.",
-    "files": [
-      {
-        "name": "apple_magic_mouse",
-        "extension": "jpg",
-        "url": "https://example.com/apple_magic_mouse.jpg"
-      }
-    ],
+    "files": [],
     "thumbnails": [
       {
         "name": "magic_mouse_thumbnail",
         "extension": "jpg",
-        "url": "https://example.com/magic_mouse_thumbnail.jpg"
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MXK53?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1730508286345"
+      },
+      {
+        "name": "magic_mouse_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MXK63?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1730508287136"
       }
     ]
   },
@@ -42,7 +41,7 @@
               "name": "Silver"
             },
             {
-              "name": "Space Gray"
+              "name": "Space Black"
             }
           ]
         }
@@ -51,8 +50,8 @@
         {
           "name": "Apple Magic Mouse - Silver",
           "price": {
-            "nominal": 99,
-            "real": 79
+            "nominal": 139000,
+            "real": 139000
           },
           "quantity": 100,
           "choices": [
@@ -63,10 +62,10 @@
           ]
         },
         {
-          "name": "Apple Magic Mouse - Space Gray",
+          "name": "Apple Magic Mouse - Space Black",
           "price": {
-            "nominal": 99,
-            "real": 79
+            "nominal": 139000,
+            "real": 139000
           },
           "quantity": 100,
           "choices": [

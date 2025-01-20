@@ -8,7 +8,23 @@
     "format": "md",
     "body": "Introducing the latest **Apple Watch**, a marvel of technology and design. Stay connected, track your fitness, and manage your health with ease. The Apple Watch boasts advanced features that bring convenience and connectivity to your wrist.\n\n**Key Features:**\n\n- Retina display\n- Water resistant\n- ECG app\n- High and low heart rate notifications\n- Fall detection\n- Emergency SOS\n- Always-On display options\n\nExperience a device that's more than a watch. It's a health and fitness companion that keeps you informed and safe.",
     "files": [],
-    "thumbnails": []
+    "thumbnails": [
+      {
+        "name": "apple_watch_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/s10-case-unselect-gallery-1-202409?wid=5120&hei=3280&fmt=p-jpg&qlt=80&.v=1724620940808"
+      },
+      {
+        "name": "apple_watch_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/s10-case-unselect-gallery-2-202409?wid=5120&hei=3280&fmt=p-jpg&qlt=80&.v=1725424163577"
+      },
+      {
+        "name": "apple_watch_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/s10-case-unselect-gallery-3-202409?wid=5120&hei=3280&fmt=p-jpg&qlt=80&.v=1725424165167"
+      }
+    ]
   },
   "channels": [
     {
@@ -43,20 +59,20 @@
           "variable": true,
           "candidates": [
             {
-              "name": "40mm"
+              "name": "42mm"
             },
             {
-              "name": "44mm"
+              "name": "46mm"
             }
           ]
         }
       ],
       "stocks": [
         {
-          "name": "Silver 40mm",
+          "name": "Silver 42mm",
           "price": {
-            "nominal": 399,
-            "real": 299
+            "nominal": 599000,
+            "real": 599000
           },
           "quantity": 100,
           "choices": [
@@ -71,10 +87,10 @@
           ]
         },
         {
-          "name": "Silver 44mm",
+          "name": "Silver 46mm",
           "price": {
-            "nominal": 429,
-            "real": 329
+            "nominal": 639000,
+            "real": 639000
           },
           "quantity": 100,
           "choices": [
@@ -89,10 +105,10 @@
           ]
         },
         {
-          "name": "Space Gray 40mm",
+          "name": "Space Gray 42mm",
           "price": {
-            "nominal": 399,
-            "real": 299
+            "nominal": 599000,
+            "real": 599000
           },
           "quantity": 100,
           "choices": [
@@ -107,10 +123,10 @@
           ]
         },
         {
-          "name": "Space Gray 44mm",
+          "name": "Space Gray 46mm",
           "price": {
-            "nominal": 429,
-            "real": 329
+            "nominal": 639000,
+            "real": 639000
           },
           "quantity": 100,
           "choices": [
@@ -125,10 +141,10 @@
           ]
         },
         {
-          "name": "Gold 40mm",
+          "name": "Gold 42mm",
           "price": {
-            "nominal": 399,
-            "real": 299
+            "nominal": 599000,
+            "real": 599000
           },
           "quantity": 100,
           "choices": [
@@ -143,10 +159,10 @@
           ]
         },
         {
-          "name": "Gold 44mm",
+          "name": "Gold 46mm",
           "price": {
-            "nominal": 429,
-            "real": 329
+            "nominal": 639000,
+            "real": 639000
           },
           "quantity": 100,
           "choices": [
@@ -161,7 +177,7 @@
           ]
         }
       ],
-      "name": "Apple Watch Model",
+      "name": "Apple Watch Series 10",
       "required": true,
       "primary": true
     }
