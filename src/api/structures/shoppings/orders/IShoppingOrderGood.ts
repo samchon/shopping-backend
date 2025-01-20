@@ -80,7 +80,20 @@ export namespace IShoppingOrderGood {
    */
   export interface ICreate {
     /**
-     * Target commodity's {@link IShoppingCartCommodity.id}.
+     * Target shopping cart commodity's {@link IShoppingCartCommodity.id}.
+     *
+     * `commodity_id` is the primary key of the {@link IShoppingCartCommodity}
+     * entity, which is the basis of the good to be created. In other words,
+     * it is the primary key of the shopping cart commodity that the customer
+     * has selected and applied for the order.
+     *
+     * > You A.I. assistant, this is not the primary key of the
+     * {@link IShoppingSaleUnitStock.id} record which is the stock of
+     * the user selected when creating a shopping cart commodity.
+     * >
+     * > This is the primary key of the {@link IShoppingCartCommodity}
+     * > record that the user created into the shopping cart. Don't take
+     * > a mistake that confuses the two.
      */
     commodity_id: string & tags.Format<"uuid">;
 

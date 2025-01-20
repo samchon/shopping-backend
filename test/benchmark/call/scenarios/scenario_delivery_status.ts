@@ -16,12 +16,27 @@ export const scenario_delivery_status = (): IFunctionCallBenchmarkScenario => ({
         function: ShoppingCustomerSaleController.prototype.details,
       },
       {
-        type: "standalone",
-        function: ShoppingCustomerCartCommodityController.prototype.create,
-      },
-      {
-        type: "standalone",
-        function: ShoppingCustomerOrderController.prototype.create,
+        type: "anyOf",
+        anyOf: [
+          {
+            type: "array",
+            items: [
+              {
+                type: "standalone",
+                function:
+                  ShoppingCustomerCartCommodityController.prototype.create,
+              },
+              {
+                type: "standalone",
+                function: ShoppingCustomerOrderController.prototype.create,
+              },
+            ],
+          },
+          {
+            type: "standalone",
+            function: ShoppingCustomerOrderController.prototype.direct,
+          },
+        ],
       },
       {
         type: "standalone",

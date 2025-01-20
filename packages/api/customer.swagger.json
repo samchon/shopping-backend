@@ -1478,7 +1478,7 @@
     "/shoppings/customers/orders": {
       "post": {
         "summary": "Create a new order application",
-        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot and user wants to directly purchase a\n> product (of sale stock), then call the commodity creation function first.\n> Its endpoint is `POST /shoppings/customers/carts/commodities`.\n> And call this function with the newly created commodity.",
+        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot, don't take a mistake that writing\n> the `commodity_id` with the user selected stock ID. The\n> `commodity_id` is the ID of the shopping cart commodity, not the\n> stock ID. The stock ID is already included in the shopping cart\n> commodity.",
         "tags": [
           "Order"
         ],
@@ -1559,6 +1559,51 @@
           "customers",
           "orders",
           "index"
+        ],
+        "x-samchon-controller": "ShoppingCustomerOrderController"
+      }
+    },
+    "/shoppings/customers/orders/direct": {
+      "post": {
+        "summary": "Create a new order application without a shopping cart",
+        "description": "Create a new order application without a shopping cart.\n\nCarete a new {@link IShoppingOrder order application} without a\n{@link IShoppingCartCommodity shopping cart commodity} composition.\nIf you're an A.I. chatbot and user wants to directly purchase a product,\nthen select and call this function.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.",
+        "tags": [
+          "Order"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Creation info of the order without a shopping cart composition",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IShoppingCartCommodity.ICreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Newly created order",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IShoppingOrder"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "customers",
+          "orders",
+          "direct"
         ],
         "x-samchon-controller": "ShoppingCustomerOrderController"
       }
@@ -7195,7 +7240,7 @@
             "type": "string",
             "format": "uuid",
             "title": "Primary Key",
-            "description": "Primary Key."
+            "description": "Primary Key.\n\nIf you want to continue to the order the commodity, then use this ID to order."
           },
           "sale": {
             "$ref": "#/components/schemas/IShoppingSaleSnapshot.IInvert",
@@ -9141,8 +9186,8 @@
           "commodity_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Target commodity's {@link IShoppingCartCommodity.id}",
-            "description": "Target commodity's {@link IShoppingCartCommodity.id}."
+            "title": "Target shopping cart commodity's {@link IShoppingCartCommodity.id}",
+            "description": "Target shopping cart commodity's {@link IShoppingCartCommodity.id}.\n\n`commodity_id` is the primary key of the {@link IShoppingCartCommodity}\nentity, which is the basis of the good to be created. In other words,\nit is the primary key of the shopping cart commodity that the customer\nhas selected and applied for the order.\n\n> You A.I. assistant, this is not the primary key of the\n{@link IShoppingSaleUnitStock.id} record which is the stock of\nthe user selected when creating a shopping cart commodity.\n>\n> This is the primary key of the {@link IShoppingCartCommodity}\n> record that the user created into the shopping cart. Don't take\n> a mistake that confuses the two."
           },
           "volume": {
             "type": "integer",

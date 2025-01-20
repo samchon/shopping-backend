@@ -30,7 +30,7 @@ export namespace ShoppingOrderProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_ordersGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_ordersGetPayload<ReturnType<typeof select>>,
     ): Promise<IShoppingOrder> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("mv_price is null");
@@ -39,7 +39,7 @@ export namespace ShoppingOrderProvider {
         customer: ShoppingCustomerProvider.json.transform(input.customer),
         name: input.name,
         goods: await ArrayUtil.asyncMap(input.goods)(
-          ShoppingOrderGoodProvider.json.transform
+          ShoppingOrderGoodProvider.json.transform,
         ),
         publish:
           input.publish !== null
@@ -99,7 +99,7 @@ export namespace ShoppingOrderProvider {
           ...where(props.actor),
         },
         ...json.select(props.actor),
-      }
+      },
     );
     return json.transform(record);
   };
@@ -126,7 +126,7 @@ export namespace ShoppingOrderProvider {
           }) satisfies Prisma.shopping_ordersWhereInput;
 
   const search = async (
-    input: IShoppingOrder.IRequest.ISearch | null | undefined
+    input: IShoppingOrder.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.min_price !== undefined && input?.min_price !== null
@@ -178,7 +178,7 @@ export namespace ShoppingOrderProvider {
 
   const orderBy = (
     key: IShoppingOrder.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "order.created_at"
       ? { created_at: value }
@@ -211,7 +211,7 @@ export namespace ShoppingOrderProvider {
           },
         },
         ...ShoppingCartCommodityProvider.json.select(),
-      })
+      }),
     )(ShoppingCartCommodityProvider.json.transform);
 
     // VALIDATE
@@ -225,7 +225,7 @@ export namespace ShoppingOrderProvider {
     const quantity: IPointer<number> = { value: 0 };
     const goods = props.input.goods.map((raw, i) => {
       const commodity: IShoppingCartCommodity = commodities.find(
-        (c) => c.id === raw.commodity_id
+        (c) => c.id === raw.commodity_id,
       )!;
       quantity.value +=
         raw.volume *
@@ -279,6 +279,29 @@ export namespace ShoppingOrderProvider {
     return json.transform(record);
   };
 
+  export const direct = async (props: {
+    customer: IShoppingCustomer;
+    input: IShoppingCartCommodity.ICreate;
+  }): Promise<IShoppingOrder> => {
+    const commodity: IShoppingCartCommodity =
+      await ShoppingCartCommodityProvider.create({
+        customer: props.customer,
+        input: props.input,
+        cart: null,
+      });
+    return create({
+      customer: props.customer,
+      input: {
+        goods: [
+          {
+            commodity_id: commodity.id,
+            volume: commodity.volume,
+          },
+        ],
+      },
+    });
+  };
+
   export const erase = async (props: {
     customer: IShoppingCustomer;
     id: string;
@@ -293,7 +316,7 @@ export namespace ShoppingOrderProvider {
           ...ShoppingOrderPriceProvider.json.select(props.customer).include,
           publish: true,
         },
-      }
+      },
     );
     if (record.publish !== null)
       throw ErrorProvider.gone({

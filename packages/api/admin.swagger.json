@@ -6079,7 +6079,7 @@
             "type": "string",
             "format": "uuid",
             "title": "Primary Key",
-            "description": "Primary Key."
+            "description": "Primary Key.\n\nIf you want to continue to the order the commodity, then use this ID to order."
           },
           "sale": {
             "$ref": "#/components/schemas/IShoppingSaleSnapshot.IInvert",
