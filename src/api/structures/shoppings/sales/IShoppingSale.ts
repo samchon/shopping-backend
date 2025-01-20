@@ -106,7 +106,7 @@ export namespace IShoppingSale {
     /**
      * Search conditions.
      */
-    search?: null | IRequest.ISearch;
+    // search?: null | IRequest.ISearch;
 
     /**
      * Sorting conditions.
