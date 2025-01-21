@@ -7,13 +7,17 @@ import { ScenarioPromptCollection } from "./ScenarioPromptCollection";
 
 export const scenario_delivery_status = (): IFunctionCallBenchmarkScenario => ({
   title: "Delivery Status",
-  prompt: ScenarioPromptCollection.SP9.join("\n\n"),
+  prompt: ScenarioPromptCollection.IPHONE.join("\n\n"),
   expected: {
     type: "array",
     items: [
       {
         type: "standalone",
-        function: ShoppingCustomerSaleController.prototype.details,
+        function: ShoppingCustomerSaleController.prototype.index,
+      },
+      {
+        type: "standalone",
+        function: ShoppingCustomerSaleController.prototype.at,
       },
       {
         type: "anyOf",
