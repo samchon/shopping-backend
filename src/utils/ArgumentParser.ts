@@ -15,7 +15,9 @@ export namespace ArgumentParser {
       message: string,
     ) => <Choice extends string>(choices: Choice[]) => Promise<Choice>;
     boolean: (name: string) => (message: string) => Promise<boolean>;
-    number: (name: string) => (message: string) => Promise<number>;
+    number: (
+      name: string,
+    ) => (message: string, init?: number) => Promise<number>;
   }
 
   export const parse = async <T>(
@@ -58,8 +60,8 @@ export namespace ArgumentParser {
           message,
         })
       )[name] as boolean;
-    const number = (name: string) => async (message: string) =>
-      Number(
+    const number = (name: string) => async (message: string, init?: number) => {
+      const value: number = Number(
         (
           await inquirer.createPromptModule()({
             type: "number",
@@ -68,6 +70,8 @@ export namespace ArgumentParser {
           })
         )[name],
       );
+      return init !== undefined && isNaN(value) ? init : value;
+    };
 
     const output: T | Error = await (async () => {
       try {

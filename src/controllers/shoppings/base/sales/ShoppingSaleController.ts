@@ -1,5 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { RouteIcon } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -7,11 +8,10 @@ import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ShoppingSaleProvider } from "../../../../providers/shoppings/sales/ShoppingSaleProvider";
-
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
-  props: IShoppingControllerProps
+  props: IShoppingControllerProps,
 ) {
   @Controller(`shoppings/${props.path}/sales`)
   abstract class ShoppingSaleController {
@@ -45,7 +45,7 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
     @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingSale.IRequest
+      @core.TypedBody() input: IShoppingSale.IRequest,
     ): Promise<IPage<IShoppingSale.ISummary>> {
       return ShoppingSaleProvider.index({
         actor,
@@ -68,10 +68,9 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      * in the market. Instead, you can't see the unopened, closed, or suspended
      * sales.
      *
-     * By the way, if you want, you can limit the result by configuring
-     * {@link IShoppingSale.IRequest.search search condition} in the request
-     * body. Also, it is possible to customize sequence order of records by
-     * configuring {@link IShoppingSale.IRequest.sort sort condition}.
+     * > If you're an A.I. chatbot, please don't summarize the
+     * > {@link IShoppingSaleUnitStock stock informations}. Just list up the
+     * > every stocks in the sale with detailed informations.
      *
      * @param input Request info of pagination, searching and sorting
      * @returns Paginated sales with detailed information
@@ -79,10 +78,13 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      *
      * @author Samchon
      */
+    @RouteIcon(
+      "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg",
+    )
     @core.TypedRoute.Patch("details")
     public async details(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingSale.IRequest
+      @core.TypedBody() input: IShoppingSale.IRequest,
     ): Promise<IPage<IShoppingSale>> {
       return ShoppingSaleProvider.details({
         actor,
@@ -110,7 +112,7 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
     @core.TypedRoute.Get(":id")
     public async at(
       @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSale> {
       return ShoppingSaleProvider.at({
         actor,

@@ -1,0 +1,192 @@
+{
+  "section_code": "general",
+  "status": null,
+  "opened_at": null,
+  "closed_at": null,
+  "content": {
+    "title": "Apple Watch",
+    "format": "md",
+    "body": "Introducing the latest **Apple Watch**, a marvel of technology and design. Stay connected, track your fitness, and manage your health with ease. The Apple Watch boasts advanced features that bring convenience and connectivity to your wrist.\n\n**Key Features:**\n\n- Retina display\n- Water resistant\n- ECG app\n- High and low heart rate notifications\n- Fall detection\n- Emergency SOS\n- Always-On display options\n\nExperience a device that's more than a watch. It's a health and fitness companion that keeps you informed and safe.",
+    "files": [],
+    "thumbnails": [
+      {
+        "name": "apple_watch_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/s10-case-unselect-gallery-1-202409?wid=5120&hei=3280&fmt=p-jpg&qlt=80&.v=1724620940808"
+      },
+      {
+        "name": "apple_watch_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/s10-case-unselect-gallery-2-202409?wid=5120&hei=3280&fmt=p-jpg&qlt=80&.v=1725424163577"
+      },
+      {
+        "name": "apple_watch_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/s10-case-unselect-gallery-3-202409?wid=5120&hei=3280&fmt=p-jpg&qlt=80&.v=1725424165167"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "code": "samchon",
+      "category_codes": [
+        "smart_watches"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "options": [
+        {
+          "type": "select",
+          "name": "Color",
+          "variable": true,
+          "candidates": [
+            {
+              "name": "Silver"
+            },
+            {
+              "name": "Space Gray"
+            },
+            {
+              "name": "Gold"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "name": "Size",
+          "variable": true,
+          "candidates": [
+            {
+              "name": "42mm"
+            },
+            {
+              "name": "46mm"
+            }
+          ]
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Silver 42mm",
+          "price": {
+            "nominal": 599000,
+            "real": 599000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "Silver 46mm",
+          "price": {
+            "nominal": 639000,
+            "real": 639000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "Space Gray 42mm",
+          "price": {
+            "nominal": 599000,
+            "real": 599000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "Space Gray 46mm",
+          "price": {
+            "nominal": 639000,
+            "real": 639000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "Gold 42mm",
+          "price": {
+            "nominal": 599000,
+            "real": 599000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "Gold 46mm",
+          "price": {
+            "nominal": 639000,
+            "real": 639000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            },
+            {
+              "option_index": 1,
+              "candidate_index": 1
+            }
+          ]
+        }
+      ],
+      "name": "Apple Watch Series 10",
+      "required": true,
+      "primary": true
+    }
+  ],
+  "tags": [
+    "Apple",
+    "Watch",
+    "Smartwatch",
+    "Tech",
+    "Gadgets"
+  ]
+}

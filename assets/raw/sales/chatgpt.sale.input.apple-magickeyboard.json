@@ -1,0 +1,107 @@
+{
+  "section_code": "general",
+  "opened_at": null,
+  "closed_at": null,
+  "content": {
+    "title": "Apple Magic Keyboard",
+    "format": "html",
+    "body": "The Apple Magic Keyboard is a wireless and rechargeable keyboard that combines a sleek design with cutting-edge technology. It features a built-in rechargeable battery that powers the keyboard for about a month or more between charges. It pairs automatically with your Mac, so you can get to work right away. With an enhanced scissor mechanism beneath each key for increased stability, as well as optimized key travel and a low profile, the Magic Keyboard provides a remarkably comfortable and precise typing experience.",
+    "files": [
+      {
+        "name": "Apple_Magic_Keyboard",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MK2A3?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1613672894000"
+      }
+    ],
+    "thumbnails": [
+      {
+        "name": "Apple_Magic_Keyboard_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MXK83KH?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1729879573002"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "code": "samchon",
+      "category_codes": [
+        "accessories",
+        "electronics"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "options": [
+        {
+          "type": "select",
+          "name": "Language",
+          "variable": false,
+          "candidates": [
+            {
+              "name": "English"
+            },
+            {
+              "name": "Korean"
+            },
+            {
+              "name": "Japanese"
+            }
+          ]
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Apple Magic Keyboard - English",
+          "price": {
+            "nominal": 279000,
+            "real": 279000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "Apple Magic Keyboard - Korean",
+          "price": {
+            "nominal": 279000,
+            "real": 279000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            }
+          ]
+        },
+        {
+          "name": "Apple Magic Keyboard - Japanese",
+          "price": {
+            "nominal": 279000,
+            "real": 279000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 2
+            }
+          ]
+        }
+      ],
+      "name": "Magic Keyboard",
+      "required": true,
+      "primary": true
+    }
+  ],
+  "tags": [
+    "Apple",
+    "Magic Keyboard",
+    "Wireless Keyboard"
+  ]
+}

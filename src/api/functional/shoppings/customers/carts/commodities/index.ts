@@ -5,9 +5,7 @@
  */
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
-import { NestiaSimulator } from "@nestia/fetcher/lib/NestiaSimulator";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import typia from "typia";
 import type { Format } from "typia/lib/tags/Format";
 
 import type { IPage } from "../../../../../structures/common/IPage";
@@ -48,23 +46,21 @@ export async function index(
   connection: IConnection,
   input: IShoppingCartCommodity.IRequest,
 ): Promise<index.Output> {
-  return !!connection.simulate
-    ? index.simulate(connection, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...index.METADATA,
-          template: index.METADATA.path,
-          path: index.path(),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...index.METADATA,
+      template: index.METADATA.path,
+      path: index.path(),
+    },
+    input,
+  );
 }
 export namespace index {
   export type Input = IShoppingCartCommodity.IRequest;
@@ -85,27 +81,6 @@ export namespace index {
   } as const;
 
   export const path = () => "/shoppings/customers/carts/commodities";
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IPage<IShoppingCartCommodity> =>
-    typia.random<IPage<IShoppingCartCommodity>>(g);
-  export const simulate = (
-    connection: IConnection,
-    input: IShoppingCartCommodity.IRequest,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(),
-      contentType: "application/json",
-    });
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -132,13 +107,11 @@ export async function at(
   connection: IConnection,
   id: string & Format<"uuid">,
 ): Promise<at.Output> {
-  return !!connection.simulate
-    ? at.simulate(connection, id)
-    : PlainFetcher.fetch(connection, {
-        ...at.METADATA,
-        template: at.METADATA.path,
-        path: at.path(id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...at.METADATA,
+    template: at.METADATA.path,
+    path: at.path(id),
+  });
 }
 export namespace at {
   export type Output = IShoppingCartCommodity;
@@ -156,26 +129,6 @@ export namespace at {
 
   export const path = (id: string & Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingCartCommodity => typia.random<IShoppingCartCommodity>(g);
-  export const simulate = (
-    connection: IConnection,
-    id: string & Format<"uuid">,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(id),
-      contentType: "application/json",
-    });
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -207,23 +160,21 @@ export async function create(
   connection: IConnection,
   input: IShoppingCartCommodity.ICreate,
 ): Promise<create.Output> {
-  return !!connection.simulate
-    ? create.simulate(connection, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...create.METADATA,
-          template: create.METADATA.path,
-          path: create.path(),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...create.METADATA,
+      template: create.METADATA.path,
+      path: create.path(),
+    },
+    input,
+  );
 }
 export namespace create {
   export type Input = IShoppingCartCommodity.ICreate;
@@ -244,26 +195,6 @@ export namespace create {
   } as const;
 
   export const path = () => "/shoppings/customers/carts/commodities";
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingCartCommodity => typia.random<IShoppingCartCommodity>(g);
-  export const simulate = (
-    connection: IConnection,
-    input: IShoppingCartCommodity.ICreate,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(),
-      contentType: "application/json",
-    });
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -290,23 +221,21 @@ export async function update(
   id: string & Format<"uuid">,
   input: IShoppingCartCommodity.IUpdate,
 ): Promise<void> {
-  return !!connection.simulate
-    ? update.simulate(connection, id, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...update.METADATA,
-          template: update.METADATA.path,
-          path: update.path(id),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...update.METADATA,
+      template: update.METADATA.path,
+      path: update.path(id),
+    },
+    input,
+  );
 }
 export namespace update {
   export type Input = IShoppingCartCommodity.IUpdate;
@@ -327,27 +256,6 @@ export namespace update {
 
   export const path = (id: string & Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    id: string & Format<"uuid">,
-    input: IShoppingCartCommodity.IUpdate,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(id),
-      contentType: "application/json",
-    });
-    assert.param("id")(() => typia.assert(id));
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -373,13 +281,11 @@ export async function replica(
   connection: IConnection,
   id: string & Format<"uuid">,
 ): Promise<replica.Output> {
-  return !!connection.simulate
-    ? replica.simulate(connection, id)
-    : PlainFetcher.fetch(connection, {
-        ...replica.METADATA,
-        template: replica.METADATA.path,
-        path: replica.path(id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...replica.METADATA,
+    template: replica.METADATA.path,
+    path: replica.path(id),
+  });
 }
 export namespace replica {
   export type Output = IShoppingCartCommodity.ICreate;
@@ -397,27 +303,6 @@ export namespace replica {
 
   export const path = (id: string & Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}/replica`;
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingCartCommodity.ICreate =>
-    typia.random<IShoppingCartCommodity.ICreate>(g);
-  export const simulate = (
-    connection: IConnection,
-    id: string & Format<"uuid">,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(id),
-      contentType: "application/json",
-    });
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -444,13 +329,11 @@ export async function erase(
   connection: IConnection,
   id: string & Format<"uuid">,
 ): Promise<void> {
-  return !!connection.simulate
-    ? erase.simulate(connection, id)
-    : PlainFetcher.fetch(connection, {
-        ...erase.METADATA,
-        template: erase.METADATA.path,
-        path: erase.path(id),
-      });
+  return PlainFetcher.fetch(connection, {
+    ...erase.METADATA,
+    template: erase.METADATA.path,
+    path: erase.path(id),
+  });
 }
 export namespace erase {
   export const METADATA = {
@@ -466,25 +349,6 @@ export namespace erase {
 
   export const path = (id: string & Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
-  export const random = (g?: Partial<typia.IRandomGenerator>): void =>
-    typia.random<void>(g);
-  export const simulate = (
-    connection: IConnection,
-    id: string & Format<"uuid">,
-  ): void => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(id),
-      contentType: "application/json",
-    });
-    assert.param("id")(() => typia.assert(id));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }
 
 /**
@@ -518,23 +382,21 @@ export async function discountable(
   connection: IConnection,
   input: IShoppingCartDiscountable.IRequest,
 ): Promise<discountable.Output> {
-  return !!connection.simulate
-    ? discountable.simulate(connection, input)
-    : PlainFetcher.fetch(
-        {
-          ...connection,
-          headers: {
-            ...connection.headers,
-            "Content-Type": "application/json",
-          },
-        },
-        {
-          ...discountable.METADATA,
-          template: discountable.METADATA.path,
-          path: discountable.path(),
-        },
-        input,
-      );
+  return PlainFetcher.fetch(
+    {
+      ...connection,
+      headers: {
+        ...connection.headers,
+        "Content-Type": "application/json",
+      },
+    },
+    {
+      ...discountable.METADATA,
+      template: discountable.METADATA.path,
+      path: discountable.path(),
+    },
+    input,
+  );
 }
 export namespace discountable {
   export type Input = IShoppingCartDiscountable.IRequest;
@@ -556,24 +418,4 @@ export namespace discountable {
 
   export const path = () =>
     "/shoppings/customers/carts/commodities/discountable";
-  export const random = (
-    g?: Partial<typia.IRandomGenerator>,
-  ): IShoppingCartDiscountable => typia.random<IShoppingCartDiscountable>(g);
-  export const simulate = (
-    connection: IConnection,
-    input: IShoppingCartDiscountable.IRequest,
-  ): Output => {
-    const assert = NestiaSimulator.assert({
-      method: METADATA.method,
-      host: connection.host,
-      path: path(),
-      contentType: "application/json",
-    });
-    assert.body(() => typia.assert(input));
-    return random(
-      "object" === typeof connection.simulate && null !== connection.simulate
-        ? connection.simulate
-        : undefined,
-    );
-  };
 }

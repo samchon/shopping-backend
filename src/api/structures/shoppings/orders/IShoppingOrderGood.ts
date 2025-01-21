@@ -80,7 +80,12 @@ export namespace IShoppingOrderGood {
    */
   export interface ICreate {
     /**
-     * Target commodity's {@link IShoppingCartCommodity.id}.
+     * Target shopping cart commodity's {@link IShoppingCartCommodity.id}.
+     *
+     * `commodity_id` is the primary key of the {@link IShoppingCartCommodity}
+     * entity, which is the basis of the good to be created. In other words,
+     * it is the primary key of the shopping cart commodity that the customer
+     * has selected and applied for the order.
      */
     commodity_id: string & tags.Format<"uuid">;
 

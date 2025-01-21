@@ -1,0 +1,91 @@
+{
+  "section_code": "general",
+  "opened_at": null,
+  "closed_at": null,
+  "content": {
+    "title": "Apple Magic Mouse",
+    "format": "txt",
+    "body": "The Apple Magic Mouse is Apple's multi-touch, wireless mouse with a sleek and innovative design. It supports a range of gestures for easy navigation and connectivity via Bluetooth.",
+    "files": [],
+    "thumbnails": [
+      {
+        "name": "magic_mouse_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MXK53?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1730508286345"
+      },
+      {
+        "name": "magic_mouse_thumbnail",
+        "extension": "jpg",
+        "url": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/MXK63?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1730508287136"
+      }
+    ]
+  },
+  "channels": [
+    {
+      "code": "samchon",
+      "category_codes": [
+        "electronics",
+        "accessories"
+      ]
+    }
+  ],
+  "units": [
+    {
+      "options": [
+        {
+          "type": "select",
+          "name": "Color",
+          "variable": true,
+          "candidates": [
+            {
+              "name": "Silver"
+            },
+            {
+              "name": "Space Black"
+            }
+          ]
+        }
+      ],
+      "stocks": [
+        {
+          "name": "Apple Magic Mouse - Silver",
+          "price": {
+            "nominal": 139000,
+            "real": 139000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 0
+            }
+          ]
+        },
+        {
+          "name": "Apple Magic Mouse - Space Black",
+          "price": {
+            "nominal": 139000,
+            "real": 139000
+          },
+          "quantity": 100,
+          "choices": [
+            {
+              "option_index": 0,
+              "candidate_index": 1
+            }
+          ]
+        }
+      ],
+      "name": "Apple Magic Mouse",
+      "required": true,
+      "primary": true
+    }
+  ],
+  "tags": [
+    "Apple",
+    "Mouse",
+    "Wireless",
+    "Bluetooth",
+    "Magic Mouse"
+  ]
+}
