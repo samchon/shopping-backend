@@ -167,10 +167,8 @@ export namespace index {
  * > if you A.I. agent has called this operation to a specific sale, you
  * > don't need to call this operation again for the same sale.
  * >
- * > Additionally, the parameter `id` must be the target sale's UUID
- * > primary key {@link IShoppingSale.id}. If you don't know the target
- * > sale's ID, please call the `GET /shoppings/customers/sales` operation
- * > to list up every sales and find the target sale from there.
+ * > Additionally, please do not summarize the SKU information. Just show
+ * > the every options and stocks in the sale with detailed informations.
  *
  * @param id Target sale's {@link IShoppingSale.id }
  * @returns Detailed sale information
