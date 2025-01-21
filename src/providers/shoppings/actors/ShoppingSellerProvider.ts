@@ -23,7 +23,7 @@ export namespace ShoppingSellerProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_sellersGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_sellersGetPayload<ReturnType<typeof select>>,
     ): IShoppingSeller => ({
       id: input.id,
       created_at: input.created_at.toISOString(),
@@ -31,21 +31,70 @@ export namespace ShoppingSellerProvider {
     export const select = () =>
       ({}) satisfies Prisma.shopping_sellersFindManyArgs;
   }
+  export namespace summary {
+    export const transform =
+      (
+        error: (message: string) => Error = () =>
+          ErrorProvider.internal("exepcted to seller, but it isn't."),
+      ) =>
+      (
+        customer: Prisma.shopping_customersGetPayload<
+          ReturnType<typeof select>
+        >,
+      ): IShoppingSeller.ISummary => {
+        const member = customer.member;
+        if (member === null) throw error("not a member.");
+
+        const citizen = member.citizen;
+        const seller = member.of_seller;
+        if (citizen === null) throw error("not a citizen.");
+        if (seller === null) throw error("not a seller.");
+
+        return {
+          id: seller.id,
+          type: "seller",
+          citizen: ShoppingCitizenProvider.json.transform(citizen),
+          member: {
+            id: member.id,
+            emails: member.emails
+              .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
+              .map(ShoppingMemberEmailProvider.json.transform),
+            nickname: member.nickname,
+            created_at: member.created_at.toISOString(),
+          },
+          created_at: seller.created_at.toISOString(),
+        };
+      };
+    export const select = () =>
+      ({
+        include: {
+          channel: ShoppingChannelProvider.json.select(),
+          member: {
+            include: {
+              citizen: ShoppingCitizenProvider.json.select(),
+              emails: ShoppingMemberEmailProvider.json.select(),
+              of_seller: true,
+            },
+          },
+        },
+      }) satisfies Prisma.shopping_customersFindManyArgs;
+  }
   export namespace invert {
     export const transform =
       (
         error: (message: string) => Error = () =>
-          ErrorProvider.internal("exepcted to seller, but it isn't.")
+          ErrorProvider.internal("exepcted to seller, but it isn't."),
       ) =>
       (
-        customer: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>
+        customer: Prisma.shopping_customersGetPayload<
+          ReturnType<typeof select>
+        >,
       ): IShoppingSeller.IInvert => {
         const member = customer.member;
         if (member === null) throw error("not a member.");
 
         const citizen = member.citizen;
         const seller = member.of_seller;
-
         if (citizen === null) throw error("not a citizen.");
         if (seller === null) throw error("not a seller.");
 
@@ -67,7 +116,7 @@ export namespace ShoppingSellerProvider {
             external_user:
               customer.external_user !== null
                 ? ShoppingExternalUserProvider.json.transform(
-                    customer.external_user
+                    customer.external_user,
                   )
                 : null,
             href: customer.href,
@@ -116,12 +165,12 @@ export namespace ShoppingSellerProvider {
         message: "tempered token",
       });
     return invert.transform((msg) => new ForbiddenException(`You're ${msg}`))(
-      customer
+      customer,
     );
   };
 
   export const searchFromCustomer = (
-    input: IShoppingSeller.IRequest.ISearch | null | undefined
+    input: IShoppingSeller.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.id?.length
@@ -138,7 +187,7 @@ export namespace ShoppingSellerProvider {
 
   export const orderBy = (
     key: IShoppingSeller.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "seller.created_at"
       ? { created_at: value }

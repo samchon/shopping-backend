@@ -266,9 +266,14 @@ const main = async (): Promise<void> => {
       reference: true,
     },
   });
-  application.functions = application.functions.filter((func) =>
-    func.path.startsWith("/shoppings/customers"),
+  application.functions = application.functions.filter(
+    (func) =>
+      func.path.startsWith("/shoppings/customers/sales") ||
+      func.path.startsWith("/shoppings/customers/carts") ||
+      func.path.startsWith("/shoppings/customers/orders") ||
+      func.path.startsWith("/shoppings/customers/deposits"),
   );
+  console.log("Number of functions: #" + application.functions.length);
 
   // CLIENT ASSETS
   const operations: Map<Function, Function> = getControllers(

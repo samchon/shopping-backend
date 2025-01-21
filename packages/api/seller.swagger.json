@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.13.1",
+    "version": "0.14.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -853,7 +853,7 @@
       },
       "patch": {
         "summary": "List up every summarized sales",
-        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. Instead, you can't see the unopened, closed, or\nsuspended sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
+        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. It does not\ncontain the SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\nIf you want to get such detailed information of a sale, use\n`GET /shoppings/customers/sales/{id}` operation for each sale.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose\n> {@link IShoppingCartCommodity shopping cart} from a sale, please\n> call the `GET /shoppings/customers/sales/{id}` operation at least once\n> to the target sale to get detailed SKU information about the sale.\n> It needs to be run at least once for the next steps.",
         "tags": [
           "Sale"
         ],
@@ -892,8 +892,7 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingSellerSaleController",
-        "x-samchon-human": true
+        "x-samchon-controller": "ShoppingSellerSaleController"
       }
     },
     "/shoppings/sellers/sales/{id}": {
@@ -952,8 +951,8 @@
         "x-samchon-controller": "ShoppingSellerSaleController"
       },
       "get": {
-        "summary": "Get a sale info",
-        "description": "Get a sale info.\n\nGet a {@link IShoppingSale sale} with detailed information.\n\nIf you're a {@link IShoppingSeller seller}, you can only access to the\nyour own {@link IShoppingSale sale}. Otherwise you're a\n{@link IShoppingCustomer customer}, you can access to only the operating\nsales in the market. You can't access to the unopened, closed, or suspended\nsales.",
+        "summary": "Get a sale with detailed information",
+        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, the parameter `id` must be the target sale's UUID\n> primary key {@link IShoppingSale.id}. If you don't know the target\n> sale's ID, please call the `GET /shoppings/customers/sales` operation\n> to list up every sales and find the target sale from there.",
         "tags": [
           "Sale"
         ],
@@ -1257,6 +1256,7 @@
           "details"
         ],
         "x-samchon-controller": "ShoppingSellerSaleController",
+        "x-samchon-human": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
       }
     },
@@ -3449,8 +3449,8 @@
         "properties": {
           "type": {
             "const": "seller",
-            "title": "Discriminant for the type of customer",
-            "description": "Discriminant for the type of customer."
+            "title": "Discriminant for the type of seller",
+            "description": "Discriminant for the type of seller."
           },
           "member": {
             "$ref": "#/components/schemas/IShoppingMember.IInvert",
@@ -5546,7 +5546,7 @@
             "description": "Belonged section."
           },
           "seller": {
-            "$ref": "#/components/schemas/IShoppingSeller.IInvert",
+            "$ref": "#/components/schemas/IShoppingSeller.ISummary",
             "title": "Seller who has registered the sale",
             "description": "Seller who has registered the sale."
           },
@@ -5687,6 +5687,46 @@
           "closed_at"
         ],
         "description": "Summarized information of sale.\n\nThis summarized information being used for pagination."
+      },
+      "IShoppingSeller.ISummary": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "seller",
+            "title": "Discriminant for the type of seller",
+            "description": "Discriminant for the type of seller."
+          },
+          "member": {
+            "$ref": "#/components/schemas/IShoppingMember.IInvert",
+            "title": "Membership joining information",
+            "description": "Membership joining information."
+          },
+          "citizen": {
+            "$ref": "#/components/schemas/IShoppingCitizen",
+            "title": "Real-name and mobile number authentication information",
+            "description": "Real-name and mobile number authentication information."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key",
+            "description": "Primary Key."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation tmie of record",
+            "description": "Creation tmie of record.\n\nAnother words, the time when the seller has signed up."
+          }
+        },
+        "required": [
+          "type",
+          "member",
+          "citizen",
+          "id",
+          "created_at"
+        ],
+        "description": "Summary of seller information."
       },
       "IShoppingSalePriceRange": {
         "type": "object",
@@ -8575,7 +8615,7 @@
         ],
         "description": "Update opening time information of sale."
       },
-      "IPageIShoppingSale.ISummary": {
+      "IPageIShoppingSale": {
         "type": "object",
         "properties": {
           "pagination": {
@@ -8586,7 +8626,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSale.ISummary"
+              "$ref": "#/components/schemas/IShoppingSale"
             },
             "title": "List of records",
             "description": "List of records."
@@ -8741,7 +8781,7 @@
         "required": [],
         "description": "Request of summarized sales with pagination and searching/sorting options."
       },
-      "IPageIShoppingSale": {
+      "IPageIShoppingSale.ISummary": {
         "type": "object",
         "properties": {
           "pagination": {
@@ -8752,7 +8792,7 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSale"
+              "$ref": "#/components/schemas/IShoppingSale.ISummary"
             },
             "title": "List of records",
             "description": "List of records."

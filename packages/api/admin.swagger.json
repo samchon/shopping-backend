@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.13.1",
+    "version": "0.14.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -963,52 +963,6 @@
         "x-samchon-controller": "ShoppingAdminOrderController"
       }
     },
-    "/shoppings/admins/sales": {
-      "patch": {
-        "summary": "List up every summarized sales",
-        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. If you want\nto get the detailed information of a sale, use {@link at} function for\neach sale.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating\nsales in the market. Instead, you can't see the unopened, closed, or\nsuspended sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSale.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingSale.IRequest.sort sort condition}.",
-        "tags": [
-          "Sale"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Request info of pagination, searching and sorting",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IShoppingSale.IRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Paginated sales with summarized information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IPageIShoppingSale.ISummary"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "shoppings",
-          "admins",
-          "sales",
-          "index"
-        ],
-        "x-samchon-controller": "ShoppingAdminSaleController",
-        "x-samchon-human": true
-      }
-    },
     "/shoppings/admins/sales/details": {
       "patch": {
         "summary": "List up every sales",
@@ -1052,13 +1006,59 @@
           "details"
         ],
         "x-samchon-controller": "ShoppingAdminSaleController",
+        "x-samchon-human": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
+      }
+    },
+    "/shoppings/admins/sales": {
+      "patch": {
+        "summary": "List up every summarized sales",
+        "description": "List up every summarized sales.\n\nList up every {@link IShoppingSale.ISummary summarized sales}.\n\nAs you can see, returned sales are summarized, not detailed. It does not\ncontain the SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\nIf you want to get such detailed information of a sale, use\n`GET /shoppings/customers/sales/{id}` operation for each sale.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose\n> {@link IShoppingCartCommodity shopping cart} from a sale, please\n> call the `GET /shoppings/customers/sales/{id}` operation at least once\n> to the target sale to get detailed SKU information about the sale.\n> It needs to be run at least once for the next steps.",
+        "tags": [
+          "Sale"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request info of pagination, searching and sorting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IShoppingSale.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated sales with summarized information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPageIShoppingSale.ISummary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "shoppings",
+          "admins",
+          "sales",
+          "index"
+        ],
+        "x-samchon-controller": "ShoppingAdminSaleController"
       }
     },
     "/shoppings/admins/sales/{id}": {
       "get": {
-        "summary": "Get a sale info",
-        "description": "Get a sale info.\n\nGet a {@link IShoppingSale sale} with detailed information.\n\nIf you're a {@link IShoppingSeller seller}, you can only access to the\nyour own {@link IShoppingSale sale}. Otherwise you're a\n{@link IShoppingCustomer customer}, you can access to only the operating\nsales in the market. You can't access to the unopened, closed, or suspended\nsales.",
+        "summary": "Get a sale with detailed information",
+        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, the parameter `id` must be the target sale's UUID\n> primary key {@link IShoppingSale.id}. If you don't know the target\n> sale's ID, please call the `GET /shoppings/customers/sales` operation\n> to list up every sales and find the target sale from there.",
         "tags": [
           "Sale"
         ],
@@ -3933,7 +3933,7 @@
             "description": "Belonged section."
           },
           "seller": {
-            "$ref": "#/components/schemas/IShoppingSeller.IInvert",
+            "$ref": "#/components/schemas/IShoppingSeller.ISummary",
             "title": "Seller who has registered the sale",
             "description": "Seller who has registered the sale."
           },
@@ -4075,23 +4075,18 @@
         ],
         "description": "Summarized information of sale.\n\nThis summarized information being used for pagination."
       },
-      "IShoppingSeller.IInvert": {
+      "IShoppingSeller.ISummary": {
         "type": "object",
         "properties": {
           "type": {
             "const": "seller",
-            "title": "Discriminant for the type of customer",
-            "description": "Discriminant for the type of customer."
+            "title": "Discriminant for the type of seller",
+            "description": "Discriminant for the type of seller."
           },
           "member": {
             "$ref": "#/components/schemas/IShoppingMember.IInvert",
             "title": "Membership joining information",
             "description": "Membership joining information."
-          },
-          "customer": {
-            "$ref": "#/components/schemas/IShoppingCustomer.IInvert",
-            "title": "Customer, the connection information",
-            "description": "Customer, the connection information."
           },
           "citizen": {
             "$ref": "#/components/schemas/IShoppingCitizen",
@@ -4114,12 +4109,11 @@
         "required": [
           "type",
           "member",
-          "customer",
           "citizen",
           "id",
           "created_at"
         ],
-        "description": "Invert information starting from seller info.\n\nInstead of accessing to the seller information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},\n`IShoppingSeller.IInvert` starts from the seller information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformations inversely."
+        "description": "Summary of seller information."
       },
       "IShoppingSalePriceRange": {
         "type": "object",
@@ -6271,6 +6265,52 @@
         ],
         "description": "Invert information of the sale snapshot, in the perspective of commodity.\n\n`IShoppingSaleSnapshot.IInvert` is a structure used to represent a\nsnapshot in the perspective of a {@link IShoppingCommodity}, corresponding\nto an {@link IShoppingCartCommodityStock} entity.\n\nTherefore, `IShoppingSaleSnapshot.IInvert` does not contain every\n{@link IShoppingSaleUnit units} and {@link IShoppingSaleUnitStock stocks}\nof the snapshot records, but only some of the records which are put\ninto the {@link IShoppingCartCommodity shopping cart}."
       },
+      "IShoppingSeller.IInvert": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "seller",
+            "title": "Discriminant for the type of seller",
+            "description": "Discriminant for the type of seller."
+          },
+          "member": {
+            "$ref": "#/components/schemas/IShoppingMember.IInvert",
+            "title": "Membership joining information",
+            "description": "Membership joining information."
+          },
+          "customer": {
+            "$ref": "#/components/schemas/IShoppingCustomer.IInvert",
+            "title": "Customer, the connection information",
+            "description": "Customer, the connection information."
+          },
+          "citizen": {
+            "$ref": "#/components/schemas/IShoppingCitizen",
+            "title": "Real-name and mobile number authentication information",
+            "description": "Real-name and mobile number authentication information."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key",
+            "description": "Primary Key."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation tmie of record",
+            "description": "Creation tmie of record.\n\nAnother words, the time when the seller has signed up."
+          }
+        },
+        "required": [
+          "type",
+          "member",
+          "customer",
+          "citizen",
+          "id",
+          "created_at"
+        ],
+        "description": "Invert information starting from seller info.\n\nInstead of accessing to the seller information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},\n`IShoppingSeller.IInvert` starts from the seller information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformations inversely."
+      },
       "IShoppingSaleUnit.IInvert": {
         "type": "object",
         "properties": {
@@ -7601,172 +7641,6 @@
         },
         "required": []
       },
-      "IPageIShoppingSale.ISummary": {
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
-            "description": "Page information."
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IShoppingSale.ISummary"
-            },
-            "title": "List of records",
-            "description": "List of records."
-          }
-        },
-        "required": [
-          "pagination",
-          "data"
-        ],
-        "description": "A page.\n\nCollection of records with pagination indformation."
-      },
-      "IShoppingSale.IRequest": {
-        "type": "object",
-        "properties": {
-          "sort": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "const": "-seller.created_at"
-                    },
-                    {
-                      "const": "-seller.goods.payments.real"
-                    },
-                    {
-                      "const": "-seller.goods.publish_count"
-                    },
-                    {
-                      "const": "-seller.reviews.average"
-                    },
-                    {
-                      "const": "-seller.reviews.count"
-                    },
-                    {
-                      "const": "-goods.publish_count"
-                    },
-                    {
-                      "const": "-goods.payments.real"
-                    },
-                    {
-                      "const": "-reviews.average"
-                    },
-                    {
-                      "const": "-reviews.count"
-                    },
-                    {
-                      "const": "-sale.created_at"
-                    },
-                    {
-                      "const": "-sale.updated_at"
-                    },
-                    {
-                      "const": "-sale.opened_at"
-                    },
-                    {
-                      "const": "-sale.closed_at"
-                    },
-                    {
-                      "const": "-sale.content.title"
-                    },
-                    {
-                      "const": "-sale.price_range.lowest.real"
-                    },
-                    {
-                      "const": "-sale.price_range.highest.real"
-                    },
-                    {
-                      "const": "+seller.created_at"
-                    },
-                    {
-                      "const": "+seller.goods.payments.real"
-                    },
-                    {
-                      "const": "+seller.goods.publish_count"
-                    },
-                    {
-                      "const": "+seller.reviews.average"
-                    },
-                    {
-                      "const": "+seller.reviews.count"
-                    },
-                    {
-                      "const": "+goods.publish_count"
-                    },
-                    {
-                      "const": "+goods.payments.real"
-                    },
-                    {
-                      "const": "+reviews.average"
-                    },
-                    {
-                      "const": "+reviews.count"
-                    },
-                    {
-                      "const": "+sale.created_at"
-                    },
-                    {
-                      "const": "+sale.updated_at"
-                    },
-                    {
-                      "const": "+sale.opened_at"
-                    },
-                    {
-                      "const": "+sale.closed_at"
-                    },
-                    {
-                      "const": "+sale.content.title"
-                    },
-                    {
-                      "const": "+sale.price_range.lowest.real"
-                    },
-                    {
-                      "const": "+sale.price_range.highest.real"
-                    }
-                  ]
-                }
-              }
-            ],
-            "title": "Sorting conditions",
-            "description": "Sorting conditions."
-          },
-          "page": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "Page number",
-            "description": "Page number."
-          },
-          "limit": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "Limitation of records per a page",
-            "description": "Limitation of records per a page."
-          }
-        },
-        "required": [],
-        "description": "Request of summarized sales with pagination and searching/sorting options."
-      },
       "IPageIShoppingSale": {
         "type": "object",
         "properties": {
@@ -8166,6 +8040,172 @@
           "candidate_id"
         ],
         "description": "Selection information of final stock.\n\n`IShoppingSaleUnitStockChoice` is an entity that represents which\n{@link IShoppingSaleUnitSelectableOption option} of each variable \"select\"\ntype was selected for each {@link IShoppingSaleUnitStock stock} and which\n{@link IShoppingSaleUnitOptionCandidate candidate value} was selected within\nit.\n\nOf course, if the bound {@link IShoppingSaleUnit unit} does not have any\noptions, this entity can also be ignored."
+      },
+      "IShoppingSale.IRequest": {
+        "type": "object",
+        "properties": {
+          "sort": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "-seller.created_at"
+                    },
+                    {
+                      "const": "-seller.goods.payments.real"
+                    },
+                    {
+                      "const": "-seller.goods.publish_count"
+                    },
+                    {
+                      "const": "-seller.reviews.average"
+                    },
+                    {
+                      "const": "-seller.reviews.count"
+                    },
+                    {
+                      "const": "-goods.publish_count"
+                    },
+                    {
+                      "const": "-goods.payments.real"
+                    },
+                    {
+                      "const": "-reviews.average"
+                    },
+                    {
+                      "const": "-reviews.count"
+                    },
+                    {
+                      "const": "-sale.created_at"
+                    },
+                    {
+                      "const": "-sale.updated_at"
+                    },
+                    {
+                      "const": "-sale.opened_at"
+                    },
+                    {
+                      "const": "-sale.closed_at"
+                    },
+                    {
+                      "const": "-sale.content.title"
+                    },
+                    {
+                      "const": "-sale.price_range.lowest.real"
+                    },
+                    {
+                      "const": "-sale.price_range.highest.real"
+                    },
+                    {
+                      "const": "+seller.created_at"
+                    },
+                    {
+                      "const": "+seller.goods.payments.real"
+                    },
+                    {
+                      "const": "+seller.goods.publish_count"
+                    },
+                    {
+                      "const": "+seller.reviews.average"
+                    },
+                    {
+                      "const": "+seller.reviews.count"
+                    },
+                    {
+                      "const": "+goods.publish_count"
+                    },
+                    {
+                      "const": "+goods.payments.real"
+                    },
+                    {
+                      "const": "+reviews.average"
+                    },
+                    {
+                      "const": "+reviews.count"
+                    },
+                    {
+                      "const": "+sale.created_at"
+                    },
+                    {
+                      "const": "+sale.updated_at"
+                    },
+                    {
+                      "const": "+sale.opened_at"
+                    },
+                    {
+                      "const": "+sale.closed_at"
+                    },
+                    {
+                      "const": "+sale.content.title"
+                    },
+                    {
+                      "const": "+sale.price_range.lowest.real"
+                    },
+                    {
+                      "const": "+sale.price_range.highest.real"
+                    }
+                  ]
+                }
+              }
+            ],
+            "title": "Sorting conditions",
+            "description": "Sorting conditions."
+          },
+          "page": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Page number",
+            "description": "Page number."
+          },
+          "limit": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Limitation of records per a page",
+            "description": "Limitation of records per a page."
+          }
+        },
+        "required": [],
+        "description": "Request of summarized sales with pagination and searching/sorting options."
+      },
+      "IPageIShoppingSale.ISummary": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/IPage.IPagination",
+            "title": "Page information",
+            "description": "Page information."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IShoppingSale.ISummary"
+            },
+            "title": "List of records",
+            "description": "List of records."
+          }
+        },
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "description": "A page.\n\nCollection of records with pagination indformation."
       },
       "IPageIShoppingSaleInquiryComment": {
         "type": "object",

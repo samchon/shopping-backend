@@ -162,7 +162,7 @@ export namespace IShoppingSale {
     /**
      * Seller who has registered the sale.
      */
-    seller: IShoppingSeller.IInvert;
+    seller: IShoppingSeller.ISummary;
   }
 
   /**
