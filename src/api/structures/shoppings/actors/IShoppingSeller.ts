@@ -40,6 +40,26 @@ export interface IShoppingSeller {
 }
 export namespace IShoppingSeller {
   /**
+   * Summary of seller information.
+   */
+  export interface ISummary extends IShoppingSeller {
+    /**
+     * Discriminant for the type of seller.
+     */
+    type: "seller";
+
+    /**
+     * Membership joining information.
+     */
+    member: IShoppingMember.IInvert;
+
+    /**
+     * Real-name and mobile number authentication information.
+     */
+    citizen: IShoppingCitizen;
+  }
+
+  /**
    * Invert information starting from seller info.
    *
    * Instead of accessing to the seller information from the
@@ -50,7 +70,7 @@ export namespace IShoppingSeller {
    */
   export interface IInvert extends IShoppingSeller {
     /**
-     * Discriminant for the type of customer.
+     * Discriminant for the type of seller.
      */
     type: "seller";
 

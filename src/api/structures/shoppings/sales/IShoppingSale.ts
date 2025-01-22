@@ -105,6 +105,8 @@ export namespace IShoppingSale {
   export interface IRequest extends IPage.IRequest {
     /**
      * Search conditions.
+     *
+     * @hidden
      */
     search?: null | IRequest.ISearch;
 
@@ -112,13 +114,6 @@ export namespace IShoppingSale {
      * Sorting conditions.
      */
     sort?: null | IPage.Sort<IRequest.SortableColumns>;
-
-    /**
-     * Search conditions.
-     *
-     * @hidden
-     */
-    input?: null | IRequest.ISearch;
   }
   export namespace IRequest {
     export interface ISearch {
@@ -167,7 +162,7 @@ export namespace IShoppingSale {
     /**
      * Seller who has registered the sale.
      */
-    seller: IShoppingSeller.IInvert;
+    seller: IShoppingSeller.ISummary;
   }
 
   /**

@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 
 import { ShoppingSaleDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/sales/ShoppingSaleDiagnoser";
 import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -15,7 +16,6 @@ import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingSellerProvider } from "../actors/ShoppingSellerProvider";
 import { ShoppingSectionProvider } from "../systematic/ShoppingSectionProvider";
 import { ShoppingSaleSnapshotProvider } from "./ShoppingSaleSnapshotProvider";
-import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 
 export namespace ShoppingSaleProvider {
   /* -----------------------------------------------------------
@@ -23,14 +23,14 @@ export namespace ShoppingSaleProvider {
   ----------------------------------------------------------- */
   export namespace summary {
     export const transform = async (
-      input: Prisma.shopping_salesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_salesGetPayload<ReturnType<typeof select>>,
     ): Promise<IShoppingSale.ISummary> => {
       const snapshot = input.mv_last?.snapshot;
       if (!snapshot) throw ErrorProvider.internal("No snapshot found.");
       return {
         section: ShoppingSectionProvider.json.transform(input.section),
-        seller: ShoppingSellerProvider.invert.transform(() =>
-          ErrorProvider.internal(`The sale has not been registered by seller.`)
+        seller: ShoppingSellerProvider.summary.transform(() =>
+          ErrorProvider.internal(`The sale has not been registered by seller.`),
         )(input.sellerCustomer),
         created_at: input.created_at.toISOString(),
         updated_at: snapshot.created_at.toISOString(),
@@ -60,14 +60,14 @@ export namespace ShoppingSaleProvider {
     export const transform = async (
       input: Prisma.shopping_salesGetPayload<
         ReturnType<typeof ShoppingSaleProvider.json.select>
-      >
+      >,
     ): Promise<IShoppingSale> => {
       const snapshot = input.mv_last?.snapshot;
       if (!snapshot) throw ErrorProvider.internal("No snapshot found.");
       return {
         section: ShoppingSectionProvider.json.transform(input.section),
         seller: ShoppingSellerProvider.invert.transform(() =>
-          ErrorProvider.internal(`The sale has not been registered by seller.`)
+          ErrorProvider.internal(`The sale has not been registered by seller.`),
         )(input.sellerCustomer),
         created_at: input.created_at.toISOString(),
         updated_at: snapshot.created_at.toISOString(),
@@ -95,11 +95,11 @@ export namespace ShoppingSaleProvider {
 
   export namespace history {
     export const transform = (
-      input: Prisma.shopping_salesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_salesGetPayload<ReturnType<typeof select>>,
     ): Omit<IShoppingSale, keyof IShoppingSaleSnapshot | "updated_at"> => ({
       section: ShoppingSectionProvider.json.transform(input.section),
       seller: ShoppingSellerProvider.invert.transform(() =>
-        ErrorProvider.internal("The sale has not been registered by seller.")
+        ErrorProvider.internal("The sale has not been registered by seller."),
       )(input.sellerCustomer),
       created_at: input.created_at.toISOString(),
       paused_at: input.paused_at?.toISOString() ?? null,
@@ -237,7 +237,7 @@ export namespace ShoppingSaleProvider {
       // SALE
       ...(props.input?.seller !== undefined
         ? ShoppingSellerProvider.searchFromCustomer(props.input.seller).map(
-            (sellerCustomer) => ({ sellerCustomer })
+            (sellerCustomer) => ({ sellerCustomer }),
           )
         : []),
       ...(props.input?.section_codes?.length
@@ -266,7 +266,7 @@ export namespace ShoppingSaleProvider {
 
   const orderBy = (
     key: IShoppingSale.IRequest.SortableColumns,
-    direction: "asc" | "desc"
+    direction: "asc" | "desc",
   ) =>
     (key === "sale.created_at"
       ? { created_at: direction }
@@ -321,7 +321,7 @@ export namespace ShoppingSaleProvider {
                           member: {
                             of_seller: ShoppingSellerProvider.orderBy(
                               key,
-                              direction
+                              direction,
                             ),
                           },
                         },
@@ -335,7 +335,7 @@ export namespace ShoppingSaleProvider {
     input: IShoppingSale.ICreate;
   }): Promise<IShoppingSale> => {
     const section: IShoppingSection = await ShoppingSectionProvider.get(
-      props.input.section_code
+      props.input.section_code,
     );
     const snapshot = await ShoppingSaleSnapshotProvider.collect(props.input);
     const record = await ShoppingGlobal.prisma.shopping_sales.create({
@@ -379,7 +379,7 @@ export namespace ShoppingSaleProvider {
           sale: { connect: { id: props.id } },
         },
         ...ShoppingSaleSnapshotProvider.json.select(),
-      }
+      },
     );
     await ShoppingGlobal.prisma.mv_shopping_sale_last_snapshots.update({
       where: {
