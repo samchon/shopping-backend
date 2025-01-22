@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.14.0",
+    "version": "0.14.1",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -8287,7 +8287,7 @@
               "$ref": "#/components/schemas/IShoppingCartCommodityStockChoice.ICreate"
             },
             "title": "Creation information of the choices for each descriptive option",
-            "description": "Creation information of the choices for each descriptive option."
+            "description": "Creation information of the choices for each descriptive option.\n\nIf target option is not of descriptive but of selective, then\nthis property must be an empty array."
           },
           "quantity": {
             "type": "integer",
