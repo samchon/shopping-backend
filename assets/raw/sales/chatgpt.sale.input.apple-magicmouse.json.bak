@@ -53,7 +53,7 @@
             "nominal": 139000,
             "real": 139000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
@@ -67,7 +67,7 @@
             "nominal": 139000,
             "real": 139000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,

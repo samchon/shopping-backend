@@ -74,7 +74,7 @@
             "nominal": 599000,
             "real": 599000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
@@ -92,7 +92,7 @@
             "nominal": 639000,
             "real": 639000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
@@ -110,7 +110,7 @@
             "nominal": 599000,
             "real": 599000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
@@ -128,7 +128,7 @@
             "nominal": 639000,
             "real": 639000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
@@ -146,7 +146,7 @@
             "nominal": 599000,
             "real": 599000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
@@ -164,7 +164,7 @@
             "nominal": 639000,
             "real": 639000
           },
-          "quantity": 100,
+          "quantity": 1000000,
           "choices": [
             {
               "option_index": 0,
