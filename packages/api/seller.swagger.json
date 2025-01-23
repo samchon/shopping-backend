@@ -892,7 +892,8 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingSellerSaleController"
+        "x-samchon-controller": "ShoppingSellerSaleController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
       }
     },
     "/shoppings/sellers/sales/{id}": {
@@ -1256,8 +1257,7 @@
           "details"
         ],
         "x-samchon-controller": "ShoppingSellerSaleController",
-        "x-samchon-human": true,
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
+        "x-samchon-human": true
       }
     },
     "/shoppings/sellers/sales/{saleId}/questions/{questionId}/answer": {

@@ -40,9 +40,6 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      *
      * @author Samchon
      */
-    @RouteIcon(
-      "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg",
-    )
     @core.TypedRoute.Patch("details")
     @core.HumanRoute()
     public async details(
@@ -78,6 +75,9 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      *
      * @author Samchon
      */
+    @RouteIcon(
+      "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg",
+    )
     @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
