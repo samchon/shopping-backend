@@ -46,6 +46,9 @@ export namespace IShoppingCartCommodityStock {
 
     /**
      * Creation information of the choices for each descriptive option.
+     *
+     * If target option is not of descriptive but of selective, then
+     * this property must be an empty array.
      */
     choices: IShoppingCartCommodityStockChoice.ICreate[];
 

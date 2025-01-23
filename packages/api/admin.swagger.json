@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.14.0",
+    "version": "0.14.1",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -1006,8 +1006,7 @@
           "details"
         ],
         "x-samchon-controller": "ShoppingAdminSaleController",
-        "x-samchon-human": true,
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
+        "x-samchon-human": true
       }
     },
     "/shoppings/admins/sales": {
@@ -1052,7 +1051,8 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingAdminSaleController"
+        "x-samchon-controller": "ShoppingAdminSaleController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
       }
     },
     "/shoppings/admins/sales/{id}": {
