@@ -7,7 +7,7 @@
 [![Build Status](https://github.com/samchon/shopping-backend/workflows/build/badge.svg)](https://github.com/samchon/shopping-backend/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://nestia.io/docs/)
 
-Example backend server of Shopping mall for education.
+Example backend server of Shopping mall for education and A.I. chatbot demonstration.
 
 `@samchon/shopping-backend` is an example backend project of [NestJS](https://nestjs.com) and [Prisma](https://prisma.io) stack. It has been developed to educate how to adapt **functional programming** in the NestJS development. Therefore, it is not the actual e-commerce service, and implementation of most functions is different from the actual shopping mall and may be meaningless.
 
@@ -16,6 +16,12 @@ Also, `@samchon/shopping-backend` guides how to utilize those 3rd party librarie
   - [typia](https://github.com/samchon/typia): Superfast runtime validator
   - [nestia](https://github.com/samchon/nestia): NestJS helper libraries like SDK generation
   - [prisma-markdown](https://github.com/samchon/prisma-markdown): Markdown generator of Prisma, including ERD and descriptions
+
+Additionally, `@samchon/shopping-backend` has been designed to demonstrate [`@nestia/chat`](https://nestia.io/docs/swagger/chat), an A.I. chatbot builder from Swagger document. With [`@nestia/chat`](https://nestia.io/docs/swagger/chat), every backend servers can be conversed to the super A.I. chatbot, and `@samchon/shopping-backend` is a demonstration project to prove the concept. If you want to know more about the [`@nestia/chat`](https://nestia.io/docs/swagger/chat), visit below guiide documents.
+
+  - [**Nestia** > **Guide Documents** > **Swagger Documents** > **A.I. Chatbot Development**](https://nestia.io/docs/swawgger/chat)
+
+https://github.com/user-attachments/assets/01604b53-aca4-41cb-91aa-3faf63549ea6
 
 
 
