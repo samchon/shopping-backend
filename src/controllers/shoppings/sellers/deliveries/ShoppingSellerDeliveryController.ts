@@ -7,10 +7,9 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 import { IShoppingDelivery } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDelivery";
 import { IShoppingDeliveryPiece } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingDeliveryPiece";
 
+import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
 import { ShoppingDeliveryPieceProvider } from "../../../../providers/shoppings/deliveries/ShoppingDeliveryPieceProvider";
 import { ShoppingDeliveryProvider } from "../../../../providers/shoppings/deliveries/ShoppingDeliveryProvider";
-
-import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
 
 @Controller("shoppings/sellers/deliveries")
 export class ShoppingSellerDeliveryController {
@@ -21,7 +20,7 @@ export class ShoppingSellerDeliveryController {
    * {@link IShoppingSeller seller} with {@link IPage pagination}.
    *
    * For reference, returned deliveries are containing the target
-   * {@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,
+   * {@link IShoppingOrder.IInvertFromDelivery order} information. Of course,
    * only related {@link IShoppingOrderGood goods} are contained in the orders.
    *
    * Additionally, you can limit the result by configuring
@@ -38,7 +37,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingDelivery.IRequest
+    @core.TypedBody() input: IShoppingDelivery.IRequest,
   ): Promise<IPage<IShoppingDelivery.IInvert>> {
     return ShoppingDeliveryProvider.index({
       seller,
@@ -52,7 +51,7 @@ export class ShoppingSellerDeliveryController {
    * Get a {@link IShoppingDelivery.IInvert delivery} information with its ID.
    *
    * For reference, returned delivery is containing the target
-   * {@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,
+   * {@link IShoppingOrder.IInvertFromDelivery order} information. Of course,
    * only related {@link IShoppingOrderGood goods} are contained in the orders.
    *
    * @param id Target delivery's {@link IShoppingDelivery.id}
@@ -64,7 +63,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingDelivery.IInvert> {
     return ShoppingDeliveryProvider.at({
       seller,
@@ -75,7 +74,7 @@ export class ShoppingSellerDeliveryController {
   /**
    * Create a delivery.
    *
-   * Create a {@link IShoppingDelivery delivery} record targetting
+   * Create a {@link IShoppingDelivery delivery} record targeting
    * {@link IShoppingOrder orders}, their {@link IShoppingOrderGood goods} and
    * {@link IShoppingSaleUnitStock stocks} ({@link IShoppingDeliveryPiece}) with
    * {@link IShoppingDeliveryJourney journeys} and
@@ -95,7 +94,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingDelivery.ICreate
+    @core.TypedBody() input: IShoppingDelivery.ICreate,
   ): Promise<IShoppingDelivery> {
     return ShoppingDeliveryProvider.create({
       seller,
@@ -115,7 +114,7 @@ export class ShoppingSellerDeliveryController {
    *
    * You can utillize the result to make a huge {@link IShoppingDelivery delivery}
    * for integrated delivering, and also possible to make multiple deliveries for
-   * splitted delivering.
+   * split delivering.
    *
    * @param input List of target orders' {@link IShoppingOrderPublish.id}s
    * @returns List of incomplete pieces
@@ -126,7 +125,7 @@ export class ShoppingSellerDeliveryController {
   @core.TypedRoute.Patch("incompletes")
   public async incompletes(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingDeliveryPiece.IRequest
+    @core.TypedBody() input: IShoppingDeliveryPiece.IRequest,
   ): Promise<IShoppingDeliveryPiece.ICreate[]> {
     return ShoppingDeliveryPieceProvider.incompletes({
       seller,

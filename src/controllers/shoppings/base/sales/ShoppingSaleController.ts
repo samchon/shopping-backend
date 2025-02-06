@@ -18,21 +18,21 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
     /**
      * List up every sales.
      *
-     * List up every {@link IShoppingSale sales} with detailed informations.
+     * List up every {@link IShoppingSale sales} with detailed information.
      *
      * As you can see, returned sales are detailed, not summarized. If you want
      * to get the summarized information of sale for a brief, use {@link index}
      * function instead.
      *
      * For reference, if you're a {@link IShoppingSeller seller}, you can only
-     * acess to the your own {@link IShoppingSale sale}s. Otherwise you're a
+     * access to the your own {@link IShoppingSale sale}s. Otherwise you're a
      * {@link IShoppingCustomer customer}, you can see only the operating sales
      * in the market. Instead, you can't see the unopened, closed, or suspended
      * sales.
      *
      * > If you're an A.I. chatbot, please don't summarize the
-     * > {@link IShoppingSaleUnitStock stock informations}. Just list up the
-     * > every stocks in the sale with detailed informations.
+     * > {@link IShoppingSaleUnitStock stock information}. Just list up the
+     * > every stocks in the sale with detailed information.
      *
      * @param input Request info of pagination, searching and sorting
      * @returns Paginated sales with detailed information
@@ -106,7 +106,7 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      * > don't need to call this operation again for the same sale.
      * >
      * > Additionally, please do not summarize the SKU information. Just show
-     * > the every options and stocks in the sale with detailed informations.
+     * > the every options and stocks in the sale with detailed information.
      *
      * @param id Target sale's {@link IShoppingSale.id}
      * @returns Detailed sale information

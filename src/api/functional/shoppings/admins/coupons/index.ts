@@ -55,7 +55,7 @@ export namespace destroy {
  * which can be used throughout the market. Seller must limit the usage
  * range by his/her {@link IShoppingSale sale(s)}.
  *
- * Of course, when adminstrator is planning to make a general coupon
+ * Of course, when administrator is planning to make a general coupon
  * that can be used throughout the market, the administrator must
  * get agree from the sellers who are going to be affected.
  *

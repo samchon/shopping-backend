@@ -38,7 +38,7 @@ export namespace IShoppingAdministrator {
    * {@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},
    * `IShoppingAdministrator.IInvert` starts from the administrator information
    * and access to the customer, member and {@link IShoppingCitizen citizen}
-   * informations inversely.
+   * information inversely.
    */
   export interface IInvert extends IShoppingAdministrator {
     /**

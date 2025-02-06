@@ -59,10 +59,10 @@ export interface IShoppingCustomer extends IShoppingCustomer.IInvert {
 }
 export namespace IShoppingCustomer {
   /**
-   * Inverted customer informatino.
+   * Inverted customer information.
    *
    * This inverted customer information has been designed to be used for
-   * another invert informations of sellers and administrators like below.
+   * another invert information of sellers and administrators like below.
    *
    * - {@link IShoppingSeller.IInvert}
    * - {@link IShoppingAdministrator.IInvert}
@@ -81,7 +81,7 @@ export namespace IShoppingCustomer {
     /**
      * External user information.
      *
-     * When the customer has come frome an external service.
+     * When the customer has come from an external service.
      */
     external_user: null | IShoppingExternalUser;
 
@@ -119,7 +119,7 @@ export namespace IShoppingCustomer {
     /**
      * External user information.
      *
-     * When the customer has come frome an external service.
+     * When the customer has come from an external service.
      */
     external_user: null | IShoppingExternalUser.ICreate;
 

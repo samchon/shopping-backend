@@ -53,7 +53,7 @@ export interface IShoppingOrderGood {
   volume: number & tags.Type<"uint32">;
 
   /**
-   * Price information including discounts and multipled volume.
+   * Price information including discounts and multiplied volume.
    */
   price: IShoppingOrderPrice.ISummary;
 

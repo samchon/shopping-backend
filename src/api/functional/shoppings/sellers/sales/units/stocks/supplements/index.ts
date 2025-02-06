@@ -97,7 +97,7 @@ export namespace index {
  * @param saleId Belonged sale's {@link IShoppingSale.id }
  * @param unitId Belonged unit's {@link IShoppingSaleUnit.id }
  * @param stockId Target stock's {@link IShoppingSaleUnitStock.id }
- * @param input Ceate info of the supplement
+ * @param input Create info of the supplement
  * @returns Created supplement
  * @tag Sale
  * @author Samchon

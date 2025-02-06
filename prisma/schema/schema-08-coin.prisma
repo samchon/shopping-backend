@@ -20,7 +20,7 @@ model shopping_deposits {
   /// Identifier code.
   code String @db.VarChar
 
-  /// The source table occuring the deposit event.
+  /// The source table occurring the deposit event.
   source String @db.VarChar
 
   /// Direction of deposit.
@@ -77,7 +77,7 @@ model shopping_deposit_histories {
   /// @format uuid
   shopping_citizen_id String @db.Uuid
 
-  /// The source record occured deposit/outcome. 
+  /// The source record occurred deposit/outcome. 
   ///
   /// @format uuid
   source_id String @db.Uuid
@@ -245,7 +245,7 @@ model shopping_mileages {
   /// Identifier code.
   code String @db.VarChar
 
-  /// The source table occuring the mileage event.
+  /// The source table occurring the mileage event.
   source String @db.VarChar
 
   /// Direction of mileage.
@@ -350,7 +350,7 @@ model shopping_mileage_histories {
   /// @format uuid
   shopping_citizen_id String @db.Uuid
 
-  /// The source record occured income/outcome. 
+  /// The source record occurred income/outcome. 
   ///
   /// @format uuid
   source_id String @db.Uuid

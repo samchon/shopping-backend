@@ -19,11 +19,13 @@ import { ShoppingMemberProvider } from "./ShoppingMemberProvider";
 
 export namespace ShoppingAdministratorProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_administratorsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_administratorsGetPayload<
+        ReturnType<typeof select>
+      >,
     ): IShoppingAdministrator => ({
       id: input.id,
       created_at: input.created_at.toISOString(),
@@ -36,7 +38,7 @@ export namespace ShoppingAdministratorProvider {
     export const transform = (
       customer: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>,
       error: (message: string) => Error = () =>
-        ErrorProvider.internal("exepcted to administrator, but it isn't.")
+        ErrorProvider.internal("expected to administrator, but it isn't."),
     ): IShoppingAdministrator.IInvert => {
       const member = customer.member;
       if (member === null) throw error("not a member.");
@@ -65,7 +67,7 @@ export namespace ShoppingAdministratorProvider {
           external_user:
             customer.external_user !== null
               ? ShoppingExternalUserProvider.json.transform(
-                  customer.external_user
+                  customer.external_user,
                 )
               : null,
           href: customer.href,
@@ -115,7 +117,7 @@ export namespace ShoppingAdministratorProvider {
       });
     return invert.transform(
       customer,
-      (msg) => new ForbiddenException(`You're ${msg}`)
+      (msg) => new ForbiddenException(`You're ${msg}`),
     );
   };
 

@@ -17,13 +17,13 @@ import { ShoppingDeliveryProvider } from "./ShoppingDeliveryProvider";
 
 export namespace ShoppingDeliveryPieceProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
       input: Prisma.shopping_delivery_piecesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingDeliveryPiece => ({
       id: input.id,
       publish_id: input.shopping_order_publish_id,
@@ -39,10 +39,10 @@ export namespace ShoppingDeliveryPieceProvider {
     export const transform = (
       inputList: Prisma.shopping_delivery_piecesGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): IShoppingDelivery[] => {
       const deliveries = new Map(
-        inputList.map((input) => [input.delivery.id, input.delivery])
+        inputList.map((input) => [input.delivery.id, input.delivery]),
       );
       const resolved: Map<string, IShoppingDelivery> = new Map(
         [...deliveries].map(([id, di]) => [
@@ -51,7 +51,7 @@ export namespace ShoppingDeliveryPieceProvider {
             ...ShoppingDeliveryProvider.jsonFromPublish.transform(di),
             pieces: [],
           },
-        ])
+        ]),
       );
       for (const input of inputList)
         resolved.get(input.delivery.id)!.pieces.push({
@@ -75,7 +75,7 @@ export namespace ShoppingDeliveryPieceProvider {
     export const transform = async (
       inputList: Prisma.shopping_delivery_piecesGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): Promise<Pick<IShoppingDelivery.IInvert, "orders" | "pieces">> => {
       const tuples = new Map(
         inputList.map((input) => [
@@ -84,7 +84,7 @@ export namespace ShoppingDeliveryPieceProvider {
             order: input.publish.order,
             publish: input.publish,
           },
-        ])
+        ]),
       );
       const orders: IShoppingOrder.IInvertFromDelivery[] =
         await ArrayUtil.asyncMap([...tuples.values()])(
@@ -100,13 +100,13 @@ export namespace ShoppingDeliveryPieceProvider {
               paid_at: publish.paid_at?.toISOString() ?? null,
               cancelled_at: publish.cancelled_at?.toISOString() ?? null,
             },
-          })
+          }),
         );
       orders.forEach(
         (o) =>
           (o.goods = o.goods.filter((good) =>
-            inputList.some((p) => p.shopping_order_good_id === good.id)
-          ))
+            inputList.some((p) => p.shopping_order_good_id === good.id),
+          )),
       );
       return {
         orders,
@@ -213,12 +213,12 @@ export namespace ShoppingDeliveryPieceProvider {
                   .filter(
                     (p) =>
                       p.shopping_sale_snapshot_unit_stock_id ===
-                      stock.shopping_sale_snapshot_unit_stock_id
+                      stock.shopping_sale_snapshot_unit_stock_id,
                   )
                   .map((p) => p.quantity)
                   .reduce((x, y) => x + y, 0),
-            }))
-          )
+            })),
+          ),
         )
         .flat()
         .flat()
@@ -231,7 +231,7 @@ export namespace ShoppingDeliveryPieceProvider {
   ----------------------------------------------------------- */
   export const collect = (
     input: IShoppingDeliveryPiece.ICreate,
-    sequence: number
+    sequence: number,
   ) =>
     ({
       id: v4(),

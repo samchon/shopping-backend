@@ -6,16 +6,15 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingDeposit } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDeposit";
 
-import { ShoppingDepositProvider } from "../../../../providers/shoppings/deposits/ShoppingDepositProvider";
-
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
+import { ShoppingDepositProvider } from "../../../../providers/shoppings/deposits/ShoppingDepositProvider";
 
 @Controller(`shoppings/admins/deposits`)
 export class ShoppingAdminDepositController {
   /**
    * Get deposit metadata list.
    *
-   * List up every {@link IShoppingDeposit deposit} metadata informations
+   * List up every {@link IShoppingDeposit deposit} metadata information
    * with {@link IPage pagination}.
    *
    * If you want, you can limit the result by configuring
@@ -32,7 +31,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingDeposit.IRequest
+    @core.TypedBody() input: IShoppingDeposit.IRequest,
   ): Promise<IPage<IShoppingDeposit>> {
     return ShoppingDepositProvider.index(input);
   }
@@ -51,7 +50,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingDeposit> {
     return ShoppingDepositProvider.at(id);
   }
@@ -70,7 +69,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Get(":code/get")
   public async get(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("code") code: string
+    @core.TypedParam("code") code: string,
   ): Promise<IShoppingDeposit> {
     return ShoppingDepositProvider.get(code);
   }
@@ -95,7 +94,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingDeposit.ICreate
+    @core.TypedBody() input: IShoppingDeposit.ICreate,
   ): Promise<IShoppingDeposit> {
     return ShoppingDepositProvider.create({
       admin,
@@ -118,7 +117,7 @@ export class ShoppingAdminDepositController {
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingDepositProvider.erase({
       admin,

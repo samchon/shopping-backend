@@ -322,7 +322,7 @@ export namespace hierarchical {
  *
  * Returned channel instance also contains the nested
  * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
- * informations.
+ * information.
  *
  * @param id Target channel's {@link IShoppingChannel.id }
  * @returns Detailed channel info
@@ -369,7 +369,7 @@ export namespace at {
  *
  * Returned channel instance also contains the nested
  * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
- * informations.
+ * information.
  *
  * @param code Target channel's {@link IShoppingChannel.code }
  * @returns Detailed channel info

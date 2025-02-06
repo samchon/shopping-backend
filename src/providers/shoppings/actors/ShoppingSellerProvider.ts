@@ -19,7 +19,7 @@ import { ShoppingMemberProvider } from "./ShoppingMemberProvider";
 
 export namespace ShoppingSellerProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
@@ -35,7 +35,7 @@ export namespace ShoppingSellerProvider {
     export const transform =
       (
         error: (message: string) => Error = () =>
-          ErrorProvider.internal("exepcted to seller, but it isn't."),
+          ErrorProvider.internal("expected to seller, but it isn't."),
       ) =>
       (
         customer: Prisma.shopping_customersGetPayload<
@@ -83,7 +83,7 @@ export namespace ShoppingSellerProvider {
     export const transform =
       (
         error: (message: string) => Error = () =>
-          ErrorProvider.internal("exepcted to seller, but it isn't."),
+          ErrorProvider.internal("expected to seller, but it isn't."),
       ) =>
       (
         customer: Prisma.shopping_customersGetPayload<

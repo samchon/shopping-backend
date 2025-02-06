@@ -6,12 +6,11 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSaleUnitStockSupplement } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStockSupplement";
 
+import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
 import { ShoppingSaleSnapshotUnitStockSupplementProvider } from "../../../../providers/shoppings/sales/ShoppingSaleSnapshotUnitStockSupplementProvider";
 
-import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
-
 @Controller(
-  "shoppings/sellers/sales/:saleId/units/:unitId/stocks/:stockId/supplements"
+  "shoppings/sellers/sales/:saleId/units/:unitId/stocks/:stockId/supplements",
 )
 export class ShoppingSellerSaleUnitStockSupplementController {
   /**
@@ -41,7 +40,7 @@ export class ShoppingSellerSaleUnitStockSupplementController {
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("unitId") unitId: string & tags.Format<"uuid">,
     @core.TypedParam("stockId") stockId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleUnitStockSupplement.IRequest
+    @core.TypedBody() input: IShoppingSaleUnitStockSupplement.IRequest,
   ): Promise<IPage<IShoppingSaleUnitStockSupplement>> {
     return ShoppingSaleSnapshotUnitStockSupplementProvider.index({
       seller,
@@ -65,7 +64,7 @@ export class ShoppingSellerSaleUnitStockSupplementController {
    * @param saleId Belonged sale's {@link IShoppingSale.id}
    * @param unitId Belonged unit's {@link IShoppingSaleUnit.id}
    * @param stockId Target stock's {@link IShoppingSaleUnitStock.id}
-   * @param input Ceate info of the supplement
+   * @param input Create info of the supplement
    * @returns Created supplement
    * @tag Sale
    *
@@ -77,7 +76,7 @@ export class ShoppingSellerSaleUnitStockSupplementController {
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("unitId") unitId: string & tags.Format<"uuid">,
     @core.TypedParam("stockId") stockId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleUnitStockSupplement.ICreate
+    @core.TypedBody() input: IShoppingSaleUnitStockSupplement.ICreate,
   ): Promise<IShoppingSaleUnitStockSupplement> {
     return ShoppingSaleSnapshotUnitStockSupplementProvider.create({
       seller,
@@ -114,7 +113,7 @@ export class ShoppingSellerSaleUnitStockSupplementController {
     @core.TypedParam("unitId") unitId: string & tags.Format<"uuid">,
     @core.TypedParam("stockId") stockId: string & tags.Format<"uuid">,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleUnitStockSupplement.ICreate
+    @core.TypedBody() input: IShoppingSaleUnitStockSupplement.ICreate,
   ): Promise<void> {
     return ShoppingSaleSnapshotUnitStockSupplementProvider.update({
       seller,
@@ -150,7 +149,7 @@ export class ShoppingSellerSaleUnitStockSupplementController {
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("unitId") unitId: string & tags.Format<"uuid">,
     @core.TypedParam("stockId") stockId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingSaleSnapshotUnitStockSupplementProvider.erase({
       seller,

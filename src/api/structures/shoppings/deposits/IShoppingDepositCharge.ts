@@ -21,7 +21,7 @@ export namespace IShoppingDepositCharge {
       to?: null | (string & tags.Format<"date-time">);
       minimum?: null | number;
       maximum?: null | number;
-      state: null | "pending" | "published" | "payed" | "cancelled";
+      state: null | "pending" | "published" | "paid" | "cancelled";
       publish?: null | {
         from?: null | (string & tags.Format<"date-time">);
         to?: null | (string & tags.Format<"date-time">);

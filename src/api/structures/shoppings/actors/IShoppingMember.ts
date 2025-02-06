@@ -48,7 +48,7 @@ export namespace IShoppingMember {
    * Invert information of member.
    *
    * This invert member information has been designed to be used for another
-   * invert informations of sellers and administrators like below.
+   * invert information of sellers and administrators like below.
    *
    * - {@link IShoppingSeller.IInvert}
    * - {@link IShoppingAdministrator.IInvert}
