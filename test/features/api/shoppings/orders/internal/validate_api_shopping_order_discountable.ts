@@ -63,7 +63,7 @@ export const validate_api_shopping_order_discountable =
     const generator =
       (exclusive: boolean) =>
       async (
-        criteria: IShoppingCouponCriteria.ICreate,
+        criteria: IShoppingCouponCriteria.ICreate | null,
       ): Promise<IShoppingCoupon> => {
         const coupon: IShoppingCoupon =
           await ShoppingApi.functional.shoppings.admins.coupons.create(
@@ -80,7 +80,19 @@ export const validate_api_shopping_order_discountable =
                 multiplicative: false,
                 threshold: null,
               },
-              criterias: [criteria],
+              criterias: [
+                {
+                  type: "channel",
+                  direction: "include",
+                  channels: [
+                    {
+                      channel_code: saleList[0].channels[0].code,
+                      category_ids: null,
+                    },
+                  ],
+                },
+                ...(criteria ? [criteria] : []),
+              ],
             }),
           );
         return coupon;
@@ -88,16 +100,7 @@ export const validate_api_shopping_order_discountable =
 
     const couponList: IShoppingCoupon[] = [
       // DISCOUNTABLE
-      await generator(true)({
-        type: "channel",
-        direction: "include",
-        channels: [
-          {
-            channel_code: saleList[0].channels[0].code,
-            category_ids: null,
-          },
-        ],
-      }),
+      await generator(true)(null),
       await generator(false)({
         type: "sale",
         direction: "include",
@@ -163,12 +166,7 @@ export const validate_api_shopping_order_discountable =
         });
     });
 
-    // CLEAN UP COUPONS
-    for (const coupon of couponList)
-      await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-        pool.admin,
-        coupon.id,
-      );
+    // CLEAN UP SECTIONS
     await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
       pool.admin,
       {

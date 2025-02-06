@@ -129,8 +129,14 @@ export namespace IShoppingCoupon {
      */
     restriction: IShoppingCouponRestriction;
 
+    /**
+     * List of criteria information.
+     */
     criterias: IShoppingCouponCriteria.ICreate[];
 
+    /**
+     * Disposable codes for the coupon.
+     */
     disposable_codes: string[];
 
     /**

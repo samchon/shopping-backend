@@ -14,7 +14,7 @@ import { prepare_random_sale_unit } from "./prepare_random_sale_unit";
 
 export const prepare_random_sale = async (
   pool: ConnectionPool,
-  input?: Partial<IShoppingSale.ICreate>
+  input?: Partial<IShoppingSale.ICreate>,
 ): Promise<IShoppingSale.ICreate> => ({
   section_code: TestGlobal.SECTION,
   channels: await channels(pool),
@@ -24,10 +24,10 @@ export const prepare_random_sale = async (
     body: RandomGenerator.content()()(),
     format: "txt",
     files: ArrayUtil.repeat(randint(0, 3))(() =>
-      prepare_random_attachment_file()
+      prepare_random_attachment_file(),
     ),
     thumbnails: ArrayUtil.repeat(randint(1, 3))(() =>
-      prepare_random_attachment_file()
+      prepare_random_attachment_file(),
     ),
   },
   opened_at: new Date().toISOString(),
@@ -37,7 +37,7 @@ export const prepare_random_sale = async (
 });
 
 const channels = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<IShoppingSaleChannel.ICreate[]> => {
   const page: IPage<IShoppingChannel.IHierarchical> =
     await ShoppingApi.functional.shoppings.sellers.systematic.channels.hierarchical(
@@ -45,9 +45,9 @@ const channels = async (
       {
         limit: 1,
         search: {
-          code: TestGlobal.CHANNEL,
+          code: pool.channel,
         },
-      }
+      },
     );
   return page.data.map((elem) => ({
     code: elem.code,

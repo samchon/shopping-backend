@@ -34,15 +34,31 @@ export const test_api_shopping_coupon_create_by_seller = async (
             pool.seller,
             input,
           ),
-        prepare: (criterias) => prepare_random_coupon({ criterias }),
+        prepare: (criterias) =>
+          prepare_random_coupon({
+            criterias: [
+              ...criterias,
+              {
+                type: "channel",
+                direction: "include",
+                channels: [
+                  {
+                    channel_code: sale.channels[0].code,
+                    category_ids: null,
+                  },
+                ],
+              },
+            ],
+          }),
       });
 
   // PREPARE COMBINATIONS
-  const subsets: IShoppingCouponCriteria.Type[][] = ArrayUtil.subsets(
-    typia.misc
-      .literals<IShoppingCouponCriteria.Type>()
-      .filter((row) => row.length !== 0),
-  );
+  const subsets: Exclude<IShoppingCouponCriteria.Type, "channel">[][] =
+    ArrayUtil.subsets(
+      typia.misc
+        .literals<Exclude<IShoppingCouponCriteria.Type, "channel">>()
+        .filter((row) => row.length !== 0),
+    );
   const possible: IShoppingCouponCriteria.Type[][] = subsets.filter((row) =>
     row.some((type) => type === "sale" || type === "seller"),
   );

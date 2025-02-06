@@ -1,4 +1,4 @@
-import { TestValidator } from "@nestia/e2e";
+import { RandomGenerator, TestValidator } from "@nestia/e2e";
 import { sleep_until } from "tstl";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
@@ -27,7 +27,7 @@ export const test_api_shopping_coupon_closed_at = async (
   const closed_at: Date = new Date(Date.now() + 3_000);
   const sale: IShoppingSale = await generate_random_sale(pool);
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: [],
+    types: ["channel"],
     direction: "include",
     customer: null,
     sale,
@@ -35,45 +35,47 @@ export const test_api_shopping_coupon_closed_at = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
     prepare: (criterias) =>
       prepare_random_coupon({
-        ...criterias,
+        criterias,
+        name: RandomGenerator.name(64),
         opened_at: new Date().toISOString(),
         closed_at: closed_at.toISOString(),
       }),
   });
 
-  const error: Error | null = await TestValidator.proceed(async () => {
-    const validate = async (path: ActorPath, visible: boolean) => {
-      const connection: ShoppingApi.IConnection =
-        path === "admins"
-          ? pool.admin
-          : path === "customers"
-            ? pool.customer
-            : pool.seller;
-      const page: IPage<IShoppingCoupon> =
-        await ShoppingApi.functional.shoppings[path].coupons.index(connection, {
-          sort: ["-coupon.created_at"],
-          limit: 1,
-        });
-      TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
+  const validate = async (path: ActorPath, visible: boolean) => {
+    const connection: ShoppingApi.IConnection =
+      path === "admins"
+        ? pool.admin
+        : path === "customers"
+          ? pool.customer
+          : pool.seller;
+    const page: IPage<IShoppingCoupon> = await ShoppingApi.functional.shoppings[
+      path
+    ].coupons.index(connection, {
+      search: {
+        name: coupon.name,
+      },
+      sort: ["-coupon.created_at"],
+      limit: 1,
+    });
+    TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
 
-      const read = async () => {
-        await ShoppingApi.functional.shoppings[path].coupons.at(
-          connection,
-          coupon.id,
-        );
-      };
-      if (visible) await read();
-      else await TestValidator.httpError("gone")(410)(read);
+    const read = async () => {
+      await ShoppingApi.functional.shoppings[path].coupons.at(
+        connection,
+        coupon.id,
+      );
     };
+    if (visible) await read();
+    else await TestValidator.httpError("gone")(410)(read);
+  };
 
-    // NOT CLOSED YET
-    await validate("admins", true);
-    await validate("customers", true);
+  // NOT CLOSED YET
+  await validate("admins", true);
+  await validate("customers", true);
 
-    // BE CLOSED
-    await sleep_until(closed_at);
-    await validate("admins", true);
-    await validate("customers", false);
-  });
-  if (error) throw error;
+  // BE CLOSED
+  await sleep_until(closed_at);
+  await validate("admins", true);
+  await validate("customers", false);
 };

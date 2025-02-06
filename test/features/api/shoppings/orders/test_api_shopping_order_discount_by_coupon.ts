@@ -30,7 +30,7 @@ export const test_api_shopping_order_discount_by_coupon = async (
   const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
 
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: [],
+    types: ["channel"],
     direction: "include",
     customer: null,
     sale,
@@ -48,37 +48,30 @@ export const test_api_shopping_order_discount_by_coupon = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
   });
 
-  const error: Error | null = await TestValidator.proceed(async () => {
-    const price: IShoppingOrderPrice =
-      await ShoppingApi.functional.shoppings.customers.orders.discount(
-        pool.customer,
-        order.id,
-        {
-          deposit: 0,
-          mileage: 0,
-          coupon_ids: [coupon.id],
-        },
-      );
-    TestValidator.equals("order.price.cash")(price.real)(price.cash * 2);
-    TestValidator.equals("order.price.ticket")(price.real)(price.ticket * 2);
+  const price: IShoppingOrderPrice =
+    await ShoppingApi.functional.shoppings.customers.orders.discount(
+      pool.customer,
+      order.id,
+      {
+        deposit: 0,
+        mileage: 0,
+        coupon_ids: [coupon.id],
+      },
+    );
+  TestValidator.equals("order.price.cash")(price.real)(price.cash * 2);
+  TestValidator.equals("order.price.ticket")(price.real)(price.ticket * 2);
 
-    const reloaded: IShoppingOrder =
-      await ShoppingApi.functional.shoppings.customers.orders.at(
-        pool.customer,
-        order.id,
-      );
-    for (const good of reloaded.goods) {
-      TestValidator.equals("good.price.cash")(good.price.real)(
-        good.price.cash * 2,
-      );
-      TestValidator.equals("good.price.ticket")(good.price.real)(
-        good.price.ticket * 2,
-      );
-    }
-  });
-  await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-    pool.admin,
-    coupon.id,
-  );
-  if (error) throw error;
+  const reloaded: IShoppingOrder =
+    await ShoppingApi.functional.shoppings.customers.orders.at(
+      pool.customer,
+      order.id,
+    );
+  for (const good of reloaded.goods) {
+    TestValidator.equals("good.price.cash")(good.price.real)(
+      good.price.cash * 2,
+    );
+    TestValidator.equals("good.price.ticket")(good.price.real)(
+      good.price.ticket * 2,
+    );
+  }
 };

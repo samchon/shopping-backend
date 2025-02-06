@@ -23,8 +23,8 @@ export const validate_api_shopping_cart_discountable =
   (
     next?: (
       pool: ConnectionPool,
-      props: validate_api_shopping_cart_discountable.IProps
-    ) => Promise<any>
+      props: validate_api_shopping_cart_discountable.IProps,
+    ) => Promise<any>,
   ) =>
   async (pool: ConnectionPool) => {
     //----
@@ -41,12 +41,12 @@ export const validate_api_shopping_cart_discountable =
       generate_random_sole_sale(pool, {
         nominal: 50_000,
         real: 50_000,
-      })
+      }),
     );
 
     // COMMODITIES
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-      saleList
+      saleList,
     )(async (sale) => {
       const input: IShoppingCartCommodity.ICreate =
         prepare_random_cart_commodity(sale, { volume: 1 });
@@ -54,7 +54,7 @@ export const validate_api_shopping_cart_discountable =
       const commodity: IShoppingCartCommodity =
         await ShoppingApi.functional.shoppings.customers.carts.commodities.create(
           pool.customer,
-          input
+          input,
         );
       return commodity;
     });
@@ -68,7 +68,7 @@ export const validate_api_shopping_cart_discountable =
     const generator =
       (exclusive: boolean) =>
       async (
-        criteria: IShoppingCouponCriteria.ICreate
+        criteria: IShoppingCouponCriteria.ICreate | null,
       ): Promise<IShoppingCoupon> => {
         const coupon: IShoppingCoupon =
           await ShoppingApi.functional.shoppings.admins.coupons.create(
@@ -85,24 +85,27 @@ export const validate_api_shopping_cart_discountable =
                 multiplicative: false,
                 threshold: null,
               },
-              criterias: [criteria],
-            })
+              criterias: [
+                {
+                  type: "channel",
+                  direction: "include",
+                  channels: [
+                    {
+                      channel_code: saleList[0].channels[0].code,
+                      category_ids: null,
+                    },
+                  ],
+                },
+                ...(criteria ? [criteria] : []),
+              ],
+            }),
           );
         return coupon;
       };
 
     const couponList: IShoppingCoupon[] = [
       // DISCOUNTABLE
-      await generator(true)({
-        type: "channel",
-        direction: "include",
-        channels: [
-          {
-            channel_code: saleList[0].channels[0].code,
-            category_ids: null,
-          },
-        ],
-      }),
+      await generator(true)(null),
       await generator(false)({
         type: "sale",
         direction: "include",
@@ -141,19 +144,19 @@ export const validate_api_shopping_cart_discountable =
         {
           commodity_ids: commodities.map((commodity) => commodity.id),
           pseudos: [],
-        }
+        },
       );
 
     const error: Error | null = await TestValidator.proceed(async () => {
       // VALIDATE COMBINATIONS
       TestValidator.equals("combinations.length")(
-        discountable.combinations.length
+        discountable.combinations.length,
       )(2);
       TestValidator.equals("combinations[].amount")(
-        discountable.combinations.map((comb) => comb.amount)
+        discountable.combinations.map((comb) => comb.amount),
       )([15_000, 5_000]);
       TestValidator.equals("combinations[].coupons.length")(
-        discountable.combinations.map((comb) => comb.coupons.length)
+        discountable.combinations.map((comb) => comb.coupons.length),
       )([3, 1]);
 
       // FOR THE NEXT STEP
@@ -161,25 +164,20 @@ export const validate_api_shopping_cart_discountable =
         await next(pool, {
           customer,
           sales: saleList,
-          commodities: commodities,
+          commodities,
           discountable,
           coupons: couponList,
           generator,
         });
     });
 
-    // CLEAN UP COUPONS
-    for (const coupon of couponList)
-      await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-        pool.admin,
-        coupon.id
-      );
+    // CLEAN UP SECTIONS
     await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
       pool.admin,
       {
         keep: saleList[0].section.id,
         absorbed: [dummySection.id],
-      }
+      },
     );
 
     // TERMINATE
@@ -193,9 +191,9 @@ export namespace validate_api_shopping_cart_discountable {
     discountable: IShoppingCartDiscountable;
     coupons: IShoppingCoupon[];
     generator: (
-      exclusive: boolean
+      exclusive: boolean,
     ) => (
-      criteria: IShoppingCouponCriteria.ICreate
+      criteria: IShoppingCouponCriteria.ICreate,
     ) => Promise<IShoppingCoupon>;
   }
 }

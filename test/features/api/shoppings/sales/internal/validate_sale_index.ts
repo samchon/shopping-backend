@@ -40,6 +40,9 @@ const validate_in_viewer_level =
     const page: IPage<IShoppingSale.ISummary> = await fetcher(actor)({
       limit: saleList.length,
       sort: ["-sale.created_at"],
+      search: {
+        channel_codes: [saleList[0].channels[0].code],
+      },
     });
     const filtered: IShoppingSale.ISummary[] = page.data.filter(
       (summary) => saleList.find((s) => s.id === summary.id) !== undefined,
@@ -74,6 +77,9 @@ const validate_in_seller_level =
 
       const index: IPage<IShoppingSale.ISummary> = await fetcher("sellers")({
         limit: saleList.length,
+        search: {
+          channel_codes: [saleList[0].channels[0].code],
+        },
       });
       TestValidator.index("seller ownership")(mySales)(index.data);
     }

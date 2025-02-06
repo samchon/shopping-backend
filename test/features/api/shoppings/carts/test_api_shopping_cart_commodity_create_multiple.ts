@@ -7,21 +7,21 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 
 import { ConnectionPool } from "../../../../ConnectionPool";
 import { test_api_shopping_actor_customer_join } from "../actors/test_api_shopping_actor_customer_join";
+import { test_api_shopping_actor_seller_join } from "../actors/test_api_shopping_actor_seller_join";
+import { generate_random_sale } from "../sales/internal/generate_random_sale";
 
 export const test_api_shopping_cart_commodity_create_multiple = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_customer_join(pool);
+  await test_api_shopping_actor_seller_join(pool);
 
+  await generate_random_sale(pool);
   const page: IPage<IShoppingSale.ISummary> =
     await ShoppingApi.functional.shoppings.customers.sales.index(
       pool.customer,
       {
-        search: {
-          title: "macbook",
-        },
         limit: 1,
-        sort: ["+sale.created_at"],
       },
     );
   const sale: IShoppingSale =

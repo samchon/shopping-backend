@@ -24,7 +24,7 @@ export const test_api_shopping_coupon_erase = async (
   // CREATE COUPON AND TICKET
   const sale: IShoppingSale = await generate_random_sale(pool);
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: [],
+    types: ["channel"],
     direction: "include",
     customer: null,
     sale,
@@ -32,7 +32,7 @@ export const test_api_shopping_coupon_erase = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
     prepare: (criterias) =>
       prepare_random_coupon({
-        ...criterias,
+        criterias,
         opened_at: new Date().toISOString(),
       }),
   });

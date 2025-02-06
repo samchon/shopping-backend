@@ -217,6 +217,15 @@ export namespace ShoppingSaleProvider {
       : actor.type === "customer" && strict === true
         ? [
             {
+              mv_last: {
+                snapshot: {
+                  to_channels: {
+                    some: {
+                      shopping_channel_id: actor.channel.id,
+                    },
+                  },
+                },
+              },
               opened_at: { lte: new Date() },
               suspended_at: null,
               OR: [

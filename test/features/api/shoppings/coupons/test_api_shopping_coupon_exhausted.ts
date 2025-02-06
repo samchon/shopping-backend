@@ -1,7 +1,8 @@
-import { ArrayUtil, TestValidator } from "@nestia/e2e";
+import { ArrayUtil, RandomGenerator, TestValidator } from "@nestia/e2e";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
@@ -18,22 +19,24 @@ export const test_api_shopping_coupon_exhausted = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   // AUTHORIZE ACTORS
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_admin_login(pool);
-  await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
   // GENERATE LIMITED COUPON
   const sale: IShoppingSale = await generate_random_sale(pool);
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: [],
+    types: ["channel"],
     direction: "include",
-    customer: null,
+    customer,
     sale,
     create: (input) =>
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
     prepare: (criterias) =>
       prepare_random_coupon({
-        ...criterias,
+        criterias,
+        name: RandomGenerator.name(64),
         restriction: {
           volume: 4,
           volume_per_citizen: null,
@@ -41,50 +44,41 @@ export const test_api_shopping_coupon_exhausted = async (
       }),
   });
 
-  const error: Error | null = await TestValidator.proceed(async () => {
-    // PREPARE VALIDATOR
-    const validate = async (
-      path: ActorPath,
-      visible: boolean,
-      extra?: Partial<IShoppingCoupon.IRequest>,
-    ) => {
-      const connection: ShoppingApi.IConnection =
-        path === "admins"
-          ? pool.admin
-          : path === "customers"
-            ? pool.customer
-            : pool.seller;
-      const page: IPage<IShoppingCoupon> =
-        await ShoppingApi.functional.shoppings[path].coupons.index(connection, {
-          sort: ["-coupon.created_at"],
-          limit: 1,
-          ...(extra ?? {}),
-        });
-      TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
-    };
-    const ticketing = async () => {
-      await ShoppingApi.functional.shoppings.customers.coupons.tickets.create(
-        pool.customer,
-        {
-          coupon_id: coupon.id,
-        },
-      );
-    };
+  // PREPARE VALIDATOR
+  const validate = async (path: ActorPath, visible: boolean) => {
+    const connection: ShoppingApi.IConnection =
+      path === "admins"
+        ? pool.admin
+        : path === "customers"
+          ? pool.customer
+          : pool.seller;
+    const page: IPage<IShoppingCoupon> = await ShoppingApi.functional.shoppings[
+      path
+    ].coupons.index(connection, {
+      search: {
+        name: coupon.name,
+      },
+      sort: ["-coupon.created_at"],
+      limit: 1,
+    });
+    TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
+  };
+  const ticketing = async () => {
+    await ShoppingApi.functional.shoppings.customers.coupons.tickets.create(
+      pool.customer,
+      {
+        coupon_id: coupon.id,
+      },
+    );
+  };
 
-    // NO PROBLEM
-    await validate("admins", true);
-    await validate("customers", true);
-    await ArrayUtil.asyncRepeat(4)(ticketing);
+  // NO PROBLEM
+  await validate("admins", true);
+  await validate("customers", true);
+  await ArrayUtil.asyncRepeat(4)(ticketing);
 
-    // EXHAUSTED
-    await TestValidator.httpError("ticketing to exhausted")(410)(ticketing);
-    await validate("admins", true);
-    await validate("customers", false);
-  });
-
-  await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-    pool.admin,
-    coupon.id,
-  );
-  if (error) throw error;
+  // EXHAUSTED
+  await TestValidator.httpError("ticketing to exhausted")(410)(ticketing);
+  await validate("admins", true);
+  await validate("customers", false);
 };

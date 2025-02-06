@@ -17,7 +17,7 @@ export const test_api_shopping_actor_customer_create = async (
       {
         href: TestGlobal.HREF,
         referrer: TestGlobal.REFERRER,
-        channel_code: TestGlobal.CHANNEL,
+        channel_code: pool.channel,
         external_user: null,
       },
     );

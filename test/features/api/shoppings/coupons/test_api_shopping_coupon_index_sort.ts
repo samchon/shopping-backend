@@ -1,4 +1,9 @@
-import { ArrayUtil, GaffComparator, TestValidator } from "@nestia/e2e";
+import {
+  ArrayUtil,
+  GaffComparator,
+  RandomGenerator,
+  TestValidator,
+} from "@nestia/e2e";
 import { randint } from "tstl";
 import typia from "typia";
 
@@ -23,6 +28,7 @@ export const test_api_shopping_coupon_index_sort = async (
   await test_api_shopping_actor_seller_join(pool);
 
   // GENERATE COUPONS
+  const prefix: string = RandomGenerator.name(50);
   const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(10)(() =>
     generate_random_sale(pool),
   );
@@ -34,10 +40,10 @@ export const test_api_shopping_coupon_index_sort = async (
         sale,
         types,
         create: (input) =>
-          ShoppingApi.functional.shoppings.admins.coupons.create(
-            pool.admin,
-            input,
-          ),
+          ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, {
+            ...input,
+            name: `${prefix}-${RandomGenerator.name(10)}`,
+          }),
         prepare: (criterias) =>
           prepare_random_coupon({
             criterias,
@@ -70,8 +76,11 @@ export const test_api_shopping_coupon_index_sort = async (
   >(async (sort) => {
     const page: IPage<IShoppingCoupon> =
       await ShoppingApi.functional.shoppings.admins.coupons.index(pool.admin, {
-        limit: coupons.length,
+        search: {
+          name: prefix,
+        },
         sort,
+        limit: coupons.length,
       });
     return page.data;
   });

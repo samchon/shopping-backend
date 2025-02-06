@@ -22,7 +22,7 @@ export namespace ShoppingCouponProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_couponsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_couponsGetPayload<ReturnType<typeof select>>,
     ): Promise<IShoppingCoupon> => ({
       id: input.id,
       designer:
@@ -59,7 +59,7 @@ export namespace ShoppingCouponProvider {
           : input.volume_per_citizen,
       },
       criterias: await ShoppingCouponCriterialProvider.json.transform(
-        input.criterias.sort((a, b) => a.sequence - b.sequence)
+        input.criterias.sort((a, b) => a.sequence - b.sequence),
       ),
       name: input.name,
       created_at: input.created_at.toISOString(),
@@ -216,6 +216,7 @@ export namespace ShoppingCouponProvider {
             {
               name: {
                 contains: input.name,
+                mode: "insensitive" as const,
               },
             },
           ]
@@ -224,7 +225,7 @@ export namespace ShoppingCouponProvider {
 
   const orderBy = (
     key: IShoppingCoupon.IRequest.SortableColumns,
-    direction: "asc" | "desc"
+    direction: "asc" | "desc",
   ): Prisma.shopping_couponsOrderByWithRelationInput =>
     key === "coupon.name"
       ? { name: direction }
