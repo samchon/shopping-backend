@@ -26,7 +26,7 @@ import { ShoppingOrderPublishProvider } from "./ShoppingOrderPublishProvider";
 
 export namespace ShoppingOrderProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (

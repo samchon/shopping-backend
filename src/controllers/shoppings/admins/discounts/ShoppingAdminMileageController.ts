@@ -6,16 +6,15 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingMileage } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileage";
 
-import { ShoppingMileageProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageProvider";
-
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
+import { ShoppingMileageProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageProvider";
 
 @Controller(`shoppings/admins/mileages`)
 export class ShoppingAdminMileageController {
   /**
    * Get mileage metadata list.
    *
-   * List up every {@link IShoppingMileage mileage} metadata informations
+   * List up every {@link IShoppingMileage mileage} metadata information
    * with {@link IPage pagination}.
    *
    * If you want, you can limit the result by configuring
@@ -32,7 +31,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileage.IRequest
+    @core.TypedBody() input: IShoppingMileage.IRequest,
   ): Promise<IPage<IShoppingMileage>> {
     return ShoppingMileageProvider.index(input);
   }
@@ -51,7 +50,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingMileage> {
     return ShoppingMileageProvider.at(id);
   }
@@ -70,7 +69,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Get(":code/get")
   public async get(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("code") code: string
+    @core.TypedParam("code") code: string,
   ): Promise<IShoppingMileage> {
     return ShoppingMileageProvider.get(code);
   }
@@ -95,7 +94,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileage.ICreate
+    @core.TypedBody() input: IShoppingMileage.ICreate,
   ): Promise<IShoppingMileage> {
     return ShoppingMileageProvider.create({
       admin,
@@ -118,7 +117,7 @@ export class ShoppingAdminMileageController {
   @core.TypedRoute.Delete(":id")
   public async erase(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingMileageProvider.erase({
       admin,

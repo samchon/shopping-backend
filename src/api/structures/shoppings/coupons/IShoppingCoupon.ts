@@ -58,7 +58,7 @@ export interface IShoppingCoupon {
   inventory: IShoppingCouponInventory;
 
   /**
-   * List of criteria informations.
+   * List of criteria information.
    */
   criterias: IShoppingCouponCriteria[];
 

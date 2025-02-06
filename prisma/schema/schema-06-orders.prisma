@@ -85,7 +85,7 @@ model shopping_orders {
   /// List of goods to purchase.
   goods shopping_order_goods[]
 
-  /// List of payed tickets for discount
+  /// List of paid tickets for discount
   ticket_payments shopping_coupon_ticket_payments[]
   mv_price        mv_shopping_order_prices?
 
@@ -269,7 +269,7 @@ model shopping_order_publishes {
   /// Belonged order.
   order shopping_orders @relation(fields: [shopping_order_id], references: [id], onDelete: Cascade)
 
-  /// Target addresss.
+  /// Target address.
   address          shopping_addresses                        @relation(fields: [shopping_address_id], references: [id], onDelete: Cascade)
   pieces           shopping_delivery_pieces[]
   mv_state         mv_shopping_order_publish_states?
@@ -377,7 +377,7 @@ model shopping_delivery_pieces {
 
   /// Quantity count.
   ///
-  /// It can be precision value to express splitted shipping.
+  /// It can be precision value to express split shipping.
   ///
   /// @exclusiveMinimum 0
   quantity Float @db.DoublePrecision
@@ -460,7 +460,7 @@ model shopping_delivery_journeys {
   /// Type of journey.
   ///
   /// - preparing
-  /// - manufactoring
+  /// - manufacturing
   /// - shipping
   /// - delivering
   type String @db.VarChar

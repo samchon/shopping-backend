@@ -22,11 +22,11 @@ import { ShoppingDeliveryShipperProvider } from "./ShoppingDeliveryShipperProvid
 
 export namespace ShoppingDeliveryProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_deliveriesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_deliveriesGetPayload<ReturnType<typeof select>>,
     ): IShoppingDelivery => ({
       id: input.id,
       seller: ShoppingSellerProvider.invert.transform()(input.sellerCustomer),
@@ -34,7 +34,7 @@ export namespace ShoppingDeliveryProvider {
         .sort((a, b) =>
           a.created_at.getTime() === b.created_at.getTime()
             ? a.sequence - b.sequence
-            : a.created_at.getTime() - b.created_at.getTime()
+            : a.created_at.getTime() - b.created_at.getTime(),
         )
         .map(ShoppingDeliveryJourneyProvider.json.transform),
       shippers: input.shippers
@@ -44,7 +44,7 @@ export namespace ShoppingDeliveryProvider {
         .sort((a, b) => a.sequence - b.sequence)
         .map(ShoppingDeliveryPieceProvider.json.transform),
       state: typia.assert<IShoppingDelivery.State>(
-        input.mv_state?.value ?? "none"
+        input.mv_state?.value ?? "none",
       ),
       created_at: input.created_at.toISOString(),
     });
@@ -62,7 +62,7 @@ export namespace ShoppingDeliveryProvider {
 
   export namespace jsonFromPublish {
     export const transform = (
-      input: Prisma.shopping_deliveriesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_deliveriesGetPayload<ReturnType<typeof select>>,
     ): Omit<IShoppingDelivery, "pieces"> => ({
       id: input.id,
       seller: ShoppingSellerProvider.invert.transform()(input.sellerCustomer),
@@ -70,14 +70,14 @@ export namespace ShoppingDeliveryProvider {
         .sort((a, b) =>
           a.created_at.getTime() === b.created_at.getTime()
             ? a.sequence - b.sequence
-            : a.created_at.getTime() - b.created_at.getTime()
+            : a.created_at.getTime() - b.created_at.getTime(),
         )
         .map(ShoppingDeliveryJourneyProvider.json.transform),
       shippers: input.shippers
         .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
         .map(ShoppingDeliveryShipperProvider.json.transform),
       state: typia.assert<IShoppingDelivery.State>(
-        input.mv_state?.value ?? "none"
+        input.mv_state?.value ?? "none",
       ),
       created_at: input.created_at.toISOString(),
     });
@@ -94,10 +94,10 @@ export namespace ShoppingDeliveryProvider {
 
   export namespace invert {
     export const transform = async (
-      input: Prisma.shopping_deliveriesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_deliveriesGetPayload<ReturnType<typeof select>>,
     ): Promise<IShoppingDelivery.IInvert> => ({
       ...(await ShoppingDeliveryPieceProvider.invert.transform(
-        input.pieces.sort((a, b) => a.sequence - b.sequence)
+        input.pieces.sort((a, b) => a.sequence - b.sequence),
       )),
       id: input.id,
       seller: ShoppingSellerProvider.invert.transform()(input.sellerCustomer),
@@ -105,14 +105,14 @@ export namespace ShoppingDeliveryProvider {
         .sort((a, b) =>
           a.created_at.getTime() === b.created_at.getTime()
             ? a.sequence - b.sequence
-            : a.created_at.getTime() - b.created_at.getTime()
+            : a.created_at.getTime() - b.created_at.getTime(),
         )
         .map(ShoppingDeliveryJourneyProvider.json.transform),
       shippers: input.shippers
         .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
         .map(ShoppingDeliveryShipperProvider.json.transform),
       state: typia.assert<IShoppingDelivery.State>(
-        input.mv_state?.value ?? "none"
+        input.mv_state?.value ?? "none",
       ),
       created_at: input.created_at.toISOString(),
     });
@@ -201,7 +201,7 @@ export namespace ShoppingDeliveryProvider {
 
   const orderBy = (
     _key: IShoppingDelivery.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     ({
       created_at: value,
@@ -240,18 +240,18 @@ export namespace ShoppingDeliveryProvider {
           ...access().map(([_p_id, i]) => ({
             accessor: `pieces[${i}].publish_id`,
             message: `Target publish has not been paid yet.`,
-          }))
+          })),
         );
       else if (publish.cancelled_at !== null)
         unprocessables.push(
           ...access().map(([_p_id, i]) => ({
             accessor: `pieces[${i}].publish_id`,
             message: `Target publish has been cancelled.`,
-          }))
+          })),
         );
     });
 
-    // VALIDATE ACCESSMENT
+    // VALIDATE ASSESSMENT
     props.input.pieces.forEach((piece, i) => {
       const publish = publishList.find((p) => p.id === piece.publish_id);
       if (publish === undefined)
@@ -268,7 +268,7 @@ export namespace ShoppingDeliveryProvider {
           });
         else {
           const stock = good.commodity.stocks.find(
-            (cs) => cs.shopping_sale_snapshot_unit_stock_id === piece.stock_id
+            (cs) => cs.shopping_sale_snapshot_unit_stock_id === piece.stock_id,
           );
           if (stock === undefined)
             unprocessables.push({
@@ -286,7 +286,7 @@ export namespace ShoppingDeliveryProvider {
           (p) =>
             p.publish_id === piece.publish_id &&
             p.good_id === piece.good_id &&
-            p.stock_id === piece.stock_id
+            p.stock_id === piece.stock_id,
         );
       if (remained === undefined)
         unprocessables.push({
@@ -323,7 +323,7 @@ export namespace ShoppingDeliveryProvider {
         created_at: new Date(),
         journeys: {
           create: props.input.journeys.map(
-            ShoppingDeliveryJourneyProvider.collect
+            ShoppingDeliveryJourneyProvider.collect,
           ),
         },
         pieces: {
@@ -375,7 +375,7 @@ export namespace ShoppingDeliveryProvider {
           good: { id: gid },
           incompletes: props.incompletes.filter((p) => p.good_id === gid),
           state: props.state,
-        })
+        }),
     );
 
     // STATES OF SELLERS
@@ -451,7 +451,7 @@ export namespace ShoppingDeliveryProvider {
       computeMinimumState([
         props.state,
         ...neighbors.map((n) => typia.assert<IShoppingDelivery.State>(n.value)),
-      ])
+      ]),
     );
   };
 
@@ -495,7 +495,7 @@ export namespace ShoppingDeliveryProvider {
           where: {
             shopping_order_publish_id: entity.id,
           },
-        }
+        },
       )
     ).map((mv) => typia.assert<IShoppingDelivery.State>(mv.value));
     const value: IShoppingDelivery.State = computeMinimumState(stateList);

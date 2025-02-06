@@ -14,7 +14,7 @@ import type { IShoppingDeposit } from "../../../../structures/shoppings/deposits
 /**
  * Get deposit metadata list.
  *
- * List up every {@link IShoppingDeposit deposit} metadata informations
+ * List up every {@link IShoppingDeposit deposit} metadata information
  * with {@link IPage pagination}.
  *
  * If you want, you can limit the result by configuring

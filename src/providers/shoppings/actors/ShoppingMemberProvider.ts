@@ -16,11 +16,11 @@ import { ShoppingSellerProvider } from "./ShoppingSellerProvider";
 
 export namespace ShoppingMemberProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_membersGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_membersGetPayload<ReturnType<typeof select>>,
     ): IShoppingMember => ({
       id: input.id,
       citizen:
@@ -85,7 +85,7 @@ export namespace ShoppingMemberProvider {
           shopping_channel_id: props.customer.channel.id,
           nickname: props.input.nickname,
         },
-      })
+      }),
     );
     inspect(() => ({
       accessor: "input.email",
@@ -96,7 +96,7 @@ export namespace ShoppingMemberProvider {
           shopping_channel_id: props.customer.channel.id,
           value: props.input.email,
         },
-      })
+      }),
     );
     inspect(() => ({
       accessor: "input.citizen.mobile",
@@ -109,7 +109,7 @@ export namespace ShoppingMemberProvider {
               shopping_channel_id: props.customer.channel.id,
               mobile: props.input.citizen.mobile,
             },
-          })
+          }),
     );
     if (diagnoses.length !== 0) throw ErrorProvider.conflict(diagnoses);
 
@@ -177,7 +177,7 @@ export namespace ShoppingMemberProvider {
       props.customer.citizen.id !== member.citizen.id
     )
       throw ErrorProvider.conflict(
-        "Different citizen information with customer and member."
+        "Different citizen information with customer and member.",
       );
     else if (props.customer.citizen !== null && member.citizen === null)
       await ShoppingGlobal.prisma.shopping_members.update({

@@ -48,7 +48,7 @@ export const test_api_shopping_coupon_exhausted_for_citizen = async (
     );
   };
 
-  // EXHAUSED
+  // EXHAUSTED
   await ticketing();
   await TestValidator.httpError("ticketing to exhausted")(410)(ticketing);
 

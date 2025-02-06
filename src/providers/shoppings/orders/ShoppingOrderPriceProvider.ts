@@ -29,7 +29,7 @@ export namespace ShoppingOrderPriceProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_ordersGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_ordersGetPayload<ReturnType<typeof select>>,
     ): Promise<IShoppingOrderPrice> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("mv_price is null");
@@ -41,7 +41,7 @@ export namespace ShoppingOrderPriceProvider {
         mileage: input.mileage,
         ticket: input.mv_price.ticket,
         ticket_payments: await ArrayUtil.asyncMap(input.ticket_payments)(
-          ShoppingCouponTicketPaymentProvider.json.transform
+          ShoppingCouponTicketPaymentProvider.json.transform,
         ),
       };
     };
@@ -67,7 +67,7 @@ export namespace ShoppingOrderPriceProvider {
           ...ShoppingOrderProvider.where(props.customer),
         },
         ...json.select(props.customer),
-      }
+      },
     );
     return json.transform(record);
   };
@@ -92,7 +92,7 @@ export namespace ShoppingOrderPriceProvider {
       props.input.good_ids === null
         ? reference.goods
         : reference.goods.filter((good) =>
-            props.input.good_ids!.some((id) => id === good.id)
+            props.input.good_ids!.some((id) => id === good.id),
           );
     if (
       props.input.good_ids !== null &&
@@ -105,21 +105,21 @@ export namespace ShoppingOrderPriceProvider {
     return {
       mileage: props.customer.citizen
         ? (await ShoppingMileageHistoryProvider.getBalance(
-            props.customer.citizen
+            props.customer.citizen,
           )) + price.mileage
         : 0,
       deposit: props.customer.citizen
         ? (await ShoppingDepositHistoryProvider.getBalance(
-            props.customer.citizen
+            props.customer.citizen,
           )) + price.deposit
         : 0,
-      combinations: ShoppingOrderDiscountableDiagnoser.combinate({
+      combinations: ShoppingOrderDiscountableDiagnoser.combine({
         customer: props.customer,
         coupons: await take((input) =>
           ShoppingCouponProvider.index({
             actor: props.customer,
             input,
-          })
+          }),
         ),
         tickets: props.customer.citizen
           ? [
@@ -127,7 +127,7 @@ export namespace ShoppingOrderPriceProvider {
                 ShoppingCouponTicketProvider.index({
                   customer: props.customer,
                   input,
-                })
+                }),
               )),
               ...price.ticket_payments.map((tp) => tp.ticket),
             ]
@@ -235,13 +235,13 @@ export namespace ShoppingOrderPriceProvider {
     const deposit: number =
       props.customer.citizen !== null
         ? (await ShoppingDepositHistoryProvider.getBalance(
-            props.customer.citizen
+            props.customer.citizen,
           )) + order.price.deposit
         : 0;
     const mileage: number =
       props.customer.citizen !== null
         ? (await ShoppingMileageHistoryProvider.getBalance(
-            props.customer.citizen
+            props.customer.citizen,
           )) + order.price.mileage
         : 0;
     if (deposit < props.input.deposit)
@@ -283,8 +283,8 @@ export namespace ShoppingOrderPriceProvider {
               ],
             },
             ...ShoppingCouponTicketProvider.json.select(props.customer),
-          })
-        )(ShoppingCouponTicketProvider.json.transform)
+          }),
+        )(ShoppingCouponTicketProvider.json.transform),
       );
     const coupons: IShoppingCoupon[] =
       tickets.length === props.input.coupon_ids.length
@@ -302,7 +302,7 @@ export namespace ShoppingOrderPriceProvider {
                 ],
               },
               ...ShoppingCouponProvider.json.select(props.customer),
-            })
+            }),
           )(ShoppingCouponProvider.json.transform);
     if (tickets.length + coupons.length !== props.input.coupon_ids.length)
       throw ErrorProvider.notFound({
@@ -321,7 +321,7 @@ export namespace ShoppingOrderPriceProvider {
           customer: props.customer,
           goods: order.goods,
           coupon: c,
-        })
+        }),
       ) &&
         entire.length === 1) ||
       entire.every((c) => false === c.restriction.exclusive);
@@ -340,8 +340,8 @@ export namespace ShoppingOrderPriceProvider {
             input: {
               coupon_id: c.id,
             },
-          })
-        ))
+          }),
+        )),
       );
 
     // DO TICKET PAYMENTS
@@ -350,11 +350,11 @@ export namespace ShoppingOrderPriceProvider {
         order,
         ticket: t,
         sequence: i,
-      })
+      }),
     );
 
     // RETURNS
-    const [combination] = ShoppingOrderDiscountableDiagnoser.combinate({
+    const [combination] = ShoppingOrderDiscountableDiagnoser.combine({
       customer: props.customer,
       coupons: [],
       tickets,
@@ -373,7 +373,7 @@ interface IAsset {
 }
 
 const take = async <T extends object>(
-  closure: (input: IPage.IRequest) => Promise<IPage<T>>
+  closure: (input: IPage.IRequest) => Promise<IPage<T>>,
 ): Promise<T[]> => {
   const page = await closure({ limit: 0 });
   return page.data;

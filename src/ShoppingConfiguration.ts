@@ -4,19 +4,19 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import fs from "fs";
 import path from "path";
 
 import { ShoppingGlobal } from "./ShoppingGlobal";
-import { Prisma } from "@prisma/client";
 
 const EXTENSION = __filename.substr(-2);
 if (EXTENSION === "js") require("source-map-support").install();
 
 export namespace ShoppingConfiguration {
   export const ROOT = (() => {
-    const splitted: string[] = __dirname.split(path.sep);
-    return splitted.at(-1) === "src" && splitted.at(-2) === "bin"
+    const split: string[] = __dirname.split(path.sep);
+    return split.at(-1) === "src" && split.at(-2) === "bin"
       ? path.resolve(__dirname + "/../..")
       : fs.existsSync(__dirname + "/.env")
         ? __dirname

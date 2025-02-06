@@ -126,7 +126,7 @@ export namespace IShoppingSaleSnapshot {
     /**
      * List of units.
      *
-     * Records about individual product composition informations that are sold
+     * Records about individual product composition information that are sold
      * in the sale. Each {@link IShoppingSaleUnit unit} record has configurable
      * {@link IShoppingSaleUnitOption options},
      * {@link IShoppingSaleUnitOptionCandidate candidate} values for each

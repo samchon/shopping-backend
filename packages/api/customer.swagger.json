@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.14.1",
+    "version": "0.14.2",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -621,7 +621,7 @@
       },
       "post": {
         "summary": "Create a new deposit charge application",
-        "description": "Create a new deposit charge application.\n\nCreate a new {@link IShoppingDepositCharge deposit charge application}.\n\nBy the way, this function does not mean completion the deposit charge, but\nmeans just {@link IShoppingCustomer customer} is appling the deposit charge.\nThe deposit charge be completed only when customer\n{@link IShoppingDepositChargePublish.publish pay} the deposit charge.",
+        "description": "Create a new deposit charge application.\n\nCreate a new {@link IShoppingDepositCharge deposit charge application}.\n\nBy the way, this function does not mean completion the deposit charge, but\nmeans just {@link IShoppingCustomer customer} is applying the deposit charge.\nThe deposit charge be completed only when customer\n{@link IShoppingDepositChargePublish.publish pay} the deposit charge.",
         "tags": [
           "Discount"
         ],
@@ -1478,7 +1478,7 @@
     "/shoppings/customers/orders": {
       "post": {
         "summary": "Create a new order application",
-        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot, don't take a mistake that writing\n> the `commodity_id` with the user selected stock ID. The\n> `commodity_id` is the ID of the shopping cart commodity, not the\n> stock ID. The stock ID is already included in the shopping cart\n> commodity.",
+        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is applying the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot, don't take a mistake that writing\n> the `commodity_id` with the user selected stock ID. The\n> `commodity_id` is the ID of the shopping cart commodity, not the\n> stock ID. The stock ID is already included in the shopping cart\n> commodity.",
         "tags": [
           "Order"
         ],
@@ -1566,7 +1566,7 @@
     "/shoppings/customers/orders/direct": {
       "post": {
         "summary": "Create a new order application without a shopping cart",
-        "description": "Create a new order application without a shopping cart.\n\nCarete a new {@link IShoppingOrder order application} without a\n{@link IShoppingCartCommodity shopping cart commodity} composition.\nIf you're an A.I. chatbot and user wants to directly purchase a product,\nthen select and call this function.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.",
+        "description": "Create a new order application without a shopping cart.\n\nCarete a new {@link IShoppingOrder order application} without a\n{@link IShoppingCartCommodity shopping cart commodity} composition.\nIf you're an A.I. chatbot and user wants to directly purchase a product,\nthen select and call this function.\n\nBy the way, this function does not mean completion the order, but means\njust customer is applying the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.",
         "tags": [
           "Order"
         ],
@@ -1740,7 +1740,7 @@
     "/shoppings/customers/orders/{id}/discountable": {
       "patch": {
         "summary": "Get discountable info",
-        "description": "Get discountable info.\n\nCompute discountable features about the {@link IShoppingOrder}.\n\nRetured {@link IShoppingOrderDiscountable} contains including\ncombinations of adjustable {@link IShoppingCoupon coupons},\nwithdrawable {@link IShoppingDepositHistory deposits}\nand {@link IShoppingMileageHistory mileages}.\n\nOf course, returned features are valid only when the order has not\nbeen {@link IShoppingOrderPublish published} yet. If the order has\nalready been published, then no way to discount the price more.",
+        "description": "Get discountable info.\n\nCompute discountable features about the {@link IShoppingOrder}.\n\nReturned {@link IShoppingOrderDiscountable} contains including\ncombinations of adjustable {@link IShoppingCoupon coupons},\nwithdrawable {@link IShoppingDepositHistory deposits}\nand {@link IShoppingMileageHistory mileages}.\n\nOf course, returned features are valid only when the order has not\nbeen {@link IShoppingOrderPublish published} yet. If the order has\nalready been published, then no way to discount the price more.",
         "tags": [
           "Order"
         ],
@@ -2047,7 +2047,7 @@
     "/shoppings/customers/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed information.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock information}. Just list up the\n> every stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -2139,7 +2139,7 @@
     "/shoppings/customers/sales/{id}": {
       "get": {
         "summary": "Get a sale with detailed information",
-        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed informations.",
+        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -3740,7 +3740,7 @@
     "/shoppings/customers/systematic/channels/{id}": {
       "get": {
         "summary": "Get a channel info",
-        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -3786,7 +3786,7 @@
     "/shoppings/customers/systematic/channels/{code}/get": {
       "get": {
         "summary": "Get a channel info by its code",
-        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -4035,7 +4035,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -4462,7 +4462,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -4540,7 +4540,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -4855,8 +4855,8 @@
                 }
               }
             },
-            "title": "List of criteria informations",
-            "description": "List of criteria informations."
+            "title": "List of criteria information",
+            "description": "List of criteria information."
           },
           "discount": {
             "oneOf": [
@@ -5305,7 +5305,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
@@ -5467,7 +5467,7 @@
           "emails",
           "created_at"
         ],
-        "description": "Invert information of member.\n\nThis invert member information has been designed to be used for another\ninvert informations of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
+        "description": "Invert information of member.\n\nThis invert member information has been designed to be used for another\ninvert information of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
       },
       "IShoppingSalePriceRange": {
         "type": "object",
@@ -6417,13 +6417,13 @@
                 "type": "null"
               },
               {
+                "const": "paid"
+              },
+              {
                 "const": "published"
               },
               {
                 "const": "pending"
-              },
-              {
-                "const": "payed"
               },
               {
                 "const": "cancelled"
@@ -7259,7 +7259,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
@@ -7389,7 +7389,7 @@
           "id",
           "created_at"
         ],
-        "description": "Invert information starting from seller info.\n\nInstead of accessing to the seller information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},\n`IShoppingSeller.IInvert` starts from the seller information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformations inversely."
+        "description": "Invert information starting from seller info.\n\nInstead of accessing to the seller information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},\n`IShoppingSeller.IInvert` starts from the seller information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformation inversely."
       },
       "IShoppingCustomer.IInvert": {
         "type": "object",
@@ -7415,7 +7415,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -7470,7 +7470,7 @@
           "ip",
           "created_at"
         ],
-        "description": "Inverted customer informatino.\n\nThis inverted customer information has been designed to be used for\nanother invert informations of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
+        "description": "Inverted customer information.\n\nThis inverted customer information has been designed to be used for\nanother invert information of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
       },
       "IShoppingSaleUnit.IInvert": {
         "type": "object",
@@ -8547,8 +8547,8 @@
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingOrderPrice.ISummary",
-            "title": "Price information including discounts and multipled volume",
-            "description": "Price information including discounts and multipled volume."
+            "title": "Price information including discounts and multiplied volume",
+            "description": "Price information including discounts and multiplied volume."
           },
           "state": {
             "oneOf": [
@@ -8713,7 +8713,7 @@
           "nominal",
           "real"
         ],
-        "description": "Price infromation of the order including discounts."
+        "description": "Price information of the order including discounts."
       },
       "IShoppingCouponTicketPayment": {
         "type": "object",
@@ -9060,7 +9060,7 @@
             "type": "number",
             "minimum": 0,
             "title": "Quantity of the stock",
-            "description": "Quantity of the stock.\n\nIt can be precision value to express splitted shipping."
+            "description": "Quantity of the stock.\n\nIt can be precision value to express split shipping."
           }
         },
         "required": [
@@ -9710,7 +9710,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
@@ -10331,7 +10331,7 @@
           "id",
           "created_at"
         ],
-        "description": "Invert information starting from administrator info.\n\nInstead of accessing to the administrator information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},\n`IShoppingAdministrator.IInvert` starts from the administrator information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformations inversely."
+        "description": "Invert information starting from administrator info.\n\nInstead of accessing to the administrator information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},\n`IShoppingAdministrator.IInvert` starts from the administrator information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformation inversely."
       },
       "IBbsArticleComment.ISnapshot": {
         "type": "object",
@@ -10717,7 +10717,7 @@
           "snapshots",
           "created_at"
         ],
-        "description": "Answers to questions about sale snapshots.\n\n`IShoppingSaleInquiryAnswer` is an entity that embodies the official\nanswer written by the {@link IShoppingSeller seller} to the\n{@link IShoppingSaleInquiry inquiry} written by the\n{@link IShoppingCustomer customer}.\n\nOf course, in addition to writing an official response like this, it is\nalso possible for the seller to communicate with the inqjuiry written\ncustomer and multiple customers through\n{@link IShoppingSaleInquiryComment comments} in the attribution inquiry.\n\nFor refererence, it is not possible to write comments on this answer.\nEncourage people to write comments on the inquiry article. This is to\nprevent comments from being scattered in both inquiry and answer\narticles."
+        "description": "Answers to questions about sale snapshots.\n\n`IShoppingSaleInquiryAnswer` is an entity that embodies the official\nanswer written by the {@link IShoppingSeller seller} to the\n{@link IShoppingSaleInquiry inquiry} written by the\n{@link IShoppingCustomer customer}.\n\nOf course, in addition to writing an official response like this, it is\nalso possible for the seller to communicate with the inqjuiry written\ncustomer and multiple customers through\n{@link IShoppingSaleInquiryComment comments} in the attribution inquiry.\n\nFor reference, it is not possible to write comments on this answer.\nEncourage people to write comments on the inquiry article. This is to\nprevent comments from being scattered in both inquiry and answer\narticles."
       },
       "IBbsArticle.ISnapshot": {
         "type": "object",
@@ -11087,7 +11087,7 @@
           }
         },
         "required": [],
-        "description": "Request of summarized informations with pagination searching/sorting options."
+        "description": "Request of summarized information with pagination searching/sorting options."
       },
       "IShoppingSaleInquiry.IRequest.ISearch": {
         "type": "object",
@@ -11790,7 +11790,7 @@
           }
         },
         "required": [],
-        "description": "Request of summarized informations with pagination searching/sorting options."
+        "description": "Request of summarized information with pagination searching/sorting options."
       },
       "IShoppingSaleReview.IRequest.ISearch": {
         "type": "object",
@@ -12103,7 +12103,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           }
         },
         "required": [
@@ -12198,7 +12198,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           }
         },
         "required": [

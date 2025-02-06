@@ -34,7 +34,7 @@ export namespace IShoppingSaleReview {
   }
 
   /**
-   * Request of summarized informations with pagination searching/sorting options.
+   * Request of summarized information with pagination searching/sorting options.
    */
   export interface IRequest
     extends IShoppingSaleInquiry.IRequest<

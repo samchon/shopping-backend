@@ -4,7 +4,7 @@ import { IShoppingPrice } from "../base/IShoppingPrice";
 import { IShoppingCouponTicketPayment } from "../coupons/IShoppingCouponTicketPayment";
 
 /**
- * Price infromation of the order including discounts.
+ * Price information of the order including discounts.
  *
  * @author Samchon
  */

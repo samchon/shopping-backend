@@ -16,7 +16,7 @@ export * as donations from "./donations";
 /**
  * Get mileage metadata list.
  *
- * List up every {@link IShoppingMileage mileage} metadata informations
+ * List up every {@link IShoppingMileage mileage} metadata information
  * with {@link IPage pagination}.
  *
  * If you want, you can limit the result by configuring

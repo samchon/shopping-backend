@@ -66,7 +66,7 @@ export namespace IShoppingSeller {
    * {@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},
    * `IShoppingSeller.IInvert` starts from the seller information
    * and access to the customer, member and {@link IShoppingCitizen citizen}
-   * informations inversely.
+   * information inversely.
    */
   export interface IInvert extends IShoppingSeller {
     /**
