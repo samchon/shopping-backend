@@ -5,7 +5,6 @@ import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/
 import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 
 import { ShoppingCouponProvider } from "../../../../providers/shoppings/coupons/ShoppingCouponProvider";
-
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 import { ShoppingCouponReadableController } from "./ShoppingCouponReadableController";
 
@@ -13,7 +12,7 @@ export function ShoppingCouponWritableController<
   Actor extends IShoppingSeller.IInvert | IShoppingAdministrator.IInvert,
 >(props: IShoppingControllerProps) {
   abstract class ShoppingCouponWritableController extends ShoppingCouponReadableController<Actor>(
-    props
+    props,
   ) {
     /**
      * Create a new coupon.
@@ -27,7 +26,7 @@ export function ShoppingCouponWritableController<
      * which can be used throughout the market. Seller must limit the usage
      * range by his/her {@link IShoppingSale sale(s)}.
      *
-     * Of course, when adminstrator is planning to make a general coupon
+     * Of course, when administrator is planning to make a general coupon
      * that can be used throughout the market, the administrator must
      * get agree from the sellers who are going to be affected.
      *
@@ -40,7 +39,7 @@ export function ShoppingCouponWritableController<
     @core.TypedRoute.Post()
     public create(
       @props.AuthGuard() actor: Actor,
-      @core.TypedBody() input: IShoppingCoupon.ICreate
+      @core.TypedBody() input: IShoppingCoupon.ICreate,
     ): Promise<IShoppingCoupon> {
       return ShoppingCouponProvider.create({
         actor,
@@ -65,7 +64,7 @@ export function ShoppingCouponWritableController<
     @core.TypedRoute.Delete(":id")
     public erase(
       @props.AuthGuard() actor: Actor,
-      @core.TypedParam("id") id: string
+      @core.TypedParam("id") id: string,
     ): Promise<void> {
       return ShoppingCouponProvider.erase({
         actor,

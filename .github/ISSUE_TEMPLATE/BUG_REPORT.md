@@ -18,9 +18,9 @@ When same error occurs with the `@next` version, then please fill the below temp
   - **Expected behavior**: 
   - **Actual behavior**
 
-### Code occuring the bug
+### Code occurring the bug
 ```typescript
 import api from "@samchon/shopping-api";
 
-/* Demonstration code occuring the bug you're reporting */
+/* Demonstration code occurring the bug you're reporting */
 ```

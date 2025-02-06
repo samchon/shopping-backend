@@ -14,7 +14,7 @@ import { IShoppingSeller } from "../../actors/IShoppingSeller";
  * customer and multiple customers through
  * {@link IShoppingSaleInquiryComment comments} in the attribution inquiry.
  *
- * For refererence, it is not possible to write comments on this answer.
+ * For reference, it is not possible to write comments on this answer.
  * Encourage people to write comments on the inquiry article. This is to
  * prevent comments from being scattered in both inquiry and answer
  * articles.

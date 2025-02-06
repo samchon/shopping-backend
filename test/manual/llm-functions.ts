@@ -1,31 +1,33 @@
-import cp from "child_process";
-import fs from "fs";
-import ShoppingApi from "@samchon/shopping-api/lib/index";
-import { ShoppingBackend } from "../../src/ShoppingBackend";
-import { ShoppingConfiguration } from "../../src/ShoppingConfiguration";
-import { ConnectionPool } from "../ConnectionPool";
-import { ShoppingSetupWizard } from "../../src/setup/ShoppingSetupWizard";
-import { ShoppingGlobal } from "../../src/ShoppingGlobal";
-import { test_api_shopping_actor_customer_join } from "../features/api/shoppings/actors/test_api_shopping_actor_customer_join";
-import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
-import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
+import { ArrayUtil, RandomGenerator } from "@nestia/e2e";
 import {
   HttpLlm,
   IHttpLlmApplication,
   IHttpLlmFunction,
 } from "@samchon/openapi";
-import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
-import { prepare_random_cart_commodity } from "../features/api/shoppings/carts/internal/prepare_random_cart_commodity";
-import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
+import cp from "child_process";
+import fs from "fs";
 import { v4 } from "uuid";
-import { prepare_random_address } from "../features/api/shoppings/orders/internal/prepare_random_address";
+
+import ShoppingApi from "@samchon/shopping-api/lib/index";
+import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
-import { test_api_shopping_actor_admin_login } from "../features/api/shoppings/actors/test_api_shopping_actor_admin_login";
 import { IShoppingDepositCharge } from "@samchon/shopping-api/lib/structures/shoppings/deposits/IShoppingDepositCharge";
+import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
+import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
 import { IShoppingOrderPublish } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderPublish";
-import { ArrayUtil, RandomGenerator } from "@nestia/e2e";
+import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
+
+import { ShoppingBackend } from "../../src/ShoppingBackend";
+import { ShoppingConfiguration } from "../../src/ShoppingConfiguration";
+import { ShoppingGlobal } from "../../src/ShoppingGlobal";
+import { ShoppingSetupWizard } from "../../src/setup/ShoppingSetupWizard";
+import { ConnectionPool } from "../ConnectionPool";
+import { test_api_shopping_actor_admin_login } from "../features/api/shoppings/actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_create } from "../features/api/shoppings/actors/test_api_shopping_actor_customer_create";
+import { test_api_shopping_actor_customer_join } from "../features/api/shoppings/actors/test_api_shopping_actor_customer_join";
+import { prepare_random_cart_commodity } from "../features/api/shoppings/carts/internal/prepare_random_cart_commodity";
+import { prepare_random_address } from "../features/api/shoppings/orders/internal/prepare_random_address";
 
 interface IFunctionCall {
   name: string;
@@ -66,7 +68,7 @@ const main = async (): Promise<void> => {
   await fs.promises.writeFile(
     `${ShoppingConfiguration.ROOT}/assets/llm-application.json`,
     JSON.stringify(application, null, 2),
-    "utf8"
+    "utf8",
   );
 
   // THE API EXECUTOR
@@ -89,11 +91,11 @@ const main = async (): Promise<void> => {
       application.functions.find(
         (f) =>
           f.method === operation.METADATA.method.toLowerCase() &&
-          "/" + f.route().emendedPath === operation.METADATA.path
+          "/" + f.route().emendedPath === operation.METADATA.path,
       );
     if (schema === undefined)
       throw new Error(
-        `Function not found: ${operation.METADATA.method} ${operation.METADATA.path}`
+        `Function not found: ${operation.METADATA.method} ${operation.METADATA.path}`,
       );
     console.log(operation.METADATA.method, operation.METADATA.path);
     const value: ReturnType<Operation> = await (operation as any)(...args);
@@ -106,7 +108,7 @@ const main = async (): Promise<void> => {
       output: schema.output,
       success: true,
       arguments: Object.fromEntries(
-        Object.keys(schema.parameters).map((key, i) => [key, args[i]])
+        Object.keys(schema.parameters).map((key, i) => [key, args[i]]),
       ),
       value,
     });
@@ -129,7 +131,7 @@ const main = async (): Promise<void> => {
     {
       email: "robot@nestia.io",
       password: ShoppingGlobal.env.SHOPPING_SYSTEM_PASSWORD,
-    }
+    },
   );
 
   //----
@@ -141,7 +143,7 @@ const main = async (): Promise<void> => {
     pool.customer,
     {
       value: 200_000,
-    }
+    },
   );
   await execute(
     ShoppingApi.functional.shoppings.customers.deposits.charges.publish.create,
@@ -150,11 +152,11 @@ const main = async (): Promise<void> => {
     {
       vendor: "Shinhan Bank",
       uid: v4(),
-    }
+    },
   );
 
   //----
-  // ORER SCENARIO
+  // ORDER SCENARIO
   //----
   // FIND SURFACE PRO FROM THE SALE LIST
   const page: IPage<IShoppingSale.ISummary> = await execute(
@@ -162,19 +164,19 @@ const main = async (): Promise<void> => {
     pool.customer,
     {
       limit: 100,
-    }
+    },
   );
 
   // READ THE DETAILED SALE
   const sales: IShoppingSale[] = await ArrayUtil.asyncMap(
-    RandomGenerator.sample(page.data)(4)
+    RandomGenerator.sample(page.data)(4),
   )(
     async (sale) =>
       await execute(
         ShoppingApi.functional.shoppings.customers.sales.at,
         pool.customer,
-        sale.id
-      )
+        sale.id,
+      ),
   );
 
   // COMPOSE SHOPPING CART
@@ -183,8 +185,8 @@ const main = async (): Promise<void> => {
       await execute(
         ShoppingApi.functional.shoppings.customers.carts.commodities.create,
         pool.customer,
-        prepare_random_cart_commodity(s)
-      )
+        prepare_random_cart_commodity(s),
+      ),
   );
 
   // START ORDER REQUEST
@@ -196,7 +198,7 @@ const main = async (): Promise<void> => {
         commodity_id: c.id,
         volume: c.volume,
       })),
-    }
+    },
   );
 
   // ADJUST DISCOUNT INFO
@@ -234,7 +236,7 @@ const main = async (): Promise<void> => {
           ],
         },
       ],
-    }
+    },
   );
   const discountable: IShoppingOrderDiscountable = await execute(
     ShoppingApi.functional.shoppings.customers.orders.discountable,
@@ -242,7 +244,7 @@ const main = async (): Promise<void> => {
     order.id,
     {
       good_ids: null,
-    }
+    },
   );
   await execute(
     ShoppingApi.functional.shoppings.customers.orders.discount,
@@ -253,7 +255,7 @@ const main = async (): Promise<void> => {
       mileage: discountable.mileage,
       coupon_ids:
         discountable.combinations.at(0)?.coupons.map((c) => c.id) ?? [],
-    }
+    },
   );
 
   // DO PUBLISH THE ORDER
@@ -267,7 +269,7 @@ const main = async (): Promise<void> => {
         uid: v4(),
       },
       address: prepare_random_address(customer.citizen!),
-    }
+    },
   );
 
   //----
@@ -290,7 +292,7 @@ const main = async (): Promise<void> => {
           pool.seller,
           {
             publish_ids: [publish.id],
-          }
+          },
         ),
       journeys: (["preparing", "manufacturing", "delivering"] as const).map(
         (type) => ({
@@ -299,23 +301,23 @@ const main = async (): Promise<void> => {
           description: null,
           started_at: new Date().toISOString(),
           completed_at: null,
-        })
+        }),
       ),
-    }
+    },
   );
 
   // AND READ IT
   await execute(
     ShoppingApi.functional.shoppings.customers.orders.at,
     pool.customer,
-    order.id
+    order.id,
   );
 
   // REPORT
   await fs.promises.writeFile(
     `${ShoppingConfiguration.ROOT}/assets/llm-function-calls.json`,
     JSON.stringify(histories, null, 2),
-    "utf8"
+    "utf8",
   );
   await backend.close();
 };

@@ -18,11 +18,11 @@ import { ShoppingMemberProvider } from "./ShoppingMemberProvider";
 
 export namespace ShoppingCustomerProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_customersGetPayload<ReturnType<typeof select>>,
     ): IShoppingCustomer => ({
       id: input.id,
       type: "customer",
@@ -90,7 +90,7 @@ export namespace ShoppingCustomerProvider {
   };
 
   export const refresh = async (
-    input?: string
+    input?: string,
   ): Promise<IShoppingCustomer.IAuthorized> => {
     if (!input)
       throw ErrorProvider.unauthorized({
@@ -127,7 +127,7 @@ export namespace ShoppingCustomerProvider {
 
   const tokenize = async (
     customer: IShoppingCustomer,
-    readonly: boolean = false
+    readonly: boolean = false,
   ): Promise<IShoppingCustomer.IAuthorized> => {
     const token: JwtTokenManager.IOutput = await JwtTokenManager.generate({
       table: "shopping_customers",
@@ -276,7 +276,7 @@ export namespace ShoppingCustomerProvider {
     PREDICATORS
   ----------------------------------------------------------- */
   export const anonymous = (
-    customer: IShoppingCustomer
+    customer: IShoppingCustomer,
   ): IShoppingCustomer => ({
     id: v4(),
     type: "customer",

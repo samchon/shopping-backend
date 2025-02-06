@@ -1,11 +1,11 @@
 import fs from "fs";
 import git from "git-last-commit";
+import { Singleton, randint } from "tstl";
 
 import { ISystem } from "@samchon/shopping-api/lib/structures/monitors/ISystem";
 
 import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { DateUtil } from "../../utils/DateUtil";
-import { randint, Singleton } from "tstl";
 
 export class SystemProvider {
   public static readonly uid: number = randint(0, Number.MAX_SAFE_INTEGER);
@@ -32,7 +32,7 @@ const commit_: Singleton<Promise<ISystem.ICommit>> = new Singleton(
               new Date(Number(commit.authoredOn) * 1000),
               true,
             ),
-            commited_at: DateUtil.toString(
+            committed_at: DateUtil.toString(
               new Date(Number(commit.committedOn) * 1000),
               true,
             ),

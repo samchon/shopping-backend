@@ -94,7 +94,7 @@ export namespace create {
  * applied to the sale.
  *
  * The 2nd purpose is for the A/B tests. {@link IShoppingSeller Seller} needs
- * to demonstrate operating performance by chaning price, content, and
+ * to demonstrate operating performance by changing price, content, and
  * composition of the product. This snapshot concept would be helpful for it.
  *
  * @param id Target sale's {@link IShoppingSale.id }
@@ -265,13 +265,13 @@ export namespace replica {
  * Pause a {@link IShoppingSale sale} from {@link open opened} state.
  * Therefore, the sale can not be operated again until it be
  * {@link restore restored}. By the way, {@link IShoppingCustomer customer}
- * still can sale from the {@link index} and {@link at} API endpints, but
+ * still can sale from the {@link index} and {@link at} API endpoints, but
  * "paused" label would be attached.
  *
  * Also, customer no more can put into the shopping cart, either.
  * Even the sale already had been put into the shopping cart, the
  * {@link IShoppingCartCommodity commodity} will not be listed on the
- * shopping cart. Also, it is not possible to appling an
+ * shopping cart. Also, it is not possible to applying an
  * {@link IShoppingOrder order} with the paused sale's commodity, either.
  *
  * By the way, if the sale already had been applied to an order, the order
@@ -324,7 +324,7 @@ export namespace pause {
  * Also, customer no more can put into the shopping cart, either.
  * Even the sale already had been put into the shopping cart, the
  * {@link IShoppingCartCommodity commodity} will not be listed on the
- * shopping cart. Also, it is not possible to appling an
+ * shopping cart. Also, it is not possible to applying an
  * {@link IShoppingOrder order} with the suspended sale's commodity, either.
  *
  * By the way, if the sale already had been applied to an order, the order
@@ -416,21 +416,21 @@ export namespace restore {
 /**
  * List up every sales.
  *
- * List up every {@link IShoppingSale sales} with detailed informations.
+ * List up every {@link IShoppingSale sales} with detailed information.
  *
  * As you can see, returned sales are detailed, not summarized. If you want
  * to get the summarized information of sale for a brief, use {@link index}
  * function instead.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
- * acess to the your own {@link IShoppingSale sale}s. Otherwise you're a
+ * access to the your own {@link IShoppingSale sale}s. Otherwise you're a
  * {@link IShoppingCustomer customer}, you can see only the operating sales
  * in the market. Instead, you can't see the unopened, closed, or suspended
  * sales.
  *
  * > If you're an A.I. chatbot, please don't summarize the
- * > {@link IShoppingSaleUnitStock stock informations}. Just list up the
- * > every stocks in the sale with detailed informations.
+ * > {@link IShoppingSaleUnitStock stock information}. Just list up the
+ * > every stocks in the sale with detailed information.
  *
  * @param input Request info of pagination, searching and sorting
  * @returns Paginated sales with detailed information
@@ -566,7 +566,7 @@ export namespace index {
  * > don't need to call this operation again for the same sale.
  * >
  * > Additionally, please do not summarize the SKU information. Just show
- * > the every options and stocks in the sale with detailed informations.
+ * > the every options and stocks in the sale with detailed information.
  *
  * @param id Target sale's {@link IShoppingSale.id }
  * @returns Detailed sale information

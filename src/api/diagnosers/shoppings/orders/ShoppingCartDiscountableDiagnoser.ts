@@ -3,7 +3,6 @@ import { IShoppingCoupon } from "../../../structures/shoppings/coupons/IShopping
 import { IShoppingCouponTicket } from "../../../structures/shoppings/coupons/IShoppingCouponTicket";
 import { IShoppingCartCommodity } from "../../../structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingCartDiscountable } from "../../../structures/shoppings/orders/IShoppingCartDiscountable";
-
 import { ShoppingDiscountableDiagnoser } from "../coupons/ShoppingDiscountableDiagnoser";
 
 export namespace ShoppingCartDiscountableDiagnoser {
@@ -31,13 +30,13 @@ export namespace ShoppingCartDiscountableDiagnoser {
       data: props.commodities,
     });
 
-  export const combinate = (props: {
+  export const combine = (props: {
     customer: IShoppingCustomer;
     coupons: IShoppingCoupon[];
     tickets: IShoppingCouponTicket[];
     commodities: IShoppingCartCommodity[];
   }): IShoppingCartDiscountable.ICombination[] =>
-    ShoppingDiscountableDiagnoser.combinate({
+    ShoppingDiscountableDiagnoser.combine({
       className: "ShoppingCartDiscountableDiagnoser",
       accessor,
       customer: props.customer,

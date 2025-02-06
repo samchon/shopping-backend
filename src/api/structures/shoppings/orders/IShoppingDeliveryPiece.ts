@@ -46,7 +46,7 @@ export namespace IShoppingDeliveryPiece {
     /**
      * Quantity of the stock.
      *
-     * It can be precision value to express splitted shipping.
+     * It can be precision value to express split shipping.
      */
     quantity: number & tags.Minimum<0>;
   }

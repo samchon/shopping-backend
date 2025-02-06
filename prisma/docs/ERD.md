@@ -880,7 +880,7 @@ the performance in each case.
     > The time when seller suspended the sale in some reason.
     > 
     > [Customers](#shopping_customers) can't see the sale in list and 
-    > detail page. It seems almost ssame with soft deletion, but there're 
+    > detail page. It seems almost same with soft deletion, but there're 
     > some differences. 
     > 
     > At 1st, seller and [administrator](#shopping_administrators) can
@@ -1715,7 +1715,7 @@ for a single stock.
   - `quantity`
     > Quantity count.
     > 
-    > It can be precision value to express splitted shipping.
+    > It can be precision value to express split shipping.
   - `sequence`: Sequence order in belonged delivery.
 
 ### `shopping_delivery_shippers`
@@ -1744,7 +1744,7 @@ each step of the delivery process, such as preparing, shipping, and delivering
     > Type of journey.
     > 
     > - preparing
-    > - manufactoring
+    > - manufacturing
     > - shipping
     > - delivering
   - `title`: Title of journey.
@@ -2308,7 +2308,7 @@ metadata that specifies specifications for income/outcome scenarios.
 **Properties**
   - `id`: Primary Key.
   - `code`: Identifier code.
-  - `source`: The source table occuring the deposit event.
+  - `source`: The source table occurring the deposit event.
   - `direction`
     > Direction of deposit.
     > 
@@ -2332,7 +2332,7 @@ outcome. The minus value must be expressed by multiplying the
   - `id`: Primary Key.
   - `shopping_deposit_id`: Belonged metadata's [shopping_deposits.id](#shopping_deposits)
   - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
-  - `source_id`: The source record occured deposit/outcome. 
+  - `source_id`: The source record occurred deposit/outcome. 
   - `value`
     > Income/outcome amount of deposit.
     > 
@@ -2418,7 +2418,7 @@ withdrawn.
 **Properties**
   - `id`: Primary Key.
   - `code`: Identifier code.
-  - `source`: The source table occuring the mileage event.
+  - `source`: The source table occurring the mileage event.
   - `direction`
     > Direction of mileage.
     > 
@@ -2458,7 +2458,7 @@ outcome. The minus value must be expressed by multiplying the
   - `id`: Primary Key.
   - `shopping_mileage_id`: Belonged metadata's [shopping_mileages.id](#shopping_mileages)
   - `shopping_citizen_id`: Belonged citizen's [shopping_citizens.id](#shopping_citizens)
-  - `source_id`: The source record occured income/outcome. 
+  - `source_id`: The source record occurred income/outcome. 
   - `value`
     > Income/outcome amount of mileage.
     > 
@@ -2654,7 +2654,7 @@ customer and multiple customers through
 [comments](#shopping_sale_snapshot_inquiry_comments) in the 
 attribution inquiry.
 
-For refererence, it is not possible to write comments on this answer. 
+For reference, it is not possible to write comments on this answer. 
 Encourage people to write comments on the inquiry article. This is to 
 prevent comments from being scattered in both inquiry and response 
 articles.

@@ -4,9 +4,8 @@ import { tags } from "typia";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
-import { ShoppingSaleProvider } from "../../../../providers/shoppings/sales/ShoppingSaleProvider";
-
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
+import { ShoppingSaleProvider } from "../../../../providers/shoppings/sales/ShoppingSaleProvider";
 import { ShoppingSaleController } from "../../base/sales/ShoppingSaleController";
 
 export class ShoppingSellerSaleController extends ShoppingSaleController({
@@ -37,7 +36,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Post()
   public async create(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedBody() input: IShoppingSale.ICreate
+    @core.TypedBody() input: IShoppingSale.ICreate,
   ): Promise<IShoppingSale> {
     return ShoppingSaleProvider.create({
       seller,
@@ -57,7 +56,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
    * applied to the sale.
    *
    * The 2nd purpose is for the A/B tests. {@link IShoppingSeller Seller} needs
-   * to demonstrate operating performance by chaning price, content, and
+   * to demonstrate operating performance by changing price, content, and
    * composition of the product. This snapshot concept would be helpful for it.
    *
    * @param id Target sale's {@link IShoppingSale.id}
@@ -71,7 +70,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   public async update(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSale.IUpdate
+    @core.TypedBody() input: IShoppingSale.IUpdate,
   ): Promise<IShoppingSale> {
     return ShoppingSaleProvider.update({
       seller,
@@ -102,7 +101,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   public async open(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSale.IUpdateOpeningTime
+    @core.TypedBody() input: IShoppingSale.IUpdateOpeningTime,
   ): Promise<void> {
     return ShoppingSaleProvider.updateOpeningTime({
       seller,
@@ -129,7 +128,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Post(":id/replica")
   public async replica(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingSale.ICreate> {
     return ShoppingSaleProvider.replica({
       seller,
@@ -143,13 +142,13 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
    * Pause a {@link IShoppingSale sale} from {@link open opened} state.
    * Therefore, the sale can not be operated again until it be
    * {@link restore restored}. By the way, {@link IShoppingCustomer customer}
-   * still can sale from the {@link index} and {@link at} API endpints, but
+   * still can sale from the {@link index} and {@link at} API endpoints, but
    * "paused" label would be attached.
    *
    * Also, customer no more can put into the shopping cart, either.
    * Even the sale already had been put into the shopping cart, the
    * {@link IShoppingCartCommodity commodity} will not be listed on the
-   * shopping cart. Also, it is not possible to appling an
+   * shopping cart. Also, it is not possible to applying an
    * {@link IShoppingOrder order} with the paused sale's commodity, either.
    *
    * By the way, if the sale already had been applied to an order, the order
@@ -165,7 +164,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Delete(":id/pause")
   public async pause(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingSaleProvider.pause({
       seller,
@@ -184,7 +183,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
    * Also, customer no more can put into the shopping cart, either.
    * Even the sale already had been put into the shopping cart, the
    * {@link IShoppingCartCommodity commodity} will not be listed on the
-   * shopping cart. Also, it is not possible to appling an
+   * shopping cart. Also, it is not possible to applying an
    * {@link IShoppingOrder order} with the suspended sale's commodity, either.
    *
    * By the way, if the sale already had been applied to an order, the order
@@ -200,7 +199,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Delete(":id/suspend")
   public async suspend(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingSaleProvider.suspend({
       seller,
@@ -229,7 +228,7 @@ export class ShoppingSellerSaleController extends ShoppingSaleController({
   @core.TypedRoute.Put(":id/restore")
   public async restore(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<void> {
     return ShoppingSaleProvider.restore({
       seller,

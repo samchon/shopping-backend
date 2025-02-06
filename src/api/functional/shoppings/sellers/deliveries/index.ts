@@ -22,7 +22,7 @@ export * as shippers from "./shippers";
  * {@link IShoppingSeller seller} with {@link IPage pagination}.
  *
  * For reference, returned deliveries are containing the target
- * {@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,
+ * {@link IShoppingOrder.IInvertFromDelivery order} information. Of course,
  * only related {@link IShoppingOrderGood goods} are contained in the orders.
  *
  * Additionally, you can limit the result by configuring
@@ -86,7 +86,7 @@ export namespace index {
  * Get a {@link IShoppingDelivery.IInvert delivery} information with its ID.
  *
  * For reference, returned delivery is containing the target
- * {@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,
+ * {@link IShoppingOrder.IInvertFromDelivery order} information. Of course,
  * only related {@link IShoppingOrderGood goods} are contained in the orders.
  *
  * @param id Target delivery's {@link IShoppingDelivery.id }
@@ -129,7 +129,7 @@ export namespace at {
 /**
  * Create a delivery.
  *
- * Create a {@link IShoppingDelivery delivery} record targetting
+ * Create a {@link IShoppingDelivery delivery} record targeting
  * {@link IShoppingOrder orders}, their {@link IShoppingOrderGood goods} and
  * {@link IShoppingSaleUnitStock stocks} ({@link IShoppingDeliveryPiece}) with
  * {@link IShoppingDeliveryJourney journeys} and
@@ -202,7 +202,7 @@ export namespace create {
  *
  * You can utillize the result to make a huge {@link IShoppingDelivery delivery}
  * for integrated delivering, and also possible to make multiple deliveries for
- * splitted delivering.
+ * split delivering.
  *
  * @param input List of target orders' {@link IShoppingOrderPublish.id }s
  * @returns List of incomplete pieces

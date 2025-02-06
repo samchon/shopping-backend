@@ -14,13 +14,13 @@ import { ShoppingDeliveryProvider } from "./ShoppingDeliveryProvider";
 
 export namespace ShoppingDeliveryJourneyProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
       input: Prisma.shopping_delivery_journeysGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingDeliveryJourney => ({
       id: input.id,
       type: input.type as "preparing",
@@ -166,7 +166,7 @@ export namespace ShoppingDeliveryJourneyProvider {
 
   export const collect = (
     input: IShoppingDeliveryJourney.ICreate,
-    sequence: number
+    sequence: number,
   ) =>
     ({
       id: v4(),
@@ -201,14 +201,14 @@ export namespace ShoppingDeliveryJourneyProvider {
         input: {
           publish_ids: [
             ...new Set(
-              reference.pieces.map((p) => p.shopping_order_publish_id)
+              reference.pieces.map((p) => p.shopping_order_publish_id),
             ),
           ],
         },
       }),
       delivery: props.delivery,
       pieces: reference.pieces.map(
-        ShoppingDeliveryPieceProvider.json.transform
+        ShoppingDeliveryPieceProvider.json.transform,
       ),
       state: props.state,
     });

@@ -7,7 +7,6 @@ import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
 import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
-
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSystematicChannelController<
@@ -71,7 +70,7 @@ export function ShoppingSystematicChannelController<
      *
      * Returned channel instance also contains the nested
      * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
-     * informations.
+     * information.
      *
      * @param id Target channel's {@link IShoppingChannel.id}
      * @returns Detailed channel info
@@ -95,7 +94,7 @@ export function ShoppingSystematicChannelController<
      *
      * Returned channel instance also contains the nested
      * {@link IShoppingChannelCategory.IHierarchical hierarchical category}
-     * informations.
+     * information.
      *
      * @param code Target channel's {@link IShoppingChannel.code}
      * @returns Detailed channel info

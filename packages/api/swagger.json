@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.14.1",
+    "version": "0.14.2",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -220,7 +220,7 @@
     "/shoppings/admins/coupons": {
       "post": {
         "summary": "Create a new coupon",
-        "description": "Create a new coupon.\n\nCreate a new {@link IShoppingCoupon coupon} with given information.\n\nBy the way, if you are a {@link IShoppingSeller seller}, you have to\nadd include direction's {@link IShoppingCouponSellerCriteria} or\n{@link IShoppingCouponSaleCriteria} condition. This is because only\n{@link IShoppingAdministrator administrators} can create a coupon\nwhich can be used throughout the market. Seller must limit the usage\nrange by his/her {@link IShoppingSale sale(s)}.\n\nOf course, when adminstrator is planning to make a general coupon\nthat can be used throughout the market, the administrator must\nget agree from the sellers who are going to be affected.",
+        "description": "Create a new coupon.\n\nCreate a new {@link IShoppingCoupon coupon} with given information.\n\nBy the way, if you are a {@link IShoppingSeller seller}, you have to\nadd include direction's {@link IShoppingCouponSellerCriteria} or\n{@link IShoppingCouponSaleCriteria} condition. This is because only\n{@link IShoppingAdministrator administrators} can create a coupon\nwhich can be used throughout the market. Seller must limit the usage\nrange by his/her {@link IShoppingSale sale(s)}.\n\nOf course, when administrator is planning to make a general coupon\nthat can be used throughout the market, the administrator must\nget agree from the sellers who are going to be affected.",
         "tags": [
           "Discount"
         ],
@@ -390,7 +390,7 @@
     "/shoppings/admins/deposits": {
       "patch": {
         "summary": "Get deposit metadata list",
-        "description": "Get deposit metadata list.\n\nList up every {@link IShoppingDeposit deposit} metadata informations\nwith {@link IPage pagination}.\n\nIf you want, you can limit the result by configuring\n{@link IShoppingDeposit.IRequest.search search condition} in the request body.\nAlso, it is possible to customize sequence order of records by configuring\n{@link IShoppingDeposit.IRequest.sort sort condition}.",
+        "description": "Get deposit metadata list.\n\nList up every {@link IShoppingDeposit deposit} metadata information\nwith {@link IPage pagination}.\n\nIf you want, you can limit the result by configuring\n{@link IShoppingDeposit.IRequest.search search condition} in the request body.\nAlso, it is possible to customize sequence order of records by configuring\n{@link IShoppingDeposit.IRequest.sort sort condition}.",
         "tags": [
           "Discount"
         ],
@@ -605,7 +605,7 @@
     "/shoppings/admins/mileages": {
       "patch": {
         "summary": "Get mileage metadata list",
-        "description": "Get mileage metadata list.\n\nList up every {@link IShoppingMileage mileage} metadata informations\nwith {@link IPage pagination}.\n\nIf you want, you can limit the result by configuring\n{@link IShoppingMileage.IRequest.search search condition} in the request body.\nAlso, it is possible to customize sequence order of records by configuring\n{@link IShoppingMileage.IRequest.sort sort condition}.",
+        "description": "Get mileage metadata list.\n\nList up every {@link IShoppingMileage mileage} metadata information\nwith {@link IPage pagination}.\n\nIf you want, you can limit the result by configuring\n{@link IShoppingMileage.IRequest.search search condition} in the request body.\nAlso, it is possible to customize sequence order of records by configuring\n{@link IShoppingMileage.IRequest.sort sort condition}.",
         "tags": [
           "Discount"
         ],
@@ -1046,7 +1046,7 @@
     "/shoppings/admins/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed information.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock information}. Just list up the\n> every stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -1138,7 +1138,7 @@
     "/shoppings/admins/sales/{id}": {
       "get": {
         "summary": "Get a sale with detailed information",
-        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed informations.",
+        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -2716,7 +2716,7 @@
       },
       "get": {
         "summary": "Get a channel info",
-        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -2850,7 +2850,7 @@
     "/shoppings/admins/systematic/channels/{code}/get": {
       "get": {
         "summary": "Get a channel info by its code",
-        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -3772,7 +3772,7 @@
       },
       "post": {
         "summary": "Create a new deposit charge application",
-        "description": "Create a new deposit charge application.\n\nCreate a new {@link IShoppingDepositCharge deposit charge application}.\n\nBy the way, this function does not mean completion the deposit charge, but\nmeans just {@link IShoppingCustomer customer} is appling the deposit charge.\nThe deposit charge be completed only when customer\n{@link IShoppingDepositChargePublish.publish pay} the deposit charge.",
+        "description": "Create a new deposit charge application.\n\nCreate a new {@link IShoppingDepositCharge deposit charge application}.\n\nBy the way, this function does not mean completion the deposit charge, but\nmeans just {@link IShoppingCustomer customer} is applying the deposit charge.\nThe deposit charge be completed only when customer\n{@link IShoppingDepositChargePublish.publish pay} the deposit charge.",
         "tags": [
           "Discount"
         ],
@@ -4629,7 +4629,7 @@
     "/shoppings/customers/orders": {
       "post": {
         "summary": "Create a new order application",
-        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot, don't take a mistake that writing\n> the `commodity_id` with the user selected stock ID. The\n> `commodity_id` is the ID of the shopping cart commodity, not the\n> stock ID. The stock ID is already included in the shopping cart\n> commodity.",
+        "description": "Create a new order application.\n\nCreate a new {@link IShoppingOrder order application} from a\n{@link IShoppingCartCommodity shopping cart} that has been composed by the\n{@link IShoppingCustomer}. Of course, do not need to put every commodities\nto the order, but possible to select some of them by the customer.\n\nBy the way, this function does not mean completion the order, but means\njust customer is applying the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.\n\n> If you are an A.I. chatbot, don't take a mistake that writing\n> the `commodity_id` with the user selected stock ID. The\n> `commodity_id` is the ID of the shopping cart commodity, not the\n> stock ID. The stock ID is already included in the shopping cart\n> commodity.",
         "tags": [
           "Order"
         ],
@@ -4717,7 +4717,7 @@
     "/shoppings/customers/orders/direct": {
       "post": {
         "summary": "Create a new order application without a shopping cart",
-        "description": "Create a new order application without a shopping cart.\n\nCarete a new {@link IShoppingOrder order application} without a\n{@link IShoppingCartCommodity shopping cart commodity} composition.\nIf you're an A.I. chatbot and user wants to directly purchase a product,\nthen select and call this function.\n\nBy the way, this function does not mean completion the order, but means\njust customer is appling the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.",
+        "description": "Create a new order application without a shopping cart.\n\nCarete a new {@link IShoppingOrder order application} without a\n{@link IShoppingCartCommodity shopping cart commodity} composition.\nIf you're an A.I. chatbot and user wants to directly purchase a product,\nthen select and call this function.\n\nBy the way, this function does not mean completion the order, but means\njust customer is applying the order. The order be completed only when customer\n{@link IShoppingOrderPublish.paid_at pays} the order.",
         "tags": [
           "Order"
         ],
@@ -4891,7 +4891,7 @@
     "/shoppings/customers/orders/{id}/discountable": {
       "patch": {
         "summary": "Get discountable info",
-        "description": "Get discountable info.\n\nCompute discountable features about the {@link IShoppingOrder}.\n\nRetured {@link IShoppingOrderDiscountable} contains including\ncombinations of adjustable {@link IShoppingCoupon coupons},\nwithdrawable {@link IShoppingDepositHistory deposits}\nand {@link IShoppingMileageHistory mileages}.\n\nOf course, returned features are valid only when the order has not\nbeen {@link IShoppingOrderPublish published} yet. If the order has\nalready been published, then no way to discount the price more.",
+        "description": "Get discountable info.\n\nCompute discountable features about the {@link IShoppingOrder}.\n\nReturned {@link IShoppingOrderDiscountable} contains including\ncombinations of adjustable {@link IShoppingCoupon coupons},\nwithdrawable {@link IShoppingDepositHistory deposits}\nand {@link IShoppingMileageHistory mileages}.\n\nOf course, returned features are valid only when the order has not\nbeen {@link IShoppingOrderPublish published} yet. If the order has\nalready been published, then no way to discount the price more.",
         "tags": [
           "Order"
         ],
@@ -5198,7 +5198,7 @@
     "/shoppings/customers/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed information.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock information}. Just list up the\n> every stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -5290,7 +5290,7 @@
     "/shoppings/customers/sales/{id}": {
       "get": {
         "summary": "Get a sale with detailed information",
-        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed informations.",
+        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -6891,7 +6891,7 @@
     "/shoppings/customers/systematic/channels/{id}": {
       "get": {
         "summary": "Get a channel info",
-        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -6937,7 +6937,7 @@
     "/shoppings/customers/systematic/channels/{code}/get": {
       "get": {
         "summary": "Get a channel info by its code",
-        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -7241,7 +7241,7 @@
     "/shoppings/sellers/deliveries": {
       "patch": {
         "summary": "Get list of deliveries",
-        "description": "Get list of deliveries.\n\nGet list of {@link IShoppingDelivery.IInvert deliveries} of current\n{@link IShoppingSeller seller} with {@link IPage pagination}.\n\nFor reference, returned deliveries are containing the target\n{@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,\nonly related {@link IShoppingOrderGood goods} are contained in the orders.\n\nAdditionally, you can limit the result by configuring\n{@link IShoppingDelivery.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingDelivery.IRequest.sort sort condition}.",
+        "description": "Get list of deliveries.\n\nGet list of {@link IShoppingDelivery.IInvert deliveries} of current\n{@link IShoppingSeller seller} with {@link IPage pagination}.\n\nFor reference, returned deliveries are containing the target\n{@link IShoppingOrder.IInvertFromDelivery order} information. Of course,\nonly related {@link IShoppingOrderGood goods} are contained in the orders.\n\nAdditionally, you can limit the result by configuring\n{@link IShoppingDelivery.IRequest.search search condition} in the request\nbody. Also, it is possible to customize sequence order of records by\nconfiguring {@link IShoppingDelivery.IRequest.sort sort condition}.",
         "tags": [
           "Order"
         ],
@@ -7284,7 +7284,7 @@
       },
       "post": {
         "summary": "Create a delivery",
-        "description": "Create a delivery.\n\nCreate a {@link IShoppingDelivery delivery} record targetting\n{@link IShoppingOrder orders}, their {@link IShoppingOrderGood goods} and\n{@link IShoppingSaleUnitStock stocks} ({@link IShoppingDeliveryPiece}) with\n{@link IShoppingDeliveryJourney journeys} and\n{@link IShoppingDeliveryShipper shippers} info.\n\nNote that, composition of the {@link IShoppingDeliveryPiece} must not over\nthe required. To identify which pieces are required, recommend to call\nthe {@link incompletes} function with target orders'\n{@link IShoppingOrderPublish.id}s before calling this one.",
+        "description": "Create a delivery.\n\nCreate a {@link IShoppingDelivery delivery} record targeting\n{@link IShoppingOrder orders}, their {@link IShoppingOrderGood goods} and\n{@link IShoppingSaleUnitStock stocks} ({@link IShoppingDeliveryPiece}) with\n{@link IShoppingDeliveryJourney journeys} and\n{@link IShoppingDeliveryShipper shippers} info.\n\nNote that, composition of the {@link IShoppingDeliveryPiece} must not over\nthe required. To identify which pieces are required, recommend to call\nthe {@link incompletes} function with target orders'\n{@link IShoppingOrderPublish.id}s before calling this one.",
         "tags": [
           "Order"
         ],
@@ -7329,7 +7329,7 @@
     "/shoppings/sellers/deliveries/{id}": {
       "get": {
         "summary": "Get a delivery",
-        "description": "Get a delivery.\n\nGet a {@link IShoppingDelivery.IInvert delivery} information with its ID.\n\nFor reference, returned delivery is containing the target\n{@link IShoppingOrder.IInvertFromDelivery order} informations. Of course,\nonly related {@link IShoppingOrderGood goods} are contained in the orders.",
+        "description": "Get a delivery.\n\nGet a {@link IShoppingDelivery.IInvert delivery} information with its ID.\n\nFor reference, returned delivery is containing the target\n{@link IShoppingOrder.IInvertFromDelivery order} information. Of course,\nonly related {@link IShoppingOrderGood goods} are contained in the orders.",
         "tags": [
           "Order"
         ],
@@ -7374,7 +7374,7 @@
     "/shoppings/sellers/deliveries/incompletes": {
       "patch": {
         "summary": "Get list of incomplete pieces",
-        "description": "Get list of incomplete pieces.\n\nGet list of {@link IShoppingDeliveryPiece incomplete pieces} of target\norders' {@link IShoppingOrderPublish.id}s.\n\nIf you specify target orders' publish IDs, then this function returns\nincompleted pieces of the orders with computation as an Array of\n{@link IShoppingDeliveryPiece.ICreate} type.\n\nYou can utillize the result to make a huge {@link IShoppingDelivery delivery}\nfor integrated delivering, and also possible to make multiple deliveries for\nsplitted delivering.",
+        "description": "Get list of incomplete pieces.\n\nGet list of {@link IShoppingDeliveryPiece incomplete pieces} of target\norders' {@link IShoppingOrderPublish.id}s.\n\nIf you specify target orders' publish IDs, then this function returns\nincompleted pieces of the orders with computation as an Array of\n{@link IShoppingDeliveryPiece.ICreate} type.\n\nYou can utillize the result to make a huge {@link IShoppingDelivery delivery}\nfor integrated delivering, and also possible to make multiple deliveries for\nsplit delivering.",
         "tags": [
           "Order"
         ],
@@ -7651,7 +7651,7 @@
     "/shoppings/sellers/coupons": {
       "post": {
         "summary": "Create a new coupon",
-        "description": "Create a new coupon.\n\nCreate a new {@link IShoppingCoupon coupon} with given information.\n\nBy the way, if you are a {@link IShoppingSeller seller}, you have to\nadd include direction's {@link IShoppingCouponSellerCriteria} or\n{@link IShoppingCouponSaleCriteria} condition. This is because only\n{@link IShoppingAdministrator administrators} can create a coupon\nwhich can be used throughout the market. Seller must limit the usage\nrange by his/her {@link IShoppingSale sale(s)}.\n\nOf course, when adminstrator is planning to make a general coupon\nthat can be used throughout the market, the administrator must\nget agree from the sellers who are going to be affected.",
+        "description": "Create a new coupon.\n\nCreate a new {@link IShoppingCoupon coupon} with given information.\n\nBy the way, if you are a {@link IShoppingSeller seller}, you have to\nadd include direction's {@link IShoppingCouponSellerCriteria} or\n{@link IShoppingCouponSaleCriteria} condition. This is because only\n{@link IShoppingAdministrator administrators} can create a coupon\nwhich can be used throughout the market. Seller must limit the usage\nrange by his/her {@link IShoppingSale sale(s)}.\n\nOf course, when administrator is planning to make a general coupon\nthat can be used throughout the market, the administrator must\nget agree from the sellers who are going to be affected.",
         "tags": [
           "Discount"
         ],
@@ -8000,7 +8000,7 @@
     "/shoppings/sellers/sales/{id}": {
       "put": {
         "summary": "Update a sale",
-        "description": "Update a sale.\n\nUpdate a {@link IShoppingSale sale} with new information.\n\nBy the way, the sale actually does not being modified, but just make a new\n{@link IShoppingSaleSnapshot snapshot} record of the sale. Its 1st purpose\nis to keeping the integrity of the sale, due to modification of the sale\nmust not affect to the {@link IShoppingOrder orders} that already had been\napplied to the sale.\n\nThe 2nd purpose is for the A/B tests. {@link IShoppingSeller Seller} needs\nto demonstrate operating performance by chaning price, content, and\ncomposition of the product. This snapshot concept would be helpful for it.",
+        "description": "Update a sale.\n\nUpdate a {@link IShoppingSale sale} with new information.\n\nBy the way, the sale actually does not being modified, but just make a new\n{@link IShoppingSaleSnapshot snapshot} record of the sale. Its 1st purpose\nis to keeping the integrity of the sale, due to modification of the sale\nmust not affect to the {@link IShoppingOrder orders} that already had been\napplied to the sale.\n\nThe 2nd purpose is for the A/B tests. {@link IShoppingSeller Seller} needs\nto demonstrate operating performance by changing price, content, and\ncomposition of the product. This snapshot concept would be helpful for it.",
         "tags": [
           "Sale"
         ],
@@ -8054,7 +8054,7 @@
       },
       "get": {
         "summary": "Get a sale with detailed information",
-        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed informations.",
+        "description": "Get a sale with detailed information.\n\nGet a {@link IShoppingSale sale} with detailed information including\nthe SKU (Stock Keeping Unit) information represented by the\n{@link IShoppingSaleUnitOption} and {@link IShoppingSaleUnitStock} types.\n\n> If you're an A.I. chatbot, and the user wants to buy or compose a\n> {@link IShoppingCartCommodity shopping cart} from a sale, please call\n> this operation at least once to the target sale to get detailed SKU\n> information about the sale.\n>\n> It needs to be run at least once for the next steps. In other words,\n> if you A.I. agent has called this operation to a specific sale, you\n> don't need to call this operation again for the same sale.\n>\n> Additionally, please do not summarize the SKU information. Just show\n> the every options and stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -8196,7 +8196,7 @@
     "/shoppings/sellers/sales/{id}/pause": {
       "delete": {
         "summary": "Pause a sale",
-        "description": "Pause a sale.\n\nPause a {@link IShoppingSale sale} from {@link open opened} state.\nTherefore, the sale can not be operated again until it be\n{@link restore restored}. By the way, {@link IShoppingCustomer customer}\nstill can sale from the {@link index} and {@link at} API endpints, but\n\"paused\" label would be attached.\n\nAlso, customer no more can put into the shopping cart, either.\nEven the sale already had been put into the shopping cart, the\n{@link IShoppingCartCommodity commodity} will not be listed on the\nshopping cart. Also, it is not possible to appling an\n{@link IShoppingOrder order} with the paused sale's commodity, either.\n\nBy the way, if the sale already had been applied to an order, the order\ncan be {@link IShoppingOrderPublish published} and\n{@link IShoppingSeller seller} must {@link IShoppingDelivery deliver} the\ngood to the customer.",
+        "description": "Pause a sale.\n\nPause a {@link IShoppingSale sale} from {@link open opened} state.\nTherefore, the sale can not be operated again until it be\n{@link restore restored}. By the way, {@link IShoppingCustomer customer}\nstill can sale from the {@link index} and {@link at} API endpoints, but\n\"paused\" label would be attached.\n\nAlso, customer no more can put into the shopping cart, either.\nEven the sale already had been put into the shopping cart, the\n{@link IShoppingCartCommodity commodity} will not be listed on the\nshopping cart. Also, it is not possible to applying an\n{@link IShoppingOrder order} with the paused sale's commodity, either.\n\nBy the way, if the sale already had been applied to an order, the order\ncan be {@link IShoppingOrderPublish published} and\n{@link IShoppingSeller seller} must {@link IShoppingDelivery deliver} the\ngood to the customer.",
         "tags": [
           "Sale"
         ],
@@ -8237,7 +8237,7 @@
     "/shoppings/sellers/sales/{id}/suspend": {
       "delete": {
         "summary": "Suspend a sale",
-        "description": "Suspend a sale.\n\nSuspend a {@link IShoppingSale sale} from {@link open opened} state.\nTherefore, the sale can not be operated again until it be\n{@link restore restored} and {@link IShoppingCustomer customer} cannot\nsee the sale from the {@link index} and {@link at} API.\n\nAlso, customer no more can put into the shopping cart, either.\nEven the sale already had been put into the shopping cart, the\n{@link IShoppingCartCommodity commodity} will not be listed on the\nshopping cart. Also, it is not possible to appling an\n{@link IShoppingOrder order} with the suspended sale's commodity, either.\n\nBy the way, if the sale already had been applied to an order, the order\ncan be {@link IShoppingOrderPublish published} and\n{@link IShoppingSeller seller} must {@link IShoppingDelivery deliver} the\ngood to the customer.",
+        "description": "Suspend a sale.\n\nSuspend a {@link IShoppingSale sale} from {@link open opened} state.\nTherefore, the sale can not be operated again until it be\n{@link restore restored} and {@link IShoppingCustomer customer} cannot\nsee the sale from the {@link index} and {@link at} API.\n\nAlso, customer no more can put into the shopping cart, either.\nEven the sale already had been put into the shopping cart, the\n{@link IShoppingCartCommodity commodity} will not be listed on the\nshopping cart. Also, it is not possible to applying an\n{@link IShoppingOrder order} with the suspended sale's commodity, either.\n\nBy the way, if the sale already had been applied to an order, the order\ncan be {@link IShoppingOrderPublish published} and\n{@link IShoppingSeller seller} must {@link IShoppingDelivery deliver} the\ngood to the customer.",
         "tags": [
           "Sale"
         ],
@@ -8318,7 +8318,7 @@
     "/shoppings/sellers/sales/details": {
       "patch": {
         "summary": "List up every sales",
-        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed informations.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\nacess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock informations}. Just list up the\n> every stocks in the sale with detailed informations.",
+        "description": "List up every sales.\n\nList up every {@link IShoppingSale sales} with detailed information.\n\nAs you can see, returned sales are detailed, not summarized. If you want\nto get the summarized information of sale for a brief, use {@link index}\nfunction instead.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}s. Otherwise you're a\n{@link IShoppingCustomer customer}, you can see only the operating sales\nin the market. Instead, you can't see the unopened, closed, or suspended\nsales.\n\n> If you're an A.I. chatbot, please don't summarize the\n> {@link IShoppingSaleUnitStock stock information}. Just list up the\n> every stocks in the sale with detailed information.",
         "tags": [
           "Sale"
         ],
@@ -9865,7 +9865,7 @@
           }
         ],
         "requestBody": {
-          "description": "Ceate info of the supplement",
+          "description": "Create info of the supplement",
           "content": {
             "application/json": {
               "schema": {
@@ -10317,7 +10317,7 @@
     "/shoppings/sellers/systematic/channels/{id}": {
       "get": {
         "summary": "Get a channel info",
-        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -10363,7 +10363,7 @@
     "/shoppings/sellers/systematic/channels/{code}/get": {
       "get": {
         "summary": "Get a channel info by its code",
-        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformations.",
+        "description": "Get a channel info by its code.\n\nGet a detailed {@link IShoppingChannel.IHierarchical channel} information\nby its code.\n\nReturned channel instance also contains the nested\n{@link IShoppingChannelCategory.IHierarchical hierarchical category}\ninformation.",
         "tags": [
           "Systematic"
         ],
@@ -10752,7 +10752,7 @@
           "authored_at": {
             "type": "string"
           },
-          "commited_at": {
+          "committed_at": {
             "type": "string"
           },
           "notes": {
@@ -10775,7 +10775,7 @@
           "author",
           "committer",
           "authored_at",
-          "commited_at",
+          "committed_at",
           "tags"
         ],
         "description": "Git commit info."
@@ -10943,7 +10943,7 @@
           "id",
           "created_at"
         ],
-        "description": "Invert information starting from administrator info.\n\nInstead of accessing to the administrator information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},\n`IShoppingAdministrator.IInvert` starts from the administrator information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformations inversely."
+        "description": "Invert information starting from administrator info.\n\nInstead of accessing to the administrator information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.administrator},\n`IShoppingAdministrator.IInvert` starts from the administrator information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformation inversely."
       },
       "IShoppingMember.IInvert": {
         "type": "object",
@@ -10980,7 +10980,7 @@
           "emails",
           "created_at"
         ],
-        "description": "Invert information of member.\n\nThis invert member information has been designed to be used for another\ninvert informations of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
+        "description": "Invert information of member.\n\nThis invert member information has been designed to be used for another\ninvert information of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
       },
       "IShoppingMemberEmail": {
         "type": "object",
@@ -11035,7 +11035,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -11090,7 +11090,7 @@
           "ip",
           "created_at"
         ],
-        "description": "Inverted customer informatino.\n\nThis inverted customer information has been designed to be used for\nanother invert informations of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
+        "description": "Inverted customer information.\n\nThis inverted customer information has been designed to be used for\nanother invert information of sellers and administrators like below.\n\n- {@link IShoppingSeller.IInvert}\n- {@link IShoppingAdministrator.IInvert}"
       },
       "IShoppingChannel": {
         "type": "object",
@@ -11304,8 +11304,8 @@
                 }
               }
             },
-            "title": "List of criteria informations",
-            "description": "List of criteria informations."
+            "title": "List of criteria information",
+            "description": "List of criteria information."
           },
           "discount": {
             "oneOf": [
@@ -11798,7 +11798,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
@@ -13663,7 +13663,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -13820,8 +13820,8 @@
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingOrderPrice.ISummary",
-            "title": "Price information including discounts and multipled volume",
-            "description": "Price information including discounts and multipled volume."
+            "title": "Price information including discounts and multiplied volume",
+            "description": "Price information including discounts and multiplied volume."
           },
           "state": {
             "oneOf": [
@@ -13989,7 +13989,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
@@ -14119,7 +14119,7 @@
           "id",
           "created_at"
         ],
-        "description": "Invert information starting from seller info.\n\nInstead of accessing to the seller information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},\n`IShoppingSeller.IInvert` starts from the seller information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformations inversely."
+        "description": "Invert information starting from seller info.\n\nInstead of accessing to the seller information from the\n{@link IShoppingCustomer.member} -> {@link IShoppingMember.seller},\n`IShoppingSeller.IInvert` starts from the seller information\nand access to the customer, member and {@link IShoppingCitizen citizen}\ninformation inversely."
       },
       "IShoppingSaleUnit.IInvert": {
         "type": "object",
@@ -14491,7 +14491,7 @@
           "nominal",
           "real"
         ],
-        "description": "Price infromation of the order including discounts."
+        "description": "Price information of the order including discounts."
       },
       "IShoppingCouponTicketPayment": {
         "type": "object",
@@ -14886,7 +14886,7 @@
             "type": "number",
             "minimum": 0,
             "title": "Quantity of the stock",
-            "description": "Quantity of the stock.\n\nIt can be precision value to express splitted shipping."
+            "description": "Quantity of the stock.\n\nIt can be precision value to express split shipping."
           }
         },
         "required": [
@@ -15533,7 +15533,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
@@ -16603,7 +16603,7 @@
           }
         },
         "required": [],
-        "description": "Request of summarized informations with pagination searching/sorting options."
+        "description": "Request of summarized information with pagination searching/sorting options."
       },
       "IShoppingSaleInquiry.IRequest.ISearch": {
         "type": "object",
@@ -16987,7 +16987,7 @@
           "snapshots",
           "created_at"
         ],
-        "description": "Answers to questions about sale snapshots.\n\n`IShoppingSaleInquiryAnswer` is an entity that embodies the official\nanswer written by the {@link IShoppingSeller seller} to the\n{@link IShoppingSaleInquiry inquiry} written by the\n{@link IShoppingCustomer customer}.\n\nOf course, in addition to writing an official response like this, it is\nalso possible for the seller to communicate with the inqjuiry written\ncustomer and multiple customers through\n{@link IShoppingSaleInquiryComment comments} in the attribution inquiry.\n\nFor refererence, it is not possible to write comments on this answer.\nEncourage people to write comments on the inquiry article. This is to\nprevent comments from being scattered in both inquiry and answer\narticles."
+        "description": "Answers to questions about sale snapshots.\n\n`IShoppingSaleInquiryAnswer` is an entity that embodies the official\nanswer written by the {@link IShoppingSeller seller} to the\n{@link IShoppingSaleInquiry inquiry} written by the\n{@link IShoppingCustomer customer}.\n\nOf course, in addition to writing an official response like this, it is\nalso possible for the seller to communicate with the inqjuiry written\ncustomer and multiple customers through\n{@link IShoppingSaleInquiryComment comments} in the attribution inquiry.\n\nFor reference, it is not possible to write comments on this answer.\nEncourage people to write comments on the inquiry article. This is to\nprevent comments from being scattered in both inquiry and answer\narticles."
       },
       "IBbsArticle.ISnapshot": {
         "type": "object",
@@ -17229,7 +17229,7 @@
           }
         },
         "required": [],
-        "description": "Request of summarized informations with pagination searching/sorting options."
+        "description": "Request of summarized information with pagination searching/sorting options."
       },
       "IShoppingSaleReview.IRequest.ISearch": {
         "type": "object",
@@ -17671,7 +17671,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           }
         },
         "required": [
@@ -17766,7 +17766,7 @@
             },
             "minItems": 1,
             "title": "List of units",
-            "description": "List of units.\n\nRecords about individual product composition informations that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
+            "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           }
         },
         "required": [
@@ -17964,7 +17964,7 @@
           "keep",
           "absorbed"
         ],
-        "description": "Record Merge DTO.\n\n`IRecordMerge` is a structure for merging records.\n\nThe `merge` means that merging multiple {@link IRecordMerge.absorbed}\nrecords into {@link IRecordMerge.keep} instead of deleting\n{@link IRecordMerge.absorbed} records.\n\nIf there're some dependent tables of the target `table` having\nunique constraint on foriegn key column, such dependent tables\nalso perform the merge process, too.\n\nOf course, if there're another dependent tables under those\ndependents, they also perform the merge process recursively as well.\nSuch recursive merge process still works for self-recursive\n(tree-structured) tables."
+        "description": "Record Merge DTO.\n\n`IRecordMerge` is a structure for merging records.\n\nThe `merge` means that merging multiple {@link IRecordMerge.absorbed}\nrecords into {@link IRecordMerge.keep} instead of deleting\n{@link IRecordMerge.absorbed} records.\n\nIf there're some dependent tables of the target `table` having\nunique constraint on foreign key column, such dependent tables\nalso perform the merge process, too.\n\nOf course, if there're another dependent tables under those\ndependents, they also perform the merge process recursively as well.\nSuch recursive merge process still works for self-recursive\n(tree-structured) tables."
       },
       "IShoppingChannel.ICreate": {
         "type": "object",
@@ -18411,7 +18411,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -18526,7 +18526,7 @@
               }
             ],
             "title": "External user information",
-            "description": "External user information.\n\nWhen the customer has come frome an external service."
+            "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
@@ -19028,13 +19028,13 @@
                 "type": "null"
               },
               {
+                "const": "paid"
+              },
+              {
                 "const": "published"
               },
               {
                 "const": "pending"
-              },
-              {
-                "const": "payed"
               },
               {
                 "const": "cancelled"
@@ -20860,7 +20860,7 @@
             "type": "number",
             "minimum": 0,
             "title": "Quantity of the stock",
-            "description": "Quantity of the stock.\n\nIt can be precision value to express splitted shipping."
+            "description": "Quantity of the stock.\n\nIt can be precision value to express split shipping."
           }
         },
         "required": [

@@ -18,7 +18,7 @@ export namespace ShoppingDepositChargeProvider {
     export const transform = (
       input: Prisma.shopping_deposit_chargesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingDepositCharge => ({
       id: input.id,
       customer: ShoppingCustomerProvider.json.transform(input.customer),
@@ -62,7 +62,7 @@ export namespace ShoppingDepositChargeProvider {
     })(props.input);
 
   const search = (
-    input: IShoppingDepositCharge.IRequest.ISearch | null | undefined
+    input: IShoppingDepositCharge.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.minimum !== undefined && input?.minimum !== null
@@ -79,7 +79,7 @@ export namespace ShoppingDepositChargeProvider {
         : []),
       ...(input?.state === "pending" ? [{ publish: { is: null } }] : []),
       ...(input?.state === "published" ? [{ publish: { isNot: null } }] : []),
-      ...(input?.state === "payed"
+      ...(input?.state === "paid"
         ? [{ publish: { paid_at: { not: null } } }]
         : []),
       ...(input?.state === "cancelled"
@@ -117,7 +117,7 @@ export namespace ShoppingDepositChargeProvider {
 
   const orderBy = (
     key: IShoppingDepositCharge.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "created_at"
       ? { created_at: value }

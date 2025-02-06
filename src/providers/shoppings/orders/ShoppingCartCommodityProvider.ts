@@ -15,8 +15,8 @@ import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shop
 import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
-import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { MapUtil } from "../../../api/utils/MapUtil";
+import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingCustomerProvider } from "../actors/ShoppingCustomerProvider";
 import { ShoppingCouponProvider } from "../coupons/ShoppingCouponProvider";
@@ -36,13 +36,13 @@ export namespace ShoppingCartCommodityProvider {
     export const transform = async (
       input: Prisma.shopping_cart_commoditiesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): Promise<IShoppingCartCommodity> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("No mv_price found");
       const snapshot: IShoppingSaleSnapshot.IInvert = {
         ...(await ShoppingSaleSnapshotProvider.invert.transform(
-          input.snapshot
+          input.snapshot,
         )),
         units: [],
       };
@@ -194,34 +194,34 @@ export namespace ShoppingCartCommodityProvider {
                 strict: true,
               }),
               input: raw,
-            })
+            }),
           );
 
     return {
       deposit: props.customer.citizen
         ? await ShoppingDepositHistoryProvider.getBalance(
-            props.customer.citizen
+            props.customer.citizen,
           )
         : 0,
       mileage: props.customer.citizen
         ? await ShoppingMileageHistoryProvider.getBalance(
-            props.customer.citizen
+            props.customer.citizen,
           )
         : 0,
-      combinations: ShoppingCartDiscountableDiagnoser.combinate({
+      combinations: ShoppingCartDiscountableDiagnoser.combine({
         customer: props.customer,
         coupons: await take((input) =>
           ShoppingCouponProvider.index({
             actor: props.customer,
             input,
-          })
+          }),
         ),
         tickets: props.customer.citizen
           ? await take((input) =>
               ShoppingCouponTicketProvider.index({
                 customer: props.customer,
                 input,
-              })
+              }),
             )
           : [],
         commodities: [
@@ -233,7 +233,7 @@ export namespace ShoppingCartCommodityProvider {
   };
 
   const search = async (
-    input: IShoppingCartCommodity.IRequest.ISearch | null | undefined
+    input: IShoppingCartCommodity.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.sale !== undefined
@@ -296,7 +296,7 @@ export namespace ShoppingCartCommodityProvider {
 
   const orderBy = (
     key: IShoppingCartCommodity.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     key === "commodity.created_at"
       ? { created_at: value }
@@ -367,8 +367,8 @@ export namespace ShoppingCartCommodityProvider {
                   .find((u) => u.id === si.unit_id)!
                   .stocks.find((s) => s.id === si.stock_id)!,
                 si,
-                i
-              )
+                i,
+              ),
             ),
           },
           mv_price: {
@@ -384,7 +384,7 @@ export namespace ShoppingCartCommodityProvider {
           published: false,
         },
         ...json.select(),
-      }
+      },
     );
     return json.transform(record);
   };
@@ -475,7 +475,7 @@ export namespace ShoppingCartCommodityProvider {
     for (const elem of neighbor) {
       const similar: boolean = props.input.stocks.every((stock) => {
         const opposite = elem.stocks.find(
-          (s) => s.shopping_sale_snapshot_unit_stock_id === stock.stock_id
+          (s) => s.shopping_sale_snapshot_unit_stock_id === stock.stock_id,
         );
         return opposite !== undefined;
       });
@@ -508,7 +508,7 @@ export namespace ShoppingCartCommodityProvider {
 }
 
 const take = async <T extends object>(
-  closure: (input: IPage.IRequest) => Promise<IPage<T>>
+  closure: (input: IPage.IRequest) => Promise<IPage<T>>,
 ): Promise<T[]> => {
   const page: IPage<T> = await closure({ limit: 0 });
   return page.data;

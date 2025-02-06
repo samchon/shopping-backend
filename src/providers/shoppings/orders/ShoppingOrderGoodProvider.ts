@@ -14,18 +14,18 @@ import { ShoppingCartCommodityProvider } from "./ShoppingCartCommodityProvider";
 
 export namespace ShoppingOrderGoodProvider {
   /* -----------------------------------------------------------
-    TRANSFOMERS
+    TRANSFORMERS
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_order_goodsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_order_goodsGetPayload<ReturnType<typeof select>>,
     ): Promise<IShoppingOrderGood> => {
       if (input.mv_price === null)
         throw ErrorProvider.internal("mv_price is null");
       return {
         id: input.id,
         commodity: await ShoppingCartCommodityProvider.json.transform(
-          input.commodity
+          input.commodity,
         ),
         volume: input.volume,
         price: {

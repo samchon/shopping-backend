@@ -18,7 +18,7 @@ import { IShoppingCouponSellerCriteria } from "./IShoppingCouponSellerCriteria";
  * `section`, {@link IShoppingCouponSectionCriteria} type would be specified,
  * so that you can access to the target
  * {@link IShoppingCouponSectionCriteria.section} directly. For reference,
- * this concept is called a descriminated union in TypeScript.
+ * this concept is called a discriminated union in TypeScript.
  *
  * ```typescript
  * const union: IShoppingCouponCriteria;
@@ -43,7 +43,7 @@ export type IShoppingCouponCriteria =
   | IShoppingCouponFunnelCriteria;
 export namespace IShoppingCouponCriteria {
   /**
-   * Type of the criteria, the descriminator.
+   * Type of the criteria, the discriminator.
    */
   export type Type = "channel" | "section" | "seller" | "sale" | "funnel";
 

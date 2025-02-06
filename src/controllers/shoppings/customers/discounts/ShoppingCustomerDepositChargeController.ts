@@ -67,7 +67,7 @@ export class ShoppingCustomerDepositChargeController {
    * Create a new {@link IShoppingDepositCharge deposit charge application}.
    *
    * By the way, this function does not mean completion the deposit charge, but
-   * means just {@link IShoppingCustomer customer} is appling the deposit charge.
+   * means just {@link IShoppingCustomer customer} is applying the deposit charge.
    * The deposit charge be completed only when customer
    * {@link IShoppingDepositChargePublish.publish pay} the deposit charge.
    *

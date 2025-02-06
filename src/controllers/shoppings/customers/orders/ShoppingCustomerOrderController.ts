@@ -25,7 +25,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
    * to the order, but possible to select some of them by the customer.
    *
    * By the way, this function does not mean completion the order, but means
-   * just customer is appling the order. The order be completed only when customer
+   * just customer is applying the order. The order be completed only when customer
    * {@link IShoppingOrderPublish.paid_at pays} the order.
    *
    * > If you are an A.I. chatbot, don't take a mistake that writing
@@ -60,7 +60,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
    * then select and call this function.
    *
    * By the way, this function does not mean completion the order, but means
-   * just customer is appling the order. The order be completed only when customer
+   * just customer is applying the order. The order be completed only when customer
    * {@link IShoppingOrderPublish.paid_at pays} the order.
    *
    * @param input Creation info of the order without a shopping cart composition
@@ -138,7 +138,7 @@ export class ShoppingCustomerOrderController extends ShoppingOrderController({
    *
    * Compute discountable features about the {@link IShoppingOrder}.
    *
-   * Retured {@link IShoppingOrderDiscountable} contains including
+   * Returned {@link IShoppingOrderDiscountable} contains including
    * combinations of adjustable {@link IShoppingCoupon coupons},
    * withdrawable {@link IShoppingDepositHistory deposits}
    * and {@link IShoppingMileageHistory mileages}.

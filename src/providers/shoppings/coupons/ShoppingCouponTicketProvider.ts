@@ -20,7 +20,9 @@ export namespace ShoppingCouponTicketProvider {
     ----------------------------------------------------------- */
   export namespace json {
     export const transform = async (
-      input: Prisma.shopping_coupon_ticketsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_coupon_ticketsGetPayload<
+        ReturnType<typeof select>
+      >,
     ): Promise<IShoppingCouponTicket> => ({
       id: input.id,
       customer: ShoppingCustomerProvider.json.transform(input.customer),
@@ -156,22 +158,22 @@ export namespace ShoppingCouponTicketProvider {
                 Math.min(
                   new Date(coupon.restriction.expired_at).getTime(),
                   Date.now() +
-                    coupon.restriction.expired_in * 24 * 60 * 60 * 1000
-                )
+                    coupon.restriction.expired_in * 24 * 60 * 60 * 1000,
+                ),
               )
             : coupon.restriction.expired_at !== null
               ? new Date(coupon.restriction.expired_at)
               : coupon.restriction.expired_in !== null
                 ? new Date(
                     Date.now() +
-                      coupon.restriction.expired_in * 24 * 60 * 60 * 1000
+                      coupon.restriction.expired_in * 24 * 60 * 60 * 1000,
                   )
                 : null,
       },
       ...json.select(props.customer),
     });
 
-    // DECRESE INVENTORY
+    // DECREASE INVENTORY
     if (coupon.inventory.volume !== null)
       await ShoppingGlobal.prisma.mv_shopping_coupon_inventories.update({
         where: {
@@ -203,7 +205,7 @@ export namespace ShoppingCouponTicketProvider {
               decrement: 1,
             },
           },
-        }
+        },
       );
     return json.transform(record);
   };
