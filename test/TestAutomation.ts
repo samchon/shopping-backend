@@ -13,10 +13,20 @@ import { ConnectionPool } from "./ConnectionPool";
 import { StopWatch } from "./internal/StopWatch";
 
 export namespace TestAutomation {
-  export const execute = async <T>(props: {
-    open: () => Promise<T>;
-    close: (backend: T) => Promise<void>;
-  }): Promise<void> => {
+  export interface IProps<T> {
+    open(options: IOptions): Promise<T>;
+    close(backend: T): Promise<void>;
+  }
+
+  export interface IOptions {
+    reset: boolean;
+    simultaneous: number;
+    include?: string[];
+    exclude?: string[];
+    trace: boolean;
+  }
+
+  export const execute = async <T>(props: IProps<T>): Promise<void> => {
     // CONFIGURE
     const options: IOptions = await getOptions();
     ShoppingGlobal.testing = true;
@@ -29,7 +39,7 @@ export namespace TestAutomation {
     }
 
     // DO TEST
-    const backend: T = await props.open();
+    const backend: T = await props.open(options);
     const connection: ShoppingApi.IConnection = {
       host: `http://127.0.0.1:${ShoppingConfiguration.API_PORT()}`,
     };
@@ -90,35 +100,29 @@ export namespace TestAutomation {
 }
 
 const getOptions = () =>
-  ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
-    command.option("--reset <true|false>", "reset local DB or not");
-    command.option(
-      "--simultaneous <number>",
-      "number of simultaneous requests",
-    );
-    command.option("--include <string...>", "include feature files");
-    command.option("--exclude <string...>", "exclude feature files");
-    command.option("--trace <boolean>", "trace detailed errors");
-
-    return action(async (options) => {
-      if (typeof options.reset === "string")
-        options.reset = options.reset === "true";
-      options.reset ??= await prompt.boolean("reset")("Reset local DB");
-      options.simultaneous = Number(
-        options.simultaneous ??
-          (await prompt.number("simultaneous")(
-            "Number of simultaneous requests to make",
-          )),
+  ArgumentParser.parse<TestAutomation.IOptions>(
+    async (command, prompt, action) => {
+      command.option("--reset <true|false>", "reset local DB or not");
+      command.option(
+        "--simultaneous <number>",
+        "number of simultaneous requests",
       );
-      options.trace = options.trace !== ("false" as any);
-      return options as IOptions;
-    });
-  });
+      command.option("--include <string...>", "include feature files");
+      command.option("--exclude <string...>", "exclude feature files");
+      command.option("--trace <boolean>", "trace detailed errors");
 
-interface IOptions {
-  reset: boolean;
-  simultaneous: number;
-  include?: string[];
-  exclude?: string[];
-  trace: boolean;
-}
+      return action(async (options) => {
+        if (typeof options.reset === "string")
+          options.reset = options.reset === "true";
+        options.reset ??= await prompt.boolean("reset")("Reset local DB");
+        options.simultaneous = Number(
+          options.simultaneous ??
+            (await prompt.number("simultaneous")(
+              "Number of simultaneous requests to make",
+            )),
+        );
+        options.trace = options.trace !== ("false" as any);
+        return options as TestAutomation.IOptions;
+      });
+    },
+  );
