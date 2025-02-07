@@ -121,6 +121,9 @@ export namespace ShoppingOrderProvider {
             deleted_at: null,
           }
         : {
+            customer: {
+              shopping_channel_id: actor.customer.channel.id,
+            },
             publish: { isNot: null },
             deleted_at: null,
           }) satisfies Prisma.shopping_ordersWhereInput;

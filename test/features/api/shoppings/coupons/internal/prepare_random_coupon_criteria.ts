@@ -8,40 +8,29 @@ import { TestGlobal } from "../../../../../TestGlobal";
 export const prepare_random_coupon_criteria = (
   props: prepare_random_coupon_criteria.IProps,
 ): IShoppingCouponCriteria.ICreate =>
-  props.type === "channel"
+  props.type === "funnel"
     ? {
         type: props.type,
         direction: props.direction,
-        channels: [
-          {
-            channel_code: props.sale.channels[0].code,
-            category_ids: null,
-          },
-        ],
+        funnels: funnels(props.customer ?? null),
       }
-    : props.type === "funnel"
+    : props.type === "sale"
       ? {
           type: props.type,
           direction: props.direction,
-          funnels: funnels(props.customer ?? null),
+          sale_ids: [props.sale.id],
         }
-      : props.type === "sale"
+      : props.type === "section"
         ? {
             type: props.type,
             direction: props.direction,
-            sale_ids: [props.sale.id],
+            section_codes: [props.sale.section.code],
           }
-        : props.type === "section"
-          ? {
-              type: props.type,
-              direction: props.direction,
-              section_codes: [props.sale.section.code],
-            }
-          : {
-              type: props.type,
-              direction: props.direction,
-              seller_ids: [props.sale.seller.id],
-            };
+        : {
+            type: props.type,
+            direction: props.direction,
+            seller_ids: [props.sale.seller.id],
+          };
 export namespace prepare_random_coupon_criteria {
   export interface IProps {
     customer: IShoppingCustomer | null;

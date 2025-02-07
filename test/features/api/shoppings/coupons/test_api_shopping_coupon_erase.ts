@@ -32,7 +32,7 @@ export const test_api_shopping_coupon_erase = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
     prepare: (criterias) =>
       prepare_random_coupon({
-        ...criterias,
+        criterias,
         opened_at: new Date().toISOString(),
       }),
   });

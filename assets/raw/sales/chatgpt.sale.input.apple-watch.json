@@ -26,13 +26,8 @@
       }
     ]
   },
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "smart_watches"
-      ]
-    }
+  "category_codes": [
+    "smart_watches"
   ],
   "units": [
     {

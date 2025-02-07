@@ -16,6 +16,14 @@ export const test_api_shopping_sale_create = async (
   await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
-  await validate_sale_at(pool)(sale)(true);
-  await validate_sale_index(pool)([sale])(true);
+  await validate_sale_at({
+    pool,
+    sale,
+    visibleToCustomer: true,
+  });
+  await validate_sale_index({
+    pool,
+    sales: [sale],
+    visibleInCustomer: true,
+  });
 };

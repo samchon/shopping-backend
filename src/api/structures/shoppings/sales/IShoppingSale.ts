@@ -125,7 +125,6 @@ export namespace IShoppingSale {
       price?: null | IShoppingPrice.ISearch;
       review?: null | IShoppingSaleReview.IInvertSearch;
       section_codes?: null | string[];
-      channel_codes?: null | string[];
       channel_category_ids?: null | string[];
       tags?: null | string[];
       seller?: null | IShoppingSeller.IRequest.ISearch;

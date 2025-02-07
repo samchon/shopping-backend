@@ -9,21 +9,21 @@ import { TestGlobal } from "../../../../TestGlobal";
 export const test_api_shopping_actor_customer_ip = async (
   pool: ConnectionPool,
 ): Promise<void> => {
-  const automatic = await create(pool.customer, undefined);
-  const manual = await create(pool.customer, PSEUDO);
+  const automatic = await create(pool, undefined);
+  const manual = await create(pool, PSEUDO);
 
   TestValidator.predicate("automatic")(() => automatic.ip !== PSEUDO);
   TestValidator.equals("manual")(manual.ip)(PSEUDO);
 };
 
-const create = async (connection: ShoppingApi.IConnection, ip?: string) => {
+const create = async (pool: ConnectionPool, ip?: string) => {
   const customer: IShoppingCustomer.IAuthorized =
     await ShoppingApi.functional.shoppings.customers.authenticate.create(
-      connection,
+      pool.customer,
       {
         href: TestGlobal.HREF,
         referrer: TestGlobal.REFERRER,
-        channel_code: TestGlobal.CHANNEL,
+        channel_code: pool.channel,
         external_user: null,
         ip,
       },

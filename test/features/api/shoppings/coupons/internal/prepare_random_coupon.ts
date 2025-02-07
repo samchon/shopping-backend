@@ -12,7 +12,7 @@ export const prepare_random_coupon = (
       restriction: Partial<IShoppingCouponRestriction>;
     }>,
 ): IShoppingCoupon.ICreate => ({
-  name: RandomGenerator.name(16),
+  name: input?.name ?? RandomGenerator.name(16),
   opened_at: input?.opened_at ?? new Date().toISOString(),
   closed_at: input?.closed_at ?? null,
   criterias: input?.criterias ?? ([] as IShoppingCouponCriteria.ICreate[]),

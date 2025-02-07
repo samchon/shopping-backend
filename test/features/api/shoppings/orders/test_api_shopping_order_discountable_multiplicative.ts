@@ -1,7 +1,6 @@
 import { TestValidator } from "@nestia/e2e";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
-import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrder } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrder";
 import { IShoppingOrderDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingOrderDiscountable";
@@ -32,7 +31,7 @@ export const test_api_shopping_order_discountable_multiplicative = async (
     [commodity],
     () => 10,
   );
-  const coupon: IShoppingCoupon = await generate_random_coupon({
+  await generate_random_coupon({
     types: [],
     direction: "include",
     customer: null,
@@ -64,14 +63,7 @@ export const test_api_shopping_order_discountable_multiplicative = async (
         good_ids: [order.goods[0].id],
       },
     );
-  const error: Error | null = TestValidator.proceed(() => {
-    TestValidator.equals("discountable.combinations[].amount")(
-      discountable.combinations.map((comb) => comb.amount),
-    )([12340]);
-  });
-  await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-    pool.admin,
-    coupon.id,
-  );
-  if (error) throw error;
+  TestValidator.equals("discountable.combinations[].amount")(
+    discountable.combinations.map((comb) => comb.amount),
+  )([12340]);
 };

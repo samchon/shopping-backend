@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.14.2",
+    "version": "0.15.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -4396,14 +4396,13 @@
             "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
-          "channels": {
+          "categories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel"
+              "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "minItems": 1,
-            "title": "List of channels and categories",
-            "description": "List of channels and categories.\n\nWhich channels and categories the sale is registered to."
+            "title": "List of categories",
+            "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
             "type": "array",
@@ -4494,7 +4493,7 @@
           "snapshot_id",
           "latest",
           "content",
-          "channels",
+          "categories",
           "tags",
           "units",
           "created_at",
@@ -4614,49 +4613,6 @@
           "url"
         ],
         "description": "Attachment File.\n\nEvery attachment files that are managed in current system.\n\nFor reference, it is possible to omit one of file {@link name}\nor {@link extension} like `.gitignore` or `README` case, but not\npossible to omit both of them."
-      },
-      "IShoppingSaleChannel": {
-        "type": "object",
-        "properties": {
-          "categories": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
-            },
-            "title": "List of categories of the channel listing the sale",
-            "description": "List of categories of the channel listing the sale.\n\nIf empty, it means all categories of the channel is listing the sale."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key",
-            "description": "Primary Key."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of record",
-            "description": "Creation time of record."
-          },
-          "code": {
-            "type": "string",
-            "title": "Identifier code",
-            "description": "Identifier code."
-          },
-          "name": {
-            "type": "string",
-            "title": "Name of the channel",
-            "description": "Name of the channel."
-          }
-        },
-        "required": [
-          "categories",
-          "id",
-          "created_at",
-          "code",
-          "name"
-        ],
-        "description": "Target channel (and categories) of sale to sell.\n\n`IShoppingSaleChannel` is an entity that expresses through which\n{@link IShoppingChannel channel} a listing {@link IShoppingSale} is sold.\n\nAlso, if {@link IShoppingChannelCategory categories} are specified, it also\nmeans that the sale be sold. Otherwise, none of the categories of the channel\nbeing specified, it means that every categories of the channel is listing the\ntarget sale."
       },
       "IShoppingChannelCategory.IInvert": {
         "type": "object",
@@ -5220,9 +5176,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/IShoppingCouponChannelCriteria"
-                },
-                {
                   "$ref": "#/components/schemas/IShoppingCouponSectionCriteria"
                 },
                 {
@@ -5238,7 +5191,6 @@
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "channel": "#/components/schemas/IShoppingCouponChannelCriteria",
                   "section": "#/components/schemas/IShoppingCouponSectionCriteria",
                   "seller": "#/components/schemas/IShoppingCouponSellerCriteria",
                   "sale": "#/components/schemas/IShoppingCouponSaleCriteria",
@@ -5358,73 +5310,6 @@
           "volume_per_citizen"
         ],
         "description": "Inventory information of the coupon.\n\nIf a {@link IShoppingCoupon coupon} has been designed with limited\ninventory, this `IShoppingCouponInventory` structure represents the\nremaining inventory information."
-      },
-      "IShoppingCouponChannelCriteria": {
-        "type": "object",
-        "properties": {
-          "channels": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IShoppingCouponChannelCriteria.IChannelTo"
-            },
-            "minItems": 1,
-            "title": "List of target channels and categories",
-            "description": "List of target channels and categories."
-          },
-          "type": {
-            "const": "channel",
-            "title": "Descrimanator type",
-            "description": "Descrimanator type."
-          },
-          "direction": {
-            "oneOf": [
-              {
-                "const": "include"
-              },
-              {
-                "const": "exclude"
-              }
-            ],
-            "title": "Direction of the criteria",
-            "description": "Direction of the criteria."
-          }
-        },
-        "required": [
-          "channels",
-          "type",
-          "direction"
-        ],
-        "description": "Conditions for channels of discount coupons.\n\n`ishoppingcouponchannelcriteria` is a subtype entity of\n{@link IShoppingCouponCriteriaBase} and is used when setting conditions on\na specific {@link IShoppingChannel channel} or\n{@link IShoppingChannelCategory category} of that channel.\n\nIf the {@link direction} value is \"include\", the coupon can only be used\nfor the target channels (or categories). Conversely, if it is \"exclude\",\nit is a coupon that cannot be used."
-      },
-      "IShoppingCouponChannelCriteria.IChannelTo": {
-        "type": "object",
-        "properties": {
-          "channel": {
-            "$ref": "#/components/schemas/IShoppingChannel",
-            "title": "Target channel",
-            "description": "Target channel."
-          },
-          "categories": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
-                },
-                "minItems": 1
-              }
-            ],
-            "title": "List of target categories",
-            "description": "List of target categories."
-          }
-        },
-        "required": [
-          "channel",
-          "categories"
-        ]
       },
       "IShoppingCouponSectionCriteria": {
         "type": "object",
@@ -5577,14 +5462,13 @@
             "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
-          "channels": {
+          "categories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel"
+              "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "minItems": 1,
-            "title": "List of channels and categories",
-            "description": "List of channels and categories.\n\nWhich channels and categories the sale is registered to."
+            "title": "List of categories",
+            "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
             "type": "array",
@@ -5676,7 +5560,7 @@
           "snapshot_id",
           "latest",
           "content",
-          "channels",
+          "categories",
           "tags",
           "units",
           "created_at",
@@ -6772,9 +6656,6 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/IShoppingCouponChannelCriteria.ICreate"
-                },
-                {
                   "$ref": "#/components/schemas/IShoppingCouponSectionCriteria.ICreate"
                 },
                 {
@@ -6790,20 +6671,23 @@
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "channel": "#/components/schemas/IShoppingCouponChannelCriteria.ICreate",
                   "section": "#/components/schemas/IShoppingCouponSectionCriteria.ICreate",
                   "seller": "#/components/schemas/IShoppingCouponSellerCriteria.ICreate",
                   "sale": "#/components/schemas/IShoppingCouponSaleCriteria.ICreate",
                   "funnel": "#/components/schemas/IShoppingCouponFunnelCriteria.ICreate"
                 }
               }
-            }
+            },
+            "title": "List of criteria information",
+            "description": "List of criteria information."
           },
           "disposable_codes": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "title": "Disposable codes for the coupon",
+            "description": "Disposable codes for the coupon."
           },
           "name": {
             "type": "string",
@@ -6847,70 +6731,6 @@
           "closed_at"
         ],
         "description": "Creation information of the coupon."
-      },
-      "IShoppingCouponChannelCriteria.ICreate": {
-        "type": "object",
-        "properties": {
-          "channels": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IShoppingCouponChannelCriteria.IChannelTo.ICreate"
-            },
-            "minItems": 1,
-            "title": "List of target channels and categories",
-            "description": "List of target channels and categories."
-          },
-          "type": {
-            "const": "channel"
-          },
-          "direction": {
-            "oneOf": [
-              {
-                "const": "include"
-              },
-              {
-                "const": "exclude"
-              }
-            ]
-          }
-        },
-        "required": [
-          "channels",
-          "type",
-          "direction"
-        ],
-        "description": "Creation information of the channel criteria."
-      },
-      "IShoppingCouponChannelCriteria.IChannelTo.ICreate": {
-        "type": "object",
-        "properties": {
-          "channel_code": {
-            "type": "string",
-            "title": "Target channel's {@link IShoppingChannel.code}",
-            "description": "Target channel's {@link IShoppingChannel.code}."
-          },
-          "category_ids": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            ],
-            "title": "Target categories' {@link IShoppingChannelCategory.id}s",
-            "description": "Target categories' {@link IShoppingChannelCategory.id}s."
-          }
-        },
-        "required": [
-          "channel_code",
-          "category_ids"
-        ],
-        "description": "Target channel and categories."
       },
       "IShoppingCouponSectionCriteria.ICreate": {
         "type": "object",
@@ -7577,19 +7397,6 @@
               }
             ]
           },
-          "channel_codes": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            ]
-          },
           "channel_category_ids": {
             "oneOf": [
               {
@@ -7831,14 +7638,13 @@
             "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
-          "channels": {
+          "categories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel"
+              "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "minItems": 1,
-            "title": "List of channels and categories",
-            "description": "List of channels and categories.\n\nWhich channels and categories the sale is registered to."
+            "title": "List of categories",
+            "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
             "type": "array",
@@ -7929,7 +7735,7 @@
           "snapshot_id",
           "latest",
           "content",
-          "channels",
+          "categories",
           "tags",
           "units",
           "created_at",
@@ -8223,26 +8029,34 @@
             "description": "Closing time of the sale.\n\nIf this value is `null`, the sale be continued forever."
           },
           "content": {
-            "$ref": "#/components/schemas/IShoppingSaleContent.ICreate"
-          },
-          "channels": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel.ICreate"
-            }
+            "$ref": "#/components/schemas/IShoppingSaleContent.ICreate",
+            "title": "Description and image content describing the sale",
+            "description": "Description and image content describing the sale."
           },
           "units": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleUnit.ICreate"
             },
-            "minItems": 1
+            "minItems": 1,
+            "title": "List of units",
+            "description": "List of units."
           },
           "tags": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "title": "List of search tags",
+            "description": "List of search tags."
+          },
+          "category_codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "List of target categories' {@link IShoppingChannelCategory.code}s",
+            "description": "List of target categories' {@link IShoppingChannelCategory.code}s.\n\nIf empty, it means all categories of the channel is listing the sale."
           }
         },
         "required": [
@@ -8250,9 +8064,9 @@
           "opened_at",
           "closed_at",
           "content",
-          "channels",
           "units",
-          "tags"
+          "tags",
+          "category_codes"
         ],
         "description": "Creation information of sale."
       },
@@ -8335,29 +8149,6 @@
           "extension",
           "url"
         ]
-      },
-      "IShoppingSaleChannel.ICreate": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "title": "Target channel's {@link IShoppingChannel.code}",
-            "description": "Target channel's {@link IShoppingChannel.code}."
-          },
-          "category_codes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "List of target categories' {@link IShoppingChannelCategory.code}s",
-            "description": "List of target categories' {@link IShoppingChannelCategory.code}s.\n\nIf empty, it means all categories of the channel is listing the sale."
-          }
-        },
-        "required": [
-          "code",
-          "category_codes"
-        ],
-        "description": "Creation information of the target channel (and categories) of sale to sell."
       },
       "IShoppingSaleUnit.ICreate": {
         "type": "object",
@@ -8549,33 +8340,41 @@
         "type": "object",
         "properties": {
           "content": {
-            "$ref": "#/components/schemas/IShoppingSaleContent.ICreate"
-          },
-          "channels": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel.ICreate"
-            }
+            "$ref": "#/components/schemas/IShoppingSaleContent.ICreate",
+            "title": "Description and image content describing the sale",
+            "description": "Description and image content describing the sale."
           },
           "units": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleUnit.ICreate"
             },
-            "minItems": 1
+            "minItems": 1,
+            "title": "List of units",
+            "description": "List of units."
           },
           "tags": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "title": "List of search tags",
+            "description": "List of search tags."
+          },
+          "category_codes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "List of target categories' {@link IShoppingChannelCategory.code}s",
+            "description": "List of target categories' {@link IShoppingChannelCategory.code}s.\n\nIf empty, it means all categories of the channel is listing the sale."
           }
         },
         "required": [
           "content",
-          "channels",
           "units",
-          "tags"
+          "tags",
+          "category_codes"
         ],
         "description": "Creation information of the snapshot."
       },
@@ -10545,14 +10344,13 @@
             "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
-          "channels": {
+          "categories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel"
+              "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "minItems": 1,
-            "title": "List of channels and categories",
-            "description": "List of channels and categories.\n\nWhich channels and categories the sale is registered to."
+            "title": "List of categories",
+            "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
             "type": "array",
@@ -10578,7 +10376,7 @@
           "snapshot_id",
           "latest",
           "content",
-          "channels",
+          "categories",
           "tags",
           "units"
         ],
@@ -10640,14 +10438,13 @@
             "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
-          "channels": {
+          "categories": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IShoppingSaleChannel"
+              "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "minItems": 1,
-            "title": "List of channels and categories",
-            "description": "List of channels and categories.\n\nWhich channels and categories the sale is registered to."
+            "title": "List of categories",
+            "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
             "type": "array",
@@ -10672,7 +10469,7 @@
           "snapshot_id",
           "latest",
           "content",
-          "channels",
+          "categories",
           "tags",
           "units"
         ],

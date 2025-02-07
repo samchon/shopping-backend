@@ -15,7 +15,7 @@ export const test_api_shopping_cart_commodity_create_closed = async (
   await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  const closed_at: Date = new Date(Date.now() + 3_000);
+  const closed_at: Date = new Date(Date.now() + 5_000);
   const sale: IShoppingSale = await generate_random_sale(pool, {
     closed_at: closed_at.toISOString(),
   });

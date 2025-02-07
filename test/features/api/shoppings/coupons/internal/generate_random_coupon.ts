@@ -14,11 +14,7 @@ export const generate_random_coupon = async (
       type,
     }),
   );
-  const coupon: IShoppingCoupon = await props.create({
-    ...props.prepare(criterias),
-    name: "Coupon",
-  });
-  return coupon;
+  return props.create(props.prepare(criterias));
 };
 export namespace generate_random_coupon {
   export interface IProps {

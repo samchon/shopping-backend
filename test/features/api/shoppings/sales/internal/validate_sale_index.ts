@@ -10,23 +10,26 @@ import { ActorPath } from "../../../../../../src/typings/ActorPath";
 import { ConnectionPool } from "../../../../../ConnectionPool";
 import { TestGlobal } from "../../../../../TestGlobal";
 
-export const validate_sale_index =
-  (pool: ConnectionPool) =>
-  (saleList: IShoppingSale[]) =>
-  async (visibleInCustomer: boolean) => {
-    const fetcher =
-      (connection: ShoppingApi.IConnection) =>
-      (actor: ActorPath) =>
-      (input: IPage.IRequest) =>
-        ShoppingApi.functional.shoppings[actor].sales.index(connection, input);
-    await validate_in_viewer_level(fetcher(pool.admin))(saleList)("admins")(
-      true,
-    );
-    await validate_in_viewer_level(fetcher(pool.customer))(saleList)(
-      "customers",
-    )(visibleInCustomer);
-    await validate_in_seller_level(pool.seller)(fetcher(pool.seller))(saleList);
-  };
+export const validate_sale_index = async (props: {
+  pool: ConnectionPool;
+  sales: IShoppingSale[];
+  visibleInCustomer: boolean;
+}) => {
+  const fetcher =
+    (connection: ShoppingApi.IConnection) =>
+    (actor: ActorPath) =>
+    (input: IPage.IRequest) =>
+      ShoppingApi.functional.shoppings[actor].sales.index(connection, input);
+  await validate_in_viewer_level(fetcher(props.pool.admin))(props.sales)(
+    "admins",
+  )(true);
+  await validate_in_viewer_level(fetcher(props.pool.customer))(props.sales)(
+    "customers",
+  )(props.visibleInCustomer);
+  await validate_in_seller_level(props.pool.seller)(fetcher(props.pool.seller))(
+    props.sales,
+  );
+};
 
 type PageFetcher = (
   actor: ActorPath,
@@ -44,7 +47,7 @@ const validate_in_viewer_level =
     const filtered: IShoppingSale.ISummary[] = page.data.filter(
       (summary) => saleList.find((s) => s.id === summary.id) !== undefined,
     );
-    TestValidator.predicate(`page API of ${actor}`)(() =>
+    TestValidator.predicate(`page API of ${actor} (${visible})`)(() =>
       visible === true ? !!filtered.length : !filtered.length,
     );
   };
