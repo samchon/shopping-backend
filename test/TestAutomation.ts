@@ -3,20 +3,31 @@ import chalk from "chalk";
 import { sleep_for } from "tstl";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
+import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
-import { ShoppingConfiguration } from "../../src/ShoppingConfiguration";
-import { ShoppingGlobal } from "../../src/ShoppingGlobal";
-import { ShoppingChannelProvider } from "../../src/providers/shoppings/systematic/ShoppingChannelProvider";
-import { ShoppingSetupWizard } from "../../src/setup/ShoppingSetupWizard";
-import { ArgumentParser } from "../../src/utils/ArgumentParser";
-import { ConnectionPool } from "../ConnectionPool";
-import { StopWatch } from "./StopWatch";
+import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
+import { ShoppingGlobal } from "../src/ShoppingGlobal";
+import { ShoppingChannelProvider } from "../src/providers/shoppings/systematic/ShoppingChannelProvider";
+import { ShoppingSetupWizard } from "../src/setup/ShoppingSetupWizard";
+import { ArgumentParser } from "../src/utils/ArgumentParser";
+import { ConnectionPool } from "./ConnectionPool";
+import { StopWatch } from "./internal/StopWatch";
 
 export namespace TestAutomation {
-  export const execute = async <T>(props: {
-    open: () => Promise<T>;
-    close: (backend: T) => Promise<void>;
-  }): Promise<void> => {
+  export interface IProps<T> {
+    open(options: IOptions): Promise<T>;
+    close(backend: T): Promise<void>;
+  }
+
+  export interface IOptions {
+    reset: boolean;
+    simultaneous: number;
+    include?: string[];
+    exclude?: string[];
+    trace: boolean;
+  }
+
+  export const execute = async <T>(props: IProps<T>): Promise<void> => {
     // CONFIGURE
     const options: IOptions = await getOptions();
     ShoppingGlobal.testing = true;
@@ -29,13 +40,13 @@ export namespace TestAutomation {
     }
 
     // DO TEST
-    const backend: T = await props.open();
+    const backend: T = await props.open(options);
     const connection: ShoppingApi.IConnection = {
       host: `http://127.0.0.1:${ShoppingConfiguration.API_PORT()}`,
     };
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
       prefix: "test",
-      location: __dirname + "/../features",
+      location: __dirname + "/features",
       parameters: () =>
         [
           new ConnectionPool({
@@ -61,11 +72,17 @@ export namespace TestAutomation {
       simultaneous: options.simultaneous,
       wrapper: async (_name, closure, parameters) => {
         const [pool] = parameters;
-        await ShoppingChannelProvider.create({
+        const channel: IShoppingChannel = await ShoppingChannelProvider.create({
           code: pool.channel,
           name: RandomGenerator.name(8),
         });
-        return await closure(...parameters);
+        try {
+          return await closure(...parameters);
+        } catch (error) {
+          throw error;
+        } finally {
+          await ShoppingChannelProvider.destroy(channel.id);
+        }
       },
     });
 
@@ -90,35 +107,29 @@ export namespace TestAutomation {
 }
 
 const getOptions = () =>
-  ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
-    command.option("--reset <true|false>", "reset local DB or not");
-    command.option(
-      "--simultaneous <number>",
-      "number of simultaneous requests",
-    );
-    command.option("--include <string...>", "include feature files");
-    command.option("--exclude <string...>", "exclude feature files");
-    command.option("--trace <boolean>", "trace detailed errors");
-
-    return action(async (options) => {
-      if (typeof options.reset === "string")
-        options.reset = options.reset === "true";
-      options.reset ??= await prompt.boolean("reset")("Reset local DB");
-      options.simultaneous = Number(
-        options.simultaneous ??
-          (await prompt.number("simultaneous")(
-            "Number of simultaneous requests to make",
-          )),
+  ArgumentParser.parse<TestAutomation.IOptions>(
+    async (command, prompt, action) => {
+      command.option("--reset <true|false>", "reset local DB or not");
+      command.option(
+        "--simultaneous <number>",
+        "number of simultaneous requests",
       );
-      options.trace = options.trace !== ("false" as any);
-      return options as IOptions;
-    });
-  });
+      command.option("--include <string...>", "include feature files");
+      command.option("--exclude <string...>", "exclude feature files");
+      command.option("--trace <boolean>", "trace detailed errors");
 
-interface IOptions {
-  reset: boolean;
-  simultaneous: number;
-  include?: string[];
-  exclude?: string[];
-  trace: boolean;
-}
+      return action(async (options) => {
+        if (typeof options.reset === "string")
+          options.reset = options.reset === "true";
+        options.reset ??= await prompt.boolean("reset")("Reset local DB");
+        options.simultaneous = Number(
+          options.simultaneous ??
+            (await prompt.number("simultaneous")(
+              "Number of simultaneous requests to make",
+            )),
+        );
+        options.trace = options.trace !== ("false" as any);
+        return options as TestAutomation.IOptions;
+      });
+    },
+  );

@@ -2,7 +2,7 @@ import cp from "child_process";
 import { sleep_for } from "tstl";
 
 import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
-import { TestAutomation } from "./internal/TestAutomation";
+import { TestAutomation } from "./TestAutomation";
 
 TestAutomation.execute({
   open: async () => {

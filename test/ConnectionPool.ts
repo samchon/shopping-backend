@@ -3,7 +3,7 @@ import { RandomGenerator } from "@nestia/e2e";
 import ShoppingApi from "@samchon/shopping-api";
 
 export class ConnectionPool {
-  public channel: string;
+  public readonly channel: string;
 
   public constructor(private readonly connection: ShoppingApi.IConnection) {
     this.customer = clone(connection);
