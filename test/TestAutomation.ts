@@ -3,6 +3,7 @@ import chalk from "chalk";
 import { sleep_for } from "tstl";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
+import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
 import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../src/ShoppingGlobal";
@@ -71,11 +72,17 @@ export namespace TestAutomation {
       simultaneous: options.simultaneous,
       wrapper: async (_name, closure, parameters) => {
         const [pool] = parameters;
-        await ShoppingChannelProvider.create({
+        const channel: IShoppingChannel = await ShoppingChannelProvider.create({
           code: pool.channel,
           name: RandomGenerator.name(8),
         });
-        return await closure(...parameters);
+        try {
+          return await closure(...parameters);
+        } catch (error) {
+          throw error;
+        } finally {
+          await ShoppingChannelProvider.destroy(channel.id);
+        }
       },
     });
 
