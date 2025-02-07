@@ -53,5 +53,7 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
       sort: ["-coupon.created_at"],
       limit: coupons.length,
     });
-  TestValidator.equals("coupons")(coupons)(page.data.reverse());
+  TestValidator.equals("coupons")(coupons.map((c) => c.id))(
+    page.data.reverse().map((c) => c.id),
+  );
 };

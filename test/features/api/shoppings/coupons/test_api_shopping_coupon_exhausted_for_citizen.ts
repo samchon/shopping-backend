@@ -23,7 +23,7 @@ export const test_api_shopping_coupon_exhausted_for_citizen = async (
   // GENERATED LIMITED COUPON
   const sale: IShoppingSale = await generate_random_sale(pool);
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: ["channel"],
+    types: [],
     direction: "include",
     customer: null,
     sale,

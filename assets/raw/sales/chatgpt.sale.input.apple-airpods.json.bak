@@ -15,15 +15,10 @@
       }
     ]
   },
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "electronics",
-        "smart_phones",
-        "accessories"
-      ]
-    }
+  "category_codes": [
+    "electronics",
+    "smart_phones",
+    "accessories"
   ],
   "units": [
     {

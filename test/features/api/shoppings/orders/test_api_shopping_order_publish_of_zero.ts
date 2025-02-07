@@ -57,7 +57,7 @@ export const test_api_shopping_order_publish_of_zero = async (
 
   // PREPARE DISCOUNT FEATURES
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: ["channel"],
+    types: [],
     direction: "include",
     customer: null,
     sale,

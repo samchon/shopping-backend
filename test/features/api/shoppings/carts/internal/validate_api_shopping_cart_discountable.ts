@@ -85,19 +85,7 @@ export const validate_api_shopping_cart_discountable =
                 multiplicative: false,
                 threshold: null,
               },
-              criterias: [
-                {
-                  type: "channel",
-                  direction: "include",
-                  channels: [
-                    {
-                      channel_code: saleList[0].channels[0].code,
-                      category_ids: null,
-                    },
-                  ],
-                },
-                ...(criteria ? [criteria] : []),
-              ],
+              criterias: [...(criteria ? [criteria] : [])],
             }),
           );
         return coupon;

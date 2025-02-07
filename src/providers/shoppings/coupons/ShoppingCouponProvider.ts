@@ -2,6 +2,7 @@ import { HttpException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
+import { ShoppingCustomerDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/actors/ShoppingCustomerDiagnoser";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
@@ -104,7 +105,7 @@ export namespace ShoppingCouponProvider {
           // SOFT REMOVE
           { deleted_at: null },
           // OWNERSHIP
-          ...(props.actor.type === "customer" ? [whereActor(props.actor)] : []),
+          ...whereActor(props.actor),
           // POSSIBLE
           ...(props.actor.type === "customer" ? [wherePossible()] : []),
           // SEARCH
@@ -144,9 +145,13 @@ export namespace ShoppingCouponProvider {
     const record =
       await ShoppingGlobal.prisma.shopping_coupons.findFirstOrThrow({
         where: {
-          id: props.id,
-          deleted_at: null,
-          ...whereActor(props.actor),
+          AND: [
+            {
+              deleted_at: null,
+              id: props.id,
+            },
+            ...whereActor(props.actor),
+          ],
         },
         ...props.payload,
       });
@@ -159,31 +164,6 @@ export namespace ShoppingCouponProvider {
         throw props.exception(410, "The coupon has been expired.");
     return record as Prisma.shopping_couponsGetPayload<typeof props.payload>;
   };
-
-  const whereActor = (actor: IShoppingActorEntity) =>
-    (actor.type === "administrator"
-      ? {
-          customer: {
-            member: {
-              of_admin: {
-                id: actor.id,
-              },
-            },
-          },
-          actor_type: "administrator",
-        }
-      : actor.type === "seller"
-        ? {
-            customer: {
-              member: {
-                of_seller: {
-                  id: actor.id,
-                },
-              },
-            },
-            actor_type: "seller",
-          }
-        : {}) satisfies Prisma.shopping_couponsWhereInput;
 
   export const wherePossible = () =>
     ({
@@ -208,6 +188,38 @@ export namespace ShoppingCouponProvider {
         },
       ],
     }) satisfies Prisma.shopping_couponsWhereInput;
+
+  const whereActor = (actor: IShoppingActorEntity) =>
+    [
+      {
+        customer: {
+          channel: {
+            id: ShoppingCustomerDiagnoser.invert(actor).channel.id,
+          },
+        },
+        ...(actor.type === "seller"
+          ? [
+              {
+                OR: [
+                  {
+                    actor_type: "seller",
+                    customer: {
+                      member: {
+                        of_seller: {
+                          id: actor.id,
+                        },
+                      },
+                    },
+                  },
+                  {
+                    actor_type: "administrator",
+                  },
+                ],
+              },
+            ]
+          : []),
+      },
+    ] satisfies Prisma.shopping_couponsWhereInput["AND"];
 
   const search = (input: IShoppingCoupon.IRequest.ISearch | null | undefined) =>
     [
@@ -236,8 +248,8 @@ export namespace ShoppingCouponProvider {
           : { closed_at: direction };
 
   /* -----------------------------------------------------------
-          WRITERS 
-        ----------------------------------------------------------- */
+    WRITERS
+  ----------------------------------------------------------- */
   export const create = async (props: {
     actor: IShoppingAdministrator.IInvert | IShoppingSeller.IInvert;
     input: IShoppingCoupon.ICreate;

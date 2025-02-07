@@ -12,9 +12,8 @@ import { IShoppingCouponSaleCriteria } from "@samchon/shopping-api/lib/structure
 import { IShoppingCouponSectionCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponSectionCriteria";
 import { IShoppingCouponSellerCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponSellerCriteria";
 
-import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { MapUtil } from "../../../api/utils/MapUtil";
-import { ShoppingCouponChannelCriterialProvider } from "./ShoppingCouponChannelCriteriaProvider";
+import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { ShoppingCouponFunnelCriteriaProvider } from "./ShoppingCouponFunnelCriteriaProvider";
 import { ShoppingCouponSaleCriteriaProvider } from "./ShoppingCouponSaleCriteriaProvider";
 import { ShoppingCouponSectionCriteriaProvider } from "./ShoppingCouponSectionCriteriaProvider";
@@ -28,10 +27,10 @@ export namespace ShoppingCouponCriterialProvider {
     export const transform = async (
       inputList: Prisma.shopping_coupon_criteriasGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): Promise<IShoppingCouponCriteria[]> => {
       const gather = async (
-        direction: "include" | "exclude"
+        direction: "include" | "exclude",
       ): Promise<IShoppingCouponCriteria[]> => {
         const dict: Map<
           IShoppingCouponCriteria.Type,
@@ -40,59 +39,50 @@ export namespace ShoppingCouponCriterialProvider {
           >[]
         > = new Map();
         for (const input of inputList.filter(
-          (input) => input.direction === direction
+          (input) => input.direction === direction,
         ))
           MapUtil.take(
             dict,
             typia.assert<IShoppingCouponCriteria.Type>(input.type),
-            () => []
+            () => [],
           ).push(input);
         return ArrayUtil.asyncMap([...dict.entries()])(
           async ([type, inputList]) =>
-            type === "channel"
-              ? {
+            type === "section"
+              ? <IShoppingCouponSectionCriteria>{
                   type,
                   direction,
-                  channels:
-                    await ShoppingCouponChannelCriterialProvider.json.transform(
-                      inputList.map((i) => i.of_channel!)
+                  sections:
+                    ShoppingCouponSectionCriteriaProvider.json.transform(
+                      inputList.map((i) => i.of_section!),
                     ),
                 }
-              : type === "section"
-                ? <IShoppingCouponSectionCriteria>{
+              : type === "sale"
+                ? <IShoppingCouponSaleCriteria>{
                     type,
                     direction,
-                    sections:
-                      ShoppingCouponSectionCriteriaProvider.json.transform(
-                        inputList.map((i) => i.of_section!)
+                    sales:
+                      await ShoppingCouponSaleCriteriaProvider.json.transform(
+                        inputList.map((i) => i.of_sale!),
                       ),
                   }
-                : type === "sale"
-                  ? <IShoppingCouponSaleCriteria>{
+                : type === "seller"
+                  ? <IShoppingCouponSellerCriteria>{
                       type,
                       direction,
-                      sales:
-                        await ShoppingCouponSaleCriteriaProvider.json.transform(
-                          inputList.map((i) => i.of_sale!)
+                      sellers:
+                        ShoppingCouponSellerCriteriaProvider.json.transform(
+                          inputList.map((i) => i.of_seller!),
                         ),
                     }
-                  : type === "seller"
-                    ? <IShoppingCouponSellerCriteria>{
-                        type,
-                        direction,
-                        sellers:
-                          ShoppingCouponSellerCriteriaProvider.json.transform(
-                            inputList.map((i) => i.of_seller!)
-                          ),
-                      }
-                    : <IShoppingCouponFunnelCriteria>{
-                        type,
-                        direction,
-                        funnels:
-                          ShoppingCouponFunnelCriteriaProvider.json.transform(
-                            inputList.map((i) => i.of_funnel!)
-                          ),
-                      }
+                  : <IShoppingCouponFunnelCriteria>{
+                      type,
+                      direction,
+                      funnels:
+                        ShoppingCouponFunnelCriteriaProvider.json.transform(
+                          inputList.map((i) => i.of_funnel!),
+                        ),
+                    },
         );
       };
       const output = [
@@ -104,7 +94,6 @@ export namespace ShoppingCouponCriterialProvider {
     export const select = () =>
       ({
         include: {
-          of_channel: ShoppingCouponChannelCriterialProvider.json.select(),
           of_section: ShoppingCouponSectionCriteriaProvider.json.select(),
           of_sale: ShoppingCouponSaleCriteriaProvider.json.select(),
           of_seller: ShoppingCouponSellerCriteriaProvider.json.select(),
@@ -139,13 +128,7 @@ export namespace ShoppingCouponCriterialProvider {
         direction: input.direction,
         type: input.type,
       });
-      if (input.type === "channel")
-        return ShoppingCouponChannelCriterialProvider.collect({
-          counter,
-          base,
-          input,
-        });
-      else if (input.type === "section")
+      if (input.type === "section")
         return ShoppingCouponSectionCriteriaProvider.collect({
           counter,
           base,

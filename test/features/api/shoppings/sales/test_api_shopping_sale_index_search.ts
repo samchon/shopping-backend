@@ -48,27 +48,12 @@ export const test_api_shopping_sale_index_search = async (
   //----
   // IDENTIFIER
   //----
-  await search({
-    fields: ["channel_codes"],
-    values: (sale) => [sale.channels.map((c) => c.code)],
-    request: ([channel_codes]) => ({ channel_codes }),
-    filter: (sale, [codes]) =>
-      sale.channels.some((c) => codes.includes(c.code)),
-  });
-
-  if (
-    total.data.every(
-      (sale) =>
-        sale.channels.length &&
-        sale.channels.every((c) => c.categories.length > 0),
-    )
-  )
+  if (total.data.every((sale) => sale.categories.length))
     await search({
       fields: ["channel_category_ids"],
-      values: (sale) => [sale.channels[0].categories.map((c) => c.id)],
+      values: (sale) => [sale.categories.map((c) => c.id)],
       request: ([channel_category_ids]) => ({ channel_category_ids }),
-      filter: (sale, [ids]) =>
-        sale.channels.some((c) => c.categories.some((c) => ids.includes(c.id))),
+      filter: (sale, [ids]) => sale.categories.some((c) => ids.includes(c.id)),
     });
 
   //----

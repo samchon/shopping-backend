@@ -269,7 +269,6 @@ model shopping_coupon_criterias {
   coupon shopping_coupons @relation(fields: [shopping_coupon_id], references: [id], onDelete: Cascade)
 
   of_section shopping_coupon_section_criterias?
-  of_channel shopping_coupon_channel_criterias?
   of_sale    shopping_coupon_sale_criterias?
   of_funnel  shopping_coupon_funnel_criterias?
   of_seller  shopping_coupon_seller_criterias?
@@ -313,54 +312,6 @@ model shopping_coupon_section_criterias {
   section shopping_sections @relation(fields: [shopping_section_id], references: [id], onDelete: Cascade)
 
   @@index([shopping_section_id])
-}
-
-/// Conditions for channels of discount coupons.
-/// 
-/// `shopping_coupon_channel_criterias` is a subtype entity of 
-/// {@link shopping_coupon_criterias} and is used when setting conditions on 
-/// a specific {@link shopping_channels channel} or 
-/// {@link shopping_channel_categories category} of that channel.
-/// 
-/// If the {@link shopping_coupon_criterias.direction} value is "include", 
-/// the coupon can only be used for that channel (or category). Conversely, 
-/// if it is "exclude", it is a coupon that cannot be used. And if there are 
-/// multiple `shopping_coupon_channel_criterias` records within one coupon, 
-/// conditions are applied on a bundle basis. Coupons may or may not be 
-/// applicable for target channels and categories.
-/// 
-/// @namespace Coupons
-/// @author Samchon
-model shopping_coupon_channel_criterias {
-  /// Primary Key.
-  ///
-  /// @format uuid
-  id String @id @db.Uuid
-
-  /// Target channel's {@link shopping_channels.id}
-  ///
-  /// @format uuid
-  shopping_channel_id String @db.Uuid
-
-  /// Target channel category's {@link shopping_channel_categories.id}
-  ///
-  /// @format uuid
-  shopping_channel_category_id String? @db.Uuid
-
-  //----
-  // RELATIONS
-  //----
-  /// Supertype entity.
-  base shopping_coupon_criterias @relation(fields: [id], references: [id], onDelete: Cascade)
-
-  /// Target channel.
-  channel shopping_channels @relation(map: "rel_shopping_coupon_channel_criterias_channel", fields: [shopping_channel_id], references: [id], onDelete: Cascade)
-
-  /// Target channel category.
-  category shopping_channel_categories? @relation(map: "rel_shopping_coupon_channel_criterias_category", fields: [shopping_channel_category_id], references: [id], onDelete: Cascade)
-
-  @@index([shopping_channel_id])
-  @@index([shopping_channel_category_id])
 }
 
 /// Conditions for sellers of discount coupons.

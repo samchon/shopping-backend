@@ -32,7 +32,7 @@ export const test_api_shopping_order_discountable_multiplicative = async (
     () => 10,
   );
   await generate_random_coupon({
-    types: ["channel"],
+    types: [],
     direction: "include",
     customer: null,
     sale,

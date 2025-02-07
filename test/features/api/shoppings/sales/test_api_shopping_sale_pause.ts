@@ -29,14 +29,30 @@ export const test_api_shopping_sale_pause = async (
       sale.id,
     );
 
-  await validate_sale_at(pool)(read)(true);
-  await validate_sale_index(pool)([read])(true);
+  await validate_sale_at({
+    pool,
+    sale: read,
+    visibleToCustomer: true,
+  });
+  await validate_sale_index({
+    pool,
+    sales: [read],
+    visibleInCustomer: true,
+  });
   TestValidator.equals("paused_at")(!!read.paused_at)(true);
 
   await ShoppingApi.functional.shoppings.sellers.sales.restore(
     pool.seller,
     sale.id,
   );
-  await validate_sale_at(pool)(sale)(true);
-  await validate_sale_index(pool)([sale])(true);
+  await validate_sale_at({
+    pool,
+    sale,
+    visibleToCustomer: true,
+  });
+  await validate_sale_index({
+    pool,
+    sales: [sale],
+    visibleInCustomer: true,
+  });
 };

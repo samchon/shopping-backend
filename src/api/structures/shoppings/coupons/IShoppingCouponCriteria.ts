@@ -1,4 +1,3 @@
-import { IShoppingCouponChannelCriteria } from "./IShoppingCouponChannelCriteria";
 import { IShoppingCouponFunnelCriteria } from "./IShoppingCouponFunnelCriteria";
 import { IShoppingCouponSaleCriteria } from "./IShoppingCouponSaleCriteria";
 import { IShoppingCouponSectionCriteria } from "./IShoppingCouponSectionCriteria";
@@ -36,7 +35,6 @@ import { IShoppingCouponSellerCriteria } from "./IShoppingCouponSellerCriteria";
  * @author Samchon
  */
 export type IShoppingCouponCriteria =
-  | IShoppingCouponChannelCriteria
   | IShoppingCouponSectionCriteria
   | IShoppingCouponSellerCriteria
   | IShoppingCouponSaleCriteria
@@ -45,13 +43,12 @@ export namespace IShoppingCouponCriteria {
   /**
    * Type of the criteria, the discriminator.
    */
-  export type Type = "channel" | "section" | "seller" | "sale" | "funnel";
+  export type Type = IShoppingCouponCriteria["type"];
 
   /**
    * Union type of the creation information of the criteria.
    */
   export type ICreate =
-    | IShoppingCouponChannelCriteria.ICreate
     | IShoppingCouponSectionCriteria.ICreate
     | IShoppingCouponSellerCriteria.ICreate
     | IShoppingCouponSaleCriteria.ICreate

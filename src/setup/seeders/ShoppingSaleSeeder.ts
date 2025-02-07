@@ -1,12 +1,14 @@
 import fs from "fs";
-import { ShoppingConfiguration } from "../../ShoppingConfiguration";
-import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import typia from "typia";
+
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
-import { ShoppingSaleProvider } from "../../providers/shoppings/sales/ShoppingSaleProvider";
-import { ShoppingSellerProvider } from "../../providers/shoppings/actors/ShoppingSellerProvider";
-import { ShoppingCustomerProvider } from "../../providers/shoppings/actors/ShoppingCustomerProvider";
+import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
+
+import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { ShoppingGlobal } from "../../ShoppingGlobal";
+import { ShoppingCustomerProvider } from "../../providers/shoppings/actors/ShoppingCustomerProvider";
+import { ShoppingSellerProvider } from "../../providers/shoppings/actors/ShoppingSellerProvider";
+import { ShoppingSaleProvider } from "../../providers/shoppings/sales/ShoppingSaleProvider";
 
 export namespace ShoppingSaleSeeder {
   export const seed = async (): Promise<void> => {
@@ -35,27 +37,25 @@ export namespace ShoppingSaleSeeder {
             },
           },
         })
-      ).map((c) => c.code)
+      ).map((c) => c.code),
     );
 
     const directory: string[] = await fs.promises.readdir(
-      `${ShoppingConfiguration.ROOT}/assets/raw/sales`
+      `${ShoppingConfiguration.ROOT}/assets/raw/sales`,
     );
     for (const file of directory) {
       if (file.endsWith(".json") === false) continue;
       const input = JSON.parse(
         await fs.promises.readFile(
           `${ShoppingConfiguration.ROOT}/assets/raw/sales/${file}`,
-          "utf8"
-        )
+          "utf8",
+        ),
       );
 
       typia.assertGuard<IShoppingSale.ICreate>(input);
-      input.channels.forEach((channel) => {
-        channel.category_codes = channel.category_codes.filter((code) =>
-          categoryCodes.has(code)
-        );
-      });
+      input.category_codes = input.category_codes.filter((code) =>
+        categoryCodes.has(code),
+      );
       input.opened_at = new Date().toISOString();
       input.closed_at = null;
       input.status = null;

@@ -1,32 +1,26 @@
 import { IDiagnosis } from "../../../structures/common/IDiagnosis";
-import { IShoppingSaleChannel } from "../../../structures/shoppings/sales/IShoppingSaleChannel";
 import { IShoppingSaleSnapshot } from "../../../structures/shoppings/sales/IShoppingSaleSnapshot";
 import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
-
 import { UniqueDiagnoser } from "../../common/UniqueDiagnoser";
-import { ShoppingSaleChannelDiagnoser } from "./ShoppingSaleChannelDiagnoser";
 import { ShoppingSaleContentDiagnoser } from "./ShoppingSaleContentDiagnoser";
 import { ShoppingSaleUnitDiagnoser } from "./ShoppingSaleUnitDiagnoser";
 
 export namespace ShoppingSaleSnapshotDiagnoser {
   export const validate = (
-    sale: IShoppingSaleSnapshot.ICreate
+    sale: IShoppingSaleSnapshot.ICreate,
   ): IDiagnosis[] => {
     const output: IDiagnosis[] = [];
 
-    // CHANNELS
+    // CATEGORIES
     output.push(
-      ...UniqueDiagnoser.validate<IShoppingSaleChannel.ICreate>({
-        key: (c) => c.code,
+      ...UniqueDiagnoser.validate<string>({
+        key: (c) => c,
         message: (c, i) => ({
-          accessor: `input.channels[${i}]`,
-          message: `Duplicated channel code: "${c.code}"`,
+          accessor: `input.category_codes[${i}]`,
+          message: `Duplicated category code: "${c}"`,
         }),
-        items: sale.channels,
-      })
-    );
-    sale.channels.forEach((channel) =>
-      output.push(...ShoppingSaleChannelDiagnoser.validate(channel))
+        items: sale.category_codes,
+      }),
     );
 
     // UNITS
@@ -48,15 +42,15 @@ export namespace ShoppingSaleSnapshotDiagnoser {
           message: `Duplicated unit name: "${u.name}"`,
         }),
         items: sale.units,
-      })
+      }),
     );
     sale.units.forEach((unit, i) =>
       output.push(
         ...ShoppingSaleUnitDiagnoser.validate({
           unit: unit,
           index: i,
-        })
-      )
+        }),
+      ),
     );
 
     // PROPERTIES
@@ -68,15 +62,15 @@ export namespace ShoppingSaleSnapshotDiagnoser {
           message: `Duplicated tags: "${str}"`,
         }),
         items: sale.tags,
-      })
+      }),
     );
     return output;
   };
 
   export const replica = (
-    snapshot: IShoppingSaleSnapshot
+    snapshot: IShoppingSaleSnapshot,
   ): IShoppingSaleSnapshot.ICreate => ({
-    channels: snapshot.channels.map(ShoppingSaleChannelDiagnoser.replica),
+    category_codes: snapshot.categories.map((c) => c.code),
     content: ShoppingSaleContentDiagnoser.replica(snapshot.content),
     units: snapshot.units.map(ShoppingSaleUnitDiagnoser.replica),
     tags: snapshot.tags.slice(),

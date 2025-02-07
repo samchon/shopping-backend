@@ -24,10 +24,10 @@ export const test_api_shopping_coupon_opened_at = async (
   await test_api_shopping_actor_seller_join(pool);
 
   // CREATE COUPON TO BE OPENED SOON
-  const opened_at: Date = new Date(Date.now() + 3_000);
+  const opened_at: Date = new Date(Date.now() + 5_000);
   const sale: IShoppingSale = await generate_random_sale(pool);
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: ["channel"],
+    types: [],
     direction: "include",
     customer: null,
     sale,

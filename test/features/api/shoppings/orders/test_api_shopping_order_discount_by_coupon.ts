@@ -30,7 +30,7 @@ export const test_api_shopping_order_discount_by_coupon = async (
   const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
 
   const coupon: IShoppingCoupon = await generate_random_coupon({
-    types: ["channel"],
+    types: [],
     direction: "include",
     customer: null,
     sale,

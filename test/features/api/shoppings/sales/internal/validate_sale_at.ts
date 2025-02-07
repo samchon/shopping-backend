@@ -5,32 +5,36 @@ import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sa
 
 import { ConnectionPool } from "../../../../../ConnectionPool";
 
-export const validate_sale_at =
-  (pool: ConnectionPool) =>
-  (sale: IShoppingSale) =>
-  async (visibleToCustomer: boolean): Promise<void> => {
-    await validate((id) =>
-      ShoppingApi.functional.shoppings.sellers.sales.at(pool.seller, id),
-    )(sale);
-    await validate((id) =>
-      ShoppingApi.functional.shoppings.admins.sales.at(pool.admin, id),
-    )(sale);
+export const validate_sale_at = async (props: {
+  pool: ConnectionPool;
+  sale: IShoppingSale;
+  visibleToCustomer: boolean;
+}): Promise<void> => {
+  await validate((id) =>
+    ShoppingApi.functional.shoppings.sellers.sales.at(props.pool.seller, id),
+  )(props.sale);
+  await validate((id) =>
+    ShoppingApi.functional.shoppings.admins.sales.at(props.pool.admin, id),
+  )(props.sale);
 
-    if (visibleToCustomer)
-      await validate((id) =>
-        ShoppingApi.functional.shoppings.customers.sales.at(pool.admin, id),
-      )(sale);
-    else
-      await TestValidator.httpError("customer cannot see the sale")(
-        404,
-        410,
-        422,
-      )(() =>
-        validate((id) =>
-          ShoppingApi.functional.shoppings.customers.sales.at(pool.admin, id),
-        )(sale),
-      );
-  };
+  if (props.visibleToCustomer)
+    await validate((id) =>
+      ShoppingApi.functional.shoppings.customers.sales.at(props.pool.admin, id),
+    )(props.sale);
+  else
+    await TestValidator.httpError("customer cannot see the sale")(
+      404,
+      410,
+      422,
+    )(() =>
+      validate((id) =>
+        ShoppingApi.functional.shoppings.customers.sales.at(
+          props.pool.admin,
+          id,
+        ),
+      )(props.sale),
+    );
+};
 
 const validate =
   (fetcher: (id: string) => Promise<IShoppingSale>) =>

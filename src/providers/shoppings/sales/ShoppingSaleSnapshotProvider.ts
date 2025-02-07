@@ -17,7 +17,7 @@ import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingSellerProvider } from "../actors/ShoppingSellerProvider";
 import { ShoppingChannelCategoryProvider } from "../systematic/ShoppingChannelCategoryProvider";
 import { ShoppingSaleProvider } from "./ShoppingSaleProvider";
-import { ShoppingSaleSnapshotChannelProvider } from "./ShoppingSaleSnapshotChannelProvider";
+import { ShoppingSaleSnapshotCategoryProvider } from "./ShoppingSaleSnapshotCategoryProvider";
 import { ShoppingSaleSnapshotContentProvider } from "./ShoppingSaleSnapshotContentProvider";
 import { ShoppingSaleSnapshotUnitProvider } from "./ShoppingSaleSnapshotUnitProvider";
 
@@ -27,27 +27,29 @@ export namespace ShoppingSaleSnapshotProvider {
   ----------------------------------------------------------- */
   export namespace summary {
     export const transform = async (
-      input: Prisma.shopping_sale_snapshotsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_sale_snapshotsGetPayload<
+        ReturnType<typeof select>
+      >,
     ): Promise<Omit<IShoppingSaleSnapshot.ISummary, "latest">> => {
       if (input.content === null)
         throw ErrorProvider.internal(
-          "No shopping_sale_snapshot_contents record exists."
+          "No shopping_sale_snapshot_contents record exists.",
         );
       else if (input.mv_price_range === null)
         throw ErrorProvider.internal(
-          "No mv_shopping_sale_snapshot_prices record exists."
+          "No mv_shopping_sale_snapshot_prices record exists.",
         );
       return {
         id: input.shopping_sale_id,
         snapshot_id: input.id,
-        channels: await ArrayUtil.asyncMap(
-          input.to_channels.sort((a, b) => (a.sequence = b.sequence))
-        )(ShoppingSaleSnapshotChannelProvider.json.transform),
+        categories: await ArrayUtil.asyncMap(
+          input.to_categories.sort((a, b) => (a.sequence = b.sequence)),
+        )(ShoppingSaleSnapshotCategoryProvider.json.transform),
         units: input.units
           .sort((a, b) => (a.sequence = b.sequence))
           .map(ShoppingSaleSnapshotUnitProvider.summary.transform),
         content: ShoppingSaleSnapshotContentProvider.summary.transform(
-          input.content
+          input.content,
         ),
         tags: input.tags
           .sort((a, b) => (a.sequence = b.sequence))
@@ -69,7 +71,7 @@ export namespace ShoppingSaleSnapshotProvider {
         include: {
           units: ShoppingSaleSnapshotUnitProvider.summary.select(),
           content: ShoppingSaleSnapshotContentProvider.summary.select(),
-          to_channels: ShoppingSaleSnapshotChannelProvider.json.select(),
+          to_categories: ShoppingSaleSnapshotCategoryProvider.json.select(),
           tags: true,
           mv_price_range: true,
         },
@@ -80,23 +82,23 @@ export namespace ShoppingSaleSnapshotProvider {
     export const transform = async (
       input: Prisma.shopping_sale_snapshotsGetPayload<
         ReturnType<typeof ShoppingSaleSnapshotProvider.json.select>
-      >
+      >,
     ): Promise<Omit<IShoppingSaleSnapshot, "latest">> => {
       if (input.content === null)
         throw ErrorProvider.internal(
-          "No shopping_sale_snapshot_contents record exists."
+          "No shopping_sale_snapshot_contents record exists.",
         );
       return {
         id: input.shopping_sale_id,
         snapshot_id: input.id,
-        channels: await ArrayUtil.asyncMap(
-          input.to_channels.sort((a, b) => (a.sequence = b.sequence))
-        )(ShoppingSaleSnapshotChannelProvider.json.transform),
+        categories: await ArrayUtil.asyncMap(
+          input.to_categories.sort((a, b) => (a.sequence = b.sequence)),
+        )(ShoppingSaleSnapshotCategoryProvider.json.transform),
         units: input.units
           .sort((a, b) => a.sequence - b.sequence)
           .map(ShoppingSaleSnapshotUnitProvider.json.transform),
         content: ShoppingSaleSnapshotContentProvider.json.transform(
-          input.content
+          input.content,
         ),
         tags: input.tags
           .sort((a, b) => (a.sequence = b.sequence))
@@ -108,7 +110,17 @@ export namespace ShoppingSaleSnapshotProvider {
         include: {
           units: ShoppingSaleSnapshotUnitProvider.json.select(),
           content: ShoppingSaleSnapshotContentProvider.json.select(),
-          to_channels: ShoppingSaleSnapshotChannelProvider.json.select(),
+          to_categories: {
+            select: {
+              category: {
+                select: {
+                  id: true,
+                  shopping_channel_id: true,
+                },
+              },
+              sequence: true,
+            },
+          },
           tags: true,
         },
       }) satisfies Prisma.shopping_sale_snapshotsFindManyArgs;
@@ -116,7 +128,9 @@ export namespace ShoppingSaleSnapshotProvider {
 
   export namespace history {
     export const transform = async (
-      input: Prisma.shopping_sale_snapshotsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_sale_snapshotsGetPayload<
+        ReturnType<typeof select>
+      >,
     ): Promise<IShoppingSale> => ({
       ...(await json.transform(input)),
       ...ShoppingSaleProvider.history.transform(input.sale),
@@ -129,7 +143,7 @@ export namespace ShoppingSaleSnapshotProvider {
           sale: ShoppingSaleProvider.history.select(),
           units: ShoppingSaleSnapshotUnitProvider.json.select(),
           content: ShoppingSaleSnapshotContentProvider.json.select(),
-          to_channels: ShoppingSaleSnapshotChannelProvider.json.select(),
+          to_categories: ShoppingSaleSnapshotCategoryProvider.json.select(),
           tags: true,
           mv_last: true,
         },
@@ -138,21 +152,23 @@ export namespace ShoppingSaleSnapshotProvider {
 
   export namespace invert {
     export const transform = async (
-      input: Prisma.shopping_sale_snapshotsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_sale_snapshotsGetPayload<
+        ReturnType<typeof select>
+      >,
     ): Promise<Omit<IShoppingSaleSnapshot.IInvert, "units">> => {
       if (input.content === null)
         throw ErrorProvider.internal(
-          "No shopping_sale_snapshot_contents record exists."
+          "No shopping_sale_snapshot_contents record exists.",
         );
       return {
         ...ShoppingSaleProvider.history.transform(input.sale),
         id: input.shopping_sale_id,
         snapshot_id: input.id,
-        channels: await ArrayUtil.asyncMap(
-          input.to_channels.sort((a, b) => (a.sequence = b.sequence))
-        )(ShoppingSaleSnapshotChannelProvider.json.transform),
+        categories: await ArrayUtil.asyncMap(
+          input.to_categories.sort((a, b) => (a.sequence = b.sequence)),
+        )(ShoppingSaleSnapshotCategoryProvider.json.transform),
         content: ShoppingSaleSnapshotContentProvider.summary.transform(
-          input.content
+          input.content,
         ),
         tags: input.tags
           .sort((a, b) => (a.sequence = b.sequence))
@@ -166,7 +182,7 @@ export namespace ShoppingSaleSnapshotProvider {
         include: {
           sale: ShoppingSaleProvider.history.select(),
           content: ShoppingSaleSnapshotContentProvider.summary.select(),
-          to_channels: ShoppingSaleSnapshotChannelProvider.json.select(),
+          to_categories: ShoppingSaleSnapshotCategoryProvider.json.select(),
           tags: true,
           mv_last: true,
         },
@@ -251,7 +267,7 @@ export namespace ShoppingSaleSnapshotProvider {
       ...(await search(props)),
       ...(props.input?.seller !== undefined
         ? ShoppingSellerProvider.searchFromCustomer(props.input.seller).map(
-            (sellerCustomer) => ({ sale: { sellerCustomer } })
+            (sellerCustomer) => ({ sale: { sellerCustomer } }),
           )
         : []),
       ...(props.input?.section_codes?.length
@@ -357,32 +373,17 @@ export namespace ShoppingSaleSnapshotProvider {
             },
           ]
         : []),
-      // CHANNEL
-      ...(props.input?.channel_codes?.length
-        ? [
-            {
-              to_channels: {
-                some: {
-                  channel: { code: { in: props.input.channel_codes } },
-                },
-              },
-            },
-          ]
-        : []),
+      // CATEGORIES
       ...(props.input?.channel_category_ids?.length
         ? [
             {
-              to_channels: {
+              to_categories: {
                 some: {
-                  to_categories: {
-                    some: {
-                      shopping_channel_category_id: {
-                        in: await searchCategories({
-                          accessor: props.accessor,
-                          ids: props.input.channel_category_ids,
-                        }),
-                      },
-                    },
+                  shopping_channel_category_id: {
+                    in: await searchCategories({
+                      accessor: props.accessor,
+                      ids: props.input.channel_category_ids,
+                    }),
                   },
                 },
               },
@@ -394,7 +395,7 @@ export namespace ShoppingSaleSnapshotProvider {
 
   export const orderBy = (
     key: IShoppingSale.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "sale.created_at"
       ? { sale: { created_at: value } }
@@ -429,7 +430,7 @@ export namespace ShoppingSaleSnapshotProvider {
                             member: {
                               of_seller: ShoppingSellerProvider.orderBy(
                                 key,
-                                value
+                                value,
                               ),
                             },
                           },
@@ -461,7 +462,7 @@ export namespace ShoppingSaleSnapshotProvider {
             id: rec.shopping_channel_id,
           },
           id: rec.id,
-        })
+        }),
       );
     const output: Set<string> = new Set();
     const gather = (category: IShoppingChannelCategory.IHierarchical) => {
@@ -496,68 +497,51 @@ export namespace ShoppingSaleSnapshotProvider {
   /* -----------------------------------------------------------
     WRITERS
   ----------------------------------------------------------- */
-  export const collect = async (input: IShoppingSaleSnapshot.ICreate) => {
-    // VALIDATE CHANNELS
-    const channels = await ShoppingGlobal.prisma.shopping_channels.findMany({
-      where: {
-        code: {
-          in: input.channels.map((c) => c.code),
+  export const collect = async (props: {
+    channel: IEntity;
+    input: IShoppingSaleSnapshot.ICreate;
+  }) => {
+    const categories =
+      await ShoppingGlobal.prisma.shopping_channel_categories.findMany({
+        where: {
+          code: {
+            in: props.input.category_codes,
+          },
+          shopping_channel_id: props.channel.id,
         },
-      },
-    });
-    if (channels.length !== input.channels.length)
-      throw ErrorProvider.notFound({
-        accessor: "input.channels",
-        message: "Unable to find some channels with matched code.",
       });
-
-    // VALIDATE CATEGOREIS
-    const categories = await ArrayUtil.asyncMap(input.channels)(
-      async (raw, i) => {
-        const records =
-          await ShoppingGlobal.prisma.shopping_channel_categories.findMany({
-            where: {
-              shopping_channel_id: channels[i].id,
-              code: {
-                in: raw.category_codes,
-              },
-            },
-          });
-        if (records.length !== raw.category_codes.length)
-          throw ErrorProvider.notFound({
-            accessor: `input.channels[${i}].category_codes`,
-            message: "Unable to find some categories with matched code.",
-          });
-        return new Map(records.map((c) => [c.code, c]));
-      }
-    );
+    if (categories.length !== props.input.category_codes.length)
+      throw ErrorProvider.notFound({
+        accessor: "input.categories",
+        message: "Unable to find some categories with matched code.",
+      });
     return {
       id: v4(),
-      to_channels: {
-        create: input.channels.map((v, i) =>
-          ShoppingSaleSnapshotChannelProvider.collect({
-            channel: channels[i],
-            dict: categories[i],
-            input: v,
-            sequence: i,
-          })
-        ),
+      to_categories: {
+        create: props.input.category_codes.map((code, i) => ({
+          id: v4(),
+          sequence: i,
+          shopping_channel_category_id: categories.find((c) => c.code === code)!
+            .id,
+        })),
       },
       content: {
-        create: ShoppingSaleSnapshotContentProvider.collect(input.content),
+        create: ShoppingSaleSnapshotContentProvider.collect(
+          props.input.content,
+        ),
       },
       tags: {
-        create: input.tags.map((value, sequence) => ({
+        create: props.input.tags.map((value, sequence) => ({
           id: v4(),
           value,
           sequence,
         })),
       },
       units: {
-        create: input.units.map(ShoppingSaleSnapshotUnitProvider.collect),
+        create: props.input.units.map(ShoppingSaleSnapshotUnitProvider.collect),
       },
       mv_price_range: {
-        create: collectPriceRange(input),
+        create: collectPriceRange(props.input),
       },
       created_at: new Date(),
     } satisfies Prisma.shopping_sale_snapshotsCreateWithoutSaleInput;

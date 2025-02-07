@@ -22,14 +22,9 @@
       }
     ]
   },
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "electronics",
-        "smart_glasses"
-      ]
-    }
+  "category_codes": [
+    "electronics",
+    "smart_glasses"
   ],
   "units": [
     {

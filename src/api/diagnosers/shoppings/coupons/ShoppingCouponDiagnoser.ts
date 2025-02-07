@@ -1,7 +1,6 @@
 import { IShoppingCustomer } from "../../../structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCoupon } from "../../../structures/shoppings/coupons/IShoppingCoupon";
 import { IShoppingSaleSnapshot } from "../../../structures/shoppings/sales/IShoppingSaleSnapshot";
-
 import { ShoppingCouponCriteriaDiagnoser } from "./ShoppingCouponCriteriaDianoser";
 
 export namespace ShoppingCouponDiagnoser {
@@ -15,7 +14,7 @@ export namespace ShoppingCouponDiagnoser {
         customer: props.customer,
         sale: props.sale,
         criteria,
-      })
+      }),
     );
 
   export const coexistable = (coupons: IShoppingCoupon[]): boolean =>

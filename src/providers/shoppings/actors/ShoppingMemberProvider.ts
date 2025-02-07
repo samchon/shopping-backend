@@ -173,8 +173,7 @@ export namespace ShoppingMemberProvider {
     const member: IShoppingMember = json.transform(record);
     if (
       props.customer.citizen !== null &&
-      member.citizen !== null &&
-      props.customer.citizen.id !== member.citizen.id
+      props.customer.citizen.id !== member.citizen?.id
     )
       throw ErrorProvider.conflict(
         "Different citizen information with customer and member.",

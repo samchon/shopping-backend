@@ -2,13 +2,8 @@
   "section_code": "general",
   "opened_at": null,
   "closed_at": null,
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "smart_phones"
-      ]
-    }
+  "category_codes": [
+    "smart_phones"
   ],
   "content": {
     "title": "iPhone 16: Redefining Innovation",
