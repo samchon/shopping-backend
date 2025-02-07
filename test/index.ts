@@ -1,5 +1,5 @@
 import { ShoppingBackend } from "../src/ShoppingBackend";
-import { TestAutomation } from "./internal/TestAutomation";
+import { TestAutomation } from "./TestAutomation";
 
 TestAutomation.execute({
   open: async () => {

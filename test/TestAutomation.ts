@@ -4,13 +4,13 @@ import { sleep_for } from "tstl";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 
-import { ShoppingConfiguration } from "../../src/ShoppingConfiguration";
-import { ShoppingGlobal } from "../../src/ShoppingGlobal";
-import { ShoppingChannelProvider } from "../../src/providers/shoppings/systematic/ShoppingChannelProvider";
-import { ShoppingSetupWizard } from "../../src/setup/ShoppingSetupWizard";
-import { ArgumentParser } from "../../src/utils/ArgumentParser";
-import { ConnectionPool } from "../ConnectionPool";
-import { StopWatch } from "./StopWatch";
+import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
+import { ShoppingGlobal } from "../src/ShoppingGlobal";
+import { ShoppingChannelProvider } from "../src/providers/shoppings/systematic/ShoppingChannelProvider";
+import { ShoppingSetupWizard } from "../src/setup/ShoppingSetupWizard";
+import { ArgumentParser } from "../src/utils/ArgumentParser";
+import { ConnectionPool } from "./ConnectionPool";
+import { StopWatch } from "./internal/StopWatch";
 
 export namespace TestAutomation {
   export const execute = async <T>(props: {
@@ -35,7 +35,7 @@ export namespace TestAutomation {
     };
     const report: DynamicExecutor.IReport = await DynamicExecutor.validate({
       prefix: "test",
-      location: __dirname + "/../features",
+      location: __dirname + "/features",
       parameters: () =>
         [
           new ConnectionPool({
