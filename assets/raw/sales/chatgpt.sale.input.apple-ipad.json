@@ -20,15 +20,10 @@
       }
     ]
   },
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "electronics",
-        "tablets",
-        "ipads"
-      ]
-    }
+  "category_codes": [
+    "electronics",
+    "tablets",
+    "ipads"
   ],
   "units": [
     {

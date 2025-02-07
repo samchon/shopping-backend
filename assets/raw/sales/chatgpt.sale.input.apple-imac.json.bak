@@ -2,13 +2,8 @@
   "section_code": "general",
   "opened_at": null,
   "closed_at": null,
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "desktops"
-      ]
-    }
+  "category_codes": [
+    "desktops"
   ],
   "content": {
     "title": "Apple iMac",

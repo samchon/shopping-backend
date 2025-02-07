@@ -1,4 +1,4 @@
-import { ArrayUtil, TestValidator } from "@nestia/e2e";
+import { ArrayUtil, RandomGenerator, TestValidator } from "@nestia/e2e";
 import typia from "typia";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
@@ -18,6 +18,7 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_seller_join(pool);
 
+  const prefix: string = RandomGenerator.name(50);
   const sale: IShoppingSale = await generate_random_sale(pool);
   const coupons: IShoppingCoupon[] = (
     await ArrayUtil.asyncMap(
@@ -34,10 +35,10 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
           customer: null,
           sale,
           create: (input) =>
-            ShoppingApi.functional.shoppings.admins.coupons.create(
-              pool.admin,
-              input,
-            ),
+            ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, {
+              ...input,
+              name: `${prefix}-${RandomGenerator.name(10)}`,
+            }),
           prepare: (criterias) => prepare_random_coupon({ criterias }),
         }),
       ),
@@ -46,12 +47,13 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
 
   const page: IPage<IShoppingCoupon> =
     await ShoppingApi.functional.shoppings.admins.coupons.index(pool.admin, {
-      limit: coupons.length,
+      search: {
+        name: prefix,
+      },
       sort: ["-coupon.created_at"],
+      limit: coupons.length,
     });
-  TestValidator.equals("coupons")(coupons)(page.data.reverse());
-
-  await ArrayUtil.asyncMap(coupons)((c) =>
-    ShoppingApi.functional.shoppings.admins.coupons.destroy(pool.admin, c.id),
+  TestValidator.equals("coupons")(coupons.map((c) => c.id))(
+    page.data.reverse().map((c) => c.id),
   );
 };

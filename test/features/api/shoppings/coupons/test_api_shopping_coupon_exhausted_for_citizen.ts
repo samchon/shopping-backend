@@ -31,7 +31,7 @@ export const test_api_shopping_coupon_exhausted_for_citizen = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
     prepare: (criterias) =>
       prepare_random_coupon({
-        ...criterias,
+        criterias,
         restriction: {
           volume: null,
           volume_per_citizen: 1,

@@ -22,14 +22,9 @@
       }
     ]
   },
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "electronics",
-        "macbooks"
-      ]
-    }
+  "category_codes": [
+    "electronics",
+    "macbooks"
   ],
   "units": [
     {

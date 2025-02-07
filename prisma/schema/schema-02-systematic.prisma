@@ -37,14 +37,12 @@ model shopping_channels {
   //----
   // RELATIONS
   //----
-  shopping_channel_categories       shopping_channel_categories[]
-  shopping_customers                shopping_customers[]
-  shopping_citizens                 shopping_citizens[]
-  shopping_members                  shopping_members[]
-  shopping_member_emails            shopping_member_emails[]
-  shopping_sale_snapshot_channels   shopping_sale_snapshot_channels[]
-  shopping_coupon_channel_criterias shopping_coupon_channel_criterias[]
-  shopping_external_users           shopping_external_users[]
+  shopping_channel_categories shopping_channel_categories[]
+  shopping_customers          shopping_customers[]
+  shopping_citizens           shopping_citizens[]
+  shopping_members            shopping_members[]
+  shopping_member_emails      shopping_member_emails[]
+  shopping_external_users     shopping_external_users[]
 
   @@unique([code])
   @@unique([name])
@@ -122,11 +120,10 @@ model shopping_channel_categories {
   //----
   // RELATIONS
   //----
-  channel                                   shopping_channels                           @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
-  parent                                    shopping_channel_categories?                @relation("shopping_channel_categories_children", fields: [parent_id], references: [id], onDelete: Cascade)
-  children                                  shopping_channel_categories[]               @relation("shopping_channel_categories_children")
-  shopping_sale_snapshot_channel_categories shopping_sale_snapshot_channel_categories[]
-  shopping_coupon_channel_criterias         shopping_coupon_channel_criterias[]
+  channel                           shopping_channels                   @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
+  parent                            shopping_channel_categories?        @relation("shopping_channel_categories_children", fields: [parent_id], references: [id], onDelete: Cascade)
+  children                          shopping_channel_categories[]       @relation("shopping_channel_categories_children")
+  shopping_sale_snapshot_categories shopping_sale_snapshot_categories[]
 
   @@unique([shopping_channel_id, code])
   @@unique([shopping_channel_id, parent_id, name])

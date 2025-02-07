@@ -21,14 +21,9 @@
       }
     ]
   },
-  "channels": [
-    {
-      "code": "samchon",
-      "category_codes": [
-        "accessories",
-        "electronics"
-      ]
-    }
+  "category_codes": [
+    "accessories",
+    "electronics"
   ],
   "units": [
     {

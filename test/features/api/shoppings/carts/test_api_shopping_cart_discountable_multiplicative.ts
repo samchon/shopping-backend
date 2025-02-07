@@ -1,7 +1,7 @@
 import { TestValidator } from "@nestia/e2e";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
-import { IShoppingCoupon } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCoupon";
+import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCartCommodity } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartDiscountable";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -16,10 +16,11 @@ import { generate_random_sole_sale } from "../sales/internal/generate_random_sol
 import { generate_random_cart_commodity } from "./internal/generate_random_cart_commodity";
 
 export const test_api_shopping_cart_discountable_multiplicative = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ) => {
+  const customer: IShoppingCustomer =
+    await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_admin_login(pool);
-  await test_api_shopping_actor_customer_create(pool);
   await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sole_sale(pool, {
@@ -30,10 +31,10 @@ export const test_api_shopping_cart_discountable_multiplicative = async (
     await generate_random_cart_commodity(pool, sale, {
       volume: 10,
     });
-  const coupon: IShoppingCoupon = await generate_random_coupon({
+  await generate_random_coupon({
     types: [],
     direction: "include",
-    customer: null,
+    customer,
     sale,
     prepare: (criterias) =>
       prepare_random_coupon({
@@ -60,17 +61,9 @@ export const test_api_shopping_cart_discountable_multiplicative = async (
       {
         commodity_ids: [commodity.id],
         pseudos: [],
-      }
+      },
     );
-
-  const error: Error | null = TestValidator.proceed(() => {
-    TestValidator.equals("discountable.combinations[].amount")(
-      discountable.combinations.map((comb) => comb.amount)
-    )([12340]);
-  });
-  await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-    pool.admin,
-    coupon.id
-  );
-  if (error) throw error;
+  TestValidator.equals("discountable.combinations[].amount")(
+    discountable.combinations.map((comb) => comb.amount),
+  )([12340]);
 };

@@ -35,8 +35,8 @@ export namespace ShoppingCartDiscountableDiagnoser {
     coupons: IShoppingCoupon[];
     tickets: IShoppingCouponTicket[];
     commodities: IShoppingCartCommodity[];
-  }): IShoppingCartDiscountable.ICombination[] =>
-    ShoppingDiscountableDiagnoser.combine({
+  }): IShoppingCartDiscountable.ICombination[] => {
+    return ShoppingDiscountableDiagnoser.combine({
       className: "ShoppingCartDiscountableDiagnoser",
       accessor,
       customer: props.customer,
@@ -52,6 +52,7 @@ export namespace ShoppingCartDiscountableDiagnoser {
         pseudo: !!props.commodities.find((c) => c.id === entry.item_id)?.pseudo,
       })),
     }));
+  };
 }
 
 const accessor: ShoppingDiscountableDiagnoser.IAccessor<IShoppingCartCommodity> =

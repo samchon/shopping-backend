@@ -1,6 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { v4 } from "uuid";
 
+import { ShoppingCustomerDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/actors/ShoppingCustomerDiagnoser";
 import { ShoppingSaleDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/sales/ShoppingSaleDiagnoser";
 import { IDiagnosis } from "@samchon/shopping-api/lib/structures/common/IDiagnosis";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -153,6 +154,12 @@ export namespace ShoppingSaleProvider {
     })({
       where: {
         AND: [
+          {
+            sellerCustomer: {
+              shopping_channel_id: ShoppingCustomerDiagnoser.invert(props.actor)
+                .channel.id,
+            },
+          },
           ...where(props.actor, true),
           ...(await search({
             actor: props.actor,
@@ -204,30 +211,38 @@ export namespace ShoppingSaleProvider {
   };
 
   const where = (actor: IShoppingActorEntity, strict: boolean) =>
-    (actor.type === "seller"
-      ? [
-          {
-            sellerCustomer: {
-              member: {
-                of_seller: { id: actor.id },
-              },
-            },
-          },
-        ]
-      : actor.type === "customer" && strict === true
+    [
+      {
+        sellerCustomer: {
+          shopping_channel_id:
+            ShoppingCustomerDiagnoser.invert(actor).channel.id,
+        },
+      },
+      ...(actor.type === "seller"
         ? [
             {
-              opened_at: { lte: new Date() },
-              suspended_at: null,
-              OR: [
-                { closed_at: null },
-                {
-                  closed_at: { gt: new Date() },
+              sellerCustomer: {
+                member: {
+                  of_seller: { id: actor.id },
                 },
-              ],
+              },
             },
           ]
-        : []) satisfies Prisma.shopping_salesWhereInput["AND"];
+        : actor.type === "customer" && strict === true
+          ? [
+              {
+                opened_at: { lte: new Date() },
+                suspended_at: null,
+                OR: [
+                  { closed_at: null },
+                  {
+                    closed_at: { gt: new Date() },
+                  },
+                ],
+              },
+            ]
+          : []),
+    ] satisfies Prisma.shopping_salesWhereInput["AND"];
 
   const search = async (props: {
     actor: IShoppingActorEntity;
@@ -337,7 +352,10 @@ export namespace ShoppingSaleProvider {
     const section: IShoppingSection = await ShoppingSectionProvider.get(
       props.input.section_code,
     );
-    const snapshot = await ShoppingSaleSnapshotProvider.collect(props.input);
+    const snapshot = await ShoppingSaleSnapshotProvider.collect({
+      channel: props.seller.customer.channel,
+      input: props.input,
+    });
     const record = await ShoppingGlobal.prisma.shopping_sales.create({
       data: {
         id: v4(),
@@ -375,7 +393,10 @@ export namespace ShoppingSaleProvider {
     const snapshot = await ShoppingGlobal.prisma.shopping_sale_snapshots.create(
       {
         data: {
-          ...(await ShoppingSaleSnapshotProvider.collect(props.input)),
+          ...(await ShoppingSaleSnapshotProvider.collect({
+            channel: props.seller.customer.channel,
+            input: props.input,
+          })),
           sale: { connect: { id: props.id } },
         },
         ...ShoppingSaleSnapshotProvider.json.select(),

@@ -17,15 +17,31 @@ export const test_api_shopping_sale_opened_at = async (
   await test_api_shopping_actor_seller_join(pool);
   await test_api_shopping_actor_customer_create(pool);
 
-  const opened_at: Date = new Date(Date.now() + 3 * 1_000);
+  const opened_at: Date = new Date(Date.now() + 5_000);
   const sale: IShoppingSale = await generate_random_sale(pool, {
     opened_at: opened_at.toISOString(),
     closed_at: null,
   });
-  await validate_sale_at(pool)(sale)(false);
-  await validate_sale_index(pool)([sale])(false);
+  await validate_sale_at({
+    pool,
+    sale,
+    visibleToCustomer: false,
+  });
+  await validate_sale_index({
+    pool,
+    sales: [sale],
+    visibleInCustomer: false,
+  });
 
   await sleep_until(opened_at);
-  await validate_sale_at(pool)(sale)(true);
-  await validate_sale_index(pool)([sale])(true);
+  await validate_sale_at({
+    pool,
+    sale,
+    visibleToCustomer: true,
+  });
+  await validate_sale_index({
+    pool,
+    sales: [sale],
+    visibleInCustomer: true,
+  });
 };

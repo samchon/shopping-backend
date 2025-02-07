@@ -136,10 +136,10 @@ model shopping_sale_snapshots {
   /// Belonged sale.
   sale shopping_sales @relation(fields: [shopping_sale_id], references: [id], onDelete: Cascade)
 
-  content     shopping_sale_snapshot_contents?
-  to_channels shopping_sale_snapshot_channels[]
-  units       shopping_sale_snapshot_units[]
-  tags        shopping_sale_snapshot_tags[]
+  content       shopping_sale_snapshot_contents?
+  units         shopping_sale_snapshot_units[]
+  tags          shopping_sale_snapshot_tags[]
+  to_categories shopping_sale_snapshot_categories[]
 
   shopping_cart_commodities        shopping_cart_commodities[]
   shopping_sale_snapshot_inquiries shopping_sale_snapshot_inquiries[]
@@ -569,58 +569,11 @@ model shopping_sale_snapshot_unit_stock_supplements {
   @@index([shopping_sale_snapshot_unit_stock_id, created_at])
 }
 
-/// Target channel of sale snapshot to sell.
-/// 
-/// `shopping_sale_snapshot_channels` is an entity that expresses through 
-/// which {@link shopping_channels channel} a listing 
-/// {@link shopping_sale_snapshots snapshot} is sold, and is designed to 
-/// resolve the M:N relationship between two tables.
-/// 
-/// @namespace Sales
-/// @erd Systematic
-/// @author Samchon
-model shopping_sale_snapshot_channels {
-  //----
-  // COLUMNS
-  //----
-  /// Primary Key.
-  ///
-  /// @format uuid
-  id String @id @db.Uuid
-
-  /// Belonged snapshot's {@link shopping_sale_snapshots.id}.
-  ///
-  /// @format uuid
-  shopping_sale_snapshot_id String @db.Uuid
-
-  /// Belonged channel's {@link shopping_channels.id}.
-  ///
-  /// @format uuid
-  shopping_channel_id String @db.Uuid
-
-  /// Sequence order in belonged snapshot.
-  sequence Int @db.Integer
-
-  //----
-  // RELATIONS
-  //----
-  /// Belonged snapshot.
-  snapshot shopping_sale_snapshots @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
-
-  /// Belonged channel.
-  channel       shopping_channels                           @relation(fields: [shopping_channel_id], references: [id], onDelete: Cascade)
-  to_categories shopping_sale_snapshot_channel_categories[]
-
-  @@unique([shopping_sale_snapshot_id, shopping_channel_id])
-  @@index([shopping_channel_id])
-}
-
 /// Category classification info of sale snapshot.
 ///
-/// `shopping_sale_snapshot_channel_categories` is an entity that expresses 
+/// `shopping_sale_snapshot_categories` is an entity that expresses 
 /// which {@link shopping_channel_categories category} the listing 
-/// {@link shopping_sale_snapshots snapshot} is classified into in each 
-/// {@link shopping_channels channel}.
+/// {@link shopping_sale_snapshots snapshot}.
 /// 
 /// It is designed to resolve the M:N relationship between 
 /// {@link shopping_sale_snapshots} and {@link shopping_channel_categories}, 
@@ -630,7 +583,7 @@ model shopping_sale_snapshot_channels {
 /// @namespace Sales
 /// @erd Systematic
 /// @author Samchon
-model shopping_sale_snapshot_channel_categories {
+model shopping_sale_snapshot_categories {
   //----
   // COLUMNS
   //----
@@ -639,29 +592,26 @@ model shopping_sale_snapshot_channel_categories {
   /// @format uuid
   id String @id @db.Uuid
 
-  /// Belonged assigned channel of sale snapshot's {@link shopping_sale_snapshot_channels.id}
+  /// Belonged snapshot's {@link shopping_sale_snapshots.id}
   ///
   /// @format uuid
-  shopping_sale_snapshot_channel_id String @db.Uuid
+  shopping_sale_snapshot_id String @db.Uuid
 
-  /// Belonged channel category's {@link shopping_channel_categories.id}
+  /// Belonged category's {@link shopping_channel_categories.id}
   ///
   /// @format uuid
   shopping_channel_category_id String @db.Uuid
 
-  /// Sequence order in belonged channel.
+  /// Sequence order in belonged snapshot.
   sequence Int @db.Integer
 
   //----
   // RELATIONS
   //----
-  /// Belonged assigned channel of sale snapshot.
-  to_channel shopping_sale_snapshot_channels @relation(fields: [shopping_sale_snapshot_channel_id], references: [id], onDelete: Cascade)
-
-  /// Belonged channel category.
+  snapshot shopping_sale_snapshots     @relation(fields: [shopping_sale_snapshot_id], references: [id], onDelete: Cascade)
   category shopping_channel_categories @relation(fields: [shopping_channel_category_id], references: [id], onDelete: Cascade)
 
-  @@unique([shopping_sale_snapshot_channel_id, shopping_channel_category_id])
+  @@unique([shopping_sale_snapshot_id, shopping_channel_category_id])
   @@index([shopping_channel_category_id])
 }
 

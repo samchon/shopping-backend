@@ -1,14 +1,12 @@
 import { tags } from "typia";
 
 import { IShoppingSeller } from "../actors/IShoppingSeller";
+import { IShoppingChannelCategory } from "../systematic/IShoppingChannelCategory";
 import { IShoppingSection } from "../systematic/IShoppingSection";
 import { IShoppingSale } from "./IShoppingSale";
-import { IShoppingSaleChannel } from "./IShoppingSaleChannel";
 import { IShoppingSaleContent } from "./IShoppingSaleContent";
 import { IShoppingSalePriceRange } from "./IShoppingSalePriceRange";
 import { IShoppingSaleUnit } from "./IShoppingSaleUnit";
-
-// import { IShoppingBusinessAggregate } from "./aggregates/IShoppingBusinessAggregate";
 
 /**
  * Snapshot record of sale.
@@ -107,11 +105,11 @@ export namespace IShoppingSaleSnapshot {
     content: Content;
 
     /**
-     * List of channels and categories.
+     * List of categories.
      *
-     * Which channels and categories the sale is registered to.
+     * Which categories the sale is registered to.
      */
-    channels: IShoppingSaleChannel[] & tags.MinItems<1>;
+    categories: IShoppingChannelCategory.IInvert[];
 
     /**
      * List of search tags.
@@ -140,9 +138,26 @@ export namespace IShoppingSaleSnapshot {
    * Creation information of the snapshot.
    */
   export interface ICreate {
+    /**
+     * Description and image content describing the sale.
+     */
     content: IShoppingSaleContent.ICreate;
-    channels: IShoppingSaleChannel.ICreate[];
+
+    /**
+     * List of units.
+     */
     units: IShoppingSaleUnit.ICreate[] & tags.MinItems<1>;
+
+    /**
+     * List of search tags.
+     */
     tags: string[];
+
+    /**
+     * List of target categories' {@link IShoppingChannelCategory.code}s.
+     *
+     * If empty, it means all categories of the channel is listing the sale.
+     */
+    category_codes: Array<string>;
   }
 }

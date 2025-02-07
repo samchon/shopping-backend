@@ -2,9 +2,10 @@ bin/
 dist/
 lib/
 node_modules/
-prisma/migrations/
 
 docs/benchmarks/call
+prisma/docs/
+prisma/migrations/
 
 .env
 .npmrc
