@@ -9,8 +9,8 @@ import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../src/ShoppingGlobal";
 import { ShoppingChannelProvider } from "../src/providers/shoppings/systematic/ShoppingChannelProvider";
 import { ShoppingSetupWizard } from "../src/setup/ShoppingSetupWizard";
-import { ArgumentParser } from "../src/utils/ArgumentParser";
 import { ConnectionPool } from "./ConnectionPool";
+import { ArgumentParser } from "./internal/ArgumentParser";
 import { StopWatch } from "./internal/StopWatch";
 
 export namespace TestAutomation {
@@ -28,19 +28,17 @@ export namespace TestAutomation {
   }
 
   export const execute = async <T>(props: IProps<T>): Promise<void> => {
-    // CONFIGURE
+    // OPEN BACKEND SERVER
     const options: IOptions = await getOptions();
-    ShoppingGlobal.testing = true;
-
     if (options.reset) {
       await StopWatch.trace("Reset DB")(() =>
         ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
       );
       await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
     }
+    const backend: T = await props.open(options);
 
     // DO TEST
-    const backend: T = await props.open(options);
     const connection: ShoppingApi.IConnection = {
       host: `http://127.0.0.1:${ShoppingConfiguration.API_PORT()}`,
     };

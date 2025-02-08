@@ -1,6 +1,8 @@
 import { ShoppingBackend } from "../src/ShoppingBackend";
+import { ShoppingGlobal } from "../src/ShoppingGlobal";
 import { TestAutomation } from "./TestAutomation";
 
+ShoppingGlobal.testing = true;
 TestAutomation.execute({
   open: async () => {
     const backend: ShoppingBackend = new ShoppingBackend();
