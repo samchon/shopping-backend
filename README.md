@@ -191,6 +191,7 @@ List of the run commands defined in the [package.json](package.json) are like be
     - `package:api`: Build and deploy the SDK library to the NPM
     - `schema`: Create DB, users and schemas on local database
     - `start`: Start the backend server
+    - `start:dev`: Start the backend server with incremental build and reload
   - Webpack
     - `webpack`: Run webpack bundler
     - `webpack:start`: Start the backend server built by webpack

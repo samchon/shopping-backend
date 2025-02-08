@@ -1,15 +1,28 @@
 import cp from "child_process";
-import { sleep_for } from "tstl";
 
 import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
+import { ShoppingGlobal } from "../src/ShoppingGlobal";
+import ShoppingApi from "../src/api";
 import { TestAutomation } from "./TestAutomation";
 
+const wait = async (): Promise<void> => {
+  const connection: ShoppingApi.IConnection = {
+    host: `http://localhost:${ShoppingConfiguration.API_PORT()}`,
+  };
+  while (true)
+    try {
+      await ShoppingApi.functional.monitors.health.get(connection);
+      return;
+    } catch {}
+};
+
+ShoppingGlobal.testing = true;
 TestAutomation.execute({
   open: async () => {
     const backend: cp.ChildProcess = cp.fork("server.js", {
       cwd: `${ShoppingConfiguration.ROOT}/dist`,
     });
-    await sleep_for(2_500);
+    await wait();
     return backend;
   },
   close: async (backend) => {

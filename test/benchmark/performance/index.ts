@@ -8,7 +8,7 @@ import { ShoppingBackend } from "../../../src/ShoppingBackend";
 import { ShoppingConfiguration } from "../../../src/ShoppingConfiguration";
 import { ShoppingGlobal } from "../../../src/ShoppingGlobal";
 import { ShoppingSetupWizard } from "../../../src/setup/ShoppingSetupWizard";
-import { ArgumentParser } from "../../../src/utils/ArgumentParser";
+import { ArgumentParser } from "../../internal/ArgumentParser";
 import { StopWatch } from "../../internal/StopWatch";
 
 interface IOptions {
