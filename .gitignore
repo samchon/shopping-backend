@@ -7,6 +7,8 @@ docs/benchmarks/call
 prisma/docs/
 prisma/migrations/
 
+assets/examples/
+
 .env
 .npmrc
 package-lock.json
