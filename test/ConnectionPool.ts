@@ -5,11 +5,14 @@ import ShoppingApi from "@samchon/shopping-api";
 export class ConnectionPool {
   public readonly channel: string;
 
-  public constructor(private readonly connection: ShoppingApi.IConnection) {
+  public constructor(
+    private readonly connection: ShoppingApi.IConnection,
+    channel?: string,
+  ) {
     this.customer = clone(connection);
     this.seller = clone(connection);
     this.admin = clone(connection);
-    this.channel = RandomGenerator.alphabets(16);
+    this.channel = channel ?? RandomGenerator.alphabets(16);
   }
 
   public readonly customer: ShoppingApi.IConnection;
