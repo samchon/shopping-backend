@@ -92,7 +92,7 @@
     "@prisma/client": "^6.3.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@samchon/openapi": "^2.4.2",
+    "@samchon/openapi": "^2.4.3",
     "@wrtnio/decorators": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
@@ -108,7 +108,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
-    "typia": "^7.6.3",
+    "typia": "^7.6.4",
     "uuid": "^10.0.0"
   },
   "private": true,
