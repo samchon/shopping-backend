@@ -43,7 +43,7 @@
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
     "@nestia/benchmark": "^0.3.0",
-    "@nestia/e2e": "^0.8.0",
+    "@nestia/e2e": "^0.8.2",
     "@nestjs/cli": "^11.0.4",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
@@ -92,7 +92,7 @@
     "@prisma/client": "^6.4.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@samchon/openapi": "^2.4.3",
+    "@samchon/openapi": "^2.5.1",
     "@wrtnio/decorators": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
