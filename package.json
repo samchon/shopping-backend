@@ -92,7 +92,7 @@
     "@prisma/client": "^6.4.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@samchon/openapi": "^2.5.1",
+    "@samchon/openapi": "^2.5.3",
     "@wrtnio/decorators": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
