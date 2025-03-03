@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-api",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "API for shopping",
   "main": "lib/index.js",
   "module": "lib/index.mjs",
@@ -18,7 +18,7 @@
   "dependencies": {
     "@nestia/fetcher": "^5.0.0",
     "typia": "^8.0.0",
-    "uuid": "^10.0.0"
+    "uuid": "^11.1.0"
   },
   "include": [
     "lib",

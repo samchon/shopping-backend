@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-backend",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "Backend for shopping",
   "scripts": {
     "test": "rimraf prisma/migrations && node bin/test",
@@ -109,7 +109,7 @@
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
     "typia": "^8.0.0",
-    "uuid": "^10.0.0"
+    "uuid": "^11.1.0"
   },
   "private": true,
   "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"

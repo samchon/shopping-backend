@@ -126,6 +126,7 @@ const getOptions = () =>
               "Number of simultaneous requests to make",
             )),
         );
+        if (Number.isNaN(options.simultaneous)) options.simultaneous = 1;
         options.trace = options.trace !== ("false" as any);
         return options as TestAutomation.IOptions;
       });
