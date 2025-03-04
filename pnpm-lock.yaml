@@ -97,8 +97,8 @@ importers:
         version: 11.1.0
     devDependencies:
       '@nestia/benchmark':
-        specifier: ^0.3.0
-        version: 0.3.0(typescript@5.8.2)
+        specifier: ^0.4.3
+        version: 0.4.3(typescript@5.8.2)
       '@nestia/e2e':
         specifier: ^0.8.2
         version: 0.8.2
@@ -867,8 +867,8 @@ packages:
       openai: '>=4.0.0'
       typia: '>=7.6.3'
 
-  '@nestia/benchmark@0.3.0':
-    resolution: {integrity: sha512-WVISO1UcHkSNAlYQvJD0Qgn6m5H/ut+ZRsVS4pcIGT+Ly39i8c34hRsc0y6pDYizajlcGSa0udc/NGG3gU2e5w==}
+  '@nestia/benchmark@0.4.3':
+    resolution: {integrity: sha512-Ju+WCwIzEXOnOkAkwdRBHVfKqItXpQLoSLlKoB6jJdiZybV3V9ImTAnh8N7CihYXXLOG6i7HRbeXEnh9tSF8tA==}
 
   '@nestia/core@5.0.0':
     resolution: {integrity: sha512-LxQBCoCQpjWQdY+KFl0wSva8a1c/eui0mQcuPsawgjsPumNIzkaLMWHgStzUY3GoXLIu6ICWmBf5wR7S/Eq+rA==}
@@ -885,11 +885,6 @@ packages:
 
   '@nestia/editor@5.0.0':
     resolution: {integrity: sha512-SMg+9eacgvSDqL46bhWDT7I30F1UJjORSUkQewnl2svx087mXlIHEbJeOq90ivh1dHuZs/9oLHz9OZp8GJQWnw==}
-
-  '@nestia/fetcher@4.6.2':
-    resolution: {integrity: sha512-ofaSgZpgrBFoFGeWnJXhoQPjKZac/z2BTlXtWIwjhWpfUUhrpHdz/vSb9VQzNww+suwU40MZUc5INy1d4ENLbA==}
-    peerDependencies:
-      typescript: '>= 4.8.0'
 
   '@nestia/fetcher@5.0.0':
     resolution: {integrity: sha512-tKmypxmmHPagOZUsGcUaU08gZxXEVsoaHFfcx/SaFIEuIpsejKq1VXk9/hNriUDR7HWmYkcbNrMlqo+SM9cwfA==}
@@ -1154,9 +1149,6 @@ packages:
     resolution: {integrity: sha512-ul8rnCsUumNln5YWwz0ted2ZHFhzhRRnkpBZ+YRuHoRAlUji9KChpOUOndY7uykrPEPXVbHLlsdo6v5yXo/TXw==}
     cpu: [x64]
     os: [win32]
-
-  '@samchon/openapi@2.5.3':
-    resolution: {integrity: sha512-gLcGqPGsr/V43yNrhC+5E8ZR8y1JdLZDgkC6ULg+B03uvmdS2C7qIXpIWUe19MUPvXt5SCpjhvOykomEspinaw==}
 
   '@samchon/openapi@3.0.0':
     resolution: {integrity: sha512-eVQlyKRYv1/C2Mikc1xZr7c0jMjg1vjPkeY/gheKB4c5WOOWyTNZ1uvnXR+ETpPHwaQ54I9NrQZhoNk6BEGuuw==}
@@ -4653,9 +4645,9 @@ snapshots:
       typia: 8.0.0(@samchon/openapi@3.0.0)(typescript@5.8.2)
       uuid: 11.1.0
 
-  '@nestia/benchmark@0.3.0(typescript@5.8.2)':
+  '@nestia/benchmark@0.4.3(typescript@5.8.2)':
     dependencies:
-      '@nestia/fetcher': 4.6.2(typescript@5.8.2)
+      '@nestia/fetcher': 5.0.0(typescript@5.8.2)
       tgrid: 1.1.0
       tstl: 3.0.0
     transitivePeerDependencies:
@@ -4704,12 +4696,6 @@ snapshots:
       - react
       - react-dom
       - typescript
-
-  '@nestia/fetcher@4.6.2(typescript@5.8.2)':
-    dependencies:
-      '@samchon/openapi': 2.5.3
-      typescript: 5.8.2
-      typia: 7.6.4(@samchon/openapi@2.5.3)(typescript@5.8.2)
 
   '@nestia/fetcher@5.0.0(typescript@5.8.2)':
     dependencies:
@@ -4952,8 +4938,6 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.31.0':
     optional: true
-
-  '@samchon/openapi@2.5.3': {}
 
   '@samchon/openapi@3.0.0': {}
 
@@ -7727,16 +7711,6 @@ snapshots:
   typescript@5.7.3: {}
 
   typescript@5.8.2: {}
-
-  typia@7.6.4(@samchon/openapi@2.5.3)(typescript@5.8.2):
-    dependencies:
-      '@samchon/openapi': 2.5.3
-      commander: 10.0.1
-      comment-json: 4.2.5
-      inquirer: 8.2.6
-      package-manager-detector: 0.2.10
-      randexp: 0.5.3
-      typescript: 5.8.2
 
   typia@7.6.4(@samchon/openapi@3.0.0)(typescript@5.8.2):
     dependencies:
