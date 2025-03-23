@@ -35,18 +35,23 @@ export interface IShoppingCouponRestriction {
   /**
    * Limited quantity issued.
    *
-   * If there is a limit to the quantity issued, it becomes impossible to issue tickets exceeding this value.
+   * If there is a limit to the quantity issued, it becomes impossible
+   * to issue tickets exceeding this value.
    *
-   * In other words, the concept of N coupons being issued on a first-come, first-served basis is created.
+   * In other words, the concept of N coupons being issued on
+   * a first-come, first-served basis is created.
    */
   volume: null | (number & tags.Type<"uint32">);
 
   /**
    * Limited quantity issued per person.
    *
-   * As a limit to the total amount of issuance per person, it is common to assign 1 to limit duplicate issuance to the same citizen, or to use the NULL value to set no limit.
+   * As a limit to the total amount of issuance per person, it is
+   * common to assign 1 to limit duplicate issuance to the same citizen,
+   * or to use the NULL value to set no limit.
    *
-   * Of course, by assigning a value of N, the total amount issued to the same citizen can be limited.
+   * Of course, by assigning a value of N, the total amount issued
+   * to the same citizen can be limited.
    */
   volume_per_citizen: null | (number & tags.Type<"uint32">);
 
@@ -55,16 +60,19 @@ export interface IShoppingCouponRestriction {
    *
    * The concept of expiring N days after a discount coupon ticket is issued.
    *
-   * Therefore, customers must use the ticket within N days, if possible, from the time it is issued.
+   * Therefore, customers must use the ticket within N days, if possible,
+   * from the time it is issued.
    */
   expired_in: null | (number & tags.Type<"uint32">);
 
   /**
    * Expiration date.
    *
-   * A concept that expires after YYYY-MM-DD after a discount coupon ticket is issued.
+   * A concept that expires after YYYY-MM-DD after a discount coupon ticket
+   * is issued.
    *
-   * Double restrictions are possible with expired_in, of which the one with the shorter expiration date is used.
+   * Double restrictions are possible with expired_in, of which the one
+   * with the shorter expiration date is used.
    */
   expired_at: null | (string & tags.Format<"date-time">);
 }
