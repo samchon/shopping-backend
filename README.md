@@ -19,7 +19,7 @@ Also, `@samchon/shopping-backend` guides how to utilize those 3rd party librarie
 
 Additionally, `@samchon/shopping-backend` has been designed to demonstrate [`@nestia/chat`](https://nestia.io/docs/swagger/chat), an A.I. chatbot builder from Swagger document. With [`@nestia/chat`](https://nestia.io/docs/swagger/chat), every backend servers can be conversed to the super A.I. chatbot, and `@samchon/shopping-backend` is a demonstration project to prove the concept. If you want to know more about the [`@nestia/chat`](https://nestia.io/docs/swagger/chat), visit below guiide documents.
 
-  - [**Nestia** > **Guide Documents** > **Swagger Documents** > **A.I. Chatbot Development**](https://nestia.io/docs/swawgger/chat)
+  - [**Nestia** > **Guide Documents** > **Swagger Documents** > **A.I. Chatbot Development**](https://nestia.io/docs/swagger/chat)
 
 https://github.com/user-attachments/assets/01604b53-aca4-41cb-91aa-3faf63549ea6
 
