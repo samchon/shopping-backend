@@ -21,7 +21,7 @@ Additionally, `@samchon/shopping-backend` has been designed to demonstrate [`@ne
 
   - [**Nestia** > **Guide Documents** > **Swagger Documents** > **A.I. Chatbot Development**](https://nestia.io/docs/swagger/chat)
 
-https://github.com/user-attachments/assets/01604b53-aca4-41cb-91aa-3faf63549ea6
+https://github.com/user-attachments/assets/e1faf30b-c703-4451-b68b-2e7a8170bce5
 
 
 
