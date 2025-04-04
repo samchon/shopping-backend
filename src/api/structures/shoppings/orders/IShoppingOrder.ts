@@ -138,7 +138,7 @@ export namespace IShoppingOrder {
     /**
      * List of goods in the order.
      */
-    goods: IShoppingOrderGood.ICreate[];
+    goods: IShoppingOrderGood.ICreate[] & tags.MinItems<1>;
 
     /**
      * Representative name of the order.

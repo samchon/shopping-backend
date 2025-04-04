@@ -5896,7 +5896,7 @@
               }
             ],
             "title": "Limited quantity issued",
-            "description": "Limited quantity issued.\n\nIf there is a limit to the quantity issued, it becomes impossible to issue tickets exceeding this value.\n\nIn other words, the concept of N coupons being issued on a first-come, first-served basis is created."
+            "description": "Limited quantity issued.\n\nIf there is a limit to the quantity issued, it becomes impossible\nto issue tickets exceeding this value.\n\nIn other words, the concept of N coupons being issued on\na first-come, first-served basis is created."
           },
           "volume_per_citizen": {
             "oneOf": [
@@ -5908,7 +5908,7 @@
               }
             ],
             "title": "Limited quantity issued per person",
-            "description": "Limited quantity issued per person.\n\nAs a limit to the total amount of issuance per person, it is common to assign 1 to limit duplicate issuance to the same citizen, or to use the NULL value to set no limit.\n\nOf course, by assigning a value of N, the total amount issued to the same citizen can be limited."
+            "description": "Limited quantity issued per person.\n\nAs a limit to the total amount of issuance per person, it is\ncommon to assign 1 to limit duplicate issuance to the same citizen,\nor to use the NULL value to set no limit.\n\nOf course, by assigning a value of N, the total amount issued\nto the same citizen can be limited."
           },
           "expired_in": {
             "oneOf": [
@@ -5920,7 +5920,7 @@
               }
             ],
             "title": "Expiration day(s) value",
-            "description": "Expiration day(s) value.\n\nThe concept of expiring N days after a discount coupon ticket is issued.\n\nTherefore, customers must use the ticket within N days, if possible, from the time it is issued."
+            "description": "Expiration day(s) value.\n\nThe concept of expiring N days after a discount coupon ticket is issued.\n\nTherefore, customers must use the ticket within N days, if possible,\nfrom the time it is issued."
           },
           "expired_at": {
             "oneOf": [
@@ -5933,7 +5933,7 @@
               }
             ],
             "title": "Expiration date",
-            "description": "Expiration date.\n\nA concept that expires after YYYY-MM-DD after a discount coupon ticket is issued.\n\nDouble restrictions are possible with expired_in, of which the one with the shorter expiration date is used."
+            "description": "Expiration date.\n\nA concept that expires after YYYY-MM-DD after a discount coupon ticket\nis issued.\n\nDouble restrictions are possible with expired_in, of which the one\nwith the shorter expiration date is used."
           }
         },
         "required": [
