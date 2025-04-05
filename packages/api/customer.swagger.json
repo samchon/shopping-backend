@@ -7,7 +7,7 @@
     }
   ],
   "info": {
-    "version": "0.16.0",
+    "version": "0.17.0",
     "title": "@samchon/shopping-backend",
     "description": "Backend for shopping",
     "license": {
@@ -4771,21 +4771,25 @@
         "properties": {
           "current": {
             "type": "integer",
+            "minimum": 0,
             "title": "Current page number",
             "description": "Current page number."
           },
           "limit": {
             "type": "integer",
+            "minimum": 0,
             "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           },
           "records": {
             "type": "integer",
+            "minimum": 0,
             "title": "Total records in the database",
             "description": "Total records in the database."
           },
           "pages": {
             "type": "integer",
+            "minimum": 0,
             "title": "Total pages",
             "description": "Total pages.\n\nEqual to {@link records} / {@link limit} with ceiling."
           }
@@ -4939,7 +4943,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Remaining volume for everyone",
@@ -4951,7 +4956,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Remaining volume per citizen",
@@ -5675,8 +5681,7 @@
               },
               {
                 "type": "number",
-                "exclusiveMinimum": true,
-                "minimum": 0
+                "exclusiveMinimum": 0
               }
             ],
             "title": "Maximum amount available for discount",
@@ -5732,8 +5737,7 @@
               },
               {
                 "type": "number",
-                "exclusiveMinimum": true,
-                "minimum": 0
+                "exclusiveMinimum": 0
               }
             ],
             "title": "Maximum amount available for discount",
@@ -5774,7 +5778,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limited quantity issued",
@@ -5786,7 +5791,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limited quantity issued per person",
@@ -5798,7 +5804,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Expiration day(s) value",
@@ -5897,7 +5904,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -5909,7 +5917,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -6040,7 +6049,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -6052,7 +6062,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -6230,7 +6241,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -6242,7 +6254,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -6576,7 +6589,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -6588,7 +6602,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -6878,7 +6893,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -6890,7 +6906,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -7452,11 +7469,13 @@
         "properties": {
           "income": {
             "type": "integer",
+            "minimum": 0,
             "title": "Total income quantity",
             "description": "Total income quantity."
           },
           "outcome": {
             "type": "integer",
+            "minimum": 0,
             "title": "Total outcome quantity",
             "description": "Total outcome quantity."
           }
@@ -7756,7 +7775,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -7768,7 +7788,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -8017,7 +8038,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ]
           },
@@ -8027,7 +8049,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ]
           }
@@ -8413,6 +8436,7 @@
           },
           "volume": {
             "type": "integer",
+            "minimum": 0,
             "title": "Volume of the good",
             "description": "Volume of the good.\n\nThe value multiplied to {@link IShoppingCartCommodityStock.quantity}.\nIt's purpose is exactly same with {@link IShoppingCartCommodity.volume},\nbut rewritten because the {@link IShoppingCartCommodity} records are reusable\nuntil payment."
           },
@@ -9104,6 +9128,7 @@
           },
           "volume": {
             "type": "integer",
+            "minimum": 0,
             "title": "Volume of the good",
             "description": "Volume of the good.\n\nThe value multiplied to {@link IShoppingCartCommodityStock.quantity}.\nIt's purpose is exactly same with {@link IShoppingCartCommodity.volume},\nbut rewritten because the {@link IShoppingCartCommodity} records are reusable\nuntil payment."
           }
@@ -9314,7 +9339,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -9326,7 +9352,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -10020,7 +10047,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -10032,7 +10060,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -10333,7 +10362,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -10345,7 +10375,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -10938,7 +10969,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -10950,7 +10982,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -11641,7 +11674,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -11653,7 +11687,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -11997,7 +12032,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -12009,7 +12045,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -12282,7 +12319,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -12294,7 +12332,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -12470,7 +12509,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Page number",
@@ -12482,7 +12522,8 @@
                 "type": "null"
               },
               {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               }
             ],
             "title": "Limitation of records per a page",
@@ -12547,5 +12588,5 @@
       "name": "Section"
     }
   ],
-  "x-samchon-emended": true
+  "x-samchon-emended-v4": true
 }

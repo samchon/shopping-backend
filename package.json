@@ -1,6 +1,6 @@
 {
   "name": "@samchon/shopping-backend",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Backend for shopping",
   "scripts": {
     "test": "rimraf prisma/migrations && node bin/test",
@@ -42,8 +42,8 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
-    "@nestia/benchmark": "^6.0.0",
-    "@nestia/e2e": "^6.0.0",
+    "@nestia/benchmark": "^6.0.1",
+    "@nestia/e2e": "^6.0.1",
     "@nestjs/cli": "^11.0.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
@@ -82,10 +82,10 @@
   },
   "dependencies": {
     "@nestia/agent": "^0.3.12",
-    "@nestia/core": "^6.0.0",
-    "@nestia/editor": "^6.0.0",
-    "@nestia/fetcher": "^6.0.0",
-    "@nestia/sdk": "^6.0.0",
+    "@nestia/core": "^6.0.1",
+    "@nestia/editor": "^6.0.1",
+    "@nestia/fetcher": "^6.0.1",
+    "@nestia/sdk": "^6.0.1",
     "@nestjs/common": "^11.0.13",
     "@nestjs/core": "^11.0.13",
     "@nestjs/platform-fastify": "^11.0.13",
@@ -108,7 +108,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
-    "typia": "^9.0.0",
+    "typia": "^9.0.1",
     "uuid": "^11.1.0"
   },
   "private": true,
