@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@nestia/agent':
-        specifier: ^0.3.12
-        version: 0.3.12(@samchon/openapi@4.0.0)(openai@4.91.1)(typia@9.0.1(@samchon/openapi@4.0.0)(typescript@5.8.3))
       '@nestia/core':
         specifier: ^6.0.1
         version: 6.0.1(@nestia/fetcher@6.0.1(@samchon/openapi@4.0.0)(typia@9.0.1(@samchon/openapi@4.0.0)(typescript@5.8.3)))(@nestjs/common@11.0.13(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.0.13(@nestjs/common@11.0.13(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)
@@ -832,13 +829,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  '@nestia/agent@0.3.12':
-    resolution: {integrity: sha512-EctJv1mOLoyoyoJqzI5uqXsmWjsAFZU5dRbmgz4B2pEyQ2S405Ca1bkP6QrGlVsDHmwG0/LVohFuB4IVf/c3bw==}
-    peerDependencies:
-      '@samchon/openapi': '>=2.4.2'
-      openai: '>=4.0.0'
-      typia: '>=7.6.3'
 
   '@nestia/benchmark@6.0.1':
     resolution: {integrity: sha512-vjAXhWfH3pyXAq4Tz7//pTCt02n8Ah75yjPUE8w8l0YhzYcMCXB4ST4VG9hX3X3PPL6m3JaNh74Ln+evbZLoqw==}
@@ -4543,13 +4533,6 @@ snapshots:
       react-is: 19.1.0
     optionalDependencies:
       '@types/react': 18.3.20
-
-  '@nestia/agent@0.3.12(@samchon/openapi@4.0.0)(openai@4.91.1)(typia@9.0.1(@samchon/openapi@4.0.0)(typescript@5.8.3))':
-    dependencies:
-      '@samchon/openapi': 4.0.0
-      openai: 4.91.1
-      typia: 9.0.1(@samchon/openapi@4.0.0)(typescript@5.8.3)
-      uuid: 11.1.0
 
   '@nestia/benchmark@6.0.1(@samchon/openapi@4.0.0)(typia@9.0.1(@samchon/openapi@4.0.0)(typescript@5.8.3))':
     dependencies:
