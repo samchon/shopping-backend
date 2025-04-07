@@ -7797,7 +7797,7 @@
           "body": {
             "type": "string",
             "title": "The main body content",
-            "description": "The main body content."
+            "description": "The main body content.\n\nFormat follows the {@link format}, and default is `md` (markdown)."
           },
           "files": {
             "type": "array",

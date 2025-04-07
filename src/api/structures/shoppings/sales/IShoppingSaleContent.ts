@@ -30,6 +30,8 @@ export interface IShoppingSaleContent {
 
   /**
    * The main body content.
+   *
+   * Format follows the {@link format}, and default is `md` (markdown).
    */
   body: string;
 
