@@ -1,0 +1,57 @@
+name: "Dependabot PR Build & Automerge"
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize]
+    paths:
+      - "package.json"
+
+jobs:
+  build-and-merge:
+    if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    services:
+      postgres:
+        image: postgis/postgis:16-3.4
+        env:
+          POSTGRES_PASSWORD: root
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Compile Backend-Server
+        run: pnpm run build
+
+      - name: Create DB Schema
+        run: pnpm run schema postgres root
+
+      - name: Test Backend-Server
+        run: pnpm run test --reset true --simultaneous 16
+
+      - name: Merge Dependabot PRs
+        run: |
+          gh pr merge "$PR_URL" --auto --squash
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Comment on PR
+        run: |
+          gh pr comment "$PR_URL" --body "Dependabot PR merged"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
