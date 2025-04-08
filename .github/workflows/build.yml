@@ -29,13 +29,13 @@ jobs:
         run: pnpm install
 
       - name: Compile Backend-Server
-        run: npm run build
+        run: pnpm run build
 
       - name: Validate through EsLint
-        run: npm run eslint
+        run: pnpm run eslint
 
       - name: Create DB Schema
-        run: npm run schema postgres root
+        run: pnpm run schema postgres root
 
       - name: Test Backend-Server
-        run: npm run test -- --reset true --simultaneous 16
+        run: pnpm run test --reset true --simultaneous 16
