@@ -1,5 +1,4 @@
-name: "Dependabot PR Build & Automerge"
-
+name: "Dependabot Automerge"
 on:
   pull_request:
     branches:
@@ -8,7 +7,6 @@ on:
     paths:
       - "package.json"
       - "packages/api/package.json"
-
 jobs:
   build-and-merge:
     if: github.actor == 'dependabot[bot]' || github.actor == 'dependabot-preview[bot]'
