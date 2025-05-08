@@ -42,8 +42,8 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
-    "@nestia/benchmark": "^6.0.1",
-    "@nestia/e2e": "^6.0.1",
+    "@nestia/benchmark": "^6.0.3",
+    "@nestia/e2e": "^6.0.3",
     "@nestjs/cli": "^11.0.7",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
@@ -81,10 +81,10 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "^6.0.1",
-    "@nestia/editor": "^6.0.1",
-    "@nestia/fetcher": "^6.0.1",
-    "@nestia/sdk": "^6.0.1",
+    "@nestia/core": "^6.0.3",
+    "@nestia/editor": "^6.0.3",
+    "@nestia/fetcher": "^6.0.3",
+    "@nestia/sdk": "^6.0.3",
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
     "@nestjs/platform-fastify": "^11.1.0",
