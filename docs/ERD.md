@@ -19,7 +19,7 @@ erDiagram
   String id PK
   String name
   String extension "nullable"
-  String url
+  String(1024) url
   DateTime created_at
 }
 "bbs_articles" {
@@ -246,6 +246,7 @@ erDiagram
   String id PK
   String shopping_channel_id FK
   String parent_id FK "nullable"
+  String code
   String name
   DateTime created_at
   DateTime updated_at
@@ -274,15 +275,9 @@ erDiagram
   String shopping_sale_id FK
   DateTime created_at
 }
-"shopping_sale_snapshot_channels" {
+"shopping_sale_snapshot_categories" {
   String id PK
   String shopping_sale_snapshot_id FK
-  String shopping_channel_id FK
-  Int sequence
-}
-"shopping_sale_snapshot_channel_categories" {
-  String id PK
-  String shopping_sale_snapshot_channel_id FK
   String shopping_channel_category_id FK
   Int sequence
 }
@@ -290,10 +285,8 @@ erDiagram
 "shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
 "shopping_sales" }o--|| "shopping_sections" : section
 "shopping_sale_snapshots" }o--|| "shopping_sales" : sale
-"shopping_sale_snapshot_channels" }o--|| "shopping_sale_snapshots" : snapshot
-"shopping_sale_snapshot_channels" }o--|| "shopping_channels" : channel
-"shopping_sale_snapshot_channel_categories" }o--|| "shopping_sale_snapshot_channels" : to_channel
-"shopping_sale_snapshot_channel_categories" }o--|| "shopping_channel_categories" : category
+"shopping_sale_snapshot_categories" }o--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_categories" }o--|| "shopping_channel_categories" : category
 ```
 
 ### `shopping_channels`
@@ -351,6 +344,7 @@ themselves, so there is no burden to edit the category at any time.
     > Parent category's [shopping_channel_categories.id](#shopping_channel_categories).
     > 
     > Only when the category is a subcategory of another one.
+  - `code`: Identifier code.
   - `name`: Name of category.
   - `created_at`: Creation time of record.
   - `updated_at`: Updadte time of record.
@@ -389,8 +383,8 @@ erDiagram
   String shopping_member_id FK "nullable"
   String shopping_external_user_id FK "nullable"
   String shopping_citizen_id FK "nullable"
-  String href
-  String referrer "nullable"
+  String(1024) href
+  String(1024) referrer "nullable"
   String ip
   DateTime created_at
 }
@@ -432,13 +426,13 @@ erDiagram
 }
 "shopping_sellers" {
   String id PK
-  String shopping_member_id FK
+  String shopping_member_id FK,UK
   DateTime created_at
   DateTime deleted_at "nullable"
 }
 "shopping_administrators" {
   String id PK
-  String shopping_member_id FK
+  String shopping_member_id FK,UK
   DateTime created_at
   DateTime deleted_at "nullable"
 }
@@ -774,15 +768,9 @@ erDiagram
   String shopping_sale_snapshot_unit_option_candidate_id FK
   Int sequence
 }
-"shopping_sale_snapshot_channels" {
+"shopping_sale_snapshot_categories" {
   String id PK
   String shopping_sale_snapshot_id FK
-  String shopping_channel_id FK
-  Int sequence
-}
-"shopping_sale_snapshot_channel_categories" {
-  String id PK
-  String shopping_sale_snapshot_channel_id FK
   String shopping_channel_category_id FK
   Int sequence
 }
@@ -798,6 +786,7 @@ erDiagram
   String id PK
   String shopping_channel_id FK
   String parent_id FK "nullable"
+  String code
   String name
   DateTime created_at
   DateTime updated_at
@@ -820,10 +809,8 @@ erDiagram
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_stocks" : stock
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_options" : option
 "shopping_sale_snapshot_unit_stock_choices" }o--|| "shopping_sale_snapshot_unit_option_candidates" : candidate
-"shopping_sale_snapshot_channels" }o--|| "shopping_sale_snapshots" : snapshot
-"shopping_sale_snapshot_channels" }o--|| "shopping_channels" : channel
-"shopping_sale_snapshot_channel_categories" }o--|| "shopping_sale_snapshot_channels" : to_channel
-"shopping_sale_snapshot_channel_categories" }o--|| "shopping_channel_categories" : category
+"shopping_sale_snapshot_categories" }o--|| "shopping_sale_snapshots" : snapshot
+"shopping_sale_snapshot_categories" }o--|| "shopping_channel_categories" : category
 "shopping_channel_categories" }o--|| "shopping_channels" : channel
 "shopping_channel_categories" }o--o| "shopping_channel_categories" : parent
 ```
@@ -1096,27 +1083,12 @@ can also be ignored.
   - `shopping_sale_snapshot_unit_option_candidate_id`: Belonged candidate's [shopping_sale_snapshot_unit_option_candidates.id](#shopping_sale_snapshot_unit_option_candidates)
   - `sequence`: Sequence order in belonged stock.
 
-### `shopping_sale_snapshot_channels`
-Target channel of sale snapshot to sell.
-
-`shopping_sale_snapshot_channels` is an entity that expresses through 
-which [channel](#shopping_channels) a listing 
-[snapshot](#shopping_sale_snapshots) is sold, and is designed to 
-resolve the M:N relationship between two tables.
-
-**Properties**
-  - `id`: Primary Key.
-  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots).
-  - `shopping_channel_id`: Belonged channel's [shopping_channels.id](#shopping_channels).
-  - `sequence`: Sequence order in belonged snapshot.
-
-### `shopping_sale_snapshot_channel_categories`
+### `shopping_sale_snapshot_categories`
 Category classification info of sale snapshot.
 
-`shopping_sale_snapshot_channel_categories` is an entity that expresses 
+`shopping_sale_snapshot_categories` is an entity that expresses 
 which [category](#shopping_channel_categories) the listing 
-[snapshot](#shopping_sale_snapshots) is classified into in each 
-[channel](#shopping_channels).
+[snapshot](#shopping_sale_snapshots).
 
 It is designed to resolve the M:N relationship between 
 [shopping_sale_snapshots](#shopping_sale_snapshots) and [shopping_channel_categories](#shopping_channel_categories), 
@@ -1125,9 +1097,9 @@ major category, all minor categories belonging to it can also be used.
 
 **Properties**
   - `id`: Primary Key.
-  - `shopping_sale_snapshot_channel_id`: Belonged assigned channel of sale snapshot's [shopping_sale_snapshot_channels.id](#shopping_sale_snapshot_channels)
-  - `shopping_channel_category_id`: Belonged channel category's [shopping_channel_categories.id](#shopping_channel_categories)
-  - `sequence`: Sequence order in belonged channel.
+  - `shopping_sale_snapshot_id`: Belonged snapshot's [shopping_sale_snapshots.id](#shopping_sale_snapshots)
+  - `shopping_channel_category_id`: Belonged category's [shopping_channel_categories.id](#shopping_channel_categories)
+  - `sequence`: Sequence order in belonged snapshot.
 
 ### `shopping_sale_snapshot_unit_stock_supplements`
 Supplementation of inventory quantity of stock.
@@ -1423,6 +1395,7 @@ erDiagram
   String id PK
   String shopping_customer_id FK
   String shopping_address_id FK "nullable"
+  String name
   Float cash
   Float deposit
   Float mileage
@@ -1440,7 +1413,7 @@ erDiagram
 }
 "shopping_order_publishes" {
   String id PK
-  String shopping_order_id FK
+  String shopping_order_id FK,UK
   String shopping_address_id FK
   String password "nullable"
   DateTime created_at
@@ -1553,6 +1526,7 @@ x | [shopping_carts](#shopping_carts) | [shopping_orders](#shopping_orders)
   - `id`: Primary Key.
   - `shopping_customer_id`: Belonged customer's [shopping_customers.id](#shopping_customers)
   - `shopping_address_id`: Target address' [shopping_addresses.id](#shopping_addresses)
+  - `name`: Representative name of the order.
   - `cash`: Amount of cash payment.
   - `deposit`: Amount of deposit payment instead of cash.
   - `mileage`: Amount of mileage payment instead of cash.
@@ -1784,24 +1758,19 @@ erDiagram
   Int sequence
 }
 "shopping_coupon_section_criterias" {
-  String id PK
+  String id PK,FK
   String shopping_section_id FK
 }
-"shopping_coupon_channel_criterias" {
-  String id PK
-  String shopping_channel_id FK
-  String shopping_channel_category_id FK "nullable"
-}
 "shopping_coupon_seller_criterias" {
-  String id PK
+  String id PK,FK
   String shopping_seller_id FK
 }
 "shopping_coupon_sale_criterias" {
-  String id PK
+  String id PK,FK
   String shopping_sale_id FK
 }
 "shopping_coupon_funnel_criterias" {
-  String id PK
+  String id PK,FK
   String kind
   String key "nullable"
   String value
@@ -1810,13 +1779,13 @@ erDiagram
   String id PK
   String shopping_customer_id FK
   String shopping_coupon_id FK
-  String shopping_coupon_disposable_id FK "nullable"
+  String shopping_coupon_disposable_id FK,UK "nullable"
   DateTime created_at
   DateTime expired_at "nullable"
 }
 "shopping_coupon_ticket_payments" {
   String id PK
-  String shopping_coupon_ticket_id FK
+  String shopping_coupon_ticket_id FK,UK
   String shopping_order_id FK
   Int sequence
   DateTime created_at
@@ -1831,7 +1800,6 @@ erDiagram
 }
 "shopping_coupon_criterias" }o--|| "shopping_coupons" : coupon
 "shopping_coupon_section_criterias" |o--|| "shopping_coupon_criterias" : base
-"shopping_coupon_channel_criterias" |o--|| "shopping_coupon_criterias" : base
 "shopping_coupon_seller_criterias" |o--|| "shopping_coupon_criterias" : base
 "shopping_coupon_sale_criterias" |o--|| "shopping_coupon_criterias" : base
 "shopping_coupon_funnel_criterias" |o--|| "shopping_coupon_criterias" : base
@@ -2038,26 +2006,6 @@ eligible sections.
   - `id`: Primary Key.
   - `shopping_section_id`: Target section's [shopping_coupon_criterias.id](#shopping_coupon_criterias)
 
-### `shopping_coupon_channel_criterias`
-Conditions for channels of discount coupons.
-
-`shopping_coupon_channel_criterias` is a subtype entity of 
-[shopping_coupon_criterias](#shopping_coupon_criterias) and is used when setting conditions on 
-a specific [channel](#shopping_channels) or 
-[category](#shopping_channel_categories) of that channel.
-
-If the [shopping_coupon_criterias.direction](#shopping_coupon_criterias) value is "include", 
-the coupon can only be used for that channel (or category). Conversely, 
-if it is "exclude", it is a coupon that cannot be used. And if there are 
-multiple `shopping_coupon_channel_criterias` records within one coupon, 
-conditions are applied on a bundle basis. Coupons may or may not be 
-applicable for target channels and categories.
-
-**Properties**
-  - `id`: Primary Key.
-  - `shopping_channel_id`: Target channel's [shopping_channels.id](#shopping_channels)
-  - `shopping_channel_category_id`: Target channel category's [shopping_channel_categories.id](#shopping_channel_categories)
-
 ### `shopping_coupon_seller_criterias`
 Conditions for sellers of discount coupons.
 
@@ -2228,7 +2176,7 @@ erDiagram
 }
 "shopping_deposit_charge_publishes" {
   String id PK
-  String shopping_deposit_charge_id FK
+  String shopping_deposit_charge_id FK,UK
   String password "nullable"
   DateTime created_at
   DateTime paid_at "nullable"
@@ -2267,8 +2215,8 @@ erDiagram
   String shopping_member_id FK "nullable"
   String shopping_external_user_id FK "nullable"
   String shopping_citizen_id FK "nullable"
-  String href
-  String referrer "nullable"
+  String(1024) href
+  String(1024) referrer "nullable"
   String ip
   DateTime created_at
 }
@@ -2474,7 +2422,7 @@ outcome. The minus value must be expressed by multiplying the
 ```mermaid
 erDiagram
 "shopping_sale_snapshot_inquiries" {
-  String id PK
+  String id PK,FK
   String shopping_sale_snapshot_id FK
   String shopping_customer_id FK
   String type
@@ -2482,24 +2430,24 @@ erDiagram
   DateTime read_by_seller_at "nullable"
 }
 "shopping_sale_snapshot_questions" {
-  String id PK
+  String id PK,FK
   Boolean secret
 }
 "shopping_sale_snapshot_reviews" {
-  String id PK
+  String id PK,FK
   String shopping_order_good_id FK
 }
 "shopping_sale_snapshot_review_snapshots" {
-  String id PK
+  String id PK,FK
   Float score
 }
 "shopping_sale_snapshot_inquiry_answers" {
-  String id PK
-  String shopping_sale_snapshot_inquiry_id FK
+  String id PK,FK
+  String shopping_sale_snapshot_inquiry_id FK,UK
   String shopping_seller_customer_id FK
 }
 "shopping_sale_snapshot_inquiry_comments" {
-  String id PK
+  String id PK,FK
   String shopping_customer_id FK
   String actor_type
 }
@@ -2716,8 +2664,8 @@ erDiagram
   String shopping_member_id FK "nullable"
   String shopping_external_user_id FK "nullable"
   String shopping_citizen_id FK "nullable"
-  String href
-  String referrer "nullable"
+  String(1024) href
+  String(1024) referrer "nullable"
   String ip
   DateTime created_at
 }
@@ -2750,7 +2698,7 @@ erDiagram
   DateTime created_at
 }
 "shopping_sale_snapshot_inquiries" {
-  String id PK
+  String id PK,FK
   String shopping_sale_snapshot_id FK
   String shopping_customer_id FK
   String type

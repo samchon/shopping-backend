@@ -6,12 +6,12 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["prismaSchemaFolder", "postgresqlExtensions", "views"]
+  previewFeatures = ["postgresqlExtensions", "views"]
   binaryTargets   = ["native"]
 }
 
 generator markdown {
   provider = "prisma-markdown"
   title    = "Shopping Mall"
-  output   = "../docs/ERD.md"
+  output   = "../../docs/ERD.md"
 }
