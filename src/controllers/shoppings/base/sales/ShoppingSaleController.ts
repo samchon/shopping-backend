@@ -1,6 +1,5 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -75,9 +74,6 @@ export function ShoppingSaleController<Actor extends IShoppingActorEntity>(
      *
      * @author Samchon
      */
-    @RouteIcon(
-      "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg",
-    )
     @core.TypedRoute.Patch()
     public async index(
       @props.AuthGuard() actor: Actor,
