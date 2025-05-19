@@ -166,8 +166,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0(prettier@3.5.3)
       prisma-markdown:
-        specifier: ^3.0.0
-        version: 3.0.0(@prisma/client@6.8.1(prisma@6.8.1(typescript@5.8.3))(typescript@5.8.3))(prisma@6.8.1(typescript@5.8.3))
+        specifier: ^3.0.1
+        version: 3.0.1(@prisma/client@6.8.1(prisma@6.8.1(typescript@5.8.3))(typescript@5.8.3))(prisma@6.8.1(typescript@5.8.3))
       rimraf:
         specifier: ^3.0.2
         version: 3.0.2
@@ -870,8 +870,11 @@ packages:
   '@prisma/debug@6.8.1':
     resolution: {integrity: sha512-3HrYLFje+ngEUBKH9x6LWBiqpX8pQEB791RWFS+anWoklM9b6MFdWGzK0bika3rGIs0KOb0ZTKVXo6OmWvjryg==}
 
-  '@prisma/dmmf@6.8.1':
-    resolution: {integrity: sha512-1hiYYp/JvCIUWHXOqnUV1Wvr3wAMi8EsbdXta+DVfyUKmL+vGPSkG8DqZdiq8pmgKpkzofFhlITTEzvBKo3ZFw==}
+  '@prisma/debug@6.8.2':
+    resolution: {integrity: sha512-4muBSSUwJJ9BYth5N8tqts8JtiLT8QI/RSAzEogwEfpbYGFo9mYsInsVo8dqXdPO2+Rm5OG5q0qWDDE3nyUbVg==}
+
+  '@prisma/dmmf@6.8.2':
+    resolution: {integrity: sha512-okGJF/7hQZam/2wt+Y0hPyNxyY5S+L0FzAgtL932Q3YxUWHusRllrN39bCV45oF3QWY992g7rTWYdL2Rynt1qg==}
 
   '@prisma/engines-version@6.8.0-43.2060c79ba17c6bb9f5823312b6f6b7f4a845738e':
     resolution: {integrity: sha512-Rkik9lMyHpFNGaLpPF3H5q5TQTkm/aE7DsGM5m92FZTvWQsvmi6Va8On3pWvqLHOt5aPUvFb/FeZTmphI4CPiQ==}
@@ -882,11 +885,11 @@ packages:
   '@prisma/fetch-engine@6.8.1':
     resolution: {integrity: sha512-BaTTSTW0dKNQ4NYsm4qDYuP6wbqaqi1/wSjub4/PF9JBQ0sWspKknrpY7qKLrA/vNQjSfw6Hfd10HWtmT9Hq7g==}
 
-  '@prisma/generator-helper@6.8.1':
-    resolution: {integrity: sha512-YBM3pZC0sIa6PJWWCWza62b3/tl6yUYZH64DSOyguDRmOQwBGCCba1aO2yLXWr5HcjhD7bahet00JNwlY6mHag==}
+  '@prisma/generator-helper@6.8.2':
+    resolution: {integrity: sha512-KBLW47sbwFBKKYMiICIAEWsG6TdpPapPT7e7hpmpF3xMgYAm6YIXu4JGwfQVDY9Vbcb+0vPdPdSEQtInYOOe5g==}
 
-  '@prisma/generator@6.8.1':
-    resolution: {integrity: sha512-Pv2HE7nsFCkGwGpt9NtZgOyT8sIx0pFFfkrjRz/ebeZ2mAnFrUfA2+B+KdnhcXcaJjIcvYpL/tNT/D0XAn1sug==}
+  '@prisma/generator@6.8.2':
+    resolution: {integrity: sha512-yExkvgqiKg1WHzjYttz40g5DsOtud8RhapM0Mum6pw+wrDoQyhSAxs5NHyFCV+9VPvRd2v+jAP2CTT07bsibjw==}
 
   '@prisma/get-platform@6.8.1':
     resolution: {integrity: sha512-wOBUB/wiY1m4MDq9VtIy1nVF5bRhd+e0LShR4bxb9oPdfotFubxB3ZkLTRbcSppDkFU2mVSPMPu6YLHXYl5wFg==}
@@ -2978,8 +2981,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  prisma-markdown@3.0.0:
-    resolution: {integrity: sha512-qU6wSFPK/uQKqCfOLglTmw/lEVxsHj2IwE3RGGaEp4I6jxR5pKUfl4LJu+Y8kFDbGNEaRTtjQswynt7Knl2vYQ==}
+  prisma-markdown@3.0.1:
+    resolution: {integrity: sha512-2ZgEfz1wFfORYWY0Hg/xiHnhT5tY20ql5TNU3l79U9A3is2X6RLjU7KlBcP4+rg5Bl/i9fHEQqkn3qY0m0Fh5w==}
     hasBin: true
     peerDependencies:
       '@prisma/client': '>= 6.0.0'
@@ -4657,7 +4660,9 @@ snapshots:
 
   '@prisma/debug@6.8.1': {}
 
-  '@prisma/dmmf@6.8.1': {}
+  '@prisma/debug@6.8.2': {}
+
+  '@prisma/dmmf@6.8.2': {}
 
   '@prisma/engines-version@6.8.0-43.2060c79ba17c6bb9f5823312b6f6b7f4a845738e': {}
 
@@ -4674,13 +4679,13 @@ snapshots:
       '@prisma/engines-version': 6.8.0-43.2060c79ba17c6bb9f5823312b6f6b7f4a845738e
       '@prisma/get-platform': 6.8.1
 
-  '@prisma/generator-helper@6.8.1':
+  '@prisma/generator-helper@6.8.2':
     dependencies:
-      '@prisma/debug': 6.8.1
-      '@prisma/dmmf': 6.8.1
-      '@prisma/generator': 6.8.1
+      '@prisma/debug': 6.8.2
+      '@prisma/dmmf': 6.8.2
+      '@prisma/generator': 6.8.2
 
-  '@prisma/generator@6.8.1': {}
+  '@prisma/generator@6.8.2': {}
 
   '@prisma/get-platform@6.8.1':
     dependencies:
@@ -6854,10 +6859,10 @@ snapshots:
 
   prettier@3.5.3: {}
 
-  prisma-markdown@3.0.0(@prisma/client@6.8.1(prisma@6.8.1(typescript@5.8.3))(typescript@5.8.3))(prisma@6.8.1(typescript@5.8.3)):
+  prisma-markdown@3.0.1(@prisma/client@6.8.1(prisma@6.8.1(typescript@5.8.3))(typescript@5.8.3))(prisma@6.8.1(typescript@5.8.3)):
     dependencies:
       '@prisma/client': 6.8.1(prisma@6.8.1(typescript@5.8.3))(typescript@5.8.3)
-      '@prisma/generator-helper': 6.8.1
+      '@prisma/generator-helper': 6.8.2
       prisma: 6.8.1(typescript@5.8.3)
 
   prisma@6.8.1(typescript@5.8.3):
