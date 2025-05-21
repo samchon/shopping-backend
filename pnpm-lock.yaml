@@ -9,17 +9,17 @@ importers:
   .:
     dependencies:
       '@nestia/core':
-        specifier: ^6.0.3
-        version: 6.0.3(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)
+        specifier: ^6.0.6
+        version: 6.0.6(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)
       '@nestia/editor':
-        specifier: ^6.0.3
-        version: 6.0.3(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@mui/icons-material@5.17.1(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(prop-types@15.8.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
+        specifier: ^6.0.6
+        version: 6.0.6(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@mui/icons-material@5.17.1(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(prop-types@15.8.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       '@nestia/fetcher':
-        specifier: ^6.0.3
-        version: 6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))
+        specifier: ^6.0.6
+        version: 6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))
       '@nestia/sdk':
-        specifier: ^6.0.3
-        version: 6.0.3(@nestia/core@6.0.3(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3))(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.17.30)(typescript@5.8.3))(typescript@5.8.3)
+        specifier: ^6.0.6
+        version: 6.0.6(@nestia/core@6.0.6(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3))(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.17.30)(typescript@5.8.3))(typescript@5.8.3)
       '@nestjs/common':
         specifier: ^11.1.1
         version: 11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -39,8 +39,8 @@ importers:
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.39.0)(tslib@2.8.1)(typescript@5.8.3)
       '@samchon/openapi':
-        specifier: ^4.3.1
-        version: 4.3.1
+        specifier: ^4.3.2
+        version: 4.3.2
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -84,18 +84,18 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       typia:
-        specifier: ^9.3.0
-        version: 9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)
+        specifier: ^9.3.1
+        version: 9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
       '@nestia/benchmark':
-        specifier: ^6.0.3
-        version: 6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))
+        specifier: ^6.0.6
+        version: 6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))
       '@nestia/e2e':
-        specifier: ^6.0.3
-        version: 6.0.3
+        specifier: ^6.0.6
+        version: 6.0.6
       '@nestjs/cli':
         specifier: ^11.0.7
         version: 11.0.7(@types/node@20.17.30)(webpack-cli@5.1.4(webpack@5.99.6))
@@ -731,40 +731,40 @@ packages:
       '@types/react':
         optional: true
 
-  '@nestia/benchmark@6.0.3':
-    resolution: {integrity: sha512-z3RyvAAQx93pVISM/VMT87KmRPVcT3IK5rd+wxgukIqY4mWEYB9qafgkRnsrKk5NhTJVxmZ8X6R5Db8tqhuO8Q==}
+  '@nestia/benchmark@6.0.6':
+    resolution: {integrity: sha512-E9Jh49c+VLcXn0m35F0ub2MKutYi+B1tj/bmn8LwhpKQ3Qbye/hKzWOz6iIZvCxa6MBsmFEHhtLt4IlPF3JvOg==}
 
-  '@nestia/core@6.0.3':
-    resolution: {integrity: sha512-hDDBNqOczoZA/o0h9v97jcqgzdy17+y6CiWqJJppWV/Z0Jih/s32wWgCi6SsPv4gHy3AaN+QKUh/oo66ukxlsw==}
+  '@nestia/core@6.0.6':
+    resolution: {integrity: sha512-CMBHIAOB4nW1rwsrpAfw36tVSyTBcLvKLllQwm+M0LORI99zVPcLCFprKDI+1XpgripBGNczRxLS7pjd2IcVQQ==}
     peerDependencies:
-      '@nestia/fetcher': '>=6.0.3'
+      '@nestia/fetcher': '>=6.0.6'
       '@nestjs/common': '>=7.0.1'
       '@nestjs/core': '>=7.0.1'
       reflect-metadata: '>=0.1.12'
       rxjs: '>=6.0.3'
 
-  '@nestia/e2e@6.0.3':
-    resolution: {integrity: sha512-uuvvvLK7fQwIgWRsyxBkSYj6BRX8QC/PJ0oyOsGg7IBCZwdt2hugnptronM27Ambkm8KghSnUzR78Kl/6YaLSg==}
+  '@nestia/e2e@6.0.6':
+    resolution: {integrity: sha512-dzMUW+cfDRd15EQ2ANUDww1sDq8peWtDjt6Sobpy9wwUnmL7ARi9ZEjW8fnA/tRAveBDR9/oJd0fI8MmYxh+bA==}
 
-  '@nestia/editor@6.0.3':
-    resolution: {integrity: sha512-/JRvDh7RXvEl95UTt5vwNIU/uOLqpz4qU5zKlrlHq96Lc2d3l0+r3JSrg6DTjkmPwwAB4FYPUKvrWKBd2yy4Bg==}
+  '@nestia/editor@6.0.6':
+    resolution: {integrity: sha512-cPRSe9pySg8Gy/lF7kKLQRTtGpXroj8KUSm5ebj5h5lpXY//5fGCv8i+jintMWxu+R76wsyoUEYy2KaW94BPdQ==}
 
-  '@nestia/fetcher@6.0.3':
-    resolution: {integrity: sha512-+IkGxMzMeE/eIr5yH4+jXtGMi5x0Sy+bLLZcZcHr6dfkM9QOKVFTjHFqhqHgo2+7C9i6u19R6TiitRbvjBAmbw==}
+  '@nestia/fetcher@6.0.6':
+    resolution: {integrity: sha512-DNzfMFTQdTbU24HNlp7ooZ3cPWrvQV8jKDasUbRnbXO0ak6Y9Hb9M5gYiAKzDFqTI6IfjSxYpY5Fj2UH0pka1Q==}
     peerDependencies:
-      '@samchon/openapi': '>=4.0.0 <5.0.0'
-      typia: '>=9.0.1 <10.0.0'
+      '@samchon/openapi': '>=4.3.2 <5.0.0'
+      typia: '>=9.3.1 <10.0.0'
 
-  '@nestia/migrate@6.0.3':
-    resolution: {integrity: sha512-e9Vrkc+TCr1e6Y770618e6KxbYlzIrKFRD53FOA0JQJYDFFwYfC7LSjoWD1OukCJiyNvEXsVPvARPG6TB1yXew==}
+  '@nestia/migrate@6.0.6':
+    resolution: {integrity: sha512-1RqePm7EGPqRyT6nPJnZayOuHW90GnPZb5XjMtje+K6uFKtietT4lYqk2JdCxr+5wfpDIdacOPc4fyr9XUB9yw==}
     hasBin: true
 
-  '@nestia/sdk@6.0.3':
-    resolution: {integrity: sha512-s/Vw//ibycZl7a0C0TmSeJJtpQJFKIzBHOGJKwT8S1upKFV+BkcsnYH0cW466kkt4c5wg2wvE6UvdXX5vqD8Vw==}
+  '@nestia/sdk@6.0.6':
+    resolution: {integrity: sha512-VcZU1UHsRnUFHGelRPIHGAH2xtiXR8FuE+zQ4Kf8fCplcwkuCRBkECdGWGgBASqMDTY15SnculhWvdzeIo0Ipg==}
     hasBin: true
     peerDependencies:
-      '@nestia/core': '>=6.0.3'
-      '@nestia/fetcher': '>=6.0.3'
+      '@nestia/core': '>=6.0.6'
+      '@nestia/fetcher': '>=6.0.6'
       '@nestjs/common': '>=7.0.1'
       '@nestjs/core': '>=7.0.1'
       reflect-metadata: '>=0.1.12'
@@ -1025,8 +1025,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@samchon/openapi@4.3.1':
-    resolution: {integrity: sha512-oNvCJWRbN+Z+i0H6X4lfDffsJg/gG3MJ0zBVqwOJq1Th24OcqgyWsvoXj4EY4AMYZedgBjyPYYXhs802Zb72Vw==}
+  '@samchon/openapi@4.3.2':
+    resolution: {integrity: sha512-9F/UPYiXHlzoCpHumFKir6o1UKby0kPYc5A8kGRUt+mcpJOEaSM0+PC2OstDpwPR+DENBaWK21myEDEGhD9TQQ==}
 
   '@scarf/scarf@1.4.0':
     resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
@@ -1084,6 +1084,9 @@ packages:
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
+  '@types/debug@4.1.12':
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
 
@@ -1110,6 +1113,9 @@ packages:
 
   '@types/jsonwebtoken@9.0.9':
     resolution: {integrity: sha512-uoe+GxEuHbvy12OUQct2X9JenKM3qAscquYymuQN4fMWG9DBQtykrQEFcAbVACF7qaLw9BePSodUL0kquqBJpQ==}
+
+  '@types/mdast@4.0.4':
+    resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
@@ -1157,6 +1163,9 @@ packages:
 
   '@types/through@0.0.33':
     resolution: {integrity: sha512-HsJ+z3QuETzP3cswwtzt2vEIiHBk/dCcHGhbmG5X3ecnwFD/lPrMpliGXxSCg03L9AhrdwA4Oz/qfspkDW+xGQ==}
+
+  '@types/unist@3.0.3':
+    resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
 
   '@types/uuid@10.0.0':
     resolution: {integrity: sha512-7gqG38EyHgyP1S+7+xomFtL+ZNHcKv6DwNaCZmJmo1vgMugyF3TCnXVg4t1uk89mLNwnLtnY3TpOpCOyp1/xHQ==}
@@ -1484,6 +1493,9 @@ packages:
   bcryptjs@2.4.3:
     resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
 
+  binary-searching@2.0.5:
+    resolution: {integrity: sha512-v4N2l3RxL+m4zDxyxz3Ne2aTmiPn8ZUpKFpdPtO+ItW1NcTCXA7JeHG5GMBSvoKSkQZ9ycS+EouDVxYB9ufKWA==}
+
   bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
 
@@ -1552,6 +1564,9 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
+
+  character-entities@2.0.2:
+    resolution: {integrity: sha512-shx7oQ0Awen/BRIdkjkvz54PnEEI/EjwXDSIZp86/KKdbafHh1Df/RYGBhn4hbe2+uKC9FnT5UCEdyPz3ai9hQ==}
 
   chardet@0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
@@ -1667,6 +1682,10 @@ packages:
     resolution: {integrity: sha512-bKw/r35jR3HGt5PEPm1ljsQQGyCrR8sFGNiN5L+ykDHdpO8Smxkrkla9Yi6NkQyUrb8V54PGhfMs6NrIwtxtdw==}
     engines: {node: '>= 6'}
 
+  comment-parser@1.4.1:
+    resolution: {integrity: sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==}
+    engines: {node: '>= 12.0.0'}
+
   component-emitter@1.3.1:
     resolution: {integrity: sha512-T0+barUSQRTUQASh8bx02dl+DhF54GtIDY13Y3m9oWTklKbb3Wv974meRpeZ3lp1JpLVECWWNHC4vaG2XHXouQ==}
 
@@ -1773,6 +1792,9 @@ packages:
       supports-color:
         optional: true
 
+  decode-named-character-reference@1.1.0:
+    resolution: {integrity: sha512-Wy+JTSbFThEOXQIR2L6mxJvEs+veIzpmqD7ynWxMXGpnk3smkHQOp6forLdHsKpAMW9iJpaBBIxz285t1n1C3w==}
+
   decode-uri-component@0.2.2:
     resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
     engines: {node: '>=0.10'}
@@ -1813,6 +1835,9 @@ packages:
 
   detect-ts-node@1.0.5:
     resolution: {integrity: sha512-lWACfJ+H6jpxT1uuIQi2KAIkczeHJcM4rmfbAR86gfmAlrJpCVZbnKB0fiqmH8TGw4dm9xrptfwNObEsDdvsFg==}
+
+  devlop@1.1.0:
+    resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
   diff@4.0.2:
     resolution: {integrity: sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==}
@@ -2649,6 +2674,12 @@ packages:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
 
+  mdast-util-from-markdown@2.0.2:
+    resolution: {integrity: sha512-uZhTV/8NBuw0WHkPTrCqDOl0zVe1BIng5ZtHoDk49ME1qqcjYmmLmOf0gELgcRMxN4w2iuIeVso5/6QymSrgmA==}
+
+  mdast-util-to-string@4.0.0:
+    resolution: {integrity: sha512-0H44vDimn51F0YwvxSJSm0eCDOJTRlmN0R1yBh4HLj9wiV1Dn0QoXGbvFAWj2hSItVTlCmBF1hqKlIyUBVFLPg==}
+
   media-typer@1.1.0:
     resolution: {integrity: sha512-aisnrDP4GNe06UcKFnV5bfMNPBUw4jsLGaWwWfnH3v02GnBuXX2MCVn5RbrWo0j3pczUilYblq7fQ7Nw2t5XKw==}
     engines: {node: '>= 0.8'}
@@ -2667,6 +2698,69 @@ packages:
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
+
+  micromark-core-commonmark@2.0.3:
+    resolution: {integrity: sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==}
+
+  micromark-factory-destination@2.0.1:
+    resolution: {integrity: sha512-Xe6rDdJlkmbFRExpTOmRj9N3MaWmbAgdpSrBQvCFqhezUn4AHqJHbaEnfbVYYiexVSs//tqOdY/DxhjdCiJnIA==}
+
+  micromark-factory-label@2.0.1:
+    resolution: {integrity: sha512-VFMekyQExqIW7xIChcXn4ok29YE3rnuyveW3wZQWWqF4Nv9Wk5rgJ99KzPvHjkmPXF93FXIbBp6YdW3t71/7Vg==}
+
+  micromark-factory-space@2.0.1:
+    resolution: {integrity: sha512-zRkxjtBxxLd2Sc0d+fbnEunsTj46SWXgXciZmHq0kDYGnck/ZSGj9/wULTV95uoeYiK5hRXP2mJ98Uo4cq/LQg==}
+
+  micromark-factory-title@2.0.1:
+    resolution: {integrity: sha512-5bZ+3CjhAd9eChYTHsjy6TGxpOFSKgKKJPJxr293jTbfry2KDoWkhBb6TcPVB4NmzaPhMs1Frm9AZH7OD4Cjzw==}
+
+  micromark-factory-whitespace@2.0.1:
+    resolution: {integrity: sha512-Ob0nuZ3PKt/n0hORHyvoD9uZhr+Za8sFoP+OnMcnWK5lngSzALgQYKMr9RJVOWLqQYuyn6ulqGWSXdwf6F80lQ==}
+
+  micromark-util-character@2.1.1:
+    resolution: {integrity: sha512-wv8tdUTJ3thSFFFJKtpYKOYiGP2+v96Hvk4Tu8KpCAsTMs6yi+nVmGh1syvSCsaxz45J6Jbw+9DD6g97+NV67Q==}
+
+  micromark-util-chunked@2.0.1:
+    resolution: {integrity: sha512-QUNFEOPELfmvv+4xiNg2sRYeS/P84pTW0TCgP5zc9FpXetHY0ab7SxKyAQCNCc1eK0459uoLI1y5oO5Vc1dbhA==}
+
+  micromark-util-classify-character@2.0.1:
+    resolution: {integrity: sha512-K0kHzM6afW/MbeWYWLjoHQv1sgg2Q9EccHEDzSkxiP/EaagNzCm7T/WMKZ3rjMbvIpvBiZgwR3dKMygtA4mG1Q==}
+
+  micromark-util-combine-extensions@2.0.1:
+    resolution: {integrity: sha512-OnAnH8Ujmy59JcyZw8JSbK9cGpdVY44NKgSM7E9Eh7DiLS2E9RNQf0dONaGDzEG9yjEl5hcqeIsj4hfRkLH/Bg==}
+
+  micromark-util-decode-numeric-character-reference@2.0.2:
+    resolution: {integrity: sha512-ccUbYk6CwVdkmCQMyr64dXz42EfHGkPQlBj5p7YVGzq8I7CtjXZJrubAYezf7Rp+bjPseiROqe7G6foFd+lEuw==}
+
+  micromark-util-decode-string@2.0.1:
+    resolution: {integrity: sha512-nDV/77Fj6eH1ynwscYTOsbK7rR//Uj0bZXBwJZRfaLEJ1iGBR6kIfNmlNqaqJf649EP0F3NWNdeJi03elllNUQ==}
+
+  micromark-util-encode@2.0.1:
+    resolution: {integrity: sha512-c3cVx2y4KqUnwopcO9b/SCdo2O67LwJJ/UyqGfbigahfegL9myoEFoDYZgkT7f36T0bLrM9hZTAaAyH+PCAXjw==}
+
+  micromark-util-html-tag-name@2.0.1:
+    resolution: {integrity: sha512-2cNEiYDhCWKI+Gs9T0Tiysk136SnR13hhO8yW6BGNyhOC4qYFnwF1nKfD3HFAIXA5c45RrIG1ub11GiXeYd1xA==}
+
+  micromark-util-normalize-identifier@2.0.1:
+    resolution: {integrity: sha512-sxPqmo70LyARJs0w2UclACPUUEqltCkJ6PhKdMIDuJ3gSf/Q+/GIe3WKl0Ijb/GyH9lOpUkRAO2wp0GVkLvS9Q==}
+
+  micromark-util-resolve-all@2.0.1:
+    resolution: {integrity: sha512-VdQyxFWFT2/FGJgwQnJYbe1jjQoNTS4RjglmSjTUlpUMa95Htx9NHeYW4rGDJzbjvCsl9eLjMQwGeElsqmzcHg==}
+
+  micromark-util-sanitize-uri@2.0.1:
+    resolution: {integrity: sha512-9N9IomZ/YuGGZZmQec1MbgxtlgougxTodVwDzzEouPKo3qFWvymFHWcnDi2vzV1ff6kas9ucW+o3yzJK9YB1AQ==}
+
+  micromark-util-subtokenize@2.1.0:
+    resolution: {integrity: sha512-XQLu552iSctvnEcgXw6+Sx75GflAPNED1qx7eBJ+wydBb2KCbRZe+NwvIEEMM83uml1+2WSXpBAcp9IUCgCYWA==}
+
+  micromark-util-symbol@2.0.1:
+    resolution: {integrity: sha512-vs5t8Apaud9N28kgCrRUdEed4UJ+wWNvicHLPxCa9ENlYuAY31M0ETy5y1vA33YoNPDFTghEbnh6efaE8h4x0Q==}
+
+  micromark-util-types@2.0.2:
+    resolution: {integrity: sha512-Yw0ECSpJoViF1qTU4DC6NwtC4aWGt1EkzaQB8KPPyCRR8z9TWeV0HbEFGTO+ZY1wB22zmxnJqhPyTpOVCpeHTA==}
+
+  micromark@4.0.2:
+    resolution: {integrity: sha512-zpe98Q6kvavpCr1NPVSCMebCKfD7CA2NqZ+rykeNhONIJBpc1tFKt9hucLGwha3jNTNI8lHpctWJWoimVF4PfA==}
 
   micromatch@3.1.10:
     resolution: {integrity: sha512-MWikgl9n9M3w+bpsY3He8L+w9eF9338xRl8IAO5viDizwSzziFEyUzo2xrrloB64ADbTf8uA8vRqqttDTOmccg==}
@@ -2961,6 +3055,12 @@ packages:
   prelude-ls@1.2.1:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
+
+  prettier-plugin-jsdoc@1.3.2:
+    resolution: {integrity: sha512-LNi9eq0TjyZn/PUNf/SYQxxUvGg5FLK4alEbi3i/S+2JbMyTu790c/puFueXzx09KP44oWCJ+TaHRyM/a0rKJQ==}
+    engines: {node: '>=14.13.1 || >=16.0.0'}
+    peerDependencies:
+      prettier: ^3.0.0
 
   prettier-plugin-prisma@5.0.0:
     resolution: {integrity: sha512-jTJV04D9+yF7ziOOMs7CJe4ijgAH7DEGjt0SAWAToGNRy1H6BEhvcKA2UQH6gC6KVW5zeeOSAvsoiDDTt9oKXg==}
@@ -3633,11 +3733,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typia@9.3.0:
-    resolution: {integrity: sha512-srQSYteGIrMiM36y/8MfqrCYA2RWyk4Bb7Xrlk3Ywfpc7AmmzcxwZkPuC4xOkI1IwRfjkhM7k4wviRb6WtW46g==}
+  typia@9.3.1:
+    resolution: {integrity: sha512-a3rqaWE3j5ynK3nmBPEMngLfVP7FH3OrgC4xO4A4QQdcgdVL/nxTxdEqYuEjRCdcOgZCIqOt3CNoQaorOITArg==}
     hasBin: true
     peerDependencies:
-      '@samchon/openapi': '>=4.3.0 <5.0.0'
+      '@samchon/openapi': '>=4.3.1 <5.0.0'
       typescript: '>=4.8.0 <5.9.0'
 
   uid@2.0.2:
@@ -3661,6 +3761,9 @@ packages:
   union-value@1.0.1:
     resolution: {integrity: sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg==}
     engines: {node: '>=0.10.0'}
+
+  unist-util-stringify-position@4.0.0:
+    resolution: {integrity: sha512-0ASV06AAoKCDkS2+xw5RXJywruurpbC4JZSm7nr7MOt1ojAzvyyaO+UxZf18j8FCF6kmzCZKcAgN/yu2gm2XgQ==}
 
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
@@ -4463,9 +4566,9 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.20
 
-  '@nestia/benchmark@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))':
+  '@nestia/benchmark@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))':
     dependencies:
-      '@nestia/fetcher': 6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))
+      '@nestia/fetcher': 6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))
       tgrid: 1.1.0
       tstl: 3.0.0
     transitivePeerDependencies:
@@ -4474,12 +4577,12 @@ snapshots:
       - typia
       - utf-8-validate
 
-  '@nestia/core@6.0.3(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)':
+  '@nestia/core@6.0.6(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)':
     dependencies:
-      '@nestia/fetcher': 6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))
+      '@nestia/fetcher': 6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))
       '@nestjs/common': 11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@samchon/openapi': 4.3.1
+      '@samchon/openapi': 4.3.2
       detect-ts-node: 1.0.5
       get-function-location: 2.0.0
       glob: 7.2.3
@@ -4488,25 +4591,25 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       tgrid: 1.1.0
-      typia: 9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)
+      typia: 9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)
       ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
       - typescript
       - utf-8-validate
 
-  '@nestia/e2e@6.0.3': {}
+  '@nestia/e2e@6.0.6': {}
 
-  '@nestia/editor@6.0.3(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@mui/icons-material@5.17.1(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(prop-types@15.8.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)':
+  '@nestia/editor@6.0.6(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@mui/icons-material@5.17.1(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(prop-types@15.8.1)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)':
     dependencies:
       '@mui/material': 5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@nestia/migrate': 6.0.3
-      '@samchon/openapi': 4.3.1
+      '@nestia/migrate': 6.0.6
+      '@samchon/openapi': 4.3.2
       '@stackblitz/sdk': 1.11.0
       js-yaml: 4.1.0
       prettier: 3.3.3
       react-mui-fileuploader: 0.5.2(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@mui/icons-material@5.17.1(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@mui/material@5.17.1(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@emotion/styled@11.14.0(@emotion/react@11.14.0(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react@19.1.0))(@types/react@18.3.20)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/react@18.3.20)(prop-types@15.8.1)
-      typia: 9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)
+      typia: 9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)
     transitivePeerDependencies:
       - '@emotion/react'
       - '@emotion/styled'
@@ -4515,30 +4618,34 @@ snapshots:
       - prop-types
       - react
       - react-dom
+      - supports-color
       - typescript
 
-  '@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))':
+  '@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))':
     dependencies:
-      '@samchon/openapi': 4.3.1
-      typia: 9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)
+      '@samchon/openapi': 4.3.2
+      typia: 9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)
 
-  '@nestia/migrate@6.0.3':
+  '@nestia/migrate@6.0.6':
     dependencies:
-      '@samchon/openapi': 4.3.1
+      '@samchon/openapi': 4.3.2
       commander: 10.0.0
       inquirer: 8.2.5
       prettier: 3.5.3
+      prettier-plugin-jsdoc: 1.3.2(prettier@3.5.3)
       tstl: 3.0.0
       typescript: 5.8.3
-      typia: 9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)
+      typia: 9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)
+    transitivePeerDependencies:
+      - supports-color
 
-  '@nestia/sdk@6.0.3(@nestia/core@6.0.3(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3))(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.17.30)(typescript@5.8.3))(typescript@5.8.3)':
+  '@nestia/sdk@6.0.6(@nestia/core@6.0.6(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3))(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(ts-node@10.9.2(@types/node@20.17.30)(typescript@5.8.3))(typescript@5.8.3)':
     dependencies:
-      '@nestia/core': 6.0.3(@nestia/fetcher@6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)
-      '@nestia/fetcher': 6.0.3(@samchon/openapi@4.3.1)(typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3))
+      '@nestia/core': 6.0.6(@nestia/fetcher@6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)))(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typescript@5.8.3)
+      '@nestia/fetcher': 6.0.6(@samchon/openapi@4.3.2)(typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3))
       '@nestjs/common': 11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.1(@nestjs/common@11.1.1(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@samchon/openapi': 4.3.1
+      '@samchon/openapi': 4.3.2
       cli: 1.0.1
       get-function-location: 2.0.0
       glob: 7.2.3
@@ -4549,7 +4656,7 @@ snapshots:
       tsconfck: 2.1.2(typescript@5.8.3)
       tsconfig-paths: 4.2.0
       tstl: 3.0.0
-      typia: 9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3)
+      typia: 9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3)
     transitivePeerDependencies:
       - typescript
 
@@ -4773,7 +4880,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.39.0':
     optional: true
 
-  '@samchon/openapi@4.3.1': {}
+  '@samchon/openapi@4.3.2': {}
 
   '@scarf/scarf@1.4.0': {}
 
@@ -4832,6 +4939,10 @@ snapshots:
     dependencies:
       '@types/node': 20.17.30
 
+  '@types/debug@4.1.12':
+    dependencies:
+      '@types/ms': 2.1.0
+
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
@@ -4871,6 +4982,10 @@ snapshots:
     dependencies:
       '@types/ms': 2.1.0
       '@types/node': 20.17.30
+
+  '@types/mdast@4.0.4':
+    dependencies:
+      '@types/unist': 3.0.3
 
   '@types/mime@1.3.5': {}
 
@@ -4925,6 +5040,8 @@ snapshots:
   '@types/through@0.0.33':
     dependencies:
       '@types/node': 20.17.30
+
+  '@types/unist@3.0.3': {}
 
   '@types/uuid@10.0.0': {}
 
@@ -5286,6 +5403,8 @@ snapshots:
 
   bcryptjs@2.4.3: {}
 
+  binary-searching@2.0.5: {}
+
   bl@4.1.0:
     dependencies:
       buffer: 5.7.1
@@ -5393,6 +5512,8 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
+  character-entities@2.0.2: {}
+
   chardet@0.7.0: {}
 
   chokidar@4.0.3:
@@ -5494,6 +5615,8 @@ snapshots:
       has-own-prop: 2.0.0
       repeat-string: 1.6.1
 
+  comment-parser@1.4.1: {}
+
   component-emitter@1.3.1: {}
 
   concat-map@0.0.1: {}
@@ -5573,6 +5696,10 @@ snapshots:
     dependencies:
       ms: 2.1.3
 
+  decode-named-character-reference@1.1.0:
+    dependencies:
+      character-entities: 2.0.2
+
   decode-uri-component@0.2.2: {}
 
   deep-is@0.1.4: {}
@@ -5603,6 +5730,10 @@ snapshots:
   dequal@2.0.3: {}
 
   detect-ts-node@1.0.5: {}
+
+  devlop@1.1.0:
+    dependencies:
+      dequal: 2.0.3
 
   diff@4.0.2: {}
 
@@ -6546,6 +6677,27 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
+  mdast-util-from-markdown@2.0.2:
+    dependencies:
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.3
+      decode-named-character-reference: 1.1.0
+      devlop: 1.1.0
+      mdast-util-to-string: 4.0.0
+      micromark: 4.0.2
+      micromark-util-decode-numeric-character-reference: 2.0.2
+      micromark-util-decode-string: 2.0.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+      unist-util-stringify-position: 4.0.0
+    transitivePeerDependencies:
+      - supports-color
+
+  mdast-util-to-string@4.0.0:
+    dependencies:
+      '@types/mdast': 4.0.4
+
   media-typer@1.1.0: {}
 
   memfs@3.5.3:
@@ -6557,6 +6709,139 @@ snapshots:
   merge-stream@2.0.0: {}
 
   merge2@1.4.1: {}
+
+  micromark-core-commonmark@2.0.3:
+    dependencies:
+      decode-named-character-reference: 1.1.0
+      devlop: 1.1.0
+      micromark-factory-destination: 2.0.1
+      micromark-factory-label: 2.0.1
+      micromark-factory-space: 2.0.1
+      micromark-factory-title: 2.0.1
+      micromark-factory-whitespace: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-chunked: 2.0.1
+      micromark-util-classify-character: 2.0.1
+      micromark-util-html-tag-name: 2.0.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-resolve-all: 2.0.1
+      micromark-util-subtokenize: 2.1.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-factory-destination@2.0.1:
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-factory-label@2.0.1:
+    dependencies:
+      devlop: 1.1.0
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-factory-space@2.0.1:
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-types: 2.0.2
+
+  micromark-factory-title@2.0.1:
+    dependencies:
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-factory-whitespace@2.0.1:
+    dependencies:
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-util-character@2.1.1:
+    dependencies:
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-util-chunked@2.0.1:
+    dependencies:
+      micromark-util-symbol: 2.0.1
+
+  micromark-util-classify-character@2.0.1:
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-util-combine-extensions@2.0.1:
+    dependencies:
+      micromark-util-chunked: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-util-decode-numeric-character-reference@2.0.2:
+    dependencies:
+      micromark-util-symbol: 2.0.1
+
+  micromark-util-decode-string@2.0.1:
+    dependencies:
+      decode-named-character-reference: 1.1.0
+      micromark-util-character: 2.1.1
+      micromark-util-decode-numeric-character-reference: 2.0.2
+      micromark-util-symbol: 2.0.1
+
+  micromark-util-encode@2.0.1: {}
+
+  micromark-util-html-tag-name@2.0.1: {}
+
+  micromark-util-normalize-identifier@2.0.1:
+    dependencies:
+      micromark-util-symbol: 2.0.1
+
+  micromark-util-resolve-all@2.0.1:
+    dependencies:
+      micromark-util-types: 2.0.2
+
+  micromark-util-sanitize-uri@2.0.1:
+    dependencies:
+      micromark-util-character: 2.1.1
+      micromark-util-encode: 2.0.1
+      micromark-util-symbol: 2.0.1
+
+  micromark-util-subtokenize@2.1.0:
+    dependencies:
+      devlop: 1.1.0
+      micromark-util-chunked: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+
+  micromark-util-symbol@2.0.1: {}
+
+  micromark-util-types@2.0.2: {}
+
+  micromark@4.0.2:
+    dependencies:
+      '@types/debug': 4.1.12
+      debug: 4.4.1
+      decode-named-character-reference: 1.1.0
+      devlop: 1.1.0
+      micromark-core-commonmark: 2.0.3
+      micromark-factory-space: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-chunked: 2.0.1
+      micromark-util-combine-extensions: 2.0.1
+      micromark-util-decode-numeric-character-reference: 2.0.2
+      micromark-util-encode: 2.0.1
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-resolve-all: 2.0.1
+      micromark-util-sanitize-uri: 2.0.1
+      micromark-util-subtokenize: 2.1.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+    transitivePeerDependencies:
+      - supports-color
 
   micromatch@3.1.10:
     dependencies:
@@ -6844,6 +7129,15 @@ snapshots:
   posix-character-classes@0.1.1: {}
 
   prelude-ls@1.2.1: {}
+
+  prettier-plugin-jsdoc@1.3.2(prettier@3.5.3):
+    dependencies:
+      binary-searching: 2.0.5
+      comment-parser: 1.4.1
+      mdast-util-from-markdown: 2.0.2
+      prettier: 3.5.3
+    transitivePeerDependencies:
+      - supports-color
 
   prettier-plugin-prisma@5.0.0(prettier@3.5.3):
     dependencies:
@@ -7535,9 +7829,9 @@ snapshots:
 
   typescript@5.8.3: {}
 
-  typia@9.3.0(@samchon/openapi@4.3.1)(typescript@5.8.3):
+  typia@9.3.1(@samchon/openapi@4.3.2)(typescript@5.8.3):
     dependencies:
-      '@samchon/openapi': 4.3.1
+      '@samchon/openapi': 4.3.2
       '@standard-schema/spec': 1.0.0
       commander: 10.0.1
       comment-json: 4.2.5
@@ -7564,6 +7858,10 @@ snapshots:
       get-value: 2.0.6
       is-extendable: 0.1.1
       set-value: 2.0.1
+
+  unist-util-stringify-position@4.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
 
   universalify@2.0.1: {}
 
