@@ -7,7 +7,6 @@ import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingSaleQuestion } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleQuestion";
 
 import { ShoppingSaleQuestionProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotQuestionProvider";
-
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSaleQuestionController<
@@ -29,7 +28,7 @@ export function ShoppingSaleQuestionController<
      * property which means the formal answer from the {@link IShoppingSeller}.
      * Additionally, returned question has another special property
      * {@link IShoppingSaleQuestion.ISummary.secret} with masking to other
-     * princple properties, and it means only related actors can {@link at read}
+     * principle properties, and it means only related actors can {@link at read}
      * the question.
      *
      * For reference, if you're a {@link IShoppingSeller seller}, you can only
@@ -52,7 +51,7 @@ export function ShoppingSaleQuestionController<
     public async index(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleQuestion.IRequest
+      @core.TypedBody() input: IShoppingSaleQuestion.IRequest,
     ): Promise<IPage<IShoppingSaleQuestion.ISummary>> {
       return ShoppingSaleQuestionProvider.index({
         actor,
@@ -75,7 +74,7 @@ export function ShoppingSaleQuestionController<
      * property which means the formal answer from the {@link IShoppingSeller}.
      * Additionally, returned question has another special property
      * {@link IShoppingSaleQuestion.IAridge.secret} with masking to other
-     * princple properties, and it means only related actors can {@link at read}
+     * principle properties, and it means only related actors can {@link at read}
      * the question.
      *
      * For reference, if you're a {@link IShoppingSeller seller}, you can only
@@ -98,7 +97,7 @@ export function ShoppingSaleQuestionController<
     public async abridges(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedBody() input: IShoppingSaleQuestion.IRequest
+      @core.TypedBody() input: IShoppingSaleQuestion.IRequest,
     ): Promise<IPage<IShoppingSaleQuestion.IAbridge>> {
       return ShoppingSaleQuestionProvider.abridges({
         actor,
@@ -130,7 +129,7 @@ export function ShoppingSaleQuestionController<
     public async at(
       @props.AuthGuard() actor: Actor,
       @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-      @core.TypedParam("id") id: string & tags.Format<"uuid">
+      @core.TypedParam("id") id: string & tags.Format<"uuid">,
     ): Promise<IShoppingSaleQuestion> {
       return ShoppingSaleQuestionProvider.at({
         actor,

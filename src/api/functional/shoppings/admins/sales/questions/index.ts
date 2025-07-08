@@ -27,7 +27,7 @@ export * as comments from "./comments";
  * property which means the formal answer from the {@link IShoppingSeller}.
  * Additionally, returned question has another special property
  * {@link IShoppingSaleQuestion.ISummary.secret} with masking to other
- * princple properties, and it means only related actors can {@link at read}
+ * principle properties, and it means only related actors can {@link at read}
  * the question.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
@@ -106,7 +106,7 @@ export namespace index {
  * property which means the formal answer from the {@link IShoppingSeller}.
  * Additionally, returned question has another special property
  * {@link IShoppingSaleQuestion.IAridge.secret} with masking to other
- * princple properties, and it means only related actors can {@link at read}
+ * principle properties, and it means only related actors can {@link at read}
  * the question.
  *
  * For reference, if you're a {@link IShoppingSeller seller}, you can only
