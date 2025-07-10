@@ -60,13 +60,13 @@ export const test_api_shopping_coupon_index_sort = async (
           }),
       });
 
-  const coupons: IShoppingCoupon[] = ArrayUtil.flat(
+  const coupons: IShoppingCoupon[] = (
     await ArrayUtil.asyncMap(saleList)((sale) =>
       ArrayUtil.asyncMap(typia.misc.literals<IShoppingCouponCriteria.Type>())(
         (type) => generator(sale)([type]),
       ),
-    ),
-  );
+    )
+  ).flat();
 
   // PREPARE VALIDATOR
   const validator = TestValidator.sort("coupons.index with sort options")<
