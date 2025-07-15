@@ -6,6 +6,7 @@ node_modules/
 docs/benchmarks/call
 prisma/docs/
 prisma/migrations/
+prisma/schema/migrations/
 
 assets/examples/
 
