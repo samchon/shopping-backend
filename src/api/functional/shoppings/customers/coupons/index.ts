@@ -37,7 +37,7 @@ export * as tickets from "./tickets";
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingCoupon.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -56,7 +56,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingCoupon.IRequest;
+  export type Body = IShoppingCoupon.IRequest;
   export type Output = IPage<IShoppingCoupon>;
 
   export const METADATA = {

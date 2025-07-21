@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingCouponTicket } from "../../../../../structures/shoppings/coupons/IShoppingCouponTicket";
@@ -41,7 +41,7 @@ import type { IShoppingCouponTicket } from "../../../../../structures/shoppings/
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingCouponTicket.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -60,7 +60,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingCouponTicket.IRequest;
+  export type Body = IShoppingCouponTicket.IRequest;
   export type Output = IPage<IShoppingCouponTicket>;
 
   export const METADATA = {
@@ -101,7 +101,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -123,7 +123,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/coupons/tickets/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -155,7 +155,7 @@ export namespace at {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingCouponTicket.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -174,7 +174,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingCouponTicket.ICreate;
+  export type Body = IShoppingCouponTicket.ICreate;
   export type Output = IShoppingCouponTicket;
 
   export const METADATA = {

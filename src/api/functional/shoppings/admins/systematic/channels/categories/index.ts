@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IRecordMerge } from "../../../../../../structures/common/IRecordMerge";
 import type { IShoppingChannelCategory } from "../../../../../../structures/shoppings/systematic/IShoppingChannelCategory";
@@ -31,7 +31,7 @@ import type { IShoppingChannelCategory } from "../../../../../../structures/shop
 export async function create(
   connection: IConnection,
   channelCode: string,
-  input: IShoppingChannelCategory.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -50,7 +50,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingChannelCategory.ICreate;
+  export type Body = IShoppingChannelCategory.ICreate;
   export type Output = IShoppingChannelCategory;
 
   export const METADATA = {
@@ -92,7 +92,7 @@ export async function update(
   connection: IConnection,
   channelCode: string,
   id: string,
-  input: IShoppingChannelCategory.ICreate,
+  input: update.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -111,7 +111,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingChannelCategory.ICreate;
+  export type Body = IShoppingChannelCategory.ICreate;
 
   export const METADATA = {
     method: "PUT",
@@ -156,7 +156,7 @@ export namespace update {
 export async function merge(
   connection: IConnection,
   channelCode: string,
-  input: IRecordMerge,
+  input: merge.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -175,7 +175,7 @@ export async function merge(
   );
 }
 export namespace merge {
-  export type Input = IRecordMerge;
+  export type Body = IRecordMerge;
 
   export const METADATA = {
     method: "DELETE",
@@ -227,7 +227,7 @@ export async function index(
   });
 }
 export namespace index {
-  export type Output = Array<IShoppingChannelCategory.IHierarchical>;
+  export type Output = IShoppingChannelCategory.IHierarchical[];
 
   export const METADATA = {
     method: "PATCH",
@@ -265,7 +265,7 @@ export namespace index {
 export async function at(
   connection: IConnection,
   channelCode: string,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -287,7 +287,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (channelCode: string, id: string & Format<"uuid">) =>
+  export const path = (channelCode: string, id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -312,7 +312,7 @@ export namespace at {
 export async function invert(
   connection: IConnection,
   channelCode: string,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<invert.Output> {
   return PlainFetcher.fetch(connection, {
     ...invert.METADATA,
@@ -334,6 +334,6 @@ export namespace invert {
     status: 200,
   } as const;
 
-  export const path = (channelCode: string, id: string & Format<"uuid">) =>
+  export const path = (channelCode: string, id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}/invert`;
 }

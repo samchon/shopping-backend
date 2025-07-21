@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IRecordMerge } from "../../../../../structures/common/IRecordMerge";
@@ -32,7 +32,7 @@ import type { IShoppingSection } from "../../../../../structures/shoppings/syste
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingSection.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -51,7 +51,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingSection.ICreate;
+  export type Body = IShoppingSection.ICreate;
   export type Output = IShoppingSection;
 
   export const METADATA = {
@@ -90,8 +90,8 @@ export namespace create {
  */
 export async function update(
   connection: IConnection,
-  id: string & Format<"uuid">,
-  input: IShoppingSection.IUpdate,
+  id: string & tags.Format<"uuid">,
+  input: update.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -110,7 +110,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingSection.IUpdate;
+  export type Body = IShoppingSection.IUpdate;
 
   export const METADATA = {
     method: "PUT",
@@ -126,7 +126,7 @@ export namespace update {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/systematic/sections/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -152,7 +152,7 @@ export namespace update {
  */
 export async function merge(
   connection: IConnection,
-  input: IRecordMerge,
+  input: merge.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -171,7 +171,7 @@ export async function merge(
   );
 }
 export namespace merge {
-  export type Input = IRecordMerge;
+  export type Body = IRecordMerge;
 
   export const METADATA = {
     method: "DELETE",
@@ -211,7 +211,7 @@ export namespace merge {
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingSection.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -230,7 +230,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingSection.IRequest;
+  export type Body = IShoppingSection.IRequest;
   export type Output = IPage<IShoppingSection>;
 
   export const METADATA = {
@@ -266,7 +266,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -288,7 +288,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/systematic/sections/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 

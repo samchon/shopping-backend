@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IBbsArticle } from "../../../../../../structures/common/IBbsArticle";
 import type { IShoppingSaleInquiryAnswer } from "../../../../../../structures/shoppings/sales/inquiries/IShoppingSaleInquiryAnswer";
@@ -39,9 +39,9 @@ import type { IShoppingSaleInquiryAnswer } from "../../../../../../structures/sh
  */
 export async function create(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  reviewId: string & Format<"uuid">,
-  input: IBbsArticle.ICreate,
+  saleId: string & tags.Format<"uuid">,
+  reviewId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -60,7 +60,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IBbsArticle.ICreate;
+  export type Body = IBbsArticle.ICreate;
   export type Output = IShoppingSaleInquiryAnswer;
 
   export const METADATA = {
@@ -78,8 +78,8 @@ export namespace create {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    reviewId: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    reviewId: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(reviewId?.toString() ?? "null")}/answer`;
 }
@@ -117,9 +117,9 @@ export namespace create {
  */
 export async function update(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  reviewId: string & Format<"uuid">,
-  input: IBbsArticle.ICreate,
+  saleId: string & tags.Format<"uuid">,
+  reviewId: string & tags.Format<"uuid">,
+  input: update.Body,
 ): Promise<update.Output> {
   return PlainFetcher.fetch(
     {
@@ -138,7 +138,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IBbsArticle.ICreate;
+  export type Body = IBbsArticle.ICreate;
   export type Output = IShoppingSaleInquiryAnswer.ISnapshot;
 
   export const METADATA = {
@@ -156,8 +156,8 @@ export namespace update {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    reviewId: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    reviewId: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(reviewId?.toString() ?? "null")}/answer`;
 }

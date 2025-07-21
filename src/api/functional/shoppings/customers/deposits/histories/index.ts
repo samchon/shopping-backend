@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingDepositHistory } from "../../../../../structures/shoppings/deposits/IShoppingDepositHistory";
@@ -33,7 +33,7 @@ import type { IShoppingDepositHistory } from "../../../../../structures/shopping
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingDepositHistory.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -52,7 +52,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingDepositHistory.IRequest;
+  export type Body = IShoppingDepositHistory.IRequest;
   export type Output = IPage<IShoppingDepositHistory>;
 
   export const METADATA = {
@@ -87,7 +87,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -109,7 +109,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/deposits/histories/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 

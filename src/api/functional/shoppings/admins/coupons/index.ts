@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../structures/common/IPage";
 import type { IShoppingCoupon } from "../../../../structures/shoppings/coupons/IShoppingCoupon";
@@ -19,7 +19,7 @@ import type { IShoppingCoupon } from "../../../../structures/shoppings/coupons/I
  */
 export async function destroy(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...destroy.METADATA,
@@ -39,7 +39,7 @@ export namespace destroy {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/coupons/${encodeURIComponent(id?.toString() ?? "null")}/destroy`;
 }
 
@@ -70,7 +70,7 @@ export namespace destroy {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingCoupon.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -89,7 +89,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingCoupon.ICreate;
+  export type Body = IShoppingCoupon.ICreate;
   export type Output = IShoppingCoupon;
 
   export const METADATA = {
@@ -177,7 +177,7 @@ export namespace erase {
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingCoupon.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -196,7 +196,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingCoupon.IRequest;
+  export type Body = IShoppingCoupon.IRequest;
   export type Output = IPage<IShoppingCoupon>;
 
   export const METADATA = {

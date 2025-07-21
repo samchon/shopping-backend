@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingSaleReview } from "../../../../../structures/shoppings/sales/inquiries/IShoppingSaleReview";
@@ -48,8 +48,8 @@ export * as comments from "./comments";
  */
 export async function index(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  input: IShoppingSaleReview.IRequest,
+  saleId: string & tags.Format<"uuid">,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -68,7 +68,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingSaleReview.IRequest;
+  export type Body = IShoppingSaleReview.IRequest;
   export type Output = IPage<IShoppingSaleReview.ISummary>;
 
   export const METADATA = {
@@ -85,7 +85,7 @@ export namespace index {
     status: 200,
   } as const;
 
-  export const path = (saleId: string & Format<"uuid">) =>
+  export const path = (saleId: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews`;
 }
 
@@ -123,8 +123,8 @@ export namespace index {
  */
 export async function abridges(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  input: IShoppingSaleReview.IRequest,
+  saleId: string & tags.Format<"uuid">,
+  input: abridges.Body,
 ): Promise<abridges.Output> {
   return PlainFetcher.fetch(
     {
@@ -143,7 +143,7 @@ export async function abridges(
   );
 }
 export namespace abridges {
-  export type Input = IShoppingSaleReview.IRequest;
+  export type Body = IShoppingSaleReview.IRequest;
   export type Output = IPage<IShoppingSaleReview.IAbridge>;
 
   export const METADATA = {
@@ -160,7 +160,7 @@ export namespace abridges {
     status: 200,
   } as const;
 
-  export const path = (saleId: string & Format<"uuid">) =>
+  export const path = (saleId: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/abridges`;
 }
 
@@ -187,8 +187,8 @@ export namespace abridges {
  */
 export async function at(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  saleId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -211,8 +211,8 @@ export namespace at {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(id?.toString() ?? "null")}`;
 }

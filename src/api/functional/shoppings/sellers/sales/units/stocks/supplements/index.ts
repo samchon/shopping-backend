@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../../../structures/common/IPage";
 import type { IShoppingSaleUnitStockSupplement } from "../../../../../../../structures/shoppings/sales/IShoppingSaleUnitStockSupplement";
@@ -37,10 +37,10 @@ import type { IShoppingSaleUnitStockSupplement } from "../../../../../../../stru
  */
 export async function index(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  unitId: string & Format<"uuid">,
-  stockId: string & Format<"uuid">,
-  input: IShoppingSaleUnitStockSupplement.IRequest,
+  saleId: string & tags.Format<"uuid">,
+  unitId: string & tags.Format<"uuid">,
+  stockId: string & tags.Format<"uuid">,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -59,7 +59,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingSaleUnitStockSupplement.IRequest;
+  export type Body = IShoppingSaleUnitStockSupplement.IRequest;
   export type Output = IPage<IShoppingSaleUnitStockSupplement>;
 
   export const METADATA = {
@@ -77,9 +77,9 @@ export namespace index {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    unitId: string & tags.Format<"uuid">,
+    stockId: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements`;
 }
@@ -108,10 +108,10 @@ export namespace index {
  */
 export async function create(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  unitId: string & Format<"uuid">,
-  stockId: string & Format<"uuid">,
-  input: IShoppingSaleUnitStockSupplement.ICreate,
+  saleId: string & tags.Format<"uuid">,
+  unitId: string & tags.Format<"uuid">,
+  stockId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -130,7 +130,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingSaleUnitStockSupplement.ICreate;
+  export type Body = IShoppingSaleUnitStockSupplement.ICreate;
   export type Output = IShoppingSaleUnitStockSupplement;
 
   export const METADATA = {
@@ -148,9 +148,9 @@ export namespace create {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    unitId: string & tags.Format<"uuid">,
+    stockId: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements`;
 }
@@ -179,11 +179,11 @@ export namespace create {
  */
 export async function update(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  unitId: string & Format<"uuid">,
-  stockId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
-  input: IShoppingSaleUnitStockSupplement.ICreate,
+  saleId: string & tags.Format<"uuid">,
+  unitId: string & tags.Format<"uuid">,
+  stockId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
+  input: update.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -202,7 +202,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingSaleUnitStockSupplement.ICreate;
+  export type Body = IShoppingSaleUnitStockSupplement.ICreate;
 
   export const METADATA = {
     method: "PUT",
@@ -219,10 +219,10 @@ export namespace update {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    unitId: string & tags.Format<"uuid">,
+    stockId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
@@ -250,10 +250,10 @@ export namespace update {
  */
 export async function erase(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  unitId: string & Format<"uuid">,
-  stockId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  saleId: string & tags.Format<"uuid">,
+  unitId: string & tags.Format<"uuid">,
+  stockId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...erase.METADATA,
@@ -274,10 +274,10 @@ export namespace erase {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    unitId: string & Format<"uuid">,
-    stockId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    unitId: string & tags.Format<"uuid">,
+    stockId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/units/${encodeURIComponent(unitId?.toString() ?? "null")}/stocks/${encodeURIComponent(stockId?.toString() ?? "null")}/supplements/${encodeURIComponent(id?.toString() ?? "null")}`;
 }

@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IShoppingDeliveryShipper } from "../../../../../structures/shoppings/orders/IShoppingDeliveryShipper";
 
@@ -33,8 +33,8 @@ import type { IShoppingDeliveryShipper } from "../../../../../structures/shoppin
  */
 export async function create(
   connection: IConnection,
-  deliveryId: string & Format<"uuid">,
-  input: IShoppingDeliveryShipper.ICreate,
+  deliveryId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -53,7 +53,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingDeliveryShipper.ICreate;
+  export type Body = IShoppingDeliveryShipper.ICreate;
   export type Output = IShoppingDeliveryShipper;
 
   export const METADATA = {
@@ -70,6 +70,6 @@ export namespace create {
     status: 201,
   } as const;
 
-  export const path = (deliveryId: string & Format<"uuid">) =>
+  export const path = (deliveryId: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/shippers`;
 }

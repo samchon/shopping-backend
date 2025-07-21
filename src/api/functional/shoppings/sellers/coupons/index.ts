@@ -37,7 +37,7 @@ import type { IShoppingCoupon } from "../../../../structures/shoppings/coupons/I
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingCoupon.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -56,7 +56,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingCoupon.ICreate;
+  export type Body = IShoppingCoupon.ICreate;
   export type Output = IShoppingCoupon;
 
   export const METADATA = {
@@ -144,7 +144,7 @@ export namespace erase {
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingCoupon.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -163,7 +163,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingCoupon.IRequest;
+  export type Body = IShoppingCoupon.IRequest;
   export type Output = IPage<IShoppingCoupon>;
 
   export const METADATA = {

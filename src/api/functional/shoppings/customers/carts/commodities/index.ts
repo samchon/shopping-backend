@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingCartCommodity } from "../../../../../structures/shoppings/orders/IShoppingCartCommodity";
@@ -44,7 +44,7 @@ import type { IShoppingCartDiscountable } from "../../../../../structures/shoppi
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingCartCommodity.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -63,7 +63,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingCartCommodity.IRequest;
+  export type Body = IShoppingCartCommodity.IRequest;
   export type Output = IPage<IShoppingCartCommodity>;
 
   export const METADATA = {
@@ -105,7 +105,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -127,7 +127,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -158,7 +158,7 @@ export namespace at {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingCartCommodity.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -177,7 +177,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingCartCommodity.ICreate;
+  export type Body = IShoppingCartCommodity.ICreate;
   export type Output = IShoppingCartCommodity;
 
   export const METADATA = {
@@ -218,8 +218,8 @@ export namespace create {
  */
 export async function update(
   connection: IConnection,
-  id: string & Format<"uuid">,
-  input: IShoppingCartCommodity.IUpdate,
+  id: string & tags.Format<"uuid">,
+  input: update.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -238,7 +238,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingCartCommodity.IUpdate;
+  export type Body = IShoppingCartCommodity.IUpdate;
 
   export const METADATA = {
     method: "PUT",
@@ -254,7 +254,7 @@ export namespace update {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -279,7 +279,7 @@ export namespace update {
  */
 export async function replica(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<replica.Output> {
   return PlainFetcher.fetch(connection, {
     ...replica.METADATA,
@@ -301,7 +301,7 @@ export namespace replica {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}/replica`;
 }
 
@@ -327,7 +327,7 @@ export namespace replica {
  */
 export async function erase(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...erase.METADATA,
@@ -347,7 +347,7 @@ export namespace erase {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/carts/commodities/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -380,7 +380,7 @@ export namespace erase {
  */
 export async function discountable(
   connection: IConnection,
-  input: IShoppingCartDiscountable.IRequest,
+  input: discountable.Body,
 ): Promise<discountable.Output> {
   return PlainFetcher.fetch(
     {
@@ -399,7 +399,7 @@ export async function discountable(
   );
 }
 export namespace discountable {
-  export type Input = IShoppingCartDiscountable.IRequest;
+  export type Body = IShoppingCartDiscountable.IRequest;
   export type Output = IShoppingCartDiscountable;
 
   export const METADATA = {

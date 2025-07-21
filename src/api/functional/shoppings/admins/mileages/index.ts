@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../structures/common/IPage";
 import type { IShoppingMileage } from "../../../../structures/shoppings/mileages/IShoppingMileage";
@@ -35,7 +35,7 @@ export * as donations from "./donations";
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingMileage.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -54,7 +54,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingMileage.IRequest;
+  export type Body = IShoppingMileage.IRequest;
   export type Output = IPage<IShoppingMileage>;
 
   export const METADATA = {
@@ -90,7 +90,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -112,7 +112,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/mileages/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -179,7 +179,7 @@ export namespace get {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingMileage.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -198,7 +198,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingMileage.ICreate;
+  export type Body = IShoppingMileage.ICreate;
   export type Output = IShoppingMileage;
 
   export const METADATA = {
@@ -235,7 +235,7 @@ export namespace create {
  */
 export async function erase(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...erase.METADATA,
@@ -255,6 +255,6 @@ export namespace erase {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/admins/mileages/${encodeURIComponent(id?.toString() ?? "null")}`;
 }

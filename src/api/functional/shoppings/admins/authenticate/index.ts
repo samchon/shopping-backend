@@ -72,7 +72,7 @@ export namespace get {
  */
 export async function join(
   connection: IConnection,
-  input: IShoppingAdministrator.IJoin,
+  input: join.Body,
 ): Promise<join.Output> {
   return PlainFetcher.fetch(
     {
@@ -91,7 +91,7 @@ export async function join(
   );
 }
 export namespace join {
-  export type Input = IShoppingAdministrator.IJoin;
+  export type Body = IShoppingAdministrator.IJoin;
   export type Output = IShoppingAdministrator.IInvert;
 
   export const METADATA = {
@@ -139,7 +139,7 @@ export namespace join {
  */
 export async function login(
   connection: IConnection,
-  input: IShoppingMember.ILogin,
+  input: login.Body,
 ): Promise<login.Output> {
   return PlainFetcher.fetch(
     {
@@ -158,7 +158,7 @@ export async function login(
   );
 }
 export namespace login {
-  export type Input = IShoppingMember.ILogin;
+  export type Body = IShoppingMember.ILogin;
   export type Output = IShoppingAdministrator.IInvert;
 
   export const METADATA = {

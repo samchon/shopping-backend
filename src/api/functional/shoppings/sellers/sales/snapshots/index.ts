@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingSale } from "../../../../../structures/shoppings/sales/IShoppingSale";
@@ -33,8 +33,8 @@ import type { IShoppingSaleSnapshot } from "../../../../../structures/shoppings/
  */
 export async function replica(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  saleId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<replica.Output> {
   return PlainFetcher.fetch(connection, {
     ...replica.METADATA,
@@ -57,8 +57,8 @@ export namespace replica {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots/${encodeURIComponent(id?.toString() ?? "null")}/replica`;
 }
@@ -93,8 +93,8 @@ export namespace replica {
  */
 export async function index(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  input: IPage.IRequest,
+  saleId: string & tags.Format<"uuid">,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -113,7 +113,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IPage.IRequest;
+  export type Body = IPage.IRequest;
   export type Output = IPage<IShoppingSaleSnapshot.ISummary>;
 
   export const METADATA = {
@@ -130,7 +130,7 @@ export namespace index {
     status: 200,
   } as const;
 
-  export const path = (saleId: string & Format<"uuid">) =>
+  export const path = (saleId: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots`;
 }
 
@@ -160,8 +160,8 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  saleId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -184,8 +184,8 @@ export namespace at {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
@@ -216,8 +216,8 @@ export namespace at {
  */
 export async function flip(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  saleId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<flip.Output> {
   return PlainFetcher.fetch(connection, {
     ...flip.METADATA,
@@ -240,8 +240,8 @@ export namespace flip {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/snapshots/${encodeURIComponent(id?.toString() ?? "null")}/flip`;
 }

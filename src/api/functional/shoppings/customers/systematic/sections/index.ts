@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../structures/common/IPage";
 import type { IShoppingSection } from "../../../../../structures/shoppings/systematic/IShoppingSection";
@@ -32,7 +32,7 @@ import type { IShoppingSection } from "../../../../../structures/shoppings/syste
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingSection.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -51,7 +51,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingSection.IRequest;
+  export type Body = IShoppingSection.IRequest;
   export type Output = IPage<IShoppingSection>;
 
   export const METADATA = {
@@ -87,7 +87,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -109,7 +109,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/customers/systematic/sections/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 

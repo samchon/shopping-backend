@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../structures/common/IPage";
 import type { IShoppingDelivery } from "../../../../structures/shoppings/orders/IShoppingDelivery";
@@ -41,7 +41,7 @@ export * as shippers from "./shippers";
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingDelivery.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -60,7 +60,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingDelivery.IRequest;
+  export type Body = IShoppingDelivery.IRequest;
   export type Output = IPage<IShoppingDelivery.IInvert>;
 
   export const METADATA = {
@@ -100,7 +100,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -122,7 +122,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -151,7 +151,7 @@ export namespace at {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingDelivery.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -170,7 +170,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingDelivery.ICreate;
+  export type Body = IShoppingDelivery.ICreate;
   export type Output = IShoppingDelivery;
 
   export const METADATA = {
@@ -215,7 +215,7 @@ export namespace create {
  */
 export async function incompletes(
   connection: IConnection,
-  input: IShoppingDeliveryPiece.IRequest,
+  input: incompletes.Body,
 ): Promise<incompletes.Output> {
   return PlainFetcher.fetch(
     {
@@ -234,8 +234,8 @@ export async function incompletes(
   );
 }
 export namespace incompletes {
-  export type Input = IShoppingDeliveryPiece.IRequest;
-  export type Output = Array<IShoppingDeliveryPiece.ICreate>;
+  export type Body = IShoppingDeliveryPiece.IRequest;
+  export type Output = IShoppingDeliveryPiece.ICreate[];
 
   export const METADATA = {
     method: "PATCH",

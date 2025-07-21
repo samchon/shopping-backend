@@ -26,7 +26,7 @@ import type { IShoppingMember } from "../../../../../structures/shoppings/actors
  */
 export async function change(
   connection: IConnection,
-  input: IShoppingMember.IPasswordChange,
+  input: change.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -45,7 +45,7 @@ export async function change(
   );
 }
 export namespace change {
-  export type Input = IShoppingMember.IPasswordChange;
+  export type Body = IShoppingMember.IPasswordChange;
 
   export const METADATA = {
     method: "PUT",

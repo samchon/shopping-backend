@@ -1051,8 +1051,7 @@
           "sales",
           "index"
         ],
-        "x-samchon-controller": "ShoppingAdminSaleController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/store.svg"
+        "x-samchon-controller": "ShoppingAdminSaleController"
       }
     },
     "/shoppings/admins/sales/{id}": {
@@ -1380,7 +1379,7 @@
     "/shoppings/admins/sales/{saleId}/questions": {
       "patch": {
         "summary": "List up every summarized questions",
-        "description": "List up every summarized questions.\n\nList up every {@link IShoppingSaleQuestion.ISummary summarized questions} of a\n{@link IShoppingSale sale}.\n\nAs you can see, returned questions are summarized, not detailed. If you want\nto get the detailed information of a question, use {@link adridges} function\nor {@link at} function for each article.\n\nAlso, returned question has {@link IShoppingSaleQuestion.ISummary.answer}\nproperty which means the formal answer from the {@link IShoppingSeller}.\nAdditionally, returned question has another special property\n{@link IShoppingSaleQuestion.ISummary.secret} with masking to other\nprincple properties, and it means only related actors can {@link at read}\nthe question.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}'s questions. Otherwise,\nyou can access to every questions of the sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSaleQuestion.IRequest.search search condition} in the\nrequest body. Also, it is possible to customize sequence order of records\nby configuring {@link IShoppingSaleQuestion.IRequest.sort sort condition}.",
+        "description": "List up every summarized questions.\n\nList up every {@link IShoppingSaleQuestion.ISummary summarized questions} of a\n{@link IShoppingSale sale}.\n\nAs you can see, returned questions are summarized, not detailed. If you want\nto get the detailed information of a question, use {@link adridges} function\nor {@link at} function for each article.\n\nAlso, returned question has {@link IShoppingSaleQuestion.ISummary.answer}\nproperty which means the formal answer from the {@link IShoppingSeller}.\nAdditionally, returned question has another special property\n{@link IShoppingSaleQuestion.ISummary.secret} with masking to other\nprinciple properties, and it means only related actors can {@link at read}\nthe question.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}'s questions. Otherwise,\nyou can access to every questions of the sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSaleQuestion.IRequest.search search condition} in the\nrequest body. Also, it is possible to customize sequence order of records\nby configuring {@link IShoppingSaleQuestion.IRequest.sort sort condition}.",
         "tags": [
           "Sale"
         ],
@@ -1437,7 +1436,7 @@
     "/shoppings/admins/sales/{saleId}/questions/abridges": {
       "patch": {
         "summary": "List up every abridged questions",
-        "description": "List up every abridged questions.\n\nList up every {@link IShoppingSaleQuestion.IAbridge abridged questions} of\na {@link IShoppingSale sale}.\n\nAs you can see, returned questions are abridged, not detailed. If you want\nto get the detailed information of a question, use {@link at} function\nfor each article.\n\nAlso, returned question has {@link IShoppingSaleQuestion.IAridge.answer}\nproperty which means the formal answer from the {@link IShoppingSeller}.\nAdditionally, returned question has another special property\n{@link IShoppingSaleQuestion.IAridge.secret} with masking to other\nprincple properties, and it means only related actors can {@link at read}\nthe question.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}'s questions. Otherwise,\nyou can access to every questions of the sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSaleQuestion.IRequest.search search condition} in the\nrequest body. Also, it is possible to customize sequence order of records\nby configuring {@link IShoppingSaleQuestion.IRequest.sort sort condition}.",
+        "description": "List up every abridged questions.\n\nList up every {@link IShoppingSaleQuestion.IAbridge abridged questions} of\na {@link IShoppingSale sale}.\n\nAs you can see, returned questions are abridged, not detailed. If you want\nto get the detailed information of a question, use {@link at} function\nfor each article.\n\nAlso, returned question has {@link IShoppingSaleQuestion.IAridge.answer}\nproperty which means the formal answer from the {@link IShoppingSeller}.\nAdditionally, returned question has another special property\n{@link IShoppingSaleQuestion.IAridge.secret} with masking to other\nprinciple properties, and it means only related actors can {@link at read}\nthe question.\n\nFor reference, if you're a {@link IShoppingSeller seller}, you can only\naccess to the your own {@link IShoppingSale sale}'s questions. Otherwise,\nyou can access to every questions of the sales.\n\nBy the way, if you want, you can limit the result by configuring\n{@link IShoppingSaleQuestion.IRequest.search search condition} in the\nrequest body. Also, it is possible to customize sequence order of records\nby configuring {@link IShoppingSaleQuestion.IRequest.sort sort condition}.",
         "tags": [
           "Sale"
         ],
@@ -3094,34 +3093,28 @@
         "properties": {
           "type": {
             "const": "administrator",
-            "title": "Discriminant for the type of customer",
             "description": "Discriminant for the type of customer."
           },
           "member": {
             "$ref": "#/components/schemas/IShoppingMember.IInvert",
-            "title": "Membership joining information",
             "description": "Membership joining information."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer.IInvert",
-            "title": "Customer, the connection information",
             "description": "Customer, the connection information."
           },
           "citizen": {
             "$ref": "#/components/schemas/IShoppingCitizen",
-            "title": "Real-name and mobile number authentication information",
             "description": "Real-name and mobile number authentication information."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record.\n\nAnother words, the time when the administrator has signed up."
           }
         },
@@ -3141,12 +3134,10 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "nickname": {
             "type": "string",
-            "title": "Nickname that uniquely identifies the member",
             "description": "Nickname that uniquely identifies the member."
           },
           "emails": {
@@ -3154,13 +3145,11 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingMemberEmail"
             },
-            "title": "List of emails",
             "description": "List of emails."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record.\n\nAnother words, the time when the member has signed up."
           }
         },
@@ -3178,19 +3167,16 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "value": {
             "type": "string",
             "format": "email",
-            "title": "Email address value",
             "description": "Email address value."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           }
         },
@@ -3207,12 +3193,10 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "channel": {
             "$ref": "#/components/schemas/IShoppingChannel",
-            "title": "Belonged channel",
             "description": "Belonged channel."
           },
           "external_user": {
@@ -3224,13 +3208,11 @@
                 "$ref": "#/components/schemas/IShoppingExternalUser"
               }
             ],
-            "title": "External user information",
             "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
             "format": "uri",
-            "title": "Connection address",
             "description": "Connection address.\n\nSame with {@link window.location.href} of client."
           },
           "referrer": {
@@ -3247,7 +3229,6 @@
                 "maxLength": 0
               }
             ],
-            "title": "Referrer address",
             "description": "Referrer address.\n\nSame with {@link window.document.referrer} of client."
           },
           "ip": {
@@ -3261,13 +3242,11 @@
                 "format": "ipv6"
               }
             ],
-            "title": "Connection IP Address",
             "description": "Connection IP Address."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the connection record",
             "description": "Creation time of the connection record."
           }
         },
@@ -3288,23 +3267,19 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code",
             "description": "Identifier code."
           },
           "name": {
             "type": "string",
-            "title": "Name of the channel",
             "description": "Name of the channel."
           }
         },
@@ -3322,7 +3297,6 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "citizen": {
@@ -3334,28 +3308,23 @@
                 "$ref": "#/components/schemas/IShoppingCitizen"
               }
             ],
-            "title": "Citizen activation info",
             "description": "Citizen activation info."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record.\n\nAnother word, first time when the external user connected."
           },
           "uid": {
             "type": "string",
-            "title": "Identifier key of external user from the external system",
             "description": "Identifier key of external user from the external system."
           },
           "application": {
             "type": "string",
-            "title": "Identifier code of the external service",
             "description": "Identifier code of the external service.\n\nIt can be same with {@link IShoppingChannel.code} in common."
           },
           "nickname": {
             "type": "string",
-            "title": "Nickname of external user in the external system",
             "description": "Nickname of external user in the external system."
           },
           "data": {
@@ -3379,26 +3348,22 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           },
           "mobile": {
             "type": "string",
             "pattern": "^[0-9]*$",
             "x-wrtn-payment-order-mobile": true,
-            "title": "Mobile number",
             "description": "Mobile number."
           },
           "name": {
             "type": "string",
             "x-wrtn-payment-order-citizen": true,
-            "title": "Real name, or equivalent nickname",
             "description": "Real name, or equivalent nickname."
           }
         },
@@ -3422,12 +3387,10 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "Email address of member",
             "description": "Email address of member.\n\nIf the member has multiple email addresses, just use one of them."
           },
           "password": {
             "type": "string",
-            "title": "Password of the member account",
             "description": "Password of the member account."
           }
         },
@@ -3443,7 +3406,6 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "designer": {
@@ -3455,12 +3417,10 @@
                 "$ref": "#/components/schemas/IShoppingSeller"
               }
             ],
-            "title": "Designer who've made the coupon",
             "description": "Designer who've made the coupon."
           },
           "inventory": {
             "$ref": "#/components/schemas/IShoppingCouponInventory",
-            "title": "Inventory information",
             "description": "Inventory information."
           },
           "criterias": {
@@ -3490,7 +3450,6 @@
                 }
               }
             },
-            "title": "List of criteria information",
             "description": "List of criteria information."
           },
           "discount": {
@@ -3509,17 +3468,14 @@
                 "percent": "#/components/schemas/IShoppingCouponDiscount.IPercent"
               }
             },
-            "title": "Discount information",
             "description": "Discount information."
           },
           "restriction": {
             "$ref": "#/components/schemas/IShoppingCouponRestriction",
-            "title": "Restriction information",
             "description": "Restriction information."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the coupon",
             "description": "Representative name of the coupon."
           },
           "opened_at": {
@@ -3532,7 +3488,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Opening time of the coupon",
             "description": "Opening time of the coupon."
           },
           "closed_at": {
@@ -3545,13 +3500,11 @@
                 "format": "date-time"
               }
             ],
-            "title": "Closing time of the coupon",
             "description": "Closing time of the coupon.\n\nTickets cannot be issued after this time.\n\nHowever, previously issued tickets can still be used until their\nexpiration date."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation tie of the record",
             "description": "Creation tie of the record."
           }
         },
@@ -3575,13 +3528,11 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record.\n\nAnother words, the time when the administrator has signed up."
           }
         },
@@ -3597,13 +3548,11 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation tmie of record",
             "description": "Creation tmie of record.\n\nAnother words, the time when the seller has signed up."
           }
         },
@@ -3626,7 +3575,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Remaining volume for everyone",
             "description": "Remaining volume for everyone.\n\nIf there is a limit to the quantity issued, it becomes impossible to\nissue tickets exceeding this value.\n\nIn other words, the concept of N coupons being issued on a first-come,\nfirst-served basis is created."
           },
           "volume_per_citizen": {
@@ -3639,7 +3587,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Remaining volume per citizen",
             "description": "Remaining volume per citizen.\n\nAs a limit to the total amount of issuance per person, it is common to\nassign 1 to limit duplicate issuance to the same citizen, or to use the\n`nul`` value to set no limit.\n\nOf course, by assigning a value of N, the total amount issued to the\nsame citizen can be limited."
           }
         },
@@ -3658,12 +3605,10 @@
               "$ref": "#/components/schemas/IShoppingSection"
             },
             "minItems": 1,
-            "title": "Target sections to include or exclude",
             "description": "Target sections to include or exclude."
           },
           "type": {
             "const": "section",
-            "title": "Descrimanator type",
             "description": "Descrimanator type."
           },
           "direction": {
@@ -3675,7 +3620,6 @@
                 "const": "exclude"
               }
             ],
-            "title": "Direction of the criteria",
             "description": "Direction of the criteria."
           }
         },
@@ -3692,23 +3636,19 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code",
             "description": "Identifier code."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the section",
             "description": "Representative name of the section."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           }
         },
@@ -3729,12 +3669,10 @@
               "$ref": "#/components/schemas/IShoppingSeller"
             },
             "minItems": 1,
-            "title": "Target sellers to include or exclude",
             "description": "Target sellers to include or exclude."
           },
           "type": {
             "const": "seller",
-            "title": "Descrimanator type",
             "description": "Descrimanator type."
           },
           "direction": {
@@ -3746,7 +3684,6 @@
                 "const": "exclude"
               }
             ],
-            "title": "Direction of the criteria",
             "description": "Direction of the criteria."
           }
         },
@@ -3766,12 +3703,10 @@
               "$ref": "#/components/schemas/IShoppingSale.ISummary"
             },
             "minItems": 1,
-            "title": "Target sales to include or exclude",
             "description": "Target sales to include or exclude."
           },
           "type": {
             "const": "sale",
-            "title": "Descrimanator type",
             "description": "Descrimanator type."
           },
           "direction": {
@@ -3783,7 +3718,6 @@
                 "const": "exclude"
               }
             ],
-            "title": "Direction of the criteria",
             "description": "Direction of the criteria."
           }
         },
@@ -3799,39 +3733,32 @@
         "properties": {
           "section": {
             "$ref": "#/components/schemas/IShoppingSection",
-            "title": "Belonged section",
             "description": "Belonged section."
           },
           "seller": {
             "$ref": "#/components/schemas/IShoppingSeller.ISummary",
-            "title": "Seller who has registered the sale",
             "description": "Seller who has registered the sale."
           },
           "price_range": {
             "$ref": "#/components/schemas/IShoppingSalePriceRange",
-            "title": "Price range of the unit",
             "description": "Price range of the unit."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Sale",
             "description": "Primary Key of Sale."
           },
           "snapshot_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Snapshot",
             "description": "Primary Key of Snapshot."
           },
           "latest": {
             "type": "boolean",
-            "title": "Whether the snapshot is the latest one or not",
             "description": "Whether the snapshot is the latest one or not."
           },
           "content": {
             "$ref": "#/components/schemas/IShoppingSaleContent.IInvert",
-            "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
           "categories": {
@@ -3839,7 +3766,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "title": "List of categories",
             "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
@@ -3847,7 +3773,6 @@
             "items": {
               "type": "string"
             },
-            "title": "List of search tags",
             "description": "List of search tags."
           },
           "units": {
@@ -3856,19 +3781,16 @@
               "$ref": "#/components/schemas/IShoppingSaleUnit.ISummary"
             },
             "minItems": 1,
-            "title": "List of units",
             "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record.\n\nNote that, this property is different with {@link opened_at},\nwhich means the timepoint of the sale is opened."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Last updated time of the record",
             "description": "Last updated time of the record.\n\nIn another words, creation time of the last snapshot."
           },
           "paused_at": {
@@ -3881,7 +3803,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Paused time of the sale",
             "description": "Paused time of the sale.\n\nThe sale is paused by the seller, for some reason.\n\n{@link IShoppingCustomer Customers} can still see the sale on the\nboth list and detail pages, but the sale has a warning label\n\"The sale is paused by the seller\"."
           },
           "suspended_at": {
@@ -3894,7 +3815,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Suspended time of the sale",
             "description": "Suspended time of the sale.\n\nThe sale is suspended by the seller, for some reason.\n\n{@link IShoppingCustomer Customers} cannot see the sale on the\nboth list and detail pages. It is almost same with soft delettion,\nbut there's a little bit difference that the owner\n{@link IShoppingSeller seller} can still see the sale and resume it.\n\nOf course, the {@link IShoppingCustomer customers} who have\nalready purchased the sale can still see the sale on the\n{@link IShoppingOrder order} page."
           },
           "opened_at": {
@@ -3907,7 +3827,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Opening time of the sale",
             "description": "Opening time of the sale."
           },
           "closed_at": {
@@ -3920,7 +3839,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Closing time of the sale",
             "description": "Closing time of the sale.\n\nIf this value is `null`, the sale be continued forever."
           }
         },
@@ -3949,29 +3867,24 @@
         "properties": {
           "type": {
             "const": "seller",
-            "title": "Discriminant for the type of seller",
             "description": "Discriminant for the type of seller."
           },
           "member": {
             "$ref": "#/components/schemas/IShoppingMember.IInvert",
-            "title": "Membership joining information",
             "description": "Membership joining information."
           },
           "citizen": {
             "$ref": "#/components/schemas/IShoppingCitizen",
-            "title": "Real-name and mobile number authentication information",
             "description": "Real-name and mobile number authentication information."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation tmie of record",
             "description": "Creation tmie of record.\n\nAnother words, the time when the seller has signed up."
           }
         },
@@ -4005,13 +3918,11 @@
           "nominal": {
             "type": "number",
             "minimum": 0,
-            "title": "Nominal price",
             "description": "Nominal price.\n\nThis is not {@link real real price} to pay, but just a nominal price to show.\nIf this value is greater than the {@link real real price}, it would be shown\nlike {@link IShoppingSeller seller} is giving a discount."
           },
           "real": {
             "type": "number",
             "minimum": 0,
-            "title": "Real price to pay",
             "description": "Real price to pay."
           }
         },
@@ -4050,19 +3961,16 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of attachment file",
             "description": "Creation time of attachment file."
           },
           "name": {
             "type": "string",
             "maxLength": 255,
-            "title": "File name, except extension",
             "description": "File name, except extension.\n\nIf there's file `.gitignore`, then its name is an empty string."
           },
           "extension": {
@@ -4076,14 +3984,12 @@
                 "maxLength": 8
               }
             ],
-            "title": "Extension",
             "description": "Extension.\n\nPossible to omit like `README` case."
           },
           "url": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "URL path of the real file",
             "description": "URL path of the real file."
           }
         },
@@ -4108,18 +4014,15 @@
                 "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
               }
             ],
-            "title": "Parent category info with recursive structure",
             "description": "Parent category info with recursive structure.\n\nIf no parent exists, then be `null`."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code of the category",
             "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
           },
           "parent_id": {
@@ -4132,18 +4035,15 @@
                 "format": "uuid"
               }
             ],
-            "title": "Parent category's ID",
             "description": "Parent category's ID."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the category",
             "description": "Representative name of the category.\n\nThe name must be unique within the parent category. If no parent exists,\nthen the name must be unique within the channel between no parent\ncategories."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           }
         },
@@ -4166,22 +4066,18 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the unit",
             "description": "Representative name of the unit."
           },
           "primary": {
             "type": "boolean",
-            "title": "Whether the unit is primary or not",
             "description": "Whether the unit is primary or not.\n\nJust a labeling value."
           },
           "required": {
             "type": "boolean",
-            "title": "Whether the unit is required or not",
             "description": "Whether the unit is required or not.\n\nWhen the unit is required, the customer must select the unit. If do not\nselect, customer can't buy it.\n\nFor example, if there's a sale \"Macbook Set\" and one of the unit is the\n\"Main Body\", is it possible to buy the \"Macbook Set\" without the\n\"Main Body\" unit? This property is for that case."
           }
         },
@@ -4209,12 +4105,10 @@
               ]
             },
             "minItems": 1,
-            "title": "List of target funnels",
             "description": "List of target funnels."
           },
           "type": {
             "const": "funnel",
-            "title": "Descrimanator type",
             "description": "Descrimanator type."
           },
           "direction": {
@@ -4226,7 +4120,6 @@
                 "const": "exclude"
               }
             ],
-            "title": "Direction of the criteria",
             "description": "Direction of the criteria."
           }
         },
@@ -4249,12 +4142,10 @@
                 "const": "referrer"
               }
             ],
-            "title": "Kind of funnel restriction",
             "description": "Kind of funnel restriction."
           },
           "value": {
             "type": "string",
-            "title": "Target value",
             "description": "Target value."
           }
         },
@@ -4269,17 +4160,14 @@
         "properties": {
           "kind": {
             "const": "variable",
-            "title": "Kind of funnel restriction",
             "description": "Kind of funnel restriction."
           },
           "key": {
             "type": "string",
-            "title": "Target variable's key",
             "description": "Target variable's key."
           },
           "value": {
             "type": "string",
-            "title": "Target variable's value",
             "description": "Target variable's value."
           }
         },
@@ -4295,12 +4183,10 @@
         "properties": {
           "unit": {
             "const": "amount",
-            "title": "Discount unit as amount",
             "description": "Discount unit as amount.\n\nIt means the order price would be discounted by the amount value."
           },
           "value": {
             "type": "number",
-            "title": "Discount value as amount",
             "description": "Discount value as amount."
           },
           "threshold": {
@@ -4313,7 +4199,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Minimum purchase amount for discount",
             "description": "Minimum purchase amount for discount.\n\nWhen setting this value, discount coupons cannot be applied to\norder totals that are less than this value."
           },
           "limit": {
@@ -4326,12 +4211,10 @@
                 "exclusiveMinimum": 0
               }
             ],
-            "title": "Maximum amount available for discount",
             "description": "Maximum amount available for discount.\n\nWhen this value is set, no further discount will be given no\nmatter how much you order. This property would be meaningful\nonly when the {@link multiplicative} is `true`."
           },
           "multiplicative": {
             "type": "boolean",
-            "title": "Multiplicative or not",
             "description": "Multiplicative or not.\n\nIf this property is `true`, the discount value would be multiplied\nto the {@link IShoppingCartCommodity.volume} or\n{@link IShoppingOrderGood.volume} value. Also, in that case,\nthe {@link limit} property would be meaningful."
           }
         },
@@ -4349,14 +4232,12 @@
         "properties": {
           "unit": {
             "const": "percent",
-            "title": "Discount unit as percent",
             "description": "Discount unit as percent.\n\nIt means the order price would be discounted by the percent value."
           },
           "value": {
             "type": "number",
             "minimum": 0,
             "maximum": 100,
-            "title": "Discount value as percent",
             "description": "Discount value as percent."
           },
           "threshold": {
@@ -4369,7 +4250,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Minimum purchase amount for discount",
             "description": "Minimum purchase amount for discount.\n\nWhen setting this value, discount coupons cannot be applied to\norder totals that are less than this value."
           },
           "limit": {
@@ -4382,7 +4262,6 @@
                 "exclusiveMinimum": 0
               }
             ],
-            "title": "Maximum amount available for discount",
             "description": "Maximum amount available for discount.\n\nWhen this value is set, no further discount will be given no\nmatter how much you order."
           }
         },
@@ -4406,12 +4285,10 @@
                 "const": "private"
               }
             ],
-            "title": "Access level of coupon",
             "description": "Access level of coupon.\n\n- public: possible to find from public API\n- private: unable to find from public API\n  - arbitrarily assigned by the seller or administrator\n  - issued from one-time link"
           },
           "exclusive": {
             "type": "boolean",
-            "title": "Exclusivity or not",
             "description": "Exclusivity or not.\n\nAn exclusive discount coupon refers to a discount coupon that has an\nexclusive relationship with other discount coupons and can only be\nused alone. That is, when an exclusive discount coupon is used, no\nother discount coupon can be used for the same\n{@link IShoppingOrder order} or {@link IShoppingOrderGood good}.\n\nPlease note that this exclusive attribute is a very different concept\nfrom multiplicative, which means whether the same coupon can be\nmultiplied and applied to multiple coupons of the same order, so\nplease do not confuse them."
           },
           "volume": {
@@ -4424,7 +4301,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limited quantity issued",
             "description": "Limited quantity issued.\n\nIf there is a limit to the quantity issued, it becomes impossible\nto issue tickets exceeding this value.\n\nIn other words, the concept of N coupons being issued on\na first-come, first-served basis is created."
           },
           "volume_per_citizen": {
@@ -4437,7 +4313,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limited quantity issued per person",
             "description": "Limited quantity issued per person.\n\nAs a limit to the total amount of issuance per person, it is\ncommon to assign 1 to limit duplicate issuance to the same citizen,\nor to use the NULL value to set no limit.\n\nOf course, by assigning a value of N, the total amount issued\nto the same citizen can be limited."
           },
           "expired_in": {
@@ -4450,7 +4325,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Expiration day(s) value",
             "description": "Expiration day(s) value.\n\nThe concept of expiring N days after a discount coupon ticket is issued.\n\nTherefore, customers must use the ticket within N days, if possible,\nfrom the time it is issued."
           },
           "expired_at": {
@@ -4463,7 +4337,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Expiration date",
             "description": "Expiration date.\n\nA concept that expires after YYYY-MM-DD after a discount coupon ticket\nis issued.\n\nDouble restrictions are possible with expired_in, of which the one\nwith the shorter expiration date is used."
           }
         },
@@ -4496,12 +4369,10 @@
                 "percent": "#/components/schemas/IShoppingCouponDiscount.IPercent"
               }
             },
-            "title": "Discount information",
             "description": "Discount information."
           },
           "restriction": {
             "$ref": "#/components/schemas/IShoppingCouponRestriction",
-            "title": "Restriction information",
             "description": "Restriction information."
           },
           "criterias": {
@@ -4531,7 +4402,6 @@
                 }
               }
             },
-            "title": "List of criteria information",
             "description": "List of criteria information."
           },
           "disposable_codes": {
@@ -4539,12 +4409,10 @@
             "items": {
               "type": "string"
             },
-            "title": "Disposable codes for the coupon",
             "description": "Disposable codes for the coupon."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the coupon",
             "description": "Representative name of the coupon."
           },
           "opened_at": {
@@ -4557,7 +4425,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Opening time of the coupon",
             "description": "Opening time of the coupon."
           },
           "closed_at": {
@@ -4570,7 +4437,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Closing time of the coupon",
             "description": "Closing time of the coupon.\n\nTickets cannot be issued after this time.\n\nHowever, previously issued tickets can still be used until their\nexpiration date."
           }
         },
@@ -4594,7 +4460,6 @@
               "type": "string"
             },
             "minItems": 1,
-            "title": "List of target section's {@link IShoppingSection.code}s",
             "description": "List of target section's {@link IShoppingSection.code}s."
           },
           "type": {
@@ -4628,7 +4493,6 @@
               "format": "uuid"
             },
             "minItems": 1,
-            "title": "List of target seller's {@link IShoppingSeller.id}s",
             "description": "List of target seller's {@link IShoppingSeller.id}s."
           },
           "type": {
@@ -4662,7 +4526,6 @@
               "format": "uuid"
             },
             "minItems": 1,
-            "title": "List of target sale's {@link IShoppingSale.id}s",
             "description": "List of target sale's {@link IShoppingSale.id}s."
           },
           "type": {
@@ -4702,7 +4565,6 @@
               ]
             },
             "minItems": 1,
-            "title": "List of target funnels",
             "description": "List of target funnels."
           },
           "type": {
@@ -4731,7 +4593,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -4739,7 +4600,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingCoupon"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -4755,25 +4615,21 @@
           "current": {
             "type": "integer",
             "minimum": 0,
-            "title": "Current page number",
             "description": "Current page number."
           },
           "limit": {
             "type": "integer",
             "minimum": 0,
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           },
           "records": {
             "type": "integer",
             "minimum": 0,
-            "title": "Total records in the database",
             "description": "Total records in the database."
           },
           "pages": {
             "type": "integer",
             "minimum": 0,
-            "title": "Total pages",
             "description": "Total pages.\n\nEqual to {@link records} / {@link limit} with ceiling."
           }
         },
@@ -4858,7 +4714,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -4871,7 +4726,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -4898,7 +4752,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -4906,7 +4759,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingDeposit"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -5007,7 +4859,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -5020,7 +4871,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -5096,7 +4946,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -5104,7 +4953,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingMileage"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -5216,7 +5064,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -5229,7 +5076,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -5316,7 +5162,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -5324,7 +5169,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingMileageDonation"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -5422,7 +5266,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -5435,7 +5278,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -5553,7 +5395,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -5561,7 +5402,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingOrder"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -5578,18 +5418,15 @@
             "type": "string",
             "format": "uuid",
             "x-wrtn-payment-order-id": true,
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
             "x-wrtn-payment-order-name": true,
-            "title": "Representative name of the order",
             "description": "Representative name of the order."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who've applied for the order",
             "description": "Customer who've applied for the order."
           },
           "goods": {
@@ -5598,12 +5435,10 @@
               "$ref": "#/components/schemas/IShoppingOrderGood"
             },
             "minItems": 1,
-            "title": "List of goods in the order",
             "description": "List of goods in the order."
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingOrderPrice",
-            "title": "Price information including discounts",
             "description": "Price information including discounts.\n\nFor reference, this price value has multiplied by the {@link volume} value.\nTherefore, even if {@link volume} value is equal to the target\n{@link IShoppingCartCommodity.volume}, this price value can be different\nwith the {@link IShoppingCartCommodity.price} value."
           },
           "publish": {
@@ -5615,13 +5450,11 @@
                 "$ref": "#/components/schemas/IShoppingOrderPublish"
               }
             ],
-            "title": "Order completion and payment information",
             "description": "Order completion and payment information."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           }
         },
@@ -5641,7 +5474,6 @@
         "properties": {
           "type": {
             "const": "customer",
-            "title": "Discriminant for the type of customer",
             "description": "Discriminant for the type of customer."
           },
           "member": {
@@ -5653,7 +5485,6 @@
                 "$ref": "#/components/schemas/IShoppingMember"
               }
             ],
-            "title": "Membership information",
             "description": "Membership information.\n\nIf the customer has joined as a member."
           },
           "citizen": {
@@ -5665,18 +5496,15 @@
                 "$ref": "#/components/schemas/IShoppingCitizen"
               }
             ],
-            "title": "Citizen information",
             "description": "Citizen information.\n\nIf the customer has verified his real name and mobile number."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "channel": {
             "$ref": "#/components/schemas/IShoppingChannel",
-            "title": "Belonged channel",
             "description": "Belonged channel."
           },
           "external_user": {
@@ -5688,13 +5516,11 @@
                 "$ref": "#/components/schemas/IShoppingExternalUser"
               }
             ],
-            "title": "External user information",
             "description": "External user information.\n\nWhen the customer has come from an external service."
           },
           "href": {
             "type": "string",
             "format": "uri",
-            "title": "Connection address",
             "description": "Connection address.\n\nSame with {@link window.location.href} of client."
           },
           "referrer": {
@@ -5711,7 +5537,6 @@
                 "maxLength": 0
               }
             ],
-            "title": "Referrer address",
             "description": "Referrer address.\n\nSame with {@link window.document.referrer} of client."
           },
           "ip": {
@@ -5725,13 +5550,11 @@
                 "format": "ipv6"
               }
             ],
-            "title": "Connection IP Address",
             "description": "Connection IP Address."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the connection record",
             "description": "Creation time of the connection record."
           }
         },
@@ -5761,7 +5584,6 @@
                 "$ref": "#/components/schemas/IShoppingCitizen"
               }
             ],
-            "title": "Citizen information",
             "description": "Citizen information.\n\nOnly when has verified as a citizen, with mobile number and real name.\n\nFor reference, if the member has signed up as a seller or administrator,\nthis citizen information must be."
           },
           "seller": {
@@ -5773,7 +5595,6 @@
                 "$ref": "#/components/schemas/IShoppingSeller"
               }
             ],
-            "title": "Seller information",
             "description": "Seller information.\n\nIf the member also signed up as a seller."
           },
           "administrator": {
@@ -5785,18 +5606,15 @@
                 "$ref": "#/components/schemas/IShoppingAdministrator"
               }
             ],
-            "title": "Administrator information",
             "description": "Administrator information.\n\nIf the member also signed up as an administrator."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "nickname": {
             "type": "string",
-            "title": "Nickname that uniquely identifies the member",
             "description": "Nickname that uniquely identifies the member."
           },
           "emails": {
@@ -5804,13 +5622,11 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingMemberEmail"
             },
-            "title": "List of emails",
             "description": "List of emails."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record.\n\nAnother words, the time when the member has signed up."
           }
         },
@@ -5831,23 +5647,19 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "commodity": {
             "$ref": "#/components/schemas/IShoppingCartCommodity",
-            "title": "Commodity that is the basis of the good",
             "description": "Commodity that is the basis of the good."
           },
           "volume": {
             "type": "integer",
             "minimum": 0,
-            "title": "Volume of the good",
             "description": "Volume of the good.\n\nThe value multiplied to {@link IShoppingCartCommodityStock.quantity}.\nIt's purpose is exactly same with {@link IShoppingCartCommodity.volume},\nbut rewritten because the {@link IShoppingCartCommodity} records are reusable\nuntil payment."
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingOrderPrice.ISummary",
-            "title": "Price information including discounts and multiplied volume",
             "description": "Price information including discounts and multiplied volume."
           },
           "state": {
@@ -5877,7 +5689,6 @@
                 "const": "arrived"
               }
             ],
-            "title": "State of delivery about the good",
             "description": "State of delivery about the good."
           },
           "confirmed_at": {
@@ -5890,7 +5701,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Confirmation time of order good",
             "description": "Confirmation time of order good.\n\nWhen be confirmed, customer can't request refund or exchange.\n\nThe confirmation be accomplished by following cases.\n\n- Customer does it directly.\n- 14 days after the delivery."
           }
         },
@@ -5910,39 +5720,32 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key.\n\nIf you want to continue to the order the commodity, then use this ID to order."
           },
           "sale": {
             "$ref": "#/components/schemas/IShoppingSaleSnapshot.IInvert",
-            "title": "Invert information of the sale (snapshot), in the perspective of commodity",
             "description": "Invert information of the sale (snapshot), in the perspective of commodity."
           },
           "orderable": {
             "type": "boolean",
-            "title": "Whether current commodity is orderable or not",
             "description": "Whether current commodity is orderable or not.\n\nIf this attribute is `false`, then the commodity is not orderable, because\nit has already been ordered."
           },
           "pseudo": {
             "type": "boolean",
-            "title": "Whether current commodity is pseudo or not",
             "description": "Whether current commodity is pseudo or not.\n\nWhen this attribute is `true`, then the commodity is not the real one,\nbut just fake information only for calculating the discount effect by\n{@link IShoppingCoupon coupons}."
           },
           "volume": {
             "type": "integer",
             "minimum": 1,
-            "title": "Volume of the commodity to purchase",
             "description": "Volume of the commodity to purchase.\n\nA value indicating how many sets would be multiplied to the children\n{@link IShoppingSaleUnitStock.IInvert.quantity} values."
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingPrice",
-            "title": "Price of the commodity",
             "description": "Price of the commodity.\n\nFor reference, this price value has not been multiplied by the\n{@link volume} value. It just sumed up the prices of the children\n{@link IShoppingSaleUnitStock.IInvert.price} values."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           }
         },
@@ -5962,34 +5765,28 @@
         "properties": {
           "section": {
             "$ref": "#/components/schemas/IShoppingSection",
-            "title": "Belonged section's information",
             "description": "Belonged section's information."
           },
           "seller": {
             "$ref": "#/components/schemas/IShoppingSeller.IInvert",
-            "title": "Seller who've registered the sale",
             "description": "Seller who've registered the sale."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Sale",
             "description": "Primary Key of Sale."
           },
           "snapshot_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Snapshot",
             "description": "Primary Key of Snapshot."
           },
           "latest": {
             "type": "boolean",
-            "title": "Whether the snapshot is the latest one or not",
             "description": "Whether the snapshot is the latest one or not."
           },
           "content": {
             "$ref": "#/components/schemas/IShoppingSaleContent.IInvert",
-            "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
           "categories": {
@@ -5997,7 +5794,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "title": "List of categories",
             "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
@@ -6005,7 +5801,6 @@
             "items": {
               "type": "string"
             },
-            "title": "List of search tags",
             "description": "List of search tags."
           },
           "units": {
@@ -6014,19 +5809,16 @@
               "$ref": "#/components/schemas/IShoppingSaleUnit.IInvert"
             },
             "minItems": 1,
-            "title": "List of units",
             "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record.\n\nNote that, this property is different with {@link opened_at},\nwhich means the timepoint of the sale is opened."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Last updated time of the record",
             "description": "Last updated time of the record.\n\nIn another words, creation time of the last snapshot."
           },
           "paused_at": {
@@ -6039,7 +5831,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Paused time of the sale",
             "description": "Paused time of the sale.\n\nThe sale is paused by the seller, for some reason.\n\n{@link IShoppingCustomer Customers} can still see the sale on the\nboth list and detail pages, but the sale has a warning label\n\"The sale is paused by the seller\"."
           },
           "suspended_at": {
@@ -6052,7 +5843,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Suspended time of the sale",
             "description": "Suspended time of the sale.\n\nThe sale is suspended by the seller, for some reason.\n\n{@link IShoppingCustomer Customers} cannot see the sale on the\nboth list and detail pages. It is almost same with soft delettion,\nbut there's a little bit difference that the owner\n{@link IShoppingSeller seller} can still see the sale and resume it.\n\nOf course, the {@link IShoppingCustomer customers} who have\nalready purchased the sale can still see the sale on the\n{@link IShoppingOrder order} page."
           },
           "opened_at": {
@@ -6065,7 +5855,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Opening time of the sale",
             "description": "Opening time of the sale."
           },
           "closed_at": {
@@ -6078,7 +5867,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Closing time of the sale",
             "description": "Closing time of the sale.\n\nIf this value is `null`, the sale be continued forever."
           }
         },
@@ -6106,34 +5894,28 @@
         "properties": {
           "type": {
             "const": "seller",
-            "title": "Discriminant for the type of seller",
             "description": "Discriminant for the type of seller."
           },
           "member": {
             "$ref": "#/components/schemas/IShoppingMember.IInvert",
-            "title": "Membership joining information",
             "description": "Membership joining information."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer.IInvert",
-            "title": "Customer, the connection information",
             "description": "Customer, the connection information."
           },
           "citizen": {
             "$ref": "#/components/schemas/IShoppingCitizen",
-            "title": "Real-name and mobile number authentication information",
             "description": "Real-name and mobile number authentication information."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation tmie of record",
             "description": "Creation tmie of record.\n\nAnother words, the time when the seller has signed up."
           }
         },
@@ -6156,28 +5938,23 @@
               "$ref": "#/components/schemas/IShoppingSaleUnitStock.IInvert"
             },
             "minItems": 1,
-            "title": "List of final stocks",
             "description": "List of final stocks."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the unit",
             "description": "Representative name of the unit."
           },
           "primary": {
             "type": "boolean",
-            "title": "Whether the unit is primary or not",
             "description": "Whether the unit is primary or not.\n\nJust a labeling value."
           },
           "required": {
             "type": "boolean",
-            "title": "Whether the unit is required or not",
             "description": "Whether the unit is required or not.\n\nWhen the unit is required, the customer must select the unit. If do not\nselect, customer can't buy it.\n\nFor example, if there's a sale \"Macbook Set\" and one of the unit is the\n\"Main Body\", is it possible to buy the \"Macbook Set\" without the\n\"Main Body\" unit? This property is for that case."
           }
         },
@@ -6195,28 +5972,23 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the stock",
             "description": "Representative name of the stock."
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingPrice",
-            "title": "Price of the stock",
             "description": "Price of the stock."
           },
           "quantity": {
             "type": "integer",
             "minimum": 1,
-            "title": "Quantity of the stock in the cart",
             "description": "Quantity of the stock in the cart."
           },
           "inventory": {
             "$ref": "#/components/schemas/IShoppingSaleUnitStockInventory",
-            "title": "Current inventory status of the stock",
             "description": "Current inventory status of the stock."
           },
           "choices": {
@@ -6224,7 +5996,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleUnitStockChoice.IInvert"
             },
-            "title": "List of choices",
             "description": "List of choices.\n\nWhich values being written for each option."
           }
         },
@@ -6244,13 +6015,11 @@
           "income": {
             "type": "integer",
             "minimum": 0,
-            "title": "Total income quantity",
             "description": "Total income quantity."
           },
           "outcome": {
             "type": "integer",
             "minimum": 0,
-            "title": "Total outcome quantity",
             "description": "Total outcome quantity."
           }
         },
@@ -6266,7 +6035,6 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "option": {
@@ -6278,7 +6046,6 @@
                 "$ref": "#/components/schemas/IShoppingSaleUnitDescriptiveOption"
               }
             ],
-            "title": "Target option",
             "description": "Target option."
           },
           "candidate": {
@@ -6290,7 +6057,6 @@
                 "$ref": "#/components/schemas/IShoppingSaleUnitOptionCandidate"
               }
             ],
-            "title": "Selected candidate value",
             "description": "Selected candidate value."
           },
           "value": {
@@ -6308,7 +6074,6 @@
                 "type": "boolean"
               }
             ],
-            "title": "Written value",
             "description": "Written value."
           }
         },
@@ -6326,22 +6091,18 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "type": {
             "const": "select",
-            "title": "Discriminant for the type of selectable option",
             "description": "Discriminant for the type of selectable option."
           },
           "name": {
             "type": "string",
-            "title": "Represents the name of the option",
             "description": "Represents the name of the option."
           },
           "variable": {
             "type": "boolean",
-            "title": "Whether the option is variable or not",
             "description": "Whether the option is variable or not.\n\nWhen type of current option is \"select\", this attribute means whether\nselecting different candidate value affects the final stock or not."
           }
         },
@@ -6358,7 +6119,6 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "type": {
@@ -6373,12 +6133,10 @@
                 "const": "boolean"
               }
             ],
-            "title": "Type of descriptive option",
             "description": "Type of descriptive option.\n\nWhich typed value should be written when purchasing."
           },
           "name": {
             "type": "string",
-            "title": "Readable name of the option",
             "description": "Readable name of the option."
           }
         },
@@ -6395,12 +6153,10 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
-            "title": "Represents the name of the candidate value",
             "description": "Represents the name of the candidate value."
           }
         },
@@ -6417,37 +6173,31 @@
             "type": "number",
             "minimum": 0,
             "x-wrtn-payment-price": true,
-            "title": "Amount of the cash payment",
             "description": "Amount of the cash payment."
           },
           "deposit": {
             "type": "number",
             "minimum": 0,
-            "title": "Amount of the deposit payment",
             "description": "Amount of the deposit payment."
           },
           "mileage": {
             "type": "number",
             "minimum": 0,
-            "title": "Amount of the mileage payment",
             "description": "Amount of the mileage payment."
           },
           "ticket": {
             "type": "number",
             "minimum": 0,
-            "title": "Amount of the discount coupon ticket payment",
             "description": "Amount of the discount coupon ticket payment."
           },
           "nominal": {
             "type": "number",
             "minimum": 0,
-            "title": "Nominal price",
             "description": "Nominal price.\n\nThis is not {@link real real price} to pay, but just a nominal price to show.\nIf this value is greater than the {@link real real price}, it would be shown\nlike {@link IShoppingSeller seller} is giving a discount."
           },
           "real": {
             "type": "number",
             "minimum": 0,
-            "title": "Real price to pay",
             "description": "Real price to pay."
           }
         },
@@ -6469,44 +6219,37 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingCouponTicketPayment"
             },
-            "title": "List of discount coupon ticket payments",
             "description": "List of discount coupon ticket payments."
           },
           "cash": {
             "type": "number",
             "minimum": 0,
             "x-wrtn-payment-price": true,
-            "title": "Amount of the cash payment",
             "description": "Amount of the cash payment."
           },
           "deposit": {
             "type": "number",
             "minimum": 0,
-            "title": "Amount of the deposit payment",
             "description": "Amount of the deposit payment."
           },
           "mileage": {
             "type": "number",
             "minimum": 0,
-            "title": "Amount of the mileage payment",
             "description": "Amount of the mileage payment."
           },
           "ticket": {
             "type": "number",
             "minimum": 0,
-            "title": "Amount of the discount coupon ticket payment",
             "description": "Amount of the discount coupon ticket payment."
           },
           "nominal": {
             "type": "number",
             "minimum": 0,
-            "title": "Nominal price",
             "description": "Nominal price.\n\nThis is not {@link real real price} to pay, but just a nominal price to show.\nIf this value is greater than the {@link real real price}, it would be shown\nlike {@link IShoppingSeller seller} is giving a discount."
           },
           "real": {
             "type": "number",
             "minimum": 0,
-            "title": "Real price to pay",
             "description": "Real price to pay."
           }
         },
@@ -6527,18 +6270,15 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "ticket": {
             "$ref": "#/components/schemas/IShoppingCouponTicket",
-            "title": "Target ticket",
             "description": "Target ticket."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           }
         },
@@ -6555,23 +6295,19 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who've taken the coupon ticket",
             "description": "Customer who've taken the coupon ticket."
           },
           "coupon": {
             "$ref": "#/components/schemas/IShoppingCoupon",
-            "title": "Target coupon",
             "description": "Target coupon."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           },
           "expired_at": {
@@ -6584,7 +6320,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Expiration time of the ticket",
             "description": "Expiration time of the ticket."
           }
         },
@@ -6605,7 +6340,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingDelivery"
             },
-            "title": "List of deliveries",
             "description": "List of deliveries.\n\nAn {@link IShoppingOrder order} can be delivered in multiple times.\nOf course, the opposite case is also possible, that a\n{@link IShoppingDelivery delivery} can be composed of multiple orders."
           },
           "state": {
@@ -6632,19 +6366,16 @@
                 "const": "arrived"
               }
             ],
-            "title": "State of the order, about the deliveries",
             "description": "State of the order, about the deliveries."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           },
           "paid_at": {
@@ -6657,7 +6388,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Time when the order was paid",
             "description": "Time when the order was paid."
           },
           "cancelled_at": {
@@ -6670,12 +6400,10 @@
                 "format": "date-time"
               }
             ],
-            "title": "Time when the payment was cancelled",
             "description": "Time when the payment was cancelled."
           },
           "address": {
             "$ref": "#/components/schemas/IShoppingAddress",
-            "title": "Address where the {@link IShoppingOrderGood goods} to be delivered",
             "description": "Address where the {@link IShoppingOrderGood goods} to be delivered."
           }
         },
@@ -6696,12 +6424,10 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "seller": {
             "$ref": "#/components/schemas/IShoppingSeller",
-            "title": "Seller who've delivered the goods",
             "description": "Seller who've delivered the goods."
           },
           "journeys": {
@@ -6709,7 +6435,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingDeliveryJourney"
             },
-            "title": "List of journeys of the delivery",
             "description": "List of journeys of the delivery."
           },
           "pieces": {
@@ -6718,7 +6443,6 @@
               "$ref": "#/components/schemas/IShoppingDeliveryPiece"
             },
             "minItems": 1,
-            "title": "List of pieces of the delivery",
             "description": "List of pieces of the delivery."
           },
           "shippers": {
@@ -6726,7 +6450,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingDeliveryShipper"
             },
-            "title": "List of shippers of the delivery",
             "description": "List of shippers of the delivery."
           },
           "state": {
@@ -6753,13 +6476,11 @@
                 "const": "arrived"
               }
             ],
-            "title": "State of the delivery",
             "description": "State of the delivery."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           }
         },
@@ -6780,13 +6501,11 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record."
           },
           "deleted_at": {
@@ -6799,7 +6518,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Deletion time of the record",
             "description": "Deletion time of the record."
           },
           "type": {
@@ -6817,7 +6535,6 @@
                 "const": "delivering"
               }
             ],
-            "title": "Type of journey",
             "description": "Type of journey.\n\n- preparing\n- manufacturing\n- shipping\n- delivering"
           },
           "title": {
@@ -6829,7 +6546,6 @@
                 "type": "string"
               }
             ],
-            "title": "Title of journey",
             "description": "Title of journey."
           },
           "description": {
@@ -6841,7 +6557,6 @@
                 "type": "string"
               }
             ],
-            "title": "Description of journey",
             "description": "Description of journey."
           },
           "started_at": {
@@ -6854,7 +6569,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Start time of the journey",
             "description": "Start time of the journey."
           },
           "completed_at": {
@@ -6867,7 +6581,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Completion time of the journey",
             "description": "Completion time of the journey."
           }
         },
@@ -6889,31 +6602,26 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "publish_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Target order's {@link IShoppingOrderPublish.id}",
             "description": "Target order's {@link IShoppingOrderPublish.id}."
           },
           "good_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Target good's {@link IShoppingOrderGood.id}",
             "description": "Target good's {@link IShoppingOrderGood.id}."
           },
           "stock_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Target stock's {@link IShoppingSaleUnitStock.id}",
             "description": "Target stock's {@link IShoppingSaleUnitStock.id}."
           },
           "quantity": {
             "type": "number",
             "minimum": 0,
-            "title": "Quantity of the stock",
             "description": "Quantity of the stock.\n\nIt can be precision value to express split shipping."
           }
         },
@@ -6968,54 +6676,44 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           },
           "mobile": {
             "type": "string",
             "pattern": "^[0-9]*$",
-            "title": "Mobile number to contact",
             "description": "Mobile number to contact."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the address",
             "description": "Representative name of the address.\n\nSometimes be receiver's name, and sometimes be place name."
           },
           "country": {
             "type": "string",
-            "title": "Country name",
             "description": "Country name."
           },
           "province": {
             "type": "string",
-            "title": "Province name",
             "description": "Province name."
           },
           "city": {
             "type": "string",
-            "title": "City name",
             "description": "City name."
           },
           "department": {
             "type": "string",
-            "title": "Department name",
             "description": "Department name."
           },
           "possession": {
             "type": "string",
-            "title": "Detailed address containing street name, building number, and room number",
             "description": "Detailed address containing street name, building number, and room number."
           },
           "zip_code": {
             "type": "string",
-            "title": "Zip code, or postal code",
             "description": "Zip code, or postal code."
           },
           "special_note": {
@@ -7027,7 +6725,6 @@
                 "type": "string"
               }
             ],
-            "title": "Special description if required",
             "description": "Special description if required."
           }
         },
@@ -7107,7 +6804,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -7120,7 +6816,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -7475,7 +7170,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -7483,7 +7177,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSale"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -7498,34 +7191,28 @@
         "properties": {
           "section": {
             "$ref": "#/components/schemas/IShoppingSection",
-            "title": "Belonged section",
             "description": "Belonged section."
           },
           "seller": {
             "$ref": "#/components/schemas/IShoppingSeller.IInvert",
-            "title": "Seller who has registered the sale",
             "description": "Seller who has registered the sale."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Sale",
             "description": "Primary Key of Sale."
           },
           "snapshot_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Snapshot",
             "description": "Primary Key of Snapshot."
           },
           "latest": {
             "type": "boolean",
-            "title": "Whether the snapshot is the latest one or not",
             "description": "Whether the snapshot is the latest one or not."
           },
           "content": {
             "$ref": "#/components/schemas/IShoppingSaleContent",
-            "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
           "categories": {
@@ -7533,7 +7220,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "title": "List of categories",
             "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
@@ -7541,7 +7227,6 @@
             "items": {
               "type": "string"
             },
-            "title": "List of search tags",
             "description": "List of search tags."
           },
           "units": {
@@ -7550,19 +7235,16 @@
               "$ref": "#/components/schemas/IShoppingSaleUnit"
             },
             "minItems": 1,
-            "title": "List of units",
             "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the record",
             "description": "Creation time of the record.\n\nNote that, this property is different with {@link opened_at},\nwhich means the timepoint of the sale is opened."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Last updated time of the record",
             "description": "Last updated time of the record.\n\nIn another words, creation time of the last snapshot."
           },
           "paused_at": {
@@ -7575,7 +7257,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Paused time of the sale",
             "description": "Paused time of the sale.\n\nThe sale is paused by the seller, for some reason.\n\n{@link IShoppingCustomer Customers} can still see the sale on the\nboth list and detail pages, but the sale has a warning label\n\"The sale is paused by the seller\"."
           },
           "suspended_at": {
@@ -7588,7 +7269,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Suspended time of the sale",
             "description": "Suspended time of the sale.\n\nThe sale is suspended by the seller, for some reason.\n\n{@link IShoppingCustomer Customers} cannot see the sale on the\nboth list and detail pages. It is almost same with soft delettion,\nbut there's a little bit difference that the owner\n{@link IShoppingSeller seller} can still see the sale and resume it.\n\nOf course, the {@link IShoppingCustomer customers} who have\nalready purchased the sale can still see the sale on the\n{@link IShoppingOrder order} page."
           },
           "opened_at": {
@@ -7601,7 +7281,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Opening time of the sale",
             "description": "Opening time of the sale."
           },
           "closed_at": {
@@ -7614,7 +7293,6 @@
                 "format": "date-time"
               }
             ],
-            "title": "Closing time of the sale",
             "description": "Closing time of the sale.\n\nIf this value is `null`, the sale be continued forever."
           }
         },
@@ -7643,12 +7321,10 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the content",
             "description": "Title of the content."
           },
           "format": {
@@ -7663,12 +7339,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of the body content",
             "description": "Format of the body content.\n\nSame meaning with file extension like `html`, `md`, and `txt`."
           },
           "body": {
             "type": "string",
-            "title": "The main body content",
             "description": "The main body content.\n\nFormat follows the {@link format}, and default is `md` (markdown)."
           },
           "files": {
@@ -7676,7 +7350,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile"
             },
-            "title": "List of attached files",
             "description": "List of attached files."
           },
           "thumbnails": {
@@ -7684,7 +7357,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile"
             },
-            "title": "List of thumbnails",
             "description": "List of thumbnails."
           }
         },
@@ -7713,7 +7385,6 @@
                 }
               ]
             },
-            "title": "List of options",
             "description": "List of options."
           },
           "stocks": {
@@ -7722,28 +7393,23 @@
               "$ref": "#/components/schemas/IShoppingSaleUnitStock"
             },
             "minItems": 1,
-            "title": "List of final stocks",
             "description": "List of final stocks."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the unit",
             "description": "Representative name of the unit."
           },
           "primary": {
             "type": "boolean",
-            "title": "Whether the unit is primary or not",
             "description": "Whether the unit is primary or not.\n\nJust a labeling value."
           },
           "required": {
             "type": "boolean",
-            "title": "Whether the unit is required or not",
             "description": "Whether the unit is required or not.\n\nWhen the unit is required, the customer must select the unit. If do not\nselect, customer can't buy it.\n\nFor example, if there's a sale \"Macbook Set\" and one of the unit is the\n\"Main Body\", is it possible to buy the \"Macbook Set\" without the\n\"Main Body\" unit? This property is for that case."
           }
         },
@@ -7766,28 +7432,23 @@
               "$ref": "#/components/schemas/IShoppingSaleUnitOptionCandidate"
             },
             "minItems": 1,
-            "title": "List of candidate values",
             "description": "List of candidate values."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "type": {
             "const": "select",
-            "title": "Discriminant for the type of selectable option",
             "description": "Discriminant for the type of selectable option."
           },
           "name": {
             "type": "string",
-            "title": "Represents the name of the option",
             "description": "Represents the name of the option."
           },
           "variable": {
             "type": "boolean",
-            "title": "Whether the option is variable or not",
             "description": "Whether the option is variable or not.\n\nWhen type of current option is \"select\", this attribute means whether\nselecting different candidate value affects the final stock or not."
           }
         },
@@ -7806,22 +7467,18 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the stock",
             "description": "Representative name of the stock."
           },
           "price": {
             "$ref": "#/components/schemas/IShoppingPrice",
-            "title": "Price of the stock",
             "description": "Price of the stock."
           },
           "inventory": {
             "$ref": "#/components/schemas/IShoppingSaleUnitStockInventory",
-            "title": "Current inventory status of the stock",
             "description": "Current inventory status of the stock."
           },
           "choices": {
@@ -7829,7 +7486,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleUnitStockChoice"
             },
-            "title": "List of choices",
             "description": "List of choices.\n\nWhich candidate values being chosen for each option."
           }
         },
@@ -7848,7 +7504,6 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "option_id": {
@@ -7981,7 +7636,6 @@
                 }
               }
             ],
-            "title": "Sorting conditions",
             "description": "Sorting conditions."
           },
           "page": {
@@ -7994,7 +7648,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -8007,7 +7660,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -8019,7 +7671,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -8027,7 +7678,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSale.ISummary"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -8042,7 +7692,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -8050,7 +7699,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleInquiryComment"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -8083,13 +7731,11 @@
                 "seller": "#/components/schemas/IShoppingSeller.IInvert"
               }
             },
-            "title": "Writer of the comment",
             "description": "Writer of the comment.\n\nBoth customer and seller can write comment on the sale inquiry.\n\nBy the way, no restriction on the customer, but seller must be the\nperson who've registered the sale."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "parent_id": {
@@ -8102,7 +7748,6 @@
                 "format": "uuid"
               }
             ],
-            "title": "Parent comment's ID",
             "description": "Parent comment's ID."
           },
           "snapshots": {
@@ -8111,13 +7756,11 @@
               "$ref": "#/components/schemas/IBbsArticleComment.ISnapshot"
             },
             "minItems": 1,
-            "title": "List of snapshot contents",
             "description": "List of snapshot contents.\n\nIt is created for the first time when a comment being created, and is\naccumulated every time the comment is modified."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of comment",
             "description": "Creation time of comment."
           }
         },
@@ -8136,13 +7779,11 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of snapshot record",
             "description": "Creation time of snapshot record.\n\nIn other words, creation time or update time or comment."
           },
           "format": {
@@ -8157,12 +7798,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "body": {
             "type": "string",
-            "title": "Content body of comment",
             "description": "Content body of comment."
           },
           "files": {
@@ -8170,7 +7809,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -8189,7 +7827,6 @@
           "name": {
             "type": "string",
             "maxLength": 255,
-            "title": "File name, except extension",
             "description": "File name, except extension.\n\nIf there's file `.gitignore`, then its name is an empty string."
           },
           "extension": {
@@ -8203,14 +7840,12 @@
                 "maxLength": 8
               }
             ],
-            "title": "Extension",
             "description": "Extension.\n\nPossible to omit like `README` case."
           },
           "url": {
             "type": "string",
             "format": "uri",
             "contentMediaType": "image/*",
-            "title": "URL path of the real file",
             "description": "URL path of the real file."
           }
         },
@@ -8263,7 +7898,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -8276,7 +7910,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -8334,12 +7967,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "body": {
             "type": "string",
-            "title": "Content body of comment",
             "description": "Content body of comment."
           },
           "files": {
@@ -8347,7 +7978,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -8364,13 +7994,11 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of snapshot record",
             "description": "Creation time of snapshot record.\n\nIn other words, creation time or update time or comment."
           },
           "format": {
@@ -8385,12 +8013,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "body": {
             "type": "string",
-            "title": "Content body of comment",
             "description": "Content body of comment."
           },
           "files": {
@@ -8398,7 +8024,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -8416,7 +8041,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -8424,7 +8048,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleQuestion.ISummary"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -8439,12 +8062,10 @@
         "properties": {
           "secret": {
             "type": "boolean",
-            "title": "Whether the question article is secret or not",
             "description": "Whether the question article is secret or not.\n\nIf secret article, only the writer customer and related seller can see\nthe detailed content."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who wrote the inquiry",
             "description": "Customer who wrote the inquiry."
           },
           "answer": {
@@ -8456,35 +8077,29 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiryAnswer.ISummary"
               }
             ],
-            "title": "Formal answer for the inquiry by the seller",
             "description": "Formal answer for the inquiry by the seller."
           },
           "read_by_seller": {
             "type": "boolean",
-            "title": "Whether the seller has viewed the inquiry or not",
             "description": "Whether the seller has viewed the inquiry or not."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the last snapshot",
             "description": "Title of the last snapshot."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the article",
             "description": "Creation time of the article."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Modification time of the article",
             "description": "Modification time of the article.\n\nIn other words, the time when the last snapshot was created."
           }
         },
@@ -8509,24 +8124,20 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the last snapshot",
             "description": "Title of the last snapshot."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the article",
             "description": "Creation time of the article."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Modification time of the article",
             "description": "Modification time of the article.\n\nIn other words, the time when the last snapshot was created."
           }
         },
@@ -8550,7 +8161,6 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiry.IRequest.ISearch"
               }
             ],
-            "title": "Search conditions",
             "description": "Search conditions."
           },
           "sort": {
@@ -8596,7 +8206,6 @@
                 }
               }
             ],
-            "title": "Sorting conditions",
             "description": "Sorting conditions."
           },
           "page": {
@@ -8609,7 +8218,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -8622,7 +8230,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -8722,7 +8329,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -8730,7 +8336,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleQuestion.IAbridge"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -8745,12 +8350,10 @@
         "properties": {
           "secret": {
             "type": "boolean",
-            "title": "Whether the question article is secret or not",
             "description": "Whether the question article is secret or not.\n\nIf secret article, only the writer customer and related seller can see\nthe detailed content."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who wrote the inquiry",
             "description": "Customer who wrote the inquiry."
           },
           "answer": {
@@ -8762,35 +8365,29 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiryAnswer.IAbridge"
               }
             ],
-            "title": "Formal answer for the inquiry by the seller",
             "description": "Formal answer for the inquiry by the seller."
           },
           "read_by_seller": {
             "type": "boolean",
-            "title": "Whether the seller has viewed the inquiry or not",
             "description": "Whether the seller has viewed the inquiry or not."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the last snapshot",
             "description": "Title of the last snapshot."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the article",
             "description": "Creation time of the article."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Modification time of the article",
             "description": "Modification time of the article.\n\nIn other words, the time when the last snapshot was created."
           },
           "format": {
@@ -8805,12 +8402,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "body": {
             "type": "string",
-            "title": "Content body of article",
             "description": "Content body of article."
           },
           "files": {
@@ -8818,7 +8413,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -8846,24 +8440,20 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the last snapshot",
             "description": "Title of the last snapshot."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the article",
             "description": "Creation time of the article."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Modification time of the article",
             "description": "Modification time of the article.\n\nIn other words, the time when the last snapshot was created."
           },
           "format": {
@@ -8878,12 +8468,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "body": {
             "type": "string",
-            "title": "Content body of article",
             "description": "Content body of article."
           },
           "files": {
@@ -8891,7 +8479,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -8911,17 +8498,14 @@
         "properties": {
           "secret": {
             "type": "boolean",
-            "title": "Whether the question article is secret or not",
             "description": "Whether the question article is secret or not.\n\nIf secret article, only the writer customer and related seller can see\nthe detailed content."
           },
           "type": {
             "const": "question",
-            "title": "Type of the derived inquiry",
             "description": "Type of the derived inquiry.\n\n- `question`: {@link IShoppingSaleQuestion}\n- `review`: {@link IShoppingSaleReview}"
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who wrote the inquiry",
             "description": "Customer who wrote the inquiry."
           },
           "answer": {
@@ -8933,18 +8517,15 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiryAnswer"
               }
             ],
-            "title": "Formal answer for the inquiry by the seller",
             "description": "Formal answer for the inquiry by the seller."
           },
           "read_by_seller": {
             "type": "boolean",
-            "title": "Whether the seller has viewed the inquiry or not",
             "description": "Whether the seller has viewed the inquiry or not."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "snapshots": {
@@ -8953,13 +8534,11 @@
               "$ref": "#/components/schemas/IBbsArticle.ISnapshot"
             },
             "minItems": 1,
-            "title": "List of snapshot contents",
             "description": "List of snapshot contents.\n\nIt is created for the first time when an article is created, and is\naccumulated every time the article is modified."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of article",
             "description": "Creation time of article."
           }
         },
@@ -8980,13 +8559,11 @@
         "properties": {
           "seller": {
             "$ref": "#/components/schemas/IShoppingSeller",
-            "title": "Seller who've written the answer",
             "description": "Seller who've written the answer."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "snapshots": {
@@ -8995,13 +8572,11 @@
               "$ref": "#/components/schemas/IBbsArticle.ISnapshot"
             },
             "minItems": 1,
-            "title": "List of snapshot contents",
             "description": "List of snapshot contents.\n\nIt is created for the first time when an article is created, and is\naccumulated every time the article is modified."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of article",
             "description": "Creation time of article."
           }
         },
@@ -9018,13 +8593,11 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of snapshot record",
             "description": "Creation time of snapshot record.\n\nIn other words, creation time or update time or article."
           },
           "format": {
@@ -9039,17 +8612,14 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "title": {
             "type": "string",
-            "title": "Title of article",
             "description": "Title of article."
           },
           "body": {
             "type": "string",
-            "title": "Content body of article",
             "description": "Content body of article."
           },
           "files": {
@@ -9057,7 +8627,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -9076,7 +8645,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -9084,7 +8652,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleReview.ISummary"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -9099,12 +8666,10 @@
         "properties": {
           "score": {
             "type": "number",
-            "title": "Score of the review",
             "description": "Score of the review."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who wrote the inquiry",
             "description": "Customer who wrote the inquiry."
           },
           "answer": {
@@ -9116,35 +8681,29 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiryAnswer.ISummary"
               }
             ],
-            "title": "Formal answer for the inquiry by the seller",
             "description": "Formal answer for the inquiry by the seller."
           },
           "read_by_seller": {
             "type": "boolean",
-            "title": "Whether the seller has viewed the inquiry or not",
             "description": "Whether the seller has viewed the inquiry or not."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the last snapshot",
             "description": "Title of the last snapshot."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the article",
             "description": "Creation time of the article."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Modification time of the article",
             "description": "Modification time of the article.\n\nIn other words, the time when the last snapshot was created."
           }
         },
@@ -9172,7 +8731,6 @@
                 "$ref": "#/components/schemas/IShoppingSaleReview.IRequest.ISearch"
               }
             ],
-            "title": "Search conditions",
             "description": "Search conditions."
           },
           "sort": {
@@ -9224,7 +8782,6 @@
                 }
               }
             ],
-            "title": "Sorting conditions",
             "description": "Sorting conditions."
           },
           "page": {
@@ -9237,7 +8794,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -9250,7 +8806,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -9374,7 +8929,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -9382,7 +8936,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleReview.IAbridge"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -9399,12 +8952,10 @@
             "type": "number",
             "minimum": 0,
             "maximum": 100,
-            "title": "Score of the review",
             "description": "Score of the review."
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who wrote the inquiry",
             "description": "Customer who wrote the inquiry."
           },
           "answer": {
@@ -9416,35 +8967,29 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiryAnswer.IAbridge"
               }
             ],
-            "title": "Formal answer for the inquiry by the seller",
             "description": "Formal answer for the inquiry by the seller."
           },
           "read_by_seller": {
             "type": "boolean",
-            "title": "Whether the seller has viewed the inquiry or not",
             "description": "Whether the seller has viewed the inquiry or not."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "title": {
             "type": "string",
-            "title": "Title of the last snapshot",
             "description": "Title of the last snapshot."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of the article",
             "description": "Creation time of the article."
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Modification time of the article",
             "description": "Modification time of the article.\n\nIn other words, the time when the last snapshot was created."
           },
           "format": {
@@ -9459,12 +9004,10 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "body": {
             "type": "string",
-            "title": "Content body of article",
             "description": "Content body of article."
           },
           "files": {
@@ -9472,7 +9015,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -9496,12 +9038,10 @@
         "properties": {
           "type": {
             "const": "review",
-            "title": "Type of the derived inquiry",
             "description": "Type of the derived inquiry.\n\n- `question`: {@link IShoppingSaleQuestion}\n- `review`: {@link IShoppingSaleReview}"
           },
           "customer": {
             "$ref": "#/components/schemas/IShoppingCustomer",
-            "title": "Customer who wrote the inquiry",
             "description": "Customer who wrote the inquiry."
           },
           "answer": {
@@ -9513,18 +9053,15 @@
                 "$ref": "#/components/schemas/IShoppingSaleInquiryAnswer"
               }
             ],
-            "title": "Formal answer for the inquiry by the seller",
             "description": "Formal answer for the inquiry by the seller."
           },
           "read_by_seller": {
             "type": "boolean",
-            "title": "Whether the seller has viewed the inquiry or not",
             "description": "Whether the seller has viewed the inquiry or not."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "snapshots": {
@@ -9533,13 +9070,11 @@
               "$ref": "#/components/schemas/IShoppingSaleReview.ISnapshot"
             },
             "minItems": 1,
-            "title": "List of snapshot contents",
             "description": "List of snapshot contents.\n\nIt is created for the first time when an article is created, and is\naccumulated every time the article is modified."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of article",
             "description": "Creation time of article."
           }
         },
@@ -9561,18 +9096,15 @@
             "type": "number",
             "minimum": 0,
             "maximum": 100,
-            "title": "Score of the review",
             "description": "Score of the review."
           },
           "id": {
             "type": "string",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of snapshot record",
             "description": "Creation time of snapshot record.\n\nIn other words, creation time or update time or article."
           },
           "format": {
@@ -9587,17 +9119,14 @@
                 "const": "txt"
               }
             ],
-            "title": "Format of body",
             "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
           },
           "title": {
             "type": "string",
-            "title": "Title of article",
             "description": "Title of article."
           },
           "body": {
             "type": "string",
-            "title": "Content body of article",
             "description": "Content body of article."
           },
           "files": {
@@ -9605,7 +9134,6 @@
             "items": {
               "$ref": "#/components/schemas/IAttachmentFile.ICreate"
             },
-            "title": "List of attachment files",
             "description": "List of attachment files."
           }
         },
@@ -9625,7 +9153,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -9633,7 +9160,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSaleSnapshot.ISummary"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -9648,29 +9174,24 @@
         "properties": {
           "price_range": {
             "$ref": "#/components/schemas/IShoppingSalePriceRange",
-            "title": "Price range of the unit",
             "description": "Price range of the unit."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Sale",
             "description": "Primary Key of Sale."
           },
           "snapshot_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Snapshot",
             "description": "Primary Key of Snapshot."
           },
           "latest": {
             "type": "boolean",
-            "title": "Whether the snapshot is the latest one or not",
             "description": "Whether the snapshot is the latest one or not."
           },
           "content": {
             "$ref": "#/components/schemas/IShoppingSaleContent.IInvert",
-            "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
           "categories": {
@@ -9678,7 +9199,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "title": "List of categories",
             "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
@@ -9686,7 +9206,6 @@
             "items": {
               "type": "string"
             },
-            "title": "List of search tags",
             "description": "List of search tags."
           },
           "units": {
@@ -9695,7 +9214,6 @@
               "$ref": "#/components/schemas/IShoppingSaleUnit.ISummary"
             },
             "minItems": 1,
-            "title": "List of units",
             "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           }
         },
@@ -9724,7 +9242,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -9737,7 +9254,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -9750,23 +9266,19 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Sale",
             "description": "Primary Key of Sale."
           },
           "snapshot_id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key of Snapshot",
             "description": "Primary Key of Snapshot."
           },
           "latest": {
             "type": "boolean",
-            "title": "Whether the snapshot is the latest one or not",
             "description": "Whether the snapshot is the latest one or not."
           },
           "content": {
             "$ref": "#/components/schemas/IShoppingSaleContent",
-            "title": "Description and image content describing the sale",
             "description": "Description and image content describing the sale."
           },
           "categories": {
@@ -9774,7 +9286,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
             },
-            "title": "List of categories",
             "description": "List of categories.\n\nWhich categories the sale is registered to."
           },
           "tags": {
@@ -9782,7 +9293,6 @@
             "items": {
               "type": "string"
             },
-            "title": "List of search tags",
             "description": "List of search tags."
           },
           "units": {
@@ -9791,7 +9301,6 @@
               "$ref": "#/components/schemas/IShoppingSaleUnit"
             },
             "minItems": 1,
-            "title": "List of units",
             "description": "List of units.\n\nRecords about individual product composition information that are sold\nin the sale. Each {@link IShoppingSaleUnit unit} record has configurable\n{@link IShoppingSaleUnitOption options},\n{@link IShoppingSaleUnitOptionCandidate candidate} values for each\noption, and {@link IShoppingSaleUnitStock final stocks} determined by\nselecting every candidate values of each option."
           }
         },
@@ -9818,7 +9327,6 @@
                 "$ref": "#/components/schemas/IShoppingChannelCategory.IInvert"
               }
             ],
-            "title": "Parent category info",
             "description": "Parent category info."
           },
           "children": {
@@ -9826,18 +9334,15 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IHierarchical"
             },
-            "title": "List of children categories with hierarchical structure",
             "description": "List of children categories with hierarchical structure."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code of the category",
             "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
           },
           "parent_id": {
@@ -9850,18 +9355,15 @@
                 "format": "uuid"
               }
             ],
-            "title": "Parent category's ID",
             "description": "Parent category's ID."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the category",
             "description": "Representative name of the category.\n\nThe name must be unique within the parent category. If no parent exists,\nthen the name must be unique within the channel between no parent\ncategories."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           }
         },
@@ -9884,18 +9386,15 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IHierarchical"
             },
-            "title": "List of children categories with hierarchical structure",
             "description": "List of children categories with hierarchical structure."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code of the category",
             "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
           },
           "parent_id": {
@@ -9908,18 +9407,15 @@
                 "format": "uuid"
               }
             ],
-            "title": "Parent category's ID",
             "description": "Parent category's ID."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the category",
             "description": "Representative name of the category.\n\nThe name must be unique within the parent category. If no parent exists,\nthen the name must be unique within the channel between no parent\ncategories."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           }
         },
@@ -9946,17 +9442,14 @@
                 "format": "uuid"
               }
             ],
-            "title": "Parent category's ID",
             "description": "Parent category's ID."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code of the category",
             "description": "Identifier code of the category.\n\nThe code must be unique in the channel."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the category",
             "description": "Representative name of the category.\n\nThe name must be unique within the parent category. If no parent exists,\nthen the name must be unique within the channel between no parent\ncategories."
           }
         },
@@ -9973,7 +9466,6 @@
           "keep": {
             "type": "string",
             "format": "uuid",
-            "title": "Target record to keep after merging",
             "description": "Target record to keep after merging.\n\nAfter merge process, {@link absorbed} records would be merged into\nthis {@link keep} record."
           },
           "absorbed": {
@@ -9982,7 +9474,6 @@
               "type": "string",
               "format": "uuid"
             },
-            "title": "To be absorbed to {@link keep} after merging",
             "description": "To be absorbed to {@link keep} after merging."
           }
         },
@@ -9997,12 +9488,10 @@
         "properties": {
           "code": {
             "type": "string",
-            "title": "Identifier code",
             "description": "Identifier code."
           },
           "name": {
             "type": "string",
-            "title": "Name of the channel",
             "description": "Name of the channel."
           }
         },
@@ -10017,7 +9506,6 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Name of the channel",
             "description": "Name of the channel."
           }
         },
@@ -10031,7 +9519,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -10039,7 +9526,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannel"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -10104,7 +9590,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -10117,7 +9602,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },
@@ -10155,7 +9639,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -10163,7 +9646,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannel.IHierarchical"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -10181,29 +9663,24 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingChannelCategory.IHierarchical"
             },
-            "title": "Children categories with hierarchical structure",
             "description": "Children categories with hierarchical structure."
           },
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "Creation time of record",
             "description": "Creation time of record."
           },
           "code": {
             "type": "string",
-            "title": "Identifier code",
             "description": "Identifier code."
           },
           "name": {
             "type": "string",
-            "title": "Name of the channel",
             "description": "Name of the channel."
           }
         },
@@ -10221,12 +9698,10 @@
         "properties": {
           "code": {
             "type": "string",
-            "title": "Identifier code",
             "description": "Identifier code."
           },
           "name": {
             "type": "string",
-            "title": "Representative name of the section",
             "description": "Representative name of the section."
           }
         },
@@ -10241,7 +9716,6 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Representative name of the section",
             "description": "Representative name of the section."
           }
         },
@@ -10255,7 +9729,6 @@
         "properties": {
           "pagination": {
             "$ref": "#/components/schemas/IPage.IPagination",
-            "title": "Page information",
             "description": "Page information."
           },
           "data": {
@@ -10263,7 +9736,6 @@
             "items": {
               "$ref": "#/components/schemas/IShoppingSection"
             },
-            "title": "List of records",
             "description": "List of records."
           }
         },
@@ -10328,7 +9800,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Page number",
             "description": "Page number."
           },
           "limit": {
@@ -10341,7 +9812,6 @@
                 "minimum": 0
               }
             ],
-            "title": "Limitation of records per a page",
             "description": "Limitation of records per a page."
           }
         },

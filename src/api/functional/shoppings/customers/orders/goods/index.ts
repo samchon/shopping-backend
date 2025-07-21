@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 /**
  * Confirm an order good.
@@ -31,8 +31,8 @@ import type { Format } from "typia/lib/tags/Format";
  */
 export async function confirm(
   connection: IConnection,
-  orderId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  orderId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...confirm.METADATA,
@@ -53,8 +53,8 @@ export namespace confirm {
   } as const;
 
   export const path = (
-    orderId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    orderId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/goods/${encodeURIComponent(id?.toString() ?? "null")}/confirm`;
 }

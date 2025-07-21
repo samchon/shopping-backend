@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IShoppingChannelCategory } from "../../../../../../structures/shoppings/systematic/IShoppingChannelCategory";
 
@@ -42,7 +42,7 @@ export async function index(
   });
 }
 export namespace index {
-  export type Output = Array<IShoppingChannelCategory.IHierarchical>;
+  export type Output = IShoppingChannelCategory.IHierarchical[];
 
   export const METADATA = {
     method: "PATCH",
@@ -80,7 +80,7 @@ export namespace index {
 export async function at(
   connection: IConnection,
   channelCode: string,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -102,7 +102,7 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (channelCode: string, id: string & Format<"uuid">) =>
+  export const path = (channelCode: string, id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -127,7 +127,7 @@ export namespace at {
 export async function invert(
   connection: IConnection,
   channelCode: string,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<invert.Output> {
   return PlainFetcher.fetch(connection, {
     ...invert.METADATA,
@@ -149,6 +149,6 @@ export namespace invert {
     status: 200,
   } as const;
 
-  export const path = (channelCode: string, id: string & Format<"uuid">) =>
+  export const path = (channelCode: string, id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/systematic/channels/${encodeURIComponent(channelCode?.toString() ?? "null")}/categories/${encodeURIComponent(id?.toString() ?? "null")}/invert`;
 }

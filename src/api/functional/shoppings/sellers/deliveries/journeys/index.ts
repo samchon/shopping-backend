@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IShoppingDeliveryJourney } from "../../../../../structures/shoppings/orders/IShoppingDeliveryJourney";
 
@@ -34,8 +34,8 @@ import type { IShoppingDeliveryJourney } from "../../../../../structures/shoppin
  */
 export async function create(
   connection: IConnection,
-  deliveryId: string & Format<"uuid">,
-  input: IShoppingDeliveryJourney.ICreate,
+  deliveryId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -54,7 +54,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingDeliveryJourney.ICreate;
+  export type Body = IShoppingDeliveryJourney.ICreate;
   export type Output = IShoppingDeliveryJourney;
 
   export const METADATA = {
@@ -71,7 +71,7 @@ export namespace create {
     status: 201,
   } as const;
 
-  export const path = (deliveryId: string & Format<"uuid">) =>
+  export const path = (deliveryId: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys`;
 }
 
@@ -97,9 +97,9 @@ export namespace create {
  */
 export async function complete(
   connection: IConnection,
-  deliveryId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
-  input: IShoppingDeliveryJourney.IComplete,
+  deliveryId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
+  input: complete.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -118,7 +118,7 @@ export async function complete(
   );
 }
 export namespace complete {
-  export type Input = IShoppingDeliveryJourney.IComplete;
+  export type Body = IShoppingDeliveryJourney.IComplete;
 
   export const METADATA = {
     method: "PUT",
@@ -135,8 +135,8 @@ export namespace complete {
   } as const;
 
   export const path = (
-    deliveryId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    deliveryId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys/${encodeURIComponent(id?.toString() ?? "null")}/complete`;
 }
@@ -163,8 +163,8 @@ export namespace complete {
  */
 export async function erase(
   connection: IConnection,
-  deliveryId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  deliveryId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...erase.METADATA,
@@ -185,8 +185,8 @@ export namespace erase {
   } as const;
 
   export const path = (
-    deliveryId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    deliveryId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/sellers/deliveries/${encodeURIComponent(deliveryId?.toString() ?? "null")}/journeys/${encodeURIComponent(id?.toString() ?? "null")}`;
 }

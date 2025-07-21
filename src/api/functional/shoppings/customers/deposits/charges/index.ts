@@ -34,7 +34,7 @@ export * as publish from "./publish";
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingDepositCharge.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -53,7 +53,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingDepositCharge.IRequest;
+  export type Body = IShoppingDepositCharge.IRequest;
   export type Output = IPage<IShoppingDepositCharge>;
 
   export const METADATA = {
@@ -136,7 +136,7 @@ export namespace at {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingDepositCharge.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -155,7 +155,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingDepositCharge.ICreate;
+  export type Body = IShoppingDepositCharge.ICreate;
   export type Output = IShoppingDepositCharge;
 
   export const METADATA = {
@@ -197,7 +197,7 @@ export namespace create {
 export async function update(
   connection: IConnection,
   id: string,
-  input: IShoppingDepositCharge.ICreate,
+  input: update.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -216,7 +216,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingDepositCharge.ICreate;
+  export type Body = IShoppingDepositCharge.ICreate;
 
   export const METADATA = {
     method: "PUT",

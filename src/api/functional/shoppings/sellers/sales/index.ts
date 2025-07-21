@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../structures/common/IPage";
 import type { IShoppingSale } from "../../../../structures/shoppings/sales/IShoppingSale";
@@ -43,7 +43,7 @@ export * as units from "./units";
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingSale.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -62,7 +62,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingSale.ICreate;
+  export type Body = IShoppingSale.ICreate;
   export type Output = IShoppingSale;
 
   export const METADATA = {
@@ -109,8 +109,8 @@ export namespace create {
  */
 export async function update(
   connection: IConnection,
-  id: string & Format<"uuid">,
-  input: IShoppingSaleSnapshot.ICreate,
+  id: string & tags.Format<"uuid">,
+  input: update.Body,
 ): Promise<update.Output> {
   return PlainFetcher.fetch(
     {
@@ -129,7 +129,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingSaleSnapshot.ICreate;
+  export type Body = IShoppingSaleSnapshot.ICreate;
   export type Output = IShoppingSale;
 
   export const METADATA = {
@@ -146,7 +146,7 @@ export namespace update {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
 
@@ -173,8 +173,8 @@ export namespace update {
  */
 export async function open(
   connection: IConnection,
-  id: string & Format<"uuid">,
-  input: IShoppingSale.IUpdateOpeningTime,
+  id: string & tags.Format<"uuid">,
+  input: open.Body,
 ): Promise<void> {
   return PlainFetcher.fetch(
     {
@@ -193,7 +193,7 @@ export async function open(
   );
 }
 export namespace open {
-  export type Input = IShoppingSale.IUpdateOpeningTime;
+  export type Body = IShoppingSale.IUpdateOpeningTime;
 
   export const METADATA = {
     method: "PUT",
@@ -209,7 +209,7 @@ export namespace open {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/open`;
 }
 
@@ -233,7 +233,7 @@ export namespace open {
  */
 export async function replica(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<replica.Output> {
   return PlainFetcher.fetch(connection, {
     ...replica.METADATA,
@@ -255,7 +255,7 @@ export namespace replica {
     status: 201,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/replica`;
 }
 
@@ -289,7 +289,7 @@ export namespace replica {
  */
 export async function pause(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...pause.METADATA,
@@ -309,7 +309,7 @@ export namespace pause {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/pause`;
 }
 
@@ -342,7 +342,7 @@ export namespace pause {
  */
 export async function suspend(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...suspend.METADATA,
@@ -362,7 +362,7 @@ export namespace suspend {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/suspend`;
 }
 
@@ -389,7 +389,7 @@ export namespace suspend {
  */
 export async function restore(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...restore.METADATA,
@@ -409,7 +409,7 @@ export namespace restore {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}/restore`;
 }
 
@@ -443,7 +443,7 @@ export namespace restore {
  */
 export async function details(
   connection: IConnection,
-  input: IShoppingSale.IRequest,
+  input: details.Body,
 ): Promise<details.Output> {
   return PlainFetcher.fetch(
     {
@@ -462,7 +462,7 @@ export async function details(
   );
 }
 export namespace details {
-  export type Input = IShoppingSale.IRequest;
+  export type Body = IShoppingSale.IRequest;
   export type Output = IPage<IShoppingSale>;
 
   export const METADATA = {
@@ -510,7 +510,7 @@ export namespace details {
  */
 export async function index(
   connection: IConnection,
-  input: IShoppingSale.IRequest,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -529,7 +529,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingSale.IRequest;
+  export type Body = IShoppingSale.IRequest;
   export type Output = IPage<IShoppingSale.ISummary>;
 
   export const METADATA = {
@@ -579,7 +579,7 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  id: string & Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -601,6 +601,6 @@ export namespace at {
     status: 200,
   } as const;
 
-  export const path = (id: string & Format<"uuid">) =>
+  export const path = (id: string & tags.Format<"uuid">) =>
     `/shoppings/sellers/sales/${encodeURIComponent(id?.toString() ?? "null")}`;
 }

@@ -36,7 +36,7 @@ export * as password from "./password";
  */
 export async function refresh(
   connection: IConnection,
-  input: IShoppingCustomer.IRefresh,
+  input: refresh.Body,
 ): Promise<refresh.Output> {
   const output: IShoppingCustomer.IAuthorized = await PlainFetcher.fetch(
     {
@@ -58,7 +58,7 @@ export async function refresh(
   return output;
 }
 export namespace refresh {
-  export type Input = IShoppingCustomer.IRefresh;
+  export type Body = IShoppingCustomer.IRefresh;
   export type Output = IShoppingCustomer.IAuthorized;
 
   export const METADATA = {
@@ -153,7 +153,7 @@ export namespace get {
  */
 export async function create(
   connection: IConnection,
-  input: IShoppingCustomer.ICreate,
+  input: create.Body,
 ): Promise<create.Output> {
   const output: IShoppingCustomer.IAuthorized = await PlainFetcher.fetch(
     {
@@ -175,7 +175,7 @@ export async function create(
   return output;
 }
 export namespace create {
-  export type Input = IShoppingCustomer.ICreate;
+  export type Body = IShoppingCustomer.ICreate;
   export type Output = IShoppingCustomer.IAuthorized;
 
   export const METADATA = {
@@ -224,7 +224,7 @@ export namespace create {
  */
 export async function join(
   connection: IConnection,
-  input: IShoppingMember.IJoin,
+  input: join.Body,
 ): Promise<join.Output> {
   return PlainFetcher.fetch(
     {
@@ -243,7 +243,7 @@ export async function join(
   );
 }
 export namespace join {
-  export type Input = IShoppingMember.IJoin;
+  export type Body = IShoppingMember.IJoin;
   export type Output = IShoppingCustomer;
 
   export const METADATA = {
@@ -291,7 +291,7 @@ export namespace join {
  */
 export async function login(
   connection: IConnection,
-  input: IShoppingMember.ILogin,
+  input: login.Body,
 ): Promise<login.Output> {
   return PlainFetcher.fetch(
     {
@@ -310,7 +310,7 @@ export async function login(
   );
 }
 export namespace login {
-  export type Input = IShoppingMember.ILogin;
+  export type Body = IShoppingMember.ILogin;
   export type Output = IShoppingCustomer;
 
   export const METADATA = {
@@ -356,7 +356,7 @@ export namespace login {
  */
 export async function activate(
   connection: IConnection,
-  input: IShoppingCitizen.ICreate,
+  input: activate.Body,
 ): Promise<activate.Output> {
   return PlainFetcher.fetch(
     {
@@ -375,7 +375,7 @@ export async function activate(
   );
 }
 export namespace activate {
-  export type Input = IShoppingCitizen.ICreate;
+  export type Body = IShoppingCitizen.ICreate;
   export type Output = IShoppingCustomer;
 
   export const METADATA = {
@@ -427,7 +427,7 @@ export namespace activate {
  */
 export async function external(
   connection: IConnection,
-  input: IShoppingExternalUser.ICreate,
+  input: external.Body,
 ): Promise<external.Output> {
   return PlainFetcher.fetch(
     {
@@ -446,7 +446,7 @@ export async function external(
   );
 }
 export namespace external {
-  export type Input = IShoppingExternalUser.ICreate;
+  export type Body = IShoppingExternalUser.ICreate;
   export type Output = IShoppingCustomer;
 
   export const METADATA = {

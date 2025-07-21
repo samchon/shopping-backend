@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IShoppingOrderPublish } from "../../../../../structures/shoppings/orders/IShoppingOrderPublish";
 
@@ -32,7 +32,7 @@ import type { IShoppingOrderPublish } from "../../../../../structures/shoppings/
  */
 export async function able(
   connection: IConnection,
-  orderId: string & Format<"uuid">,
+  orderId: string & tags.Format<"uuid">,
 ): Promise<able.Output> {
   return PlainFetcher.fetch(connection, {
     ...able.METADATA,
@@ -41,7 +41,7 @@ export async function able(
   });
 }
 export namespace able {
-  export type Output = false | true;
+  export type Output = boolean;
 
   export const METADATA = {
     method: "GET",
@@ -54,7 +54,7 @@ export namespace able {
     status: 200,
   } as const;
 
-  export const path = (orderId: string & Format<"uuid">) =>
+  export const path = (orderId: string & tags.Format<"uuid">) =>
     `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/publish/able`;
 }
 
@@ -87,8 +87,8 @@ export namespace able {
  */
 export async function create(
   connection: IConnection,
-  orderId: string & Format<"uuid">,
-  input: IShoppingOrderPublish.ICreate,
+  orderId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -107,7 +107,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingOrderPublish.ICreate;
+  export type Body = IShoppingOrderPublish.ICreate;
   export type Output = IShoppingOrderPublish;
 
   export const METADATA = {
@@ -124,7 +124,7 @@ export namespace create {
     status: 201,
   } as const;
 
-  export const path = (orderId: string & Format<"uuid">) =>
+  export const path = (orderId: string & tags.Format<"uuid">) =>
     `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/publish`;
 }
 
@@ -148,7 +148,7 @@ export namespace create {
  */
 export async function cancel(
   connection: IConnection,
-  orderId: string & Format<"uuid">,
+  orderId: string & tags.Format<"uuid">,
 ): Promise<void> {
   return PlainFetcher.fetch(connection, {
     ...cancel.METADATA,
@@ -168,6 +168,6 @@ export namespace cancel {
     status: 200,
   } as const;
 
-  export const path = (orderId: string & Format<"uuid">) =>
+  export const path = (orderId: string & tags.Format<"uuid">) =>
     `/shoppings/customers/orders/${encodeURIComponent(orderId?.toString() ?? "null")}/publish`;
 }

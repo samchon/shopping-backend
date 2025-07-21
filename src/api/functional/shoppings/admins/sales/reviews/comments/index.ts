@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IPage } from "../../../../../../structures/common/IPage";
 import type { IShoppingSaleInquiryComment } from "../../../../../../structures/shoppings/sales/inquiries/IShoppingSaleInquiryComment";
@@ -40,9 +40,9 @@ import type { IShoppingSaleInquiryComment } from "../../../../../../structures/s
  */
 export async function index(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  inquiryId: string & Format<"uuid">,
-  input: IShoppingSaleInquiryComment.IRequest,
+  saleId: string & tags.Format<"uuid">,
+  inquiryId: string & tags.Format<"uuid">,
+  input: index.Body,
 ): Promise<index.Output> {
   return PlainFetcher.fetch(
     {
@@ -61,7 +61,7 @@ export async function index(
   );
 }
 export namespace index {
-  export type Input = IShoppingSaleInquiryComment.IRequest;
+  export type Body = IShoppingSaleInquiryComment.IRequest;
   export type Output = IPage<IShoppingSaleInquiryComment>;
 
   export const METADATA = {
@@ -79,8 +79,8 @@ export namespace index {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    inquiryId: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    inquiryId: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments`;
 }
@@ -109,9 +109,9 @@ export namespace index {
  */
 export async function at(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  inquiryId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
+  saleId: string & tags.Format<"uuid">,
+  inquiryId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
 ): Promise<at.Output> {
   return PlainFetcher.fetch(connection, {
     ...at.METADATA,
@@ -134,9 +134,9 @@ export namespace at {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    inquiryId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    inquiryId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments/${encodeURIComponent(id?.toString() ?? "null")}`;
 }
@@ -164,9 +164,9 @@ export namespace at {
  */
 export async function create(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  inquiryId: string & Format<"uuid">,
-  input: IShoppingSaleInquiryComment.ICreate,
+  saleId: string & tags.Format<"uuid">,
+  inquiryId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -185,7 +185,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingSaleInquiryComment.ICreate;
+  export type Body = IShoppingSaleInquiryComment.ICreate;
   export type Output = IShoppingSaleInquiryComment;
 
   export const METADATA = {
@@ -203,8 +203,8 @@ export namespace create {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    inquiryId: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    inquiryId: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments`;
 }
@@ -239,10 +239,10 @@ export namespace create {
  */
 export async function update(
   connection: IConnection,
-  saleId: string & Format<"uuid">,
-  inquiryId: string & Format<"uuid">,
-  id: string & Format<"uuid">,
-  input: IShoppingSaleInquiryComment.ICreate,
+  saleId: string & tags.Format<"uuid">,
+  inquiryId: string & tags.Format<"uuid">,
+  id: string & tags.Format<"uuid">,
+  input: update.Body,
 ): Promise<update.Output> {
   return PlainFetcher.fetch(
     {
@@ -261,7 +261,7 @@ export async function update(
   );
 }
 export namespace update {
-  export type Input = IShoppingSaleInquiryComment.ICreate;
+  export type Body = IShoppingSaleInquiryComment.ICreate;
   export type Output = IShoppingSaleInquiryComment.ISnapshot;
 
   export const METADATA = {
@@ -279,9 +279,9 @@ export namespace update {
   } as const;
 
   export const path = (
-    saleId: string & Format<"uuid">,
-    inquiryId: string & Format<"uuid">,
-    id: string & Format<"uuid">,
+    saleId: string & tags.Format<"uuid">,
+    inquiryId: string & tags.Format<"uuid">,
+    id: string & tags.Format<"uuid">,
   ) =>
     `/shoppings/admins/sales/${encodeURIComponent(saleId?.toString() ?? "null")}/reviews/${encodeURIComponent(inquiryId?.toString() ?? "null")}/comments/${encodeURIComponent(id?.toString() ?? "null")}`;
 }

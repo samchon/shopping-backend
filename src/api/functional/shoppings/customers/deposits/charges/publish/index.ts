@@ -6,7 +6,7 @@
 //================================================================
 import type { IConnection } from "@nestia/fetcher";
 import { PlainFetcher } from "@nestia/fetcher/lib/PlainFetcher";
-import type { Format } from "typia/lib/tags/Format";
+import type { tags } from "typia";
 
 import type { IShoppingDepositChargePublish } from "../../../../../../structures/shoppings/deposits/IShoppingDepositChargePublish";
 
@@ -29,7 +29,7 @@ import type { IShoppingDepositChargePublish } from "../../../../../../structures
  */
 export async function able(
   connection: IConnection,
-  chargeId: string & Format<"uuid">,
+  chargeId: string & tags.Format<"uuid">,
 ): Promise<able.Output> {
   return PlainFetcher.fetch(connection, {
     ...able.METADATA,
@@ -38,7 +38,7 @@ export async function able(
   });
 }
 export namespace able {
-  export type Output = false | true;
+  export type Output = boolean;
 
   export const METADATA = {
     method: "GET",
@@ -51,7 +51,7 @@ export namespace able {
     status: 200,
   } as const;
 
-  export const path = (chargeId: string & Format<"uuid">) =>
+  export const path = (chargeId: string & tags.Format<"uuid">) =>
     `/shoppings/customers/deposits/charges/${encodeURIComponent(chargeId?.toString() ?? "null")}/publish/able`;
 }
 
@@ -81,8 +81,8 @@ export namespace able {
  */
 export async function create(
   connection: IConnection,
-  chargeId: string & Format<"uuid">,
-  input: IShoppingDepositChargePublish.ICreate,
+  chargeId: string & tags.Format<"uuid">,
+  input: create.Body,
 ): Promise<create.Output> {
   return PlainFetcher.fetch(
     {
@@ -101,7 +101,7 @@ export async function create(
   );
 }
 export namespace create {
-  export type Input = IShoppingDepositChargePublish.ICreate;
+  export type Body = IShoppingDepositChargePublish.ICreate;
   export type Output = IShoppingDepositChargePublish;
 
   export const METADATA = {
@@ -118,6 +118,6 @@ export namespace create {
     status: 201,
   } as const;
 
-  export const path = (chargeId: string & Format<"uuid">) =>
+  export const path = (chargeId: string & tags.Format<"uuid">) =>
     `/shoppings/customers/deposits/charges/${encodeURIComponent(chargeId?.toString() ?? "null")}/publish`;
 }
