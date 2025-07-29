@@ -19,6 +19,7 @@
         // and run debugging mode later.
         //----
         "--reset", "false",
+        "--simultaneous", "1",
         //----
         // You can run specific test functions
         //----
