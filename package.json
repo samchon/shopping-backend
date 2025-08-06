@@ -91,7 +91,7 @@
     "@prisma/client": "^6.13.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@samchon/openapi": "^4.6.0",
+    "@samchon/openapi": "^4.7.1",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
     "csv-parse": "^5.5.3",
