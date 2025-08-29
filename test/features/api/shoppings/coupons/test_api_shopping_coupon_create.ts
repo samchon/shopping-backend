@@ -27,21 +27,24 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
           .literals<IShoppingCouponCriteria.Type>()
           .filter((row) => row.length !== 0),
       ),
-    )((types) =>
-      ArrayUtil.asyncMap(["include", "exclude"] as const)((direction) =>
-        generate_random_coupon({
-          types,
-          direction,
-          customer: null,
-          sale,
-          create: (input) =>
-            ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, {
-              ...input,
-              name: `${prefix}-${RandomGenerator.name(10)}`,
-            }),
-          prepare: (criterias) => prepare_random_coupon({ criterias }),
-        }),
-      ),
+      (types) =>
+        ArrayUtil.asyncMap(["include", "exclude"] as const, (direction) =>
+          generate_random_coupon({
+            types,
+            direction,
+            customer: null,
+            sale,
+            create: (input) =>
+              ShoppingApi.functional.shoppings.admins.coupons.create(
+                pool.admin,
+                {
+                  ...input,
+                  name: `${prefix}-${RandomGenerator.name(10)}`,
+                },
+              ),
+            prepare: (criterias) => prepare_random_coupon({ criterias }),
+          }),
+        ),
     )
   ).flat();
 
@@ -53,7 +56,9 @@ export const test_api_shopping_coupon_create = async (pool: ConnectionPool) => {
       sort: ["-coupon.created_at"],
       limit: coupons.length,
     });
-  TestValidator.equals("coupons")(coupons.map((c) => c.id))(
+  TestValidator.equals(
+    "coupons",
+    coupons.map((c) => c.id),
     page.data.reverse().map((c) => c.id),
   );
 };

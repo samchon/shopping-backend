@@ -28,7 +28,7 @@ export const test_api_shopping_sale_question_create = async (
       sale.id,
       question.id,
     );
-  TestValidator.equals("read")(question)(read);
+  TestValidator.equals("read", question, read);
 
   const page: IPage<IShoppingSaleQuestion.ISummary> =
     await ShoppingApi.functional.shoppings.customers.sales.questions.index(
@@ -38,5 +38,5 @@ export const test_api_shopping_sale_question_create = async (
         limit: 1,
       },
     );
-  TestValidator.equals("page")(question.id)(page.data[0].id);
+  TestValidator.equals("page", question.id, page.data[0].id);
 };

@@ -18,8 +18,8 @@ export const test_api_shopping_actor_customer_join = async (
   // A CUSTOMER -> GUEST
   const issued: IShoppingCustomer.IAuthorized =
     await test_api_shopping_actor_customer_create(pool, connection);
-  TestValidator.equals("issued.member")(false)(!!issued.member);
-  TestValidator.equals("issued.citizen")(false)(!!issued.citizen);
+  TestValidator.equals("issued.member", false, !!issued.member);
+  TestValidator.equals("issued.citizen", false, !!issued.citizen);
 
   // DO JOIN
   const emended: IShoppingMember.IJoin = {
@@ -58,7 +58,7 @@ export const test_api_shopping_actor_customer_join = async (
 
   // VALIDATE MEBERSHIP INFO
   if (newbie === true) {
-    TestValidator.equals("joined.member")({
+    const expected = {
       emails: [
         {
           value: emended.email,
@@ -66,15 +66,18 @@ export const test_api_shopping_actor_customer_join = async (
       ],
       nickname: emended.nickname,
       citizen: emended.citizen as IShoppingCitizen | null,
-    })(joined.member!);
-    TestValidator.equals("joined.citizen")(emended.citizen)(joined.citizen);
-    TestValidator.equals("issued vs joined")(
+    };
+    TestValidator.equals("joined.member", expected, joined.member!);
+    TestValidator.equals("joined.citizen", emended.citizen, joined.citizen);
+    TestValidator.equals(
+      "issued vs joined",
       typia.misc.clone<Omit<IShoppingCustomer, "created_at">>({
         ...issued,
         member: joined.member,
         citizen: joined.citizen,
       }),
-    )(joined);
+      joined,
+    );
   }
   return {
     ...joined,

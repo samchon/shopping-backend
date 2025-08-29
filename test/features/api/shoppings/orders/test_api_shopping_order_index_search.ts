@@ -20,7 +20,8 @@ export const test_api_shopping_order_index_search = async (
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
-  const orderList: IShoppingOrder[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const orderList: IShoppingOrder[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     async () => {
       await test_api_shopping_actor_seller_join(pool);
 
@@ -42,7 +43,8 @@ export const test_api_shopping_order_index_search = async (
   );
 
   // PREPARE VALIDATOR
-  const validator = TestValidator.search("search orders")(
+  const validator = TestValidator.search(
+    "search orders",
     async (input: IShoppingOrder.IRequest.ISearch) => {
       const page: IPage<IShoppingOrder> =
         await ShoppingApi.functional.shoppings.customers.orders.index(
@@ -55,7 +57,9 @@ export const test_api_shopping_order_index_search = async (
         );
       return page.data;
     },
-  )(orderList, 2);
+    orderList,
+    2,
+  );
 
   //----
   // DO VALIDATE

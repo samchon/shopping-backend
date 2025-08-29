@@ -87,7 +87,8 @@ export namespace ShoppingDeliveryPieceProvider {
         ]),
       );
       const orders: IShoppingOrder.IInvertFromDelivery[] =
-        await ArrayUtil.asyncMap([...tuples.values()])(
+        await ArrayUtil.asyncMap(
+          [...tuples.values()],
           async ({ order, publish }) => ({
             ...(await ShoppingOrderProvider.json.transform({
               ...order,

@@ -18,13 +18,13 @@ import { generate_random_sale } from "./internal/generate_random_sale";
 import { generate_random_sale_review } from "./internal/generate_random_sale_review";
 
 export const test_api_shopping_sale_index_sort = async (
-  pool: ConnectionPool
+  pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_seller_join(pool);
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_create(pool);
 
-  await ArrayUtil.asyncRepeat(REPEAT)(async () => {
+  await ArrayUtil.asyncRepeat(REPEAT, async () => {
     const sale: IShoppingSale = await generate_random_sale(pool);
     if (1 == <any>2) {
       // @todo -> unlock when aggregation DTO be designed
@@ -37,7 +37,7 @@ export const test_api_shopping_sale_index_sort = async (
         pool,
         customer,
         order,
-        true
+        true,
       );
       const good: IShoppingOrderGood = order.goods[0];
       await generate_random_sale_review(pool, sale, good);
@@ -45,18 +45,18 @@ export const test_api_shopping_sale_index_sort = async (
   });
 
   // PREPARE VALIDATOR
-  const validator = TestValidator.sort("sort")<
+  const validator = TestValidator.sort<
     IShoppingSale.ISummary,
     IShoppingSale.IRequest.SortableColumns,
     IPage.Sort<IShoppingSale.IRequest.SortableColumns>
-  >(async (sort) => {
+  >("sort", async (sort) => {
     const page: IPage<IShoppingSale.ISummary> =
       await ShoppingApi.functional.shoppings.customers.sales.index(
         pool.customer,
         {
           limit: 5,
           sort,
-        }
+        },
       );
     return page.data;
   });
@@ -64,7 +64,7 @@ export const test_api_shopping_sale_index_sort = async (
   const components = [
     // SELLER
     validator("seller.created_at")(
-      GaffComparator.dates((x) => x.seller.created_at)
+      GaffComparator.dates((x) => x.seller.created_at),
     ),
     // validator("seller.goods.payments.real")(
     //   GaffComparator.numbers(
@@ -111,14 +111,14 @@ export const test_api_shopping_sale_index_sort = async (
     validator("sale.updated_at")(GaffComparator.dates((x) => x.updated_at)),
     validator("sale.opened_at")(GaffComparator.dates((x) => x.opened_at!)),
     validator("sale.content.title")(
-      GaffComparator.strings((x) => x.content.title)
+      GaffComparator.strings((x) => x.content.title),
     ),
     // PRICE-RANGE
     validator("sale.price_range.lowest.real")(
-      GaffComparator.numbers((x) => x.price_range.lowest.real)
+      GaffComparator.numbers((x) => x.price_range.lowest.real),
     ),
     validator("sale.price_range.highest.real")(
-      GaffComparator.numbers((x) => x.price_range.highest.real)
+      GaffComparator.numbers((x) => x.price_range.highest.real),
     ),
   ];
   for (const comp of components) {

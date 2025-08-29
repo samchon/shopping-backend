@@ -48,7 +48,7 @@ export const test_api_shopping_systematic_channel_category_merge = async (
       {
         code: RandomGenerator.alphabets(8),
         name: "0",
-        children: ArrayUtil.repeat(REPEAT)((i) => ({
+        children: ArrayUtil.repeat(REPEAT, (i) => ({
           code: RandomGenerator.alphabets(8),
           name: i.toString(),
           children: [],
@@ -59,20 +59,24 @@ export const test_api_shopping_systematic_channel_category_merge = async (
 
   const reloaded: IShoppingSale =
     await ShoppingApi.functional.shoppings.admins.sales.at(pool.admin, sale.id);
-  TestValidator.equals("sale.categories")(
+  TestValidator.equals(
+    "sale.categories",
     expected.children.map((c) => ({
       name: c.name,
     })),
-  )(reloaded.categories);
+    reloaded.categories,
+  );
 
   const entire: IShoppingChannelCategory.IHierarchical[] =
     await ShoppingApi.functional.shoppings.admins.systematic.channels.categories.index(
       pool.admin,
       channel.code,
     );
-  TestValidator.equals("categories")(
+  TestValidator.equals(
+    "categories",
     typia.misc.clone<RouteWithoutCode[]>([expected]),
-  )(typia.misc.clone<RouteWithoutCode[]>(entire));
+    typia.misc.clone<RouteWithoutCode[]>(entire),
+  );
 };
 
 interface Rough {
@@ -90,7 +94,7 @@ const prepare = (props: { level: number; index: number }): Rough => ({
   name: props.index.toString(),
   children:
     props.level < 2
-      ? ArrayUtil.repeat(REPEAT)((j) =>
+      ? ArrayUtil.repeat(REPEAT, (j) =>
           prepare({
             level: props.level + 1,
             index: j,
@@ -114,7 +118,7 @@ const generate = async (
         parent_id,
       },
     );
-  category.children = await ArrayUtil.asyncMap(input.children)((child) =>
+  category.children = await ArrayUtil.asyncMap(input.children, (child) =>
     generate(pool, channel, category.id, child),
   );
   return category;

@@ -20,7 +20,8 @@ export const test_api_shopping_order_index_sort = async (
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
-  const orderList: IShoppingOrder[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const orderList: IShoppingOrder[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     async () => {
       await test_api_shopping_actor_seller_join(pool);
 
@@ -36,27 +37,29 @@ export const test_api_shopping_order_index_sort = async (
         order,
         true,
       );
-
       return order;
     },
   );
 
   // PREPARE VALIDATOR
-  const validator = TestValidator.sort("sort orders")<
+  const validator = TestValidator.sort<
     IShoppingOrder,
     IShoppingOrder.IRequest.SortableColumns,
     IPage.Sort<IShoppingOrder.IRequest.SortableColumns>
-  >(async (input: IPage.Sort<IShoppingOrder.IRequest.SortableColumns>) => {
-    const page: IPage<IShoppingOrder> =
-      await ShoppingApi.functional.shoppings.customers.orders.index(
-        pool.customer,
-        {
-          sort: input,
-          limit: orderList.length,
-        },
-      );
-    return page.data;
-  });
+  >(
+    "sort orders",
+    async (input: IPage.Sort<IShoppingOrder.IRequest.SortableColumns>) => {
+      const page: IPage<IShoppingOrder> =
+        await ShoppingApi.functional.shoppings.customers.orders.index(
+          pool.customer,
+          {
+            sort: input,
+            limit: orderList.length,
+          },
+        );
+      return page.data;
+    },
+  );
 
   // COLUMNS TO SORT
   const components = [

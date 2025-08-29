@@ -18,7 +18,7 @@ export const test_api_shopping_deposit_histories_index_search = async (
   await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  await ArrayUtil.asyncRepeat(10)(() =>
+  await ArrayUtil.asyncRepeat(10, () =>
     generate_random_deposit_histories(pool, {
       charge: randint(1_000, 9_000),
       discount: randint(100, 999),
@@ -32,7 +32,8 @@ export const test_api_shopping_deposit_histories_index_search = async (
         limit: 100,
       },
     );
-  const validator = TestValidator.search("search")(
+  const validator = TestValidator.search(
+    "search",
     async (input: IShoppingDepositHistory.IRequest.ISearch) => {
       const page: IPage<IShoppingDepositHistory> =
         await ShoppingApi.functional.shoppings.customers.deposits.histories.index(
@@ -44,7 +45,9 @@ export const test_api_shopping_deposit_histories_index_search = async (
         );
       return page.data;
     },
-  )(entire.data, 5);
+    entire.data,
+    5,
+  );
 
   await validator({
     fields: ["deposit.code"],

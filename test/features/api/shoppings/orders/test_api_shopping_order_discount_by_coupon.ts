@@ -58,8 +58,8 @@ export const test_api_shopping_order_discount_by_coupon = async (
         coupon_ids: [coupon.id],
       },
     );
-  TestValidator.equals("order.price.cash")(price.real)(price.cash * 2);
-  TestValidator.equals("order.price.ticket")(price.real)(price.ticket * 2);
+  TestValidator.equals("order.price.cash", price.real, price.cash * 2);
+  TestValidator.equals("order.price.ticket", price.real, price.ticket * 2);
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.customers.orders.at(
@@ -67,10 +67,14 @@ export const test_api_shopping_order_discount_by_coupon = async (
       order.id,
     );
   for (const good of reloaded.goods) {
-    TestValidator.equals("good.price.cash")(good.price.real)(
+    TestValidator.equals(
+      "good.price.cash",
+      good.price.real,
       good.price.cash * 2,
     );
-    TestValidator.equals("good.price.ticket")(good.price.real)(
+    TestValidator.equals(
+      "good.price.ticket",
+      good.price.real,
       good.price.ticket * 2,
     );
   }

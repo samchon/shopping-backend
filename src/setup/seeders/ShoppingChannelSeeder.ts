@@ -4,10 +4,9 @@ import fs from "fs";
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 
+import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { ShoppingChannelCategoryProvider } from "../../providers/shoppings/systematic/ShoppingChannelCategoryProvider";
 import { ShoppingChannelProvider } from "../../providers/shoppings/systematic/ShoppingChannelProvider";
-
-import { ShoppingConfiguration } from "../../ShoppingConfiguration";
 import { CsvUtil } from "../../utils/CsvUtil";
 
 export namespace ShoppingChannelSeeder {
@@ -26,19 +25,19 @@ export namespace ShoppingChannelSeeder {
     };
 
   const seedCategories = async (
-    dict: Map<string, IHierarchy>
+    dict: Map<string, IHierarchy>,
   ): Promise<void> => {
     const input: IRawCategory[] = await CsvUtil.parse(
       "channel",
       "name",
-      "code"
+      "code",
     )(
       await fs.promises.readFile(
         `${ShoppingConfiguration.ROOT}/assets/raw/raw_shopping_channel_categories.csv`,
-        "utf8"
-      )
+        "utf8",
+      ),
     );
-    await ArrayUtil.asyncMap(input)(async (raw, i) => {
+    await ArrayUtil.asyncMap(input, async (raw, i) => {
       const [name, level] = getLevel(raw.name);
       const hierarchy: IHierarchy | undefined = dict.get(raw.channel);
       if (hierarchy === undefined)
@@ -49,7 +48,7 @@ export namespace ShoppingChannelSeeder {
         const parent = dict.get(raw.channel)?.last[level - 1];
         if (parent === undefined)
           throw new Error(
-            `Unable to find the parent category at line: ${i + 1}.`
+            `Unable to find the parent category at line: ${i + 1}.`,
           );
         return parent;
       })();

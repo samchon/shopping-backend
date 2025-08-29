@@ -38,7 +38,8 @@ export namespace ShoppingOrderProvider {
         id: input.id,
         customer: ShoppingCustomerProvider.json.transform(input.customer),
         name: input.name,
-        goods: await ArrayUtil.asyncMap(input.goods)(
+        goods: await ArrayUtil.asyncMap(
+          input.goods,
           ShoppingOrderGoodProvider.json.transform,
         ),
         publish:
@@ -215,7 +216,8 @@ export namespace ShoppingOrderProvider {
         },
         ...ShoppingCartCommodityProvider.json.select(),
       }),
-    )(ShoppingCartCommodityProvider.json.transform);
+      ShoppingCartCommodityProvider.json.transform,
+    );
 
     // VALIDATE
     const diagnoses: IDiagnosis[] = ShoppingOrderDiagnoser.validate({

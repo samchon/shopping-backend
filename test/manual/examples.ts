@@ -339,7 +339,8 @@ const main = async (): Promise<void> => {
       };
     const saleList: IShoppingSale.ISummary[] = RandomGenerator.sample(
       salePage.data,
-    )(3);
+      3,
+    );
 
     await generator(true)(null);
     await generator(false)({
@@ -359,15 +360,16 @@ const main = async (): Promise<void> => {
     });
 
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-      RandomGenerator.sample(salePage.data)(3),
-    )(async (summary) => {
-      const sale: IShoppingSale =
-        await ShoppingApi.functional.shoppings.customers.sales.at(
-          pool.customer,
-          summary.id,
-        );
-      return generate_random_cart_commodity(pool, sale);
-    });
+      RandomGenerator.sample(salePage.data, 3),
+      async (summary) => {
+        const sale: IShoppingSale =
+          await ShoppingApi.functional.shoppings.customers.sales.at(
+            pool.customer,
+            summary.id,
+          );
+        return generate_random_cart_commodity(pool, sale);
+      },
+    );
     await execute(
       ShoppingApi.functional.shoppings.customers.carts.commodities.discountable,
     )(pool.customer, {
@@ -378,7 +380,7 @@ const main = async (): Promise<void> => {
 
   // IN THE SELLER VIEW
   {
-    await ArrayUtil.asyncRepeat(10)(async () => {
+    await ArrayUtil.asyncRepeat(10, async () => {
       const customer: IShoppingCustomer =
         await test_api_shopping_actor_customer_join(pool);
       const sale: IShoppingSale =

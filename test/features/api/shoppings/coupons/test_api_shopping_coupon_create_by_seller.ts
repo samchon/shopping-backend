@@ -22,25 +22,26 @@ export const test_api_shopping_coupon_create_by_seller = async (
 
   const prefix: string = RandomGenerator.name(50);
   const sale: IShoppingSale = await generate_random_sale(pool);
-  const create =
-    (direction: "include" | "exclude") =>
-    (types: IShoppingCouponCriteria.Type[]): Promise<IShoppingCoupon> =>
-      generate_random_coupon({
-        types,
-        direction,
-        customer: null,
-        sale,
-        create: (input) =>
-          ShoppingApi.functional.shoppings.sellers.coupons.create(
-            pool.seller,
-            input,
-          ),
-        prepare: (criterias) =>
-          prepare_random_coupon({
-            name: `${prefix}-${RandomGenerator.name(10)}`,
-            criterias,
-          }),
-      });
+  const create = (
+    direction: "include" | "exclude",
+    types: IShoppingCouponCriteria.Type[],
+  ): Promise<IShoppingCoupon> =>
+    generate_random_coupon({
+      types,
+      direction,
+      customer: null,
+      sale,
+      create: (input) =>
+        ShoppingApi.functional.shoppings.sellers.coupons.create(
+          pool.seller,
+          input,
+        ),
+      prepare: (criterias) =>
+        prepare_random_coupon({
+          name: `${prefix}-${RandomGenerator.name(10)}`,
+          criterias,
+        }),
+    });
 
   // PREPARE COMBINATIONS
   const subsets: IShoppingCouponCriteria.Type[][] = ArrayUtil.subsets(
@@ -56,8 +57,9 @@ export const test_api_shopping_coupon_create_by_seller = async (
   );
 
   // TRY POSSIBLE
-  const coupons: IShoppingCoupon[] = await ArrayUtil.asyncMap(possible)(
-    create("include"),
+  const coupons: IShoppingCoupon[] = await ArrayUtil.asyncMap(
+    possible,
+    (types) => create("include", types),
   );
   const page: IPage<IShoppingCoupon> =
     await ShoppingApi.functional.shoppings.admins.coupons.index(pool.admin, {
@@ -67,22 +69,24 @@ export const test_api_shopping_coupon_create_by_seller = async (
       },
       sort: ["-coupon.created_at"],
     });
-  TestValidator.equals("coupons")(coupons.map((c) => c.id))(
+  TestValidator.equals(
+    "coupons",
+    coupons.map((c) => c.id),
     page.data.reverse().map((c) => c.id),
   );
-  await ArrayUtil.asyncMap(coupons)((c) =>
+  await ArrayUtil.asyncMap(coupons, (c) =>
     ShoppingApi.functional.shoppings.admins.coupons.destroy(pool.admin, c.id),
   );
 
   // TRY IMPOSSIBLES
-  await ArrayUtil.asyncMap(impossible)((types) =>
-    TestValidator.httpError("include-but-omitted-essential")(403)(() =>
-      create("include")(types),
+  await ArrayUtil.asyncMap(impossible, (types) =>
+    TestValidator.httpError("include-but-omitted-essential", 403, async () =>
+      create("include", types),
     ),
   );
-  await ArrayUtil.asyncMap(impossible)((types) =>
-    TestValidator.httpError("exclude-every-essentials")(403)(() =>
-      create("exclude")(types),
+  await ArrayUtil.asyncMap(impossible, (types) =>
+    TestValidator.httpError("exclude-every-essentials", 403, () =>
+      create("exclude", types),
     ),
   );
 };

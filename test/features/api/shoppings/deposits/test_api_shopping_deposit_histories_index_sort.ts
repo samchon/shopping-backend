@@ -18,18 +18,18 @@ export const test_api_shopping_deposit_histories_index_sort = async (
   await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  await ArrayUtil.asyncRepeat(10)(() =>
+  await ArrayUtil.asyncRepeat(10, () =>
     generate_random_deposit_histories(pool, {
       charge: randint(1_000, 9_000),
       discount: randint(100, 999),
     }),
   );
 
-  const validator = TestValidator.sort("sort")<
+  const validator = TestValidator.sort<
     IShoppingDepositHistory,
     IShoppingDepositHistory.IRequest.SortableColumns,
     IPage.Sort<IShoppingDepositHistory.IRequest.SortableColumns>
-  >(async (input) => {
+  >("sort", async (input) => {
     const page: IPage<IShoppingDepositHistory> =
       await ShoppingApi.functional.shoppings.customers.deposits.histories.index(
         pool.customer,

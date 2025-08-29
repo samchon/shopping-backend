@@ -16,15 +16,15 @@ export const prepare_random_sale = async (
 ): Promise<IShoppingSale.ICreate> => ({
   section_code: TestGlobal.SECTION,
   category_codes: await categories(pool),
-  units: ArrayUtil.repeat(randint(1, 3))(() => prepare_random_sale_unit()),
+  units: ArrayUtil.repeat(randint(1, 3), () => prepare_random_sale_unit()),
   content: {
-    title: RandomGenerator.paragraph()(),
-    body: RandomGenerator.content()()(),
+    title: RandomGenerator.paragraph(),
+    body: RandomGenerator.content(),
     format: "txt",
-    files: ArrayUtil.repeat(randint(0, 3))(() =>
+    files: ArrayUtil.repeat(randint(0, 3), () =>
       prepare_random_attachment_file(),
     ),
-    thumbnails: ArrayUtil.repeat(randint(1, 3))(() =>
+    thumbnails: ArrayUtil.repeat(randint(1, 3), () =>
       prepare_random_attachment_file(),
     ),
   },

@@ -42,7 +42,7 @@ export const validate_api_shopping_sale_inquiry_answer_update =
     inquiry.answer = answer;
 
     answer.snapshots.push(
-      ...(await ArrayUtil.asyncRepeat(4)(() =>
+      ...(await ArrayUtil.asyncRepeat(4, () =>
         accessor.update(
           pool.seller,
           sale.id,
@@ -57,5 +57,5 @@ export const validate_api_shopping_sale_inquiry_answer_update =
       sale.id,
       inquiry.id,
     );
-    TestValidator.equals("read")(inquiry)(read);
+    TestValidator.equals("read", inquiry, read);
   };

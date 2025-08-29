@@ -31,7 +31,7 @@ export const test_api_shopping_actor_admin_password_change = async (
   const first: IShoppingAdministrator.IInvert = await login(
     TestGlobal.PASSWORD,
   );
-  validate("login")(passed)(first);
+  validate("login", passed, first);
 
   await ShoppingApi.functional.shoppings.customers.authenticate.password.change(
     pool.admin,
@@ -41,7 +41,7 @@ export const test_api_shopping_actor_admin_password_change = async (
     },
   );
   const after: IShoppingAdministrator.IInvert = await login(NEW_PASSWORD);
-  validate("after")(passed)(after);
+  validate("after", passed, after);
 
   await ShoppingApi.functional.shoppings.customers.authenticate.password.change(
     pool.admin,
@@ -53,15 +53,18 @@ export const test_api_shopping_actor_admin_password_change = async (
   const again: IShoppingAdministrator.IInvert = await login(
     TestGlobal.PASSWORD,
   );
-  validate("again")(passed)(again);
+  validate("again", passed, again);
 };
 
-const validate =
-  (title: string) =>
-  (x: IShoppingAdministrator.IInvert) =>
-  (y: IShoppingAdministrator.IInvert) =>
-    TestValidator.equals(title)(
-      typia.misc.clone<Omit<IShoppingAdministrator, "customer">>(x),
-    )(y);
+const validate = (
+  title: string,
+  x: IShoppingAdministrator.IInvert,
+  y: IShoppingAdministrator.IInvert,
+) =>
+  TestValidator.equals(
+    title,
+    typia.misc.clone<Omit<IShoppingAdministrator, "customer">>(x),
+    y,
+  );
 
 const NEW_PASSWORD = "something";

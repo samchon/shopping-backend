@@ -24,7 +24,8 @@ export const test_api_shopping_sale_review_index_search = async (
   await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
-  const total: IShoppingSaleReview[] = await ArrayUtil.asyncRepeat(10)(
+  const total: IShoppingSaleReview[] = await ArrayUtil.asyncRepeat(
+    10,
     async () => {
       const customer: IShoppingCustomer =
         await test_api_shopping_actor_customer_join(pool);
@@ -53,7 +54,8 @@ export const test_api_shopping_sale_review_index_search = async (
       },
     );
 
-  const search = TestValidator.search("search")(
+  const search = TestValidator.search(
+    "search",
     async (search: IShoppingSaleReview.IRequest.ISearch) => {
       const page: IPage<IShoppingSaleReview.ISummary> =
         await ShoppingApi.functional.shoppings.customers.sales.reviews.index(
@@ -66,7 +68,9 @@ export const test_api_shopping_sale_review_index_search = async (
         );
       return page.data;
     },
-  )(expected.data, 2);
+    expected.data,
+    2,
+  );
 
   await search({
     fields: ["name"],

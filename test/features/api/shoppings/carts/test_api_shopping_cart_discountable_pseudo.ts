@@ -10,11 +10,11 @@ export const test_api_shopping_cart_discountable_pseudo =
   validate_api_shopping_cart_discountable(async (pool, props) => {
     const pseudos: IShoppingCartCommodity.ICreate[] = await ArrayUtil.asyncMap(
       props.commodities,
-    )((commodity) =>
-      ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
-        pool.customer,
-        commodity.id,
-      ),
+      (commodity) =>
+        ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
+          pool.customer,
+          commodity.id,
+        ),
     );
     const discountable: IShoppingCartDiscountable =
       await ShoppingApi.functional.shoppings.customers.carts.commodities.discountable(
@@ -25,13 +25,19 @@ export const test_api_shopping_cart_discountable_pseudo =
         },
       );
 
-    TestValidator.equals("combinations.length")(
+    TestValidator.equals(
+      "combinations.length",
       discountable.combinations.length,
-    )(2);
-    TestValidator.equals("combinations[].amount")(
+      2,
+    );
+    TestValidator.equals(
+      "combinations[].amount",
       discountable.combinations.map((comb) => comb.amount),
-    )([15_000, 5_000]);
-    TestValidator.equals("combinations[].coupons.length")(
+      [15_000, 5_000],
+    );
+    TestValidator.equals(
+      "combinations[].coupons.length",
       discountable.combinations.map((comb) => comb.coupons.length),
-    )([3, 1]);
+      [3, 1],
+    );
   });

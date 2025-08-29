@@ -37,7 +37,8 @@ export const validate_api_shopping_sale_inquiry_comment_index_search = async (
     await generator(seller),
   ];
 
-  const search = TestValidator.search("search comments")(
+  const search = TestValidator.search(
+    "search comments",
     async (search: IShoppingSaleInquiryComment.IRequest.ISearch) => {
       const page: IPage<IShoppingSaleInquiryComment> =
         await ShoppingApi.functional.shoppings.customers.sales[
@@ -48,7 +49,8 @@ export const validate_api_shopping_sale_inquiry_comment_index_search = async (
         });
       return page.data;
     },
-  )(total);
+    total,
+  );
 
   await search({
     fields: ["name"],

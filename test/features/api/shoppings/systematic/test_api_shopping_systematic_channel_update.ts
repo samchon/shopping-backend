@@ -27,5 +27,5 @@ export const test_api_shopping_systematic_channel_update = async (
       pool.admin,
       channel.id,
     );
-  TestValidator.equals("update")(name)(read.name);
+  TestValidator.equals("update", name, read.name);
 };

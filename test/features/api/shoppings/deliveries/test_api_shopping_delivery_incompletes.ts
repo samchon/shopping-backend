@@ -26,7 +26,8 @@ export const test_api_shopping_delivery_incompletes = async (
     await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     async () =>
       await generate_random_sale(pool, {
         units: new Array(REPEAT).fill(0).map(() => prepare_random_sale_unit()),
@@ -34,13 +35,13 @@ export const test_api_shopping_delivery_incompletes = async (
   );
   const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
     saleList,
-  )((sale) =>
-    generate_random_cart_commodity(pool, sale, {
-      volume: REPEAT / 4,
-      stocks: sale.units.map((unit) =>
-        prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 4 }),
-      ),
-    }),
+    (sale) =>
+      generate_random_cart_commodity(pool, sale, {
+        volume: REPEAT / 4,
+        stocks: sale.units.map((unit) =>
+          prepare_random_cart_commodity_stock(unit, { quantity: REPEAT / 4 }),
+        ),
+      }),
   );
   const order: IShoppingOrder = await generate_random_order(pool, commodities);
   order.publish = await generate_random_order_publish(
@@ -72,7 +73,9 @@ export const test_api_shopping_delivery_incompletes = async (
           publish_ids: [order.publish!.id],
         },
       );
-    TestValidator.equals("left")(left.value)(
+    TestValidator.equals(
+      "left",
+      left.value,
       incompletes.map((i) => i.quantity).reduce((a, b) => a + b, 0),
     );
 
@@ -101,7 +104,9 @@ export const test_api_shopping_delivery_incompletes = async (
           pieces: input,
         },
       );
-    TestValidator.equals("quantity")(quantity)(
+    TestValidator.equals(
+      "quantity",
+      quantity,
       delivery.pieces.map((i) => i.quantity).reduce((a, b) => a + b, 0),
     );
 
@@ -116,6 +121,6 @@ export const test_api_shopping_delivery_incompletes = async (
         publish_ids: [order.publish.id],
       },
     );
-  TestValidator.equals("empty")(incompletes.length)(0);
+  TestValidator.equals("empty", incompletes.length, 0);
 };
 const REPEAT = 4;

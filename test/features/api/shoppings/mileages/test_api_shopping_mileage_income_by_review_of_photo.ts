@@ -53,5 +53,5 @@ export const test_api_shopping_mileage_income_by_review_of_photo = async (
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(typia.assert<number>(mileage.value));
+  TestValidator.equals("balance", balance, typia.assert<number>(mileage.value));
 };

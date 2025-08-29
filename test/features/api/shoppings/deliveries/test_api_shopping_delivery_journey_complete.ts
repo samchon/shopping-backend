@@ -56,7 +56,7 @@ export const test_api_shopping_delivery_journey_complete = async (
         ),
       },
     );
-  TestValidator.equals("state")(delivery.state)("delivering");
+  TestValidator.equals("state", delivery.state, "delivering");
 
   await ShoppingApi.functional.shoppings.sellers.deliveries.journeys.complete(
     pool.seller,
@@ -72,6 +72,6 @@ export const test_api_shopping_delivery_journey_complete = async (
       pool.seller,
       delivery.id,
     );
-  TestValidator.equals("completed")(!!read.journeys[0].completed_at)(true);
-  TestValidator.equals("changed state")(read.state)("delivering");
+  TestValidator.equals("completed", !!read.journeys[0].completed_at, true);
+  TestValidator.equals("changed state", read.state, "delivering");
 };

@@ -21,8 +21,8 @@ export const test_api_shopping_actor_customer_create = async (
         external_user: null,
       },
     );
-  TestValidator.equals("citizen")(customer.citizen)(null);
-  TestValidator.equals("external_user")(customer.external_user)(null);
-  TestValidator.equals("member")(customer.member)(null);
+  TestValidator.equals("citizen", customer.citizen, null);
+  TestValidator.equals("external_user", customer.external_user, null);
+  TestValidator.equals("member", customer.member, null);
   return customer;
 };

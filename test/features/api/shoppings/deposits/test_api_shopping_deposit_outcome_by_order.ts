@@ -55,5 +55,5 @@ export const test_api_shopping_deposit_outcome_by_order = async (
     await ShoppingApi.functional.shoppings.customers.deposits.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(0);
+  TestValidator.equals("balance", balance, 0);
 };

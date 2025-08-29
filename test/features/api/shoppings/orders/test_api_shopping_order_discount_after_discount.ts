@@ -27,11 +27,11 @@ export const test_api_shopping_order_discount_after_discount =
     const first: IShoppingOrderPrice = await discount();
     const second: IShoppingOrderPrice = await discount();
 
-    TestValidator.equals("coupons")(
+    TestValidator.equals(
+      "coupons",
       first.ticket_payments
         .map((tp) => tp.ticket.coupon)
         .sort((x, y) => x.id.localeCompare(y.id)),
-    )(
       second.ticket_payments
         .map((tp) => tp.ticket.coupon)
         .sort((x, y) => x.id.localeCompare(y.id)),

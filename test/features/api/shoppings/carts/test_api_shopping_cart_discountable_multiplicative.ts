@@ -63,7 +63,9 @@ export const test_api_shopping_cart_discountable_multiplicative = async (
         pseudos: [],
       },
     );
-  TestValidator.equals("discountable.combinations[].amount")(
+  TestValidator.equals(
+    "discountable.combinations[].amount",
     discountable.combinations.map((comb) => comb.amount),
-  )([12340]);
+    [12340],
+  );
 };

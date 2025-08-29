@@ -22,7 +22,7 @@ export const test_api_shopping_cart_commodity_create_snapshot = async (
     sale.id,
     await prepare_random_sale(pool),
   );
-  await TestValidator.httpError("snapshot")(422)(() =>
+  await TestValidator.httpError("snapshot", 422, () =>
     generate_random_cart_commodity(pool, sale),
   );
 };

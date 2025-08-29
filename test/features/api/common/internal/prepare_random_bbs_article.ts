@@ -9,9 +9,9 @@ export const prepare_random_bbs_article = (
   input?: Partial<IBbsArticle.ICreate>,
 ): IBbsArticle.ICreate => ({
   format: "txt",
-  title: RandomGenerator.paragraph()(),
-  body: RandomGenerator.content()()(),
-  files: ArrayUtil.repeat(randint(0, 3))(() =>
+  title: RandomGenerator.paragraph(),
+  body: RandomGenerator.content(),
+  files: ArrayUtil.repeat(randint(0, 3), () =>
     prepare_random_attachment_file(),
   ),
   ...input,

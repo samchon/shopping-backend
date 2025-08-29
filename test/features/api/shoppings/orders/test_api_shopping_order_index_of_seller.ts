@@ -23,17 +23,18 @@ export const test_api_shopping_order_index_of_seller = async (
 ): Promise<void> => {
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
-  const groups: IGroup[] = await ArrayUtil.asyncRepeat(REPEAT)(async () => {
+  const groups: IGroup[] = await ArrayUtil.asyncRepeat(REPEAT, async () => {
     const seller = await test_api_shopping_actor_seller_join(pool);
     const sale = await generate_random_sale(pool);
     return { seller, sale, orders: [] };
   });
 
-  await ArrayUtil.asyncRepeat(groups.length)(async (i) => {
+  await ArrayUtil.asyncRepeat(groups.length, async (i) => {
     // MAKE A NEW CART AND ORDER
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
       groups.filter((_, j) => i !== j),
-    )((g) => generate_random_cart_commodity(pool, g.sale));
+      (g) => generate_random_cart_commodity(pool, g.sale),
+    );
     const order: IShoppingOrder = await generate_random_order(
       pool,
       commodities,
@@ -65,8 +66,8 @@ export const test_api_shopping_order_index_of_seller = async (
       await ShoppingApi.functional.shoppings.sellers.orders.index(pool.seller, {
         limit: groups.length,
       });
-    TestValidator.index("page")(orders)(page.data);
-    TestValidator.predicate("ownership")(() =>
+    TestValidator.index("page", orders, page.data);
+    TestValidator.predicate("ownership", () =>
       page.data.every((order) =>
         order.goods.every(
           (good) => good.commodity.sale.seller.id === seller.id,

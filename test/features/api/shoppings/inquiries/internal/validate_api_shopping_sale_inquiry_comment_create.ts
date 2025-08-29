@@ -35,9 +35,9 @@ export const validate_api_shopping_sale_inquiry_comment_create = async (
     await generator(customer),
     await generator(seller),
   ];
-  TestValidator.equals("of_admin")(comments[0].writer)(admin);
-  TestValidator.equals("of_customer")(comments[1].writer)(customer);
-  TestValidator.equals("of_seller")(comments[2].writer)(seller);
+  TestValidator.equals("of_admin", comments[0].writer, admin);
+  TestValidator.equals("of_customer", comments[1].writer, customer);
+  TestValidator.equals("of_seller", comments[2].writer, seller);
 
   const page: IPage<IShoppingSaleInquiryComment> =
     await ShoppingApi.functional.shoppings.customers.sales[
@@ -46,5 +46,5 @@ export const validate_api_shopping_sale_inquiry_comment_create = async (
       limit: 3,
       sort: ["+created_at"],
     });
-  TestValidator.equals("page")(page.data)(comments);
+  TestValidator.equals("page", page.data, comments);
 };

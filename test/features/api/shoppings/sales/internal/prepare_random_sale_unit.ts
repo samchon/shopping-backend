@@ -9,7 +9,7 @@ export const prepare_random_sale_unit = (
   input?: Partial<IShoppingSaleUnit.ICreate>,
 ): IShoppingSaleUnit.ICreate => {
   // PREPARE NUMBER OF CASES GENERATOR
-  const candidateCountMatrix: number[] = ArrayUtil.repeat(randint(1, 3))(() =>
+  const candidateCountMatrix: number[] = ArrayUtil.repeat(randint(1, 3), () =>
     randint(1, 4),
   );
   const cartesian: CartesianProduct = new CartesianProduct(
@@ -25,7 +25,7 @@ export const prepare_random_sale_unit = (
       name: RandomGenerator.name(randint(4, 8)),
       type: "select",
       variable: true,
-      candidates: ArrayUtil.repeat(count)(() => ({
+      candidates: ArrayUtil.repeat(count, () => ({
         name: RandomGenerator.name(randint(3, 12)),
       })),
     })),

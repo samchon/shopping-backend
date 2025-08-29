@@ -34,7 +34,7 @@ export namespace ShoppingChannelProvider {
     const page = await index(input);
     return {
       ...page,
-      data: await ArrayUtil.asyncMap(page.data)(async (channel) => ({
+      data: await ArrayUtil.asyncMap(page.data, async (channel) => ({
         ...channel,
         categories:
           await ShoppingChannelCategoryProvider.hierarchical.entire(channel),

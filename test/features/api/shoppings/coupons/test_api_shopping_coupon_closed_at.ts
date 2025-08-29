@@ -58,7 +58,7 @@ export const test_api_shopping_coupon_closed_at = async (
       sort: ["-coupon.created_at"],
       limit: 1,
     });
-    TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
+    TestValidator.equals("visible", visible, coupon.id === page.data[0]?.id);
 
     const read = async () => {
       await ShoppingApi.functional.shoppings[path].coupons.at(
@@ -67,7 +67,7 @@ export const test_api_shopping_coupon_closed_at = async (
       );
     };
     if (visible) await read();
-    else await TestValidator.httpError("gone")(410)(read);
+    else await TestValidator.httpError("gone", 410, read);
   };
 
   // NOT CLOSED YET

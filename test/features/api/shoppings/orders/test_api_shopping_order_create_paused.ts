@@ -25,7 +25,7 @@ export const test_api_shopping_order_create_paused = async (
     pool.seller,
     sale.id,
   );
-  await TestValidator.httpError("paused")(422)(() =>
+  await TestValidator.httpError("paused", 422, () =>
     generate_random_order(pool, [commodity]),
   );
 };

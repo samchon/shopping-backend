@@ -76,7 +76,9 @@ export const test_api_shopping_mileage_income_by_order_good_confirm = async (
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(
+  TestValidator.equals(
+    "balance",
+    balance,
     good.price.real * typia.assert<number>(mileage.value),
   );
 };

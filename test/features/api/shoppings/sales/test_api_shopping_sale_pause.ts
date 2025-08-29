@@ -39,7 +39,7 @@ export const test_api_shopping_sale_pause = async (
     sales: [read],
     visibleInCustomer: true,
   });
-  TestValidator.equals("paused_at")(!!read.paused_at)(true);
+  TestValidator.equals("paused_at", !!read.paused_at, true);
 
   await ShoppingApi.functional.shoppings.sellers.sales.restore(
     pool.seller,

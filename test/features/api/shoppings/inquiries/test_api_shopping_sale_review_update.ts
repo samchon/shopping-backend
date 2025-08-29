@@ -44,7 +44,7 @@ export const test_api_shopping_sale_review_update = async (
     good,
   );
   review.snapshots.push(
-    ...(await ArrayUtil.asyncRepeat(4)(async () => {
+    ...(await ArrayUtil.asyncRepeat(4, async () => {
       const snapshot: IShoppingSaleReview.ISnapshot =
         await ShoppingApi.functional.shoppings.customers.sales.reviews.update(
           pool.customer,
@@ -65,5 +65,5 @@ export const test_api_shopping_sale_review_update = async (
       sale.id,
       review.id,
     );
-  TestValidator.equals("read")(review)(read);
+  TestValidator.equals("read", review, read);
 };

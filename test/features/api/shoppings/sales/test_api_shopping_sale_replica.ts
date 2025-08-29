@@ -23,5 +23,5 @@ export const test_api_shopping_sale_replica = async (
       pool.seller,
       sale.id,
     );
-  TestValidator.equals("replica")(input)(replica);
+  TestValidator.equals("replica", input, replica);
 };

@@ -28,7 +28,7 @@ export const test_api_shopping_sale_supplement = async (
   const stock: IShoppingSaleUnitStock = RandomGenerator.pick(unit.stocks);
 
   const supplements: IShoppingSaleUnitStockSupplement[] =
-    await ArrayUtil.asyncRepeat(4)(() =>
+    await ArrayUtil.asyncRepeat(4, () =>
       ShoppingApi.functional.shoppings.sellers.sales.units.stocks.supplements.create(
         pool.seller,
         sale.id,
@@ -50,7 +50,7 @@ export const test_api_shopping_sale_supplement = async (
         sort: ["+created_at"],
       },
     );
-  TestValidator.equals("supplements")(supplements)(page.data);
+  TestValidator.equals("supplements", supplements, page.data);
 
   const reload: IShoppingSale =
     await ShoppingApi.functional.shoppings.sellers.sales.at(
@@ -62,5 +62,5 @@ export const test_api_shopping_sale_supplement = async (
     ?.stocks.find((s) => s.id === stock.id);
   if (stockAgain === undefined)
     throw new Error("Failed to find the matched stock");
-  TestValidator.equals("inventory.income")(500)(stockAgain.inventory.income);
+  TestValidator.equals("inventory.income", 500, stockAgain.inventory.income);
 };

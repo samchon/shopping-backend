@@ -62,7 +62,7 @@ export const test_api_shopping_coupon_opened_at = async (
     });
     if (visible !== (coupon.id === page.data[0]?.id))
       console.log(path, visible, new Date(), coupon.opened_at);
-    TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
+    TestValidator.equals("visible", visible, coupon.id === page.data[0]?.id);
 
     // VALIDATE READ
     const read = async () => {
@@ -72,7 +72,7 @@ export const test_api_shopping_coupon_opened_at = async (
       );
     };
     if (visible) await read();
-    else await TestValidator.httpError("gone")(422)(read);
+    else await TestValidator.httpError("gone", 422, read);
   };
 
   // NOT YET

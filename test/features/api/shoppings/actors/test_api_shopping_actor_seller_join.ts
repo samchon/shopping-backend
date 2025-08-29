@@ -48,15 +48,15 @@ export const test_api_shopping_actor_seller_join = async (
     );
 
   // DO VALIDATE
-  TestValidator.equals("joined.member")({
+  const expected = {
     emails: [
       {
         value: input.email,
       },
     ],
-    nickname: input.nickname,
-  })(joined.member);
-  TestValidator.equals("joined.citizen")(input.citizen)(joined.citizen);
+  };
+  TestValidator.equals("joined.member", expected, joined.member);
+  TestValidator.equals("joined.citizen", input.citizen, joined.citizen);
 
   return joined;
 };

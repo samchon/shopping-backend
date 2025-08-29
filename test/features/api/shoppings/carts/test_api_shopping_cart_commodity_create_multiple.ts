@@ -30,7 +30,9 @@ export const test_api_shopping_cart_commodity_create_multiple = async (
         volume: 1,
       },
     );
-  TestValidator.equals("length")(sale.units.length)(
+  TestValidator.equals(
+    "length",
+    sale.units.length,
     commodity.sale.units.map((u) => u.stocks.length).reduce((a, b) => a + b, 0),
   );
 };

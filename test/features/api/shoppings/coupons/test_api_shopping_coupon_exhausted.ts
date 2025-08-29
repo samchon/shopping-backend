@@ -61,7 +61,7 @@ export const test_api_shopping_coupon_exhausted = async (
       sort: ["-coupon.created_at"],
       limit: 1,
     });
-    TestValidator.equals("visible")(visible)(coupon.id === page.data[0]?.id);
+    TestValidator.equals("visible", visible, coupon.id === page.data[0]?.id);
   };
   const ticketing = async () => {
     await ShoppingApi.functional.shoppings.customers.coupons.tickets.create(
@@ -75,10 +75,10 @@ export const test_api_shopping_coupon_exhausted = async (
   // NO PROBLEM
   await validate("admins", true);
   await validate("customers", true);
-  await ArrayUtil.asyncRepeat(4)(ticketing);
+  await ArrayUtil.asyncRepeat(4, ticketing);
 
   // EXHAUSTED
-  await TestValidator.httpError("ticketing to exhausted")(410)(ticketing);
+  await TestValidator.httpError("ticketing to exhausted", 410, ticketing);
   await validate("admins", true);
   await validate("customers", false);
 };

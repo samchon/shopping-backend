@@ -2,6 +2,7 @@ import { TestValidator } from "@nestia/e2e";
 import { HashMap, hash } from "tstl";
 
 import ShoppingApi from "@samchon/shopping-api/lib/index";
+import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
@@ -47,7 +48,7 @@ const validate_in_viewer_level =
     const filtered: IShoppingSale.ISummary[] = page.data.filter(
       (summary) => saleList.find((s) => s.id === summary.id) !== undefined,
     );
-    TestValidator.predicate(`page API of ${actor} (${visible})`)(() =>
+    TestValidator.predicate(`page API of ${actor} (${visible})`, () =>
       visible === true ? !!filtered.length : !filtered.length,
     );
   };
@@ -78,7 +79,7 @@ const validate_in_seller_level =
       const index: IPage<IShoppingSale.ISummary> = await fetcher("sellers")({
         limit: saleList.length,
       });
-      TestValidator.index("seller ownership")(mySales)(index.data);
+      TestValidator.index<IEntity>("seller ownership", mySales, index.data);
     }
   };
 

@@ -29,7 +29,7 @@ export const test_api_shopping_coupon_index_sort = async (
 
   // GENERATE COUPONS
   const prefix: string = RandomGenerator.name(50);
-  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(10)(() =>
+  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(10, () =>
     generate_random_sale(pool),
   );
   const generator =
@@ -61,19 +61,20 @@ export const test_api_shopping_coupon_index_sort = async (
       });
 
   const coupons: IShoppingCoupon[] = (
-    await ArrayUtil.asyncMap(saleList)((sale) =>
-      ArrayUtil.asyncMap(typia.misc.literals<IShoppingCouponCriteria.Type>())(
+    await ArrayUtil.asyncMap(saleList, (sale) =>
+      ArrayUtil.asyncMap(
+        typia.misc.literals<IShoppingCouponCriteria.Type>(),
         (type) => generator(sale)([type]),
       ),
     )
   ).flat();
 
   // PREPARE VALIDATOR
-  const validator = TestValidator.sort("coupons.index with sort options")<
+  const validator = TestValidator.sort<
     IShoppingCoupon,
     IShoppingCoupon.IRequest.SortableColumns,
     IPage.Sort<IShoppingCoupon.IRequest.SortableColumns>
-  >(async (sort) => {
+  >("coupons.index with sort options", async (sort) => {
     const page: IPage<IShoppingCoupon> =
       await ShoppingApi.functional.shoppings.admins.coupons.index(pool.admin, {
         search: {

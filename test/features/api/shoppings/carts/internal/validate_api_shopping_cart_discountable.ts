@@ -37,7 +37,7 @@ export const validate_api_shopping_cart_discountable =
     await test_api_shopping_actor_seller_join(pool);
 
     // SALES
-    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(3)(() =>
+    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(3, () =>
       generate_random_sole_sale(pool, {
         nominal: 50_000,
         real: 50_000,
@@ -47,17 +47,18 @@ export const validate_api_shopping_cart_discountable =
     // COMMODITIES
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
       saleList,
-    )(async (sale) => {
-      const input: IShoppingCartCommodity.ICreate =
-        prepare_random_cart_commodity(sale, { volume: 1 });
-      input.stocks.forEach((stock) => (stock.quantity = 1));
-      const commodity: IShoppingCartCommodity =
-        await ShoppingApi.functional.shoppings.customers.carts.commodities.create(
-          pool.customer,
-          input,
-        );
-      return commodity;
-    });
+      async (sale) => {
+        const input: IShoppingCartCommodity.ICreate =
+          prepare_random_cart_commodity(sale, { volume: 1 });
+        input.stocks.forEach((stock) => (stock.quantity = 1));
+        const commodity: IShoppingCartCommodity =
+          await ShoppingApi.functional.shoppings.customers.carts.commodities.create(
+            pool.customer,
+            input,
+          );
+        return commodity;
+      },
+    );
 
     //----
     // GENERATE COUPONS
@@ -65,57 +66,56 @@ export const validate_api_shopping_cart_discountable =
     const dummySection: IShoppingSection = await generate_random_section(pool);
     const dummySeller: IShoppingSeller =
       await test_api_shopping_actor_seller_join(pool);
-    const generator =
-      (exclusive: boolean) =>
-      async (
-        criteria: IShoppingCouponCriteria.ICreate | null,
-      ): Promise<IShoppingCoupon> => {
-        const coupon: IShoppingCoupon =
-          await ShoppingApi.functional.shoppings.admins.coupons.create(
-            pool.admin,
-            prepare_random_coupon({
-              restriction: {
-                exclusive,
-                volume: null,
-                volume_per_citizen: null,
-              },
-              discount: {
-                unit: "amount",
-                value: 5_000,
-                multiplicative: false,
-                threshold: null,
-              },
-              criterias: [...(criteria ? [criteria] : [])],
-            }),
-          );
-        return coupon;
-      };
+    const generator = async (
+      exclusive: boolean,
+      criteria: IShoppingCouponCriteria.ICreate | null,
+    ): Promise<IShoppingCoupon> => {
+      const coupon: IShoppingCoupon =
+        await ShoppingApi.functional.shoppings.admins.coupons.create(
+          pool.admin,
+          prepare_random_coupon({
+            restriction: {
+              exclusive,
+              volume: null,
+              volume_per_citizen: null,
+            },
+            discount: {
+              unit: "amount",
+              value: 5_000,
+              multiplicative: false,
+              threshold: null,
+            },
+            criterias: [...(criteria ? [criteria] : [])],
+          }),
+        );
+      return coupon;
+    };
 
     const couponList: IShoppingCoupon[] = [
       // DISCOUNTABLE
-      await generator(true)(null),
-      await generator(false)({
+      await generator(true, null),
+      await generator(false, {
         type: "sale",
         direction: "include",
         sale_ids: [saleList[0].id],
       }),
-      await generator(false)({
+      await generator(false, {
         type: "seller",
         direction: "include",
         seller_ids: [saleList[0].seller.id],
       }),
-      await generator(false)({
+      await generator(false, {
         type: "section",
         direction: "include",
         section_codes: [saleList[0].section.code],
       }),
       // OUT-OF-DISCOUNTABLE
-      await generator(true)({
+      await generator(true, {
         type: "section",
         direction: "include",
         section_codes: [dummySection.code],
       }),
-      await generator(true)({
+      await generator(true, {
         type: "seller",
         direction: "include",
         seller_ids: [dummySeller.id],
@@ -135,17 +135,23 @@ export const validate_api_shopping_cart_discountable =
         },
       );
 
-    const error: Error | null = await TestValidator.proceed(async () => {
+    try {
       // VALIDATE COMBINATIONS
-      TestValidator.equals("combinations.length")(
+      TestValidator.equals(
+        "combinations.length",
         discountable.combinations.length,
-      )(2);
-      TestValidator.equals("combinations[].amount")(
+        2,
+      );
+      TestValidator.equals(
+        "combinations[].amount",
         discountable.combinations.map((comb) => comb.amount),
-      )([15_000, 5_000]);
-      TestValidator.equals("combinations[].coupons.length")(
+        [15_000, 5_000],
+      );
+      TestValidator.equals(
+        "combinations[].coupons.length",
         discountable.combinations.map((comb) => comb.coupons.length),
-      )([3, 1]);
+        [3, 1],
+      );
 
       // FOR THE NEXT STEP
       if (next)
@@ -157,19 +163,16 @@ export const validate_api_shopping_cart_discountable =
           coupons: couponList,
           generator,
         });
-    });
-
-    // CLEAN UP SECTIONS
-    await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
-      pool.admin,
-      {
-        keep: saleList[0].section.id,
-        absorbed: [dummySection.id],
-      },
-    );
-
-    // TERMINATE
-    if (error) throw error;
+    } finally {
+      // CLEAN UP SECTIONS
+      await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
+        pool.admin,
+        {
+          keep: saleList[0].section.id,
+          absorbed: [dummySection.id],
+        },
+      );
+    }
   };
 export namespace validate_api_shopping_cart_discountable {
   export interface IProps {
@@ -180,7 +183,6 @@ export namespace validate_api_shopping_cart_discountable {
     coupons: IShoppingCoupon[];
     generator: (
       exclusive: boolean,
-    ) => (
       criteria: IShoppingCouponCriteria.ICreate,
     ) => Promise<IShoppingCoupon>;
   }

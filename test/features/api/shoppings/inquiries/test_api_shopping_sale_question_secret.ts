@@ -38,9 +38,9 @@ export const test_api_shopping_sale_question_secret = async (
             sale.id,
             question.id,
           );
-        TestValidator.equals("read")(question)(read);
+        TestValidator.equals("read", question, read);
       } else
-        await TestValidator.httpError(`read ${visible}`)(403)(() =>
+        await TestValidator.httpError(`read ${visible}`, 403, () =>
           ShoppingApi.functional.shoppings[`${type}s`].sales.questions.at(
             pool[type],
             sale.id,
@@ -59,7 +59,8 @@ export const test_api_shopping_sale_question_secret = async (
         summary.customer.citizen!.name.includes("*") &&
         summary.customer.citizen!.mobile.includes("0") &&
         summary.title.includes("*");
-      TestValidator.predicate(`page ${visible}`)(
+      TestValidator.predicate(
+        `page ${visible}`,
         visible ? () => !masked() : masked,
       );
     };

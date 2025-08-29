@@ -40,7 +40,8 @@ export namespace ShoppingOrderPriceProvider {
         deposit: input.deposit,
         mileage: input.mileage,
         ticket: input.mv_price.ticket,
-        ticket_payments: await ArrayUtil.asyncMap(input.ticket_payments)(
+        ticket_payments: await ArrayUtil.asyncMap(
+          input.ticket_payments,
           ShoppingCouponTicketPaymentProvider.json.transform,
         ),
       };
@@ -284,7 +285,8 @@ export namespace ShoppingOrderPriceProvider {
             },
             ...ShoppingCouponTicketProvider.json.select(props.customer),
           }),
-        )(ShoppingCouponTicketProvider.json.transform),
+          ShoppingCouponTicketProvider.json.transform,
+        ),
       );
     const coupons: IShoppingCoupon[] =
       tickets.length === props.input.coupon_ids.length
@@ -303,7 +305,8 @@ export namespace ShoppingOrderPriceProvider {
               },
               ...ShoppingCouponProvider.json.select(props.customer),
             }),
-          )(ShoppingCouponProvider.json.transform);
+            ShoppingCouponProvider.json.transform,
+          );
     if (tickets.length + coupons.length !== props.input.coupon_ids.length)
       throw ErrorProvider.notFound({
         accessor: "input.coupon_ids",
@@ -334,7 +337,7 @@ export namespace ShoppingOrderPriceProvider {
     // ISSUE TICKETS IF REQUIRED
     if (coupons.length)
       tickets.push(
-        ...(await ArrayUtil.asyncMap(coupons)((c) =>
+        ...(await ArrayUtil.asyncMap(coupons, (c) =>
           ShoppingCouponTicketProvider.create({
             customer: props.customer,
             input: {
@@ -345,7 +348,7 @@ export namespace ShoppingOrderPriceProvider {
       );
 
     // DO TICKET PAYMENTS
-    await ArrayUtil.asyncMap(tickets)((t, i) =>
+    await ArrayUtil.asyncMap(tickets, (t, i) =>
       ShoppingCouponTicketPaymentProvider.create({
         order,
         ticket: t,

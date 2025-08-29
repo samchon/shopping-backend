@@ -368,7 +368,8 @@ export namespace ShoppingDeliveryProvider {
       });
 
     // STATES OF GOODS
-    await ArrayUtil.asyncMap([...new Set(props.pieces.map((p) => p.good_id))])(
+    await ArrayUtil.asyncMap(
+      [...new Set(props.pieces.map((p) => p.good_id))],
       (gid) =>
         setGoodState({
           delivery: props.delivery,

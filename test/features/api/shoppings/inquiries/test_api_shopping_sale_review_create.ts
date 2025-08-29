@@ -49,7 +49,7 @@ export const test_api_shopping_sale_review_create = async (
       sale.id,
       review.id,
     );
-  TestValidator.equals("read")(review)(read);
+  TestValidator.equals("read", review, read);
 
   const page: IPage<IShoppingSaleReview.ISummary> =
     await ShoppingApi.functional.shoppings.customers.sales.reviews.index(
@@ -59,5 +59,5 @@ export const test_api_shopping_sale_review_create = async (
         limit: 1,
       },
     );
-  TestValidator.equals("page")(review.id)(page.data[0].id);
+  TestValidator.equals("page", review.id, page.data[0].id);
 };
