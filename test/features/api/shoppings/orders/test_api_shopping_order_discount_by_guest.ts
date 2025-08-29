@@ -47,8 +47,8 @@ export const test_api_shopping_order_discount_by_guest = async (
       ShoppingApi.functional.shoppings.admins.coupons.create(pool.admin, input),
   });
 
-  await TestValidator.httpError("discount by guest")(403)(async () => {
-    const error: Error | null = await TestValidator.proceed(async () => {
+  await TestValidator.httpError("discount by guest", 403, async () => {
+    try {
       await ShoppingApi.functional.shoppings.customers.orders.discount(
         pool.customer,
         order.id,
@@ -58,11 +58,11 @@ export const test_api_shopping_order_discount_by_guest = async (
           coupon_ids: [coupon.id],
         },
       );
-    });
-    await ShoppingApi.functional.shoppings.admins.coupons.destroy(
-      pool.admin,
-      coupon.id,
-    );
-    if (error !== null) throw error;
+    } finally {
+      await ShoppingApi.functional.shoppings.admins.coupons.destroy(
+        pool.admin,
+        coupon.id,
+      );
+    }
   });
 };

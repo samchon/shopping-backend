@@ -22,7 +22,7 @@ export const test_api_shopping_cart_commodity_create_closed = async (
 
   await generate_random_cart_commodity(pool, sale);
   await sleep_until(closed_at);
-  await TestValidator.httpError("closed")(422)(() =>
+  await TestValidator.httpError("closed", 422, () =>
     generate_random_cart_commodity(pool, sale),
   );
 };

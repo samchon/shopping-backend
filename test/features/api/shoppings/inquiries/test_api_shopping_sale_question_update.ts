@@ -23,7 +23,7 @@ export const test_api_shopping_sale_question_update = async (
     sale,
   );
   question.snapshots.push(
-    ...(await ArrayUtil.asyncRepeat(4)(async () => {
+    ...(await ArrayUtil.asyncRepeat(4, async () => {
       const snapshot: IShoppingSaleQuestion.ISnapshot =
         await ShoppingApi.functional.shoppings.customers.sales.questions.update(
           pool.customer,
@@ -41,5 +41,5 @@ export const test_api_shopping_sale_question_update = async (
       sale.id,
       question.id,
     );
-  TestValidator.equals("read")(question)(read);
+  TestValidator.equals("read", question, read);
 };

@@ -20,7 +20,7 @@ export const test_api_shopping_cart_commodity_create_unopened = async (
     opened_at: opened_at.toISOString(),
   });
 
-  await TestValidator.httpError("not opened")(422)(() =>
+  await TestValidator.httpError("not opened", 422, () =>
     generate_random_cart_commodity(pool, sale),
   );
   await sleep_until(opened_at);

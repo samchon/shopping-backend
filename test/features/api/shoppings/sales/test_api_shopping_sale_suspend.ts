@@ -38,7 +38,7 @@ export const test_api_shopping_sale_suspend = async (
     sales: [read],
     visibleInCustomer: false,
   });
-  TestValidator.equals("suspended_at")(!!read.suspended_at)(true);
+  TestValidator.equals("suspended_at", !!read.suspended_at, true);
 
   await ShoppingApi.functional.shoppings.sellers.sales.restore(
     pool.seller,

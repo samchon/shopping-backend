@@ -19,13 +19,13 @@ export const test_api_shopping_mileage_donation = async (
     await generate_random_mileage_donation(pool, customer.citizen!, {
       value: 10_000,
     });
-  TestValidator.equals("value")(donation.value)(VALUE);
+  TestValidator.equals("value", donation.value, VALUE);
 
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(VALUE);
+  TestValidator.equals("balance", balance, VALUE);
 };
 
 const VALUE = 10_000;

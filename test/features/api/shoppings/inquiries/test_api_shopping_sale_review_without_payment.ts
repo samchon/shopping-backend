@@ -28,7 +28,7 @@ export const test_api_shopping_sale_review_without_payment = async (
   const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
 
   const good: IShoppingOrderGood = order.goods[0];
-  await TestValidator.httpError("not ordered")(422)(() =>
+  await TestValidator.httpError("not ordered", 422, () =>
     generate_random_sale_review(pool, sale, good),
   );
 
@@ -38,7 +38,7 @@ export const test_api_shopping_sale_review_without_payment = async (
     order,
     false,
   );
-  await TestValidator.httpError("not paid")(422)(() =>
+  await TestValidator.httpError("not paid", 422, () =>
     generate_random_sale_review(pool, sale, good),
   );
 };

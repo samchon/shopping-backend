@@ -46,7 +46,8 @@ export namespace ShoppingCouponCriterialProvider {
             typia.assert<IShoppingCouponCriteria.Type>(input.type),
             () => [],
           ).push(input);
-        return ArrayUtil.asyncMap([...dict.entries()])(
+        return ArrayUtil.asyncMap(
+          [...dict.entries()],
           async ([type, inputList]) =>
             type === "section"
               ? <IShoppingCouponSectionCriteria>{
@@ -122,7 +123,7 @@ export namespace ShoppingCouponCriterialProvider {
       });
 
     const counter: IPointer<number> = { value: 0 };
-    const matrix = await ArrayUtil.asyncMap(props.inputs)(async (input) => {
+    const matrix = await ArrayUtil.asyncMap(props.inputs, async (input) => {
       const base = (): IShoppingCouponCriteria.ICollectBase => ({
         id: v4(),
         direction: input.direction,

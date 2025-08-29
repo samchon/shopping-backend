@@ -37,22 +37,25 @@ export const validate_api_shopping_sale_inquiry_comment_index_sort = async (
     await generator(seller),
   ];
 
-  const validator = TestValidator.sort("sort comments")<
+  const validator = TestValidator.sort<
     IShoppingSaleInquiryComment,
     IShoppingSaleInquiryComment.IRequest.SortableColumns,
     IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>
-  >(async (
-    input: IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>,
-  ) => {
-    const page: IPage<IShoppingSaleInquiryComment> =
-      await ShoppingApi.functional.shoppings.customers.sales[
-        `${inquiry.type}s`
-      ].comments.index(pool.customer, sale.id, inquiry.id, {
-        sort: input,
-        limit: total.length,
-      });
-    return page.data;
-  });
+  >(
+    "sort comments",
+    async (
+      input: IPage.Sort<IShoppingSaleInquiryComment.IRequest.SortableColumns>,
+    ) => {
+      const page: IPage<IShoppingSaleInquiryComment> =
+        await ShoppingApi.functional.shoppings.customers.sales[
+          `${inquiry.type}s`
+        ].comments.index(pool.customer, sale.id, inquiry.id, {
+          sort: input,
+          limit: total.length,
+        });
+      return page.data;
+    },
+  );
 
   const components = [
     validator("created_at")(GaffComparator.dates((x) => x.created_at)),

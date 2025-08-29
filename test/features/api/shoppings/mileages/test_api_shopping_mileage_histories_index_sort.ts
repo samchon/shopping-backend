@@ -19,15 +19,15 @@ export const test_api_shopping_mileage_histories_index_sort = async (
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
 
-  await ArrayUtil.asyncRepeat(10)(() =>
+  await ArrayUtil.asyncRepeat(10, () =>
     generate_random_mileage_histories(pool, customer),
   );
 
-  const validator = TestValidator.sort("sort")<
+  const validator = TestValidator.sort<
     IShoppingMileageHistory,
     IShoppingMileageHistory.IRequest.SortableColumns,
     IPage.Sort<IShoppingMileageHistory.IRequest.SortableColumns>
-  >(async (input) => {
+  >("sort", async (input) => {
     const page: IPage<IShoppingMileageHistory> =
       await ShoppingApi.functional.shoppings.customers.mileages.histories.index(
         pool.customer,

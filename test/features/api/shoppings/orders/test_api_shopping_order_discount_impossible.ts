@@ -10,7 +10,7 @@ export const test_api_shopping_order_discount_impossible =
     const coupons: IShoppingCoupon[] = props.discountable.combinations.map(
       (comb) => comb.coupons[0],
     );
-    await TestValidator.httpError("impossible")(422)(() =>
+    await TestValidator.httpError("impossible", 422, () =>
       ShoppingApi.functional.shoppings.customers.orders.discount(
         pool.customer,
         props.order.id,

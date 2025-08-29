@@ -55,5 +55,5 @@ const validateBalance = async (
     await ShoppingApi.functional.shoppings.customers.mileages.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(value);
+  TestValidator.equals("balance", balance, value);
 };

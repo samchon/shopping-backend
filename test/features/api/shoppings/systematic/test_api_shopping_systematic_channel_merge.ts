@@ -14,7 +14,8 @@ export const test_api_shopping_systematic_channel_merge = async (
   await test_api_shopping_actor_admin_login(pool);
 
   const prefix: string = RandomGenerator.alphabets(8);
-  const channelList: IShoppingChannel[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const channelList: IShoppingChannel[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     () =>
       generate_random_channel(pool, {
         code: `${prefix}_${RandomGenerator.alphabets(8)}`,
@@ -39,7 +40,7 @@ export const test_api_shopping_systematic_channel_merge = async (
         },
       },
     );
-  TestValidator.equals("merge")([channelList[0]])(page.data);
+  TestValidator.equals("merge", [channelList[0]], page.data);
 };
 
 const REPEAT = 4;

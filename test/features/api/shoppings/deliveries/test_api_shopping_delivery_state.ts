@@ -24,7 +24,7 @@ export const test_api_shopping_delivery_state = async (
     await test_api_shopping_actor_customer_join(pool);
   await test_api_shopping_actor_seller_join(pool);
 
-  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(2)(() =>
+  const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(2, () =>
     generate_random_sole_sale(pool, {
       nominal: 100_000,
       real: 50_000,
@@ -32,18 +32,18 @@ export const test_api_shopping_delivery_state = async (
   );
   const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
     saleList,
-  )((sale) =>
-    generate_random_cart_commodity(pool, sale, {
-      volume: 2,
-      stocks: [
-        {
-          unit_id: sale.units[0].id,
-          stock_id: sale.units[0].stocks[0].id,
-          choices: [],
-          quantity: 2,
-        },
-      ],
-    }),
+    (sale) =>
+      generate_random_cart_commodity(pool, sale, {
+        volume: 2,
+        stocks: [
+          {
+            unit_id: sale.units[0].id,
+            stock_id: sale.units[0].stocks[0].id,
+            choices: [],
+            quantity: 2,
+          },
+        ],
+      }),
   );
   const order: IShoppingOrder = await generate_random_order(
     pool,
@@ -63,14 +63,16 @@ export const test_api_shopping_delivery_state = async (
         pool.customer,
         order.id,
       );
-    TestValidator.equals("states")([
-      read.publish!.state,
-      ...read.goods.map((g) => g.state!),
-    ])(states);
+    TestValidator.equals(
+      "states",
+      [read.publish!.state, ...read.goods.map((g) => g.state!)],
+      states,
+    );
   };
   await validate(["none", "none", "none"]);
 
-  const deliveries: IShoppingDelivery[] = await ArrayUtil.asyncRepeat(8)(
+  const deliveries: IShoppingDelivery[] = await ArrayUtil.asyncRepeat(
+    8,
     async (i) => {
       const good: IShoppingOrderGood = order.goods[Math.floor(i / 4)];
       const delivery: IShoppingDelivery =
@@ -106,9 +108,9 @@ export const test_api_shopping_delivery_state = async (
     },
   );
 
-  await ArrayUtil.asyncMap(TYPES)(async (current, i) => {
+  await ArrayUtil.asyncMap(TYPES, async (current, i) => {
     const prev: IShoppingDelivery.State = i === 0 ? "preparing" : TYPES[i - 1];
-    await ArrayUtil.asyncMap(deliveries)(async (delivery, j) => {
+    await ArrayUtil.asyncMap(deliveries, async (delivery, j) => {
       const journey: IShoppingDeliveryJourney =
         await ShoppingApi.functional.shoppings.sellers.deliveries.journeys.create(
           pool.seller,
@@ -130,7 +132,7 @@ export const test_api_shopping_delivery_state = async (
     });
   });
 
-  await ArrayUtil.asyncMap(deliveries)(async (delivery, i) => {
+  await ArrayUtil.asyncMap(deliveries, async (delivery, i) => {
     const last: IShoppingDeliveryJourney = delivery.journeys.at(-1)!;
     await ShoppingApi.functional.shoppings.sellers.deliveries.journeys.complete(
       pool.seller,

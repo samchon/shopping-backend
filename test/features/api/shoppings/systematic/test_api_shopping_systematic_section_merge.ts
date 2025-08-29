@@ -20,13 +20,14 @@ export const test_api_shopping_systematic_section_merge = async (
   await test_api_shopping_actor_seller_join(pool);
 
   const prefix: string = RandomGenerator.alphabets(8);
-  const sectionList: IShoppingSection[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const sectionList: IShoppingSection[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     (i) =>
       generate_random_section(pool, {
         code: `${prefix}-${RandomGenerator.name(8)}-${i}`,
       }),
   );
-  await ArrayUtil.asyncForEach(sectionList)((section) =>
+  await ArrayUtil.asyncForEach(sectionList, (section) =>
     generate_random_sale(pool, { section_code: section.code }),
   );
 
@@ -48,7 +49,7 @@ export const test_api_shopping_systematic_section_merge = async (
         },
       },
     );
-  TestValidator.equals("merge")(1)(sectionPage.data.length);
+  TestValidator.equals("merge", 1, sectionPage.data.length);
 
   const salePage: IPage<IShoppingSale.ISummary> =
     await ShoppingApi.functional.shoppings.customers.sales.index(
@@ -62,9 +63,9 @@ export const test_api_shopping_systematic_section_merge = async (
       },
     );
   salePage.data.forEach((sale) =>
-    TestValidator.equals("sale.section")(sectionList[0])(sale.section),
+    TestValidator.equals("sale.section", sectionList[0], sale.section),
   );
-  TestValidator.equals("sales.length")(REPEAT)(salePage.data.length);
+  TestValidator.equals("sales.length", REPEAT, salePage.data.length);
 };
 
 const REPEAT = 4;

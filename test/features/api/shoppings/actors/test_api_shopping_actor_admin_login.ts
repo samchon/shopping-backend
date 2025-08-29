@@ -60,7 +60,7 @@ export const test_api_shopping_actor_admin_login = async (
       return await login();
     }
   })();
-  TestValidator.equals("passed")(input)({
+  TestValidator.equals("passed", input, {
     email: admin.member.emails[0].value,
     password: TestGlobal.PASSWORD,
     nickname: admin.member.nickname,

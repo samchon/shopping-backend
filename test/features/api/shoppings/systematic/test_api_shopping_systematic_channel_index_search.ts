@@ -13,10 +13,12 @@ export const test_api_shopping_systematic_channel_index_search = async (
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
 
-  const channelList: IShoppingChannel[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const channelList: IShoppingChannel[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     () => generate_random_channel(pool),
   );
-  const search = TestValidator.search("sales.index")(
+  const search = TestValidator.search(
+    "sales.index",
     async (input: IShoppingChannel.IRequest.ISearch) => {
       const page: IPage<IShoppingChannel> =
         await ShoppingApi.functional.shoppings.admins.systematic.channels.index(
@@ -29,7 +31,9 @@ export const test_api_shopping_systematic_channel_index_search = async (
         );
       return page.data;
     },
-  )(channelList, 4);
+    channelList,
+    4,
+  );
 
   await search({
     fields: ["channel.name"],

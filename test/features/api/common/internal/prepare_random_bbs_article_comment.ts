@@ -9,8 +9,8 @@ export const prepare_random_bbs_article_comment = (
   input?: Partial<IBbsArticleComment.ICreate>,
 ): IBbsArticleComment.ICreate => ({
   format: "txt",
-  body: RandomGenerator.content()()(),
-  files: ArrayUtil.repeat(randint(0, 3))(() =>
+  body: RandomGenerator.content(),
+  files: ArrayUtil.repeat(randint(0, 3), () =>
     prepare_random_attachment_file(),
   ),
   ...input,

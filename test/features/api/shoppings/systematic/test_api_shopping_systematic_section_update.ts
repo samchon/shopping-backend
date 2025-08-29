@@ -27,5 +27,5 @@ export const test_api_shopping_systematic_section_update = async (
       pool.admin,
       section.id,
     );
-  TestValidator.equals("update")(name)(read.name);
+  TestValidator.equals("update", name, read.name);
 };

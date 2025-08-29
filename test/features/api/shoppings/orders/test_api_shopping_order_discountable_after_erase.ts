@@ -12,28 +12,29 @@ export const test_api_shopping_order_discountable_after_erase =
   validate_api_shopping_order_discountable(async (pool, props) => {
     // GENERATE NEW ORDER WITH SAME COMPOSITION
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
-      await ArrayUtil.asyncMap(props.order.goods.map((good) => good.commodity))(
+      await ArrayUtil.asyncMap(
+        props.order.goods.map((good) => good.commodity),
         (commodity) =>
           ShoppingApi.functional.shoppings.customers.carts.commodities.replica(
             pool.customer,
-            commodity.id
-          )
-      )
-    )((input) =>
-      ShoppingApi.functional.shoppings.customers.carts.commodities.create(
-        pool.customer,
-        input
-      )
+            commodity.id,
+          ),
+      ),
+      (input) =>
+        ShoppingApi.functional.shoppings.customers.carts.commodities.create(
+          pool.customer,
+          input,
+        ),
     );
     const order: IShoppingOrder = await generate_random_order(
       pool,
-      commodities
+      commodities,
     );
 
     // REMOVE ORDINARY ORDER
     await ShoppingApi.functional.shoppings.customers.orders.erase(
       pool.customer,
-      props.order.id
+      props.order.id,
     );
 
     // GET DISCOUNTABLE INFO
@@ -43,18 +44,20 @@ export const test_api_shopping_order_discountable_after_erase =
         order.id,
         {
           good_ids: order.goods.map((good) => good.id),
-        }
+        },
       );
-    TestValidator.equals("discountable.combinations[].amount")(
-      props.discountable.combinations[0].amount
-    )(discountable.combinations[0].amount);
-    TestValidator.equals("discountable.combinations[].coupons[]")(
+    TestValidator.equals(
+      "discountable.combinations[].amount",
+      props.discountable.combinations[0].amount,
+      discountable.combinations[0].amount,
+    );
+    TestValidator.equals(
+      "discountable.combinations[].coupons[]",
       props.discountable.combinations.map((comb) =>
-        comb.coupons.sort((a, b) => a.id.localeCompare(b.id))
-      )
-    )(
+        comb.coupons.sort((a, b) => a.id.localeCompare(b.id)),
+      ),
       discountable.combinations.map((comb) =>
-        comb.coupons.sort((a, b) => a.id.localeCompare(b.id))
-      )
+        comb.coupons.sort((a, b) => a.id.localeCompare(b.id)),
+      ),
     );
   });

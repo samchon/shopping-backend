@@ -16,7 +16,7 @@ export const test_api_shopping_sale_index_search = async (
   await test_api_shopping_actor_admin_login(pool);
   await test_api_shopping_actor_customer_create(pool);
 
-  await ArrayUtil.asyncRepeat(25)(async () => {
+  await ArrayUtil.asyncRepeat(25, async () => {
     await test_api_shopping_actor_seller_join(pool);
     await generate_random_sale(pool);
   });
@@ -30,7 +30,8 @@ export const test_api_shopping_sale_index_search = async (
       },
     );
 
-  const search = TestValidator.search("sales.index")(
+  const search = TestValidator.search(
+    "sales.index",
     async (input: IShoppingSale.IRequest.ISearch) => {
       const page: IPage<IShoppingSale.ISummary> =
         await ShoppingApi.functional.shoppings.customers.sales.index(
@@ -43,7 +44,9 @@ export const test_api_shopping_sale_index_search = async (
         );
       return page.data;
     },
-  )(total.data, 4);
+    total.data,
+    4,
+  );
 
   //----
   // IDENTIFIER

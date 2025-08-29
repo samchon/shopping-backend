@@ -67,8 +67,10 @@ export const test_api_shopping_delivery_journey_erase = async (
       pool.seller,
       order.id,
     );
-  TestValidator.equals("deleted_at")(
+  TestValidator.equals(
+    "deleted_at",
     !!reloaded.publish!.deliveries[0].journeys.at(-1)!.deleted_at,
-  )(true);
-  TestValidator.equals("state")(reloaded.publish!.state)("manufacturing");
+    true,
+  );
+  TestValidator.equals("state", reloaded.publish!.state, "manufacturing");
 };

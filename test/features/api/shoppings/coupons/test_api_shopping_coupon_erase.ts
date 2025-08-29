@@ -49,7 +49,7 @@ export const test_api_shopping_coupon_erase = async (
     pool.admin,
     coupon.id,
   );
-  await TestValidator.httpError("erased")(404)(() =>
+  await TestValidator.httpError("erased", 404, () =>
     ShoppingApi.functional.shoppings.customers.coupons.at(
       pool.admin,
       coupon.id,

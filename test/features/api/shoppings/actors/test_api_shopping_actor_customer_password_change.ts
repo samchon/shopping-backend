@@ -30,7 +30,7 @@ export const test_api_shopping_actor_customer_password_change = async (
 
   // LOGIN AGAIN
   const first: IShoppingCustomer = await login(TestGlobal.PASSWORD);
-  validate("login")(joined)(first);
+  validate("login", joined, first);
 
   // CHANGE PASSWORD
   await ShoppingApi.functional.shoppings.customers.authenticate.password.change(
@@ -42,13 +42,13 @@ export const test_api_shopping_actor_customer_password_change = async (
   );
 
   // TRY WITH PREVIOUS PASSWORD
-  await TestValidator.httpError("previous")(403)(() =>
+  await TestValidator.httpError("previous", 403, () =>
     login(TestGlobal.PASSWORD),
   );
 
   // TRY WITH NEW PASSWORD
   const after: IShoppingCustomer = await login(NEW_PASSWORD);
-  validate("after")(joined)(after);
+  validate("after", joined, after);
 
   // ROLLBACK TO THE PREVIOUS PASSWORD
   await ShoppingApi.functional.shoppings.customers.authenticate.password.change(
@@ -59,13 +59,14 @@ export const test_api_shopping_actor_customer_password_change = async (
     },
   );
   const again: IShoppingCustomer = await login(TestGlobal.PASSWORD);
-  validate("again")(joined)(again);
+  validate("again", joined, again);
 };
 
-const validate =
-  (title: string) => (x: IShoppingCustomer) => (y: IShoppingCustomer) =>
-    TestValidator.equals(title)(
-      typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(x),
-    )(y);
+const validate = (title: string, x: IShoppingCustomer, y: IShoppingCustomer) =>
+  TestValidator.equals(
+    title,
+    typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(x),
+    y,
+  );
 
 const NEW_PASSWORD = "something";

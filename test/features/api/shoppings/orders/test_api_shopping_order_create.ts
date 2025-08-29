@@ -26,7 +26,7 @@ export const test_api_shopping_order_create = async (
   const order: IShoppingOrder = await generate_random_order(pool, [commodity]);
 
   for (const actor of ["admin", "seller"] as const)
-    await TestValidator.httpError("unpaid")(404)(() =>
+    await TestValidator.httpError("unpaid", 404, () =>
       ShoppingApi.functional.shoppings[`${actor}s`].orders.at(
         pool[actor],
         order.id,
@@ -38,5 +38,5 @@ export const test_api_shopping_order_create = async (
       pool.customer,
       order.id,
     );
-  TestValidator.equals("read")(order)(read);
+  TestValidator.equals("read", order, read);
 };

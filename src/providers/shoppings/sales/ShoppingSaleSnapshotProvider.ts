@@ -44,7 +44,8 @@ export namespace ShoppingSaleSnapshotProvider {
         snapshot_id: input.id,
         categories: await ArrayUtil.asyncMap(
           input.to_categories.sort((a, b) => (a.sequence = b.sequence)),
-        )(ShoppingSaleSnapshotCategoryProvider.json.transform),
+          ShoppingSaleSnapshotCategoryProvider.json.transform,
+        ),
         units: input.units
           .sort((a, b) => (a.sequence = b.sequence))
           .map(ShoppingSaleSnapshotUnitProvider.summary.transform),
@@ -93,7 +94,8 @@ export namespace ShoppingSaleSnapshotProvider {
         snapshot_id: input.id,
         categories: await ArrayUtil.asyncMap(
           input.to_categories.sort((a, b) => (a.sequence = b.sequence)),
-        )(ShoppingSaleSnapshotCategoryProvider.json.transform),
+          ShoppingSaleSnapshotCategoryProvider.json.transform,
+        ),
         units: input.units
           .sort((a, b) => a.sequence - b.sequence)
           .map(ShoppingSaleSnapshotUnitProvider.json.transform),
@@ -166,7 +168,8 @@ export namespace ShoppingSaleSnapshotProvider {
         snapshot_id: input.id,
         categories: await ArrayUtil.asyncMap(
           input.to_categories.sort((a, b) => (a.sequence = b.sequence)),
-        )(ShoppingSaleSnapshotCategoryProvider.json.transform),
+          ShoppingSaleSnapshotCategoryProvider.json.transform,
+        ),
         content: ShoppingSaleSnapshotContentProvider.summary.transform(
           input.content,
         ),
@@ -456,7 +459,7 @@ export namespace ShoppingSaleSnapshotProvider {
       });
 
     const categories: IShoppingChannelCategory.IHierarchical[] =
-      await ArrayUtil.asyncMap(records)((rec) =>
+      await ArrayUtil.asyncMap(records, (rec) =>
         ShoppingChannelCategoryProvider.hierarchical.at({
           channel: {
             id: rec.shopping_channel_id,

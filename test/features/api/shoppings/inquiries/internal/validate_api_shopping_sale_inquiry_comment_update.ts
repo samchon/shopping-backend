@@ -24,7 +24,7 @@ export const validate_api_shopping_sale_inquiry_comment_update = async (
     })(customer);
 
   comment.snapshots.push(
-    ...(await ArrayUtil.asyncRepeat(4)(async () => {
+    ...(await ArrayUtil.asyncRepeat(4, async () => {
       const snapshot: IShoppingSaleInquiryComment.ISnapshot =
         await ShoppingApi.functional.shoppings.customers.sales[
           `${inquiry.type}s`
@@ -43,5 +43,5 @@ export const validate_api_shopping_sale_inquiry_comment_update = async (
     await ShoppingApi.functional.shoppings.customers.sales[
       `${inquiry.type}s`
     ].comments.at(pool.customer, sale.id, inquiry.id, comment.id);
-  TestValidator.equals("read")(read)(comment);
+  TestValidator.equals("read", read, comment);
 };

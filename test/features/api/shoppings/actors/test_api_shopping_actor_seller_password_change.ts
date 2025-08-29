@@ -43,7 +43,7 @@ export const test_api_shopping_actor_seller_password_change = async (
   );
 
   // TRY LOGIN WITH PREVIOUS PASSWORD -> FAIL
-  await TestValidator.httpError("previous")(403)(() =>
+  await TestValidator.httpError("previous", 403, () =>
     login(TestGlobal.PASSWORD),
   );
 
@@ -67,8 +67,10 @@ const validate =
   (title: string) =>
   (x: IShoppingSeller.IInvert) =>
   (y: IShoppingSeller.IInvert) =>
-    TestValidator.equals(title)(
+    TestValidator.equals(
+      title,
       typia.misc.clone<Omit<IShoppingSeller.IInvert, "customer">>(x),
-    )(y);
+      y,
+    );
 
 const NEW_PASSWORD = "something";

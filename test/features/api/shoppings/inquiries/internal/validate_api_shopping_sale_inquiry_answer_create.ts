@@ -1,4 +1,5 @@
 import { TestValidator } from "@nestia/e2e";
+
 import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSaleInquiry } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiry";
@@ -26,7 +27,7 @@ export const validate_api_shopping_sale_inquiry_answer_create =
     sale: IShoppingSale,
     inquiry: Inquiry,
   ): Promise<void> => {
-    TestValidator.equals("not answered yet")(inquiry.answer)(null);
+    TestValidator.equals("not answered yet", inquiry.answer, null);
 
     const answer: IShoppingSaleInquiryAnswer = await accessor.create(
       pool.seller,
@@ -41,5 +42,5 @@ export const validate_api_shopping_sale_inquiry_answer_create =
       sale.id,
       inquiry.id,
     );
-    TestValidator.equals("read")(inquiry)(read);
+    TestValidator.equals("read", inquiry, read);
   };

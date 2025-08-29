@@ -20,10 +20,10 @@ export namespace ShoppingCouponSaleCriteriaProvider {
     export const transform = (
       inputList: Prisma.shopping_coupon_sale_criteriasGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): Promise<IShoppingSale.ISummary[]> =>
-      ArrayUtil.asyncMap(inputList)((input) =>
-        ShoppingSaleProvider.summary.transform(input.sale)
+      ArrayUtil.asyncMap(inputList, (input) =>
+        ShoppingSaleProvider.summary.transform(input.sale),
       );
     export const select = () =>
       ({

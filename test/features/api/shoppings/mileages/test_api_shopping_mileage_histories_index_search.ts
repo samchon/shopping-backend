@@ -19,7 +19,7 @@ export const test_api_shopping_mileage_histories_index_search = async (
   const customer: IShoppingCustomer =
     await test_api_shopping_actor_customer_join(pool);
 
-  await ArrayUtil.asyncRepeat(10)(() =>
+  await ArrayUtil.asyncRepeat(10, () =>
     generate_random_mileage_histories(pool, customer),
   );
 
@@ -30,7 +30,8 @@ export const test_api_shopping_mileage_histories_index_search = async (
         limit: 100,
       },
     );
-  const validator = TestValidator.search("search")(
+  const validator = TestValidator.search(
+    "search",
     async (input: IShoppingMileageHistory.IRequest.ISearch) => {
       const page: IPage<IShoppingMileageHistory> =
         await ShoppingApi.functional.shoppings.customers.mileages.histories.index(
@@ -42,7 +43,9 @@ export const test_api_shopping_mileage_histories_index_search = async (
         );
       return page.data;
     },
-  )(entire.data, 5);
+    entire.data,
+    5,
+  );
 
   await validator({
     fields: ["mileage.code"],

@@ -186,7 +186,7 @@ export namespace ShoppingCartCommodityProvider {
     const pseudos: IShoppingCartCommodity[] =
       props.input.pseudos.length === 0
         ? []
-        : await ArrayUtil.asyncMap(props.input.pseudos)(async (raw) =>
+        : await ArrayUtil.asyncMap(props.input.pseudos, async (raw) =>
             ShoppingCartCommodityDiagnoser.preview({
               sale: await ShoppingSaleProvider.at({
                 actor: props.customer,
@@ -225,7 +225,7 @@ export namespace ShoppingCartCommodityProvider {
             )
           : [],
         commodities: [
-          ...(await ArrayUtil.asyncMap(commodities)(json.transform)),
+          ...(await ArrayUtil.asyncMap(commodities, json.transform)),
           ...pseudos,
         ],
       }),

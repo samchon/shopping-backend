@@ -43,19 +43,21 @@ export const test_api_shopping_mileage_histories_accumulate = async (
     return typia.assert<number>(mileage.value);
   };
 
-  TestValidator.equals("histories[].value")(
+  TestValidator.equals(
+    "histories[].value",
     histories.data.map((history) => history.value * history.mileage.direction),
-  )([
-    donation.value,
-    -donation.value,
-    good.price.real *
-      (await getDefaultValue("shopping_order_good_confirm_reward")),
-    await getDefaultValue("shopping_sale_snapshot_review_photo_reward"),
-  ]);
+    [
+      donation.value,
+      -donation.value,
+      good.price.real *
+        (await getDefaultValue("shopping_order_good_confirm_reward")),
+      await getDefaultValue("shopping_sale_snapshot_review_photo_reward"),
+    ],
+  );
 
-  TestValidator.equals("histories[].balance")(
+  TestValidator.equals(
+    "histories[].balance",
     histories.data.map((history) => history.balance),
-  )(
     histories.data.map(
       (history, i) =>
         history.value * history.mileage.direction +

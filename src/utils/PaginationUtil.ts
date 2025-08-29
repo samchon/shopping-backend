@@ -65,7 +65,7 @@ export namespace PaginationUtil {
         orderBy: spec.orderBy,
       });
       return {
-        data: await ArrayUtil.asyncMap(data)(async (elem) =>
+        data: await ArrayUtil.asyncMap(data, async (elem) =>
           props.transform(elem),
         ),
         pagination: {

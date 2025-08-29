@@ -57,12 +57,12 @@ export const test_api_shopping_delivery_create = async (
       pool.seller,
       input,
     );
-  TestValidator.equals("create")(input)(delivery);
+  TestValidator.equals("create", input, delivery);
 
   const read: IShoppingDelivery.IInvert =
     await ShoppingApi.functional.shoppings.sellers.deliveries.at(
       pool.seller,
       delivery.id,
     );
-  TestValidator.equals("read")(delivery)(read);
+  TestValidator.equals("read", delivery, read);
 };

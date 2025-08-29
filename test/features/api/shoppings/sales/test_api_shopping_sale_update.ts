@@ -20,7 +20,7 @@ export const test_api_shopping_sale_update = async (
   const sale: IShoppingSale = await generate_random_sale(pool);
   const total: IShoppingSale[] = [
     sale,
-    ...(await ArrayUtil.asyncRepeat(3)(async () =>
+    ...(await ArrayUtil.asyncRepeat(3, async () =>
       ShoppingApi.functional.shoppings.sellers.sales.update(
         pool.seller,
         sale.id,
@@ -30,19 +30,19 @@ export const test_api_shopping_sale_update = async (
   ];
   total.forEach((sale, i) => (sale.latest = i === total.length - 1));
 
-  const read: IShoppingSale[] = await ArrayUtil.asyncMap(total)((s) =>
+  const read: IShoppingSale[] = await ArrayUtil.asyncMap(total, (s) =>
     ShoppingApi.functional.shoppings.sellers.sales.snapshots.flip(
       pool.seller,
       sale.id,
       s.snapshot_id,
     ),
   );
-  TestValidator.equals("snapshots")(total)(read);
+  TestValidator.equals("snapshots", total, read);
 
   const readByCustomer: IShoppingSale =
     await ShoppingApi.functional.shoppings.customers.sales.at(
       pool.customer,
       sale.id,
     );
-  TestValidator.equals("byCustomer")(total.at(-1))(readByCustomer);
+  TestValidator.equals("byCustomer", total.at(-1), readByCustomer);
 };

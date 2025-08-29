@@ -61,21 +61,23 @@ export const test_api_shopping_delivery_journey_create = async (
   }));
   const journeys: IShoppingDeliveryJourney[] = await ArrayUtil.asyncMap(
     inputList,
-  )((input) =>
-    ShoppingApi.functional.shoppings.sellers.deliveries.journeys.create(
-      pool.seller,
-      delivery.id,
-      input,
-    ),
+    (input) =>
+      ShoppingApi.functional.shoppings.sellers.deliveries.journeys.create(
+        pool.seller,
+        delivery.id,
+        input,
+      ),
   );
-  TestValidator.equals("create")(inputList)(journeys);
+  TestValidator.equals("create", inputList, journeys);
 
   const reloaded: IShoppingOrder =
     await ShoppingApi.functional.shoppings.sellers.orders.at(
       pool.seller,
       order.id,
     );
-  TestValidator.equals("journeys")(reloaded.publish!.deliveries[0].journeys)(
+  TestValidator.equals(
+    "journeys",
+    reloaded.publish!.deliveries[0].journeys,
     journeys,
   );
 };

@@ -39,7 +39,7 @@ export const validate_api_shopping_order_discountable =
     await test_api_shopping_actor_seller_join(pool);
 
     // SALES TO ORDER
-    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(3)(() =>
+    const saleList: IShoppingSale[] = await ArrayUtil.asyncRepeat(3, () =>
       generate_random_sole_sale(pool, {
         nominal: 50_000,
         real: 50_000,
@@ -47,7 +47,8 @@ export const validate_api_shopping_order_discountable =
     );
     const commodities: IShoppingCartCommodity[] = await ArrayUtil.asyncMap(
       saleList,
-    )((sale) => generate_random_cart_commodity(pool, sale));
+      (sale) => generate_random_cart_commodity(pool, sale),
+    );
     const order: IShoppingOrder = await generate_random_order(
       pool,
       commodities,
@@ -130,17 +131,23 @@ export const validate_api_shopping_order_discountable =
         },
       );
 
-    const error: Error | null = await TestValidator.proceed(async () => {
+    try {
       // VALIDATE COMBINATIONS
-      TestValidator.equals("combinations.length")(
+      TestValidator.equals(
+        "combinations.length",
         discountable.combinations.length,
-      )(2);
-      TestValidator.equals("combinations[].amount")(
+        2,
+      );
+      TestValidator.equals(
+        "combinations[].amount",
         discountable.combinations.map((comb) => comb.amount),
-      )([15_000, 5_000]);
-      TestValidator.equals("combinations[].coupons.length")(
+        [15_000, 5_000],
+      );
+      TestValidator.equals(
+        "combinations[].coupons.length",
         discountable.combinations.map((comb) => comb.coupons.length),
-      )([3, 1]);
+        [3, 1],
+      );
 
       // FOR THE NEXT STEP
       if (next)
@@ -152,19 +159,16 @@ export const validate_api_shopping_order_discountable =
           coupons: couponList,
           generator,
         });
-    });
-
-    // CLEAN UP SECTIONS
-    await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
-      pool.admin,
-      {
-        keep: saleList[0].section.id,
-        absorbed: [dummySection.id],
-      },
-    );
-
-    // TERMINATE
-    if (error) throw error;
+    } finally {
+      // CLEAN UP SECTIONS
+      await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
+        pool.admin,
+        {
+          keep: saleList[0].section.id,
+          absorbed: [dummySection.id],
+        },
+      );
+    }
   };
 export namespace validate_api_shopping_order_discountable {
   export interface IProps {

@@ -26,7 +26,8 @@ export const test_api_shopping_sale_review_index_sort = async (
     await test_api_shopping_actor_customer_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
-  const total: IShoppingSaleReview[] = await ArrayUtil.asyncRepeat(10)(
+  const total: IShoppingSaleReview[] = await ArrayUtil.asyncRepeat(
+    10,
     async () => {
       const commodity: IShoppingCartCommodity =
         await generate_random_cart_commodity(pool, sale);
@@ -45,22 +46,25 @@ export const test_api_shopping_sale_review_index_sort = async (
     },
   );
 
-  const validator = TestValidator.sort("sort reviews")<
+  const validator = TestValidator.sort<
     IShoppingSaleReview.ISummary,
     IShoppingSaleReview.IRequest.SortableColumns,
     IPage.Sort<IShoppingSaleReview.IRequest.SortableColumns>
-  >(async (input: IPage.Sort<IShoppingSaleReview.IRequest.SortableColumns>) => {
-    const page: IPage<IShoppingSaleReview.ISummary> =
-      await ShoppingApi.functional.shoppings.customers.sales.reviews.index(
-        pool.customer,
-        sale.id,
-        {
-          sort: input,
-          limit: total.length,
-        },
-      );
-    return page.data;
-  });
+  >(
+    "sort reviews",
+    async (input: IPage.Sort<IShoppingSaleReview.IRequest.SortableColumns>) => {
+      const page: IPage<IShoppingSaleReview.ISummary> =
+        await ShoppingApi.functional.shoppings.customers.sales.reviews.index(
+          pool.customer,
+          sale.id,
+          {
+            sort: input,
+            limit: total.length,
+          },
+        );
+      return page.data;
+    },
+  );
 
   const components = [
     validator("created_at")(GaffComparator.dates((x) => x.created_at)),

@@ -13,7 +13,7 @@ export const test_api_shopping_actor_customer_activate = async (
   // STARTS WITH A GUEST
   const issued: IShoppingCustomer.IAuthorized =
     await test_api_shopping_actor_customer_create(pool);
-  TestValidator.equals("issued.citizen")(false)(!!issued.citizen);
+  TestValidator.equals("issued.citizen", false, !!issued.citizen);
 
   // ACTIVATE CITIZEN
   const input: IShoppingCitizen.ICreate = {
@@ -27,6 +27,6 @@ export const test_api_shopping_actor_customer_activate = async (
       pool.customer,
       input,
     );
-  TestValidator.equals("activate.citizen")(input)(activated.citizen!);
+  TestValidator.equals("activate.citizen", input, activated.citizen!);
   return activated;
 };

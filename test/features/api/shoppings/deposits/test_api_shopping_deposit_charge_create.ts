@@ -19,11 +19,11 @@ export const test_api_shopping_deposit_charge_create = async (
       value,
     },
   );
-  TestValidator.equals("value")(charge.value)(value);
+  TestValidator.equals("value", charge.value, value);
 
   const balance: number =
     await ShoppingApi.functional.shoppings.customers.deposits.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(0);
+  TestValidator.equals("balance", balance, 0);
 };

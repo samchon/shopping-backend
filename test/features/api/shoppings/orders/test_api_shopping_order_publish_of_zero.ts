@@ -105,10 +105,10 @@ export const test_api_shopping_order_publish_of_zero = async (
         mileage: donation.value,
       },
     );
-  TestValidator.equals("ticket")(price.ticket)(20_000);
-  TestValidator.equals("deposit")(price.deposit)(10_000);
-  TestValidator.equals("mileage")(price.mileage)(10_000);
-  TestValidator.equals("cash")(price.cash)(0);
+  TestValidator.equals("ticket", price.ticket, 20_000);
+  TestValidator.equals("deposit", price.deposit, 10_000);
+  TestValidator.equals("mileage", price.mileage, 10_000);
+  TestValidator.equals("cash", price.cash, 0);
 
   // DO PUBLISH
   const publish: IShoppingOrderPublish =
@@ -120,5 +120,5 @@ export const test_api_shopping_order_publish_of_zero = async (
         vendor: null,
       },
     );
-  TestValidator.equals("paid")(!!publish.paid_at)(true);
+  TestValidator.equals("paid", !!publish.paid_at, true);
 };

@@ -18,28 +18,31 @@ export const test_api_shopping_sale_question_index_sort = async (
   await test_api_shopping_actor_seller_join(pool);
 
   const sale: IShoppingSale = await generate_random_sale(pool);
-  const total: IShoppingSaleQuestion[] = await ArrayUtil.asyncRepeat(10)(() =>
+  const total: IShoppingSaleQuestion[] = await ArrayUtil.asyncRepeat(10, () =>
     generate_random_sale_question(pool, sale),
   );
 
-  const validator = TestValidator.sort("sort questions")<
+  const validator = TestValidator.sort<
     IShoppingSaleQuestion.ISummary,
     IShoppingSaleQuestion.IRequest.SortableColumns,
     IPage.Sort<IShoppingSaleQuestion.IRequest.SortableColumns>
-  >(async (
-    input: IPage.Sort<IShoppingSaleQuestion.IRequest.SortableColumns>,
-  ) => {
-    const page: IPage<IShoppingSaleQuestion.ISummary> =
-      await ShoppingApi.functional.shoppings.customers.sales.questions.index(
-        pool.customer,
-        sale.id,
-        {
-          sort: input,
-          limit: total.length,
-        },
-      );
-    return page.data;
-  });
+  >(
+    "sort questions",
+    async (
+      input: IPage.Sort<IShoppingSaleQuestion.IRequest.SortableColumns>,
+    ) => {
+      const page: IPage<IShoppingSaleQuestion.ISummary> =
+        await ShoppingApi.functional.shoppings.customers.sales.questions.index(
+          pool.customer,
+          sale.id,
+          {
+            sort: input,
+            limit: total.length,
+          },
+        );
+      return page.data;
+    },
+  );
 
   const components = [
     validator("created_at")(GaffComparator.dates((x) => x.created_at)),

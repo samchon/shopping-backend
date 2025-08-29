@@ -31,12 +31,14 @@ export const test_api_shopping_actor_seller_login = async (
 
   // LOGIN AGAIN
   const passed: IShoppingSeller.IInvert = await login(TestGlobal.PASSWORD);
-  TestValidator.equals("passed")(
+  TestValidator.equals(
+    "passed",
     typia.misc.clone<Omit<IShoppingSeller.IInvert, "customer">>(joined),
-  )(passed);
+    passed,
+  );
 
   // TRY AGAIN WITH WRONG PASSWORD
-  await TestValidator.httpError("wrong password")(403)(() =>
+  await TestValidator.httpError("wrong password", 403, () =>
     login(FAILED_PASSWORD),
   );
 };

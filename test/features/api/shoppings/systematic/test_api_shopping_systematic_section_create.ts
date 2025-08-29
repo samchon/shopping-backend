@@ -18,5 +18,5 @@ export const test_api_shopping_systematic_section_create = async (
       pool.admin,
       section.id,
     );
-  TestValidator.equals("create")(section)(read);
+  TestValidator.equals("create", section, read);
 };

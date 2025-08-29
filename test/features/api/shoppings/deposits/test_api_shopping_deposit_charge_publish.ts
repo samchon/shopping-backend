@@ -20,7 +20,7 @@ export const test_api_shopping_deposit_charge_create = async (
       value,
     },
   );
-  TestValidator.equals("value")(charge.value)(value);
+  TestValidator.equals("value", charge.value, value);
   await validateBalance(pool, 0);
 
   charge.publish = await generate_random_deposit_charge_publish(
@@ -39,5 +39,5 @@ const validateBalance = async (
     await ShoppingApi.functional.shoppings.customers.deposits.histories.balance(
       pool.customer,
     );
-  TestValidator.equals("balance")(balance)(value);
+  TestValidator.equals("balance", balance, value);
 };

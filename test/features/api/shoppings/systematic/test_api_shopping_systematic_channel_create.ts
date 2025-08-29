@@ -18,5 +18,5 @@ export const test_api_shopping_systematic_channel_create = async (
       pool.admin,
       channel.id,
     );
-  TestValidator.equals("create")(channel)(read);
+  TestValidator.equals("create", channel, read);
 };

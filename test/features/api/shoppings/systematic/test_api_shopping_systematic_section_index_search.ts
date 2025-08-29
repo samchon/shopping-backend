@@ -13,10 +13,12 @@ export const test_api_shopping_systematic_section_index_search = async (
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
 
-  const sectionList: IShoppingSection[] = await ArrayUtil.asyncRepeat(REPEAT)(
+  const sectionList: IShoppingSection[] = await ArrayUtil.asyncRepeat(
+    REPEAT,
     () => generate_random_section(pool),
   );
-  const search = TestValidator.search("sales.index")(
+  const search = TestValidator.search(
+    "sales.index",
     async (input: IShoppingSection.IRequest.ISearch) => {
       const page: IPage<IShoppingSection> =
         await ShoppingApi.functional.shoppings.admins.systematic.sections.index(
@@ -29,7 +31,9 @@ export const test_api_shopping_systematic_section_index_search = async (
         );
       return page.data;
     },
-  )(sectionList, 4);
+    sectionList,
+    4,
+  );
 
   await search({
     fields: ["sectiob.name"],

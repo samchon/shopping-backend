@@ -10,35 +10,46 @@ export const validate_sale_at = async (props: {
   sale: IShoppingSale;
   visibleToCustomer: boolean;
 }): Promise<void> => {
-  await validate((id) =>
-    ShoppingApi.functional.shoppings.sellers.sales.at(props.pool.seller, id),
-  )(props.sale);
-  await validate((id) =>
-    ShoppingApi.functional.shoppings.admins.sales.at(props.pool.admin, id),
-  )(props.sale);
+  await validate(
+    (id) =>
+      ShoppingApi.functional.shoppings.sellers.sales.at(props.pool.seller, id),
+    props.sale,
+  );
+  await validate(
+    (id) =>
+      ShoppingApi.functional.shoppings.admins.sales.at(props.pool.admin, id),
+    props.sale,
+  );
 
   if (props.visibleToCustomer)
-    await validate((id) =>
-      ShoppingApi.functional.shoppings.customers.sales.at(props.pool.admin, id),
-    )(props.sale);
-  else
-    await TestValidator.httpError("customer cannot see the sale")(
-      404,
-      410,
-      422,
-    )(() =>
-      validate((id) =>
+    await validate(
+      (id) =>
         ShoppingApi.functional.shoppings.customers.sales.at(
           props.pool.admin,
           id,
         ),
-      )(props.sale),
+      props.sale,
+    );
+  else
+    await TestValidator.httpError(
+      "customer cannot see the sale",
+      [404, 410, 422],
+      () =>
+        validate(
+          (id) =>
+            ShoppingApi.functional.shoppings.customers.sales.at(
+              props.pool.admin,
+              id,
+            ),
+          props.sale,
+        ),
     );
 };
 
-const validate =
-  (fetcher: (id: string) => Promise<IShoppingSale>) =>
-  async (sale: IShoppingSale): Promise<void> => {
-    const read: IShoppingSale = await fetcher(sale.id);
-    TestValidator.equals("read")(sale)(read);
-  };
+const validate = async (
+  fetcher: (id: string) => Promise<IShoppingSale>,
+  sale: IShoppingSale,
+): Promise<void> => {
+  const read: IShoppingSale = await fetcher(sale.id);
+  TestValidator.equals("read", sale, read);
+};

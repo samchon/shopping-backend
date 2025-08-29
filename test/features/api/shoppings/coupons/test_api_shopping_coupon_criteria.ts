@@ -77,7 +77,9 @@ const validate = async (
         pseudos: [],
       },
     );
-  TestValidator.equals("predicate on cart")(possible)(
+  TestValidator.equals(
+    "predicate on cart",
+    possible,
     !!preview.combinations.length,
   );
 
@@ -93,7 +95,9 @@ const validate = async (
         good_ids: null,
       },
     );
-  TestValidator.equals("predicate on order")(possible)(
+  TestValidator.equals(
+    "predicate on order",
+    possible,
     !!discountable.combinations.length,
   );
 };

@@ -16,7 +16,7 @@ export const test_api_shopping_actor_customer_login = async (
     await test_api_shopping_actor_customer_join(pool);
   const guest: IShoppingCustomer.IAuthorized =
     await test_api_shopping_actor_customer_create(pool);
-  TestValidator.equals("guest.member")(guest.member)(null);
+  TestValidator.equals("guest.member", guest.member, null);
 
   const passed: IShoppingCustomer =
     await ShoppingApi.functional.shoppings.customers.authenticate.login(
@@ -26,7 +26,9 @@ export const test_api_shopping_actor_customer_login = async (
         password: TestGlobal.PASSWORD,
       },
     );
-  TestValidator.equals("passed")(
+  TestValidator.equals(
+    "passed",
     typia.misc.clone<Omit<IShoppingCustomer, "id" | "created_at">>(joined),
-  )(passed);
+    passed,
+  );
 };

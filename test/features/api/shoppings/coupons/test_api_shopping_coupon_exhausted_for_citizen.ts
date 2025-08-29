@@ -50,7 +50,7 @@ export const test_api_shopping_coupon_exhausted_for_citizen = async (
 
   // EXHAUSTED
   await ticketing();
-  await TestValidator.httpError("ticketing to exhausted")(410)(ticketing);
+  await TestValidator.httpError("ticketing to exhausted", 410, ticketing);
 
   // NO PROBLEM WHEN IF NEW CITIZEN COMES
   await test_api_shopping_actor_customer_join(pool);

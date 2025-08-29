@@ -16,7 +16,7 @@ export const test_api_shopping_systematic_channel_index_sort = async (
   pool: ConnectionPool,
 ): Promise<void> => {
   await test_api_shopping_actor_admin_login(pool);
-  await ArrayUtil.asyncRepeat(REPEAT)(async () => {
+  await ArrayUtil.asyncRepeat(REPEAT, async () => {
     const channel: IShoppingChannel =
       await ShoppingApi.functional.shoppings.admins.systematic.channels.create(
         pool.admin,
@@ -28,21 +28,24 @@ export const test_api_shopping_systematic_channel_index_sort = async (
     return channel;
   });
 
-  const validator = TestValidator.sort("channels.index")<
+  const validator = TestValidator.sort<
     IShoppingChannel,
     IShoppingChannel.IRequest.SortableColumns,
     IPage.Sort<IShoppingChannel.IRequest.SortableColumns>
-  >(async (input: IPage.Sort<IShoppingChannel.IRequest.SortableColumns>) => {
-    const page: IPage<IShoppingChannel> =
-      await ShoppingApi.functional.shoppings.admins.systematic.channels.index(
-        pool.admin,
-        {
-          limit: REPEAT,
-          sort: input,
-        },
-      );
-    return page.data;
-  });
+  >(
+    "channels.index",
+    async (input: IPage.Sort<IShoppingChannel.IRequest.SortableColumns>) => {
+      const page: IPage<IShoppingChannel> =
+        await ShoppingApi.functional.shoppings.admins.systematic.channels.index(
+          pool.admin,
+          {
+            limit: REPEAT,
+            sort: input,
+          },
+        );
+      return page.data;
+    },
+  );
   const components = [
     validator("channel.code")(GaffComparator.strings((s) => s.code)),
     validator("channel.name")(GaffComparator.strings((s) => s.name)),

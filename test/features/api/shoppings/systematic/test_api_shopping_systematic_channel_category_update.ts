@@ -65,7 +65,7 @@ export const test_api_shopping_systematic_channel_category_update = async (
       pool.admin,
       channel.code,
     );
-  TestValidator.equals("update")(expected)(entire);
+  TestValidator.equals("update", expected, entire);
 };
 
 interface Rough {

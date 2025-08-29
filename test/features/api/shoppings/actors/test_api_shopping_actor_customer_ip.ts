@@ -12,8 +12,8 @@ export const test_api_shopping_actor_customer_ip = async (
   const automatic = await create(pool, undefined);
   const manual = await create(pool, PSEUDO);
 
-  TestValidator.predicate("automatic")(() => automatic.ip !== PSEUDO);
-  TestValidator.equals("manual")(manual.ip)(PSEUDO);
+  TestValidator.predicate("automatic", () => automatic.ip !== PSEUDO);
+  TestValidator.equals("manual", manual.ip, PSEUDO);
 };
 
 const create = async (pool: ConnectionPool, ip?: string) => {
