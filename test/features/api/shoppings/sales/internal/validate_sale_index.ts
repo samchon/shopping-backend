@@ -79,7 +79,11 @@ const validate_in_seller_level =
       const index: IPage<IShoppingSale.ISummary> = await fetcher("sellers")({
         limit: saleList.length,
       });
-      TestValidator.index<IEntity>("seller ownership", mySales, index.data);
+      TestValidator.index<IEntity, IEntity>(
+        "seller ownership",
+        mySales,
+        index.data,
+      );
     }
   };
 
