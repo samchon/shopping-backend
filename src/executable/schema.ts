@@ -1,3 +1,4 @@
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 
 import { ShoppingGlobal } from "../ShoppingGlobal";
@@ -7,15 +8,16 @@ async function execute(
   database: string,
   username: string,
   password: string,
-  script: string
+  script: string,
 ): Promise<void> {
   try {
     const prisma = new PrismaClient({
-      datasources: {
-        db: {
-          url: `postgresql://${username}:${password}@${ShoppingGlobal.env.SHOPPING_POSTGRES_HOST}:${ShoppingGlobal.env.SHOPPING_POSTGRES_PORT}/${database}`,
+      adapter: new PrismaPg(
+        {
+          connectionString: `postgresql://${username}:${password}@${ShoppingGlobal.env.SHOPPING_POSTGRES_HOST}:${ShoppingGlobal.env.SHOPPING_POSTGRES_PORT}/${database}?schema=${ShoppingGlobal.env.SHOPPING_POSTGRES_SCHEMA}`,
         },
-      },
+        { schema: ShoppingGlobal.env.SHOPPING_POSTGRES_SCHEMA },
+      ),
     });
     const queries: string[] = script
       .split("\n")
@@ -51,10 +53,10 @@ async function main(): Promise<void> {
     root.account,
     root.password,
     `
-        CREATE USER ${config.username} WITH ENCRYPTED PASSWORD '${config.password}';
-        ALTER ROLE ${config.username} WITH CREATEDB
-        CREATE DATABASE ${config.database} OWNER ${config.username};
-    `
+      CREATE USER ${config.username} WITH ENCRYPTED PASSWORD '${config.password}';
+      ALTER ROLE ${config.username} WITH CREATEDB
+      CREATE DATABASE ${config.database} OWNER ${config.username};
+    `,
   );
 
   await execute(
@@ -62,8 +64,8 @@ async function main(): Promise<void> {
     root.account,
     root.password,
     `
-        CREATE SCHEMA ${config.schema} AUTHORIZATION ${config.username};
-    `
+      CREATE SCHEMA ${config.schema} AUTHORIZATION ${config.username};
+    `,
   );
 
   await execute(
@@ -71,19 +73,19 @@ async function main(): Promise<void> {
     root.account,
     root.password,
     `
-        GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.username};
+      GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.username};
 
-        CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD '${config.password}';
-        GRANT USAGE ON SCHEMA ${config.schema} TO ${config.readonlyUsername};
-        GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
-    `
+      CREATE USER ${config.readonlyUsername} WITH ENCRYPTED PASSWORD '${config.password}';
+      GRANT USAGE ON SCHEMA ${config.schema} TO ${config.readonlyUsername};
+      GRANT SELECT ON ALL TABLES IN SCHEMA ${config.schema} TO ${config.readonlyUsername};
+    `,
   );
 
   console.log("------------------------------------------");
   console.log("CREATE TABLES");
   console.log("------------------------------------------");
   ShoppingGlobal.testing = true;
-  await ShoppingSetupWizard.schema(new PrismaClient());
+  await ShoppingSetupWizard.schema();
 
   console.log("------------------------------------------");
   console.log("INITIAL DATA");
