@@ -150,9 +150,7 @@ const main = async (): Promise<void> => {
 
   // DATABASE SETUP
   ShoppingGlobal.testing = true;
-  await StopWatch.trace("Reset DB")(() =>
-    ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
-  );
+  await StopWatch.trace("Reset DB")(ShoppingSetupWizard.schema);
   await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
 
   // OPEN BACKEND SERVER

@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "@samchon/shopping-backend",
   "version": "0.17.0",
   "description": "Backend for shopping",
@@ -88,6 +89,7 @@
     "@nestjs/common": "^11.1.6",
     "@nestjs/core": "^11.1.6",
     "@nestjs/platform-fastify": "^11.1.6",
+    "@prisma/adapter-pg": "^6.16.2",
     "@prisma/client": "^6.16.1",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -108,7 +110,5 @@
     "tstl": "^3.0.0",
     "typia": "^9.7.1",
     "uuid": "^11.1.0"
-  },
-  "private": true,
-  "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903"
+  }
 }

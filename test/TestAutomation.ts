@@ -6,7 +6,6 @@ import ShoppingApi from "@samchon/shopping-api/lib/index";
 import { IShoppingChannel } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannel";
 
 import { ShoppingConfiguration } from "../src/ShoppingConfiguration";
-import { ShoppingGlobal } from "../src/ShoppingGlobal";
 import { ShoppingChannelProvider } from "../src/providers/shoppings/systematic/ShoppingChannelProvider";
 import { ShoppingSetupWizard } from "../src/setup/ShoppingSetupWizard";
 import { ConnectionPool } from "./ConnectionPool";
@@ -31,9 +30,7 @@ export namespace TestAutomation {
     // OPEN BACKEND SERVER
     const options: IOptions = await getOptions();
     if (options.reset) {
-      await StopWatch.trace("Reset DB")(() =>
-        ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
-      );
+      await StopWatch.trace("Reset DB")(ShoppingSetupWizard.schema);
       await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
     }
     const backend: T = await props.open(options);

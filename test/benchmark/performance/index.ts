@@ -62,9 +62,7 @@ const main = async (): Promise<void> => {
   ShoppingGlobal.testing = true;
 
   if (options.reset) {
-    await StopWatch.trace("Reset DB")(() =>
-      ShoppingSetupWizard.schema(ShoppingGlobal.prisma),
-    );
+    await StopWatch.trace("Reset DB")(ShoppingSetupWizard.schema);
     await StopWatch.trace("Seed Data")(ShoppingSetupWizard.seed);
   }
 
