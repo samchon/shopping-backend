@@ -1,4 +1,4 @@
-import { Prisma, shopping_channel_categories } from "@prisma/client";
+import { Prisma, shopping_channel_categories } from "@prisma/sdk";
 import {
   IPointer,
   MutableSingleton,
@@ -30,7 +30,7 @@ export namespace ShoppingChannelCategoryProvider {
     }): Promise<IShoppingChannelCategory.IHierarchical> => {
       const record =
         (await (await cache.get(props.channel.id)).hierarchical())[1].get(
-          props.id
+          props.id,
         ) ?? null;
       if (record === null)
         throw ErrorProvider.notFound("Unable to find the matched category.");
@@ -139,7 +139,7 @@ export namespace ShoppingChannelCategoryProvider {
         message: "Failed to find some categories.",
       });
     await EntityMergeProvider.merge(
-      ShoppingGlobal.prisma.shopping_channel_categories.fields.id.modelName
+      ShoppingGlobal.prisma.shopping_channel_categories.fields.id.modelName,
     )(props.input);
   };
 
@@ -168,7 +168,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
       where: {
         shopping_channel_id: channel_id,
       },
-    })
+    }),
   );
   const invert = new MutableSingleton(async () => {
     // TRANSFORMATION
@@ -200,7 +200,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
         parent_id: p.parent_id,
         created_at: p.created_at.toISOString(),
         children: [],
-      })
+      }),
     );
 
     // JOINING
@@ -225,7 +225,7 @@ const cache = new VariadicSingleton((channel_id: string) => {
         ...down,
         parent: up.parent,
       };
-    }
+    },
   );
 
   const time: IPointer<Date> = { value: new Date(0) };

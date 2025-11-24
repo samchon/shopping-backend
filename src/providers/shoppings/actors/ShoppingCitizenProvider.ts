@@ -1,5 +1,5 @@
 import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -10,7 +10,7 @@ import { ShoppingGlobal } from "../../../ShoppingGlobal";
 export namespace ShoppingCitizenProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_citizensGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_citizensGetPayload<ReturnType<typeof select>>,
     ): IShoppingCitizen => ({
       id: input.id,
       mobile: decrypt(input.mobile),
@@ -55,7 +55,7 @@ export namespace ShoppingCitizenProvider {
   };
 
   export const search = (
-    input: IShoppingCitizen.IRequest.ISearch | null | undefined
+    input: IShoppingCitizen.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.mobile?.length ? [{ mobile: encrypt(input.mobile) }] : []),
@@ -66,12 +66,12 @@ export namespace ShoppingCitizenProvider {
     AesPkcs5.decrypt(
       str,
       ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_IV,
     );
   const encrypt = (str: string): string =>
     AesPkcs5.encrypt(
       str,
       ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_CITIZEN_SECRET_IV,
     );
 }

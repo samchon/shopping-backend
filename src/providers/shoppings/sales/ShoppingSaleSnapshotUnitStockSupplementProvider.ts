@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -14,7 +14,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unit_stock_supplementsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleUnitStockSupplement => ({
       id: input.id,
       value: input.quantity,
@@ -94,7 +94,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
               },
             },
           },
-        }
+        },
       );
     const record =
       await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.create(
@@ -106,7 +106,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
             created_at: new Date(),
           },
           ...json.select(),
-        }
+        },
       );
     await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
       {
@@ -118,7 +118,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
             increment: props.input.value,
           },
         },
-      }
+      },
     );
     return json.transform(record);
   };
@@ -156,7 +156,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
               },
             },
           },
-        }
+        },
       );
     await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.update(
       {
@@ -166,7 +166,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
         data: {
           quantity: props.input.value,
         },
-      }
+      },
     );
     await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
       {
@@ -178,7 +178,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
             increment: props.input.value - supplement.quantity,
           },
         },
-      }
+      },
     );
   };
 
@@ -214,14 +214,14 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
               },
             },
           },
-        }
+        },
       );
     await ShoppingGlobal.prisma.shopping_sale_snapshot_unit_stock_supplements.delete(
       {
         where: {
           id: props.id,
         },
-      }
+      },
     );
     await ShoppingGlobal.prisma.mv_shopping_sale_snapshot_unit_stock_inventories.update(
       {
@@ -233,7 +233,7 @@ export namespace ShoppingSaleSnapshotUnitStockSupplementProvider {
             decrement: supplement.quantity,
           },
         },
-      }
+      },
     );
   };
 }

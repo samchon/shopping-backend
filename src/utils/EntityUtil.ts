@@ -1,30 +1,25 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { HashMap, hash, ranges } from "tstl";
+import { DMMF } from "@prisma/client/runtime/client";
+import {
+  MultipleSchemas,
+  formatSchema,
+  getDMMF,
+  mergeSchemas,
+} from "@prisma/internals";
+import { Prisma } from "@prisma/sdk";
+import fs from "fs";
+import { HashMap, Singleton, hash, ranges } from "tstl";
 import typia from "typia";
 
-/**
- * Utility for database entity.
- *
- * @author Samchon
- */
-export namespace EntityUtil {
-  /**
-   * Properties of {@link merge} function.
-   */
-  export interface IMergeProps<Key extends bigint | number | string> {
-    /**
-     * Target record to keep after merging.
-     *
-     * After merge process, {@link absorbed} records would be merged into
-     * this {@link keep} record.
-     */
-    keep: Key;
+import { ShoppingConfiguration } from "../ShoppingConfiguration";
+import { ShoppingGlobal } from "../ShoppingGlobal";
 
-    /**
-     * To be merged to {@link keep} after merging.
-     */
+export namespace EntityUtil {
+  export interface IMergeProps<Key extends bigint | number | string> {
+    keep: Key;
     absorbed: Key[];
   }
+
+  export const getMetadata = () => metadata.get();
 
   /**
    * Merge multiple records into one.
@@ -41,33 +36,33 @@ export namespace EntityUtil {
    * Such recursive merge process still works for self-recursive
    * (tree-structured) tables.
    *
-   * @param client Prisma Client
    * @param table Target table to perform merge
    * @param props Target records to merge
    */
   export const merge =
-    (client: PrismaClient) =>
     <Table extends Prisma.ModelName>(table: Table) =>
     async <Key extends bigint | number | string>(
       props: IMergeProps<Key>,
     ): Promise<void> => {
       // FIND TARGET MODEL AND PRIMARY KEY
-      const model: Prisma.DMMF.Model | undefined =
-        Prisma.dmmf.datamodel.models.find((model) => model.name === table);
+      const dmmf = await getMetadata();
+      const model: DMMF.Model | undefined = dmmf.datamodel.models.find(
+        (model) => model.name === table,
+      );
       if (model === undefined)
         throw new Error(
-          `Error on EntityUtil.unify(): table ${table} does not exist.`,
+          `Error on EntityUtil.merge(): table ${table} does not exist.`,
         );
-      const key: Prisma.DMMF.Field | undefined = model.fields.find(
+      const key: DMMF.Field | undefined = model.fields.find(
         (field) => field.isId === true,
       );
       if (key === undefined)
         throw new Error(
-          `Error on EntityUtil.unify(): table ${table} does not have single columned primary key.`,
+          `Error on EntityUtil.merge(): table ${table} does not have single columned primary key.`,
         );
 
       // LIST UP DEPENDENCIES
-      const dependencies: Prisma.DMMF.Field[] = model.fields.filter(
+      const dependencies: DMMF.Field[] = model.fields.filter(
         (field) =>
           field.kind === "object" &&
           typia.is<Prisma.ModelName>(field.type) &&
@@ -75,10 +70,10 @@ export namespace EntityUtil {
       );
       for (const dep of dependencies) {
         // GET TARGET TABLE MODEL AND FOREIGN COLUMN
-        const target: Prisma.DMMF.Model = Prisma.dmmf.datamodel.models.find(
+        const target: DMMF.Model = dmmf.datamodel.models.find(
           (model) => model.name === dep.type,
         )!;
-        const relation: Prisma.DMMF.Field = target.fields.find(
+        const relation: DMMF.Field = target.fields.find(
           (field) => field.relationName === dep.relationName,
         )!;
         if (relation.relationFromFields?.length !== 1)
@@ -87,17 +82,17 @@ export namespace EntityUtil {
               target,
             )} has multiple columned foreign key.`,
           );
-        const foreign: Prisma.DMMF.Field = target.fields.find(
-          (f) => f.name === relation.relationFromFields![0],
-        )!;
 
         // CONSIDER UNIQUE CONSTRAINT -> CASCADE MERGING
+        const foreign: DMMF.Field = target.fields.find(
+          (f) => f.name === relation.relationFromFields![0],
+        )!;
         const uniqueMatrix: (readonly string[])[] = target.uniqueFields.filter(
           (columns) => columns.includes(foreign.name),
         );
         if (uniqueMatrix.length)
           for (const unique of uniqueMatrix)
-            await _Merge_unique_children(client)({
+            await _Merge_unique_children({
               table,
               ...props,
             })({
@@ -106,7 +101,7 @@ export namespace EntityUtil {
               foreign,
             });
         else
-          await (client as any)[getName(target)].updateMany({
+          await (ShoppingGlobal.prisma as any)[getName(target)].updateMany({
             where: {
               [foreign.name]: { in: props.absorbed },
             },
@@ -117,7 +112,7 @@ export namespace EntityUtil {
       }
 
       // REMOVE TO BE MERGED RECORD
-      await (client[table] as any).deleteMany({
+      await (ShoppingGlobal.prisma[table] as any).deleteMany({
         where: {
           [key.name]: { in: props.absorbed },
         },
@@ -125,15 +120,14 @@ export namespace EntityUtil {
     };
 
   const _Merge_unique_children =
-    (client: PrismaClient) =>
     (parent: IMergeProps<any> & { table: Prisma.ModelName }) =>
     async (current: {
-      model: Prisma.DMMF.Model;
-      foreign: Prisma.DMMF.Field;
+      model: DMMF.Model;
+      foreign: DMMF.Field;
       unique: readonly string[];
     }) => {
       // GET PRIMARY KEY AND OTHER UNIQUE COLUMNS
-      const primary: Prisma.DMMF.Field = current.model.fields.find(
+      const primary: DMMF.Field = current.model.fields.find(
         (column) => column.isId === true,
       )!;
       const group: string[] = current.unique.filter(
@@ -146,7 +140,7 @@ export namespace EntityUtil {
         (x, y) =>
           ranges.equal(x, y, (a, b) => JSON.stringify(a) === JSON.stringify(b)),
       );
-      const recordList: any[] = await (client as any)[
+      const recordList: any[] = await (ShoppingGlobal.prisma as any)[
         current.model.name
       ].findMany({
         where: {
@@ -176,7 +170,7 @@ export namespace EntityUtil {
         const master: any = it.second[index];
         const slaves: any[] = it.second.filter((_r, i) => i !== index);
         if (slaves.length)
-          await merge(client)(current.model.name as Prisma.ModelName)({
+          await merge(current.model.name as Prisma.ModelName)({
             keep: master[primary.name],
             absorbed: slaves.map((slave) => slave[primary.name]),
           });
@@ -186,3 +180,28 @@ export namespace EntityUtil {
   const getName = (x: { dbName?: string | null; name: string }): string =>
     x.dbName ?? x.name;
 }
+
+const metadata = new Singleton(async () => {
+  const multipleSchemas: MultipleSchemas = await formatSchema({
+    schemas: await fs.promises
+      .readdir(`${ShoppingConfiguration.ROOT}/prisma/schemas`)
+      .then(
+        async (files) =>
+          await Promise.all(
+            files.map(
+              async (f) =>
+                [
+                  f,
+                  await fs.promises.readFile(
+                    `${ShoppingConfiguration.ROOT}/prisma/schemas/${f}`,
+                    "utf8",
+                  ),
+                ] as const,
+            ),
+          ),
+      ),
+  });
+  return await getDMMF({
+    datamodel: mergeSchemas({ schemas: multipleSchemas }),
+  });
+});

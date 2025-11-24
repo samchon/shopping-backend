@@ -1,14 +1,15 @@
 import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingAddress } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAddress";
+
 import { ShoppingGlobal } from "../../../ShoppingGlobal";
 
 export namespace ShoppingAddressProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_addressesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_addressesGetPayload<ReturnType<typeof select>>,
     ): IShoppingAddress => ({
       id: input.id,
       name: decrypt(input.name),
@@ -45,12 +46,12 @@ export namespace ShoppingAddressProvider {
     AesPkcs5.decrypt(
       str,
       ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_IV,
     );
   const encrypt = (str: string): string =>
     AesPkcs5.encrypt(
       str,
       ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_ADDRESS_SECRET_IV,
     );
 }

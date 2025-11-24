@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { IPointer } from "tstl";
 
 import { IShoppingCouponCriteria } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponCriteria";
@@ -12,7 +12,7 @@ export namespace ShoppingCouponFunnelCriteriaProvider {
     export const transform = (
       inputList: Prisma.shopping_coupon_funnel_criteriasGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): IShoppingCouponFunnelCriteria.IFunnel[] =>
       inputList.map((input) =>
         input.kind === "variable"
@@ -24,7 +24,7 @@ export namespace ShoppingCouponFunnelCriteriaProvider {
           : {
               kind: input.kind as "url" | "referrer",
               value: input.value,
-            }
+            },
       );
     export const select = () =>
       ({}) satisfies Prisma.shopping_coupon_funnel_criteriasFindManyArgs;

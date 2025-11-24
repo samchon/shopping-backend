@@ -1,13 +1,11 @@
-import {
-  InternalServerErrorException,
-  NotFoundException,
-} from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { DMMF } from "@prisma/client/runtime/client";
+import { Prisma } from "@prisma/sdk";
 
 import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecordMerge";
 
 import { ShoppingGlobal } from "../../ShoppingGlobal";
 import { EntityUtil } from "../../utils/EntityUtil";
+import { ErrorProvider } from "./ErrorProvider";
 
 export namespace EntityMergeProvider {
   export const merge =
@@ -17,12 +15,11 @@ export namespace EntityMergeProvider {
     ) =>
     async (input: IRecordMerge): Promise<void> => {
       // VALIDATE TABLE
-      const primary: Prisma.DMMF.Field | undefined =
-        Prisma.dmmf.datamodel.models
-          .find((model) => model.name === table)
-          ?.fields.find((field) => field.isId === true);
-      if (primary === undefined)
-        throw new InternalServerErrorException("Invalid table.");
+      const dmmf = await EntityUtil.getMetadata();
+      const primary: DMMF.Field | undefined = dmmf.datamodel.models
+        .find((model) => model.name === table)
+        ?.fields.find((field) => field.isId === true);
+      if (primary === undefined) throw ErrorProvider.internal("Invalid table.");
 
       // FIND MATCHED RECORDS
       const count: number = finder
@@ -35,14 +32,12 @@ export namespace EntityMergeProvider {
             },
           });
       if (count !== input.absorbed.length + 1)
-        throw new NotFoundException("Unable to find matched record(s).");
+        throw ErrorProvider.notFound({
+          accessor: "input.keep | input.absorbed",
+          message: "Unable to find matched record.",
+        });
 
       // DO MERGE
-      try {
-        await EntityUtil.merge(ShoppingGlobal.prisma)(table)(input);
-      } catch (exp) {
-        console.log(exp);
-        throw exp;
-      }
+      await EntityUtil.merge(table)(input);
     };
 }

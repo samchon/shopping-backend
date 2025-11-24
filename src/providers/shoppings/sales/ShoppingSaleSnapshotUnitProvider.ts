@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingPrice } from "@samchon/shopping-api/lib/structures/shoppings/base/IShoppingPrice";
@@ -16,11 +16,11 @@ export namespace ShoppingSaleSnapshotUnitProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unitsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleUnit.ISummary => {
       if (input.mv_price_range === null)
         throw ErrorProvider.internal(
-          "No price mv_shopping_sale_snapshot_unit_prices record found."
+          "No price mv_shopping_sale_snapshot_unit_prices record found.",
         );
       return {
         id: input.id,
@@ -51,7 +51,7 @@ export namespace ShoppingSaleSnapshotUnitProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unitsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleUnit => ({
       id: input.id,
       name: input.name,
@@ -77,7 +77,7 @@ export namespace ShoppingSaleSnapshotUnitProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unitsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): Omit<IShoppingSaleUnit.IInvert, "stocks"> => ({
       id: input.id,
       name: input.name,
@@ -93,10 +93,10 @@ export namespace ShoppingSaleSnapshotUnitProvider {
   ----------------------------------------------------------- */
   export const collect = (
     input: IShoppingSaleUnit.ICreate,
-    sequence: number
+    sequence: number,
   ) => {
     const options = input.options.map(
-      ShoppingSaleSnapshotUnitOptionProvider.collect
+      ShoppingSaleSnapshotUnitOptionProvider.collect,
     );
     return {
       id: v4(),
@@ -112,7 +112,7 @@ export namespace ShoppingSaleSnapshotUnitProvider {
             options,
             input: v,
             sequence: i,
-          })
+          }),
         ),
       },
       mv_price_range: {

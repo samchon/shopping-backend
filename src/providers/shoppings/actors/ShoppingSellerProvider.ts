@@ -1,5 +1,5 @@
 import { ForbiddenException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { ShoppingSellerDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/actors/ShoppingSellerDiagnoser";

@@ -1,13 +1,13 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingCartCommodityStock } from "@samchon/shopping-api/lib/structures/shoppings/orders/IShoppingCartCommodityStock";
 import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
+import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStock";
 
 import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { ShoppingSaleSnapshotUnitProvider } from "../sales/ShoppingSaleSnapshotUnitProvider";
 import { ShoppingCartCommodityStockChoiceProvider } from "./ShoppingCartCommodityStockChoiceProvider";
-import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStock";
 
 export namespace ShoppingCartCommodityStockProvider {
   /* -----------------------------------------------------------
@@ -17,7 +17,7 @@ export namespace ShoppingCartCommodityStockProvider {
     export const transform = (
       input: Prisma.shopping_cart_commodity_stocksGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleUnit.IInvert => {
       if (input.stock.mv_inventory === null)
         throw ErrorProvider.internal("No inventory status exists.");
@@ -63,7 +63,7 @@ export namespace ShoppingCartCommodityStockProvider {
   export const collect = (
     stock: IShoppingSaleUnitStock,
     input: IShoppingCartCommodityStock.ICreate,
-    sequence: number
+    sequence: number,
   ) =>
     ({
       id: v4(),
@@ -74,16 +74,16 @@ export namespace ShoppingCartCommodityStockProvider {
               choice.option_id,
               choice.candidate_id,
               null,
-              i
-            )
+              i,
+            ),
           ),
           ...input.choices.map((choice, i) =>
             ShoppingCartCommodityStockChoiceProvider.collect(
               choice.option_id,
               null,
               choice.value,
-              stock.choices.length + i
-            )
+              stock.choices.length + i,
+            ),
           ),
         ],
       },

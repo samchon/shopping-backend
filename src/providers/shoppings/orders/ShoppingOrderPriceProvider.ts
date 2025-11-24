@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import { ShoppingCouponTicketDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/coupons/ShoppingCouponTicketDiagnoser";
 import { ShoppingOrderDiscountableDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/orders/ShoppingOrderDiscountableDiagnoser";

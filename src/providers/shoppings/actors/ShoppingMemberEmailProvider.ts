@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import { IShoppingMemberEmail } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMemberEmail";
 

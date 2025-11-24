@@ -1,6 +1,6 @@
 import { RandomGenerator } from "@nestia/e2e";
 import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -23,7 +23,7 @@ export namespace ShoppingDepositChargePublishProvider {
     export const transform = (
       input: Prisma.shopping_deposit_charge_publishesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingDepositChargePublish => ({
       id: input.id,
       created_at: input.created_at.toISOString(),
@@ -141,6 +141,6 @@ export namespace ShoppingDepositChargePublishProvider {
     AesPkcs5.encrypt(
       str,
       ShoppingGlobal.env.SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_DEPOSIT_CHARGE_PUBLISH_SECRET_IV,
     );
 }

@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -25,7 +25,7 @@ export namespace ShoppingSaleReviewProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_reviewsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleReview.ISummary => ({
       id: input.base.base.id,
       customer: ShoppingCustomerProvider.json.transform(input.base.customer),
@@ -37,7 +37,7 @@ export namespace ShoppingSaleReviewProvider {
       answer:
         input.base.answer !== null
           ? ShoppingSaleSnapshotInquiryAnswerProvider.summarize.transform(
-              input.base.answer
+              input.base.answer,
             )
           : null,
     });
@@ -73,7 +73,7 @@ export namespace ShoppingSaleReviewProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_reviewsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleReview.IAbridge => ({
       ...BbsArticleProvider.abridge.transform(input.base.base),
       customer: ShoppingCustomerProvider.json.transform(input.base.customer),
@@ -82,7 +82,7 @@ export namespace ShoppingSaleReviewProvider {
       answer:
         input.base.answer !== null
           ? ShoppingSaleSnapshotInquiryAnswerProvider.abridge.transform(
-              input.base.answer
+              input.base.answer,
             )
           : null,
     });
@@ -118,7 +118,7 @@ export namespace ShoppingSaleReviewProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_reviewsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleReview => {
       const base = BbsArticleProvider.json.transform(input.base.base);
       return {
@@ -138,7 +138,7 @@ export namespace ShoppingSaleReviewProvider {
         answer:
           input.base.answer !== null
             ? ShoppingSaleSnapshotInquiryAnswerProvider.json.transform(
-                input.base.answer
+                input.base.answer,
               )
             : null,
         read_by_seller: input.base.read_by_seller_at !== null,
@@ -273,13 +273,13 @@ export namespace ShoppingSaleReviewProvider {
             id: props.id,
           },
           ...json.select(),
-        }
+        },
       );
     return json.transform(record);
   };
 
   const search = (
-    input: IShoppingSaleReview.IRequest.ISearch | null | undefined
+    input: IShoppingSaleReview.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...ShoppingSaleSnapshotInquiryProvider.search(input).map((base) => ({
@@ -323,7 +323,7 @@ export namespace ShoppingSaleReviewProvider {
 
   const orderBy = (
     key: IShoppingSaleReview.IRequest.SortableColumns,
-    direction: "asc" | "desc"
+    direction: "asc" | "desc",
   ) =>
     (key === "score"
       ? {
@@ -379,7 +379,7 @@ export namespace ShoppingSaleReviewProvider {
       false ===
       ShoppingCustomerProvider.equals(
         props.customer,
-        ShoppingCustomerProvider.json.transform(good.order.customer)
+        ShoppingCustomerProvider.json.transform(good.order.customer),
       )
     )
       throw ErrorProvider.forbidden({
@@ -461,7 +461,7 @@ export namespace ShoppingSaleReviewProvider {
           type: "review",
           base: {
             create: BbsArticleProvider.collect(
-              ShoppingSaleReviewSnapshotProvider.collect
+              ShoppingSaleReviewSnapshotProvider.collect,
             )(props.input),
           },
           customer: {

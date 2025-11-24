@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitStock";
@@ -12,7 +12,7 @@ export namespace ShoppingSaleSnapshotUnitStockProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_unit_stocksGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleUnitStock => {
       if (input.mv_inventory === null)
         throw ErrorProvider.internal("No inventory status exists.");
@@ -58,7 +58,7 @@ export namespace ShoppingSaleSnapshotUnitStockProvider {
             options: props.options,
             input: value,
             sequence: i,
-          })
+          }),
         ),
       },
       real_price: props.input.price.real,

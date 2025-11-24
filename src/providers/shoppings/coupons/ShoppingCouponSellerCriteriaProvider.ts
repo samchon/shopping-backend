@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { IPointer } from "tstl";
 
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
@@ -18,7 +18,7 @@ export namespace ShoppingCouponSellerCriteriaProvider {
     export const transform = (
       input: Prisma.shopping_coupon_seller_criteriasGetPayload<
         ReturnType<typeof select>
-      >[]
+      >[],
     ): IShoppingSeller[] =>
       input.map((input) => ShoppingSellerProvider.json.transform(input.seller));
     export const select = () =>

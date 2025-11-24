@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import typia from "typia";
 import { v4 } from "uuid";
 

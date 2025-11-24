@@ -1,6 +1,6 @@
 import { RandomGenerator } from "@nestia/e2e";
 import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -25,15 +25,15 @@ export namespace ShoppingOrderPublishProvider {
     export const transform = (
       input: Prisma.shopping_order_publishesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingOrderPublish => ({
       id: input.id,
       address: ShoppingAddressProvider.json.transform(input.address),
       deliveries: ShoppingDeliveryPieceProvider.jsonFromPublish.transform(
-        input.pieces
+        input.pieces,
       ),
       state: typia.assert<IShoppingDelivery.State>(
-        input.mv_state?.value ?? input.mv_seller_states?.[0]?.value ?? "none"
+        input.mv_state?.value ?? input.mv_seller_states?.[0]?.value ?? "none",
       ),
       created_at: input.created_at.toISOString(),
       paid_at: input.paid_at?.toISOString() ?? null,
@@ -79,7 +79,7 @@ export namespace ShoppingOrderPublishProvider {
         include: {
           publish: true,
         },
-      }
+      },
     );
     return record.publish === null ? record : null;
   };
@@ -144,7 +144,7 @@ export namespace ShoppingOrderPublishProvider {
           cancelled_at: next.cancelled_at,
         },
         ...json.select(props.customer),
-      }
+      },
     );
 
     // POST-PROCESSING
@@ -200,7 +200,7 @@ export namespace ShoppingOrderPublishProvider {
 
   const handlePayment = async (
     order: IEntity,
-    refer?: { publish: null | IEntity; goods: IEntity[] }
+    refer?: { publish: null | IEntity; goods: IEntity[] },
   ) => {
     // STATES OF DELIVERIES
     if (refer === undefined)
@@ -238,7 +238,7 @@ export namespace ShoppingOrderPublishProvider {
                   shopping_seller_id: true,
                 },
               })
-            ).map((og) => og.shopping_seller_id)
+            ).map((og) => og.shopping_seller_id),
           ),
         ].map((shopping_seller_id) => ({
           id: v4(),
@@ -246,7 +246,7 @@ export namespace ShoppingOrderPublishProvider {
           shopping_seller_id,
           value: "none",
         })),
-      }
+      },
     );
 
     // DECREASE INVENTORY
@@ -261,7 +261,7 @@ export namespace ShoppingOrderPublishProvider {
               increment: quantity,
             },
           },
-        }
+        },
       );
   };
 
@@ -278,7 +278,7 @@ export namespace ShoppingOrderPublishProvider {
               decrement: quantity,
             },
           },
-        }
+        },
       );
 
     // @todo - ROLL-BACK DISCOUNTS
@@ -302,7 +302,7 @@ export namespace ShoppingOrderPublishProvider {
         good.commodity.stocks.map((s) => ({
           stock_id: s.shopping_sale_snapshot_unit_stock_id,
           quantity: s.quantity * good.volume,
-        }))
+        })),
       )
       .flat();
   };
@@ -311,7 +311,7 @@ export namespace ShoppingOrderPublishProvider {
     AesPkcs5.encrypt(
       str,
       ShoppingGlobal.env.SHOPPING_ORDER_PUBLISH_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_ORDER_PUBLISH_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_ORDER_PUBLISH_SECRET_IV,
     );
 }
 
