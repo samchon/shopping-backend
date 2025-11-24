@@ -10,6 +10,7 @@ import { IShoppingCartDiscountable } from "@samchon/shopping-api/lib/structures/
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
+import { ShoppingGlobal } from "../../../../../../src/ShoppingGlobal";
 import { ConnectionPool } from "../../../../../ConnectionPool";
 import { test_api_shopping_actor_admin_login } from "../../actors/test_api_shopping_actor_admin_login";
 import { test_api_shopping_actor_customer_join } from "../../actors/test_api_shopping_actor_customer_join";
@@ -164,14 +165,19 @@ export const validate_api_shopping_cart_discountable =
           generator,
         });
     } finally {
-      // CLEAN UP SECTIONS
-      await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
-        pool.admin,
-        {
-          keep: saleList[0].section.id,
-          absorbed: [dummySection.id],
+      await ShoppingGlobal.prisma.shopping_sections.delete({
+        where: {
+          id: dummySection.id,
         },
-      );
+      });
+      // // CLEAN UP SECTIONS
+      // await ShoppingApi.functional.shoppings.admins.systematic.sections.merge(
+      //   pool.admin,
+      //   {
+      //     keep: saleList[0].section.id,
+      //     absorbed: [dummySection.id],
+      //   },
+      // );
     }
   };
 export namespace validate_api_shopping_cart_discountable {
