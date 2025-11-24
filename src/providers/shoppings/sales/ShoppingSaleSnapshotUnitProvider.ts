@@ -116,13 +116,13 @@ export namespace ShoppingSaleSnapshotUnitProvider {
         ),
       },
       mv_price_range: {
-        create: colletPriceRange(input),
+        create: collectPriceRange(input),
       },
       sequence,
     } satisfies Prisma.shopping_sale_snapshot_unitsCreateWithoutSnapshotInput;
   };
 
-  const colletPriceRange = (input: IShoppingSaleUnit.ICreate) => {
+  const collectPriceRange = (input: IShoppingSaleUnit.ICreate) => {
     const computer =
       (picker: (p: IShoppingPrice) => number) =>
       (best: (...args: number[]) => number) =>

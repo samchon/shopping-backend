@@ -83,7 +83,7 @@ export namespace create {
  *
  * For reference, if there're some {@link IShoppingCouponTicket tickets}
  * which are already issued from the target coupon, they would not be affected.
- * Those tickets are still valid until their expration time.
+ * Those tickets are still valid until their expiration time.
  *
  * @param id Target coupon's {@link IShoppingCoupon.id }
  * @tag Discount
