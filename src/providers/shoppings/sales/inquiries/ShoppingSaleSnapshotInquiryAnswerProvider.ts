@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
@@ -18,14 +18,14 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_answersGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleInquiryAnswer.ISummary => ({
       ...BbsArticleProvider.summarize.transform(input.base),
       seller: ShoppingSellerProvider.invert.transform(
         () =>
           new InternalServerErrorException(
-            "The answer has not been registered by seller."
-          )
+            "The answer has not been registered by seller.",
+          ),
       )(input.sellerCustomer),
     });
     export const select = () =>
@@ -41,14 +41,14 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_answersGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleInquiryAnswer.IAbridge => ({
       ...BbsArticleProvider.abridge.transform(input.base),
       seller: ShoppingSellerProvider.invert.transform(
         () =>
           new InternalServerErrorException(
-            "The answer has not been registered by seller."
-          )
+            "The answer has not been registered by seller.",
+          ),
       )(input.sellerCustomer),
     });
     export const select = () =>
@@ -64,13 +64,13 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_answersGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleInquiryAnswer => {
       const seller = ShoppingSellerProvider.invert.transform(
         () =>
           new InternalServerErrorException(
-            "The answer has not been registered by seller."
-          )
+            "The answer has not been registered by seller.",
+          ),
       )(input.sellerCustomer);
       return {
         ...BbsArticleProvider.json.transform(input.base),
@@ -112,14 +112,14 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
             },
           },
         },
-      }
+      },
     );
     const record =
       await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiry_answers.create(
         {
           data: collect(props),
           ...json.select(),
-        }
+        },
       );
     return json.transform(record);
   };
@@ -148,7 +148,7 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
               },
             },
           },
-        }
+        },
       );
     return BbsArticleSnapshotProvider.create(answer)(props.input);
   };
@@ -161,7 +161,7 @@ export namespace ShoppingSaleSnapshotInquiryAnswerProvider {
     ({
       base: {
         create: BbsArticleProvider.collect(BbsArticleSnapshotProvider.collect)(
-          props.input
+          props.input,
         ),
       },
       inquiry: {

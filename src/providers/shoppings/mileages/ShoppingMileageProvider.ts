@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -16,7 +16,7 @@ export namespace ShoppingMileageProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_mileagesGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_mileagesGetPayload<ReturnType<typeof select>>,
     ): IShoppingMileage => ({
       id: input.id,
       code: input.code,
@@ -33,7 +33,7 @@ export namespace ShoppingMileageProvider {
     READERS
   ----------------------------------------------------------- */
   export const index = (
-    input: IShoppingMileage.IRequest
+    input: IShoppingMileage.IRequest,
   ): Promise<IPage<IShoppingMileage>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_mileages,
@@ -51,7 +51,7 @@ export namespace ShoppingMileageProvider {
     })(input);
 
   export const search = (
-    input: IShoppingMileage.IRequest.ISearch | null | undefined
+    input: IShoppingMileage.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.source?.length
@@ -83,7 +83,7 @@ export namespace ShoppingMileageProvider {
 
   export const orderBy = (
     key: IShoppingMileage.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "mileage.code"
       ? { code: value }

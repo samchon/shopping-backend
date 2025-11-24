@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import {
   ShoppingAdministratorDiagnoser,
@@ -26,7 +26,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_inquiry_commentsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleInquiryComment => {
       const customer = ShoppingCustomerProvider.json.transform(input.customer);
       const writer =
@@ -37,7 +37,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
             : ShoppingAdministratorDiagnoser.invert(customer);
       if (writer === null)
         throw ErrorProvider.internal(
-          `The comment has not been registered by ${input.actor_type}.`
+          `The comment has not been registered by ${input.actor_type}.`,
         );
       return {
         ...BbsArticleCommentProvider.json.transform(input.base),
@@ -92,7 +92,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
       },
       orderBy: props.input.sort?.length
         ? PaginationUtil.orderBy(BbsArticleCommentProvider.orderBy)(
-            props.input.sort
+            props.input.sort,
           ).map((base) => ({ base }))
         : [{ base: { created_at: "asc" } }],
     })(props.input);
@@ -134,13 +134,13 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
             },
           },
           ...json.select(),
-        }
+        },
       );
     return json.transform(record);
   };
 
   const search = (
-    input: IShoppingSaleInquiryComment.IRequest.ISearch | null | undefined
+    input: IShoppingSaleInquiryComment.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...BbsArticleCommentProvider.search(input).map((base) => ({
@@ -197,7 +197,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
               },
             },
           },
-        }
+        },
       );
     const record =
       await ShoppingGlobal.prisma.shopping_sale_snapshot_inquiry_comments.create(
@@ -208,7 +208,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
             inquiry,
           }),
           ...json.select(),
-        }
+        },
       );
     return json.transform(record);
   };
@@ -227,7 +227,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
         message: `This comment is not yours.`,
       });
     return BbsArticleCommentSnapshotProvider.create({ id: props.id })(
-      props.input
+      props.input,
     );
   };
 
@@ -239,7 +239,7 @@ export namespace ShoppingSaleSnapshotInquiryCommentProvider {
     ({
       base: {
         create: BbsArticleCommentProvider.collect(
-          BbsArticleCommentSnapshotProvider.collect
+          BbsArticleCommentSnapshotProvider.collect,
         )(props.inquiry)(props.input),
       },
       actor_type: props.actor.type,

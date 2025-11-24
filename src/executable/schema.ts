@@ -1,5 +1,5 @@
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/sdk";
 
 import { ShoppingGlobal } from "../ShoppingGlobal";
 import { ShoppingSetupWizard } from "../setup/ShoppingSetupWizard";

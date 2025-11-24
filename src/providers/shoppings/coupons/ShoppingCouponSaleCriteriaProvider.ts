@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { IPointer } from "tstl";
 
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";

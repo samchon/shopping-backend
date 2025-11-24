@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingSaleUnitOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitOption";
@@ -14,7 +14,7 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
     export const transform = (
       input: Prisma.shopping_cart_commodity_stock_choicesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleUnitStockChoice.IInvert => {
       const option: IShoppingSaleUnitOption.IInvert =
         input.option.type === "select"
@@ -47,7 +47,7 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
         candidate:
           input.candidate !== null
             ? ShoppingSaleSnapshotUnitOptionCandidateProvider.json.transform(
-                input.candidate
+                input.candidate,
               )
             : null,
         value:
@@ -76,7 +76,7 @@ export namespace ShoppingCartCommodityStockChoiceProvider {
     option_id: string,
     candidate_id: string | null,
     value: any,
-    sequence: number
+    sequence: number,
   ) =>
     ({
       id: v4(),

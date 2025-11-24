@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
@@ -9,7 +9,7 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 export namespace BbsArticleProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>
+      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
     ): IBbsArticle => ({
       id: input.id,
       snapshots: input.snapshots
@@ -28,7 +28,7 @@ export namespace BbsArticleProvider {
 
   export namespace abridge {
     export const transform = (
-      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>
+      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
     ): IBbsArticle.IAbridge => ({
       id: input.id,
       title: input.mv_last!.snapshot.title,
@@ -37,7 +37,7 @@ export namespace BbsArticleProvider {
       created_at: input.created_at.toISOString(),
       updated_at: input.mv_last!.snapshot.created_at.toISOString(),
       files: input.mv_last!.snapshot.to_files.map((p) =>
-        AttachmentFileProvider.json.transform(p.file)
+        AttachmentFileProvider.json.transform(p.file),
       ),
     });
     export const select = () => ({
@@ -61,7 +61,7 @@ export namespace BbsArticleProvider {
 
   export namespace summarize {
     export const transform = (
-      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>
+      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
     ): IBbsArticle.ISummary => ({
       id: input.id,
       title: input.mv_last!.snapshot.title,
@@ -85,7 +85,7 @@ export namespace BbsArticleProvider {
   }
 
   export const search = (
-    input: IBbsArticle.IRequest.ISearch | null | undefined
+    input: IBbsArticle.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.title?.length
@@ -166,7 +166,7 @@ export namespace BbsArticleProvider {
 
   export const orderBy = (
     key: IBbsArticle.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "title"
       ? { mv_last: { snapshot: { title: value } } }
@@ -179,8 +179,8 @@ export namespace BbsArticleProvider {
   export const collect =
     <Input extends IBbsArticle.ICreate>(
       snapshotFactory: (
-        input: Input
-      ) => Omit<Prisma.bbs_article_snapshotsCreateInput, "article">
+        input: Input,
+      ) => Omit<Prisma.bbs_article_snapshotsCreateInput, "article">,
     ) =>
     (input: Input): Prisma.bbs_articlesCreateInput => {
       const snapshot = snapshotFactory(input);

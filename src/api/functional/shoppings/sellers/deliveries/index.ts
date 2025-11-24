@@ -200,7 +200,7 @@ export namespace create {
  * incompleted pieces of the orders with computation as an Array of
  * {@link IShoppingDeliveryPiece.ICreate} type.
  *
- * You can utillize the result to make a huge {@link IShoppingDelivery delivery}
+ * You can utilize the result to make a huge {@link IShoppingDelivery delivery}
  * for integrated delivering, and also possible to make multiple deliveries for
  * split delivering.
  *

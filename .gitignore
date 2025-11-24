@@ -7,6 +7,7 @@ docs/benchmarks/call
 prisma/docs/
 prisma/migrations/
 prisma/schema/migrations/
+src/prisma/
 
 assets/examples/
 

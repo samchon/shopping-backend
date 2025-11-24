@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IShoppingSaleReview } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleReview";
@@ -10,7 +10,7 @@ import { BbsArticleSnapshotProvider } from "../../../common/BbsArticleSnapshotPr
 export namespace ShoppingSaleReviewSnapshotProvider {
   export namespace json {
     export const transform = (
-      input: Prisma.bbs_article_snapshotsGetPayload<ReturnType<typeof select>>
+      input: Prisma.bbs_article_snapshotsGetPayload<ReturnType<typeof select>>,
     ): IShoppingSaleReview.ISnapshot => {
       const rs = input.of_review;
       if (rs === null)

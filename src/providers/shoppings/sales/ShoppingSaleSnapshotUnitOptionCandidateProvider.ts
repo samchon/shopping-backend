@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingSaleUnitOptionCandidate } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitOptionCandidate";

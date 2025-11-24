@@ -1,5 +1,5 @@
 import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -13,7 +13,7 @@ export namespace ShoppingDeliveryShipperProvider {
     export const transform = (
       input: Prisma.shopping_delivery_shippersGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingDeliveryShipper => ({
       id: input.id,
       company: input.company,
@@ -66,12 +66,12 @@ export namespace ShoppingDeliveryShipperProvider {
     AesPkcs5.decrypt(
       str,
       ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_IV,
     );
   const encrypt = (str: string): string =>
     AesPkcs5.encrypt(
       str,
       ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_KEY,
-      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_IV
+      ShoppingGlobal.env.SHOPPING_DELIVERY_SHIPPER_SECRET_IV,
     );
 }

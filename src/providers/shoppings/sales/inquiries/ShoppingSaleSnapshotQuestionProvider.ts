@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 
 import { IBbsArticle } from "@samchon/shopping-api/lib/structures/common/IBbsArticle";
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
@@ -28,7 +28,7 @@ export namespace ShoppingSaleQuestionProvider {
       >;
     }): IShoppingSaleQuestion.ISummary => {
       const writer: IShoppingCustomer = ShoppingCustomerProvider.json.transform(
-        props.input.base.customer
+        props.input.base.customer,
       );
       const visible: boolean =
         props.input.secret === false ||
@@ -44,7 +44,7 @@ export namespace ShoppingSaleQuestionProvider {
         answer:
           props.input.base.answer !== null
             ? ShoppingSaleSnapshotInquiryAnswerProvider.summarize.transform(
-                props.input.base.answer
+                props.input.base.answer,
               )
             : null,
         read_by_seller: props.input.base.read_by_seller_at !== null,
@@ -73,14 +73,14 @@ export namespace ShoppingSaleQuestionProvider {
       >;
     }): IShoppingSaleQuestion.IAbridge => {
       const writer: IShoppingCustomer = ShoppingCustomerProvider.json.transform(
-        props.input.base.customer
+        props.input.base.customer,
       );
       const visible: boolean =
         props.input.secret === false ||
         props.customer === null ||
         ShoppingCustomerProvider.equals(props.customer, writer);
       const base: IBbsArticle.IAbridge = BbsArticleProvider.abridge.transform(
-        props.input.base.base
+        props.input.base.base,
       );
       return {
         ...base,
@@ -92,7 +92,7 @@ export namespace ShoppingSaleQuestionProvider {
         answer:
           props.input.base.answer !== null
             ? ShoppingSaleSnapshotInquiryAnswerProvider.abridge.transform(
-                props.input.base.answer
+                props.input.base.answer,
               )
             : null,
         secret: props.input.secret,
@@ -118,14 +118,14 @@ export namespace ShoppingSaleQuestionProvider {
     export const transform = (
       input: Prisma.shopping_sale_snapshot_questionsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingSaleQuestion => ({
       ...BbsArticleProvider.json.transform(input.base.base),
       customer: ShoppingCustomerProvider.json.transform(input.base.customer),
       answer:
         input.base.answer !== null
           ? ShoppingSaleSnapshotInquiryAnswerProvider.json.transform(
-              input.base.answer
+              input.base.answer,
             )
           : null,
       secret: input.secret,
@@ -264,7 +264,7 @@ export namespace ShoppingSaleQuestionProvider {
             id: props.id,
           },
           ...json.select(),
-        }
+        },
       );
     const output: IShoppingSaleQuestion = json.transform(record);
     if (
@@ -280,7 +280,7 @@ export namespace ShoppingSaleQuestionProvider {
   };
 
   const search = (
-    input: IShoppingSaleQuestion.IRequest.ISearch | null | undefined
+    input: IShoppingSaleQuestion.IRequest.ISearch | null | undefined,
   ) =>
     ShoppingSaleSnapshotInquiryProvider.search(input).map((base) => ({
       base,
@@ -288,7 +288,7 @@ export namespace ShoppingSaleQuestionProvider {
 
   const orderBy = (
     key: IShoppingSaleQuestion.IRequest.SortableColumns,
-    direction: "asc" | "desc"
+    direction: "asc" | "desc",
   ) =>
     ({
       base: ShoppingSaleSnapshotInquiryProvider.orderBy(key, direction),
@@ -308,7 +308,7 @@ export namespace ShoppingSaleQuestionProvider {
           where: {
             shopping_sale_id: props.sale.id,
           },
-        }
+        },
       );
     const record =
       await ShoppingGlobal.prisma.shopping_sale_snapshot_questions.create({
@@ -357,7 +357,7 @@ export namespace ShoppingSaleQuestionProvider {
           type: "question",
           base: {
             create: BbsArticleProvider.collect(
-              BbsArticleSnapshotProvider.collect
+              BbsArticleSnapshotProvider.collect,
             )(props.input),
           },
           customer: {

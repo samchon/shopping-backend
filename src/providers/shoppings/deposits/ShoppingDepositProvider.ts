@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import typia from "typia";
 import { v4 } from "uuid";
 
@@ -16,7 +16,7 @@ export namespace ShoppingDepositProvider {
   ----------------------------------------------------------- */
   export namespace json {
     export const transform = (
-      input: Prisma.shopping_depositsGetPayload<ReturnType<typeof select>>
+      input: Prisma.shopping_depositsGetPayload<ReturnType<typeof select>>,
     ): IShoppingDeposit => ({
       id: input.id,
       code: input.code,
@@ -32,7 +32,7 @@ export namespace ShoppingDepositProvider {
     READERS
   ----------------------------------------------------------- */
   export const index = (
-    input: IShoppingDeposit.IRequest
+    input: IShoppingDeposit.IRequest,
   ): Promise<IPage<IShoppingDeposit>> =>
     PaginationUtil.paginate({
       schema: ShoppingGlobal.prisma.shopping_deposits,
@@ -50,7 +50,7 @@ export namespace ShoppingDepositProvider {
     })(input);
 
   export const search = (
-    input: IShoppingDeposit.IRequest.ISearch | null | undefined
+    input: IShoppingDeposit.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.source?.length
@@ -82,7 +82,7 @@ export namespace ShoppingDepositProvider {
 
   export const orderBy = (
     key: IShoppingDeposit.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "deposit.code"
       ? { code: value }

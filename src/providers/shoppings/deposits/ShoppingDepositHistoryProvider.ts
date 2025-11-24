@@ -1,6 +1,7 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
+import { ICodeEntity } from "@samchon/shopping-api/lib/structures/common/ICodeEntity";
 import { IEntity } from "@samchon/shopping-api/lib/structures/common/IEntity";
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCitizen } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCitizen";
@@ -12,7 +13,6 @@ import { ErrorProvider } from "../../../utils/ErrorProvider";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { ShoppingCitizenProvider } from "../actors/ShoppingCitizenProvider";
 import { ShoppingDepositProvider } from "./ShoppingDepositProvider";
-import { ICodeEntity } from "@samchon/shopping-api/lib/structures/common/ICodeEntity";
 
 export namespace ShoppingDepositHistoryProvider {
   /* -----------------------------------------------------------
@@ -22,7 +22,7 @@ export namespace ShoppingDepositHistoryProvider {
     export const transform = (
       input: Prisma.shopping_deposit_historiesGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingDepositHistory => ({
       id: input.id,
       citizen: ShoppingCitizenProvider.json.transform(input.citizen),
@@ -65,7 +65,7 @@ export namespace ShoppingDepositHistoryProvider {
     })(props.input);
 
   const search = (
-    input: IShoppingDepositHistory.IRequest.ISearch | null | undefined
+    input: IShoppingDepositHistory.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.deposit !== undefined && input?.deposit !== null
@@ -120,7 +120,7 @@ export namespace ShoppingDepositHistoryProvider {
 
   const orderBy = (
     key: IShoppingDepositHistory.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "history.created_at"
       ? { created_at: value }
@@ -178,7 +178,7 @@ export namespace ShoppingDepositHistoryProvider {
     task: () => Promise<T>;
   }): Promise<T> => {
     const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
-      props.deposit.code
+      props.deposit.code,
     );
     const previous =
       await ShoppingGlobal.prisma.shopping_deposit_histories.findFirst({
@@ -259,7 +259,7 @@ export namespace ShoppingDepositHistoryProvider {
     source: IEntity;
   }): Promise<void> => {
     const deposit: IShoppingDeposit = await ShoppingDepositProvider.get(
-      props.deposit.code
+      props.deposit.code,
     );
     const history =
       await ShoppingGlobal.prisma.shopping_deposit_histories.findFirstOrThrow({

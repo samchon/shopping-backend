@@ -1,5 +1,5 @@
 import { InternalServerErrorException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
@@ -20,15 +20,15 @@ export namespace ShoppingMileageDonationProvider {
     export const transform = (
       input: Prisma.shopping_mileage_donationsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): IShoppingMileageDonation => ({
       id: input.id,
       administrator: ShoppingAdministratorProvider.invert.transform(
         input.adminCustomer,
         () =>
           new InternalServerErrorException(
-            "The donation has not been registered by administrator."
-          )
+            "The donation has not been registered by administrator.",
+          ),
       ),
       citizen: ShoppingCitizenProvider.json.transform(input.citizen),
       value: input.value,
@@ -65,7 +65,7 @@ export namespace ShoppingMileageDonationProvider {
     })(props.input);
 
   const where = (
-    input: IShoppingMileageDonation.IRequest.ISearch | null | undefined
+    input: IShoppingMileageDonation.IRequest.ISearch | null | undefined,
   ) =>
     [
       ...(input?.citizen !== undefined && input?.citizen !== null
@@ -89,7 +89,7 @@ export namespace ShoppingMileageDonationProvider {
 
   const orderBy = (
     key: IShoppingMileageDonation.IRequest.SortableColumns,
-    value: "asc" | "desc"
+    value: "asc" | "desc",
   ) =>
     (key === "donation.created_at"
       ? { created_at: value }

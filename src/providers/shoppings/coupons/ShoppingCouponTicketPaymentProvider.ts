@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingActorEntity";
@@ -17,7 +17,7 @@ export namespace ShoppingCouponTicketPaymentProvider {
     export const transform = async (
       input: Prisma.shopping_coupon_ticket_paymentsGetPayload<
         ReturnType<typeof select>
-      >
+      >,
     ): Promise<IShoppingCouponTicketPayment> => ({
       id: input.id,
       ticket: await ShoppingCouponTicketProvider.json.transform(input.ticket),

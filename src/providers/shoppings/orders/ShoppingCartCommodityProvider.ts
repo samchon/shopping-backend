@@ -1,5 +1,5 @@
 import { ArrayUtil } from "@nestia/e2e";
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 
 import { ShoppingCartCommodityDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings/orders/ShoppingCartCommodityDiagnoser";
