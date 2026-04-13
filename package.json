@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@samchon/shopping-backend",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Backend for shopping",
   "scripts": {
     "test": "rimraf prisma/migrations && node bin/test",
@@ -13,8 +13,8 @@
     "build:env": "ts-node build/env.ts",
     "build:main": "rimraf lib && tsc",
     "build:prisma": "npm run build:env && prisma generate --schema=prisma/schema",
-    "build:sdk": "rimraf src/api/functional && nestia all && ts-node build/version.ts",
-    "build:swagger": "nestia swagger && ts-node build/version.ts",
+    "build:sdk": "rimraf src/api/functional && nestia all",
+    "build:swagger": "nestia swagger",
     "build:test": "rimraf bin && tsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
     "eslint": "eslint src && eslint test",
@@ -43,8 +43,8 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
-    "@nestia/benchmark": "^8.0.7",
-    "@nestia/e2e": "^8.0.7",
+    "@nestia/benchmark": "^11.0.1",
+    "@nestia/e2e": "^11.0.1",
     "@nestjs/cli": "^11.0.16",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
@@ -65,7 +65,7 @@
     "copy-webpack-plugin": "^12.0.2",
     "eslint-plugin-deprecation": "^3.0.0",
     "inquirer": "^8.2.5",
-    "nestia": "^8.0.7",
+    "nestia": "^11.0.1",
     "prettier": "^3.3.2",
     "prettier-plugin-prisma": "^5.0.0",
     "prisma-markdown": "^4.0.0",
@@ -82,10 +82,10 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "^8.0.7",
-    "@nestia/editor": "^8.0.7",
-    "@nestia/fetcher": "^8.0.7",
-    "@nestia/sdk": "^8.0.7",
+    "@nestia/core": "^11.0.1",
+    "@nestia/editor": "^11.0.1",
+    "@nestia/fetcher": "^11.0.1",
+    "@nestia/sdk": "^11.0.1",
     "@nestjs/common": "^11.1.12",
     "@nestjs/core": "^11.1.12",
     "@nestjs/platform-fastify": "^11.1.12",
@@ -94,7 +94,6 @@
     "@prisma/internals": "^7.3.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@samchon/openapi": "^4.7.1",
     "bcryptjs": "^2.4.3",
     "commander": "^11.1.0",
     "csv-parse": "^5.5.3",
@@ -109,7 +108,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
-    "typia": "^9.7.1",
+    "typia": "^12.0.2",
     "uuid": "^11.1.0"
   }
 }

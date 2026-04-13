@@ -1,5 +1,5 @@
 import { RandomGenerator } from "@nestia/e2e";
-import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
+import { AesPkcs5 } from "@nestia/fetcher";
 import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 

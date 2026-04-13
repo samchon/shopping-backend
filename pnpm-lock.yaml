@@ -9,17 +9,17 @@ importers:
   .:
     dependencies:
       '@nestia/core':
-        specifier: ^8.0.7
-        version: 8.0.7(@nestia/fetcher@8.0.7)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(@samchon/openapi@4.7.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@9.7.2(@types/node@20.19.11)(typescript@5.9.3))
+        specifier: ^11.0.1
+        version: 11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3))
       '@nestia/editor':
-        specifier: ^8.0.7
-        version: 8.0.7(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)
+        specifier: ^11.0.1
+        version: 11.0.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)
       '@nestia/fetcher':
-        specifier: ^8.0.7
-        version: 8.0.7
+        specifier: ^11.0.1
+        version: 11.0.1
       '@nestia/sdk':
-        specifier: ^8.0.7
-        version: 8.0.7(@nestia/core@8.0.7(@nestia/fetcher@8.0.7)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(@samchon/openapi@4.7.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@9.7.2(@types/node@20.19.11)(typescript@5.9.3)))(@types/node@20.19.11)(typescript@5.9.3)
+        specifier: ^11.0.1
+        version: 11.0.1(@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3)))(@types/node@20.19.11)(typescript@5.9.3)
       '@nestjs/common':
         specifier: ^11.1.12
         version: 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -44,9 +44,6 @@ importers:
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.49.0)(tslib@2.8.1)(typescript@5.9.3)
-      '@samchon/openapi':
-        specifier: ^4.7.1
-        version: 4.7.1
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -90,18 +87,18 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       typia:
-        specifier: ^9.7.1
-        version: 9.7.2(@types/node@20.19.11)(typescript@5.9.3)
+        specifier: ^12.0.2
+        version: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
       '@nestia/benchmark':
-        specifier: ^8.0.7
-        version: 8.0.7
+        specifier: ^11.0.1
+        version: 11.0.1
       '@nestia/e2e':
-        specifier: ^8.0.7
-        version: 8.0.7
+        specifier: ^11.0.1
+        version: 11.0.1
       '@nestjs/cli':
         specifier: ^11.0.16
         version: 11.0.16(@types/node@20.19.11)(webpack-cli@5.1.4)
@@ -163,8 +160,8 @@ importers:
         specifier: ^8.2.5
         version: 8.2.7(@types/node@20.19.11)
       nestia:
-        specifier: ^8.0.7
-        version: 8.0.7(@types/node@20.19.11)
+        specifier: ^11.0.1
+        version: 11.0.1(@types/node@20.19.11)
       prettier:
         specifier: ^3.3.2
         version: 3.6.2
@@ -312,10 +309,6 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/runtime@7.28.4':
-    resolution: {integrity: sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/runtime@7.28.6':
     resolution: {integrity: sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==}
     engines: {node: '>=6.9.0'}
@@ -330,10 +323,6 @@ packages:
 
   '@babel/traverse@7.23.2':
     resolution: {integrity: sha512-azpe59SQ48qG6nu2CzcMLbxUudtN+dOM9kDbUqGq3HXUJRlo7i8fvPoxQUzYgLZ4cMVmuZgm8vvBpNeRhd6XSw==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/traverse@7.28.4':
-    resolution: {integrity: sha512-YEzuboP2qvQavAcjgQNVgsvHIDv6ZpwXvcvjmyySP2DIMuByS/6ioU5G9pYrWHM6T2YDfc7xga9iNzYOs12CFQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/traverse@7.28.6':
@@ -803,38 +792,37 @@ packages:
       '@types/react':
         optional: true
 
-  '@nestia/benchmark@8.0.7':
-    resolution: {integrity: sha512-pFMI8VgyIUiEvhGQvrF5Oq/CQOgIgIhhkg+wMe/8FM6a7PD0+d334GsV/zIjLfiQYHu35EBFA1OPKEb0ug3VlA==}
+  '@nestia/benchmark@11.0.1':
+    resolution: {integrity: sha512-Odk/LcyMNBQUGXC1kk8cQUZSPAwTg1wfA3lIIaEoN1vz4GnS56pwlikpHD48Em4W1QBR9eandGKrA+npER9zvw==}
 
-  '@nestia/core@8.0.7':
-    resolution: {integrity: sha512-zP/u905vuR/VjnRm7AjxB4OElsusAoimIq888x2NiyCKQtJQYqu3vt31GRjln/fLeORicSv5+iku/OAktbBHlA==}
+  '@nestia/core@11.0.1':
+    resolution: {integrity: sha512-hywiza0dywaj2Br7eFj8ucl0ylxvoyUAylBB8Fud4G5M0MEFQnCGJ7WLURfJreVmHpNEnGVAQzvDkqM2NoAnCA==}
     peerDependencies:
-      '@nestia/fetcher': '>=8.0.7'
+      '@nestia/fetcher': ^11.0.1
       '@nestjs/common': '>=7.0.1'
       '@nestjs/core': '>=7.0.1'
-      '@samchon/openapi': '>=4.5.0 <5.0.0'
       reflect-metadata: '>=0.1.12'
       rxjs: '>=6.0.3'
-      typia: ^9.6.1
+      typia: ^12.0.0
 
-  '@nestia/e2e@8.0.7':
-    resolution: {integrity: sha512-u4EBk4B5Ty0PcjAWZNmyg6/1ADgyHiE91/JsDhxbv8rZgzy/eF1vowZYfcKBLoonkM2PgsUK9T3hPM89ixwLKA==}
+  '@nestia/e2e@11.0.1':
+    resolution: {integrity: sha512-6lLqjLEPc2kiI+wYMZqHgUXQdCWwFditD8seTx+J0wRehM8YmUqRpK2Kg6cjqh2cW5TsWj1Cy4U03ZyjgSwFCQ==}
 
-  '@nestia/editor@8.0.7':
-    resolution: {integrity: sha512-d3PlkGfgEBf1OJgwlk1mtr3PhRQ9aKyrYu8T510sBwlGiBKc0Ew1Sri6qTpdEJM+XNjhQ10c5Jbj0aezBhgGgw==}
+  '@nestia/editor@11.0.1':
+    resolution: {integrity: sha512-QxcF0P3jNq2a09uAtOgsKHBGLB0KuZzbsWAH+qi+yqJD6XHE/oR3Q001q7bgI3Q06mJDw707D+JoHmjkyaGSiA==}
 
-  '@nestia/fetcher@8.0.7':
-    resolution: {integrity: sha512-qSsoyY2kXsxIdQ8O0RSxuPsW5DZWHJlb20oP8usrz8eL71gQBBCSD2uGGmbecqSSM5SJGskOJoTTT0rk5qoWHA==}
+  '@nestia/fetcher@11.0.1':
+    resolution: {integrity: sha512-1cDFHWqrtNEkEWclCH+TjBjnZ7nTm5jyi13Ph5DTnM0KX/89XnkRDVFwXw4yqYZ0YZNOQFCi4HLN+MT3Pl5dXA==}
 
-  '@nestia/migrate@8.0.7':
-    resolution: {integrity: sha512-kkAvXSYBK+BzRE9aDpfbhi3Ecuh9eVv44NB4YsyU9/6GNJ+nWAWjH2bx2pRmsslFqwKbj6X64RaQWZiKWmjmrQ==}
+  '@nestia/migrate@11.0.1':
+    resolution: {integrity: sha512-utUG+h9ocXqsYGbL2IGFbz0Xa+yeGaB4MkN+9giBt0wLgvdqNNnW4zjPfAW5cr1YWkUiC2iH2LM2YXm4EdfAcA==}
     hasBin: true
 
-  '@nestia/sdk@8.0.7':
-    resolution: {integrity: sha512-7LxhQKe0pZjuN0ZLlbPDCiCGfhD7b1a08oEBps3QXgCvsHUucanSfvBEtxYs744bEpgeUu9V5vGOtSCO91mh7Q==}
+  '@nestia/sdk@11.0.1':
+    resolution: {integrity: sha512-4/aGnHwt5pnAJpVlQkXOWi/iEabxPXCwhLhxwl/opMTbDr0rVXOg/2S2qVYKfEsrwB5W2t9NvnYBQh1UTOei3A==}
     hasBin: true
     peerDependencies:
-      '@nestia/core': '>=8.0.7'
+      '@nestia/core': ^11.0.1
 
   '@nestjs/cli@11.0.16':
     resolution: {integrity: sha512-P0H+Vcjki6P5160E5QnMt3Q0X5FTg4PZkP99Ig4lm/4JWqfw32j3EXv3YBTJ2DmxLwOQ/IS9F7dzKpMAgzKTGg==}
@@ -1139,9 +1127,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@samchon/openapi@4.7.1':
-    resolution: {integrity: sha512-+rkMlSKMt7l3KGWJVWUle1CXEm0vA8FIF2rufHl+T1gN/gGrTEhL1gDK3FHYf8Nl5XReK0r1vL6Q2QTMwQN7xQ==}
-
   '@scarf/scarf@1.4.0':
     resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
@@ -1169,22 +1154,6 @@ packages:
       prettier: 2.x - 3.x
     peerDependenciesMeta:
       '@vue/compiler-sfc':
-        optional: true
-
-  '@trivago/prettier-plugin-sort-imports@5.2.2':
-    resolution: {integrity: sha512-fYDQA9e6yTNmA13TLVSA+WMQRc5Bn/c0EUBditUHNfMMxN7M82c38b1kEggVE3pLpZ0FwkwJkUEKMiOi52JXFA==}
-    engines: {node: '>18.12'}
-    peerDependencies:
-      '@vue/compiler-sfc': 3.x
-      prettier: 2.x - 3.x
-      prettier-plugin-svelte: 3.x
-      svelte: 4.x || 5.x
-    peerDependenciesMeta:
-      '@vue/compiler-sfc':
-        optional: true
-      prettier-plugin-svelte:
-        optional: true
-      svelte:
         optional: true
 
   '@tsconfig/node10@1.0.11':
@@ -1391,6 +1360,18 @@ packages:
   '@typescript-eslint/visitor-keys@8.41.0':
     resolution: {integrity: sha512-+GeGMebMCy0elMNg67LRNoVnUFPIm37iu5CmHESVx56/9Jsfdpsvbv605DQ81Pi/x11IdKUsS5nzgTYbCQU9fg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@typia/core@12.0.2':
+    resolution: {integrity: sha512-FUrH0dVOx+hPn8TD+ROQYiMlt7Ztx21AfqRozrI2gE3+DlPOP5o9eC8Lu6SRRqc9eWl4/STTpzKFLXPrGZJmuQ==}
+
+  '@typia/interface@12.0.2':
+    resolution: {integrity: sha512-PmUG624f6BSpNAJV0Gf0hwMSF29VSl8neArvxa+sPSq33ETGJZYrVhzqO67+n2LZCdzYmEdFbpNlr3jnyAl2aA==}
+
+  '@typia/transform@12.0.2':
+    resolution: {integrity: sha512-vv5pLNY6e2Zyg5doqPv1vo+mTfovO8TAPt6bDfz1OCsgaWR/LjFfMB0ziAoCPP2ePF4WWuGUe+z9o9wdlXmegA==}
+
+  '@typia/utils@12.0.2':
+    resolution: {integrity: sha512-LeiMdZbGnIXTwmJIYoW9ROmkbFRKQCFHNapodP23qx97ojIfF8FdFIez4or6JUnNEFTXKTKD4ITtHA/gpuE6sw==}
 
   '@ungap/structured-clone@1.3.0':
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
@@ -1857,10 +1838,6 @@ packages:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
 
-  comment-json@4.2.5:
-    resolution: {integrity: sha512-bKw/r35jR3HGt5PEPm1ljsQQGyCrR8sFGNiN5L+ykDHdpO8Smxkrkla9Yi6NkQyUrb8V54PGhfMs6NrIwtxtdw==}
-    engines: {node: '>= 6'}
-
   comment-json@4.4.1:
     resolution: {integrity: sha512-r1To31BQD5060QdkC+Iheai7gHwoSZobzunqkf2/kQ6xIAfJyrKNAFUwdKvkK7Qgu7pVTKQEa7ok7Ed3ycAJgg==}
     engines: {node: '>= 6'}
@@ -1937,9 +1914,6 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
-
-  csstype@3.1.3:
-    resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
@@ -2479,6 +2453,7 @@ packages:
   glob@11.0.3:
     resolution: {integrity: sha512-2Nim7dha1KVkaiF4q6Dj+ngPPMdfvLJEOpZk/jKiUAkqKebpGAWQXAq9z1xu9HKu5lWfqw/FASuccEjyznjPaA==}
     engines: {node: 20 || >=22}
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
     hasBin: true
 
   glob@13.0.0:
@@ -2534,10 +2509,6 @@ packages:
 
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
-    engines: {node: '>=8'}
-
-  has-own-prop@2.0.0:
-    resolution: {integrity: sha512-Pq0h+hvsVm6dDEa8x82GnLSYHOzNDt7f0ddFa3FqcQlgzEiptPqL+XrOJNavjOzSYiYWIrgeVYYgGlLmnxwilQ==}
     engines: {node: '>=8'}
 
   has-symbols@1.1.0:
@@ -2775,10 +2746,6 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  js-yaml@4.1.0:
-    resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
-    hasBin: true
-
   js-yaml@4.1.1:
     resolution: {integrity: sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==}
     hasBin: true
@@ -2927,10 +2894,6 @@ packages:
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
     hasBin: true
-
-  lru-cache@11.2.1:
-    resolution: {integrity: sha512-r8LA6i4LP4EeWOhqBaZZjDWwehd1xUJPCJd9Sv300H0ZmcUER4+JPh7bqqZeqs1o5pgtgvXm+d9UGrB5zZGDiQ==}
-    engines: {node: 20 || >=22}
 
   lru-cache@11.2.4:
     resolution: {integrity: sha512-B5Y16Jr9LB9dHVkh6ZevG+vAbOsNOYCX+sXvFWFu7B3Iz5mijW3zdbMyhsh8ANd2mSWBYdJgnqi+mL7/LrOPYg==}
@@ -3138,8 +3101,8 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  nestia@8.0.7:
-    resolution: {integrity: sha512-IUG1boO/+5gtNx/aF8YH+Mr0lMki/oeaYAatL7qZysH2PyrYLeaXV4DrIqD2T+IOYqI6XE4tRqm2ASTQPjF9Sg==}
+  nestia@11.0.1:
+    resolution: {integrity: sha512-D2dylcAAgmqjMvlBg6V7ifsazQ8+LUVdBpsdt/KbW6tpz8zVqtuuN8KP/XZc8OeDHR6430dVyFH8HTZ2gmZTkw==}
     hasBin: true
 
   node-abort-controller@3.1.1:
@@ -3299,10 +3262,6 @@ packages:
   path-parser@6.1.0:
     resolution: {integrity: sha512-nAB6J73z2rFcQP+870OHhpkHFj5kO4rPLc2Ol4Y3Ale7F6Hk1/cPKp7cQ8RznKF8FOSvu+YR9Xc6Gafk7DlpYA==}
 
-  path-scurry@2.0.0:
-    resolution: {integrity: sha512-ypGJsmGtdXUOeM5u93TyeIEfEhM6s+ljAhrk5vAvSx8uyY/02OvrZnA0YNGUrPXfpJMgI1ODd3nwz8Npx4O4cg==}
-    engines: {node: 20 || >=22}
-
   path-scurry@2.0.1:
     resolution: {integrity: sha512-oWyT4gICAu+kaA7QWk/jvCHWarMKNs6pXOGWKDTr7cw4IGcUbW+PeTfbaQiLGheFRpjo6O9J0PmyMfQPjH71oA==}
     engines: {node: 20 || >=22}
@@ -3439,8 +3398,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-jsdoc@1.3.3:
-    resolution: {integrity: sha512-YIxejcbPYK4N58jHGiXjYvrCzBMyvV2AEMSoF5LvqqeMEI0nsmww57I6NGnpVc0AU9ncFCTEBoYHN/xuBf80YA==}
+  prettier-plugin-jsdoc@1.8.0:
+    resolution: {integrity: sha512-byW8EBZ1DSA3CPdDGBXfcdqqhh2eq0+HlIOPTGZ6rf9O2p/AwBmtS0e49ot5ZeOdcszj81FyzbyHr/VS0eYpCg==}
     engines: {node: '>=14.13.1 || >=16.0.0'}
     peerDependencies:
       prettier: ^3.0.0
@@ -3451,13 +3410,13 @@ packages:
     peerDependencies:
       prettier: '>=2 || >=3'
 
-  prettier@3.3.3:
-    resolution: {integrity: sha512-i2tDNA0O5IrMO757lfrdQZCc2jPNDVntV0m/+4whiDfWaTKfMNgR7Qz0NAeGz/nRqF4m5/6CLzbP4/liHt12Ew==}
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
     hasBin: true
 
-  prettier@3.6.2:
-    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
+  prettier@3.8.2:
+    resolution: {integrity: sha512-8c3mgTe0ASwWAJK+78dpviD+A8EqhndQPUBpNUIPt6+xWlIigCwfN01lWr9MAede4uqXGTEKeQWTvzb3vjia0Q==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -4027,6 +3986,9 @@ packages:
   tgrid@1.2.0:
     resolution: {integrity: sha512-AWARbZWFzq81nQz1HX3l+7wBOdtYfG7BcjXgiD7trm8qInv5PKston0NW8+S0A9ImZ6LuqKsSKPO8+ec8JqsCA==}
 
+  tgrid@1.2.1:
+    resolution: {integrity: sha512-8E37I7G5RiMlwNmsiA6y/FAiKTEGU1Hg4t0Set0WAcRdMnLugXzjRx9bBduF1YROT/hdcS8BNefSPKNHmwYtYA==}
+
   thread-stream@3.1.0:
     resolution: {integrity: sha512-OqyPZ9u96VohAyMfJykzmivOrY2wfMSf3C5TtFJVgN+Hm6aj+voFhlK+kZEIv2FBh1X6Xp3DlnCOfEQ3B2J86A==}
 
@@ -4177,8 +4139,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typia@9.7.2:
-    resolution: {integrity: sha512-eLIKd0KHZtSvbsA+FYwX+Y0ZBt0BwVGz3GgODQX+6GfGL4DOzKW02LEx62oUZg6vCQX1BL5xyiPXAIdW+Hc51g==}
+  typia@12.0.2:
+    resolution: {integrity: sha512-0RBUxrar8Hztee6gSdBPR1scDBJAPp3k0ut4C3H6ri8+D6nVnGmWvsrnl5fOxHdLDtCC/gxZ4rhp2ivf0jom+g==}
     hasBin: true
     peerDependencies:
       typescript: '>=4.8.0 <5.10.0'
@@ -4541,8 +4503,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.6
 
-  '@babel/runtime@7.28.4': {}
-
   '@babel/runtime@7.28.6': {}
 
   '@babel/template@7.27.2':
@@ -4569,18 +4529,6 @@ snapshots:
       '@babel/types': 7.28.2
       debug: 4.4.1
       globals: 11.12.0
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/traverse@7.28.4':
-    dependencies:
-      '@babel/code-frame': 7.28.6
-      '@babel/generator': 7.28.3
-      '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.28.4
-      '@babel/template': 7.27.2
-      '@babel/types': 7.28.4
-      debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
 
@@ -4706,7 +4654,7 @@ snapshots:
       '@emotion/memoize': 0.9.0
       '@emotion/unitless': 0.10.0
       '@emotion/utils': 1.4.2
-      csstype: 3.1.3
+      csstype: 3.2.3
 
   '@emotion/sheet@1.4.0': {}
 
@@ -5031,7 +4979,7 @@ snapshots:
 
   '@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@mui/core-downloads-tracker': 5.18.0
       '@mui/system': 5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1)
       '@mui/types': 7.2.24(@types/react@18.3.24)
@@ -5039,7 +4987,7 @@ snapshots:
       '@popperjs/core': 2.11.8
       '@types/react-transition-group': 4.4.12(@types/react@18.3.24)
       clsx: 2.1.1
-      csstype: 3.1.3
+      csstype: 3.2.3
       prop-types: 15.8.1
       react: 19.1.1
       react-dom: 19.1.1(react@19.1.1)
@@ -5052,7 +5000,7 @@ snapshots:
 
   '@mui/private-theming@5.17.1(@types/react@18.3.24)(react@19.1.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@mui/utils': 5.17.1(@types/react@18.3.24)(react@19.1.1)
       prop-types: 15.8.1
       react: 19.1.1
@@ -5061,10 +5009,10 @@ snapshots:
 
   '@mui/styled-engine@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@emotion/cache': 11.14.0
       '@emotion/serialize': 1.3.3
-      csstype: 3.1.3
+      csstype: 3.2.3
       prop-types: 15.8.1
       react: 19.1.1
     optionalDependencies:
@@ -5073,13 +5021,13 @@ snapshots:
 
   '@mui/system@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@mui/private-theming': 5.17.1(@types/react@18.3.24)(react@19.1.1)
       '@mui/styled-engine': 5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(react@19.1.1)
       '@mui/types': 7.2.24(@types/react@18.3.24)
       '@mui/utils': 5.17.1(@types/react@18.3.24)(react@19.1.1)
       clsx: 2.1.1
-      csstype: 3.1.3
+      csstype: 3.2.3
       prop-types: 15.8.1
       react: 19.1.1
     optionalDependencies:
@@ -5093,7 +5041,7 @@ snapshots:
 
   '@mui/utils@5.17.1(@types/react@18.3.24)(react@19.1.1)':
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       '@mui/types': 7.2.24(@types/react@18.3.24)
       '@types/prop-types': 15.7.15
       clsx: 2.1.1
@@ -5103,21 +5051,23 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.24
 
-  '@nestia/benchmark@8.0.7':
+  '@nestia/benchmark@11.0.1':
     dependencies:
-      '@nestia/fetcher': 8.0.7
-      tgrid: 1.2.0
+      '@nestia/fetcher': 11.0.1
+      tgrid: 1.2.1
       tstl: 3.0.0
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/core@8.0.7(@nestia/fetcher@8.0.7)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(@samchon/openapi@4.7.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@9.7.2(@types/node@20.19.11)(typescript@5.9.3))':
+  '@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3))':
     dependencies:
-      '@nestia/fetcher': 8.0.7
+      '@nestia/fetcher': 11.0.1
       '@nestjs/common': 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
       '@nestjs/core': 11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      '@samchon/openapi': 4.7.1
+      '@typia/core': 12.0.2
+      '@typia/interface': 12.0.2
+      '@typia/utils': 12.0.2
       detect-ts-node: 1.0.5
       get-function-location: 2.0.0
       glob: 11.0.3
@@ -5126,26 +5076,24 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       tgrid: 1.2.0
-      typia: 9.7.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
       ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/e2e@8.0.7': {}
+  '@nestia/e2e@11.0.1': {}
 
-  '@nestia/editor@8.0.7(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)':
+  '@nestia/editor@11.0.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)':
     dependencies:
       '@mui/material': 5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
-      '@nestia/migrate': 8.0.7(@types/node@20.19.11)
-      '@samchon/openapi': 4.7.1
+      '@nestia/migrate': 11.0.1(@types/node@20.19.11)
       '@stackblitz/sdk': 1.11.0
-      '@trivago/prettier-plugin-sort-imports': 5.2.2(prettier@3.3.3)
-      js-yaml: 4.1.0
-      prettier: 3.3.3
-      prettier-plugin-jsdoc: 1.3.3(prettier@3.3.3)
+      '@typia/interface': 12.0.2
+      js-yaml: 4.1.1
+      prettier: 3.8.2
       react-mui-fileuploader: 0.5.2(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(prop-types@15.8.1)
-      typia: 9.7.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@emotion/react'
       - '@emotion/styled'
@@ -5153,47 +5101,52 @@ snapshots:
       - '@types/node'
       - '@types/react'
       - '@vue/compiler-sfc'
-      - prettier-plugin-svelte
       - prop-types
       - react
       - react-dom
       - supports-color
-      - svelte
       - typescript
 
-  '@nestia/fetcher@8.0.7':
+  '@nestia/fetcher@11.0.1':
     dependencies:
-      '@samchon/openapi': 4.7.1
+      '@typia/interface': 12.0.2
+      '@typia/utils': 12.0.2
 
-  '@nestia/migrate@8.0.7(@types/node@20.19.11)':
+  '@nestia/migrate@11.0.1(@types/node@20.19.11)':
     dependencies:
-      '@samchon/openapi': 4.7.1
+      '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.8.2)
+      '@typia/core': 12.0.2
+      '@typia/interface': 12.0.2
+      '@typia/utils': 12.0.2
       commander: 10.0.0
       inquirer: 8.2.5
-      prettier: 3.6.2
-      prettier-plugin-jsdoc: 1.3.3(prettier@3.6.2)
+      prettier: 3.8.2
+      prettier-plugin-jsdoc: 1.8.0(prettier@3.8.2)
       tstl: 3.0.0
       typescript: 5.9.3
-      typia: 9.7.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@types/node'
+      - '@vue/compiler-sfc'
       - supports-color
 
-  '@nestia/sdk@8.0.7(@nestia/core@8.0.7(@nestia/fetcher@8.0.7)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(@samchon/openapi@4.7.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@9.7.2(@types/node@20.19.11)(typescript@5.9.3)))(@types/node@20.19.11)(typescript@5.9.3)':
+  '@nestia/sdk@11.0.1(@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3)))(@types/node@20.19.11)(typescript@5.9.3)':
     dependencies:
-      '@nestia/core': 8.0.7(@nestia/fetcher@8.0.7)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(@samchon/openapi@4.7.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@9.7.2(@types/node@20.19.11)(typescript@5.9.3))
-      '@nestia/fetcher': 8.0.7
-      '@samchon/openapi': 4.7.1
+      '@nestia/core': 11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3))
+      '@nestia/fetcher': 11.0.1
+      '@typia/core': 12.0.2
+      '@typia/interface': 12.0.2
+      '@typia/utils': 12.0.2
       cli: 1.0.1
       get-function-location: 2.0.0
       glob: 11.0.3
       path-to-regexp: 6.3.0
-      prettier: 3.6.2
+      prettier: 3.8.2
       ts-node: 10.9.2(@types/node@20.19.11)(typescript@5.9.3)
       tsconfck: 2.1.2(typescript@5.9.3)
       tsconfig-paths: 4.2.0
       tstl: 3.0.0
-      typia: 9.7.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -5510,8 +5463,6 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.49.0':
     optional: true
 
-  '@samchon/openapi@4.7.1': {}
-
   '@scarf/scarf@1.4.0': {}
 
   '@sindresorhus/merge-streams@2.3.0': {}
@@ -5541,15 +5492,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@trivago/prettier-plugin-sort-imports@5.2.2(prettier@3.3.3)':
+  '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.8.2)':
     dependencies:
-      '@babel/generator': 7.28.3
-      '@babel/parser': 7.28.4
-      '@babel/traverse': 7.28.4
-      '@babel/types': 7.28.4
+      '@babel/generator': 7.17.7
+      '@babel/parser': 7.28.3
+      '@babel/traverse': 7.23.2
+      '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.3.3
+      prettier: 3.8.2
     transitivePeerDependencies:
       - supports-color
 
@@ -5824,6 +5775,23 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.41.0
       eslint-visitor-keys: 4.2.1
+
+  '@typia/core@12.0.2':
+    dependencies:
+      '@typia/interface': 12.0.2
+      '@typia/utils': 12.0.2
+
+  '@typia/interface@12.0.2': {}
+
+  '@typia/transform@12.0.2':
+    dependencies:
+      '@typia/core': 12.0.2
+      '@typia/interface': 12.0.2
+      '@typia/utils': 12.0.2
+
+  '@typia/utils@12.0.2':
+    dependencies:
+      '@typia/interface': 12.0.2
 
   '@ungap/structured-clone@1.3.0': {}
 
@@ -6307,14 +6275,6 @@ snapshots:
 
   commander@4.1.1: {}
 
-  comment-json@4.2.5:
-    dependencies:
-      array-timsort: 1.0.3
-      core-util-is: 1.0.3
-      esprima: 4.0.1
-      has-own-prop: 2.0.0
-      repeat-string: 1.6.1
-
   comment-json@4.4.1:
     dependencies:
       array-timsort: 1.0.3
@@ -6381,8 +6341,6 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-
-  csstype@3.1.3: {}
 
   csstype@3.2.3: {}
 
@@ -6463,8 +6421,8 @@ snapshots:
 
   dom-helpers@5.2.1:
     dependencies:
-      '@babel/runtime': 7.28.4
-      csstype: 3.1.3
+      '@babel/runtime': 7.28.6
+      csstype: 3.2.3
 
   dotenv-expand@10.0.0: {}
 
@@ -7015,7 +6973,7 @@ snapshots:
       minimatch: 10.1.1
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
-      path-scurry: 2.0.0
+      path-scurry: 2.0.1
 
   glob@13.0.0:
     dependencies:
@@ -7077,8 +7035,6 @@ snapshots:
   has-flag@3.0.0: {}
 
   has-flag@4.0.0: {}
-
-  has-own-prop@2.0.0: {}
 
   has-symbols@1.1.0: {}
 
@@ -7310,10 +7266,6 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  js-yaml@4.1.0:
-    dependencies:
-      argparse: 2.0.1
-
   js-yaml@4.1.1:
     dependencies:
       argparse: 2.0.1
@@ -7453,8 +7405,6 @@ snapshots:
   loose-envify@1.4.0:
     dependencies:
       js-tokens: 4.0.0
-
-  lru-cache@11.2.1: {}
 
   lru-cache@11.2.4: {}
 
@@ -7750,10 +7700,10 @@ snapshots:
 
   neo-async@2.6.2: {}
 
-  nestia@8.0.7(@types/node@20.19.11):
+  nestia@11.0.1(@types/node@20.19.11):
     dependencies:
       commander: 10.0.1
-      comment-json: 4.2.5
+      comment-json: 4.4.1
       inquirer: 8.2.7(@types/node@20.19.11)
       package-manager-detector: 0.2.11
     transitivePeerDependencies:
@@ -7904,11 +7854,6 @@ snapshots:
       search-params: 3.0.0
       tslib: 1.14.1
 
-  path-scurry@2.0.0:
-    dependencies:
-      lru-cache: 11.2.1
-      minipass: 7.1.2
-
   path-scurry@2.0.1:
     dependencies:
       lru-cache: 11.2.4
@@ -8039,21 +7984,12 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-jsdoc@1.3.3(prettier@3.3.3):
+  prettier-plugin-jsdoc@1.8.0(prettier@3.8.2):
     dependencies:
       binary-searching: 2.0.5
       comment-parser: 1.4.1
       mdast-util-from-markdown: 2.0.2
-      prettier: 3.3.3
-    transitivePeerDependencies:
-      - supports-color
-
-  prettier-plugin-jsdoc@1.3.3(prettier@3.6.2):
-    dependencies:
-      binary-searching: 2.0.5
-      comment-parser: 1.4.1
-      mdast-util-from-markdown: 2.0.2
-      prettier: 3.6.2
+      prettier: 3.8.2
     transitivePeerDependencies:
       - supports-color
 
@@ -8062,9 +7998,9 @@ snapshots:
       '@prisma/prisma-schema-wasm': 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
       prettier: 3.6.2
 
-  prettier@3.3.3: {}
-
   prettier@3.6.2: {}
+
+  prettier@3.8.2: {}
 
   prisma-markdown@4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)):
     dependencies:
@@ -8183,7 +8119,7 @@ snapshots:
 
   react-transition-group@4.4.5(react-dom@19.1.1(react@19.1.1))(react@19.1.1):
     dependencies:
-      '@babel/runtime': 7.28.4
+      '@babel/runtime': 7.28.6
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
@@ -8675,6 +8611,18 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  tgrid@1.2.1:
+    dependencies:
+      '@types/node': 20.19.11
+      '@types/websocket': 1.0.10
+      '@types/ws': 7.4.7
+      import2: 1.0.3
+      tstl: 3.0.0
+      ws: 7.5.10
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   thread-stream@3.1.0:
     dependencies:
       real-require: 0.2.0
@@ -8818,10 +8766,13 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  typia@9.7.2(@types/node@20.19.11)(typescript@5.9.3):
+  typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3):
     dependencies:
-      '@samchon/openapi': 4.7.1
       '@standard-schema/spec': 1.1.0
+      '@typia/core': 12.0.2
+      '@typia/interface': 12.0.2
+      '@typia/transform': 12.0.2
+      '@typia/utils': 12.0.2
       commander: 10.0.1
       comment-json: 4.4.1
       inquirer: 8.2.7(@types/node@20.19.11)
