@@ -1,0 +1,11 @@
+node_modules
+bin
+dist
+lib
+.env
+.git
+prisma/migrations
+prisma/docs
+docs/benchmarks
+assets/examples
+*.log
