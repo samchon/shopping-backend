@@ -3,8 +3,8 @@
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
-    "target": "ES2015", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
-    "module": "commonjs", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
+    "target": "esnext", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
+    "module": "nodenext", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
     // "lib": [],                             /* Specify library files to be included in the compilation. */
     // "allowJs": true,                       /* Allow javascript files to be compiled. */
     // "checkJs": true,                       /* Report errors in .js files. */
@@ -20,7 +20,7 @@
     "removeComments": true, /* Do not emit comments to output. */
     // "noEmit": true,                        /* Do not emit outputs. */
     // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
-    "downlevelIteration": true, /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
+    // "downlevelIteration": true, /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
     /* Strict Type-Checking Options */
     "strict": true, /* Enable all strict type-checking options. */
@@ -64,32 +64,7 @@
     /* Advanced Options */
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "plugins": [
-      { 
-        "transform": "@nestia/core/lib/transform",
-        /**
-         * Validate request body.
-         * 
-         *   - "assert": Use typia.assert() function
-         *   - "is": Use typia.is() function
-         *   - "validate": Use typia.validate() function
-         */
-        "validate": "validate",
-        /**
-         * Validate JSON typed response body.
-         * 
-         *   - null: Just use JSON.stringify() function, without boosting
-         *   - "stringify": Use typia.stringify() function, but dangerous
-         *   - "assert": Use typia.assertStringify() function
-         *   - "is": Use typia.isStringify() function
-         *   - "validate": Use typia.validateStringify() function
-         */
-        "stringify": "assert" 
-      },
-      { "transform": "typia/lib/transform" },
-      { "transform": "typescript-transform-paths" },
-      { "transform": "@nestia/sdk/lib/transform" },
-    ]
+    "rootDir": "src"
   },
   "include": [
     "src"

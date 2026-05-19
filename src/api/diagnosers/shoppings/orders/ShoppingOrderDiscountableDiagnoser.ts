@@ -56,7 +56,7 @@ export namespace ShoppingOrderDiscountableDiagnoser {
     customer: IShoppingCustomer;
     coupons: IShoppingCoupon[];
     goods: IShoppingOrderGood[];
-  }): ShoppingDiscountableDiagnoser.IDiscount<IShoppingOrderGood> =>
+  }): ShoppingDiscountableDiagnoser.IDiscount =>
     ShoppingDiscountableDiagnoser.discount({
       className: "ShoppingOrderDiscountableDiagnoser",
       accessor,

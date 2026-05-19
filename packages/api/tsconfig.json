@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "removeComments": false,
-    "target": "ES5",
     "declaration": true,
     "outDir": "lib",
     "downlevelIteration": true,
@@ -10,6 +9,7 @@
       "DOM",
       "ES2015",
     ],
+    "rootDir": "../../src/api",
   },
   "include": ["../../src/api"],
   "exclude": ["node_modules"],
