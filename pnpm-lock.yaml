@@ -106,8 +106,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(prettier@3.6.2)
       '@ttsc/paths':
-        specifier: ^0.12.1
-        version: 0.12.1
+        specifier: ^0.12.2
+        version: 0.12.2
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
@@ -181,8 +181,8 @@ importers:
         specifier: ^9.5.1
         version: 9.5.4(typescript@5.9.3)(webpack@5.103.0)
       ttsc:
-        specifier: ^0.12.1
-        version: 0.12.1
+        specifier: ^0.12.2
+        version: 0.12.2
       webpack:
         specifier: ^5.90.3
         version: 5.103.0(webpack-cli@5.1.4)
@@ -1122,41 +1122,41 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@ttsc/darwin-arm64@0.12.1':
-    resolution: {integrity: sha512-fZr+BLEY47AWDqi9IueWexWuLQWJ7qiM0S2rAlBHe92Ryh2YCjNhRHB0qXOsmOiV3rmiScUoFvFKb+Uh2G3Rfg==}
+  '@ttsc/darwin-arm64@0.12.2':
+    resolution: {integrity: sha512-GHtPiZqnblYg5lCH6oheGmjYkRGkYR+QHcHcSWYEK2csvwTSxRusq3MUYz6wz2QlrjSCEdUmB3T+Vaw5EkqGsg==}
     cpu: [arm64]
     os: [darwin]
 
-  '@ttsc/darwin-x64@0.12.1':
-    resolution: {integrity: sha512-1rk7zaHPMR+lwLWNRusViPgdV1nE2oA08O5EevOCVHVsiTb/ELkNCUTENrRR+T80Iyw6TqBURuPmLN3Ebbrbag==}
+  '@ttsc/darwin-x64@0.12.2':
+    resolution: {integrity: sha512-jYtZd15tcmgiprIojPk8CgYYqyC66iT7d0ZPtmnnu8wnzM3Zmnem17pkU6Zp7LUkLKkEJ1FdNegPIc+TDFqSNg==}
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/linux-arm64@0.12.1':
-    resolution: {integrity: sha512-MY68/vriSQc4ZMjPTyrzqez1HcvP6OTFgEz3AUxhaYW/r2FSRF8OPLntHCSEIRu6tK4wrxwJhk3uUNGZ8f7M8g==}
+  '@ttsc/linux-arm64@0.12.2':
+    resolution: {integrity: sha512-SKL5HK8D6pgu/OipKyTgHn0+iOwO4i/V0dXyeY/Fa1SIuRovf5TAj3Xr6lW43eCQ1btOWy3M5sEXtFPLxTzRHA==}
     cpu: [arm64]
     os: [linux]
 
-  '@ttsc/linux-arm@0.12.1':
-    resolution: {integrity: sha512-a2k8pFBmAS/aUTajyXF6jQyLQZm4nFvlcWfCpxEB8ODDSZqo+/Xs3YjUGiYMWBvckAE2YRHSKGLMfFsIAKRTxQ==}
+  '@ttsc/linux-arm@0.12.2':
+    resolution: {integrity: sha512-ZDoZdX6wuh7R5ZnxAzCYCz/1Q7FsjAR+e5WVUulp4BwMIlMc4if0WIOV3QRcebK0054zNCm5V5f7ROHM05lYwg==}
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.12.1':
-    resolution: {integrity: sha512-vysM6wI34HmqGb6euPb8uycEQHnX640NSggcvq1hbZI5+XxkhmeNlAkXLj4x2glDrfycXsW9suBRQm6i4dtbJA==}
+  '@ttsc/linux-x64@0.12.2':
+    resolution: {integrity: sha512-hLK5T9hSKouqH8kKX4ueM38cVMRZUQpBtR0NI4LecZ798YsyD/pr/y9i7i3L1J7jSJP64lxQQTw5qeq6EOxeTg==}
     cpu: [x64]
     os: [linux]
 
-  '@ttsc/paths@0.12.1':
-    resolution: {integrity: sha512-Lvuc58I9WjSs6MgYsmqp/1GQaJzFN7PwxynGh97mDspKCv8KkdlqmopPu9R3r64LO+nzNAQsDcyupSr5rAv/fg==}
+  '@ttsc/paths@0.12.2':
+    resolution: {integrity: sha512-ZV1WxGEDO3tlFgcSxsCc9Scmpvs7WC4C7+dC1j2lJjzsqu0RaGex152NWrzA8HBS2O9onVQFG1a7YT8Vvs6F2A==}
 
-  '@ttsc/win32-arm64@0.12.1':
-    resolution: {integrity: sha512-IORe8VKANgReMp+qy9ZviY8dmFVbEZlNJ4X+nJX5hSjGs3E/yIZ77qbbyJBfv4xSYSohf6PRxncfJajXkJmJUA==}
+  '@ttsc/win32-arm64@0.12.2':
+    resolution: {integrity: sha512-rc3HX61q8/mgsv19WNN4STGA1yW2kdnPmbL3dOgnbwhQG3WhX2ujUgLzC4M8LkSS9UuP7ClI1Mb64mUBsvjUNQ==}
     cpu: [arm64]
     os: [win32]
 
-  '@ttsc/win32-x64@0.12.1':
-    resolution: {integrity: sha512-6l0k9/mbZqk0C+CR+qPwKHh53B2ilt04khSo5bJzlYiDnmAUQExxhYgMjnm0kyCzgPnWWont+lT3PvOOsdF0Gg==}
+  '@ttsc/win32-x64@0.12.2':
+    resolution: {integrity: sha512-39NliJeGKyWjPP5YjfJ/b3p99Iwh0ihDTIgipx1RrpijXGR83j6bKLbUknU6Dl5fd3w0Gqm+7T7oYKHmF3tO6Q==}
     cpu: [x64]
     os: [win32]
 
@@ -3893,8 +3893,8 @@ packages:
   tstl@3.0.0:
     resolution: {integrity: sha512-pR83y6/tbJx6jeGRqGJXk2t/eCUynaHEE6zsOLB0Zga8ej61LXtPfoeiROdhezpoCT15+1QMbqKB1Um5kasSKg==}
 
-  ttsc@0.12.1:
-    resolution: {integrity: sha512-6UN4wJzuZcc/CWzxOUEBSItZu6FDC826xe0TFlx19eIOhsqe+Qvo/6LQK1b//wpKiQpk2VnvEWCveTodjHQRKA==}
+  ttsc@0.12.2:
+    resolution: {integrity: sha512-J2GYXMaKqYfBsHXkRElFfLEzvrLh63xKJpJa/1Ei/dGY46bmj+zbUvSH99m9DKJzOyqHYrhSu6ExAMKzlHfb3Q==}
     hasBin: true
 
   type-fest@0.21.3:
@@ -5249,27 +5249,27 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@ttsc/darwin-arm64@0.12.1':
+  '@ttsc/darwin-arm64@0.12.2':
     optional: true
 
-  '@ttsc/darwin-x64@0.12.1':
+  '@ttsc/darwin-x64@0.12.2':
     optional: true
 
-  '@ttsc/linux-arm64@0.12.1':
+  '@ttsc/linux-arm64@0.12.2':
     optional: true
 
-  '@ttsc/linux-arm@0.12.1':
+  '@ttsc/linux-arm@0.12.2':
     optional: true
 
-  '@ttsc/linux-x64@0.12.1':
+  '@ttsc/linux-x64@0.12.2':
     optional: true
 
-  '@ttsc/paths@0.12.1': {}
+  '@ttsc/paths@0.12.2': {}
 
-  '@ttsc/win32-arm64@0.12.1':
+  '@ttsc/win32-arm64@0.12.2':
     optional: true
 
-  '@ttsc/win32-x64@0.12.1':
+  '@ttsc/win32-x64@0.12.2':
     optional: true
 
   '@types/bcryptjs@2.4.6': {}
@@ -8197,15 +8197,15 @@ snapshots:
 
   tstl@3.0.0: {}
 
-  ttsc@0.12.1:
+  ttsc@0.12.2:
     optionalDependencies:
-      '@ttsc/darwin-arm64': 0.12.1
-      '@ttsc/darwin-x64': 0.12.1
-      '@ttsc/linux-arm': 0.12.1
-      '@ttsc/linux-arm64': 0.12.1
-      '@ttsc/linux-x64': 0.12.1
-      '@ttsc/win32-arm64': 0.12.1
-      '@ttsc/win32-x64': 0.12.1
+      '@ttsc/darwin-arm64': 0.12.2
+      '@ttsc/darwin-x64': 0.12.2
+      '@ttsc/linux-arm': 0.12.2
+      '@ttsc/linux-arm64': 0.12.2
+      '@ttsc/linux-x64': 0.12.2
+      '@ttsc/win32-arm64': 0.12.2
+      '@ttsc/win32-x64': 0.12.2
 
   type-fest@0.21.3: {}
 
