@@ -1,4 +1,4 @@
-import { AesPkcs5 } from "@nestia/fetcher";
+import { AesPkcs5 } from "@nestia/fetcher/lib/AesPkcs5";
 import { Prisma } from "@prisma/sdk";
 import { v4 } from "uuid";
 

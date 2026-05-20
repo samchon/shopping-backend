@@ -10,7 +10,7 @@
     "------------------------BUILDS------------------------": "",
     "build": "npm run build:prisma && npm run build:sdk && npm run build:main && npm run build:test",
     "build:api": "npm run build:sdk && ttsc -p packages/api/tsconfig.json && rollup -c packages/api/rollup.config.js",
-    "build:env": "ttsx build/env.ts",
+    "build:env": "node build/env.js",
     "build:main": "rimraf lib && ttsc",
     "build:prisma": "npm run build:env && prisma generate --schema=prisma/schema",
     "build:sdk": "rimraf src/api/functional && nestia all",
@@ -43,8 +43,8 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
-    "@nestia/benchmark": "11.0.0-dev.20260316",
-    "@nestia/e2e": "11.0.0-dev.20260316",
+    "@nestia/benchmark": "12.0.0-dev.20260520.1",
+    "@nestia/e2e": "12.0.0-dev.20260520.1",
     "@nestjs/cli": "^11.0.16",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@ttsc/paths": "^0.12.3",
@@ -64,7 +64,7 @@
     "cli-progress": "^3.12.0",
     "copy-webpack-plugin": "^12.0.2",
     "inquirer": "^8.2.5",
-    "nestia": "11.0.0-dev.20260316",
+    "nestia": "12.0.0-dev.20260520.1",
     "prettier": "^3.3.2",
     "prettier-plugin-prisma": "^5.0.0",
     "prisma-markdown": "^4.0.0",
@@ -78,10 +78,10 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "11.0.0-dev.20260316",
+    "@nestia/core": "12.0.0-dev.20260520.1",
     "@nestia/editor": "^11.0.1",
-    "@nestia/fetcher": "11.0.0-dev.20260316",
-    "@nestia/sdk": "11.0.0-dev.20260316",
+    "@nestia/fetcher": "12.0.0-dev.20260520.1",
+    "@nestia/sdk": "12.0.0-dev.20260520.1",
     "@nestjs/common": "^11.1.12",
     "@nestjs/core": "^11.1.12",
     "@nestjs/platform-fastify": "^11.1.12",
@@ -104,7 +104,7 @@
     "serialize-error": "^4.1.0",
     "source-map-support": "^0.5.19",
     "tstl": "^3.0.0",
-    "typia": "13.0.0-dev.20260519",
+    "typia": "13.0.0-dev.20260520.2",
     "uuid": "^11.1.0"
   }
 }
