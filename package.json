@@ -43,8 +43,8 @@
   },
   "homepage": "https://github.com/samchon/shopping-backend",
   "devDependencies": {
-    "@nestia/benchmark": "12.0.0-dev.20260521.3",
-    "@nestia/e2e": "12.0.0-dev.20260521.3",
+    "@nestia/benchmark": "12.0.0-dev.20260521.6",
+    "@nestia/e2e": "12.0.0-dev.20260521.6",
     "@nestjs/cli": "^11.0.16",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@ttsc/paths": "^0.12.4",
@@ -64,7 +64,7 @@
     "cli-progress": "^3.12.0",
     "copy-webpack-plugin": "^12.0.2",
     "inquirer": "^8.2.5",
-    "nestia": "12.0.0-dev.20260521.3",
+    "nestia": "12.0.0-dev.20260521.6",
     "prettier": "^3.3.2",
     "prettier-plugin-prisma": "^5.0.0",
     "prisma-markdown": "^4.0.0",
@@ -78,10 +78,10 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "dependencies": {
-    "@nestia/core": "12.0.0-dev.20260521.3",
+    "@nestia/core": "12.0.0-dev.20260521.6",
     "@nestia/editor": "^11.0.1",
-    "@nestia/fetcher": "12.0.0-dev.20260521.3",
-    "@nestia/sdk": "12.0.0-dev.20260521.3",
+    "@nestia/fetcher": "12.0.0-dev.20260521.6",
+    "@nestia/sdk": "12.0.0-dev.20260521.6",
     "@nestjs/common": "^11.1.12",
     "@nestjs/core": "^11.1.12",
     "@nestjs/platform-fastify": "^11.1.12",
