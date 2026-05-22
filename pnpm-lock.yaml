@@ -1180,7 +1180,7 @@ packages:
     os: [linux]
 
   '@ttsc/linux-x64@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
-    resolution: {integrity: sha512-BmPxgKBS2eSIcomUAsoIH20+7fYFyBpo1alX3jnd0O9tji5t0pW7b9srycHgr0n9zytNtgRUIymRETdVyHcFUQ==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz}
+    resolution: {integrity: sha512-Q0ECoyT5aYWvt+f3ewK60vH6S9qyo/BkHh60Gu6b/ZwblOrF++yBbzuBpFAdNm4Nu3GgvDVEw6X3LKLFBdA7CA==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz}
     version: 0.12.4
     os: [linux]
 
@@ -3873,7 +3873,7 @@ packages:
     hasBin: true
 
   ttsc@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
-    resolution: {integrity: sha512-/HdzAsTc1U6LyswLDqJrP60DBJT9f4oXuZkmpbj8On77BzKdqXzcK5HMFvJYewUZZ6GIu+Mo0pbJWAWRj6QF3w==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz}
+    resolution: {integrity: sha512-BNjvdNbxAXRbyJyTzmyOxkQimgvZTY1+yfBwqYJpyBCAGZTHU6xR+AJGTha0l/FTxREJiA+LPdtpPklBapbW1g==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz}
     version: 0.12.4
     hasBin: true
 
