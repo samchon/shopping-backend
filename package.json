@@ -47,6 +47,7 @@
     "@nestjs/cli": "^11.0.16",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@ttsc/lint": "file:/tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz",
+    "@ttsc/linux-x64": "file:/tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz",
     "@ttsc/paths": "^0.12.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/cli": "^0.11.19",
