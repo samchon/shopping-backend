@@ -94,7 +94,7 @@ export namespace ShoppingMileageDonationProvider {
     (key === "donation.created_at"
       ? { created_at: value }
       : {
-          value: value,
+          value,
         }) satisfies Prisma.shopping_mileage_donationsOrderByWithRelationInput;
 
   export const at = async (props: {

@@ -2,7 +2,7 @@ export namespace MapUtil {
   export const take = <Key, T>(
     dict: Map<Key, T>,
     key: Key,
-    generator: () => T
+    generator: () => T,
   ): T => {
     const oldbie: T | undefined = dict.get(key);
     if (oldbie) return oldbie;

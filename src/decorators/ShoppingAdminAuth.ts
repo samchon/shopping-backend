@@ -1,15 +1,15 @@
+import { SwaggerCustomizer } from "@nestia/core";
 import { ExecutionContext, createParamDecorator } from "@nestjs/common";
 import { Singleton } from "tstl";
 
 import { ShoppingAdministratorProvider } from "../providers/shoppings/actors/ShoppingAdministratorProvider";
-import { SwaggerCustomizer } from "@nestia/core";
 
 export const ShoppingAdminAuth =
   (): ParameterDecorator =>
   (
     target: object,
     propertyKey: string | symbol | undefined,
-    parameterIndex: number
+    parameterIndex: number,
   ): void => {
     SwaggerCustomizer((props) => {
       props.route.security ??= [];
@@ -24,5 +24,5 @@ const singleton = new Singleton(() =>
   createParamDecorator(async (_0: any, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
     return ShoppingAdministratorProvider.authorize(request);
-  })()
+  })(),
 );

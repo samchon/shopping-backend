@@ -16,12 +16,9 @@ export namespace DateUtil {
       .join("-");
     if (hms === false) return ymd;
 
-    return (
-      `${ymd} ` +
-      [date.getHours(), date.getMinutes(), date.getSeconds()]
-        .map((value) => _To_cipher_string(value))
-        .join(":")
-    );
+    return `${ymd} ${[date.getHours(), date.getMinutes(), date.getSeconds()]
+      .map((value) => _To_cipher_string(value))
+      .join(":")}`;
   }
 
   // export function to_uuid(date: Date = new Date()): string {
@@ -78,7 +75,11 @@ export namespace DateUtil {
 
   export function lastDate(year: number, month: number): number {
     // LEAP MONTH
-    if (month == 1 && year % 4 == 0 && !(year % 100 == 0 && year % 400 != 0))
+    if (
+      month === 1 &&
+      year % 4 === 0 &&
+      !(year % 100 === 0 && year % 400 !== 0)
+    )
       return 29;
     else return LAST_DATES[month];
   }
@@ -116,7 +117,7 @@ export namespace DateUtil {
     else return new Date(date);
   }
   function _To_cipher_string(val: number): string {
-    if (val < 10) return "0" + val;
+    if (val < 10) return `0${val}`;
     else return String(val);
   }
   const LAST_DATES: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

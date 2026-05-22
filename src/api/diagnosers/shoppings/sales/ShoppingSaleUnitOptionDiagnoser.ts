@@ -2,7 +2,6 @@ import { IDiagnosis } from "../../../structures/common/IDiagnosis";
 import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
 import { IShoppingSaleUnitOption } from "../../../structures/shoppings/sales/IShoppingSaleUnitOption";
 import { IShoppingSaleUnitOptionCandidate } from "../../../structures/shoppings/sales/IShoppingSaleUnitOptionCandidate";
-
 import { UniqueDiagnoser } from "../../common/UniqueDiagnoser";
 
 export namespace ShoppingSaleUnitOptionDiagnoser {
@@ -31,13 +30,13 @@ export namespace ShoppingSaleUnitOptionDiagnoser {
           message: `Duplicated candidate name: "${c.name}"`,
         }),
         items: props.option.candidates,
-      })
+      }),
     );
     return output;
   };
 
   export const replica = (
-    input: IShoppingSaleUnitOption
+    input: IShoppingSaleUnitOption,
   ): IShoppingSaleUnitOption.ICreate =>
     input.type === "select"
       ? {

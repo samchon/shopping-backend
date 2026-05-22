@@ -1,15 +1,15 @@
+import { SwaggerCustomizer } from "@nestia/core";
 import { ExecutionContext, createParamDecorator } from "@nestjs/common";
 import { VariadicSingleton } from "tstl";
 
 import { ShoppingCustomerProvider } from "../providers/shoppings/actors/ShoppingCustomerProvider";
-import { SwaggerCustomizer } from "@nestia/core";
 
 export const ShoppingCustomerAuth =
   (level?: "guest" | "member" | "citizen"): ParameterDecorator =>
   (
     target: object,
     propertyKey: string | symbol | undefined,
-    parameterIndex: number
+    parameterIndex: number,
   ): void => {
     SwaggerCustomizer((props) => {
       props.route.security ??= [];
@@ -28,5 +28,5 @@ const singleton = new VariadicSingleton(
         level,
         request,
       });
-    })()
+    })(),
 );

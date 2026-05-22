@@ -6,9 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingCustomer";
 import { IShoppingCouponTicket } from "@samchon/shopping-api/lib/structures/shoppings/coupons/IShoppingCouponTicket";
 
-import { ShoppingCouponTicketProvider } from "../../../../providers/shoppings/coupons/ShoppingCouponTicketProvider";
-
 import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
+import { ShoppingCouponTicketProvider } from "../../../../providers/shoppings/coupons/ShoppingCouponTicketProvider";
 
 @Controller(`shoppings/customers/coupons/tickets`)
 export class ShoppingCustomerCouponTicketController {
@@ -40,7 +39,7 @@ export class ShoppingCustomerCouponTicketController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingCouponTicket.IRequest
+    @core.TypedBody() input: IShoppingCouponTicket.IRequest,
   ): Promise<IPage<IShoppingCouponTicket>> {
     return ShoppingCouponTicketProvider.index({
       customer,
@@ -67,7 +66,7 @@ export class ShoppingCustomerCouponTicketController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingCouponTicket> {
     return ShoppingCouponTicketProvider.at({
       customer,
@@ -101,7 +100,7 @@ export class ShoppingCustomerCouponTicketController {
   @core.TypedRoute.Post()
   public create(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingCouponTicket.ICreate
+    @core.TypedBody() input: IShoppingCouponTicket.ICreate,
   ): Promise<IShoppingCouponTicket> {
     return ShoppingCouponTicketProvider.create({
       customer,

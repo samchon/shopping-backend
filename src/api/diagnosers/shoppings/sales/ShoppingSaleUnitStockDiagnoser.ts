@@ -3,7 +3,6 @@ import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShopping
 import { IShoppingSaleUnitOption } from "../../../structures/shoppings/sales/IShoppingSaleUnitOption";
 import { IShoppingSaleUnitStock } from "../../../structures/shoppings/sales/IShoppingSaleUnitStock";
 import { IShoppingSaleUnitStockChoice } from "../../../structures/shoppings/sales/IShoppingSaleUnitStockChoice";
-
 import { UniqueDiagnoser } from "../../common/UniqueDiagnoser";
 import { ShoppingSaleUnitStockChoiceDiagnoser } from "./ShoppingSaleUnitStockChoiceDiagnoser";
 
@@ -23,7 +22,7 @@ export namespace ShoppingSaleUnitStockDiagnoser {
           message: `Duplicated choice: (${c.option_index}, ${c.candidate_index})`,
         }),
         items: props.stock.choices,
-      })
+      }),
     );
     props.stock.choices.forEach((choice, i) => {
       output.push(
@@ -34,7 +33,7 @@ export namespace ShoppingSaleUnitStockDiagnoser {
           stockIndex: props.index,
           choice,
           index: i,
-        })
+        }),
       );
     });
     if (props.stock.price.nominal < props.stock.price.real)
@@ -53,12 +52,12 @@ export namespace ShoppingSaleUnitStockDiagnoser {
     choices: props.stock.choices.map((choice) =>
       ShoppingSaleUnitStockChoiceDiagnoser.replica({
         options: props.options,
-        choice: choice,
-      })
+        choice,
+      }),
     ),
     quantity: Math.max(
       0,
-      props.stock.inventory.income - props.stock.inventory.outcome
+      props.stock.inventory.income - props.stock.inventory.outcome,
     ),
     price: {
       nominal: props.stock.price.nominal,

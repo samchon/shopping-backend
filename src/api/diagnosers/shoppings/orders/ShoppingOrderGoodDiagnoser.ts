@@ -1,7 +1,6 @@
 import { IDiagnosis } from "../../../structures/common/IDiagnosis";
 import { IShoppingCartCommodity } from "../../../structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingOrderGood } from "../../../structures/shoppings/orders/IShoppingOrderGood";
-
 import { ShoppingSaleDiagnoser } from "../sales";
 
 export namespace ShoppingOrderGoodDiagnoser {

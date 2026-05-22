@@ -2,7 +2,6 @@ import { IDiagnosis } from "../../../structures/common/IDiagnosis";
 import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
 import { IShoppingSaleUnitOption } from "../../../structures/shoppings/sales/IShoppingSaleUnitOption";
 import { IShoppingSaleUnitStock } from "../../../structures/shoppings/sales/IShoppingSaleUnitStock";
-
 import { UniqueDiagnoser } from "../../common/UniqueDiagnoser";
 import { ShoppingSaleUnitOptionDiagnoser } from "./ShoppingSaleUnitOptionDiagnoser";
 import { ShoppingSaleUnitStockDiagnoser } from "./ShoppingSaleUnitStockDiagnoser";
@@ -24,17 +23,17 @@ export namespace ShoppingSaleUnitDiagnoser {
           message: `Duplicated option name: "${o.name}"`,
         }),
         items: props.unit.options,
-      })
+      }),
     );
     props.unit.options.forEach((option, i) =>
       output.push(
         ...ShoppingSaleUnitOptionDiagnoser.validate({
           unit: props.unit,
           unitIndex: props.index,
-          option: option,
+          option,
           index: i,
-        })
-      )
+        }),
+      ),
     );
 
     // STOCKS
@@ -46,7 +45,7 @@ export namespace ShoppingSaleUnitDiagnoser {
     else {
       const count: number = props.unit.options
         .map((o) =>
-          o.type === "select" && o.variable ? o.candidates.length : 1
+          o.type === "select" && o.variable ? o.candidates.length : 1,
         )
         .reduce((a, b) => a * b, 1);
       if (props.unit.stocks.length > count)
@@ -63,14 +62,14 @@ export namespace ShoppingSaleUnitDiagnoser {
           message: `Duplicated stock name: "${o.name}"`,
         }),
         items: props.unit.stocks,
-      })
+      }),
     );
 
     return output;
   };
 
   export const replica = (
-    unit: IShoppingSaleUnit
+    unit: IShoppingSaleUnit,
   ): IShoppingSaleUnit.ICreate => ({
     name: unit.name,
     primary: unit.primary,
@@ -80,7 +79,7 @@ export namespace ShoppingSaleUnitDiagnoser {
       ShoppingSaleUnitStockDiagnoser.replica({
         options: unit.options,
         stock,
-      })
+      }),
     ),
   });
 }

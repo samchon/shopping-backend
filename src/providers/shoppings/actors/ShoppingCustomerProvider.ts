@@ -143,7 +143,7 @@ export namespace ShoppingCustomerProvider {
         refreshable_until: token.refreshable_until,
       },
       setHeaders: {
-        Authorization: "Bearer " + token.access,
+        Authorization: `Bearer ${token.access}`,
       },
     };
   };

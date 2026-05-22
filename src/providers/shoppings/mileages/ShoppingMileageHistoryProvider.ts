@@ -125,7 +125,7 @@ export namespace ShoppingMileageHistoryProvider {
     (key === "history.created_at"
       ? { created_at: value }
       : key === "history.value"
-        ? { value: value }
+        ? { value }
         : {
             mileage: ShoppingMileageProvider.orderBy(key, value),
           }) satisfies Prisma.shopping_mileage_historiesOrderByWithRelationInput;

@@ -7,11 +7,10 @@ import { IShoppingCustomer } from "@samchon/shopping-api/lib/structures/shopping
 import { IShoppingExternalUser } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingExternalUser";
 import { IShoppingMember } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingMember";
 
+import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 import { ShoppingCustomerProvider } from "../../../../providers/shoppings/actors/ShoppingCustomerProvider";
 import { ShoppingExternalUserProvider } from "../../../../providers/shoppings/actors/ShoppingExternalUserProvider";
 import { ShoppingMemberProvider } from "../../../../providers/shoppings/actors/ShoppingMemberProvider";
-
-import { ShoppingCustomerAuth } from "../../../../decorators/ShoppingCustomerAuth";
 
 @Controller("shoppings/customers/authenticate")
 export class ShoppingCustomerAuthenticateController {
@@ -34,7 +33,7 @@ export class ShoppingCustomerAuthenticateController {
    */
   @core.TypedRoute.Patch("refresh")
   public async refresh(
-    @core.TypedBody() input: IShoppingCustomer.IRefresh
+    @core.TypedBody() input: IShoppingCustomer.IRefresh,
   ): Promise<IShoppingCustomer.IAuthorized> {
     return ShoppingCustomerProvider.refresh(input.value);
   }
@@ -51,7 +50,7 @@ export class ShoppingCustomerAuthenticateController {
    */
   @core.TypedRoute.Get()
   public async get(
-    @ShoppingCustomerAuth() customer: IShoppingCustomer
+    @ShoppingCustomerAuth() customer: IShoppingCustomer,
   ): Promise<IShoppingCustomer> {
     return customer;
   }
@@ -91,7 +90,7 @@ export class ShoppingCustomerAuthenticateController {
   @core.TypedRoute.Post()
   public async create(
     @Request() request: FastifyRequest,
-    @core.TypedBody() input: IShoppingCustomer.ICreate
+    @core.TypedBody() input: IShoppingCustomer.ICreate,
   ): Promise<IShoppingCustomer.IAuthorized> {
     return ShoppingCustomerProvider.create({
       request,
@@ -126,7 +125,7 @@ export class ShoppingCustomerAuthenticateController {
   @core.TypedRoute.Post("join")
   public async join(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingMember.IJoin
+    @core.TypedBody() input: IShoppingMember.IJoin,
   ): Promise<IShoppingCustomer> {
     return ShoppingMemberProvider.join({
       customer,
@@ -160,7 +159,7 @@ export class ShoppingCustomerAuthenticateController {
   @core.TypedRoute.Put("login")
   public async login(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingMember.ILogin
+    @core.TypedBody() input: IShoppingMember.ILogin,
   ): Promise<IShoppingCustomer> {
     return ShoppingMemberProvider.login({
       customer,
@@ -192,7 +191,7 @@ export class ShoppingCustomerAuthenticateController {
   @core.TypedRoute.Post("activate")
   public async activate(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingCitizen.ICreate
+    @core.TypedBody() input: IShoppingCitizen.ICreate,
   ): Promise<IShoppingCustomer> {
     return ShoppingCustomerProvider.activate(customer)(input);
   }
@@ -227,7 +226,7 @@ export class ShoppingCustomerAuthenticateController {
   @core.TypedRoute.Post("external")
   public async external(
     @ShoppingCustomerAuth() customer: IShoppingCustomer,
-    @core.TypedBody() input: IShoppingExternalUser.ICreate
+    @core.TypedBody() input: IShoppingExternalUser.ICreate,
   ): Promise<IShoppingCustomer> {
     const external_user = await ShoppingExternalUserProvider.create({
       customer,

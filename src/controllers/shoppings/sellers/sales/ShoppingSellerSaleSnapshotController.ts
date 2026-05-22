@@ -1,19 +1,19 @@
 import core from "@nestia/core";
 import { tags } from "typia";
 
+import { ShoppingSaleDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
-import { ShoppingSaleSnapshotController } from "../../base/sales/ShoppingSaleSnapshotController";
 import { ShoppingSaleSnapshotProvider } from "../../../../providers/shoppings/sales/ShoppingSaleSnapshotProvider";
-import { ShoppingSaleDiagnoser } from "@samchon/shopping-api/lib/diagnosers/shoppings";
+import { ShoppingSaleSnapshotController } from "../../base/sales/ShoppingSaleSnapshotController";
 
 export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotController(
   {
     path: "sellers",
     AuthGuard: ShoppingSellerAuth,
-  }
+  },
 ) {
   /**
    * Get replica of a snapshot.
@@ -35,7 +35,7 @@ export class ShoppingSellerSaleSnapshotController extends ShoppingSaleSnapshotCo
   public async replica(
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingSale.ICreate> {
     const snapshot: IShoppingSale = await ShoppingSaleSnapshotProvider.flip({
       actor: seller,

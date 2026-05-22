@@ -13,7 +13,7 @@ export namespace ShoppingCartCommodityStockChoiceDiagnoser {
   }): IDiagnosis[] => {
     const output: IDiagnosis[] = [];
     const option: IShoppingSaleUnitOption | undefined = props.unit.options.find(
-      (o) => o.id === props.input.option_id
+      (o) => o.id === props.input.option_id,
     );
     if (option === undefined)
       output.push({
@@ -60,7 +60,7 @@ export namespace ShoppingCartCommodityStockChoiceDiagnoser {
   };
 
   export const replica = (
-    choice: IShoppingSaleUnitStockChoice.IInvert
+    choice: IShoppingSaleUnitStockChoice.IInvert,
   ): IShoppingCartCommodityStockChoice.ICreate | null => {
     if (choice.option.type === "select") return null;
     return {

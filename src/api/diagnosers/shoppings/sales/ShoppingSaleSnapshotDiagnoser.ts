@@ -47,7 +47,7 @@ export namespace ShoppingSaleSnapshotDiagnoser {
     sale.units.forEach((unit, i) =>
       output.push(
         ...ShoppingSaleUnitDiagnoser.validate({
-          unit: unit,
+          unit,
           index: i,
         }),
       ),

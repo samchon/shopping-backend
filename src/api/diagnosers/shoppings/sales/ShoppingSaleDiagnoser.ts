@@ -1,6 +1,5 @@
 import { IDiagnosis } from "../../../structures/common/IDiagnosis";
 import { IShoppingSale } from "../../../structures/shoppings/sales/IShoppingSale";
-
 import { ShoppingSaleSnapshotDiagnoser } from "./ShoppingSaleSnapshotDiagnoser";
 
 export namespace ShoppingSaleDiagnoser {
