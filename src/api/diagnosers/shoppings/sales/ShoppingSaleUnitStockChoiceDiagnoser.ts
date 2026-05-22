@@ -46,29 +46,29 @@ export namespace ShoppingSaleUnitStockChoiceDiagnoser {
     choice: IShoppingSaleUnitStockChoice;
   }): IShoppingSaleUnitStockChoice.ICreate => {
     const optionIndex: number = props.options.findIndex(
-      (o) => o.id === props.choice.option_id
+      (o) => o.id === props.choice.option_id,
     );
     if (optionIndex === -1)
       throw new Error(
-        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched option."
+        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched option.",
       );
 
     const option: IShoppingSaleUnitOption = props.options[optionIndex];
     if (option.type !== "select")
       throw new Error(
-        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option type must be 'select'."
+        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option type must be 'select'.",
       );
     else if (option.variable === false)
       throw new Error(
-        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option must be variable."
+        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): option must be variable.",
       );
 
     const candidateIndex: number = option.candidates.findIndex(
-      (c) => c.id === props.choice.candidate_id
+      (c) => c.id === props.choice.candidate_id,
     );
     if (candidateIndex === -1)
       throw new Error(
-        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched candidate."
+        "Error on ShoppingSaleUnitStockChoiceDiagnoser.replica(): unable to find the matched candidate.",
       );
     return {
       option_index: optionIndex,

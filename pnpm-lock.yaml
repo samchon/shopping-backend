@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@ttsc/linux-x64': file:/tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
+
 importers:
 
   .:
@@ -105,6 +108,9 @@ importers:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
         version: 4.3.0(prettier@3.8.3)
+      '@ttsc/lint':
+        specifier: file:/tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz
+        version: file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz
       '@ttsc/paths':
         specifier: ^0.12.4
         version: 0.12.4
@@ -181,8 +187,8 @@ importers:
         specifier: ^9.5.1
         version: 9.5.7(typescript@6.0.3)(webpack@5.106.2)
       ttsc:
-        specifier: ^0.12.4
-        version: 0.12.4
+        specifier: file:/tmp/ttsc-tgz/ttsc-0.12.4.tgz
+        version: file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz
       webpack:
         specifier: ^5.90.3
         version: 5.106.2(webpack-cli@5.1.4)
@@ -1156,6 +1162,10 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  '@ttsc/lint@file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz':
+    resolution: {integrity: sha512-LFxxvSAoeBVbjEpgB8Nrn/wvpMACSf7YUmNMaIQq8amKYSwRL3ACt5+46La6t/I8oURFW2FlTOFcPcQJ3JfSOw==, tarball: file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz}
+    version: 0.12.4
+
   '@ttsc/linux-arm64@0.12.4':
     resolution: {integrity: sha512-BG8vDcDGkmBVNpcB4uR+VGeO/tEfLCpRW+5RJqp3wNuuiP7/BXhmetMIO/ia0JFDJ440Zb/AVmWSArDdIjl/2Q==}
     cpu: [arm64]
@@ -1166,9 +1176,9 @@ packages:
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@0.12.4':
-    resolution: {integrity: sha512-BAoWyKFZecSvMSvXtUnuhTbjwr4eyRB1I7A1q05Y8yPkQqdfBKdotlTZ+piQpm7l90C8DnYRKt7JffhJO8XrGA==}
-    cpu: [x64]
+  '@ttsc/linux-x64@file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
+    resolution: {integrity: sha512-cqBu3rLIewPITNzQUxm/llG0ywmlbnNjYQ09QiIktqqrWi866rLcV98RiRVU8S6ivxK3eqo9KmQ9Qdht0AKTNg==, tarball: file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz}
+    version: 0.12.4
     os: [linux]
 
   '@ttsc/paths@0.12.4':
@@ -3859,6 +3869,11 @@ packages:
     resolution: {integrity: sha512-uOTZWbTQ3Wln7rAP6U5Gjr6L4G90v1CKpkK/va0DlAj43/ydpY7TCxSW1Y3a/g40wat7KSgM07E+lgPz0XoVOA==}
     hasBin: true
 
+  ttsc@file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
+    resolution: {integrity: sha512-dPZk2Zpr3uMDU0yeOrKpDQlbVZits5IEdeejuDRn4pbBs4eoAS4vMxUpVqPWRMEpU7sxMXbqQnDlPzg99h4a0A==, tarball: file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz}
+    version: 0.12.4
+    hasBin: true
+
   type-fest@0.21.3:
     resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
@@ -5171,13 +5186,15 @@ snapshots:
   '@ttsc/darwin-x64@0.12.4':
     optional: true
 
+  '@ttsc/lint@file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz': {}
+
   '@ttsc/linux-arm64@0.12.4':
     optional: true
 
   '@ttsc/linux-arm@0.12.4':
     optional: true
 
-  '@ttsc/linux-x64@0.12.4':
+  '@ttsc/linux-x64@file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
     optional: true
 
   '@ttsc/paths@0.12.4': {}
@@ -8040,7 +8057,17 @@ snapshots:
       '@ttsc/darwin-x64': 0.12.4
       '@ttsc/linux-arm': 0.12.4
       '@ttsc/linux-arm64': 0.12.4
-      '@ttsc/linux-x64': 0.12.4
+      '@ttsc/linux-x64': file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
+      '@ttsc/win32-arm64': 0.12.4
+      '@ttsc/win32-x64': 0.12.4
+
+  ttsc@file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
+    optionalDependencies:
+      '@ttsc/darwin-arm64': 0.12.4
+      '@ttsc/darwin-x64': 0.12.4
+      '@ttsc/linux-arm': 0.12.4
+      '@ttsc/linux-arm64': 0.12.4
+      '@ttsc/linux-x64': file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
       '@ttsc/win32-arm64': 0.12.4
       '@ttsc/win32-x64': 0.12.4
 

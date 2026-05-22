@@ -17,8 +17,6 @@
     "build:swagger": "nestia swagger",
     "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
-    "eslint": "eslint src && eslint test",
-    "eslint:fix": "eslint src --fix && eslint test --fix",
     "prepare": "ttsc prepare",
     "prettier": "prettier src --write && prettier test --write",
     "------------------------WEBPACK------------------------": "",
@@ -42,11 +40,13 @@
     "url": "https://github.com/samchon/shopping-backend/issues"
   },
   "homepage": "https://github.com/samchon/shopping-backend",
+  "packageManager": "pnpm@10.10.0",
   "devDependencies": {
     "@nestia/benchmark": "12.0.0-dev.20260521.6",
     "@nestia/e2e": "12.0.0-dev.20260521.6",
     "@nestjs/cli": "^11.0.16",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@ttsc/lint": "file:/tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz",
     "@ttsc/paths": "^0.12.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/cli": "^0.11.19",
@@ -72,7 +72,7 @@
     "sloc": "^0.2.1",
     "swagger-ui-express": "^5.0.0",
     "ts-loader": "^9.5.1",
-    "ttsc": "^0.12.4",
+    "ttsc": "file:/tmp/ttsc-tgz/ttsc-0.12.4.tgz",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
     "write-file-webpack-plugin": "^4.5.1"
@@ -106,5 +106,10 @@
     "tstl": "^3.0.0",
     "typia": "13.0.0-dev.20260521.1",
     "uuid": "^11.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@ttsc/linux-x64": "file:/tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz"
+    }
   }
 }

@@ -5,16 +5,15 @@ import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecor
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
-import { ShoppingSectionProvider } from "../../../../providers/shoppings/systematic/ShoppingSectionProvider";
-
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
+import { ShoppingSectionProvider } from "../../../../providers/shoppings/systematic/ShoppingSectionProvider";
 import { ShoppingSystematicSectionController } from "../../base/systematic/ShoppingSystematicSectionController";
 
 export class ShoppingAdminSystematicSectionController extends ShoppingSystematicSectionController(
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",
-  }
+  },
 ) {
   /**
    * Create a new section.
@@ -34,7 +33,7 @@ export class ShoppingAdminSystematicSectionController extends ShoppingSystematic
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingSection.ICreate
+    @core.TypedBody() input: IShoppingSection.ICreate,
   ): Promise<IShoppingSection> {
     return ShoppingSectionProvider.create(input);
   }
@@ -57,7 +56,7 @@ export class ShoppingAdminSystematicSectionController extends ShoppingSystematic
   public async update(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSection.IUpdate
+    @core.TypedBody() input: IShoppingSection.IUpdate,
   ): Promise<void> {
     return ShoppingSectionProvider.update({
       id,
@@ -85,7 +84,7 @@ export class ShoppingAdminSystematicSectionController extends ShoppingSystematic
   @core.TypedRoute.Delete("merge")
   public async merge(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IRecordMerge
+    @core.TypedBody() input: IRecordMerge,
   ): Promise<void> {
     return ShoppingSectionProvider.merge(input);
   }

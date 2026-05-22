@@ -25,7 +25,7 @@ export namespace JwtTokenService {
     // PARSE TOKEN
     try {
       const token: string = props.request.headers.authorization.substring(
-        BEARER_PREFIX.length
+        BEARER_PREFIX.length,
       );
       const asset: JwtTokenManager.IAsset =
         await JwtTokenManager.verify("access")(token);

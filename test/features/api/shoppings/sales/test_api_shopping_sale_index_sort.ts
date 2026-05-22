@@ -26,7 +26,7 @@ export const test_api_shopping_sale_index_sort = async (
 
   await ArrayUtil.asyncRepeat(REPEAT, async () => {
     const sale: IShoppingSale = await generate_random_sale(pool);
-    if (1 == <any>2) {
+    if (1 === <any>2) {
       // @todo -> unlock when aggregation DTO be designed
       const commodity: IShoppingCartCommodity =
         await generate_random_cart_commodity(pool, sale);

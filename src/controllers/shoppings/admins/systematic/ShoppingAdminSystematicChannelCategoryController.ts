@@ -4,17 +4,16 @@ import { IRecordMerge } from "@samchon/shopping-api/lib/structures/common/IRecor
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 
+import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingChannelCategoryProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelCategoryProvider";
 import { ShoppingChannelProvider } from "../../../../providers/shoppings/systematic/ShoppingChannelProvider";
-
-import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
 import { ShoppingSystematicChannelCategoryController } from "../../base/systematic/ShoppingSystematicChannelCategoryController";
 
 export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSystematicChannelCategoryController(
   {
     AuthGuard: ShoppingAdminAuth,
     path: "admins",
-  }
+  },
 ) {
   /**
    * Create a new category.
@@ -34,7 +33,7 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
   public async create(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("channelCode") channelCode: string,
-    @core.TypedBody() input: IShoppingChannelCategory.ICreate
+    @core.TypedBody() input: IShoppingChannelCategory.ICreate,
   ): Promise<IShoppingChannelCategory> {
     return ShoppingChannelCategoryProvider.create({
       channel: await ShoppingChannelProvider.get(channelCode),
@@ -61,7 +60,7 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("channelCode") channelCode: string,
     @core.TypedParam("id") id: string,
-    @core.TypedBody() input: IShoppingChannelCategory.IUpdate
+    @core.TypedBody() input: IShoppingChannelCategory.IUpdate,
   ): Promise<void> {
     return ShoppingChannelCategoryProvider.update({
       channel: await ShoppingChannelProvider.get(channelCode),
@@ -93,7 +92,7 @@ export class ShoppingAdminSystematicChannelCategoryController extends ShoppingSy
   public async merge(
     @ShoppingAdminAuth() _admin: IShoppingAdministrator.IInvert,
     @core.TypedParam("channelCode") channelCode: string,
-    @core.TypedBody() input: IRecordMerge
+    @core.TypedBody() input: IRecordMerge,
   ): Promise<void> {
     return ShoppingChannelCategoryProvider.merge({
       channel: await ShoppingChannelProvider.get(channelCode),

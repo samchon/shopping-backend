@@ -1,5 +1,4 @@
 import { IShoppingSaleContent } from "../../../structures/shoppings/sales/IShoppingSaleContent";
-
 import { AttachmentFileDiagnoser } from "../../common/AttachmentFileDiagnoser";
 
 export namespace ShoppingSaleContentDiagnoser {

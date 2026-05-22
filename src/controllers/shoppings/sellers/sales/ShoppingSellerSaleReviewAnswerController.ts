@@ -5,9 +5,8 @@ import { tags } from "typia";
 import { IShoppingSeller } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingSeller";
 import { IShoppingSaleInquiryAnswer } from "@samchon/shopping-api/lib/structures/shoppings/sales/inquiries/IShoppingSaleInquiryAnswer";
 
-import { ShoppingSaleSnapshotInquiryAnswerProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotInquiryAnswerProvider";
-
 import { ShoppingSellerAuth } from "../../../../decorators/ShoppingSellerAuth";
+import { ShoppingSaleSnapshotInquiryAnswerProvider } from "../../../../providers/shoppings/sales/inquiries/ShoppingSaleSnapshotInquiryAnswerProvider";
 
 @Controller("shoppings/sellers/sales/:saleId/reviews/:reviewId/answer")
 export class ShoppingSellerSaleReviewAnswerController {
@@ -39,7 +38,7 @@ export class ShoppingSellerSaleReviewAnswerController {
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("reviewId") reviewId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleInquiryAnswer.ICreate
+    @core.TypedBody() input: IShoppingSaleInquiryAnswer.ICreate,
   ): Promise<IShoppingSaleInquiryAnswer> {
     return ShoppingSaleSnapshotInquiryAnswerProvider.create({
       seller,
@@ -82,7 +81,7 @@ export class ShoppingSellerSaleReviewAnswerController {
     @ShoppingSellerAuth() seller: IShoppingSeller.IInvert,
     @core.TypedParam("saleId") saleId: string & tags.Format<"uuid">,
     @core.TypedParam("reviewId") reviewId: string & tags.Format<"uuid">,
-    @core.TypedBody() input: IShoppingSaleInquiryAnswer.IUpdate
+    @core.TypedBody() input: IShoppingSaleInquiryAnswer.IUpdate,
   ): Promise<IShoppingSaleInquiryAnswer.ISnapshot> {
     return ShoppingSaleSnapshotInquiryAnswerProvider.update({
       seller,

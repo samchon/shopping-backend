@@ -78,7 +78,7 @@ export namespace DateUtil {
 
   export function lastDate(year: number, month: number): number {
     // LEAP MONTH
-    if (month == 1 && year % 4 == 0 && !(year % 100 == 0 && year % 400 != 0))
+    if (month === 1 && year % 4 === 0 && !(year % 100 === 0 && year % 400 !== 0))
       return 29;
     else return LAST_DATES[month];
   }
@@ -116,7 +116,7 @@ export namespace DateUtil {
     else return new Date(date);
   }
   function _To_cipher_string(val: number): string {
-    if (val < 10) return "0" + val;
+    if (val < 10) return `0${val}`;
     else return String(val);
   }
   const LAST_DATES: number[] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];

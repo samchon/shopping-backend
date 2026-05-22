@@ -7,7 +7,6 @@ import { IShoppingActorEntity } from "@samchon/shopping-api/lib/structures/shopp
 import { IShoppingSection } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingSection";
 
 import { ShoppingSectionProvider } from "../../../../providers/shoppings/systematic/ShoppingSectionProvider";
-
 import { IShoppingControllerProps } from "../IShoppingControllerProps";
 
 export function ShoppingSystematicSectionController<

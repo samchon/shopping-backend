@@ -122,7 +122,7 @@ export namespace ShoppingDepositChargeProvider {
     (key === "created_at"
       ? { created_at: value }
       : key === "value"
-        ? { value: value }
+        ? { value }
         : key === "publish.created_at"
           ? { publish: { created_at: value } }
           : key === "publish.paid_at"

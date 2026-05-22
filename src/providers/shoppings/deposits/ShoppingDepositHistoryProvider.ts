@@ -125,7 +125,7 @@ export namespace ShoppingDepositHistoryProvider {
     (key === "history.created_at"
       ? { created_at: value }
       : key === "history.value"
-        ? { value: value }
+        ? { value }
         : {
             deposit: ShoppingDepositProvider.orderBy(key, value),
           }) satisfies Prisma.shopping_deposit_historiesOrderByWithRelationInput;

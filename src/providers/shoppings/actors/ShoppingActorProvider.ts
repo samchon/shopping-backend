@@ -6,7 +6,7 @@ import { ShoppingCustomerProvider } from "./ShoppingCustomerProvider";
 export namespace ShoppingActorProvider {
   export const equals = <T extends IShoppingActorEntity>(
     x: T,
-    y: T
+    y: T,
   ): boolean => {
     if (x.type !== y.type) return false;
     return x.type === "customer"

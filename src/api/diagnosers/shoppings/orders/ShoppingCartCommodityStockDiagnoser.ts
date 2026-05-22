@@ -1,13 +1,14 @@
 import { v4 } from "uuid";
+
+import { IShoppingSaleUnitSelectableOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitSelectableOption";
+
 import { IDiagnosis } from "../../../structures/common/IDiagnosis";
 import { IShoppingCartCommodity } from "../../../structures/shoppings/orders/IShoppingCartCommodity";
 import { IShoppingCartCommodityStock } from "../../../structures/shoppings/orders/IShoppingCartCommodityStock";
 import { IShoppingSaleUnit } from "../../../structures/shoppings/sales/IShoppingSaleUnit";
 import { IShoppingSaleUnitStock } from "../../../structures/shoppings/sales/IShoppingSaleUnitStock";
 import { IShoppingSaleUnitStockChoice } from "../../../structures/shoppings/sales/IShoppingSaleUnitStockChoice";
-
 import { ShoppingCartCommodityStockChoiceDiagnoser } from "./ShoppingCartCommodityStockChoiceDiagnoser";
-import { IShoppingSaleUnitSelectableOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitSelectableOption";
 
 export namespace ShoppingCartCommodityStockDiagnoser {
   export const validate = (props: {
@@ -26,7 +27,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
       });
     });
     const stock: IShoppingSaleUnitStock | undefined = props.unit.stocks.find(
-      (stock) => stock.id === props.input.stock_id
+      (stock) => stock.id === props.input.stock_id,
     );
     if (stock === undefined)
       output.push({
@@ -61,7 +62,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
     input: IShoppingCartCommodityStock.ICreate;
   }): IShoppingSaleUnitStock.IInvert => {
     const stock: IShoppingSaleUnitStock | undefined = props.unit.stocks.find(
-      (stock) => stock.id === props.input.stock_id
+      (stock) => stock.id === props.input.stock_id,
     );
     if (stock === undefined)
       throw new Error("Unable to find the matched stock.");
@@ -74,7 +75,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
       choices: [
         ...stock.choices.map((choice) => {
           const option = props.unit.options.find(
-            (o) => o.id === choice.option_id
+            (o) => o.id === choice.option_id,
           )!;
           const candidate = (
             option as IShoppingSaleUnitSelectableOption
@@ -88,7 +89,7 @@ export namespace ShoppingCartCommodityStockDiagnoser {
         }),
         ...props.input.choices.map((choice) => {
           const option = props.unit.options.find(
-            (o) => o.id === choice.option_id
+            (o) => o.id === choice.option_id,
           )!;
           return {
             id: v4(),

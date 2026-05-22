@@ -6,9 +6,8 @@ import { IPage } from "@samchon/shopping-api/lib/structures/common/IPage";
 import { IShoppingAdministrator } from "@samchon/shopping-api/lib/structures/shoppings/actors/IShoppingAdministrator";
 import { IShoppingMileageDonation } from "@samchon/shopping-api/lib/structures/shoppings/mileages/IShoppingMileageDonation";
 
-import { ShoppingMileageDonationProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageDonationProvider";
-
 import { ShoppingAdminAuth } from "../../../../decorators/ShoppingAdminAuth";
+import { ShoppingMileageDonationProvider } from "../../../../providers/shoppings/mileages/ShoppingMileageDonationProvider";
 
 @Controller(`shoppings/admins/mileages/donations`)
 export class ShoppingAdminMileageDonationController {
@@ -32,7 +31,7 @@ export class ShoppingAdminMileageDonationController {
   @core.TypedRoute.Patch()
   public async index(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileageDonation.IRequest
+    @core.TypedBody() input: IShoppingMileageDonation.IRequest,
   ): Promise<IPage<IShoppingMileageDonation>> {
     return ShoppingMileageDonationProvider.index({
       admin,
@@ -54,7 +53,7 @@ export class ShoppingAdminMileageDonationController {
   @core.TypedRoute.Get(":id")
   public async at(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedParam("id") id: string & tags.Format<"uuid">
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
   ): Promise<IShoppingMileageDonation> {
     return ShoppingMileageDonationProvider.at({
       admin,
@@ -82,7 +81,7 @@ export class ShoppingAdminMileageDonationController {
   @core.TypedRoute.Post()
   public async create(
     @ShoppingAdminAuth() admin: IShoppingAdministrator.IInvert,
-    @core.TypedBody() input: IShoppingMileageDonation.ICreate
+    @core.TypedBody() input: IShoppingMileageDonation.ICreate,
   ): Promise<IShoppingMileageDonation> {
     return ShoppingMileageDonationProvider.create({
       admin,
