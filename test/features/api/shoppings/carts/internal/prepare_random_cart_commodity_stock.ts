@@ -6,7 +6,7 @@ import { IShoppingSaleUnitStock } from "@samchon/shopping-api/lib/structures/sho
 
 export const prepare_random_cart_commodity_stock = (
   unit: IShoppingSaleUnit,
-  input: Partial<IShoppingCartCommodityStock.ICreate> = {}
+  input: Partial<IShoppingCartCommodityStock.ICreate> = {},
 ): IShoppingCartCommodityStock.ICreate => {
   const stock: IShoppingSaleUnitStock = RandomGenerator.pick(unit.stocks);
   return {

@@ -16,8 +16,7 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  *
  * @author Samchon
  */
-export interface IShoppingCouponSellerCriteria
-  extends IShoppingCouponCriteriaBase<"seller"> {
+export interface IShoppingCouponSellerCriteria extends IShoppingCouponCriteriaBase<"seller"> {
   /**
    * Target sellers to include or exclude.
    */
@@ -27,8 +26,7 @@ export namespace IShoppingCouponSellerCriteria {
   /**
    * Creation information of the seller criteria.
    */
-  export interface ICreate
-    extends IShoppingCouponCriteriaBase.ICreate<"seller"> {
+  export interface ICreate extends IShoppingCouponCriteriaBase.ICreate<"seller"> {
     /**
      * List of target seller's {@link IShoppingSeller.id}s.
      */

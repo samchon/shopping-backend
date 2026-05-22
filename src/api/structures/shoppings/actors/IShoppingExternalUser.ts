@@ -30,8 +30,10 @@ import { IShoppingCitizen } from "./IShoppingCitizen";
  *
  * @author Samchon
  */
-export interface IShoppingExternalUser
-  extends Omit<IShoppingExternalUser.ICreate, "password"> {
+export interface IShoppingExternalUser extends Omit<
+  IShoppingExternalUser.ICreate,
+  "password"
+> {
   /**
    * Primary Key.
    */

@@ -77,10 +77,10 @@ export namespace IBbsArticle {
    */
   export interface IRequest<
     Search extends IRequest.ISearch = IRequest.ISearch,
-    Sortable extends
-      | IRequest.SortableColumns
-      | string = IRequest.SortableColumns,
-  > extends IPage.IRequest {
+    Sortable extends IRequest.SortableColumns | string =
+      IRequest.SortableColumns,
+  >
+    extends IPage.IRequest {
     /**
      * Search conditions.
      */

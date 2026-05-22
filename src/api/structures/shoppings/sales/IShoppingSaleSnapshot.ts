@@ -40,11 +40,10 @@ import { IShoppingSaleUnit } from "./IShoppingSaleUnit";
  *
  * @author Samchon
  */
-export interface IShoppingSaleSnapshot
-  extends IShoppingSaleSnapshot.IBase<
-    IShoppingSaleContent,
-    IShoppingSaleUnit
-  > {}
+export interface IShoppingSaleSnapshot extends IShoppingSaleSnapshot.IBase<
+  IShoppingSaleContent,
+  IShoppingSaleUnit
+> {}
 export namespace IShoppingSaleSnapshot {
   /**
    * Invert information of the sale snapshot, in the perspective of commodity.
@@ -59,7 +58,8 @@ export namespace IShoppingSaleSnapshot {
    * into the {@link IShoppingCartCommodity shopping cart}.
    */
   export interface IInvert
-    extends IBase<IShoppingSaleContent.IInvert, IShoppingSaleUnit.IInvert>,
+    extends
+      IBase<IShoppingSaleContent.IInvert, IShoppingSaleUnit.IInvert>,
       IShoppingSale.ITimestamps {
     /**
      * Belonged section's information.
@@ -75,8 +75,10 @@ export namespace IShoppingSaleSnapshot {
   /**
    * Summarized information of the sale snapshot.
    */
-  export interface ISummary
-    extends IBase<IShoppingSaleContent.ISummary, IShoppingSaleUnit.ISummary> {
+  export interface ISummary extends IBase<
+    IShoppingSaleContent.ISummary,
+    IShoppingSaleUnit.ISummary
+  > {
     /**
      * Price range of the unit.
      */
