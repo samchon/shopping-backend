@@ -110,7 +110,7 @@ importers:
         version: 4.3.0(prettier@3.8.3)
       '@ttsc/lint':
         specifier: file:/tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz
-        version: file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz
+        version: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz
       '@ttsc/paths':
         specifier: ^0.12.4
         version: 0.12.4
@@ -188,7 +188,7 @@ importers:
         version: 9.5.7(typescript@6.0.3)(webpack@5.106.2)
       ttsc:
         specifier: file:/tmp/ttsc-tgz/ttsc-0.12.4.tgz
-        version: file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz
+        version: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz
       webpack:
         specifier: ^5.90.3
         version: 5.106.2(webpack-cli@5.1.4)
@@ -1162,8 +1162,8 @@ packages:
     cpu: [x64]
     os: [darwin]
 
-  '@ttsc/lint@file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz':
-    resolution: {integrity: sha512-LFxxvSAoeBVbjEpgB8Nrn/wvpMACSf7YUmNMaIQq8amKYSwRL3ACt5+46La6t/I8oURFW2FlTOFcPcQJ3JfSOw==, tarball: file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz}
+  '@ttsc/lint@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz':
+    resolution: {integrity: sha512-iqcT7YB1QqUrU7Ap6UISws5GtxbmE/HUKJvqa/aB9iaqUKol6vb+rgQ+k4RgKx+h36btORgLBBQwK0LM187Ffg==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz}
     version: 0.12.4
 
   '@ttsc/linux-arm64@0.12.4':
@@ -1176,8 +1176,8 @@ packages:
     cpu: [arm]
     os: [linux]
 
-  '@ttsc/linux-x64@file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
-    resolution: {integrity: sha512-cqBu3rLIewPITNzQUxm/llG0ywmlbnNjYQ09QiIktqqrWi866rLcV98RiRVU8S6ivxK3eqo9KmQ9Qdht0AKTNg==, tarball: file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz}
+  '@ttsc/linux-x64@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
+    resolution: {integrity: sha512-Sps9RJ6caSt2HnimXPcYbRlbMTN9mA4xvOsMMn2T2kmgFBxBEMTHXvutu+NopK/08TMjnx4gxRLnhvCdTKcd5A==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz}
     version: 0.12.4
     os: [linux]
 
@@ -3869,8 +3869,8 @@ packages:
     resolution: {integrity: sha512-uOTZWbTQ3Wln7rAP6U5Gjr6L4G90v1CKpkK/va0DlAj43/ydpY7TCxSW1Y3a/g40wat7KSgM07E+lgPz0XoVOA==}
     hasBin: true
 
-  ttsc@file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
-    resolution: {integrity: sha512-dPZk2Zpr3uMDU0yeOrKpDQlbVZits5IEdeejuDRn4pbBs4eoAS4vMxUpVqPWRMEpU7sxMXbqQnDlPzg99h4a0A==, tarball: file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz}
+  ttsc@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
+    resolution: {integrity: sha512-zhe3Ao/EqhyUha3jiAnbN+B7BE467Xqa5WnSP09+B3exPIAo+ZPcVpLyhsVpkNhcbca7hU22BanTZTsbv52eDg==, tarball: file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz}
     version: 0.12.4
     hasBin: true
 
@@ -5186,7 +5186,7 @@ snapshots:
   '@ttsc/darwin-x64@0.12.4':
     optional: true
 
-  '@ttsc/lint@file:../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz': {}
+  '@ttsc/lint@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-lint-0.12.4.tgz': {}
 
   '@ttsc/linux-arm64@0.12.4':
     optional: true
@@ -5194,7 +5194,7 @@ snapshots:
   '@ttsc/linux-arm@0.12.4':
     optional: true
 
-  '@ttsc/linux-x64@file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
+  '@ttsc/linux-x64@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz':
     optional: true
 
   '@ttsc/paths@0.12.4': {}
@@ -8057,17 +8057,17 @@ snapshots:
       '@ttsc/darwin-x64': 0.12.4
       '@ttsc/linux-arm': 0.12.4
       '@ttsc/linux-arm64': 0.12.4
-      '@ttsc/linux-x64': file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
+      '@ttsc/linux-x64': file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
       '@ttsc/win32-arm64': 0.12.4
       '@ttsc/win32-x64': 0.12.4
 
-  ttsc@file:../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
+  ttsc@file:../../../../../../../../../tmp/ttsc-tgz/ttsc-0.12.4.tgz:
     optionalDependencies:
       '@ttsc/darwin-arm64': 0.12.4
       '@ttsc/darwin-x64': 0.12.4
       '@ttsc/linux-arm': 0.12.4
       '@ttsc/linux-arm64': 0.12.4
-      '@ttsc/linux-x64': file:../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
+      '@ttsc/linux-x64': file:../../../../../../../../../tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz
       '@ttsc/win32-arm64': 0.12.4
       '@ttsc/win32-x64': 0.12.4
 
