@@ -17,7 +17,7 @@
     "build:swagger": "nestia swagger",
     "build:test": "rimraf bin && ttsc -p test/tsconfig.json",
     "dev": "npm run build:test -- --watch",
-    "prepare": "ttsc prepare",
+    "prepare": "ttsc prepare && npm run build:prisma",
     "prettier": "prettier src --write && prettier test --write",
     "------------------------WEBPACK------------------------": "",
     "webpack": "rimraf dist && npm run build:prisma && webpack",
