@@ -19,7 +19,7 @@
     "dev": "npm run build:test -- --watch",
     "eslint": "eslint src && eslint test",
     "eslint:fix": "eslint src --fix && eslint test --fix",
-    "prepare": "ttsc prepare",
+    "prepare": "ttsc prepare && npm run build:prisma",
     "prettier": "prettier src --write && prettier test --write",
     "------------------------WEBPACK------------------------": "",
     "webpack": "rimraf dist && npm run build:prisma && webpack",
