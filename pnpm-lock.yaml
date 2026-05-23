@@ -104,7 +104,7 @@ importers:
         version: 11.0.16(@types/node@20.19.11)(webpack-cli@5.1.4)
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^4.3.0
-        version: 4.3.0(prettier@3.6.2)
+        version: 4.3.0(prettier@3.8.3)
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
@@ -166,11 +166,11 @@ importers:
         specifier: ^11.0.1
         version: 11.0.1(@types/node@20.19.11)
       prettier:
-        specifier: ^3.3.2
-        version: 3.6.2
+        specifier: ^3.8.3
+        version: 3.8.3
       prettier-plugin-prisma:
         specifier: ^5.0.0
-        version: 5.0.0(prettier@3.6.2)
+        version: 5.0.0(prettier@3.8.3)
       prisma-markdown:
         specifier: ^4.0.0
         version: 4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))
@@ -3444,13 +3444,8 @@ packages:
     peerDependencies:
       prettier: '>=2 || >=3'
 
-  prettier@3.6.2:
-    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-
-  prettier@3.8.2:
-    resolution: {integrity: sha512-8c3mgTe0ASwWAJK+78dpviD+A8EqhndQPUBpNUIPt6+xWlIigCwfN01lWr9MAede4uqXGTEKeQWTvzb3vjia0Q==}
+  prettier@3.8.3:
+    resolution: {integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -5145,7 +5140,7 @@ snapshots:
       '@stackblitz/sdk': 1.11.0
       '@typia/interface': 12.0.2
       js-yaml: 4.1.1
-      prettier: 3.8.2
+      prettier: 3.8.3
       react-mui-fileuploader: 0.5.2(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(prop-types@15.8.1)
       typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
     transitivePeerDependencies:
@@ -5168,14 +5163,14 @@ snapshots:
 
   '@nestia/migrate@11.0.1(@types/node@20.19.11)':
     dependencies:
-      '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.8.2)
+      '@trivago/prettier-plugin-sort-imports': 4.3.0(prettier@3.8.3)
       '@typia/core': 12.0.2
       '@typia/interface': 12.0.2
       '@typia/utils': 12.0.2
       commander: 10.0.0
       inquirer: 8.2.5
-      prettier: 3.8.2
-      prettier-plugin-jsdoc: 1.8.0(prettier@3.8.2)
+      prettier: 3.8.3
+      prettier-plugin-jsdoc: 1.8.0(prettier@3.8.3)
       tstl: 3.0.0
       typescript: 5.9.3
       typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
@@ -5195,7 +5190,7 @@ snapshots:
       get-function-location: 2.0.0
       glob: 11.0.3
       path-to-regexp: 6.3.0
-      prettier: 3.8.2
+      prettier: 3.8.3
       ts-node: 10.9.2(@types/node@20.19.11)(typescript@5.9.3)
       tsconfck: 2.1.2(typescript@5.9.3)
       tsconfig-paths: 4.2.0
@@ -5534,7 +5529,7 @@ snapshots:
 
   '@tokenizer/token@0.3.0': {}
 
-  '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.6.2)':
+  '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.8.3)':
     dependencies:
       '@babel/generator': 7.17.7
       '@babel/parser': 7.28.3
@@ -5542,19 +5537,7 @@ snapshots:
       '@babel/types': 7.17.0
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
-      prettier: 3.6.2
-    transitivePeerDependencies:
-      - supports-color
-
-  '@trivago/prettier-plugin-sort-imports@4.3.0(prettier@3.8.2)':
-    dependencies:
-      '@babel/generator': 7.17.7
-      '@babel/parser': 7.28.3
-      '@babel/traverse': 7.23.2
-      '@babel/types': 7.17.0
-      javascript-natural-sort: 0.7.1
-      lodash: 4.17.21
-      prettier: 3.8.2
+      prettier: 3.8.3
     transitivePeerDependencies:
       - supports-color
 
@@ -8038,23 +8021,21 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-jsdoc@1.8.0(prettier@3.8.2):
+  prettier-plugin-jsdoc@1.8.0(prettier@3.8.3):
     dependencies:
       binary-searching: 2.0.5
       comment-parser: 1.4.1
       mdast-util-from-markdown: 2.0.2
-      prettier: 3.8.2
+      prettier: 3.8.3
     transitivePeerDependencies:
       - supports-color
 
-  prettier-plugin-prisma@5.0.0(prettier@3.6.2):
+  prettier-plugin-prisma@5.0.0(prettier@3.8.3):
     dependencies:
       '@prisma/prisma-schema-wasm': 4.17.0-26.6b0aef69b7cdfc787f822ecd7cdc76d5f1991584
-      prettier: 3.6.2
+      prettier: 3.8.3
 
-  prettier@3.6.2: {}
-
-  prettier@3.8.2: {}
+  prettier@3.8.3: {}
 
   prisma-markdown@4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)):
     dependencies:
