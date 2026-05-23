@@ -85,7 +85,7 @@ export namespace ShoppingDiscountableDiagnoser {
   /* -----------------------------------------------------------
     COMPUTATIONS
   ----------------------------------------------------------- */
-  export interface IDiscount<T extends IEntity> {
+  export interface IDiscount {
     amount: number;
 
     /**
@@ -108,7 +108,7 @@ export namespace ShoppingDiscountableDiagnoser {
     customer: IShoppingCustomer;
     coupons: IShoppingCoupon[];
     data: T[];
-  }): IDiscount<T> =>
+  }): IDiscount =>
     _Discount({
       ...props,
       title: `${props.className}.discount`,
@@ -120,7 +120,7 @@ export namespace ShoppingDiscountableDiagnoser {
     customer: IShoppingCustomer;
     coupons: Coupon[];
     data: T[];
-  }): IDiscount<T> => {
+  }): IDiscount => {
     // SORT COUPONS
     ShoppingCouponDiagnoser.sort(props.coupons);
 
@@ -131,7 +131,7 @@ export namespace ShoppingDiscountableDiagnoser {
       );
 
     // CONSTRUCT DISCOUNT DICTIONARY
-    const output: IDiscount<T> = {
+    const output: IDiscount = {
       amount: 0,
       coupon_to_elem_dict: new Map(),
     };
@@ -159,7 +159,7 @@ export namespace ShoppingDiscountableDiagnoser {
     accessor: IAccessor<T>;
     coupon: IShoppingCoupon;
     data: T[];
-    output: IDiscount<T>;
+    output: IDiscount;
   }) => {
     const adjust = (elem: T, value: number) => {
       take(
@@ -251,7 +251,7 @@ export namespace ShoppingDiscountableDiagnoser {
     ].filter((row) => row.length !== 0);
 
     // COMPUTE COMBINATIONS
-    const combinations: IDiscount<T>[] = matrix.map((coupons) =>
+    const combinations: IDiscount[] = matrix.map((coupons) =>
       _Discount({
         title: `${props.className}.combine`,
         accessor: props.accessor,
