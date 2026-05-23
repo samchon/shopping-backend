@@ -1,0 +1,3 @@
+# Anchor pnpm to this fixture root so `pnpm install` here does not walk
+# up into the parent ttsc workspace and rewrite its pnpm-lock.yaml.
+packages: []
