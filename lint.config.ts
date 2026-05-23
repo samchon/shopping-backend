@@ -1,7 +1,7 @@
 import type { ITtscLintConfig } from "@ttsc/lint";
 
 export default {
-  ignores: ["src/api/functional/**"],
+  ignores: ["src/api/functional/**", "src/prisma/**"],
   format: {
     printWidth: 80,
     tabWidth: 2,
