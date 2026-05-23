@@ -20,8 +20,10 @@ import { IShoppingSaleInquiry } from "./IShoppingSaleInquiry";
  *
  * @author Samchon
  */
-export interface IShoppingSaleReview
-  extends IShoppingSaleInquiry<"review", IShoppingSaleReview.ISnapshot> {}
+export interface IShoppingSaleReview extends IShoppingSaleInquiry<
+  "review",
+  IShoppingSaleReview.ISnapshot
+> {}
 export namespace IShoppingSaleReview {
   /**
    * Snapshot content of the review article.
@@ -36,14 +38,14 @@ export namespace IShoppingSaleReview {
   /**
    * Request of summarized information with pagination searching/sorting options.
    */
-  export interface IRequest
-    extends IShoppingSaleInquiry.IRequest<
-      IRequest.ISearch,
-      IRequest.SortableColumns
-    > {}
+  export interface IRequest extends IShoppingSaleInquiry.IRequest<
+    IRequest.ISearch,
+    IRequest.SortableColumns
+  > {}
   export namespace IRequest {
     export interface ISearch
-      extends IShoppingSaleInquiry.IRequest.ISearch,
+      extends
+        IShoppingSaleInquiry.IRequest.ISearch,
         IInvertSearch.IScoreRange {}
     export type SortableColumns =
       | IShoppingSaleInquiry.IRequest.SortableColumns

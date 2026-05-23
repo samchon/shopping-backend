@@ -50,7 +50,8 @@ export namespace IBbsArticleComment {
   export interface IRequest<
     Search extends IRequest.ISearch = IRequest.ISearch,
     Sortable extends string = IRequest.SortableColumns,
-  > extends IPage.IRequest {
+  >
+    extends IPage.IRequest {
     search?: null | Search;
     sort?: null | IPage.Sort<Sortable>;
   }

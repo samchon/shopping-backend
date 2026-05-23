@@ -36,11 +36,10 @@ export namespace IShoppingSaleInquiryComment {
   /**
    * Request of the comments with pagination and searching/sorting options.
    */
-  export interface IRequest
-    extends IBbsArticleComment.IRequest<
-      IRequest.ISearch,
-      IRequest.SortableColumns
-    > {}
+  export interface IRequest extends IBbsArticleComment.IRequest<
+    IRequest.ISearch,
+    IRequest.SortableColumns
+  > {}
   export namespace IRequest {
     export interface ISearch extends IBbsArticleComment.IRequest.ISearch {
       name?: null | string;

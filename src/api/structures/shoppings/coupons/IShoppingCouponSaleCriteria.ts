@@ -16,8 +16,7 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  *
  * @author Samchon
  */
-export interface IShoppingCouponSaleCriteria
-  extends IShoppingCouponCriteriaBase<"sale"> {
+export interface IShoppingCouponSaleCriteria extends IShoppingCouponCriteriaBase<"sale"> {
   /**
    * Target sales to include or exclude.
    */

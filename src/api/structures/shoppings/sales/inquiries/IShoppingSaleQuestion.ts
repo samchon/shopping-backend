@@ -15,8 +15,10 @@ import { IShoppingSaleInquiry } from "./IShoppingSaleInquiry";
  *
  * @author Samchon
  */
-export interface IShoppingSaleQuestion
-  extends IShoppingSaleInquiry<"question", IShoppingSaleQuestion.ISnapshot> {
+export interface IShoppingSaleQuestion extends IShoppingSaleInquiry<
+  "question",
+  IShoppingSaleQuestion.ISnapshot
+> {
   /**
    * Whether the question article is secret or not.
    *
@@ -34,11 +36,10 @@ export namespace IShoppingSaleQuestion {
   /**
    * Request of summarized information with pagination searching/sorting options.
    */
-  export interface IRequest
-    extends IShoppingSaleInquiry.IRequest<
-      IRequest.ISearch,
-      IRequest.SortableColumns
-    > {}
+  export interface IRequest extends IShoppingSaleInquiry.IRequest<
+    IRequest.ISearch,
+    IRequest.SortableColumns
+  > {}
   export namespace IRequest {
     export type ISearch = IShoppingSaleInquiry.IRequest.ISearch;
     export type SortableColumns = IShoppingSaleInquiry.IRequest.SortableColumns;

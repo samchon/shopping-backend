@@ -27,8 +27,7 @@ import { IShoppingSaleReview } from "./inquiries/IShoppingSaleReview";
  * @author Samchon
  */
 export interface IShoppingSale
-  extends IShoppingSaleSnapshot,
-    IShoppingSale.ITimestamps {
+  extends IShoppingSaleSnapshot, IShoppingSale.ITimestamps {
   /**
    * Belonged section.
    */
@@ -151,8 +150,7 @@ export namespace IShoppingSale {
    * This summarized information being used for pagination.
    */
   export interface ISummary
-    extends IShoppingSaleSnapshot.ISummary,
-      ITimestamps {
+    extends IShoppingSaleSnapshot.ISummary, ITimestamps {
     /**
      * Belonged section.
      */

@@ -16,8 +16,7 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  *
  * @author Samchon
  */
-export interface IShoppingCouponSectionCriteria
-  extends IShoppingCouponCriteriaBase<"section"> {
+export interface IShoppingCouponSectionCriteria extends IShoppingCouponCriteriaBase<"section"> {
   /**
    * Target sections to include or exclude.
    */
@@ -27,8 +26,7 @@ export namespace IShoppingCouponSectionCriteria {
   /**
    * Creation information of the section criteria.
    */
-  export interface ICreate
-    extends IShoppingCouponCriteriaBase.ICreate<"section"> {
+  export interface ICreate extends IShoppingCouponCriteriaBase.ICreate<"section"> {
     /**
      * List of target section's {@link IShoppingSection.code}s.
      */

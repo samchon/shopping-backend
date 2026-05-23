@@ -17,8 +17,7 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  *
  * @author Samchon
  */
-export interface IShoppingCouponFunnelCriteria
-  extends IShoppingCouponCriteriaBase<"funnel"> {
+export interface IShoppingCouponFunnelCriteria extends IShoppingCouponCriteriaBase<"funnel"> {
   /**
    * List of target funnels.
    */
@@ -68,8 +67,7 @@ export namespace IShoppingCouponFunnelCriteria {
   /**
    * Creation information of the funnel criteria.
    */
-  export interface ICreate
-    extends IShoppingCouponCriteriaBase.ICreate<"funnel"> {
+  export interface ICreate extends IShoppingCouponCriteriaBase.ICreate<"funnel"> {
     /**
      * List of target funnels.
      */
