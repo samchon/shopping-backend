@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@nestia/core':
         specifier: ^11.0.1
-        version: 11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3))
+        version: 11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416))
       '@nestia/editor':
         specifier: ^11.0.1
-        version: 11.0.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)
+        version: 11.0.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416)
       '@nestia/fetcher':
         specifier: ^11.0.1
         version: 11.0.1
       '@nestia/sdk':
         specifier: ^11.0.1
-        version: 11.0.1(@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3)))(@types/node@20.19.11)(typescript@5.9.3)
+        version: 11.0.1(@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)))(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
       '@nestjs/common':
         specifier: ^11.1.12
         version: 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -34,16 +34,16 @@ importers:
         version: 7.3.0
       '@prisma/client':
         specifier: ^7.3.0
-        version: 7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3)
+        version: 7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416))(typescript@6.0.0-dev.20260416)
       '@prisma/internals':
         specifier: ^7.3.0
-        version: 7.3.0(typescript@5.9.3)
+        version: 7.3.0(typescript@6.0.0-dev.20260416)
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@4.49.0)
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
-        version: 11.1.6(rollup@4.49.0)(tslib@2.8.1)(typescript@5.9.3)
+        version: 11.1.6(rollup@4.49.0)(tslib@2.8.1)(typescript@6.0.0-dev.20260416)
       bcryptjs:
         specifier: ^2.4.3
         version: 2.4.3
@@ -73,7 +73,7 @@ importers:
         version: 4.104.0
       prisma:
         specifier: ^7.3.0
-        version: 7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)
+        version: 7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416)
       rollup:
         specifier: ^4.18.1
         version: 4.49.0
@@ -88,7 +88,7 @@ importers:
         version: 3.0.0
       typia:
         specifier: ^12.0.2
-        version: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
+        version: 12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
       uuid:
         specifier: ^11.1.0
         version: 11.1.0
@@ -134,10 +134,10 @@ importers:
         version: 10.0.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.1.0
-        version: 8.41.0(@typescript-eslint/parser@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.41.0(@typescript-eslint/parser@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416))(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       '@typescript-eslint/parser':
         specifier: ^8.1.0
-        version: 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+        version: 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       cagen:
         specifier: ^1.0.1
         version: 1.0.1
@@ -158,7 +158,7 @@ importers:
         version: 9.39.4(jiti@2.6.1)
       eslint-plugin-deprecation:
         specifier: ^3.0.0
-        version: 3.0.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+        version: 3.0.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       inquirer:
         specifier: ^8.2.5
         version: 8.2.7(@types/node@20.19.11)
@@ -173,7 +173,7 @@ importers:
         version: 5.0.0(prettier@3.8.3)
       prisma-markdown:
         specifier: ^4.0.0
-        version: 4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))
+        version: 4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416))(typescript@6.0.0-dev.20260416))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416))
       rimraf:
         specifier: ^3.0.2
         version: 3.0.2
@@ -185,19 +185,19 @@ importers:
         version: 5.0.1(express@5.1.0)
       ts-loader:
         specifier: ^9.5.1
-        version: 9.5.4(typescript@5.9.3)(webpack@5.103.0)
+        version: 9.5.4(typescript@6.0.0-dev.20260416)(webpack@5.103.0)
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.2(@types/node@20.19.11)(typescript@5.9.3)
+        version: 10.9.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
       ts-patch:
         specifier: ^3.3.0
         version: 3.3.0
       typescript:
-        specifier: ~5.9.3
-        version: 5.9.3
+        specifier: 6.0.0-dev.20260416
+        version: 6.0.0-dev.20260416
       typescript-transform-paths:
         specifier: ^3.5.6
-        version: 3.5.6(typescript@5.9.3)
+        version: 3.5.6(typescript@6.0.0-dev.20260416)
       webpack:
         specifier: ^5.90.3
         version: 5.103.0(webpack-cli@5.1.4)
@@ -4161,6 +4161,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@6.0.0-dev.20260416:
+    resolution: {integrity: sha512-64CCow5rQc6+oBAPqLtvZ8f3iz4WVCLwMVkg6/kOfMQlGshVOMkBhCXn+MMP4SX4Xtnz48VpD98FkptirMEuEQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   typia@12.0.2:
     resolution: {integrity: sha512-0RBUxrar8Hztee6gSdBPR1scDBJAPp3k0ut4C3H6ri8+D6nVnGmWvsrnl5fOxHdLDtCC/gxZ4rhp2ivf0jom+g==}
     hasBin: true
@@ -5109,7 +5114,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3))':
+  '@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416))':
     dependencies:
       '@nestia/fetcher': 11.0.1
       '@nestjs/common': 11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -5125,7 +5130,7 @@ snapshots:
       reflect-metadata: 0.2.2
       rxjs: 7.8.2
       tgrid: 1.2.0
-      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
       ws: 7.5.10
     transitivePeerDependencies:
       - bufferutil
@@ -5133,7 +5138,7 @@ snapshots:
 
   '@nestia/e2e@11.0.1': {}
 
-  '@nestia/editor@11.0.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)':
+  '@nestia/editor@11.0.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/node@20.19.11)(@types/react@18.3.24)(prop-types@15.8.1)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@mui/material': 5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       '@nestia/migrate': 11.0.1(@types/node@20.19.11)
@@ -5142,7 +5147,7 @@ snapshots:
       js-yaml: 4.1.1
       prettier: 3.8.3
       react-mui-fileuploader: 0.5.2(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/icons-material@5.18.0(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@mui/material@5.18.0(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react@19.1.1))(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@types/react@18.3.24)(prop-types@15.8.1)
-      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
     transitivePeerDependencies:
       - '@emotion/react'
       - '@emotion/styled'
@@ -5179,9 +5184,9 @@ snapshots:
       - '@vue/compiler-sfc'
       - supports-color
 
-  '@nestia/sdk@11.0.1(@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3)))(@types/node@20.19.11)(typescript@5.9.3)':
+  '@nestia/sdk@11.0.1(@nestia/core@11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)))(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)':
     dependencies:
-      '@nestia/core': 11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3))
+      '@nestia/core': 11.0.1(@nestia/fetcher@11.0.1)(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.12(@nestjs/common@11.1.12(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2))(reflect-metadata@0.2.2)(rxjs@7.8.2)(typia@12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416))
       '@nestia/fetcher': 11.0.1
       '@typia/core': 12.0.2
       '@typia/interface': 12.0.2
@@ -5191,11 +5196,11 @@ snapshots:
       glob: 11.0.3
       path-to-regexp: 6.3.0
       prettier: 3.8.3
-      ts-node: 10.9.2(@types/node@20.19.11)(typescript@5.9.3)
-      tsconfck: 2.1.2(typescript@5.9.3)
+      ts-node: 10.9.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
+      tsconfck: 2.1.2(typescript@6.0.0-dev.20260416)
       tsconfig-paths: 4.2.0
       tstl: 3.0.0
-      typia: 12.0.2(@types/node@20.19.11)(typescript@5.9.3)
+      typia: 12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416)
     transitivePeerDependencies:
       - '@swc/core'
       - '@swc/wasm'
@@ -5308,12 +5313,12 @@ snapshots:
 
   '@prisma/client-runtime-utils@7.3.0': {}
 
-  '@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3)':
+  '@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416))(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@prisma/client-runtime-utils': 7.3.0
     optionalDependencies:
-      prisma: 7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)
-      typescript: 5.9.3
+      prisma: 7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416)
+      typescript: 6.0.0-dev.20260416
 
   '@prisma/config@7.3.0':
     dependencies:
@@ -5328,7 +5333,7 @@ snapshots:
 
   '@prisma/debug@7.3.0': {}
 
-  '@prisma/dev@0.20.0(typescript@5.9.3)':
+  '@prisma/dev@0.20.0(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@electric-sql/pglite': 0.3.15
       '@electric-sql/pglite-socket': 0.0.20(@electric-sql/pglite@0.3.15)
@@ -5345,7 +5350,7 @@ snapshots:
       proper-lockfile: 4.1.2
       remeda: 2.33.4
       std-env: 3.10.0
-      valibot: 1.2.0(typescript@5.9.3)
+      valibot: 1.2.0(typescript@6.0.0-dev.20260416)
       zeptomatch: 2.1.0
     transitivePeerDependencies:
       - typescript
@@ -5387,7 +5392,7 @@ snapshots:
     dependencies:
       '@prisma/debug': 7.3.0
 
-  '@prisma/internals@7.3.0(typescript@5.9.3)':
+  '@prisma/internals@7.3.0(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@prisma/config': 7.3.0
       '@prisma/debug': 7.3.0
@@ -5404,7 +5409,7 @@ snapshots:
       arg: 5.0.2
       prompts: 2.4.2
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - magicast
 
@@ -5435,11 +5440,11 @@ snapshots:
     optionalDependencies:
       rollup: 4.49.0
 
-  '@rollup/plugin-typescript@11.1.6(rollup@4.49.0)(tslib@2.8.1)(typescript@5.9.3)':
+  '@rollup/plugin-typescript@11.1.6(rollup@4.49.0)(tslib@2.8.1)(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@rollup/pluginutils': 5.2.0(rollup@4.49.0)
       resolve: 1.22.10
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     optionalDependencies:
       rollup: 4.49.0
       tslib: 2.8.1
@@ -5682,41 +5687,41 @@ snapshots:
     dependencies:
       '@types/node': 20.19.11
 
-  '@typescript-eslint/eslint-plugin@8.41.0(@typescript-eslint/parser@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.41.0(@typescript-eslint/parser@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416))(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       '@typescript-eslint/scope-manager': 8.41.0
-      '@typescript-eslint/type-utils': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/type-utils': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
+      '@typescript-eslint/utils': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       '@typescript-eslint/visitor-keys': 8.41.0
       eslint: 9.39.4(jiti@2.6.1)
       graphemer: 1.4.0
       ignore: 7.0.5
       natural-compare: 1.4.0
-      ts-api-utils: 2.1.0(typescript@5.9.3)
-      typescript: 5.9.3
+      ts-api-utils: 2.1.0(typescript@6.0.0-dev.20260416)
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.41.0
       '@typescript-eslint/types': 8.41.0
-      '@typescript-eslint/typescript-estree': 8.41.0(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.41.0(typescript@6.0.0-dev.20260416)
       '@typescript-eslint/visitor-keys': 8.41.0
       debug: 4.4.3
       eslint: 9.39.4(jiti@2.6.1)
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/project-service@8.41.0(typescript@5.9.3)':
+  '@typescript-eslint/project-service@8.41.0(typescript@6.0.0-dev.20260416)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.41.0(typescript@5.9.3)
+      '@typescript-eslint/tsconfig-utils': 8.41.0(typescript@6.0.0-dev.20260416)
       '@typescript-eslint/types': 8.41.0
       debug: 4.4.3
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
@@ -5730,19 +5735,19 @@ snapshots:
       '@typescript-eslint/types': 8.41.0
       '@typescript-eslint/visitor-keys': 8.41.0
 
-  '@typescript-eslint/tsconfig-utils@8.41.0(typescript@5.9.3)':
+  '@typescript-eslint/tsconfig-utils@8.41.0(typescript@6.0.0-dev.20260416)':
     dependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
 
-  '@typescript-eslint/type-utils@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)':
+  '@typescript-eslint/type-utils@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@typescript-eslint/types': 8.41.0
-      '@typescript-eslint/typescript-estree': 8.41.0(typescript@5.9.3)
-      '@typescript-eslint/utils': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.41.0(typescript@6.0.0-dev.20260416)
+      '@typescript-eslint/utils': 8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       debug: 4.4.3
       eslint: 9.39.4(jiti@2.6.1)
-      ts-api-utils: 2.1.0(typescript@5.9.3)
-      typescript: 5.9.3
+      ts-api-utils: 2.1.0(typescript@6.0.0-dev.20260416)
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
@@ -5750,7 +5755,7 @@ snapshots:
 
   '@typescript-eslint/types@8.41.0': {}
 
-  '@typescript-eslint/typescript-estree@7.18.0(typescript@5.9.3)':
+  '@typescript-eslint/typescript-estree@7.18.0(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@typescript-eslint/types': 7.18.0
       '@typescript-eslint/visitor-keys': 7.18.0
@@ -5759,16 +5764,16 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.7.3
-      ts-api-utils: 1.4.3(typescript@5.9.3)
+      ts-api-utils: 1.4.3(typescript@6.0.0-dev.20260416)
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/typescript-estree@8.41.0(typescript@5.9.3)':
+  '@typescript-eslint/typescript-estree@8.41.0(typescript@6.0.0-dev.20260416)':
     dependencies:
-      '@typescript-eslint/project-service': 8.41.0(typescript@5.9.3)
-      '@typescript-eslint/tsconfig-utils': 8.41.0(typescript@5.9.3)
+      '@typescript-eslint/project-service': 8.41.0(typescript@6.0.0-dev.20260416)
+      '@typescript-eslint/tsconfig-utils': 8.41.0(typescript@6.0.0-dev.20260416)
       '@typescript-eslint/types': 8.41.0
       '@typescript-eslint/visitor-keys': 8.41.0
       debug: 4.4.3
@@ -5776,30 +5781,30 @@ snapshots:
       is-glob: 4.0.3
       minimatch: 9.0.5
       semver: 7.7.3
-      ts-api-utils: 2.1.0(typescript@5.9.3)
-      typescript: 5.9.3
+      ts-api-utils: 2.1.0(typescript@6.0.0-dev.20260416)
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@7.18.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)':
+  '@typescript-eslint/utils@7.18.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@eslint-community/eslint-utils': 4.7.0(eslint@9.39.4(jiti@2.6.1))
       '@typescript-eslint/scope-manager': 7.18.0
       '@typescript-eslint/types': 7.18.0
-      '@typescript-eslint/typescript-estree': 7.18.0(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 7.18.0(typescript@6.0.0-dev.20260416)
       eslint: 9.39.4(jiti@2.6.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  '@typescript-eslint/utils@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)':
+  '@typescript-eslint/utils@8.41.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)':
     dependencies:
       '@eslint-community/eslint-utils': 4.9.1(eslint@9.39.4(jiti@2.6.1))
       '@typescript-eslint/scope-manager': 8.41.0
       '@typescript-eslint/types': 8.41.0
-      '@typescript-eslint/typescript-estree': 8.41.0(typescript@5.9.3)
+      '@typescript-eslint/typescript-estree': 8.41.0(typescript@6.0.0-dev.20260416)
       eslint: 9.39.4(jiti@2.6.1)
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
@@ -6537,13 +6542,13 @@ snapshots:
 
   escape-string-regexp@4.0.0: {}
 
-  eslint-plugin-deprecation@3.0.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3):
+  eslint-plugin-deprecation@3.0.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416):
     dependencies:
-      '@typescript-eslint/utils': 7.18.0(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      '@typescript-eslint/utils': 7.18.0(eslint@9.39.4(jiti@2.6.1))(typescript@6.0.0-dev.20260416)
       eslint: 9.39.4(jiti@2.6.1)
-      ts-api-utils: 1.4.3(typescript@5.9.3)
+      ts-api-utils: 1.4.3(typescript@6.0.0-dev.20260416)
       tslib: 2.8.1
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - supports-color
 
@@ -8037,22 +8042,22 @@ snapshots:
 
   prettier@3.8.3: {}
 
-  prisma-markdown@4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)):
+  prisma-markdown@4.0.0(@prisma/client@7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416))(typescript@6.0.0-dev.20260416))(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416)):
     dependencies:
-      '@prisma/client': 7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3))(typescript@5.9.3)
+      '@prisma/client': 7.3.0(prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416))(typescript@6.0.0-dev.20260416)
       '@prisma/generator-helper': 7.3.0
-      prisma: 7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3)
+      prisma: 7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416)
 
-  prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@5.9.3):
+  prisma@7.3.0(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(typescript@6.0.0-dev.20260416):
     dependencies:
       '@prisma/config': 7.3.0
-      '@prisma/dev': 0.20.0(typescript@5.9.3)
+      '@prisma/dev': 0.20.0(typescript@6.0.0-dev.20260416)
       '@prisma/engines': 7.3.0
       '@prisma/studio-core': 0.13.1(@types/react@18.3.24)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       mysql2: 3.15.3
       postgres: 3.4.7
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - '@types/react'
       - magicast
@@ -8706,25 +8711,25 @@ snapshots:
 
   tr46@0.0.3: {}
 
-  ts-api-utils@1.4.3(typescript@5.9.3):
+  ts-api-utils@1.4.3(typescript@6.0.0-dev.20260416):
     dependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
 
-  ts-api-utils@2.1.0(typescript@5.9.3):
+  ts-api-utils@2.1.0(typescript@6.0.0-dev.20260416):
     dependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
 
-  ts-loader@9.5.4(typescript@5.9.3)(webpack@5.103.0):
+  ts-loader@9.5.4(typescript@6.0.0-dev.20260416)(webpack@5.103.0):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.18.4
       micromatch: 4.0.8
       semver: 7.7.3
       source-map: 0.7.6
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
       webpack: 5.103.0(webpack-cli@5.1.4)
 
-  ts-node@10.9.2(@types/node@20.19.11)(typescript@5.9.3):
+  ts-node@10.9.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -8738,7 +8743,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
 
@@ -8751,9 +8756,9 @@ snapshots:
       semver: 7.7.2
       strip-ansi: 6.0.1
 
-  tsconfck@2.1.2(typescript@5.9.3):
+  tsconfck@2.1.2(typescript@6.0.0-dev.20260416):
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
 
   tsconfig-paths-webpack-plugin@4.2.0:
     dependencies:
@@ -8790,12 +8795,14 @@ snapshots:
       media-typer: 1.1.0
       mime-types: 3.0.2
 
-  typescript-transform-paths@3.5.6(typescript@5.9.3):
+  typescript-transform-paths@3.5.6(typescript@6.0.0-dev.20260416):
     dependencies:
       minimatch: 9.0.5
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
 
   typescript@5.9.3: {}
+
+  typescript@6.0.0-dev.20260416: {}
 
   typia@12.0.2(@types/node@20.19.11)(typescript@5.9.3):
     dependencies:
@@ -8810,6 +8817,22 @@ snapshots:
       package-manager-detector: 0.2.11
       randexp: 0.5.3
       typescript: 5.9.3
+    transitivePeerDependencies:
+      - '@types/node'
+
+  typia@12.0.2(@types/node@20.19.11)(typescript@6.0.0-dev.20260416):
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      '@typia/core': 12.0.2
+      '@typia/interface': 12.0.2
+      '@typia/transform': 12.0.2
+      '@typia/utils': 12.0.2
+      commander: 10.0.1
+      comment-json: 4.4.1
+      inquirer: 8.2.7(@types/node@20.19.11)
+      package-manager-detector: 0.2.11
+      randexp: 0.5.3
+      typescript: 6.0.0-dev.20260416
     transitivePeerDependencies:
       - '@types/node'
 
@@ -8865,9 +8888,9 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  valibot@1.2.0(typescript@5.9.3):
+  valibot@1.2.0(typescript@6.0.0-dev.20260416):
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.0-dev.20260416
 
   vary@1.1.2: {}
 
