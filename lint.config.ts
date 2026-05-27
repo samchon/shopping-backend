@@ -21,7 +21,7 @@ export default {
     "object-shorthand": "error",
     "no-useless-rename": "error",
     "no-useless-escape": "error",
-    "prefer-as-const": "error",
-    "prefer-namespace-keyword": "error",
+    "typescript/prefer-as-const": "error",
+    "typescript/prefer-namespace-keyword": "error",
   },
 } satisfies ITtscLintConfig;
