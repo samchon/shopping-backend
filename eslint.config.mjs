@@ -24,6 +24,7 @@ export default [
       "no-useless-rename": "error",
       "dot-notation": "error",
       "no-extra-boolean-cast": "error",
+      "no-useless-escape": "error",
       "@typescript-eslint/prefer-as-const": "error",
       "@typescript-eslint/prefer-namespace-keyword": "error",
     },
