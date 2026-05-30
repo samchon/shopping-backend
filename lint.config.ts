@@ -6,13 +6,16 @@ export default {
     tabWidth: 2,
     useTabs: false,
     trailingComma: "all",
-    importOrder: [
-      "<THIRD_PARTY_MODULES>",
-      "^@samchon/shopping-api(.*)$",
-      "^[./]",
-    ],
-    importOrderSeparation: true,
-    importOrderSortSpecifiers: true,
+    sortImports: {
+      order: [
+        "<THIRD_PARTY_MODULES>",
+        "",
+        "^@samchon/shopping-api(.*)$",
+        "",
+        "^[./]",
+      ],
+      caseSensitive: true,
+    },
   },
   rules: {
     "no-var": "error",
