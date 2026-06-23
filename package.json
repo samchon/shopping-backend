@@ -48,7 +48,6 @@
     "@nestia/e2e": "12.0.0-dev.20260521.6",
     "@nestjs/cli": "^11.0.16",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@ttsc/linux-x64": "file:/tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz",
     "@ttsc/paths": "^0.12.4",
     "@types/bcryptjs": "^2.4.6",
     "@types/cli": "^0.11.19",
@@ -59,7 +58,6 @@
     "@types/node": "^20.11.22",
     "@types/swagger-ui-express": "^4.1.6",
     "@types/uuid": "^10.0.0",
-    "@typescript/native-preview": "7.0.0-dev.20260517.1",
     "cagen": "^1.0.1",
     "chalk": "^4.1.2",
     "cli": "^1.0.1",
@@ -74,10 +72,10 @@
     "sloc": "^0.2.1",
     "swagger-ui-express": "^5.0.0",
     "ts-loader": "^9.5.1",
-    "ttsc": "file:/tmp/ttsc-tgz/ttsc-0.12.4.tgz",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4",
-    "write-file-webpack-plugin": "^4.5.1"
+    "write-file-webpack-plugin": "^4.5.1",
+    "typescript": "7.0.1-rc"
   },
   "dependencies": {
     "@nestia/core": "12.0.0-dev.20260521.6",
@@ -108,10 +106,5 @@
     "tstl": "^3.0.0",
     "typia": "13.0.0-dev.20260521.1",
     "uuid": "^11.1.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@ttsc/linux-x64": "file:/tmp/ttsc-tgz/ttsc-linux-x64-0.12.4.tgz"
-    }
   }
 }
